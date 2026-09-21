@@ -1,0 +1,689 @@
+/* style.css — tema "carta e penna" pulito.
+ * Palette carta/inchiostro invariata, tipografia di sistema leggibile,
+ * angoli dritti, niente rotazioni né texture rumorose. Zero dipendenze,
+ * tutto offline (solo font di sistema). I selettori usati dal JS
+ * (map.js, chapter.js, quiz.js, app.js, tracker.js) sono invariati. */
+
+:root {
+  --carta: #f4ecd8;          /* sfondo pagina: carta crema */
+  --carta-chiara: #faf5e6;   /* foglietti / schede */
+  --margine-rosso: rgba(198, 72, 72, 0.6);
+  --inchiostro: #2b2b2b;     /* testo corpo: quasi-nero */
+  --inchiostro-blu: #1e2a5a; /* titoli: blu-notte */
+  --penna-blu: #2743a0;
+  --penna-rossa: #c0392b;
+  --penna-verde: #1e7d4f;
+  --evidenziatore: rgba(250, 225, 90, 0.65);
+  --radius: 8px;
+  --font-ui: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-testo: Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--inchiostro);
+  font-family: var(--font-testo);
+  line-height: 1.6;
+  background-color: var(--carta);
+}
+
+.wrap { max-width: 1020px; margin: 0 auto; padding: 0 20px; }
+
+h1, h2, h3 {
+  font-family: var(--font-ui);
+  color: var(--inchiostro-blu);
+  line-height: 1.25;
+}
+
+a { color: var(--penna-blu); text-decoration: underline; }
+a:hover { color: var(--inchiostro-blu); }
+
+/* ---------- Header / progresso / legenda ---------- */
+
+.site-header {
+  background: var(--carta-chiara);
+  border-bottom: 2px solid var(--inchiostro-blu);
+  padding: 32px 0 12px;
+}
+.eyebrow {
+  color: var(--penna-rossa);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  margin: 0;
+  font-family: var(--font-ui);
+  font-weight: 700;
+}
+.site-header h1 { margin: 4px 0 0; font-size: 2rem; }
+.subtitle { color: #4a4a4a; margin: 4px 0 16px; font-style: italic; }
+
+.progress-meta { display: flex; justify-content: space-between; font-size: 0.9rem; color: #4a4a4a; }
+.progress-bar {
+  height: 14px;
+  background: var(--carta-chiara);
+  border: 2px solid var(--inchiostro-blu);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(180deg, rgba(46, 125, 50, 0.85), rgba(46, 125, 50, 0.65));
+  transition: width 0.4s ease;
+}
+
+.legend { display: flex; gap: 18px; list-style: none; padding: 10px 0 0; margin: 0; font-size: 0.85rem; color: #4a4a4a; flex-wrap: wrap; font-family: var(--font-ui); }
+.dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: baseline; border: 1px solid var(--inchiostro); }
+.dot.status-todo { background: #fff; }
+.dot.status-doing { background: #f2b234; }
+.dot.status-done { background: var(--penna-verde); }
+
+/* ---------- Mappa SVG ---------- */
+
+.map-container {
+  margin: 24px 0;
+  background: var(--carta-chiara);
+  border: 2px solid var(--inchiostro-blu);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+.map-container svg { width: 100%; height: auto; display: block; }
+
+.map-band { fill: #efe4c8; stroke: var(--inchiostro-blu); stroke-width: 1.5; stroke-dasharray: 10 4; }
+.map-band-label {
+  fill: var(--inchiostro-blu);
+  font-size: 16px;
+  font-weight: 700;
+  font-family: var(--font-ui);
+  text-decoration: underline;
+}
+.map-edge { fill: none; stroke: var(--inchiostro-blu); stroke-width: 2.5; }
+.map-edge.dashed { stroke-dasharray: 7 6; }
+
+.map-node { cursor: pointer; font-family: var(--font-testo); }
+.map-node-box { stroke-width: 2.5; transition: filter 0.15s ease; }
+.map-node:hover .map-node-box, .map-node:focus .map-node-box { filter: brightness(0.96); stroke-width: 3.5; }
+.map-node:focus { outline: 2px dashed var(--penna-rossa); outline-offset: 3px; }
+/* foglietti: carta chiara, bordo inchiostro */
+.status-todo .map-node-box { fill: #fdf8ea; stroke: var(--inchiostro); }
+.status-doing .map-node-box { fill: #fdf3d0; stroke: var(--inchiostro-blu); }
+.status-done .map-node-box { fill: #eef3e4; stroke: var(--penna-verde); }
+.map-node-badge { font-size: 15px; font-weight: 700; font-family: var(--font-ui); }
+.status-todo .map-node-badge { fill: var(--penna-rossa); }
+.status-doing .map-node-badge { fill: var(--penna-blu); }
+.status-done .map-node-badge { fill: var(--penna-verde); }
+.map-node-cap { fill: #5a5a5a; font-size: 11px; letter-spacing: 0.06em; }
+.map-node-title { fill: var(--inchiostro); font-size: 14px; }
+
+/* ---------- Schede aree ---------- */
+
+.area-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 32px; }
+.area-card {
+  background: var(--carta-chiara);
+  border: 2px solid var(--inchiostro);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.area-card h3 { margin: 0 0 6px; font-size: 1.15rem; }
+.area-card p { margin: 0; color: #4a4a4a; font-size: 0.92rem; }
+.ripasso-card {
+  border-color: var(--penna-rossa);
+  background: linear-gradient(180deg, transparent, var(--evidenziatore) 140%);
+}
+
+.notice {
+  background: var(--carta-chiara);
+  border: 2px dashed var(--penna-rossa);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+}
+.muted { color: #5a5a5a; }
+.small { font-size: 0.85rem; }
+
+/* ---------- Pagina capitolo ---------- */
+
+.chapter { padding-top: 24px; padding-bottom: 48px; }
+.chapter-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.back { color: var(--penna-blu); font-weight: 700; font-family: var(--font-ui); }
+.area-tag {
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  border-radius: var(--radius);
+  border: 2px solid var(--inchiostro);
+  color: var(--inchiostro);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  /* effetto evidenziatore */
+  background: linear-gradient(180deg, transparent 10%, var(--evidenziatore) 10%, var(--evidenziatore) 90%, transparent 90%);
+}
+.area-fondamenti { border-color: var(--penna-blu); }
+.area-mlops { border-color: #b07d10; }
+.area-applicazioni { border-color: var(--penna-verde); }
+
+.block {
+  position: relative;
+  background-color: var(--carta-chiara);
+  border: 2px solid var(--inchiostro);
+  border-left: 4px solid var(--margine-rosso); /* idea del margine, in tinta unita */
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin: 20px 0;
+}
+.block h2 { margin: 0 0 10px; font-size: 1.35rem; }
+.keywords { display: grid; grid-template-columns: 180px 1fr; gap: 8px 14px; margin: 0; }
+.keywords dt {
+  font-weight: 700;
+  color: var(--inchiostro-blu);
+  /* tinta piena evidenziatore: il termine sta DENTRO il riquadro */
+  background: var(--evidenziatore);
+  padding: 3px 10px;
+  line-height: 1.5;
+  border-radius: 2px;
+  align-self: start;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.keywords dd { margin: 0; }
+
+/* ---------- Slide ---------- */
+
+.slide-card {
+  background: #fffdf4;
+  border: 2px solid var(--inchiostro-blu);
+  border-radius: var(--radius);
+  /* Task5: slide protagonista della tab Lezione */
+  padding: 28px 32px;
+  min-height: 300px;
+}
+.slide-body { font-size: 1.08rem; line-height: 1.65; }
+.slide-body h3 { margin-top: 0; font-size: 1.45rem; line-height: 1.3; }
+.slide-body ul { padding-left: 22px; }
+.slide-body li { margin: 8px 0; }
+.slide-bar { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; gap: 8px; }
+.slide-counter { color: #5a5a5a; font-size: 0.9rem; font-family: var(--font-ui); }
+
+/* ---------- Audio ---------- */
+
+.audio-player { width: 100%; }
+.audio-missing { margin: 0; font-style: italic; }
+
+/* ---------- Quiz ---------- */
+
+.quiz-q {
+  border: 2px solid var(--inchiostro);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin: 0 0 14px;
+  background: #fffdf4;
+}
+.quiz-q legend { font-family: var(--font-ui); font-weight: 700; color: var(--inchiostro-blu); padding: 0 8px; }
+.quiz-opt { display: block; padding: 5px 0; cursor: pointer; }
+.quiz-opt:hover { background: rgba(250, 225, 90, 0.25); }
+.quiz-opt input { margin-right: 8px; accent-color: var(--penna-rossa); }
+.quiz-feedback { margin-top: 8px; padding: 8px 12px; font-size: 0.92rem; border-width: 2px; border-style: solid; border-radius: var(--radius); }
+/* niente riempimenti piatti scuri: carta chiara + bordo penna */
+.quiz-feedback.ok {
+  background: #fffdf4;
+  border-color: var(--penna-verde);
+  color: #14532d;
+}
+.quiz-feedback.ko {
+  background: #fffdf4;
+  border-color: var(--penna-rossa);
+  color: #7f1d1d;
+}
+.quiz-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.quiz-result {
+  color: var(--inchiostro);
+  margin: 0;
+  padding: 2px 8px;
+  background: linear-gradient(180deg, transparent 20%, var(--evidenziatore) 20%, var(--evidenziatore) 88%, transparent 88%);
+}
+
+/* ---------- Bottone completamento ---------- */
+
+.done-row { margin: 24px 0; text-align: center; }
+
+/* ---------- Bottoni ---------- */
+
+.btn {
+  background: var(--carta-chiara);
+  color: var(--inchiostro-blu);
+  border: 2px solid var(--inchiostro);
+  border-radius: var(--radius);
+  padding: 9px 18px;
+  font-size: 0.95rem;
+  font-family: var(--font-ui);
+  cursor: pointer;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.btn:hover:not(:disabled) {
+  border-color: var(--inchiostro-blu);
+  box-shadow: 2px 2px 0 rgba(30, 42, 90, 0.35);
+}
+.btn:disabled { opacity: 0.4; cursor: default; }
+.btn.primary { background: var(--evidenziatore); border-color: var(--inchiostro-blu); font-weight: 700; }
+.btn.primary:hover { background: rgba(250, 225, 90, 0.85); }
+.btn.big { font-size: 1.05rem; padding: 12px 28px; }
+/* timbro di completamento */
+.btn.done {
+  background: #fffdf4;
+  border: 3px double var(--penna-rossa);
+  border-radius: var(--radius);
+  color: var(--penna-rossa);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.btn.done:hover:not(:disabled) { border-color: var(--penna-rossa); }
+.btn.ghost { background: transparent; }
+.slide-nav { min-width: 52px; }
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 2px dashed var(--penna-rossa);
+  outline-offset: 2px;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer { border-top: 2px solid var(--inchiostro-blu); padding: 16px 0 28px; background: var(--carta-chiara); }
+.site-footer .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 640px) {
+  .site-header h1 { font-size: 1.5rem; }
+  .area-cards { grid-template-columns: 1fr; }
+  .keywords { grid-template-columns: 1fr; }
+  .quiz-actions { flex-direction: column; align-items: stretch; }
+  .block { border-left-width: 3px; }
+  .slide-bar { flex-wrap: wrap; }
+  .map-container { padding: 8px; }
+  .legend { gap: 12px; }
+}
+
+/* ---------- Pagina capitolo a tab + lezione guidata ---------- */
+/* Solo riuso variabili esistenti: carta, inchiostro, evidenziatore. */
+
+.tablist {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0 0;
+}
+.tab {
+  background: var(--carta-chiara);
+  color: var(--inchiostro-blu);
+  border: 2px solid var(--inchiostro);
+  border-radius: var(--radius);
+  padding: 9px 18px;
+  font-size: 0.95rem;
+  font-family: var(--font-ui);
+  cursor: pointer;
+}
+.tab:hover { border-color: var(--inchiostro-blu); box-shadow: 2px 2px 0 rgba(30, 42, 90, 0.35); }
+.tab[aria-selected="true"] {
+  background: linear-gradient(180deg, transparent 10%, var(--evidenziatore) 10%, var(--evidenziatore) 90%, transparent 90%), var(--carta-chiara);
+  border-color: var(--inchiostro-blu);
+  font-weight: 700;
+}
+.tabpanel { margin-top: 0; }
+.tabpanel[hidden] { display: none; }
+
+/* Player custom */
+.player { margin-bottom: 16px; }
+.player-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.player .time {
+  font-family: var(--font-ui);
+  color: var(--inchiostro-blu);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.speed-group { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.speed-btn { padding: 5px 10px; font-size: 0.82rem; }
+.speed-btn.on { background: var(--evidenziatore); border-color: var(--inchiostro-blu); font-weight: 700; }
+.seek-wrap { position: relative; margin-top: 10px; }
+.seek { width: 100%; accent-color: var(--penna-rossa); }
+.seek-ticks { position: relative; height: 8px; }
+.seek-tick {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 8px;
+  background: var(--inchiostro-blu);
+  opacity: 0.55;
+}
+
+/* Trascrizione karaoke */
+.transcript {
+  margin-top: 16px;
+  /* Task5: trascrizione secondaria e compatta, karaoke invariato */
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 8px 10px;
+  border: 1px solid rgba(43, 43, 43, 0.35);
+  border-radius: var(--radius);
+  background: var(--carta-chiara);
+  font-size: 0.92rem;
+}
+.sentence {
+  margin: 0 0 8px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  line-height: 1.55;
+}
+.sentence.clickable { cursor: pointer; }
+.sentence.clickable:hover { background: rgba(250, 225, 90, 0.25); }
+.sentence.active {
+  /* giallo evidenziatore del tema, tinta piena per massima visibilità */
+  background: var(--evidenziatore);
+  font-weight: 700;
+  color: var(--inchiostro-blu);
+}
+
+@media (max-width: 640px) {
+  .player-row { align-items: stretch; }
+  /* Task5: slide protagonista anche su mobile, transcript compatto */
+  .slide-card { padding: 20px 18px; min-height: 220px; }
+  .slide-body { font-size: 1rem; }
+  .slide-body h3 { font-size: 1.2rem; }
+  .transcript { max-height: 140px; }
+}
+
+/* Formule MathML - task6 */
+.slide-body li.has-formula { list-style: none; margin-left: -22px; }
+.formula {
+  /* riquadro formula: centrata, serif grande, evidenziatore sobrio in palette */
+  text-align: center;
+  font-family: var(--font-testo);
+  font-size: 1.25rem;
+  line-height: 2;
+  padding: 12px 16px;
+  margin: 12px 0 6px;
+  background: var(--carta-chiara);
+  border: 1px solid var(--margine-rosso);
+  border-left: 4px solid var(--penna-blu);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+.formula math { font-size: 1.2em; }
+.formula-fb { display: none; }
+.no-mathml .formula math { display: none; }
+.no-mathml .formula-fb {
+  /* fallback Unicode leggibile quando il browser non compone MathML */
+  display: block;
+  font-family: var(--font-testo);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--inchiostro);
+}
+.formula-caption {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--inchiostro);
+  margin: 2px 0 10px;
+  padding-left: 4px;
+  border-left: 3px solid var(--evidenziatore);
+}
+.slide-body li.has-diagnosis { list-style: none; margin-left: -22px; }
+.diagnosis-title {
+  font-weight: 700;
+  color: var(--inchiostro-blu);
+  font-size: 1.08rem;
+  margin: 10px 0 4px;
+}
+.diagnosis-text {
+  background: var(--carta-chiara);
+  border: 1px solid var(--margine-rosso);
+  border-left: 4px solid var(--penna-verde);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  line-height: 1.65;
+  margin-bottom: 8px;
+}
+
+/* ---------- Banco domande (domande.html) ---------- */
+/* Stessa palette carta/inchiostro: chip = foglietti, card = schede. */
+
+.qbank-page { padding-top: 24px; padding-bottom: 56px; }
+
+/* Barra filtri */
+.qb-toolbar {
+  background: var(--carta-chiara);
+  border: 2px solid var(--inchiostro-blu);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin: 20px 0 16px;
+}
+.qb-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.qb-row:last-child { margin-bottom: 0; }
+.qb-label {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  color: var(--inchiostro-blu);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  min-width: 82px;
+}
+.chip-group { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip {
+  background: #fdf8ea;
+  color: var(--inchiostro);
+  border: 2px solid var(--inchiostro);
+  border-radius: var(--radius);
+  padding: 5px 12px;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: box-shadow 0.12s ease, border-color 0.12s ease;
+}
+.chip:hover:not(:disabled) { border-color: var(--inchiostro-blu); box-shadow: 2px 2px 0 rgba(30, 42, 90, 0.3); }
+.chip:disabled { opacity: 0.35; cursor: default; }
+.chip.on {
+  background: var(--evidenziatore);
+  border-color: var(--inchiostro-blu);
+  font-weight: 700;
+  color: var(--inchiostro-blu);
+}
+/* i chip capitolo ereditano il colore d'area già usato in mappa e tag */
+.chip.area-fondamenti.on { border-color: var(--penna-blu); }
+.chip.area-mlops.on { border-color: #b07d10; }
+.chip.area-applicazioni.on { border-color: var(--penna-verde); }
+
+.qb-search {
+  flex: 1 1 260px;
+  min-width: 180px;
+  padding: 7px 10px;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--inchiostro);
+  background: #fffdf4;
+  border: 2px solid var(--inchiostro);
+  border-radius: var(--radius);
+}
+
+/* Statistiche */
+.qb-statsbox { margin-bottom: 18px; }
+.qb-stats { margin: 0 0 6px; font-family: var(--font-ui); font-size: 0.95rem; }
+.qb-bar { height: 10px; }
+.qb-ok { color: var(--penna-verde); font-weight: 700; }
+.qb-ko { color: var(--penna-rossa); font-weight: 700; }
+
+/* Card domanda */
+.qlist { display: flex; flex-direction: column; gap: 14px; }
+.qcard {
+  background: var(--carta-chiara);
+  border: 2px solid var(--inchiostro);
+  border-left: 4px solid var(--margine-rosso);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+}
+.qcard.answered-ok { border-left-color: var(--penna-verde); }
+.qcard.answered-ko { border-left-color: var(--penna-rossa); }
+
+.qcard-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.qnum {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  color: var(--inchiostro-blu);
+  font-size: 0.95rem;
+}
+.star {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #9a9a9a;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+.star.on { color: #c8971a; }
+.star:hover { color: var(--penna-rossa); }
+
+.qtext {
+  font-size: 1.05rem;
+  margin: 0 0 12px;
+  line-height: 1.55;
+}
+
+.qopts { display: flex; flex-direction: column; gap: 6px; }
+.qopt {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  background: #fffdf4;
+  border: 2px solid rgba(43, 43, 43, 0.45);
+  border-radius: var(--radius);
+  padding: 9px 12px;
+  font-family: var(--font-testo);
+  font-size: 0.98rem;
+  line-height: 1.45;
+  color: var(--inchiostro);
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+.qopt:hover:not(:disabled) { background: rgba(250, 225, 90, 0.25); border-color: var(--inchiostro); }
+.qopt:disabled { cursor: default; }
+.qopt-k {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  color: var(--inchiostro-blu);
+  min-width: 18px;
+}
+.qopt.ok { border-color: var(--penna-verde); background: #eef5ea; }
+.qopt.ok .qopt-k { color: var(--penna-verde); }
+.qopt.ko { border-color: var(--penna-rossa); background: #f8ecea; }
+.qopt.ko .qopt-k { color: var(--penna-rossa); }
+.qopt.chosen { border-color: var(--inchiostro-blu); background: var(--evidenziatore); font-weight: 700; }
+
+/* Feedback e spiegazione */
+.qfb-host { margin-top: 10px; }
+.qfb {
+  border: 2px solid var(--inchiostro);
+  border-radius: var(--radius);
+  background: #fffdf4;
+  padding: 10px 14px;
+}
+.qfb.ok { border-color: var(--penna-verde); }
+.qfb.ko { border-color: var(--penna-rossa); }
+.qfb-title { margin: 0 0 6px; font-family: var(--font-ui); font-weight: 700; font-size: 0.92rem; }
+.qfb.ok .qfb-title { color: #14532d; }
+.qfb.ko .qfb-title { color: #7f1d1d; }
+.qfb-text { margin: 0; font-size: 0.95rem; line-height: 1.6; }
+.qfb-src { margin: 6px 0 0; font-size: 0.78rem; color: #6a6a6a; font-style: italic; }
+.qretry { margin-top: 8px; }
+
+.qb-more { display: block; margin: 20px auto 0; }
+
+/* Simulazione d'esame */
+.exam-setup h2 { margin-top: 0; }
+.exam-bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: var(--carta-chiara);
+  border: 2px solid var(--inchiostro-blu);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.exam-count { font-family: var(--font-ui); font-weight: 700; color: var(--inchiostro-blu); }
+.exam-clock {
+  font-family: var(--font-ui);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border: 2px solid var(--inchiostro);
+  border-radius: var(--radius);
+  background: #fffdf4;
+}
+.exam-clock.urgent { color: var(--penna-rossa); border-color: var(--penna-rossa); }
+.exam-bar .btn { margin-left: auto; }
+
+.exam-result { text-align: center; }
+.exam-result.pass { border-color: var(--penna-verde); }
+.exam-result.fail { border-color: var(--penna-rossa); }
+.exam-score {
+  font-family: var(--font-ui);
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 6px 0;
+  color: var(--inchiostro-blu);
+}
+.exam-result.pass .exam-score { color: var(--penna-verde); }
+.exam-result.fail .exam-score { color: var(--penna-rossa); }
+
+/* Scheda "banco domande" in home e link nel capitolo */
+.domande-card { border-color: var(--penna-blu); }
+.chapter-qlink { margin: 18px 0 0; }
+
+@media (max-width: 640px) {
+  .qb-label { min-width: 100%; }
+  .qb-row { gap: 6px; }
+  .chip { font-size: 0.8rem; padding: 5px 10px; }
+  .qcard { padding: 12px 14px; }
+  .qtext { font-size: 1rem; }
+  .exam-bar { gap: 8px; }
+  .exam-bar .btn { margin-left: 0; width: 100%; }
+}
+
+/* ---------- Sezione Fonti (fondo home) ---------- */
+
+.sources {
+  background: var(--carta-chiara);
+  border: 2px solid var(--inchiostro);
+  border-left: 4px solid var(--margine-rosso);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 0 0 32px;
+}
+.sources h2 { margin: 0 0 4px; font-size: 1.35rem; }
+.sources h3 {
+  margin: 18px 0 6px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--penna-rossa);
+}
+.sources h3:first-of-type { margin-top: 12px; }
+.sources p { margin: 0 0 8px; font-size: 0.95rem; }
+.sources ul { margin: 0; padding-left: 20px; }
+.sources li { margin: 7px 0; font-size: 0.94rem; line-height: 1.6; }
+.sources a { word-break: break-word; }
+
+@media (max-width: 640px) {
+  .sources { padding: 16px 16px; }
+  .sources li { font-size: 0.9rem; }
+}

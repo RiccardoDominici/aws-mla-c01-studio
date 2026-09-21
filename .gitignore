@@ -1,0 +1,14 @@
+# Cache locale di Cloudflare (contiene dati account, mai committare)
+.wrangler/
+
+# Wav intermedi della sintesi TTS: rigenerabili, il player usa solo gli mp3
+audio/*.wav
+
+# File di sistema
+.DS_Store
+Thumbs.db
+
+# Editor / tooling
+.vscode/
+.idea/
+node_modules/

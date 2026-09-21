@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLA-C01 Studio — Mappa del corso</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="eyebrow">AWS Certified · Machine Learning Engineer – Associate (MLA-C01)</p>
+      <h1>Studio interattivo</h1>
+      <p class="subtitle">👆 Clicca un capitolo sulla mappa per iniziare a studiare.</p>
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span id="progress-label">Avanzamento corso</span>
+          <span id="progress-pct">0%</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-label="Avanzamento corso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </div>
+      <ul class="legend">
+        <li><span class="dot status-todo"></span> Non iniziato</li>
+        <li><span class="dot status-doing"></span> In corso</li>
+        <li><span class="dot status-done"></span> Completato</li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="map-container" class="map-container" aria-live="polite">
+      <p class="muted">Caricamento mappa…</p>
+    </section>
+    <p id="content-warning" class="notice" hidden></p>
+    <section class="areas-list">
+      <div class="area-cards">
+        <article class="area-card ripasso-card"><h3>★ Ripasso last-minute</h3><p>Scheda rapida pre-esame: servizi AWS, trappole e checklist. <a href="chapter.html?id=quick-ref">Apri il ripasso →</a></p></article>
+        <article class="area-card domande-card"><h3>📝 Banco domande</h3><p><strong id="qbank-count">0</strong> domande in stile esame (65 domande / 170 minuti come all'esame vero), filtrabili per capitolo, difficoltà, stato e origine (generate dal sito o adattate da pratica online), con simulazione a tempo. <a href="domande.html">Apri il banco domande →</a></p></article>
+      </div>
+    </section>
+
+    <section id="fonti" class="sources">
+      <h2>Fonti</h2>
+
+      <h3>Contenuti di studio</h3>
+      <p>Capitoli, slide, riassunti e script audio sono originali, riscritti e ampliati a partire da:</p>
+      <ul>
+        <li><a href="https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/">AWS Certified Machine Learning Engineer – Associate (MLA-C01)</a> — pagina ufficiale della certificazione: domini d'esame e relativi pesi, formato (65 domande, 170 minuti) e punteggio minimo 720/1000</li>
+        <li><a href="https://skillbuilder.aws/learn">AWS Skill Builder</a> — corsi ufficiali di preparazione (Machine Learning Learning Plan, Exam Prep MLA-C01)</li>
+        <li><a href="https://docs.aws.amazon.com/sagemaker/">Documentazione Amazon SageMaker</a> — training, deployment, endpoint, Clarify, Model Monitor</li>
+        <li><a href="https://docs.aws.amazon.com/bedrock/">Documentazione Amazon Bedrock</a> — foundation model, Knowledge Bases, Agents, Guardrails</li>
+        <li><a href="https://docs.aws.amazon.com/glue/">Documentazione AWS Glue</a> — DataBrew, catalogo dati, ETL per la preparazione dei dati ML</li>
+      </ul>
+
+      <h3>Banco domande</h3>
+      <p>
+        Le domande sono <strong>di pratica, scritte per questo sito</strong>: non sono domande reali
+        d'esame, che AWS non pubblica e che circolano solo in violazione dell'NDA. Le domande
+        "🤖 Generate dal sito" sono state elaborate sulla exam guide ufficiale e verificate sulla
+        documentazione qui sopra; le "🌐 Da pratica online" sono adattate — <strong>riscritte in
+        inglese con parole proprie, mai copiate alla lettera</strong> — da domande di pratica pubbliche a risposta multipla
+        (ExamTopics, TutorialsDojo, Udemy, Whizlabs), come
+        riferimento su stile e argomenti. Ogni domanda mostra la propria
+        provenienza sotto la spiegazione e il filtro "Origine" in
+        <a href="domande.html">banco domande</a> le distingue.
+      </p>
+      <ul>
+        <li><strong>Documentazione AWS:</strong>
+          <a href="https://docs.aws.amazon.com/sagemaker/">SageMaker</a> ·
+          <a href="https://docs.aws.amazon.com/bedrock/">Bedrock</a> ·
+          <a href="https://docs.aws.amazon.com/glue/">Glue</a> ·
+          <a href="https://docs.aws.amazon.com/s3/">S3</a> ·
+          <a href="https://docs.aws.amazon.com/athena/">Athena</a> ·
+          <a href="https://docs.aws.amazon.com/lambda/">Lambda</a> ·
+          <a href="https://docs.aws.amazon.com/step-functions/">Step Functions</a> ·
+          <a href="https://docs.aws.amazon.com/cloudwatch/">CloudWatch</a> ·
+          <a href="https://docs.aws.amazon.com/iam/">IAM</a> ·
+          <a href="https://docs.aws.amazon.com/kms/">KMS</a>
+        </li>
+        <li><strong>Domande di pratica pubbliche (spunto per le domande "Da pratica online"):</strong>
+          <a href="https://www.examtopics.com/exams/amazon/aws-certified-machine-learning-engineer-associate/">ExamTopics — MLA-C01</a> ·
+          <a href="https://tutorialsdojo.com/">TutorialsDojo — MLA-C01</a> ·
+          <a href="https://www.udemy.com/">Udemy — practice test MLA-C01 (campioni gratuiti)</a> ·
+          <a href="https://www.whizlabs.com/">Whizlabs — MLA-C01</a>
+        </li>
+      </ul>
+      <p class="muted small">
+        AWS, Amazon SageMaker, Bedrock, Glue, S3, Athena, Lambda, Step Functions, CloudWatch,
+        IAM e KMS sono marchi di Amazon Web Services, Inc.
+        Questo sito non è affiliato ad AWS né da essa approvato.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted small">Appunti e sito web a cura di Riccardo Dominici. <a href="#fonti">Fonti</a></p>
+      <button id="reset-btn" class="btn ghost small" type="button">Azzera progressi</button>
+    </div>
+  </footer>
+
+  <script src="tracker.js"></script>
+  <script src="app.js"></script>
+  <script src="map.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var app = window.MLA.app, tracker = window.MLA.tracker;
+      var ids = app.CHAPTERS.map(function (c) { return c.id; });
+
+      function drawProgress() {
+        var p = tracker.progress(ids);
+        document.getElementById('progress-label').textContent =
+          'Avanzamento corso · ' + p.done + ' / ' + p.total + ' completati';
+        document.getElementById('progress-pct').textContent = p.pct + '%';
+        var fill = document.getElementById('progress-fill');
+        fill.style.width = p.pct + '%';
+        fill.parentElement.setAttribute('aria-valuenow', String(p.pct));
+      }
+
+      app.loadContent().then(function (res) {
+        if (res.missing.length || Object.keys(res.chapters).length < 7) {
+          var w = document.getElementById('content-warning');
+          w.hidden = false;
+          w.textContent = '📦 Alcuni contenuti sono in arrivo: i capitoli senza dati mostrano il titolo provvisorio.';
+        }
+        window.MLA.map.render(document.getElementById('map-container'), res.chapters);
+        drawProgress();
+      });
+
+      document.getElementById('reset-btn').addEventListener('click', function () {
+        if (confirm('Azzerare tutti i progressi?')) {
+          tracker.resetAll();
+          location.reload();
+        }
+      });
+
+      // Ridisegna la mappa quando si torna da un capitolo (stato aggiornato).
+      window.addEventListener('pageshow', function () {
+        if (document.getElementById('map-container').querySelector('svg')) {
+          app.loadContent().then(function (res) {
+            window.MLA.map.render(document.getElementById('map-container'), res.chapters);
+            drawProgress();
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

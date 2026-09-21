@@ -1,0 +1,53 @@
+# Contratto contenuti — content/*.json
+
+Due file scritti da altri agenti, uniti dal loader (`app.js`):
+- `content/chapters-1.json` → capitoli 1–3
+- `content/chapters-2.json` → capitoli 4–7 (+ eventuali ref)
+
+Il loader funziona anche se uno dei due manca: i capitoli assenti
+mostrano "contenuti in arrivo". Array JSON di oggetti capitolo.
+
+## IDs, aree e prerequisiti (OBBLIGATORI, esatti)
+
+| id                   | area         | prereq                          |
+|----------------------|--------------|---------------------------------|
+| ch1-exam-guide       | fondamenti   | []                              |
+| ch2-data-prep        | fondamenti   | ["ch1-exam-guide"]              |
+| ch3-model-dev        | mlops        | ["ch2-data-prep"]               |
+| ch4-deploy           | mlops        | ["ch3-model-dev"]               |
+| ch5-monitor-security | mlops        | ["ch4-deploy"]                  |
+| ch6-genai            | applicazioni | ["ch2-data-prep"]               |
+| ch7-practice         | applicazioni | ["ch1-exam-guide","ch2-data-prep"] |
+
+Aree ammesse: `fondamenti` | `mlops` | `applicazioni`.
+
+La scheda `quick-ref` ("Ripasso rapido pre-esame", area `applicazioni`)
+è ricostruita in `chapter.js` dai contenuti esistenti: NON va scritta
+nei chapters-*.json.
+
+## Schema oggetto capitolo
+
+```json
+{
+  "id": "ch1-exam-guide",
+  "area": "fondamenti",
+  "title": "Guida all'esame MLA-C01",
+  "prereq": [],
+  "summary": "Riassunto in 3-6 frasi...",
+  "keywords": [{ "term": "MLA-C01", "def": "..." }],
+  "slides": [{ "title": "...", "bullets": ["...", "..."] }],
+  "script": "Testo letto dal player audio (coerente con audio/ch1-exam-guide.mp3)...",
+  "quiz": [{ "q": "...", "options": ["...", "...", "...", "..."], "answer": 0, "explain": "..." }]
+}
+```
+
+## Regole
+
+- `id` e `area` DEVONO rispettare la tabella sopra (il layout mappa li usa).
+- `prereq`: array di id secondo la tabella (può essere vuoto `[]`); solo documentativo.
+- `options`: ESATTAMENTE 4 voci; `answer`: indice 0–3 della corretta.
+- `summary`, `keywords`, `slides`, `script`, `quiz`: almeno 1 slide,
+  almeno 3 keywords, almeno 3 domande quiz per capitolo.
+- Testo in italiano, escaping JSON valido (verificare con `python3 -c json.tool`).
+- Niente HTML nei campi: il frontend fa escape automatico.
+- Audio: file in `audio/<id>.mp3` (o `.wav`) — NON dentro content/.

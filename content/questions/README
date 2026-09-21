@@ -1,0 +1,97 @@
+# Contratto banco domande — content/questions/*.json
+
+Un file per capitolo, con lo stesso id usato da `app.js` / `content/README`:
+
+```
+content/questions/ch1-exam-guide.json
+content/questions/ch2-data-prep.json
+content/questions/ch3-model-dev.json
+content/questions/ch4-deploy.json
+content/questions/ch5-monitor-security.json
+content/questions/ch6-genai.json
+content/questions/ch7-practice.json
+```
+
+Il loader (`qbank.js`) li carica in parallelo ed è tollerante: se un file
+manca o è malformato, quel capitolo risulta semplicemente senza domande e la
+pagina `domande.html` lo segnala, senza rompersi. Le singole domande non
+valide vengono scartate con un warning in console.
+
+## Schema
+
+Array JSON di oggetti domanda:
+
+```json
+{
+  "id": "ch1-q01",
+  "chapter": "ch1-exam-guide",
+  "q": "Testo della domanda.",
+  "options": ["A", "B", "C", "D"],
+  "answer": 2,
+  "explain": "Perché la risposta è corretta (1-3 frasi).",
+  "difficulty": "media",
+  "tags": ["sagemaker", "bedrock"],
+  "source": "elaborata su exam guide MLA-C01",
+  "origin": "ai"
+}
+```
+
+## Regole
+
+- `id`: univoco su TUTTO il banco (prefisso di capitolo consigliato).
+- `chapter`: deve combaciare con il nome del file, altrimenti i filtri mentono.
+- `options`: ESATTAMENTE 4 stringhe, tutte distinte.
+- `answer`: indice 0-3 dell'opzione corretta.
+- `difficulty`: `facile` | `media` | `difficile` (default `media` se assente).
+- `tags`: array di stringhe minuscole; alimenta la ricerca testuale.
+- `source`: provenienza dello spunto, mostrata sotto la spiegazione.
+- `origin`: `ai` (generate per questo sito, default se assente) oppure
+  `esterna` (adattate da materiale di pratica trovato online, riscritte in
+  inglese con parole proprie — mai copiate alla lettera). Alimenta il filtro "Origine" in
+  `domande.html` (le schede domanda non mostrano badge, per non dare indizi).
+- Niente HTML: il frontend usa `textContent`, i tag resterebbero visibili.
+- Testo delle domande in inglese (l'esame è in inglese); termini tecnici
+  standard (SageMaker, Bedrock, Glue, …).
+
+## Qualità: il controllo che conta
+
+Un banco generato tende a fare la risposta corretta più lunga e dettagliata
+degli altri distrattori. Chi studia impara a scegliere "la più lunga" invece
+del concetto, e all'esame vero non funziona. Prima di committare nuove
+domande, verifica con `tools/check_questions.py`:
+
+```bash
+python3 tools/check_questions.py content/questions/ch1-exam-guide.json
+python3 tools/check_questions.py content/questions/*.json   # tutto il banco
+```
+
+Soglie: la corretta deve essere l'opzione più lunga in al massimo il 35% delle
+domande, con rapporto medio di lunghezza corretta/distrattori ≤ 1,15.
+Per rientrare, **allunga i distrattori** (rendendoli più specifici e
+plausibili) invece di accorciare la corretta — ma assicurati che restino
+inequivocabilmente sbagliati.
+
+## Qualità: il difetto più grave
+
+Peggio di un banco sbilanciato c'è un banco che insegna la risposta sbagliata:
+`answer` che punta all'opzione errata mentre domanda, opzioni e spiegazione
+sono scritte bene. Non lo vede nessun controllo strutturale. Per stanarlo:
+
+```bash
+python3 tools/check_answer_keys.py content/questions/*.json
+```
+
+Confronta la spiegazione con ogni opzione: se assomiglia più a un'opzione
+diversa da quella indicata da `answer`, la segnala. Produce anche falsi
+positivi (una spiegazione che nomina il distrattore per dire perché è
+sbagliato), quindi ogni segnalazione va **letta**, non corretta al volo.
+
+Quando correggi una chiave, **scambia i testi delle opzioni** invece di
+spostare `answer`: il contenuto giusto finisce all'indice già indicato e la
+distribuzione degli indici corretti resta bilanciata.
+
+## Nota
+
+Il conteggio totale mostrato nella scheda "Banco domande" della home è scritto
+in `index.html` (`<strong id="qbank-count">`): se aggiungi o togli domande,
+aggiornalo lì.

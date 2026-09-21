@@ -1,0 +1,617 @@
+[
+ {
+  "id": "ch1-exam-guide",
+  "area": "fondamenti",
+  "title": "Guida all'esame MLA-C01",
+  "prereq": [],
+  "summary": "Questo capitolo presenta l'esame AWS MLA-C01 Machine Learning Engineer Associate: 65 domande in 170 minuti, punteggio minimo 720 su 1000, costo 150 dollari tramite Pearson VUE e validita di tre anni. Descrive i quattro domini con i relativi pesi, dal Data Preparation al Monitoring con Security. Spiega la strategia per le domande scenario-based e i prerequisiti consigliati, con i servizi in scope della Appendix A.",
+  "keywords": [
+   {
+    "term": "MLA-C01",
+    "def": "Codice ufficiale dell'esame AWS Certified Machine Learning Engineer Associate, di livello associate."
+   },
+   {
+    "term": "Pearson VUE",
+    "def": "Societa che eroga l'esame AWS in sede oppure online con sorveglianza da remoto."
+   },
+   {
+    "term": "720 su 1000",
+    "def": "Punteggio minimo su scala da 100 a 1000 per superare l'esame."
+   },
+   {
+    "term": "Appendix A (servizi in scope)",
+    "def": "Elenco ufficiale dei servizi AWS su cui possono vertere le domande d'esame."
+   },
+   {
+    "term": "Scenario-based questions",
+    "def": "Domande basate su scenari aziendali realistici che richiedono di scegliere la soluzione migliore."
+   },
+   {
+    "term": "Time management",
+    "def": "Tempo medio disponibile per domanda: 170 minuti diviso 65 domande."
+   },
+   {
+    "term": "Hands-on consigliato",
+    "def": "Esperienza pratica di almeno un anno con SageMaker e machine learning su AWS, consigliata prima dell'esame."
+   },
+   {
+    "term": "Skill Builder e exam guide",
+    "def": "Documenti, corsi e laboratori ufficiali AWS per preparare l'esame."
+   }
+  ],
+  "slides": [
+   {
+    "title": "Formato ufficiale dell'esame",
+    "bullets": [
+     "Codice esame MLA-C01, livello Associate per ML Engineer",
+     "65 domande in 170 minuti, circa 2,5 minuti per domanda",
+     "Punteggio minimo 720 su scala da 100 a 1000",
+     "Costo 150 dollari, erogato da Pearson VUE in sede o online",
+     "Validita della certificazione pari a 3 anni"
+    ]
+   },
+   {
+    "title": "Tipi di domanda",
+    "bullets": [
+     "Multiple-choice con una sola risposta corretta",
+     "Multiple-response con due o piu risposte corrette",
+     "Possibili ordinamenti, matching e casi di studio",
+     "Nessuna penalita per le risposte errate: rispondere sempre",
+     "Contrassegnare i dubbi e rivederli alla fine"
+    ]
+   },
+   {
+    "title": "I quattro domini e i pesi",
+    "bullets": [
+     "Dominio 1 Data Preparation for ML con peso 28%",
+     "Dominio 2 ML Model Development con peso 26%",
+     "Dominio 3 Deployment and Orchestration con peso 22%",
+     "Dominio 4 Monitoring Maintenance and Security con peso 24%",
+     "La somma dei pesi copre l intero esame"
+    ]
+   },
+   {
+    "title": "Servizi in scope: Appendix A",
+    "bullets": [
+     "Appendix A della exam guide elenca i servizi in scope",
+     "Servizi centrali: SageMaker, S3, Glue, Kinesis, Athena",
+     "Sicurezza e governance: IAM, KMS, Lake Formation",
+     "Orchestrazione: Step Functions, EventBridge, SageMaker Pipelines",
+     "Studiare solo i servizi in scope fa risparmiare tempo"
+    ]
+   },
+   {
+    "title": "Strategia per gli scenari",
+    "bullets": [
+     "Domande scenario-based con vincoli tecnici e di budget",
+     "Leggere prima i vincoli, poi valutare le opzioni",
+     "Eliminare le opzioni che violano almeno un vincolo",
+     "Diffidare dell opzione piu economica se ignora i requisiti",
+     "Cercare parole chiave: latenza, scala, real-time, batch"
+    ]
+   },
+   {
+    "title": "Prerequisiti e piano di studio",
+    "bullets": [
+     "Consigliato un anno di esperienza ML su AWS con SageMaker",
+     "Teoria piu laboratori pratici su SageMaker Studio",
+     "Skill Builder con learning plan ed exam prep ufficiali",
+     "Domande di prova e simulatori stile TutorialsDojo e Whizlabs",
+     "Ripasso finale pesato sui domini 1 e 2"
+    ]
+   }
+  ],
+  "script": "Benvenuto al primo capitolo della preparazione per la certificazione AWS Machine Learning Engineer Associate. Il codice ufficiale dell'esame e MLA-C01. E un esame di livello associate dedicato a chi costruisce soluzioni di machine learning su AWS. Questo esame sostituisce la vecchia certificazione specialty MLS-C01. Il livello associate significa taglio pratico e operativo. Devi saper scegliere i servizi giusti e combinarli in soluzioni complete. L'esame contiene 65 domande in totale. Il tempo a disposizione e di 170 minuti. Fai il calcolo con attenzione. Hai circa due minuti e mezzo per ogni domanda. Chi ha diritto ad accomodamenti per la lingua puo avere trenta minuti extra. Il punteggio minimo per superare l'esame e 720 punti su 1000. La scala di punteggio va da 100 a 1000 punti. Il costo dell'esame e di 150 dollari americani piu tasse. Puoi sostenere l'esame in una sede Pearson VUE. In alternativa puoi sostenerlo online con sorveglianza da remoto. Controlla i requisiti tecnici prima della sessione online. La certificazione resta valida per tre anni. Al termine puoi ricertificarti con la nuova versione dell'esame. L'esame e disponibile anche in italiano oltre che in inglese. Il formato delle domande prevede scelta multipla con una risposta corretta. Sono presenti anche domande a risposta multipla con due o piu risposte corrette. Alcune versioni includono domande di ordinamento e casi di studio. Devi leggere con attenzione quante risposte selezionare. La maggior parte delle domande e basata su scenari. Uno scenario descrive un problema aziendale realistico. Presenta vincoli tecnici e di budget. Tu devi scegliere la soluzione migliore tra le opzioni. La strategia vincente e leggere prima i vincoli. Poi eliminare le opzioni che violano quei vincoli. Non scegliere mai solo il servizio piu economico. Scegli il servizio che rispetta tutti i requisiti. Le parole chiave guidano la scelta corretta. Real-time suggerisce Kinesis o Feature Store online. Batch suggerisce Glue, EMR o Athena. Bassa latenza suggerisce endpoint SageMaker o store online. Dati governati suggeriscono Lake Formation. L'esame e diviso in quattro domini. Il primo dominio e Data Preparation for ML. Pesa il 28 percento ed e il dominio piu importante. Il secondo dominio e ML Model Development. Pesa il 26 percento. Il terzo dominio e Deployment and Orchestration. Pesa il 22 percento. Il quarto dominio e Monitoring Maintenance and Security. Pesa il 24 percento. La somma dei pesi fa cento. Dedica piu tempo di studio ai primi due domini. Insieme valgono piu della meta dell'esame. La guida ufficiale contiene una Appendix A. Questa appendice elenca tutti i servizi in scope. Studia solo quei servizi per non sprecare tempo. Tra i servizi chiave ci sono SageMaker, S3, Glue, Kinesis e Athena. Servono anche Lake Formation, EMR, KMS e IAM. Per l'orchestrazione studia Step Functions ed EventBridge. Per le pipeline studia SageMaker Pipelines. AWS consiglia almeno un anno di esperienza pratica. Devi aver usato SageMaker e workload di machine learning su AWS. La sola teoria non basta per gli scenari. Usa Skill Builder per i corsi ufficiali. Svolgi le domande di prova ufficiali. Fai laboratori pratici con SageMaker Studio. Allena la gestione del tempo con i simulatori. Salta le domande difficili e contrassegnale per la revisione. Rispondi a tutte le domande perche non c e penalita per gli errori. Rileggi ogni scenario prima di confermare la risposta. Controlla il numero di risposte richieste nelle multiple-response. Per ogni dominio la exam guide elenca i task e le conoscenze richieste. Leggili con attenzione prima di pianificare lo studio. Il primo dominio chiede ingestione storage e trasformazione dei dati. Il secondo chiede scelta degli algoritmi e valutazione dei modelli. Il terzo chiede deployment e orchestrazione dei workflow. Il quarto chiede monitoraggio manutenzione e sicurezza delle soluzioni. Durante la prova mantieni un ritmo costante di circa due minuti per domanda. Se uno scenario e troppo lungo vai oltre e torna dopo. Le domande facili danno gli stessi punti di quelle difficili. Assicurati prima i punti sicuri e poi affronta i casi complessi. Ora hai il quadro completo dell'esame. Nel prossimo capitolo si parte con la preparazione dei dati.",
+  "quiz": [
+   {
+    "q": "How many questions does the MLA-C01 exam contain, and how much time is allowed?",
+    "options": [
+     "90 questions in 120 minutes",
+     "65 questions in 170 minutes",
+     "50 questions in 90 minutes",
+     "80 questions in 200 minutes"
+    ],
+    "answer": 1,
+    "explain": "65 questions in 170 minutes gives about 2.5 minutes per question. Budget your time and flag difficult scenario questions for review."
+   },
+   {
+    "q": "What is the minimum passing score for the MLA-C01 exam?",
+    "options": [
+     "650 out of 1000",
+     "700 out of 1000",
+     "720 out of 1000",
+     "750 out of 1000"
+    ],
+    "answer": 2,
+    "explain": "The scaled passing score is 720 out of 1000. AWS does not publish the exact raw number of correct answers needed."
+   },
+   {
+    "q": "Which exam domain has the highest weight in MLA-C01?",
+    "options": [
+     "Data Preparation for ML at 28%",
+     "Deployment and Orchestration at 22%",
+     "ML Model Development at 26%",
+     "Monitoring, Maintenance, and Security at 24%"
+    ],
+    "answer": 0,
+    "explain": "Data Preparation for ML (Domain 1) has the highest weight at 28%, followed by Model Development at 26%."
+   },
+   {
+    "q": "A colleague asks what the four MLA-C01 domains cover. What do you answer?",
+    "options": [
+     "Only SageMaker built-in algorithms",
+     "Only data preparation topics",
+     "Data preparation, model development, deployment, and monitoring with security",
+     "Only MLOps pipeline tools"
+    ],
+    "answer": 2,
+    "explain": "MLA-C01 covers the full ML lifecycle: data preparation, model development, deployment and orchestration, plus monitoring, maintenance, and security."
+   },
+   {
+    "q": "How is the MLA-C01 exam delivered, what does it cost, and how long is the certification valid?",
+    "options": [
+     "Only in AWS offices for $300",
+     "Only online without proctoring for $100",
+     "Through Kryterion for $200 with lifetime validity",
+     "Through Pearson VUE for $150 with 3-year validity"
+    ],
+    "answer": 3,
+    "explain": "Pearson VUE delivers AWS exams both in test centers and online with remote proctoring. The exam fee is $150 USD and the certification is valid for 3 years."
+   },
+   {
+    "q": "What is the most effective strategy for scenario-based MLA-C01 questions?",
+    "options": [
+     "Memorize every API parameter of each service",
+     "Read each scenario, identify constraints, then eliminate options that violate them",
+     "Always choose the cheapest service regardless of requirements",
+     "Answer questions in reverse order without reading fully"
+    ],
+    "answer": 1,
+    "explain": "Most MLA-C01 questions are scenario-based: they describe a business problem with constraints and ask for the best solution. Eliminate options that violate a stated constraint first."
+   },
+   {
+    "q": "Which background best prepares a candidate for MLA-C01?",
+    "options": [
+     "About one year of hands-on ML experience on AWS plus knowledge of the Appendix A services",
+     "A PhD in statistics with no AWS experience",
+     "Only passing the Cloud Practitioner exam the week before",
+     "Memorizing whitepapers without ever using the console"
+    ],
+    "answer": 0,
+    "explain": "AWS recommends about one year of hands-on experience with SageMaker and ML workloads on AWS, plus familiarity with the services listed in Appendix A of the exam guide."
+   }
+  ]
+ },
+ {
+  "id": "ch2-data-prep",
+  "area": "fondamenti",
+  "title": "Preparazione dei dati per il ML",
+  "prereq": [
+   "ch1-exam-guide"
+  ],
+  "summary": "Questo capitolo copre il primo dominio d'esame da 28 punti percentuali: ingestione e storage su S3 data lake con Lake Formation, catalogo Glue con Crawler, query Athena e streaming Kinesis. Presenta gli strumenti di trasformazione come Glue ETL, EMR, Data Wrangler e DataBrew, con il Feature Store online e offline. Spiega feature engineering, gestione di valori mancanti e sbilanciamento delle classi, con il controllo del bias tramite Clarify.",
+  "keywords": [
+   {
+    "term": "S3 data lake",
+    "def": "Archivio centrale su S3 con prefissi partizionati e formati colonnari come Parquet per analitica economica."
+   },
+   {
+    "term": "Lake Formation",
+    "def": "Servizio di governance che applica permessi granulari su database, tabelle e colonne del data lake."
+   },
+   {
+    "term": "Glue Crawler e Data Catalog",
+    "def": "Il crawler scopre lo schema dei dati in S3 e registra le tabelle nel catalogo centrale interrogabile."
+   },
+   {
+    "term": "Athena",
+    "def": "Motore SQL serverless che interroga i file in S3 pagando solo per i dati scansionati."
+   },
+   {
+    "term": "Kinesis",
+    "def": "Famiglia di servizi per dati streaming: Data Streams per real-time e Firehose per consegna quasi real-time a S3."
+   },
+   {
+    "term": "Data Wrangler",
+    "def": "Strumento visuale in SageMaker Studio per esplorare e trasformare dati con oltre trecento trasformazioni pronte."
+   },
+   {
+    "term": "Glue ETL ed EMR",
+    "def": "Glue ETL con job Spark serverless ed EMR con cluster gestiti per trasformazioni distribuite su larga scala."
+   },
+   {
+    "term": "DataBrew",
+    "def": "Strumento no-code fuori da SageMaker per profiling e preparazione dati con ricette visuali."
+   },
+   {
+    "term": "Feature Store online e offline",
+    "def": "Online Store a bassa latenza per inferenza real-time e Offline Store su S3 in Parquet per training e batch."
+   },
+   {
+    "term": "One-hot encoding",
+    "def": "Tecnica che trasforma una categoria in colonne binarie, una per ogni valore possibile."
+   },
+   {
+    "term": "SMOTE e sbilanciamento",
+    "def": "SMOTE genera esempi sintetici della classe minoritaria per riequilibrare dataset sbilanciati come le frodi."
+   },
+   {
+    "term": "Clarify bias pre-training",
+    "def": "SageMaker Clarify misura il bias nei dati prima del training confrontando le distribuzioni tra gruppi."
+   }
+  ],
+  "slides": [
+   {
+    "title": "S3 data lake e formati",
+    "bullets": [
+     "Bucket S3 con prefissi anno mese giorno per il partizionamento",
+     "Parquet e ORC colonnari per query veloci ed economiche",
+     "CSV e JSON per interscambio e ingestione iniziale",
+     "Versionamento per riproducibilita e cifratura KMS",
+     "Partizionare bene riduce i dati scansionati da Athena"
+    ]
+   },
+   {
+    "title": "Governance e streaming",
+    "bullets": [
+     "Lake Formation con permessi su database tabelle e colonne",
+     "Kinesis Data Streams per flussi real-time con shard",
+     "Kinesis Data Firehose per consegna quasi real-time a S3",
+     "MSK con Kafka per throughput elevato e DMS per replica continua",
+     "Integrazione tra Lake Formation, catalogo Glue e Athena"
+    ]
+   },
+   {
+    "title": "Catalogo e query con Glue e Athena",
+    "bullets": [
+     "Glue Crawler scopre lo schema e aggiorna le partizioni",
+     "Glue Data Catalog come metadati centrali interrogabili",
+     "Athena con motore Trino esegue SQL diretto su S3",
+     "Costo legato ai dati scansionati: conta il formato",
+     "Pianificare il crawler sui nuovi arrivi giornalieri"
+    ]
+   },
+   {
+    "title": "ETL su larga scala: Glue ed EMR",
+    "bullets": [
+     "Glue ETL con job Spark serverless e Glue Studio visuale",
+     "Bookmark di Glue contro la rielaborazione dei dati",
+     "EMR con cluster Spark Hadoop e Hive per volumi enormi",
+     "Scelta produttiva programmata su TB e petabyte",
+     "Data Wrangler per esplorazione interattiva su scala minore"
+    ]
+   },
+   {
+    "title": "Data Wrangler e DataBrew",
+    "bullets": [
+     "Data Wrangler dentro SageMaker Studio con oltre 300 trasformazioni",
+     "Import da S3 Athena Redshift Snowflake ed export verso pipeline",
+     "Report integrati su bias leakage anomalie e valori mancanti",
+     "DataBrew no-code fuori SageMaker per analisti con ricette",
+     "Regola esame: interattivo uguale Wrangler, batch enorme uguale Glue o EMR"
+    ]
+   },
+   {
+    "title": "Feature Store online e offline",
+    "bullets": [
+     "Feature Group con nomi tipi identificatore ed EventTime",
+     "Online Store a bassa latenza per inferenza real-time",
+     "Offline Store in Parquet su S3 per training e batch",
+     "Time travel con query point-in-time contro lo skew",
+     "Ingestione streaming con record singoli o batch da Glue ed EMR"
+    ]
+   },
+   {
+    "title": "Feature engineering tabellare",
+    "bullets": [
+     "One-hot encoding per categorie e ordinal per ranghi",
+     "Standardizzazione a media zero e min-max tra zero e uno",
+     "Imputazione con media mediana moda, mai dal test set",
+     "Oversampling undersampling pesi di classe e SMOTE",
+     "Metriche per sbilanciati: precision recall e F1"
+    ]
+   },
+   {
+    "title": "Bias, leakage e split",
+    "bullets": [
+     "Clarify misura il bias pre-training tra gruppi",
+     "Separare sempre training validation e test",
+     "Escludere feature future per evitare il leakage",
+     "Time travel dell Offline Store per point-in-time corretti",
+     "Report di Data Wrangler per controllo rapido"
+    ]
+   }
+  ],
+  "script": "Benvenuto al capitolo sulla preparazione dei dati per il machine learning. Questo e il primo dominio dell'esame e pesa il 28 percento. E il dominio piu importante di tutto il test. Senza dati puliti e ben organizzati nessun modello funziona bene. Iniziamo dall'ingestione e dallo storage dei dati. Amazon S3 e il data lake centrale di ogni architettura. I dati si organizzano in bucket con prefissi per anno mese e giorno. Il partizionamento rende le query piu veloci ed economiche. I formati colonnari come Parquet e ORC sono i migliori per l'analitica. Comprimono i dati e leggono solo le colonne necessarie. I file CSV e JSON restano utili per l'interscambio. Abilita il versionamento del bucket per la riproducibilita. Usa la cifratura con chiavi KMS per i dati sensibili. AWS Lake Formation governa l'accesso ai dati nel lake. Definisce permessi granulari su database tabelle e colonne. Si integra con il catalogo di Glue e con Athena. Per i dati in streaming si usa Amazon Kinesis. Kinesis Data Streams gestisce flussi real-time con shard dedicati. Kinesis Data Firehose consegna i dati a S3 in modo quasi real-time. AWS DMS replica i database esistenti verso S3 in modo continuo. Passiamo al catalogo e alle query interattive. AWS Glue Crawler esplora i dati in S3 e scopre lo schema. Registra le tabelle nel Glue Data Catalog centrale. Pianifica il crawler per aggiornare le partizioni ogni giorno. Amazon Athena esegue query SQL direttamente sui file in S3. Usa il motore Trino o Presto sotto il cofano. Paghi solo per i dati scansionati dalla query. Il partizionamento e i formati colonnari riducono molto i costi. Per l'ETL su larga scala si usa AWS Glue. Glue ETL esegue job Spark serverless senza server da gestire. Glue Studio offre un editor visuale per i job. I bookmark di Glue evitano di riprocessare i dati gia elaborati. Per volumi enormi e trasformazioni distribuite si usa Amazon EMR. EMR esegue cluster Spark Hadoop e Hive gestiti. E la scelta giusta per workload petabyte e pipeline programmate. SageMaker Data Wrangler e lo strumento visuale dentro SageMaker Studio. Permette di importare dati da S3 Athena Redshift e Snowflake. Offre oltre trecento trasformazioni pronte all'uso. Gestisce encoding normalizzazione e valori mancanti. Genera report su bias leakage e anomalie. Esporta i flussi verso pipeline e Feature Store. AWS Glue DataBrew e l'alternativa no-code fuori da SageMaker. Pensato per analisti che preparano dati con ricette visuali. Offre profiling automatico e oltre duecentocinquanta trasformazioni. Regola pratica per l'esame importante. Esplorazione interattiva piccola scala uguale Data Wrangler. ETL produttivo programmato grande scala uguale Glue o EMR. Analisti senza codice uguale DataBrew. Ora parliamo del Feature Store di SageMaker. Un Feature Group contiene feature con nome e tipo definiti. I tipi principali sono stringa intero e frazionario. Ogni record ha un identificatore e un timestamp di evento. L'Online Store serve l'inferenza real-time a bassa latenza. E basato su tecnologia simile a DynamoDB. Supporta lettura scrittura e cancellazione di singoli record. L'Offline Store conserva lo storico per training e batch. Salva in Parquet su S3 con catalogo Glue. Si interroga con Athena e Spark SQL. Il timestamp di evento abilita il time travel. Le query point-in-time evitano lo skew tra training e serving. L'ingestione puo essere streaming con record singoli. Oppure batch da Data Wrangler EMR e Glue. Passiamo al feature engineering tabellare. Le variabili categoriche richiedono encoding numerico. Il one-hot encoding crea una colonna binaria per categoria. L'ordinal encoding assegna numeri ordinati alle categorie. Le variabili numeriche richiedono normalizzazione. La standardizzazione centra i dati a media zero. La normalizzazione min-max scala i valori tra zero e uno. I valori mancanti si gestiscono con imputazione. Media mediana o moda per i numerici. Categoria dedicata oppure riga scartata per i categorici. Mai imputare usando statistiche del test set. Lo sbilanciamento delle classi e tipico nelle frodi. Si usano oversampling undersampling o pesi di classe. La tecnica SMOTE genera esempi sintetici della minoranza. Le metriche giuste sono precision recall e F1. SageMaker Clarify misura il bias prima del training. Confronta distribuzioni tra gruppi con metriche dedicate. Si integra con Data Wrangler per i report visivi. Ricorda sempre di separare training validation e test. Evita il leakage escludendo feature future dal training. Ora sai preparare i dati per l'esame. Nel prossimo capitolo si allenano i modelli.",
+  "quiz": [
+   {
+    "q": "A company stores clickstream data as daily CSV files in S3 and analysts run ad-hoc SQL. Query costs are too high. What should you recommend?",
+    "options": [
+     "Convert the data to Parquet with date partitioning and query with Athena",
+     "Load everything into a single RDS instance",
+     "Copy the files to EBS volumes",
+     "Disable S3 versioning to save money"
+    ],
+    "answer": 0,
+    "explain": "Parquet is columnar so Athena scans far less data, and date partitioning prunes irrelevant files. Both directly reduce Athena cost."
+   },
+   {
+    "q": "New S3 partitions arrive daily and Athena queries must see the updated schema automatically. What is the best solution?",
+    "options": [
+     "Manually recreate tables every morning",
+     "Schedule a Glue Crawler to update the Data Catalog",
+     "Delete and re-upload the bucket weekly",
+     "Run VACUUM on the S3 bucket"
+    ],
+    "answer": 1,
+    "explain": "A scheduled Glue Crawler discovers new partitions and schema changes, then registers them in the Glue Data Catalog that Athena queries."
+   },
+   {
+    "q": "A fraud-detection model needs single-digit millisecond feature lookups at inference time, plus historical features for retraining. Which design fits?",
+    "options": [
+     "SageMaker Feature Store with both Online and Offline stores enabled",
+     "Only an S3 bucket with JSON files",
+     "Only Kinesis Data Streams without storage",
+     "A local CSV file on the training notebook"
+    ],
+    "answer": 0,
+    "explain": "The Online Store serves low-latency real-time lookups while the Offline Store keeps Parquet history on S3 for training and batch inference."
+   },
+   {
+    "q": "An ML engineer must visually explore tabular data, handle missing values and one-hot encoding, then export to a Feature Store, all inside SageMaker Studio. Which tool fits?",
+    "options": [
+     "Amazon EMR with custom Hadoop",
+     "SageMaker Data Wrangler flow with export to Feature Store",
+     "AWS DMS replication task",
+     "Amazon Kendra index"
+    ],
+    "answer": 1,
+    "explain": "Data Wrangler is the visual low-code tool inside SageMaker Studio with 300+ transforms and direct export to Feature Store and Pipelines."
+   },
+   {
+    "q": "A dataset has 99% legitimate transactions and 1% fraud. Accuracy is 99% but fraud recall is poor. What should you do?",
+    "options": [
+     "Keep accuracy as the only metric",
+     "Apply SMOTE or class weights and evaluate with precision, recall, and F1",
+     "Delete all fraud examples",
+     "Duplicate the test set into training"
+    ],
+    "answer": 1,
+    "explain": "Accuracy misleads on imbalanced data. Rebalance with SMOTE, undersampling, or class weights, and judge with precision, recall, and F1."
+   },
+   {
+    "q": "Before training, a team must check whether its dataset is biased against a protected group. Which service should it use?",
+    "options": [
+     "SageMaker Clarify pre-training bias metrics",
+     "Amazon Athena pricing calculator",
+     "Kinesis Data Firehose delivery",
+     "EC2 Spot Fleet"
+    ],
+    "answer": 0,
+    "explain": "SageMaker Clarify computes pre-training bias metrics comparing distributions across groups and integrates with Data Wrangler reports."
+   },
+   {
+    "q": "A nightly pipeline must join terabytes of S3 logs with RDS tables on a schedule with Spark. Which service is the best fit?",
+    "options": [
+     "Interactive Data Wrangler session",
+     "Scheduled AWS Glue ETL jobs with Spark",
+     "Manual notebook runs on a laptop",
+     "Kinesis Data Streams consumer only"
+    ],
+    "answer": 1,
+    "explain": "Scheduled serverless Spark ETL at terabyte scale is the Glue ETL sweet spot; Data Wrangler suits smaller interactive exploration."
+   }
+  ]
+ },
+ {
+  "id": "ch3-model-dev",
+  "area": "mlops",
+  "title": "Sviluppo e valutazione dei modelli",
+  "prereq": [
+   "ch2-data-prep"
+  ],
+  "summary": "Questo capitolo copre il secondo dominio d'esame da 26 punti percentuali: scelta dell'algoritmo tra XGBoost, Linear Learner, DeepAR, BlazingText e K-Means, con JumpStart e Autopilot per baseline rapide. Spiega Training Job, tuning automatico AMT, Experiments, Debugger e Profiler. Presenta le metriche di classificazione e regressione, la diagnosi di overfitting e underfitting e la cross-validation.",
+  "keywords": [
+   {
+    "term": "XGBoost",
+    "def": "Algoritmo gradient boosting piu testato all'esame per classificazione tabellare e regressione, con obiettivi binari e multiclasse."
+   },
+   {
+    "term": "Linear Learner",
+    "def": "Algoritmo lineare veloce ed economico per relazioni semplici su dati sparsi e tabulari."
+   },
+   {
+    "term": "DeepAR",
+    "def": "Rete ricorrente probabilistica di SageMaker per previsioni su serie temporali correlate con intervalli di confidenza."
+   },
+   {
+    "term": "BlazingText",
+    "def": "Algoritmo SageMaker scalabile per embedding Word2Vec e classificazione rapida del testo."
+   },
+   {
+    "term": "K-Means",
+    "def": "Algoritmo di clustering che raggruppa i punti in K cluster, efficace dopo standardizzazione delle feature."
+   },
+   {
+    "term": "JumpStart",
+    "def": "Hub di modelli pronti e algoritmi classici personalizzabili con pochi click dentro SageMaker."
+   },
+   {
+    "term": "Autopilot",
+    "def": "AutoML per dati tabulari che automatizza feature engineering, selezione e tuning con 250 candidati."
+   },
+   {
+    "term": "AMT Automatic Model Tuning",
+    "def": "Ottimizzazione automatica degli iperparametri con strategie bayesiana, hyperband, random e griglia."
+   },
+   {
+    "term": "Experiments e Model Registry",
+    "def": "Experiments traccia run e metriche, il Registry versiona i modelli approvati per la produzione."
+   },
+   {
+    "term": "Debugger e Profiler",
+    "def": "Debugger rileva anomalie di training, Profiler analizza uso di CPU, GPU e memoria."
+   },
+   {
+    "term": "F1 e AUC",
+    "def": "F1 come media armonica di precision e recall, AUC come separazione tra classi, ideali su dati sbilanciati."
+   },
+   {
+    "term": "RMSE e MAE",
+    "def": "RMSE penalizza molto gli errori grandi, MAE misura l'errore medio assoluto in regressione."
+   }
+  ],
+  "slides": [
+   {
+    "title": "Tipi di problema e algoritmi",
+    "bullets": [
+     "Binaria, multiclasse, regressione, clustering, serie temporali, testo",
+     "XGBoost per tabulari complessi, Linear Learner per lineari semplici",
+     "DeepAR per serie correlate, BlazingText per testo, K-Means per cluster",
+     "Standardizzare le feature prima di K-Means",
+     "Scegliere l algoritmo dal tipo di problema e dai dati"
+    ]
+   },
+   {
+    "title": "XGBoost in dettaglio",
+    "bullets": [
+     "Obiettivi: binary logistic, multiclasse softprob, regressione squarederror",
+     "Iperparametri eta 0,05-0,3 e max_depth 3-10",
+     "Subsample colsample lambda e alpha contro overfitting",
+     "Input CSV LibSVM Parquet con modalita Pipe su dati grandi",
+     "Metriche tuning: validation auc, error, rmse, mlogloss"
+    ]
+   },
+   {
+    "title": "JumpStart e Autopilot",
+    "bullets": [
+     "JumpStart con foundation model e algoritmi pronti personalizzabili",
+     "Autopilot come baseline AutoML senza codice su tabulari",
+     "Fino a 250 candidati con notebook e feature importance",
+     "Miglior candidato distribuibile su endpoint",
+     "Regola esame: baseline rapida uguale Autopilot, controllo uguale XGBoost"
+    ]
+   },
+   {
+    "title": "Training Job e AMT",
+    "bullets": [
+     "Training Job gestiti con istanze CPU o GPU mirate",
+     "Metriche estratte dai log con espressioni regolari",
+     "AMT con strategie bayesian random hyperband e griglia",
+     "Definire metrica obiettivo, range e limiti di job",
+     "Early stopping e warm start per costi e tempi minori"
+    ]
+   },
+   {
+    "title": "Tracciamento e debug",
+    "bullets": [
+     "Experiments per parametri metriche e artefatti di ogni run",
+     "Model Registry per versionare i modelli approvati",
+     "Debugger contro gradienti anomali e stalli",
+     "Profiler per CPU GPU memoria e colli di bottiglia",
+     "Riproducibilita garantita da run tracciati"
+    ]
+   },
+   {
+    "title": "Metriche di classificazione",
+    "bullets": [
+     "Accuracy totale ingannevole su classi sbilanciate",
+     "Precision sui predetti positivi e recall sui reali positivi",
+     "F1 come media armonica e AUC come separazione",
+     "Su frodi e sbilanciati usare F1 o AUC",
+     "Confusion matrix per errori per classe"
+    ]
+   },
+   {
+    "title": "Regressione, fit e validazione",
+    "bullets": [
+     "RMSE penalizza errori grandi, MAE errore medio, R quadro varianza",
+     "Overfitting: training alto e validation bassa, cura con regolarizzazione",
+     "Underfitting: metriche basse ovunque, cura con modelli espressivi",
+     "Cross-validation a k fold stratificata per stime robuste",
+     "Early stopping con split di validation dedicato"
+    ]
+   }
+  ],
+  "script": "Benvenuto al capitolo sullo sviluppo dei modelli di machine learning. Questo e il secondo dominio dell'esame e pesa il 26 percento. Insieme al primo dominio copre piu della meta del test. Qui impari a scegliere l'algoritmo giusto. Poi ad allenare e valutare i modelli con SageMaker. La prima decisione e il tipo di problema. Classificazione binaria significa due sole classi possibili. Classificazione multiclasse significa tre o piu categorie. Regressione significa prevedere un numero continuo. Clustering significa raggruppare dati senza etichette. Serie temporali significa prevedere valori futuri nel tempo. Testo significa classificare o rappresentare documenti. Per la classificazione tabellare e la regressione usa XGBoost. E l'algoritmo piu testato dell'intero esame. Supporta obiettivi binari multiclasse e regressione. Gli iperparametri chiave sono eta e profondita massima. Eta controlla il learning rate tra zero e uno. La profondita massima tipica va da tre a dieci. Subsample e colsample controllano il campionamento. Lambda e alpha controllano la regolarizzazione. I formati di input sono CSV LibSVM e Parquet. La modalita Pipe accelera il training su dati grandi. Per relazioni lineari semplici usa Linear Learner. E veloce economico e interpretabile. Supporta classificazione e regressione su dati sparsi. Per serie temporali con piu serie correlate usa DeepAR. E una rete ricorrente probabilistica gestita. Produce previsioni con intervalli di confidenza. Per il testo usa BlazingText. Implementa Word2Vec e classificazione veloce. Per il clustering usa K-Means. Raggruppa i punti in un numero K di cluster. Ricorda di standardizzare le feature prima di usarlo. Amazon SageMaker JumpStart offre modelli pronti all'uso. Include modelli foundation e algoritmi classici. Puoi personalizzarli con i tuoi dati in pochi click. SageMaker Autopilot e la soluzione AutoML per dati tabulari. Automatizza feature engineering e scelta dell'algoritmo. Allena fino a duecentocinquanta candidati in automatico. Produce notebook con le definizioni dei candidati. Mostra l'importanza delle feature del vincitore. Distribuisce il miglior candidato su endpoint. Regola per l'esame molto importante. Baseline rapida senza codice uguale Autopilot. Controllo totale e tuning fine uguale XGBoost con training job. I Training Job di SageMaker eseguono l'allenamento gestito. Scegli istanza GPU per deep learning e CPU per tabulari. Le metriche si estraggono dai log con espressioni regolari. SageMaker AMT ottimizza gli iperparametri in automatico. AMT significa Automatic Model Tuning. Usa strategie bayesiane random hyperband e griglia. La strategia bayesiana trova l'ottimo con pochi job. Hyperband risparmia costi scartando presto i candidati deboli. Devi definire la metrica obiettivo da ottimizzare. Devi definire i range degli iperparametri continui interi e categorici. Devi fissare limiti di job massimi e paralleli. Puoi attivare early stopping per fermare i job inutili. Puoi usare il warm start dai tuning precedenti. Esempio tipico da esame importante. Classificazione binaria ottimizza validation auc. Regressione ottimizza validation rmse. Multiclasse ottimizza validation mlogloss. SageMaker Experiments traccia ogni esperimento. Registra parametri metriche e artefatti di ogni run. SageMaker Model Registry versiona i modelli approvati. Debugger rileva gradienti anomali e training stagnante. Profiler analizza utilizzo di CPU GPU e memoria. Le metriche di classificazione vanno scelte con cura. Accuracy misura le previsioni corrette totali. Precision misura i veri positivi sui predetti positivi. Recall misura i veri positivi sui positivi reali. F1 e la media armonica di precision e recall. AUC ROC misura la separazione tra le classi. Per classi sbilanciate usa F1 o AUC mai la sola accuracy. Per la regressione usa RMSE MAE e R quadro. RMSE penalizza molto gli errori grandi. MAE misura l'errore medio assoluto. R quadro misura la varianza spiegata dal modello. Overfitting significa memorizzare il training senza generalizzare. Si riconosce da training alto e validation bassa. Si cura con regolarizzazione early stopping e piu dati. Underfitting significa modello troppo semplice per i dati. Si riconosce da metriche basse su entrambi i set. Si cura con modelli piu espressivi e feature migliori. La cross validation a k fold stima la generalizzazione. Divide i dati in k parti e ruota training e validation. Stratificala per preservare le proporzioni delle classi. Ora sai sviluppare e valutare i modelli. Sei pronto per esercitarti con i quiz stile esame.",
+  "quiz": [
+   {
+    "q": "A team needs a quick baseline on tabular churn data without manual feature engineering. Which service should it use?",
+    "options": [
+     "SageMaker Autopilot AutoML job",
+     "Custom MPI training on EC2",
+     "Amazon Kendra search index",
+     "Manual SQL rules engine"
+    ],
+    "answer": 0,
+    "explain": "Autopilot automates feature engineering, algorithm selection, and tuning for tabular classification and regression, producing deployable candidates."
+   },
+   {
+    "q": "A binary fraud classifier must be tuned with SageMaker AMT. Which objective metric should the tuning job optimize?",
+    "options": [
+     "validation:rmse",
+     "validation:auc",
+     "validation:mlogloss for regression",
+     "Training data size"
+    ],
+    "answer": 1,
+    "explain": "For binary classification, validation:auc measures class separation and is the standard AMT objective; RMSE suits regression and mlogloss suits multiclass."
+   },
+   {
+    "q": "An XGBoost model shows 99% training accuracy but 72% validation accuracy. What is the diagnosis and fix?",
+    "options": [
+     "Underfitting; add more layers immediately",
+     "Overfitting; add regularization such as lambda, use early stopping, or add data",
+     "Data leakage in the test set only",
+     "Wrong instance type with no effect on accuracy"
+    ],
+    "answer": 1,
+    "explain": "High training with low validation accuracy is classic overfitting. Regularization, early stopping, shallower depth, and more data restore generalization."
+   },
+   {
+    "q": "A retailer forecasts demand across hundreds of correlated product time series with uncertainty intervals. Which algorithm fits?",
+    "options": [
+     "Linear Learner",
+     "K-Means",
+     "DeepAR",
+     "BlazingText"
+    ],
+    "answer": 2,
+    "explain": "DeepAR is SageMaker's probabilistic forecasting algorithm for multiple correlated series and outputs quantiles and confidence intervals."
+   },
+   {
+    "q": "A text team must train fast embeddings and document classification on a huge corpus with distributed training. Which algorithm fits?",
+    "options": [
+     "DeepAR",
+     "XGBoost with LibSVM",
+     "BlazingText",
+     "K-Means on raw text"
+    ],
+    "answer": 2,
+    "explain": "BlazingText implements Word2Vec and text classification at scale with distributed training, ideal for large corpora."
+   },
+   {
+    "q": "A regression model for house prices reports RMSE 45000 and MAE 28000. A stakeholder asks what changes. What do you answer?",
+    "options": [
+     "RMSE penalizes large errors more than MAE; investigate outliers with big residuals",
+     "Both metrics are identical so nothing changes",
+     "MAE is only for classification",
+     "Retrain without validation data"
+    ],
+    "answer": 0,
+    "explain": "RMSE squares errors so outliers inflate it more than MAE. A large RMSE-MAE gap points to a few large residuals worth investigating."
+   },
+   {
+    "q": "A team wants Bayesian tuning with cost control that stops weak candidates early across 50 training jobs. Which AMT setup fits?",
+    "options": [
+     "Grid search without limits",
+     "Bayesian strategy with Hyperband-style early stopping, MaxJobs and MaxParallelJobs set",
+     "Random search with one job",
+     "Manual tuning in notebooks only"
+    ],
+    "answer": 1,
+    "explain": "Bayesian optimization finds strong hyperparameters efficiently while Hyperband-style early stopping terminates weak trials, and job limits cap cost."
+   }
+  ]
+ }
+]
