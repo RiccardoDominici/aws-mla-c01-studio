@@ -22,7 +22,7 @@ In più, un **banco domande** d'esame filtrabile e con simulazione a tempo (ritm
 ## Caratteristiche
 
 - **Mappa SVG** dei capitoli con stato di avanzamento (da fare / in corso / completato)
-- **Audio-lezioni TTS** in italiano (voce Alice, sintesi locale macOS — nessun servizio esterno)
+- **Audio-lezioni TTS** in italiano (voce Chatterbox femminile, sintesi locale — nessun servizio esterno)
 - **Slide sincronizzate** con l'audio: navigare le slide sposta il punto di ascolto
 - **Player custom**: play/pausa, ±10s, barra con marcatori slide, velocità di riproduzione
 - **Trascrizione karaoke**: highlight in tempo reale, auto-scroll, click sulla frase = seek
