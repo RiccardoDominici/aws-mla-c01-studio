@@ -943,5 +943,530 @@
       "tracking"
     ],
     "origin": "ai"
+  },
+  {
+    "id": "ch5-ext01",
+    "chapter": "ch5-monitor-security",
+    "q": "A team runs SageMaker Clarify on a training dataset before any model is trained. Women make up only 12% of the rows. Which pre-training metric flags this representation gap?",
+    "options": [
+      "Endpoint latency p99, which tracks inference response times under load for each variant",
+      "Class Imbalance (CI), which compares the share of each facet group in the dataset",
+      "Recall score, which joins model predictions with ground-truth labels for scoring runs",
+      "SHAP feature ranking, which explains how each input drives the trained model outputs"
+    ],
+    "answer": 1,
+    "explain": "Class Imbalance (CI) is a pre-training Clarify metric that quantifies how unevenly facet groups are represented in the dataset. It needs no model or predictions.",
+    "difficulty": "facile",
+    "tags": [
+      "clarify",
+      "bias",
+      "pre-training"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext02",
+    "chapter": "ch5-monitor-security",
+    "q": "Compliance requires SageMaker training jobs to encrypt the EBS volume and the S3 model output with customer-managed keys. Which setup meets the requirement?",
+    "options": [
+      "Rely on default AWS-managed keys for the volume and output, rotating IAM user access keys every week for hygiene",
+      "Set VolumeKmsKeyId for the training volume and KmsKeyId for the S3 output, with the key policy allowing the execution role",
+      "Enable TLS encryption on the endpoint while storing the training dataset in a public S3 bucket for faster access",
+      "Disable EBS and S3 encryption to speed up training, applying a customer-managed key only to CloudTrail audit logs each run for compliance reviews"
+    ],
+    "answer": 1,
+    "explain": "SageMaker training jobs accept a CMK for the attached EBS volume (VolumeKmsKeyId) and one for S3 output. The KMS key policy must permit the execution role to use Encrypt, Decrypt, and GenerateDataKey.",
+    "difficulty": "facile",
+    "tags": [
+      "kms",
+      "encryption",
+      "training"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext03",
+    "chapter": "ch5-monitor-security",
+    "q": "A SageMaker training job runs in a private VPC with network isolation and no NAT gateway. It fails pulling data from S3 and pushing logs. What is missing?",
+    "options": [
+      "A larger GPU instance type with more attached EBS storage capacity for datasets and logs",
+      "A Model Monitor baseline job recomputing data constraints from live endpoint traffic every hour",
+      "A gateway VPC endpoint for S3 plus interface endpoints for ECR, SageMaker API, and CloudWatch Logs",
+      "A CloudTrail data-event selector on every InvokeEndpoint request plus S3 access logging for audits and dashboards"
+    ],
+    "answer": 2,
+    "explain": "With network isolation and no internet, the job reaches AWS services only through VPC endpoints: a gateway endpoint for S3 and PrivateLink interface endpoints for ECR, SageMaker APIs, and Logs.",
+    "difficulty": "facile",
+    "tags": [
+      "vpc",
+      "endpoints",
+      "network-isolation"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext04",
+    "chapter": "ch5-monitor-security",
+    "q": "Auditors want a record of who invoked a SageMaker endpoint and when, including request metadata. Management events alone are not enough. What should the team enable?",
+    "options": [
+      "Model Monitor bias-drift schedules recomputing fairness metrics on live traffic hourly",
+      "Data capture sampling at 100 percent on the production endpoint for payload archiving",
+      "CloudWatch Contributor Insights charts on the training cluster network traffic",
+      "CloudTrail data events for SageMaker runtime so InvokeEndpoint calls are logged"
+    ],
+    "answer": 3,
+    "explain": "Management events cover control-plane calls like CreateEndpoint. Logging InvokeEndpoint data-plane calls requires enabling CloudTrail data events for the SageMaker runtime.",
+    "difficulty": "facile",
+    "tags": [
+      "cloudtrail",
+      "audit",
+      "invokeendpoint"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext05",
+    "chapter": "ch5-monitor-security",
+    "q": "Before training, Clarify reports that 70% of men but only 30% of women in the dataset carry the positive label. Which metric captures this label skew?",
+    "options": [
+      "Difference in Positive Proportions in Labels (DPL), comparing positive-label rates across groups",
+      "Endpoint invocation counts per variant recorded during the latest canary rollout phase",
+      "KMS key rotation age for the S3 bucket holding the training dataset and capture files",
+      "The 5xx error rate of the SageMaker endpoint over the last hour, broken down by variant with history"
+    ],
+    "answer": 0,
+    "explain": "DPL measures the gap in positive-label rates between facet groups in the training data. A large DPL signals historical label bias before training starts.",
+    "difficulty": "facile",
+    "tags": [
+      "clarify",
+      "bias",
+      "dpl"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext06",
+    "chapter": "ch5-monitor-security",
+    "q": "A healthcare workload requires encryption of traffic exchanged between training containers on the same instance. Which SageMaker option provides it?",
+    "options": [
+      "VPC Flow Logs published to a locked S3 bucket for packet inspection each hour",
+      "EnableInterContainerTrafficEncryption on the training or processing job",
+      "CloudWatch detailed monitoring with one-minute metric granularity on all instances",
+      "Model Card approval signatures collected from reviewers before each deployment gate"
+    ],
+    "answer": 1,
+    "explain": "EnableInterContainerTrafficEncryption turns on encryption for traffic between containers of distributed training or processing jobs, layered on top of VPC isolation and KMS at-rest encryption.",
+    "difficulty": "facile",
+    "tags": [
+      "encryption",
+      "sagemaker",
+      "network-isolation"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext07",
+    "chapter": "ch5-monitor-security",
+    "q": "The team wants Model Quality monitoring with accuracy computed from reviewer labels. How must the ground-truth data be supplied?",
+    "options": [
+      "Spoken approvals recorded in meeting notes attached to the Model Cards for reviewers",
+      "CloudTrail digest files hashed daily into a separate audit bucket for tamper checks",
+      "As labeled records merged with captured predictions on a join key, in the expected format and S3 path",
+      "KMS grant tokens issued to each human reviewer before labeling starts, scoped to the labeling bucket with expiry"
+    ],
+    "answer": 2,
+    "explain": "Model Quality monitoring joins captured predictions with ground-truth labels on a common identifier. Labels must land in S3 in the required format so the scheduled job can merge and score them.",
+    "difficulty": "facile",
+    "tags": [
+      "model-monitor",
+      "model-quality",
+      "ground-truth"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext08",
+    "chapter": "ch5-monitor-security",
+    "q": "A CI/CD user must pass a SageMaker execution role to training jobs but must not be able to escalate privileges. Which IAM control applies?",
+    "options": [
+      "Attach AdministratorAccess to the CI user so pipeline deployments never fail on rights",
+      "Embed long-lived access keys in the build scripts for S3 uploads and artifact downloads",
+      "Share the root account MFA device with every pipeline operator and keep backup codes in the team wiki for on-call use",
+      "Grant iam:PassRole scoped to the specific execution role with a condition on the SageMaker service"
+    ],
+    "answer": 3,
+    "explain": "iam:PassRole scoped to the exact execution role, ideally conditioned on SageMaker as the service, lets CI pass the role to jobs without granting broad role-passing power.",
+    "difficulty": "facile",
+    "tags": [
+      "iam",
+      "passrole",
+      "security"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext09",
+    "chapter": "ch5-monitor-security",
+    "q": "After deployment, Clarify reports a Disparate Impact (DI) of 0.6 for loan approvals between two groups. How should the team read this value?",
+    "options": [
+      "The unprivileged group is approved at 60% of the privileged group's rate, signaling adverse impact worth investigating",
+      "The endpoint answers 60% of requests within the latency objective set for the p99 threshold this quarter",
+      "The training volume is 60% encrypted while the remaining 40% still sits in plaintext on attached storage",
+      "The canary variant receives exactly 60% of live production traffic while the stable variant keeps the rest during the bake period"
+    ],
+    "answer": 0,
+    "explain": "Disparate Impact is the ratio of positive-prediction rates between groups. Values well below 1 (commonly under 0.8) indicate the disadvantaged group is approved far less often.",
+    "difficulty": "media",
+    "tags": [
+      "clarify",
+      "bias",
+      "disparate-impact"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext10",
+    "chapter": "ch5-monitor-security",
+    "q": "Data capture files contain sensitive payloads and must be encrypted with a CMK that only the monitoring role can use. What is the correct design?",
+    "options": [
+      "Store captures in a public bucket and rely on TLS during upload, skipping server-side encryption",
+      "Use SSE-S3 with AWS-managed keys and share the capture bucket with every analyst on the team",
+      "Disable bucket encryption to simplify Athena queries over captures, granting broad read access to all analysts on the team",
+      "Use SSE-KMS with a customer-managed key whose policy and grants authorize only the capture and monitoring roles"
+    ],
+    "answer": 3,
+    "explain": "SSE-KMS with a CMK encrypts captured payloads at rest, and the key policy plus grants restrict Encrypt and Decrypt to the endpoint capture role and the monitoring job role.",
+    "difficulty": "media",
+    "tags": [
+      "kms",
+      "data-capture",
+      "s3"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext11",
+    "chapter": "ch5-monitor-security",
+    "q": "A SageMaker endpoint must be unreachable from the public internet while still serving callers inside the VPC. Which network design works?",
+    "options": [
+      "Deploy instances in public subnets with an internet gateway and open inbound rules for low-latency client access worldwide",
+      "Assign Elastic IPs to every endpoint instance and allow inbound HTTPS traffic from 0.0.0.0/0 for testing during rollout",
+      "Place the endpoint in private subnets with restrictive security groups and route callers through a VPC interface endpoint for the runtime",
+      "Mirror all endpoint traffic to an analyzer instance in a separate public subnet. Inspect the mirrored packets there for anomalies each day"
+    ],
+    "answer": 2,
+    "explain": "Private subnets plus tight security groups remove direct internet paths, and a PrivateLink interface endpoint for the SageMaker runtime keeps invocation traffic on the AWS backbone.",
+    "difficulty": "media",
+    "tags": [
+      "vpc",
+      "privatelink",
+      "security-groups"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext12",
+    "chapter": "ch5-monitor-security",
+    "q": "The team wants weekly full retraining on fresh data plus immediate retraining when monitoring detects severe drift. Which two mechanisms combine best?",
+    "options": [
+      "Retrain manually from the console and email screenshots of CloudWatch graphs to stakeholders. Trigger follow-up runs when managers reply",
+      "Keep a fixed GPU reservation with no pipeline, retraining only when an engineer files a request. Queue emergency runs behind weekly jobs",
+      "Delete and recreate the endpoint every night regardless of metrics, replaying the full training set each time instead of monitoring drift",
+      "An EventBridge Scheduler cron for the weekly run plus an EventBridge rule on monitoring-violation events for the emergency run"
+    ],
+    "answer": 3,
+    "explain": "Scheduler handles the time-based cadence while an event rule reacts to violation signals. Both targets start the same versioned retraining pipeline with quality gates.",
+    "difficulty": "media",
+    "tags": [
+      "eventbridge",
+      "retraining",
+      "scheduler"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext13",
+    "chapter": "ch5-monitor-security",
+    "q": "Bias drift monitoring shows the Difference in Positive Proportions in Predicted Labels (DPPL) widening over four weeks. What does this mean?",
+    "options": [
+      "The gap in approval rates between groups in live predictions is growing and needs review",
+      "Endpoint latency percentiles have improved since the latest scaling policy change",
+      "The KMS key used for captures is due for automatic rotation this quarter",
+      "Training loss decreased steadily while validation loss stayed flat through the last quarter of tuning"
+    ],
+    "answer": 0,
+    "explain": "DPPL compares positive-prediction rates across facet groups on live traffic. A widening DPPL means production decisions are becoming more unequal between groups.",
+    "difficulty": "media",
+    "tags": [
+      "clarify",
+      "bias-drift",
+      "dppl"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext14",
+    "chapter": "ch5-monitor-security",
+    "q": "Clients send malformed payloads that raise 4xx errors without crashing the endpoint. How can the team get paged on a surge of these client errors?",
+    "options": [
+      "Rotate KMS keys weekly and alarm on the rotation CloudTrail events for compliance",
+      "Add a CloudWatch metric filter on 4xx patterns in container logs and alarm on its count",
+      "Recompute the Model Monitor baseline from training data every hour on a fixed schedule",
+      "Export Model Cards to PDF and email them to the on-call engineer whenever error budgets burn too fast"
+    ],
+    "answer": 1,
+    "explain": "A metric filter turns matching 4xx log lines into a custom CloudWatch metric. An alarm on that metric pages the team when bad-request volume spikes.",
+    "difficulty": "media",
+    "tags": [
+      "cloudwatch",
+      "metric-filters",
+      "alarms"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext15",
+    "chapter": "ch5-monitor-security",
+    "q": "Account B must run inference with a model artifact encrypted by a KMS key owned by account A. What must account A configure?",
+    "options": [
+      "Publish the model artifact in a public S3 bucket with open read access for partner teams",
+      "Share the root credentials of account A with the operators of account B over an encrypted channel",
+      "Update the KMS key policy to permit account B roles and create a grant for decrypt during deployment",
+      "Disable encryption on the artifact entirely so no cross-account key policies are necessary for inference"
+    ],
+    "answer": 2,
+    "explain": "Cross-account KMS use needs the key policy to allow the external principal plus a grant authorizing Decrypt and GenerateDataKey for the deployment role in account B.",
+    "difficulty": "media",
+    "tags": [
+      "kms",
+      "cross-account",
+      "key-policy"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext16",
+    "chapter": "ch5-monitor-security",
+    "q": "An isolated training job uses an S3 gateway endpoint. How do you stop it from reaching buckets outside the approved data lake?",
+    "options": [
+      "Attach an endpoint policy to the gateway endpoint allowing only the approved bucket ARNs",
+      "Open the job security group to all outbound destinations for reliability during fetches",
+      "Give the execution role wildcard s3 permissions on every resource in the account to avoid access errors",
+      "Disable CloudTrail in the training account so bucket access attempts are never recorded anywhere"
+    ],
+    "answer": 0,
+    "explain": "A gateway endpoint policy filters which buckets and actions are reachable through that endpoint. Scoping it to the data-lake ARNs blocks exfiltration to outside buckets even if IAM is broader.",
+    "difficulty": "media",
+    "tags": [
+      "vpc",
+      "endpoint-policy",
+      "s3"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext17",
+    "chapter": "ch5-monitor-security",
+    "q": "An endpoint runs two production variants with weights 90 and 10. Where is this traffic split defined?",
+    "options": [
+      "In the endpoint configuration as InitialVariantWeight per production variant",
+      "In the KMS key rotation schedule attached to the endpoint each quarter",
+      "In the CloudTrail trail selector configured for SageMaker data events",
+      "In the Model Card markdown describing the intended use of each model version for reviewers"
+    ],
+    "answer": 0,
+    "explain": "Each production variant in the endpoint configuration carries an InitialVariantWeight. The weights determine the share of InvokeEndpoint traffic each variant serves.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "variants",
+      "canary"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext18",
+    "chapter": "ch5-monitor-security",
+    "q": "Traffic triples every evening and collapses at night. Which auto-scaling setup handles this while controlling cost?",
+    "options": [
+      "A fixed fleet sized for the evening peak that keeps running around the clock every day",
+      "Manual instance changes approved by email once per quarter after capacity reviews",
+      "Target tracking on InvocationsPerInstance with a sensible minimum, maximum, and scale-in cooldown",
+      "Retrain the model hourly so smaller instances can serve larger loads, skipping validation gates to save time"
+    ],
+    "answer": 2,
+    "explain": "Target tracking adds capacity when per-instance invocations rise and removes it during quiet hours. Min and max bounds plus a scale-in cooldown prevent flapping and runaway cost.",
+    "difficulty": "media",
+    "tags": [
+      "autoscaling",
+      "sagemaker",
+      "cloudwatch"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext19",
+    "chapter": "ch5-monitor-security",
+    "q": "A blue/green endpoint update must roll back automatically when error-rate alarms fire during the shift. How is this configured?",
+    "options": [
+      "By emailing metrics to managers and waiting for their manual approval to proceed",
+      "By disabling all CloudWatch alarms for the duration of the deployment window",
+      "By routing 100 percent of traffic instantly and deleting the blue environment right after the shift",
+      "With a blue/green DeploymentConfig using CloudWatch alarms and auto-rollback on alarm"
+    ],
+    "answer": 3,
+    "explain": "SageMaker blue/green deployments accept a list of CloudWatch alarms with an auto-rollback flag. When an alarm fires during baking, traffic shifts back to blue automatically.",
+    "difficulty": "difficile",
+    "tags": [
+      "blue-green",
+      "alarms",
+      "rollback"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext20",
+    "chapter": "ch5-monitor-security",
+    "q": "Security must run SQL forensics over SageMaker API activity across regions for the last year. Which approach scales best?",
+    "options": [
+      "Scroll the console event history region by region for each audit week",
+      "Query CloudTrail Lake, which stores immutable event data queryable with SQL",
+      "Recompute Model Monitor baselines and compare the constraint JSON files by hand",
+      "Parse KMS rotation emails forwarded by the compliance mailbox into spreadsheets"
+    ],
+    "answer": 1,
+    "explain": "CloudTrail Lake ingests management and data events into an immutable store with a SQL interface, suited to multi-region forensic queries over long retention windows.",
+    "difficulty": "difficile",
+    "tags": [
+      "cloudtrail-lake",
+      "forensics",
+      "audit"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext21",
+    "chapter": "ch5-monitor-security",
+    "q": "After retraining with new features, feature-attribution drift alerts fire constantly even though quality is fine. What is the likely cause?",
+    "options": [
+      "The SHAP baseline still reflects the old feature set and must be regenerated from the new training data",
+      "The KMS key for captures expired, so payloads are now stored in plaintext in the bucket",
+      "The VPC security group blocks CloudWatch from reading the new endpoint metrics after the update",
+      "The endpoint IAM role lost permission to write CloudTrail digest files, breaking the audit trail for reviewers"
+    ],
+    "answer": 0,
+    "explain": "Attribution drift compares live SHAP values against the stored baseline. Retraining with different features invalidates that reference, so a fresh baseline from the new training data is required.",
+    "difficulty": "difficile",
+    "tags": [
+      "explainability",
+      "shap",
+      "baseline"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext22",
+    "chapter": "ch5-monitor-security",
+    "q": "Only callers inside an approved VPC may invoke a sensitive endpoint. Which IAM enforcement fits?",
+    "options": [
+      "A wildcard allow policy on sagemaker InvokeEndpoint granted to every identity in the whole account",
+      "A resource policy opening the endpoint to any AWS authenticated caller across all accounts for partner access",
+      "An identity policy condition on aws:SourceVpce or aws:SourceVpc restricting calls to the approved endpoint or VPC",
+      "A scheduled rotation of every caller password every 30 days, enforced through IAM password policies on all users with alerts"
+    ],
+    "answer": 2,
+    "explain": "Condition keys such as aws:SourceVpce and aws:SourceVpc bind InvokeEndpoint permission to requests arriving through the approved VPC endpoint or VPC, denying outside callers.",
+    "difficulty": "difficile",
+    "tags": [
+      "iam",
+      "vpc",
+      "conditions"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext23",
+    "chapter": "ch5-monitor-security",
+    "q": "A deployment pipeline must block promotion of any model version lacking reviewer approval. Which registry mechanism enforces this?",
+    "options": [
+      "Model Registry approval status checked as a pipeline gate before the deploy stage",
+      "A CloudWatch dashboard widget turning green when latency looks healthy after deploys",
+      "Data capture sampling raised to 100 percent during the rollout week for analysis",
+      "KMS automatic rotation enabled on the artifact bucket before every release of the pipeline"
+    ],
+    "answer": 0,
+    "explain": "Model Registry versions carry an approval status such as PendingManualApproval or Approved. The pipeline gate reads that status and halts promotion until reviewers approve.",
+    "difficulty": "difficile",
+    "tags": [
+      "model-registry",
+      "governance",
+      "pipelines"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext24",
+    "chapter": "ch5-monitor-security",
+    "q": "The team rotates the KMS CMK yearly but retraining code must keep working without edits. What practice makes rotation seamless?",
+    "options": [
+      "Hardcode the key ID string in every training script and notebook used",
+      "Disable rotation entirely so ciphertexts never change across pipeline runs each year",
+      "Reference the key by alias and let automatic rotation replace backing material",
+      "Share one data key across dev, staging, and production environments to simplify access"
+    ],
+    "answer": 2,
+    "explain": "Code referencing the alias always resolves to the current key material. With automatic rotation, AWS replaces backing keys yearly while the alias stays stable.",
+    "difficulty": "difficile",
+    "tags": [
+      "kms",
+      "rotation",
+      "alias"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch5-ext25",
+    "chapter": "ch5-monitor-security",
+    "q": "A monitoring schedule detects severe data drift at 3 AM. Which event pattern wakes the retraining workflow?",
+    "options": [
+      "A monthly Cost Explorer report delivered to the finance mailbox and reviewed before any retraining decision is approved",
+      "A Model Card comment thread mentioning drift in free text, escalated to reviewers by email for triage within two business days",
+      "A VPC Flow Log entry showing a rejected connection on port 443, forwarded to the retraining queue by a filter as a proxy for drift remediation",
+      "An EventBridge rule matching the SageMaker monitor job state-change event with a violation status that starts a Step Functions workflow"
+    ],
+    "answer": 3,
+    "explain": "Model Monitor emits job state-change events to EventBridge. A rule filtering on the violation status routes them to the retraining workflow, such as Step Functions or a Pipelines execution.",
+    "difficulty": "difficile",
+    "tags": [
+      "eventbridge",
+      "model-monitor",
+      "retraining"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
   }
 ]
