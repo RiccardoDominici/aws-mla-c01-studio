@@ -13,7 +13,10 @@
     ],
     "q": "How many questions does the AWS MLA-C01 exam contain in total?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "questions"],
+    "tags": [
+      "exam-format",
+      "questions"
+    ],
     "origin": "ai"
   },
   {
@@ -30,7 +33,10 @@
     ],
     "q": "How much total testing time is allowed for the AWS MLA-C01 exam?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "time"],
+    "tags": [
+      "exam-format",
+      "time"
+    ],
     "origin": "ai"
   },
   {
@@ -47,7 +53,10 @@
     ],
     "q": "What is the passing score for the AWS MLA-C01 exam?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "passing-score"],
+    "tags": [
+      "exam-format",
+      "passing-score"
+    ],
     "origin": "ai"
   },
   {
@@ -64,7 +73,10 @@
     ],
     "q": "How is the AWS MLA-C01 exam delivered to candidates?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "pearson-vue"],
+    "tags": [
+      "exam-format",
+      "pearson-vue"
+    ],
     "origin": "ai"
   },
   {
@@ -81,7 +93,10 @@
     ],
     "q": "What is the standard exam fee for the AWS MLA-C01 exam?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "pricing"],
+    "tags": [
+      "exam-format",
+      "pricing"
+    ],
     "origin": "ai"
   },
   {
@@ -98,7 +113,10 @@
     ],
     "q": "How long is the AWS MLA-C01 certification valid?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "validity"],
+    "tags": [
+      "exam-format",
+      "validity"
+    ],
     "origin": "ai"
   },
   {
@@ -115,7 +133,10 @@
     ],
     "q": "What is the exam weight of Domain 1 (Data Preparation for ML)?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["domains", "domain-1"],
+    "tags": [
+      "domains",
+      "domain-1"
+    ],
     "origin": "ai"
   },
   {
@@ -132,7 +153,10 @@
     ],
     "q": "What is the exam weight of Domain 2 (Model Development)?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["domains", "domain-2"],
+    "tags": [
+      "domains",
+      "domain-2"
+    ],
     "origin": "ai"
   },
   {
@@ -149,7 +173,10 @@
     ],
     "q": "What is the exam weight of Domain 3 (Deployment and Orchestration)?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["domains", "domain-3"],
+    "tags": [
+      "domains",
+      "domain-3"
+    ],
     "origin": "ai"
   },
   {
@@ -166,7 +193,10 @@
     ],
     "q": "What is the exam weight of Domain 4 (Monitoring, Security, GenAI)?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["domains", "domain-4"],
+    "tags": [
+      "domains",
+      "domain-4"
+    ],
     "origin": "ai"
   },
   {
@@ -183,7 +213,10 @@
     ],
     "q": "On the MLA-C01 exam, what defines a multiple-choice question?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["question-types", "multiple-choice"],
+    "tags": [
+      "question-types",
+      "multiple-choice"
+    ],
     "origin": "ai"
   },
   {
@@ -200,7 +233,10 @@
     ],
     "q": "On the MLA-C01 exam, what defines a multiple-response question?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["question-types", "multiple-response"],
+    "tags": [
+      "question-types",
+      "multiple-response"
+    ],
     "origin": "ai"
   },
   {
@@ -217,7 +253,10 @@
     ],
     "q": "What average time per question should a candidate plan for on MLA-C01?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["strategy", "time-management"],
+    "tags": [
+      "strategy",
+      "time-management"
+    ],
     "origin": "ai"
   },
   {
@@ -234,7 +273,10 @@
     ],
     "q": "A candidate is unsure about several questions with little time left. What should they do?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["strategy", "guessing"],
+    "tags": [
+      "strategy",
+      "guessing"
+    ],
     "origin": "ai"
   },
   {
@@ -251,7 +293,10 @@
     ],
     "q": "What should candidates know about unscored items on the MLA-C01 exam?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "unscored-items"],
+    "tags": [
+      "exam-format",
+      "unscored-items"
+    ],
     "origin": "ai"
   },
   {
@@ -268,7 +313,10 @@
     ],
     "q": "A study plan references many AWS services. Which set defines the MLA-C01 scope?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["scope", "appendix-a"],
+    "tags": [
+      "scope",
+      "appendix-a"
+    ],
     "origin": "ai"
   },
   {
@@ -285,7 +333,10 @@
     ],
     "q": "A candidate gets stuck on a long scenario question early in the exam. What is the best approach?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["strategy", "flag-review"],
+    "tags": [
+      "strategy",
+      "flag-review"
+    ],
     "origin": "ai"
   },
   {
@@ -302,7 +353,10 @@
     ],
     "q": "Which two domains together represent more than half of the MLA-C01 exam?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["domains", "weights"],
+    "tags": [
+      "domains",
+      "weights"
+    ],
     "origin": "ai"
   },
   {
@@ -319,7 +373,10 @@
     ],
     "q": "A candidate chooses online proctored delivery for MLA-C01. What should they expect?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "online-proctoring"],
+    "tags": [
+      "exam-format",
+      "online-proctoring"
+    ],
     "origin": "ai"
   },
   {
@@ -336,7 +393,10 @@
     ],
     "q": "A colleague claims a 720 passing score means answering 72 percent correctly. What is wrong with this claim?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "scoring"],
+    "tags": [
+      "exam-format",
+      "scoring"
+    ],
     "origin": "ai"
   },
   {
@@ -353,7 +413,11 @@
     ],
     "q": "A candidate is weak in both Domain 1 and Domain 3. Which weakness costs more marks?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["domains", "weights", "strategy"],
+    "tags": [
+      "domains",
+      "weights",
+      "strategy"
+    ],
     "origin": "ai"
   },
   {
@@ -370,7 +434,10 @@
     ],
     "q": "Which TWO services help engineers visually prepare and profile tabular data? (Select the combined correct option.)",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["question-types", "data-preparation"],
+    "tags": [
+      "question-types",
+      "data-preparation"
+    ],
     "origin": "ai"
   },
   {
@@ -387,7 +454,10 @@
     ],
     "q": "Which TWO options together support distributed training and hyperparameter optimization? (Select the combined correct option.)",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["question-types", "model-development"],
+    "tags": [
+      "question-types",
+      "model-development"
+    ],
     "origin": "ai"
   },
   {
@@ -404,7 +474,10 @@
     ],
     "q": "After one hour, a candidate has answered 25 of 65 questions. How should they interpret their pace?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["strategy", "time-management"],
+    "tags": [
+      "strategy",
+      "time-management"
+    ],
     "origin": "ai"
   },
   {
@@ -421,7 +494,11 @@
     ],
     "q": "A practice question covers Bedrock guardrails and Model Monitor drift alerts. Which domain does it belong to?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["domains", "domain-4", "bedrock"],
+    "tags": [
+      "domains",
+      "domain-4",
+      "bedrock"
+    ],
     "origin": "ai"
   },
   {
@@ -438,7 +515,10 @@
     ],
     "q": "With 20 minutes left and 8 flagged questions, what review approach works best?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["strategy", "flag-review"],
+    "tags": [
+      "strategy",
+      "flag-review"
+    ],
     "origin": "ai"
   },
   {
@@ -455,7 +535,10 @@
     ],
     "q": "A candidate confuses similarly named services. Which statement correctly separates a commonly mixed-up pair?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["scope", "services"],
+    "tags": [
+      "scope",
+      "services"
+    ],
     "origin": "ai"
   },
   {
@@ -472,7 +555,10 @@
     ],
     "q": "A newcomer to ML on AWS asks where to start preparing for MLA-C01. What is the best first step?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["strategy", "exam-guide"],
+    "tags": [
+      "strategy",
+      "exam-guide"
+    ],
     "origin": "ai"
   },
   {
@@ -489,7 +575,10 @@
     ],
     "q": "Which guessing approach best fits the MLA-C01 scoring rules?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["strategy", "guessing"],
+    "tags": [
+      "strategy",
+      "guessing"
+    ],
     "origin": "ai"
   },
   {
@@ -506,7 +595,10 @@
     ],
     "q": "Which TWO options together support CI/CD orchestration for ML workflows? (Select the combined correct option.)",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["question-types", "deployment"],
+    "tags": [
+      "question-types",
+      "deployment"
+    ],
     "origin": "ai"
   },
   {
@@ -523,7 +615,11 @@
     ],
     "q": "What does the 22 percent weight of Domain 3 imply for overall scoring?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["domains", "domain-3", "scoring"],
+    "tags": [
+      "domains",
+      "domain-3",
+      "scoring"
+    ],
     "origin": "ai"
   },
   {
@@ -540,7 +636,10 @@
     ],
     "q": "A forum post claims candidates can spot unscored items by their length. How should a candidate react?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "unscored-items"],
+    "tags": [
+      "exam-format",
+      "unscored-items"
+    ],
     "origin": "ai"
   },
   {
@@ -557,7 +656,10 @@
     ],
     "q": "A candidate must choose between a test center and online delivery. What is true about the two options?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "pearson-vue"],
+    "tags": [
+      "exam-format",
+      "pearson-vue"
+    ],
     "origin": "ai"
   },
   {
@@ -574,7 +676,10 @@
     ],
     "q": "Which combined time strategy best handles long scenario questions under exam pressure?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["strategy", "time-management"],
+    "tags": [
+      "strategy",
+      "time-management"
+    ],
     "origin": "ai"
   },
   {
@@ -591,7 +696,10 @@
     ],
     "q": "A manager asks how soon a newly certified engineer must recertify MLA-C01. What is the correct guidance?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "validity"],
+    "tags": [
+      "exam-format",
+      "validity"
+    ],
     "origin": "ai"
   },
   {
@@ -608,7 +716,11 @@
     ],
     "q": "A candidate splits study time evenly across all four domains. Using the official weights, why is this suboptimal?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["domains", "weights", "strategy"],
+    "tags": [
+      "domains",
+      "weights",
+      "strategy"
+    ],
     "origin": "ai"
   },
   {
@@ -625,7 +737,10 @@
     ],
     "q": "Which TWO options together secure training data at rest and control access? (Select the combined correct option.)",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["question-types", "security"],
+    "tags": [
+      "question-types",
+      "security"
+    ],
     "origin": "ai"
   },
   {
@@ -642,7 +757,10 @@
     ],
     "q": "With 15 minutes left and 10 questions unanswered, what pacing decision maximizes the score?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["strategy", "time-management"],
+    "tags": [
+      "strategy",
+      "time-management"
+    ],
     "origin": "ai"
   },
   {
@@ -659,7 +777,11 @@
     ],
     "q": "Two study plans emphasize different domains. Which allocation flaw is most costly for the final score?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["domains", "strategy", "weights"],
+    "tags": [
+      "domains",
+      "strategy",
+      "weights"
+    ],
     "origin": "ai"
   },
   {
@@ -676,7 +798,11 @@
     ],
     "q": "How does scoring of multiple-response questions differ from what many candidates assume?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["question-types", "multiple-response", "scoring"],
+    "tags": [
+      "question-types",
+      "multiple-response",
+      "scoring"
+    ],
     "origin": "ai"
   },
   {
@@ -693,7 +819,10 @@
     ],
     "q": "Which TWO options together detect production ML degradation and fairness issues? (Select the combined correct option.)",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["question-types", "monitoring"],
+    "tags": [
+      "question-types",
+      "monitoring"
+    ],
     "origin": "ai"
   },
   {
@@ -710,7 +839,11 @@
     ],
     "q": "A candidate memorizes dozens of out-of-scope services but skims Appendix A. What is the flaw in this approach?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["scope", "appendix-a", "strategy"],
+    "tags": [
+      "scope",
+      "appendix-a",
+      "strategy"
+    ],
     "origin": "ai"
   },
   {
@@ -727,7 +860,10 @@
     ],
     "q": "During final review, a candidate second-guesses several flagged answers. What is the evidence-based policy?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["strategy", "flag-review"],
+    "tags": [
+      "strategy",
+      "flag-review"
+    ],
     "origin": "ai"
   },
   {
@@ -744,7 +880,11 @@
     ],
     "q": "A candidate scoring 75 percent on practice tests assumes they will earn exactly 750. Why is this reasoning flawed?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "scoring", "unscored-items"],
+    "tags": [
+      "exam-format",
+      "scoring",
+      "unscored-items"
+    ],
     "origin": "ai"
   },
   {
@@ -761,7 +901,522 @@
     ],
     "q": "Which single option correctly combines the MLA-C01 validity period, fee, and delivery channels?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-format", "validity", "pricing"],
+    "tags": [
+      "exam-format",
+      "validity",
+      "pricing"
+    ],
     "origin": "ai"
+  },
+  {
+    "id": "ch1-ext01",
+    "chapter": "ch1-exam-guide",
+    "q": "In addition to English, how is the MLA-C01 exam offered to non-native English speakers?",
+    "options": [
+      "In several translated languages such as Japanese, Korean, French, and Spanish",
+      "Only in English, with no translated versions offered in any region worldwide",
+      "Only in English and Japanese, excluding every other language option worldwide",
+      "Through live interpreters who translate each exam question aloud during the whole session"
+    ],
+    "answer": 0,
+    "explain": "MLA-C01 is available in English plus Japanese, Korean, and Simplified Chinese. Candidates select a language when scheduling.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-format",
+      "languages"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext02",
+    "chapter": "ch1-exam-guide",
+    "q": "Are there formal prerequisites that a candidate must hold before registering for MLA-C01?",
+    "options": [
+      "Yes, the AWS Cloud Practitioner certification must be earned first by every candidate",
+      "No, there are no mandatory prerequisites, though hands-on experience is recommended",
+      "Yes, two AWS Associate certifications are required before booking the exam",
+      "Yes, an approved AWS training course must be completed within 6 months of booking"
+    ],
+    "answer": 1,
+    "explain": "AWS lists no mandatory prerequisites for MLA-C01. It recommends about a year of hands-on ML engineering experience, but no prior certification or course is enforced at registration.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-format",
+      "prerequisites"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext03",
+    "chapter": "ch1-exam-guide",
+    "q": "On which scaled-score range is the MLA-C01 result reported?",
+    "options": [
+      "From 0 to 100, expressed as a simple percentage of correct answers",
+      "From 0 to 720, where 720 is the maximum achievable score",
+      "From 100 to 1000, with 720 as the minimum passing score",
+      "From 500 to 900, centered on a fixed bell-curve distribution"
+    ],
+    "answer": 2,
+    "explain": "AWS reports MLA-C01 on a 100-to-1000 scaled scale. The passing threshold sits at 720 within that range, so a result like 800 is a scaled value, not a raw percent.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-format",
+      "scoring"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext04",
+    "chapter": "ch1-exam-guide",
+    "q": "What background does AWS recommend before attempting the MLA-C01 exam?",
+    "options": [
+      "A PhD in machine learning plus three published peer-reviewed research papers",
+      "Only general IT helpdesk experience with no cloud exposure needed at all",
+      "Two years of professional Java development with no ML coursework or cloud labs",
+      "About one year of hands-on work as an ML engineer or data scientist using SageMaker"
+    ],
+    "answer": 3,
+    "explain": "The official exam guide recommends roughly one year of hands-on experience as an ML engineer or data scientist with SageMaker and AWS ML services, plus basics of ML algorithms and data engineering.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-format",
+      "experience"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext05",
+    "chapter": "ch1-exam-guide",
+    "q": "How does an MLA-C01 multiple-response prompt normally signal how many choices to select?",
+    "options": [
+      "The stem states the number, for example asking to select TWO correct options",
+      "It never states a number, so candidates must guess how many options to pick every time",
+      "It always requires selecting all four options to earn any credit at all",
+      "It asks for a written justification instead of selecting any listed options"
+    ],
+    "answer": 0,
+    "explain": "Multiple-response stems explicitly say how many responses are correct (e.g., 'Select TWO'). Candidates must identify exactly that many choices for the item to count as correct.",
+    "difficulty": "facile",
+    "tags": [
+      "question-types",
+      "multiple-response"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext06",
+    "chapter": "ch1-exam-guide",
+    "q": "Does the MLA-C01 exam include hands-on labs inside a live AWS console?",
+    "options": [
+      "Yes, half the exam time is spent building pipelines in a live console",
+      "No, the exam is questions-only with no live labs or console tasks",
+      "Yes, one mandatory SageMaker Studio lab decides the final score",
+      "Yes, candidates must deploy a model to a real endpoint to pass"
+    ],
+    "answer": 1,
+    "explain": "MLA-C01 is a questions-only exam (multiple-choice and multiple-response). There are no live labs, console exercises, or graded deployments during the session.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-format",
+      "question-types"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext07",
+    "chapter": "ch1-exam-guide",
+    "q": "Where can a candidate find official practice questions that match the real MLA-C01 style?",
+    "options": [
+      "Only in third-party exam dumps, since AWS publishes no official samples at all",
+      "Inside the Pearson VUE check-in kiosk on the morning of the scheduled exam day",
+      "In the AWS Skill Builder official practice question set and practice exam",
+      "In the AWS pricing calculator, which embeds graded quiz items for practice"
+    ],
+    "answer": 2,
+    "explain": "AWS Skill Builder hosts the official MLA-C01 practice question set and a full practice exam. These reflect validated exam style better than community dumps.",
+    "difficulty": "facile",
+    "tags": [
+      "preparation",
+      "skill-builder"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext08",
+    "chapter": "ch1-exam-guide",
+    "q": "How does a candidate register and schedule the MLA-C01 exam?",
+    "options": [
+      "By emailing AWS support with a preferred date and waiting for assignment confirmation",
+      "By walking into any testing center without an appointment, account, or booking",
+      "By calling the local test center to book over the phone with cash payment",
+      "Through a Pearson VUE account, selecting delivery mode, date, and location"
+    ],
+    "answer": 3,
+    "explain": "Registration runs through Pearson VUE: create or use an account, choose online or test-center delivery, then pick a date and slot. Walk-ins and email bookings are not the process.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-format",
+      "registration"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext09",
+    "chapter": "ch1-exam-guide",
+    "q": "A candidate scores strongly in three domains but weakly in one. How is the pass/fail decided?",
+    "options": [
+      "On the total scaled score reaching 720, since scoring is compensatory across domains",
+      "On passing every domain separately, since each domain enforces its own strict exam cutoff",
+      "On the weakest domain only, since the lowest section score dictates the result",
+      "On a proctor vote, since published domain scores are advisory and not counted"
+    ],
+    "answer": 0,
+    "explain": "MLA-C01 uses compensatory scoring: only the overall scaled score against 720 decides pass/fail. A weak domain can be offset by strength elsewhere.",
+    "difficulty": "media",
+    "tags": [
+      "exam-format",
+      "scoring",
+      "domains"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext10",
+    "chapter": "ch1-exam-guide",
+    "q": "What kind of domain-level feedback appears on the MLA-C01 score report?",
+    "options": [
+      "The exact text of every missed question with the correct answers shown",
+      "A competency rating per domain, indicating whether competency was met",
+      "A ranking of the candidate against all test-takers worldwide that month",
+      "A full refund code whenever any single domain is marked as weak"
+    ],
+    "answer": 1,
+    "explain": "Score reports give an overall pass/fail with a scaled score plus per-domain competency feedback (e.g., meets competency vs. needs improvement), without disclosing individual items.",
+    "difficulty": "media",
+    "tags": [
+      "exam-format",
+      "score-report"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext11",
+    "chapter": "ch1-exam-guide",
+    "q": "A candidate needs to move an MLA-C01 appointment to another day. What is the correct procedure?",
+    "options": [
+      "Simply arrive on the new day, since exam seats transfer automatically to any date",
+      "Send a colleague in their place, since registrations are freely interchangeable",
+      "Reschedule or cancel through the Pearson VUE account ahead of the appointment",
+      "Rebook only after the original slot expires as a no-show without any penalty"
+    ],
+    "answer": 2,
+    "explain": "Date or location changes are managed through the Pearson VUE scheduling account before the appointment, subject to the published reschedule window. No-shows and substitutions are not valid methods.",
+    "difficulty": "media",
+    "tags": [
+      "exam-format",
+      "registration"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext12",
+    "chapter": "ch1-exam-guide",
+    "q": "Why must the name on an MLA-C01 registration match the candidate's identification?",
+    "options": [
+      "Because test centers display candidate names publicly for marketing purposes",
+      "Because matching names allow family members to share exam results freely",
+      "Because examiners use the registered name to assign easier question sets",
+      "Because Pearson VUE verifies government-issued ID against the registration at check-in"
+    ],
+    "answer": 3,
+    "explain": "Check-in requires valid ID whose name matches the registration. A mismatch can block admission, so candidates must register with their ID-exact name.",
+    "difficulty": "media",
+    "tags": [
+      "exam-format",
+      "pearson-vue",
+      "id-check"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext13",
+    "chapter": "ch1-exam-guide",
+    "q": "A multiple-choice stem has two options that both look technically plausible. What does the exam expect?",
+    "options": [
+      "Select the single best answer that fits the scenario constraints most completely",
+      "Select both plausible options at once even though only one selection is allowed here",
+      "Leave the item blank because ambiguous stems are never scored by the exam",
+      "Pick either option at random since both earn equal partial credit anyway"
+    ],
+    "answer": 0,
+    "explain": "Multiple-choice items ask for the single best answer. When two options seem viable, the intended key is the one satisfying all scenario constraints (cost, latency, security), not just a partially correct idea.",
+    "difficulty": "media",
+    "tags": [
+      "question-types",
+      "multiple-choice",
+      "strategy"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext14",
+    "chapter": "ch1-exam-guide",
+    "q": "The official MLA-C01 exam guide is updated over time. How should a candidate handle version changes?",
+    "options": [
+      "Ignore updates, since the published official exam never changes after its launch date",
+      "Study the latest official guide version, since domains and services can shift",
+      "Use only the oldest cached copy, since newer versions contain many errors",
+      "Memorize the guide version number instead of studying its content outline"
+    ],
+    "answer": 1,
+    "explain": "AWS revises the exam guide (domains, task statements, in-scope services), so preparation should track the current version rather than an outdated copy.",
+    "difficulty": "media",
+    "tags": [
+      "preparation",
+      "exam-guide"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext15",
+    "chapter": "ch1-exam-guide",
+    "q": "What is the break policy during the 170-minute MLA-C01 session?",
+    "options": [
+      "A fixed 30-minute lunch break that pauses the timer halfway through the exam",
+      "Unlimited breaks are allowed, with the exam timer pausing during each one",
+      "No scheduled breaks are provided, and the clock keeps running if a candidate steps out",
+      "Candidates may restart the exam timer after returning from any unscheduled break"
+    ],
+    "answer": 2,
+    "explain": "The exam has no scheduled breaks built into the 170 minutes. Leaving the room (where permitted) does not stop the clock, so breaks consume testing time.",
+    "difficulty": "media",
+    "tags": [
+      "exam-format",
+      "time"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext16",
+    "chapter": "ch1-exam-guide",
+    "q": "A stem asks for the solution with the LEAST operational overhead. What is the question really testing?",
+    "options": [
+      "Which option uses the most manual infrastructure to maximize direct control",
+      "Which option has the longest deployment checklist regardless of its effort",
+      "Which option requires memorizing the most API parameters by heart first",
+      "Which option minimizes ongoing management effort through managed services"
+    ],
+    "answer": 3,
+    "explain": "Qualifier phrases like 'least operational overhead' point to managed, serverless, or automated options over self-managed ones. Recognizing these qualifiers is a core exam-taking skill.",
+    "difficulty": "media",
+    "tags": [
+      "strategy",
+      "question-types",
+      "keywords"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext17",
+    "chapter": "ch1-exam-guide",
+    "q": "What benefit does AWS commonly provide after a candidate passes an exam like MLA-C01?",
+    "options": [
+      "A discount voucher toward a future AWS certification exam booking",
+      "A full cash refund of the passed exam fee plus all travel expenses",
+      "An automatic job offer from AWS with no interview or screening required",
+      "Lifetime free access to every paid AWS training subscription forever"
+    ],
+    "answer": 0,
+    "explain": "Passing typically earns benefits such as a discount voucher applicable to a next AWS exam, managed through the certification account. It does not refund the passed exam or grant employment.",
+    "difficulty": "media",
+    "tags": [
+      "exam-format",
+      "pricing",
+      "voucher"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext18",
+    "chapter": "ch1-exam-guide",
+    "q": "When and where does a candidate receive the official MLA-C01 result?",
+    "options": [
+      "By postal mail six months later, with no online record made available",
+      "Through the exam-day printout plus the online certification account records",
+      "Only verbally from the proctor on site, with nothing recorded in writing anywhere",
+      "Through social media announcements published by the local test center"
+    ],
+    "answer": 1,
+    "explain": "Candidates typically get an immediate pass/fail indication and then the official record, scaled score, and domain feedback in their AWS certification account within a short processing window.",
+    "difficulty": "media",
+    "tags": [
+      "exam-format",
+      "score-report"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext19",
+    "chapter": "ch1-exam-guide",
+    "q": "How can a holder keep the MLA-C01 credential active once the three-year validity nears expiry?",
+    "options": [
+      "By submitting a resume proving ML employment, with no further exam required",
+      "By paying an annual renewal fee that extends the validity automatically",
+      "By recertifying, such as retaking MLA-C01 or passing a qualifying exam",
+      "By requesting an extension from the test-center staff on the expiry day"
+    ],
+    "answer": 2,
+    "explain": "AWS certifications do not auto-renew. The holder must recertify before expiry, generally by retaking the same exam or passing a designated higher-level exam under the current recertification policy.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-format",
+      "validity",
+      "recertification"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext20",
+    "chapter": "ch1-exam-guide",
+    "q": "A candidate tries to compute exactly how many scored versus unscored items they faced. What is the flaw?",
+    "options": [
+      "The total of 65 exam-day questions is kept secret, so no arithmetic is possible at all",
+      "The passing score changes per candidate, invalidating any item counting",
+      "The delivery mode changes the count, so center and online totals differ",
+      "AWS discloses the 65-question total but not how many are unscored pretest items"
+    ],
+    "answer": 3,
+    "explain": "The guide confirms 65 total questions including unscored pretest items, but the exact unscored count is undisclosed and items are indistinguishable, so candidates cannot reverse-engineer the scored denominator.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-format",
+      "unscored-items",
+      "scoring"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext21",
+    "chapter": "ch1-exam-guide",
+    "q": "Two answers both improve accuracy, but the stem says MOST cost-effective. Which should the candidate choose?",
+    "options": [
+      "The option meeting requirements at the lowest cost, even if marginally less accurate",
+      "The most expensive option, since higher price always means a better exam answer",
+      "The option with the most services combined, regardless of its cost or need",
+      "The option requiring custom hardware, since complexity signals higher quality"
+    ],
+    "answer": 0,
+    "explain": "Cost-qualifier stems rank acceptable solutions by cost: among options meeting requirements, the cheapest adequate one is the key, not the priciest or most complex.",
+    "difficulty": "difficile",
+    "tags": [
+      "strategy",
+      "keywords",
+      "question-types"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext22",
+    "chapter": "ch1-exam-guide",
+    "q": "A multiple-response item asks for TWO services that together monitor drift and bias. A candidate selects only one correct service. How is it scored?",
+    "options": [
+      "It earns half credit automatically for the one correct selection alone",
+      "It is marked incorrect, since all required choices must be selected together",
+      "It is entirely excluded from scoring as an unusual experimental response pattern",
+      "It earns bonus credit for answering faster with fewer selected choices"
+    ],
+    "answer": 1,
+    "explain": "Multiple-response items require the complete correct set with no partial credit. Selecting only one of two required choices makes the whole item incorrect.",
+    "difficulty": "difficile",
+    "tags": [
+      "question-types",
+      "multiple-response",
+      "scoring"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext23",
+    "chapter": "ch1-exam-guide",
+    "q": "A candidate needs extra time or accommodations for a disability. What is the proper path?",
+    "options": [
+      "Ask the proctor on exam day to improvise extra time for them on the spot",
+      "Bring a personal assistant into the testing room without any prior approval",
+      "Request accommodations in advance through the official Pearson VUE process",
+      "Pause the exam timer manually whenever a personal break is needed"
+    ],
+    "answer": 2,
+    "explain": "Accommodations must be requested and approved ahead of the appointment via the official accommodations process. They cannot be granted ad hoc by the proctor or self-administered.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-format",
+      "accommodations"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext24",
+    "chapter": "ch1-exam-guide",
+    "q": "During an online-proctored MLA-C01 session, which candidate behavior is most likely to trigger a policy violation?",
+    "options": [
+      "Sitting alone in a quiet private room with a clear desk and ID ready",
+      "Keeping eyes on the screen while following all proctor instructions closely",
+      "Testing the microphone and camera during the initial system check routine",
+      "Reaching for a mobile phone or having another person enter the room"
+    ],
+    "answer": 3,
+    "explain": "Online proctoring forbids phones, notes, and other people in the testing space, with room scans and webcam monitoring. Using a phone or admitting someone is a classic violation.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-format",
+      "online-proctoring",
+      "policy"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch1-ext25",
+    "chapter": "ch1-exam-guide",
+    "q": "A candidate masters Domain 3 (22%) but neglects Domain 1 (28%) and still passes. What does this prove about MLA-C01 scoring?",
+    "options": [
+      "That domain weights shape preparation priority, but only the 720 total decides the outcome",
+      "That Domain 3 alone guarantees a pass regardless of every other domain result",
+      "That Domain 1 questions are all unscored items and can be safely ignored",
+      "That each domain requires its own separate 720 score to pass the overall exam"
+    ],
+    "answer": 0,
+    "explain": "Weights indicate content share and study priority, yet the pass/fail line is the single compensatory 720 total. Strength in a small domain can combine with enough points elsewhere to pass despite a weak large domain.",
+    "difficulty": "difficile",
+    "tags": [
+      "domains",
+      "weights",
+      "scoring"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
   }
 ]
