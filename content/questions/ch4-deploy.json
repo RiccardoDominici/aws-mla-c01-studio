@@ -13,7 +13,11 @@
     ],
     "q": "A payment company needs fraud scores in under 100 ms for each transaction, 24/7. Which deployment should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "real-time", "endpoints"],
+    "tags": [
+      "sagemaker",
+      "real-time",
+      "endpoints"
+    ],
     "origin": "ai"
   },
   {
@@ -30,7 +34,11 @@
     ],
     "q": "A startup gets a few hundred unpredictable prediction requests per day and tolerates cold starts. What is the most cost-effective option?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "serverless", "cost"],
+    "tags": [
+      "sagemaker",
+      "serverless",
+      "cost"
+    ],
     "origin": "ai"
   },
   {
@@ -47,7 +55,11 @@
     ],
     "q": "An app receives large images at irregular times and each inference takes up to 5 minutes. Which option fits best?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "asynchronous", "endpoints"],
+    "tags": [
+      "sagemaker",
+      "asynchronous",
+      "endpoints"
+    ],
     "origin": "ai"
   },
   {
@@ -64,7 +76,11 @@
     ],
     "q": "A retailer scores millions of stored customer rows once per night with no latency requirement. Which option should it choose?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "batch-transform", "cost"],
+    "tags": [
+      "sagemaker",
+      "batch-transform",
+      "cost"
+    ],
     "origin": "ai"
   },
   {
@@ -81,7 +97,11 @@
     ],
     "q": "A company serves hundreds of small per-client model variants, each invoked rarely. How can it minimize cost?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "multi-model", "cost"],
+    "tags": [
+      "sagemaker",
+      "multi-model",
+      "cost"
+    ],
     "origin": "ai"
   },
   {
@@ -98,7 +118,11 @@
     ],
     "q": "Which SageMaker Pipelines step actually launches a model training job inside the pipeline?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "pipelines", "training"],
+    "tags": [
+      "sagemaker",
+      "pipelines",
+      "training"
+    ],
     "origin": "ai"
   },
   {
@@ -115,7 +139,11 @@
     ],
     "q": "A bank requires a human reviewer to approve each model version before production. Which feature enforces this gate?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "model-registry", "governance"],
+    "tags": [
+      "sagemaker",
+      "model-registry",
+      "governance"
+    ],
     "origin": "ai"
   },
   {
@@ -132,7 +160,11 @@
     ],
     "q": "A team wants versioned CI/CD with build, test, and deploy stages for its ML code. Which service provides ready-made templates?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "projects", "cicd"],
+    "tags": [
+      "sagemaker",
+      "projects",
+      "cicd"
+    ],
     "origin": "ai"
   },
   {
@@ -149,7 +181,11 @@
     ],
     "q": "A deployment workflow chains preprocessing, training, evaluation, and endpoint updates with retry logic. Which service orchestrates it?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["step-functions", "orchestration", "cicd"],
+    "tags": [
+      "step-functions",
+      "orchestration",
+      "cicd"
+    ],
     "origin": "ai"
   },
   {
@@ -166,7 +202,11 @@
     ],
     "q": "A team must serve a model built with a rare framework missing from SageMaker built-in images. What should it do?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "byoc", "containers"],
+    "tags": [
+      "sagemaker",
+      "byoc",
+      "containers"
+    ],
     "origin": "ai"
   },
   {
@@ -183,7 +223,11 @@
     ],
     "q": "A real-time endpoint faces strong daily traffic swings but must keep latency stable. What is the best approach?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "autoscaling", "real-time"],
+    "tags": [
+      "sagemaker",
+      "autoscaling",
+      "real-time"
+    ],
     "origin": "ai"
   },
   {
@@ -200,7 +244,11 @@
     ],
     "q": "A team wants to analyze live production inputs later for drift and bias checks. Which feature should it enable?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "data-capture", "monitoring"],
+    "tags": [
+      "sagemaker",
+      "data-capture",
+      "monitoring"
+    ],
     "origin": "ai"
   },
   {
@@ -217,7 +265,11 @@
     ],
     "q": "Retraining should start automatically whenever new labeled data arrives in S3. Which service detects that event?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["eventbridge", "retraining", "automation"],
+    "tags": [
+      "eventbridge",
+      "retraining",
+      "automation"
+    ],
     "origin": "ai"
   },
   {
@@ -234,7 +286,11 @@
     ],
     "q": "What is an appropriate use of Lambda inside an ML deployment workflow?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["lambda", "orchestration", "serverless"],
+    "tags": [
+      "lambda",
+      "orchestration",
+      "serverless"
+    ],
     "origin": "ai"
   },
   {
@@ -251,7 +307,11 @@
     ],
     "q": "A team already orchestrates ML work with Apache Airflow DAGs on premises. Which AWS service migrates them most directly?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["mwaa", "airflow", "orchestration"],
+    "tags": [
+      "mwaa",
+      "airflow",
+      "orchestration"
+    ],
     "origin": "ai"
   },
   {
@@ -268,7 +328,12 @@
     ],
     "q": "How do SageMaker Serverless Inference and provisioned real-time endpoints differ on cost versus latency?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "serverless", "real-time", "cost"],
+    "tags": [
+      "sagemaker",
+      "serverless",
+      "real-time",
+      "cost"
+    ],
     "origin": "ai"
   },
   {
@@ -285,7 +350,12 @@
     ],
     "q": "A model accepts 50 MB video files with 10-minute inference times. What is the first selection criterion?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "asynchronous", "limits", "batch-transform"],
+    "tags": [
+      "sagemaker",
+      "asynchronous",
+      "limits",
+      "batch-transform"
+    ],
     "origin": "ai"
   },
   {
@@ -302,7 +372,12 @@
     ],
     "q": "A team wants to validate a new model on live traffic without affecting any user response. Which strategy fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "shadow", "testing", "endpoints"],
+    "tags": [
+      "sagemaker",
+      "shadow",
+      "testing",
+      "endpoints"
+    ],
     "origin": "ai"
   },
   {
@@ -319,7 +394,12 @@
     ],
     "q": "How should a team roll out a new model version to a production endpoint with minimal user impact?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "deployment", "canary", "safety"],
+    "tags": [
+      "sagemaker",
+      "deployment",
+      "canary",
+      "safety"
+    ],
     "origin": "ai"
   },
   {
@@ -336,7 +416,11 @@
     ],
     "q": "In which scenario is a SageMaker multi-model endpoint NOT a good fit?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "multi-model", "endpoints"],
+    "tags": [
+      "sagemaker",
+      "multi-model",
+      "endpoints"
+    ],
     "origin": "ai"
   },
   {
@@ -353,7 +437,11 @@
     ],
     "q": "A deployment needs tokenization, model prediction, and business-rule postprocessing per request. What is the cleanest design?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "inference-pipeline", "containers"],
+    "tags": [
+      "sagemaker",
+      "inference-pipeline",
+      "containers"
+    ],
     "origin": "ai"
   },
   {
@@ -370,7 +458,11 @@
     ],
     "q": "What must a custom BYOC inference container implement to serve correctly on a SageMaker endpoint?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "byoc", "containers"],
+    "tags": [
+      "sagemaker",
+      "byoc",
+      "containers"
+    ],
     "origin": "ai"
   },
   {
@@ -387,7 +479,11 @@
     ],
     "q": "A pipeline must run distributed Spark feature engineering before training. Which step performs that work?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "pipelines", "processing"],
+    "tags": [
+      "sagemaker",
+      "pipelines",
+      "processing"
+    ],
     "origin": "ai"
   },
   {
@@ -404,7 +500,11 @@
     ],
     "q": "A pipeline should register the model only if F1 exceeds 0.85. Which step implements that gate?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "pipelines", "condition"],
+    "tags": [
+      "sagemaker",
+      "pipelines",
+      "condition"
+    ],
     "origin": "ai"
   },
   {
@@ -421,7 +521,12 @@
     ],
     "q": "A team wires drift detection into its training pipeline. What must the pipeline produce for production comparison?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "model-monitor", "pipelines", "drift"],
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "pipelines",
+      "drift"
+    ],
     "origin": "ai"
   },
   {
@@ -438,7 +543,11 @@
     ],
     "q": "How does a team configure the Model Registry so no version reaches production without human review?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "model-registry", "governance"],
+    "tags": [
+      "sagemaker",
+      "model-registry",
+      "governance"
+    ],
     "origin": "ai"
   },
   {
@@ -455,7 +564,12 @@
     ],
     "q": "A company needs separate staging and production environments with promotion approvals. Which setup delivers this?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "projects", "cicd", "governance"],
+    "tags": [
+      "sagemaker",
+      "projects",
+      "cicd",
+      "governance"
+    ],
     "origin": "ai"
   },
   {
@@ -472,7 +586,12 @@
     ],
     "q": "Where should model tests and the production approval gate live in an ML CI/CD design?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["codepipeline", "codebuild", "cicd", "testing"],
+    "tags": [
+      "codepipeline",
+      "codebuild",
+      "cicd",
+      "testing"
+    ],
     "origin": "ai"
   },
   {
@@ -489,7 +608,11 @@
     ],
     "q": "A Step Functions workflow must launch training jobs and continue only after they complete. What is the right pattern?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["step-functions", "sagemaker", "orchestration"],
+    "tags": [
+      "step-functions",
+      "sagemaker",
+      "orchestration"
+    ],
     "origin": "ai"
   },
   {
@@ -506,7 +629,12 @@
     ],
     "q": "How should a team reason about GPU versus CPU or Inferentia instance types for an endpoint?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "cost", "instances", "latency"],
+    "tags": [
+      "sagemaker",
+      "cost",
+      "instances",
+      "latency"
+    ],
     "origin": "ai"
   },
   {
@@ -523,7 +651,11 @@
     ],
     "q": "A team must rightsize endpoint instances against latency and cost targets. Which tool automates the comparison?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "inference-recommender", "cost"],
+    "tags": [
+      "sagemaker",
+      "inference-recommender",
+      "cost"
+    ],
     "origin": "ai"
   },
   {
@@ -540,7 +672,12 @@
     ],
     "q": "Data capture costs are growing on a high-traffic endpoint. How can the team control them without losing monitoring?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "data-capture", "cost", "monitoring"],
+    "tags": [
+      "sagemaker",
+      "data-capture",
+      "cost",
+      "monitoring"
+    ],
     "origin": "ai"
   },
   {
@@ -557,7 +694,11 @@
     ],
     "q": "A transcription model processes 30-minute audio files submitted unpredictably. Which deployment fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "asynchronous", "endpoints"],
+    "tags": [
+      "sagemaker",
+      "asynchronous",
+      "endpoints"
+    ],
     "origin": "ai"
   },
   {
@@ -574,7 +715,11 @@
     ],
     "q": "A batch transform job over terabytes of data is too slow. Which tuning approach improves throughput?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "batch-transform", "performance"],
+    "tags": [
+      "sagemaker",
+      "batch-transform",
+      "performance"
+    ],
     "origin": "ai"
   },
   {
@@ -591,7 +736,12 @@
     ],
     "q": "A BYOC container needs different database credentials in staging and production. How should it receive them?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["byoc", "security", "cicd", "containers"],
+    "tags": [
+      "byoc",
+      "security",
+      "cicd",
+      "containers"
+    ],
     "origin": "ai"
   },
   {
@@ -608,7 +758,12 @@
     ],
     "q": "Document batches arrive in 15-minute bursts with large payloads, then nothing for hours. Which design minimizes cost while meeting SLAs?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "asynchronous", "cost", "architecture"],
+    "tags": [
+      "sagemaker",
+      "asynchronous",
+      "cost",
+      "architecture"
+    ],
     "origin": "ai"
   },
   {
@@ -625,7 +780,12 @@
     ],
     "q": "A regulated enterprise promotes models across dev, staging, and prod accounts with review gates. Which pattern satisfies auditors?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "model-registry", "cicd", "governance"],
+    "tags": [
+      "sagemaker",
+      "model-registry",
+      "cicd",
+      "governance"
+    ],
     "origin": "ai"
   },
   {
@@ -642,7 +802,12 @@
     ],
     "q": "A genomics workload scores 100 GB of S3 sequences nightly with no interactive latency need. Which configuration maximizes throughput per dollar?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "batch-transform", "cost", "performance"],
+    "tags": [
+      "sagemaker",
+      "batch-transform",
+      "cost",
+      "performance"
+    ],
     "origin": "ai"
   },
   {
@@ -659,7 +824,12 @@
     ],
     "q": "P99 latency spikes on a multi-model endpoint while overall invocations stay low. What is the most likely cause?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "multi-model", "troubleshooting", "latency"],
+    "tags": [
+      "sagemaker",
+      "multi-model",
+      "troubleshooting",
+      "latency"
+    ],
     "origin": "ai"
   },
   {
@@ -676,7 +846,12 @@
     ],
     "q": "A pipeline must pause for compliance sign-off between evaluation and registration. How should this be implemented?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "pipelines", "governance", "lambda"],
+    "tags": [
+      "sagemaker",
+      "pipelines",
+      "governance",
+      "lambda"
+    ],
     "origin": "ai"
   },
   {
@@ -693,7 +868,12 @@
     ],
     "q": "A flash-sale recommender must retrain hourly and serve traffic spikes instantly. Which combination meets both latency goals?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "latency", "warm-pools", "cost"],
+    "tags": [
+      "sagemaker",
+      "latency",
+      "warm-pools",
+      "cost"
+    ],
     "origin": "ai"
   },
   {
@@ -710,7 +890,12 @@
     ],
     "q": "An Airflow DAG on MWAA must trigger SageMaker training and wait before downstream tasks. What is the correct pattern?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["mwaa", "airflow", "sagemaker", "orchestration"],
+    "tags": [
+      "mwaa",
+      "airflow",
+      "sagemaker",
+      "orchestration"
+    ],
     "origin": "ai"
   },
   {
@@ -727,7 +912,12 @@
     ],
     "q": "Auditors demand traceability from each production model version back to its data, metrics, and intended use. What provides this?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "model-registry", "governance", "lineage"],
+    "tags": [
+      "sagemaker",
+      "model-registry",
+      "governance",
+      "lineage"
+    ],
     "origin": "ai"
   },
   {
@@ -744,7 +934,12 @@
     ],
     "q": "A video platform needs sub-100 ms personalization for volatile live traffic with safe rollouts. Which architecture fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "real-time", "latency", "canary"],
+    "tags": [
+      "sagemaker",
+      "real-time",
+      "latency",
+      "canary"
+    ],
     "origin": "ai"
   },
   {
@@ -761,7 +956,556 @@
     ],
     "q": "A healthcare deployment uses BYOC with PHI payloads. Which combination addresses supply-chain and data protection?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["byoc", "security", "iam", "kms"],
+    "tags": [
+      "byoc",
+      "security",
+      "iam",
+      "kms"
+    ],
     "origin": "ai"
+  },
+  {
+    "id": "ch4-ext01",
+    "chapter": "ch4-deploy",
+    "q": "A client sends 8 MB JSON payloads to a SageMaker real-time endpoint and gets validation errors. Inference takes 90 seconds per request and callers can wait for a notification. Which option should the team use?",
+    "options": [
+      "Split each payload into 1 MB chunks and call the real-time endpoint in a tight retry loop",
+      "Move to Serverless Inference with maximum memory and poll the endpoint synchronously",
+      "Use asynchronous inference with an S3 input, SQS queueing, and SNS completion alerts",
+      "Keep the real-time endpoint and raise the timeout to 15 minutes with larger instances"
+    ],
+    "answer": 2,
+    "explain": "Real-time endpoints cap payloads near 6 MB with a 60-second timeout, so 8 MB and 90 seconds fail there. Asynchronous inference accepts up to 1 GB with up to 60 minutes of processing plus queueing and SNS notifications.",
+    "difficulty": "facile",
+    "tags": [
+      "sagemaker",
+      "asynchronous",
+      "limits",
+      "real-time"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext02",
+    "chapter": "ch4-deploy",
+    "q": "A prototype classifier receives about 100 requests per day at random hours. Each call runs in 3 seconds with a 2 MB payload, and cold starts are acceptable. Which is the cheapest deployment?",
+    "options": [
+      "A provisioned real-time endpoint on ml.m5.xlarge kept running all day and night",
+      "A Serverless Inference endpoint that scales to zero and bills per invocation",
+      "An asynchronous endpoint with provisioned throughput reserved around the clock",
+      "A batch transform cluster left running to poll for new requests continuously"
+    ],
+    "answer": 1,
+    "explain": "Sporadic short inferences with small payloads fit Serverless Inference, which scales to zero and bills per use. A provisioned endpoint would idle most of the day while async and batch add unneeded delay.",
+    "difficulty": "facile",
+    "tags": [
+      "sagemaker",
+      "serverless",
+      "cost"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext03",
+    "chapter": "ch4-deploy",
+    "q": "A media firm submits 600 MB video files at burst times. Each job runs 8 minutes, and the app polls a result location after a push alert. Which pattern fits?",
+    "options": [
+      "Asynchronous inference with S3 input and output paths plus SNS completion notification",
+      "Real-time inference with synchronous calls held open for the full 8 minutes",
+      "Serverless Inference with 4 MB inline payloads sent in parallel batches",
+      "Batch transform with a persistent endpoint kept warm for interactive polling"
+    ],
+    "answer": 0,
+    "explain": "Large payloads with minute-scale runtimes and notification needs match async inference: S3-based I/O, internal queueing, scale to zero, and SNS alerts. Real-time and serverless caps block this shape.",
+    "difficulty": "facile",
+    "tags": [
+      "sagemaker",
+      "asynchronous",
+      "payloads",
+      "sns"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext04",
+    "chapter": "ch4-deploy",
+    "q": "A bank must score 5 TB of archived transactions in S3 every Sunday night. No user waits for a live reply. Which approach is simplest and cheapest?",
+    "options": [
+      "A real-time endpoint with autoscaling left running all weekend for live queries",
+      "An asynchronous endpoint invoked millions of times with one SNS alert per row",
+      "A serverless endpoint called in a loop with maximum concurrency all night",
+      "A batch transform job over the S3 prefix with S3 output and no live endpoint"
+    ],
+    "answer": 3,
+    "explain": "Scheduled offline scoring of terabytes in S3 is the batch transform use case: no persistent endpoint, parallel shards, S3 in and S3 out. Live endpoint styles add idle cost and per-request overhead.",
+    "difficulty": "facile",
+    "tags": [
+      "sagemaker",
+      "batch-transform",
+      "s3",
+      "cost"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext05",
+    "chapter": "ch4-deploy",
+    "q": "A retailer hosts 300 small per-store models on the same scikit-learn container. Each model is called a few times daily. How can it cut endpoint cost?",
+    "options": [
+      "Deploy 300 dedicated real-time endpoints, one per store, with reserved capacity",
+      "Use one multi-model endpoint sharing containers and select models via TargetModel",
+      "Run a nightly batch job that precomputes every possible input for every store",
+      "Deploy 300 serverless endpoints with maximum memory and fixed concurrency"
+    ],
+    "answer": 1,
+    "explain": "A multi-model endpoint hosts many models with one serving stack and loads them on demand via the TargetModel parameter. It suits many same-framework, rarely invoked models far better than one endpoint each.",
+    "difficulty": "facile",
+    "tags": [
+      "sagemaker",
+      "multi-model",
+      "cost"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext06",
+    "chapter": "ch4-deploy",
+    "q": "A team must serve an XGBoost model and a PyTorch model from one endpoint, each with its own container, and call each directly. Which option supports this?",
+    "options": [
+      "A multi-model endpoint that forces all models to share one identical container",
+      "A Serverless Inference endpoint that merges both frameworks into one runtime",
+      "A multi-container endpoint with direct invocation routing to each container",
+      "A batch transform job that fuses both containers into a single offline run"
+    ],
+    "answer": 2,
+    "explain": "Multi-container endpoints run distinct containers behind one endpoint and support direct invocation of a chosen container. Multi-model endpoints instead require a shared serving stack across models.",
+    "difficulty": "facile",
+    "tags": [
+      "sagemaker",
+      "multi-container",
+      "endpoints"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext07",
+    "chapter": "ch4-deploy",
+    "q": "Company policy says no model may reach production until a lead marks its registry entry as accepted. Which mechanism enforces this?",
+    "options": [
+      "Register each version as a ModelPackage and require ApprovalStatus Approved before deploy",
+      "Copy model.tar.gz between S3 prefixes and overwrite the endpoint config manually",
+      "Enable endpoint autoscaling so traffic only flows after a manual instance start",
+      "Run training with Spot instances so interrupted jobs never reach production"
+    ],
+    "answer": 0,
+    "explain": "The Model Registry versions ModelPackages with approval states such as PendingManualApproval and Approved. CI/CD then deploys only versions marked Approved, creating the required human gate.",
+    "difficulty": "facile",
+    "tags": [
+      "sagemaker",
+      "model-registry",
+      "governance"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext08",
+    "chapter": "ch4-deploy",
+    "q": "An ML workflow needs Lambda preprocessing, a SageMaker training job, a metric check, and an SNS approval pause with visual tracking. Which service fits best?",
+    "options": [
+      "A single Lambda function that runs training, evaluation, and approval inline",
+      "An EventBridge rule alone that executes training code and waits for approval",
+      "A SageMaker training job that embeds the approval dialog in its entrypoint",
+      "A Step Functions state machine chaining jobs with Choice states and callbacks"
+    ],
+    "answer": 3,
+    "explain": "Step Functions orchestrates Lambda, SageMaker jobs, Choice branches, retries, and human-approval callbacks with visual execution tracking. Lambda alone cannot run long jobs and EventBridge only routes events.",
+    "difficulty": "facile",
+    "tags": [
+      "step-functions",
+      "sagemaker",
+      "orchestration"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext09",
+    "chapter": "ch4-deploy",
+    "q": "A team must shift 10% of live traffic to a new model, watch error alarms, then proceed linearly. Which deployment setup enables this?",
+    "options": [
+      "A real-time EndpointConfig with production variants, canary shift, and alarm rollback",
+      "An async endpoint with two queues drained at fixed rates without metrics",
+      "A batch transform job replaying last week logs against both model versions",
+      "A serverless endpoint redeployed in place with full traffic cutover at once"
+    ],
+    "answer": 0,
+    "explain": "Real-time production variants support canary and linear traffic shifts with CloudWatch alarm rollback. Async and batch lack live weighted routing, and in-place cutover exposes all users at once.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "canary",
+      "production-variants",
+      "alarms"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext10",
+    "chapter": "ch4-deploy",
+    "q": "A data science team wants to score live requests with a challenger model but keep all user replies from the champion. Which test mode does this?",
+    "options": [
+      "An A/B test splitting live replies evenly between champion and challenger",
+      "A shadow variant mirroring live traffic while the champion still responds",
+      "A blue/green swap moving all traffic to the challenger during peak hours",
+      "An offline batch replay comparing old logs without touching live traffic"
+    ],
+    "answer": 1,
+    "explain": "Shadow variants receive a mirrored copy of live requests for comparison while the current variant keeps serving users. A/B and blue/green both alter real responses, unlike shadow testing.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "shadow",
+      "testing",
+      "real-time"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext11",
+    "chapter": "ch4-deploy",
+    "q": "A batch transform job over 2 million small JSON lines runs slowly with default settings. Which tuning raises throughput?",
+    "options": [
+      "Switch to SingleRecord strategy and reduce instance memory to force retries",
+      "Remove input filtering and send raw CSV archives without any SplitType",
+      "Use MultiRecord strategy with SplitType Line and larger MaxPayloadInMB",
+      "Replace the job with one-by-one real-time calls issued from a notebook"
+    ],
+    "answer": 2,
+    "explain": "MultiRecord batching with line splitting groups many small records per request and cuts per-call overhead. Tuning MaxPayloadInMB and parallelism raises throughput versus single-record handling.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "batch-transform",
+      "performance"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext12",
+    "chapter": "ch4-deploy",
+    "q": "A team debates between ml.g5, ml.inf2, and ml.c6i for a new endpoint with a 200 ms P99 goal and a fixed budget. What should it run first?",
+    "options": [
+      "Deploy the largest GPU available and skip load testing to save calendar time",
+      "Reuse the training instance family because it always serves at lowest cost",
+      "Copy a competitor instance choice from a public repository without tests",
+      "Run Inference Recommender benchmarks against latency and cost targets"
+    ],
+    "answer": 3,
+    "explain": "Inference Recommender load-tests candidate instance types against latency and cost goals and suggests rightsized configs. Guessing by size or copying training hardware often overprovisions or misses SLOs.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "inference-recommender",
+      "cost",
+      "latency"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext13",
+    "chapter": "ch4-deploy",
+    "q": "A custom R-based image must serve on SageMaker using a private ECR URI. What must the image implement?",
+    "options": [
+      "Handlers for /ping and /invocations plus model loading from the mounted path",
+      "A notebook kernel exposed over HTTP with the training script as entrypoint",
+      "A public Docker Hub path with embedded AWS credentials for S3 access",
+      "A CUDA reinstall at container startup so SageMaker detects the framework"
+    ],
+    "answer": 0,
+    "explain": "BYOC inference containers must honor the SageMaker serving contract: /ping for health checks, /invocations for predictions, and loading the model artifact. Framework install alone does not make it servable.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "byoc",
+      "containers",
+      "ecr"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext14",
+    "chapter": "ch4-deploy",
+    "q": "A startup wants pushes to main to train, test, stage, require approval, then release to production. Which chain implements this?",
+    "options": [
+      "Manual console updates copying artifacts from notebooks to the live endpoint",
+      "CodePipeline with CodeBuild tests, staging deploy, approval gate, prod deploy",
+      "A cron notebook that retrains and overwrites production whenever it succeeds",
+      "Local laptop tests followed by direct S3 uploads to the production prefix"
+    ],
+    "answer": 1,
+    "explain": "CodePipeline stages with CodeBuild for build and test, a staging deployment, a manual approval action, then production promotion give versioned CI/CD. Manual copies skip tests, versioning, and gates.",
+    "difficulty": "media",
+    "tags": [
+      "codepipeline",
+      "codebuild",
+      "cicd",
+      "staging"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext15",
+    "chapter": "ch4-deploy",
+    "q": "Retraining must launch as soon as new labeled files land under s3://data/labels/. Which design detects the arrival and starts work?",
+    "options": [
+      "A Lambda loop polling the Model Registry API every few seconds forever",
+      "Endpoint autoscaling rules that trigger training when latency rises",
+      "An EventBridge S3 rule invoking the Step Functions retraining workflow",
+      "A fixed sleep timer inside training code that assumes hourly data drops"
+    ],
+    "answer": 2,
+    "explain": "EventBridge matches S3 object-created events on the prefix and starts the Step Functions or pipeline execution. Polling loops waste capacity and autoscaling reacts to traffic, not data arrivals.",
+    "difficulty": "media",
+    "tags": [
+      "eventbridge",
+      "s3",
+      "step-functions",
+      "retraining"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext16",
+    "chapter": "ch4-deploy",
+    "q": "A serverless endpoint for an internal tool shows slow first requests after idle gaps but is otherwise cheap. Traffic spikes are predictable each morning. What helps?",
+    "options": [
+      "Raise MaxPayloadInMB beyond 100 MB to absorb the morning burst in one call",
+      "Move the workload to batch transform with hourly schedules and S3 polling",
+      "Disable autoscaling and pin one GPU instance running through the night",
+      "Set provisioned concurrency for the morning window to keep workers warm"
+    ],
+    "answer": 3,
+    "explain": "Provisioned concurrency keeps serverless workers initialized during known windows, cutting cold starts while preserving scale-to-zero outside them. Payload tuning or switching to batch does not warm workers.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "serverless",
+      "cold-start",
+      "concurrency"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext17",
+    "chapter": "ch4-deploy",
+    "q": "A real-time endpoint swings from 20 to 800 RPS daily while P99 must stay flat. Which scaling setup is correct?",
+    "options": [
+      "Target-tracking autoscaling on InvocationsPerInstance with defined min and max",
+      "A fixed fleet sized for 800 RPS running unchanged through idle nights",
+      "Manual console instance swaps performed after each traffic alert fires",
+      "Data capture sampling raised to 100% so traffic spreads across shards"
+    ],
+    "answer": 0,
+    "explain": "Target tracking on SageMakerVariantInvocationsPerInstance adds and removes instances with traffic while holding per-instance load steady. Fixed fleets overpay off-peak and manual swaps react too slowly.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "autoscaling",
+      "real-time",
+      "cloudwatch"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext18",
+    "chapter": "ch4-deploy",
+    "q": "A team needs production drift alerts comparing live inputs against training stats. Which pairing provides this?",
+    "options": [
+      "Registry approvals plus endpoint autoscaling policies tuned for peak traffic",
+      "Spot training plus scale-to-zero inference to lower the monthly bill",
+      "Endpoint data capture to S3 plus Model Monitor baselines and schedules",
+      "Step Functions retries plus Lambda dead-letter queues for failed events"
+    ],
+    "answer": 2,
+    "explain": "Data capture stores live request and response payloads in S3 while Model Monitor compares them against training baselines on a schedule. Approvals and scaling do not measure distribution drift.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "data-capture",
+      "drift"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext19",
+    "chapter": "ch4-deploy",
+    "q": "Document jobs arrive in sharp 10-minute bursts, each 500 MB with 6-minute runs, then silence for hours. Cost must stay near zero when idle. Which design fits?",
+    "options": [
+      "Provisioned real-time with high minimum instances kept warm all day",
+      "Async inference scaling to zero with S3 I/O, queues, and per-instance limits",
+      "Serverless with inline 500 MB payloads and 10-minute synchronous waits",
+      "Multi-model endpoint pinning every variant in GPU memory continuously"
+    ],
+    "answer": 1,
+    "explain": "Async scales to zero for idle gaps, accepts gigabyte S3 payloads, tolerates long runs, and throttles via MaxConcurrentInvocationsPerInstance. Serverless payload and timeout caps block this workload.",
+    "difficulty": "difficile",
+    "tags": [
+      "sagemaker",
+      "asynchronous",
+      "scaling",
+      "cost"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext20",
+    "chapter": "ch4-deploy",
+    "q": "A regulated firm promotes models across dev, staging, and prod AWS accounts with reviewer sign-off and audit trails. Which pattern satisfies auditors?",
+    "options": [
+      "Shared notebook copies of model.tar.gz moved manually between account buckets",
+      "One open endpoint shared across accounts with broad IAM invoke rights",
+      "Independent retraining per account with no registry entries to save time",
+      "Registry ModelPackage promotion with account policies and gated pipeline stages"
+    ],
+    "answer": 3,
+    "explain": "Cross-account registry policies plus CodePipeline promotion stages with approval gates keep lineage, versioning, and sign-off per environment. Manual copies and open endpoints lose traceability and control.",
+    "difficulty": "difficile",
+    "tags": [
+      "sagemaker",
+      "model-registry",
+      "cicd",
+      "governance"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext21",
+    "chapter": "ch4-deploy",
+    "q": "A team compares a TensorFlow and an ONNX variant live on one endpoint and must route each request to a named container for metrics. Which call pattern works?",
+    "options": [
+      "Direct invocation targeting a specific container inside a multi-container endpoint",
+      "Single TargetModel key on a multi-model endpoint sharing one container image",
+      "One async queue feeding both variants with blended averaged responses",
+      "Nightly batch scoring that merges both variants into one output file"
+    ],
+    "answer": 0,
+    "explain": "Multi-container endpoints support direct invocation of an addressed container, enabling per-framework routing and comparison. Multi-model TargetModel routing instead assumes a shared container stack.",
+    "difficulty": "difficile",
+    "tags": [
+      "sagemaker",
+      "multi-container",
+      "inference",
+      "testing"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext22",
+    "chapter": "ch4-deploy",
+    "q": "A serverless endpoint times out near 60 seconds on 5 MB NLP payloads during bursts, with cold-start P99 spikes. Users tolerate minutes of delay. What is the best move?",
+    "options": [
+      "Raise serverless concurrency to 200 and keep the 60-second synchronous path",
+      "Migrate to async inference with S3 payloads, longer timeouts, and queueing",
+      "Shard payloads for real-time 6 MB calls and hold connections open longer",
+      "Add notebook polling loops that retry the same serverless call repeatedly"
+    ],
+    "answer": 1,
+    "explain": "Near-limit runtimes plus oversized payloads and cold starts signal that serverless is the wrong fit. Async raises limits toward 1 GB and 60 minutes with queueing, matching delay-tolerant NLP work.",
+    "difficulty": "difficile",
+    "tags": [
+      "sagemaker",
+      "serverless",
+      "asynchronous",
+      "troubleshooting"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext23",
+    "chapter": "ch4-deploy",
+    "q": "A deployment pipeline must catch training failures, notify owners, keep the prior endpoint live, and roll config back on alarm. Which design does this?",
+    "options": [
+      "Fire-and-forget Lambda calls with no status checks and in-place endpoint edits",
+      "Notebook loops polling job status then deleting production before redeploy",
+      "Step Functions with run-a-job integration, Catch blocks, SNS alerts, rollback",
+      "Chained EventBridge rules with no shared state, retries, or version history"
+    ],
+    "answer": 2,
+    "explain": "Step Functions SageMaker integrations wait for job completion, Catch and Retry handle faults, SNS notifies owners, and versioned EndpointConfigs allow rollback while the prior variant keeps serving.",
+    "difficulty": "difficile",
+    "tags": [
+      "step-functions",
+      "sagemaker",
+      "cicd",
+      "rollback"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext24",
+    "chapter": "ch4-deploy",
+    "q": "A genomics lab scores 80 GB of sequences nightly from S3 with no interactive need and tight cost limits. Which setup gives the best throughput per dollar?",
+    "options": [
+      "Real-time provisioned endpoint with concurrency held high through the night",
+      "Per-record async calls with individual SNS alerts and serial execution",
+      "One-by-one serverless calls with maximum memory for each sequence",
+      "Batch transform with S3 sharding, MultiRecord batches, and scaled instances"
+    ],
+    "answer": 3,
+    "explain": "Offline bulk scoring favors batch transform: S3 sharding plus multi-record batches parallelize work with no idle endpoint. Per-record live patterns add queueing and invocation overhead per item.",
+    "difficulty": "difficile",
+    "tags": [
+      "sagemaker",
+      "batch-transform",
+      "cost",
+      "performance"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch4-ext25",
+    "chapter": "ch4-deploy",
+    "q": "A clinic serves PHI text through BYOC with strict network and key controls. Which combo meets supply-chain and data rules?",
+    "options": [
+      "Public images pulled at deploy with open invoke rights and unencrypted buckets",
+      "Credentials baked into layers with shared admin roles across environments",
+      "Private ECR with image scans, execution roles, KMS keys, and VPC endpoints",
+      "Training data buckets reused for secrets with world-readable output prefixes"
+    ],
+    "answer": 2,
+    "explain": "Private ECR with scanning and signing, least-privilege execution roles, KMS encryption for artifacts, and VPC endpoints for traffic cover supply chain plus PHI protection. Public images and baked secrets fail both.",
+    "difficulty": "difficile",
+    "tags": [
+      "byoc",
+      "ecr",
+      "kms",
+      "security"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
   }
 ]
