@@ -13,24 +13,30 @@
     ],
     "q": "The MLA-C01 exam has 65 questions in 170 minutes. What is the best time-management rule?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "time-management"],
+    "tags": [
+      "exam-tactics",
+      "time-management"
+    ],
     "origin": "ai"
   },
   {
     "answer": 0,
     "chapter": "ch7-practice",
     "difficulty": "facile",
-    "explain": "Passing requires a scaled score of 720 out of 1000, so candidates should aim comfortably above that threshold in practice tests.",
+    "explain": "Scaled scoring converts raw correct counts to a 100-1000 scale, making scores comparable across forms of differing difficulty. The passing score stays 720 on that scale.",
     "id": "ch7-q02",
     "options": [
-      "A scaled score of 720 out of 1000 is required to pass the MLA-C01 exam",
-      "A scaled score of 500 out of 1000 guarantees a pass on the MLA-C01 exam",
-      "A scaled score of 950 out of 1000 is the minimum passing mark for MLA-C01",
-      "There is no fixed passing score and every exam form is graded on a curve"
+      "Raw correct counts are converted to a common 100-1000 scale so equal ability yields equal scores across forms",
+      "Raw correct counts are compared directly, so the candidate with more correct answers always outscores the other",
+      "Bonus points are added to the harder form afterwards until both forms show the same average score",
+      "Each exam form sets its own passing score, so scores from different forms are never placed on one scale"
     ],
-    "q": "What is the passing score for the AWS MLA-C01 exam?",
+    "q": "Two candidates take different MLA-C01 exam forms with different difficulty levels. How does scaled scoring keep results comparable?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "exam-format"],
+    "tags": [
+      "exam-format",
+      "scaled-scoring"
+    ],
     "origin": "ai"
   },
   {
@@ -47,7 +53,10 @@
     ],
     "q": "Which MLA-C01 domain carries the highest weight?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "domain-weights"],
+    "tags": [
+      "exam-tactics",
+      "domain-weights"
+    ],
     "origin": "ai"
   },
   {
@@ -64,7 +73,11 @@
     ],
     "q": "A scenario asks for real-time predictions with low latency for each incoming request. Which option fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "keyword-mapping", "sagemaker"],
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "sagemaker"
+    ],
     "origin": "ai"
   },
   {
@@ -81,7 +94,11 @@
     ],
     "q": "A scenario requires extracting text from scanned loan-application documents. Which service fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "keyword-mapping", "textract"],
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "textract"
+    ],
     "origin": "ai"
   },
   {
@@ -98,24 +115,31 @@
     ],
     "q": "A retailer wants personalized product recommendations for each shopper. Which service should you choose?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "keyword-mapping", "personalize"],
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "personalize"
+    ],
     "origin": "ai"
   },
   {
     "answer": 0,
     "chapter": "ch7-practice",
     "difficulty": "facile",
-    "explain": "The certification remains valid for three years, after which recertification is needed to keep the credential active.",
+    "explain": "AWS certifications are valid for three years with no automatic renewal; holders recertify by passing the current exam again for a new three-year period.",
     "id": "ch7-q07",
     "options": [
-      "The MLA-C01 certification is valid for 3 years before recertification is needed",
-      "The MLA-C01 certification is valid for 1 year from the date you pass before recertification is needed",
-      "The MLA-C01 certification is valid for 5 years before recertification is needed",
-      "The MLA-C01 certification never expires and needs no recertification at all"
+      "Pass the current MLA-C01 exam again to earn a new three-year certification period",
+      "File continuing-education hours with AWS to extend the existing credential automatically",
+      "Request a work-history review that renews the credential without retaking the exam",
+      "Keep using the expired badge, since Associate certifications convert to lifetime status after three years"
     ],
-    "q": "How long is the MLA-C01 certification valid?",
+    "q": "An engineer's MLA-C01 credential reaches the end of its three-year validity. What must they do to hold an active certification again?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "exam-format"],
+    "tags": [
+      "exam-format",
+      "recertification"
+    ],
     "origin": "ai"
   },
   {
@@ -132,7 +156,10 @@
     ],
     "q": "What is the most reliable first step when facing a difficult scenario question?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "elimination"],
+    "tags": [
+      "exam-tactics",
+      "elimination"
+    ],
     "origin": "ai"
   },
   {
@@ -149,7 +176,11 @@
     ],
     "q": "A chatbot must answer from company documents that change weekly. Should you pick RAG or fine-tuning?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "rag", "fine-tuning"],
+    "tags": [
+      "exam-tactics",
+      "rag",
+      "fine-tuning"
+    ],
     "origin": "ai"
   },
   {
@@ -166,7 +197,10 @@
     ],
     "q": "What is the standard registration price of the MLA-C01 exam?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "exam-format"],
+    "tags": [
+      "exam-tactics",
+      "exam-format"
+    ],
     "origin": "ai"
   },
   {
@@ -183,7 +217,11 @@
     ],
     "q": "A fraud team wants to minimize false alarms. Should they optimize precision or recall?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "metrics", "precision-recall"],
+    "tags": [
+      "exam-tactics",
+      "metrics",
+      "precision-recall"
+    ],
     "origin": "ai"
   },
   {
@@ -200,7 +238,11 @@
     ],
     "q": "A screening model must catch nearly every disease case even with some false alarms. Which metric matters?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "metrics", "precision-recall"],
+    "tags": [
+      "exam-tactics",
+      "metrics",
+      "precision-recall"
+    ],
     "origin": "ai"
   },
   {
@@ -217,7 +259,11 @@
     ],
     "q": "A nightly job scores millions of stored records with no latency need. Which inference option fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "batch", "inference"],
+    "tags": [
+      "exam-tactics",
+      "batch",
+      "inference"
+    ],
     "origin": "ai"
   },
   {
@@ -234,7 +280,11 @@
     ],
     "q": "A team needs versioned, reusable ML features for training and serving. S3 or Feature Store?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "traps", "feature-store"],
+    "tags": [
+      "exam-tactics",
+      "traps",
+      "feature-store"
+    ],
     "origin": "ai"
   },
   {
@@ -251,7 +301,10 @@
     ],
     "q": "What are the approximate domain weights of the MLA-C01 exam?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "domain-weights"],
+    "tags": [
+      "exam-tactics",
+      "domain-weights"
+    ],
     "origin": "ai"
   },
   {
@@ -268,7 +321,11 @@
     ],
     "q": "Requests take up to 5 minutes each and arrive sporadically; clients tolerate delay. Which inference fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "async", "inference"],
+    "tags": [
+      "exam-tactics",
+      "async",
+      "inference"
+    ],
     "origin": "ai"
   },
   {
@@ -285,7 +342,11 @@
     ],
     "q": "Why is plain S3 the wrong answer when a scenario demands reusable online features?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "traps", "feature-store"],
+    "tags": [
+      "exam-tactics",
+      "traps",
+      "feature-store"
+    ],
     "origin": "ai"
   },
   {
@@ -302,7 +363,10 @@
     ],
     "q": "Two options both propose batch scoring but the scenario needs real-time. What should you do?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "elimination"],
+    "tags": [
+      "exam-tactics",
+      "elimination"
+    ],
     "origin": "ai"
   },
   {
@@ -319,7 +383,11 @@
     ],
     "q": "A scenario mentions transcribing thousands of support calls into searchable text. Which mapping is right?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "keyword-mapping", "transcribe"],
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "transcribe"
+    ],
     "origin": "ai"
   },
   {
@@ -336,7 +404,10 @@
     ],
     "q": "You are stuck on a hard question with 50 questions remaining. What is the best tactic?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "time-management"],
+    "tags": [
+      "exam-tactics",
+      "time-management"
+    ],
     "origin": "ai"
   },
   {
@@ -353,7 +424,11 @@
     ],
     "q": "A company wants its support bot to always use a specific brand tone. RAG or fine-tuning?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "rag", "fine-tuning"],
+    "tags": [
+      "exam-tactics",
+      "rag",
+      "fine-tuning"
+    ],
     "origin": "ai"
   },
   {
@@ -370,7 +445,10 @@
     ],
     "q": "An option says a solution will always be cheapest in every possible case. How should you treat it?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "elimination"],
+    "tags": [
+      "exam-tactics",
+      "elimination"
+    ],
     "origin": "ai"
   },
   {
@@ -387,7 +465,11 @@
     ],
     "q": "A deployed model needs automated detection of input data drift. Which service fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "keyword-mapping", "monitoring"],
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "monitoring"
+    ],
     "origin": "ai"
   },
   {
@@ -404,7 +486,11 @@
     ],
     "q": "A team needs 50,000 images labeled accurately with minimal operational overhead. What fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "keyword-mapping", "labeling"],
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "labeling"
+    ],
     "origin": "ai"
   },
   {
@@ -421,7 +507,11 @@
     ],
     "q": "A healthcare scenario stresses encryption and auditability of training data. Which option satisfies both?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "security", "mixed-review"],
+    "tags": [
+      "exam-tactics",
+      "security",
+      "mixed-review"
+    ],
     "origin": "ai"
   },
   {
@@ -438,7 +528,11 @@
     ],
     "q": "A live event brings 10x traffic spikes needing instant predictions. Which design fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "mixed-review", "deployment"],
+    "tags": [
+      "exam-tactics",
+      "mixed-review",
+      "deployment"
+    ],
     "origin": "ai"
   },
   {
@@ -455,7 +549,11 @@
     ],
     "q": "A scenario asks for cleaning and joining tabular data at scale. Which preparation path fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "keyword-mapping", "data-prep"],
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "data-prep"
+    ],
     "origin": "ai"
   },
   {
@@ -472,7 +570,11 @@
     ],
     "q": "A fault-tolerant training job must minimize compute cost. Which tactic fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "cost", "training"],
+    "tags": [
+      "exam-tactics",
+      "cost",
+      "training"
+    ],
     "origin": "ai"
   },
   {
@@ -489,7 +591,11 @@
     ],
     "q": "A question shows a confusion matrix and asks for the best model when missing positives is costly. What wins?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "metrics", "precision-recall"],
+    "tags": [
+      "exam-tactics",
+      "metrics",
+      "precision-recall"
+    ],
     "origin": "ai"
   },
   {
@@ -506,7 +612,11 @@
     ],
     "q": "A scenario asks for sentiment and key phrases from product reviews. Which service fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "keyword-mapping", "comprehend"],
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "comprehend"
+    ],
     "origin": "ai"
   },
   {
@@ -523,7 +633,11 @@
     ],
     "q": "A factory scenario mentions detecting defects in product photos. Which service fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "keyword-mapping", "rekognition"],
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "rekognition"
+    ],
     "origin": "ai"
   },
   {
@@ -540,7 +654,11 @@
     ],
     "q": "A scenario asks for demand forecasting from historical sales. Which service fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "keyword-mapping", "forecast"],
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "forecast"
+    ],
     "origin": "ai"
   },
   {
@@ -557,7 +675,11 @@
     ],
     "q": "A team needs repeatable retraining and governed promotion to production. Which approach fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "mixed-review", "mlops"],
+    "tags": [
+      "exam-tactics",
+      "mixed-review",
+      "mlops"
+    ],
     "origin": "ai"
   },
   {
@@ -574,7 +696,11 @@
     ],
     "q": "An assistant must check flights, book hotels, and confirm by email in one chat. Which design fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "bedrock", "agents"],
+    "tags": [
+      "exam-tactics",
+      "bedrock",
+      "agents"
+    ],
     "origin": "ai"
   },
   {
@@ -591,7 +717,11 @@
     ],
     "q": "A Bedrock app must block harmful content and redact PII. Which control fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "bedrock", "responsible-ai"],
+    "tags": [
+      "exam-tactics",
+      "bedrock",
+      "responsible-ai"
+    ],
     "origin": "ai"
   },
   {
@@ -608,7 +738,11 @@
     ],
     "q": "A bank must validate a challenger fraud model against the champion without risking live decisions. What fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "deployment", "testing"],
+    "tags": [
+      "exam-tactics",
+      "deployment",
+      "testing"
+    ],
     "origin": "ai"
   },
   {
@@ -625,7 +759,11 @@
     ],
     "q": "After elimination, two plausible options remain with different trade-offs. What is the best tie-breaker?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "elimination", "mixed-review"],
+    "tags": [
+      "exam-tactics",
+      "elimination",
+      "mixed-review"
+    ],
     "origin": "ai"
   },
   {
@@ -642,7 +780,11 @@
     ],
     "q": "A fraud dataset has 1% positives. Which splitting tactic keeps evaluation honest?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "imbalanced-data", "evaluation"],
+    "tags": [
+      "exam-tactics",
+      "imbalanced-data",
+      "evaluation"
+    ],
     "origin": "ai"
   },
   {
@@ -659,7 +801,11 @@
     ],
     "q": "A team deploys a new ranking model to a high-traffic endpoint. Which rollout is safest?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "deployment", "canary"],
+    "tags": [
+      "exam-tactics",
+      "deployment",
+      "canary"
+    ],
     "origin": "ai"
   },
   {
@@ -676,7 +822,11 @@
     ],
     "q": "A scenario claims dashboard trends prove a campaign caused sales uplift. What is the flaw?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "traps", "analytics"],
+    "tags": [
+      "exam-tactics",
+      "traps",
+      "analytics"
+    ],
     "origin": "ai"
   },
   {
@@ -693,7 +843,11 @@
     ],
     "q": "A legal assistant hallucinates case citations. Which RAG design reduces this risk?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "rag", "bedrock"],
+    "tags": [
+      "exam-tactics",
+      "rag",
+      "bedrock"
+    ],
     "origin": "ai"
   },
   {
@@ -710,7 +864,11 @@
     ],
     "q": "A mixed scenario demands encryption, private networking, and full lineage for Pipelines. Which bundle fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "mixed-review", "security"],
+    "tags": [
+      "exam-tactics",
+      "mixed-review",
+      "security"
+    ],
     "origin": "ai"
   },
   {
@@ -727,7 +885,11 @@
     ],
     "q": "A lending model faces shifting applicant demographics and fairness scrutiny. What monitoring fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "monitoring", "bias"],
+    "tags": [
+      "exam-tactics",
+      "monitoring",
+      "bias"
+    ],
     "origin": "ai"
   },
   {
@@ -744,7 +906,11 @@
     ],
     "q": "A confusion matrix shows 5 true positives and 45 false negatives for fraud. What is the right read?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "metrics", "confusion-matrix"],
+    "tags": [
+      "exam-tactics",
+      "metrics",
+      "confusion-matrix"
+    ],
     "origin": "ai"
   },
   {
@@ -761,7 +927,10 @@
     ],
     "q": "You have 10 minutes left and 15 questions unanswered. What is the best closing tactic?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["exam-tactics", "time-management"],
+    "tags": [
+      "exam-tactics",
+      "time-management"
+    ],
     "origin": "ai"
   }
 ]
