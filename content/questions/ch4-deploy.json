@@ -1,0 +1,767 @@
+[
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Real-time endpoints keep provisioned instances warm behind an HTTPS endpoint, giving consistent low-latency predictions. Batch, serverless, and asynchronous options all add delay unsuited to sub-second fraud scoring.",
+    "id": "ch4-q01",
+    "options": [
+      "Deploy a SageMaker real-time endpoint with provisioned instances for low-latency inference",
+      "Run a SageMaker batch transform job that scores accumulated transactions once every hour",
+      "Deploy a SageMaker Serverless Inference endpoint that cold-starts on every sporadic request",
+      "Deploy an asynchronous endpoint that queues each payment and returns results via Amazon S3"
+    ],
+    "q": "A payment company needs fraud scores in under 100 ms for each transaction, 24/7. Which deployment should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "real-time", "endpoints"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Serverless Inference scales to zero and bills per invocation, which fits sporadic traffic with tolerant latency. A provisioned real-time endpoint would sit idle and cost money most of the day.",
+    "id": "ch4-q02",
+    "options": [
+      "Keep a real-time endpoint on ml.m5.xlarge instances running continuously through idle periods",
+      "Deploy a SageMaker Serverless Inference endpoint that scales to zero and bills per invocation",
+      "Launch a batch transform job on a fixed schedule that precomputes predictions for every user",
+      "Deploy an asynchronous endpoint with large instances and provisioned concurrency always enabled"
+    ],
+    "q": "A startup gets a few hundred unpredictable prediction requests per day and tolerates cold starts. What is the most cost-effective option?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "serverless", "cost"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Asynchronous inference queues requests and handles long processing times up to an hour, notifying via SNS on completion. Real-time endpoints time out after 60 seconds and batch transform is not request-driven.",
+    "id": "ch4-q03",
+    "options": [
+      "A real-time endpoint with autoscaling that returns every prediction synchronously within seconds",
+      "A batch transform job that runs nightly over all stored images regardless of arrival patterns",
+      "An asynchronous inference endpoint that queues each image and notifies completion via SNS",
+      "A multi-model endpoint that loads every model variant into memory for instant synchronous use"
+    ],
+    "q": "An app receives large images at irregular times and each inference takes up to 5 minutes. Which option fits best?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "asynchronous", "endpoints"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Batch transform is designed for large offline datasets stored in S3, running without a persistent endpoint. Paying for an always-on endpoint to score a nightly backlog wastes money.",
+    "id": "ch4-q04",
+    "options": [
+      "A real-time endpoint with provisioned instances kept running all night for interactive queries",
+      "A Serverless Inference endpoint invoked millions of times in a tight loop with maximum concurrency until the backlog ends",
+      "An asynchronous endpoint with one-by-one invocations and SNS notifications for every single row",
+      "A SageMaker batch transform job that scores the full S3 dataset nightly with no persistent endpoint"
+    ],
+    "q": "A retailer scores millions of stored customer rows once per night with no latency requirement. Which option should it choose?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "batch-transform", "cost"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Multi-model endpoints host many models on shared containers and load them on demand, which is ideal for hundreds of rarely used variants. Separate real-time endpoints would multiply idle costs.",
+    "id": "ch4-q05",
+    "options": [
+      "A multi-model endpoint that hosts all variants on shared containers and loads them on demand",
+      "One dedicated real-time endpoint per variant with provisioned instances and reserved capacity running continuously",
+      "A nightly batch transform job that precomputes predictions for every variant and every input",
+      "A Serverless Inference endpoint per variant with maximum memory configured for peak bursts"
+    ],
+    "q": "A company serves hundreds of small per-client model variants, each invoked rarely. How can it minimize cost?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "multi-model", "cost"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "SageMaker Pipelines has a dedicated TrainingStep that launches training jobs inside the pipeline. Processing steps run preprocessing scripts, while evaluation and registration serve other stages.",
+    "id": "ch4-q06",
+    "options": [
+      "A ProcessingStep that runs a preprocessing script on the training data before model fitting",
+      "A TrainingStep that launches a managed SageMaker training job as part of the pipeline flow",
+      "An EvaluationStep that computes metrics on a held-out test set after the model is trained",
+      "A RegisterModel step that adds the trained artifact to the Model Registry with its metadata"
+    ],
+    "q": "Which SageMaker Pipelines step actually launches a model training job inside the pipeline?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "pipelines", "training"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "The Model Registry versions models and tracks approval status such as PendingManualApproval and Approved. Pipeline steps execute work, but gating production deployment is the registry's approval workflow.",
+    "id": "ch4-q07",
+    "options": [
+      "A SageMaker training job that retrains the model nightly and overwrites the previous artifact",
+      "A Pipelines EvaluationStep that recomputes accuracy metrics on each new candidate model build",
+      "The Model Registry approval workflow that gates deployment until a reviewer marks it Approved",
+      "An EventBridge rule that automatically restarts failed pipeline executions with doubled capacity"
+    ],
+    "q": "A bank requires a human reviewer to approve each model version before production. Which feature enforces this gate?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "model-registry", "governance"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "SageMaker Projects provide templates that provision CodePipeline and CodeBuild resources for build, test, and deploy stages. Pipelines alone orchestrate ML steps but do not provision CI/CD infrastructure.",
+    "id": "ch4-q08",
+    "options": [
+      "A SageMaker Pipeline defined in the notebook that retrains the model on a fixed weekly schedule with manual approvals",
+      "A Step Functions workflow that chains Lambda functions to copy artifacts between S3 buckets",
+      "An EventBridge rule that triggers retraining whenever new labeled data lands in the S3 prefix",
+      "A SageMaker Project template that provisions CodePipeline and CodeBuild stages for the ML workflow"
+    ],
+    "q": "A team wants versioned CI/CD with build, test, and deploy stages for its ML code. Which service provides ready-made templates?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "projects", "cicd"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Step Functions orchestrates multi-step workflows with retries, branching, and error handling across services. EventBridge routes events, Lambda runs single functions, and MWAA schedules Airflow DAGs.",
+    "id": "ch4-q09",
+    "options": [
+      "Use Step Functions to orchestrate the preprocessing, training, and deployment sequence with retries",
+      "Use EventBridge rules alone to execute the full sequence of preprocessing, training, and deployment with retry handling",
+      "Use a single Lambda function with a 15-minute timeout to run the entire training workflow inline",
+      "Use CloudWatch alarms alone to chain preprocessing, training, and deployment tasks in strict order"
+    ],
+    "q": "A deployment workflow chains preprocessing, training, evaluation, and endpoint updates with retry logic. Which service orchestrates it?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["step-functions", "orchestration", "cicd"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Bring Your Own Container lets teams package custom frameworks or system dependencies the built-in images lack. Built-in algorithms, inference recommenders, and jumpstart models cover standard cases instead.",
+    "id": "ch4-q10",
+    "options": [
+      "Use a built-in SageMaker algorithm container that already includes the uncommon custom framework",
+      "Build a custom BYOC inference container that packages the rare framework with its dependencies",
+      "Use SageMaker JumpStart to deploy a foundation model that approximates the custom framework logic",
+      "Run the framework on a notebook instance and expose the notebook URL as the production endpoint"
+    ],
+    "q": "A team must serve a model built with a rare framework missing from SageMaker built-in images. What should it do?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "byoc", "containers"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Endpoint autoscaling adds instances as traffic grows and removes them when it drops, holding latency steady. A fixed instance count either over-provisions or saturates during peaks.",
+    "id": "ch4-q11",
+    "options": [
+      "Deploy a single large instance sized for the peak and keep it running through all off-peak hours",
+      "Switch the endpoint to Serverless Inference with unlimited concurrency and no scaling policies set",
+      "Enable endpoint autoscaling with a target-tracking policy on invocations per instance for traffic",
+      "Run batch transform every few minutes to approximate real-time scaling without a live endpoint"
+    ],
+    "q": "A real-time endpoint faces strong daily traffic swings but must keep latency stable. What is the best approach?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "autoscaling", "real-time"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Data capture logs request and response payloads to S3 for monitoring, bias, and drift analysis. Endpoint logs, training metrics, and pipeline lineage serve different observability purposes.",
+    "id": "ch4-q12",
+    "options": [
+      "CloudWatch Logs from the training job that record loss curves and resource use during fitting",
+      "SageMaker Pipelines lineage tracking that links each dataset version to its training execution",
+      "Model Registry versioning that stores approval history and metadata for every candidate model",
+      "Endpoint data capture that logs live request and response payloads to S3 for later analysis"
+    ],
+    "q": "A team wants to analyze live production inputs later for drift and bias checks. Which feature should it enable?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "data-capture", "monitoring"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "EventBridge reacts to events such as new S3 objects or registry approvals and can start pipelines or retraining. Step Functions executes the workflow itself rather than detecting the triggering event.",
+    "id": "ch4-q13",
+    "options": [
+      "Configure an EventBridge rule that detects the new data event and starts the retraining workflow",
+      "Run a Step Functions execution on a fixed cron schedule that polls the S3 bucket every minute",
+      "Keep a Lambda function polling the registry approval API in a loop until the status changes",
+      "Enable endpoint autoscaling so that new data arrivals automatically trigger a full retraining run"
+    ],
+    "q": "Retraining should start automatically whenever new labeled data arrives in S3. Which service detects that event?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["eventbridge", "retraining", "automation"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Lambda has a 15-minute maximum execution time, so long training or batch jobs fail there. It suits lightweight glue such as preprocessing triggers, notifications, and deployment approvals.",
+    "id": "ch4-q14",
+    "options": [
+      "Run the multi-hour model training job inside a single Lambda invocation with maximum memory across zones",
+      "Use Lambda for lightweight glue such as notifications, approvals, and triggering pipeline runs",
+      "Execute the full batch transform over terabytes of data inside one synchronous Lambda call",
+      "Host the large model artifact in Lambda layers and serve all production traffic from Lambda"
+    ],
+    "q": "What is an appropriate use of Lambda inside an ML deployment workflow?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["lambda", "orchestration", "serverless"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "MWAA runs managed Apache Airflow, so teams with existing DAGs and operators can migrate them directly. Step Functions and Pipelines use different authoring models than Airflow DAGs.",
+    "id": "ch4-q15",
+    "options": [
+      "Rewrite every Airflow DAG as a Step Functions state machine with Lambda functions for each task",
+      "Replace the Airflow scheduler with EventBridge rules that invoke each pipeline stage independently",
+      "Run the existing DAGs on MWAA, the managed Airflow service, with minimal rewriting of operators",
+      "Move all DAG logic into SageMaker training scripts and trigger them manually from the console"
+    ],
+    "q": "A team already orchestrates ML work with Apache Airflow DAGs on premises. Which AWS service migrates them most directly?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["mwaa", "airflow", "orchestration"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Serverless Inference bills per invocation with scale-to-zero but adds cold starts, while provisioned real-time endpoints cost continuously but hold steady latency. The choice hinges on traffic steadiness and latency tolerance.",
+    "id": "ch4-q16",
+    "options": [
+      "Serverless Inference always gives lower latency than provisioned endpoints under any traffic shape in every region",
+      "Provisioned endpoints bill per invocation while serverless endpoints bill per hour of uptime used",
+      "Both options scale identically, so cost and latency outcomes never differ between the two modes",
+      "Serverless scales to zero and bills per use with cold starts; provisioned costs continuously, stays warm"
+    ],
+    "q": "How do SageMaker Serverless Inference and provisioned real-time endpoints differ on cost versus latency?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "serverless", "real-time", "cost"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Payload size caps, up to 6 MB for async and small limits for serverless, plus the 60-second real-time timeout decide feasibility. Compute power alone does not resolve hard request-size limits.",
+    "id": "ch4-q17",
+    "options": [
+      "Check payload size limits and timeout caps first, since large inputs rule out real-time and serverless",
+      "Compare only the hourly price of GPU versus CPU instances and pick the cheapest available type",
+      "Select the endpoint with the most provisioned concurrency regardless of input size constraints",
+      "Benchmark only average latency on tiny samples and assume results transfer to 50 MB payload sizes"
+    ],
+    "q": "A model accepts 50 MB video files with 10-minute inference times. What is the first selection criterion?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "asynchronous", "limits", "batch-transform"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Shadow variants receive a mirrored copy of live traffic while the current variant keeps serving responses. A/B testing splits traffic between variants, and blue/green shifts it in planned steps.",
+    "id": "ch4-q18",
+    "options": [
+      "Run an A/B test that splits live traffic evenly and serves predictions from both model variants simultaneously",
+      "Deploy a shadow variant that mirrors live traffic for comparison while the current variant serves",
+      "Perform a blue/green deployment that shifts the full traffic weight to the new variant at once",
+      "Launch a batch transform job that replays last month of logs to approximate live serving behavior"
+    ],
+    "q": "A team wants to validate a new model on live traffic without affecting any user response. Which strategy fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "shadow", "testing", "endpoints"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Canary and linear shifts move a small percentage first and roll back on alarm, while all-at-once blue/green exposes every user immediately. Gradual guardrails are the exam's expected safe pattern.",
+    "id": "ch4-q19",
+    "options": [
+      "Update the endpoint all at once during peak traffic and monitor dashboards manually for regressions closely",
+      "Delete the production endpoint first, then recreate it with the new model to guarantee a clean state",
+      "Shift traffic gradually with canary or linear steps and roll back automatically on CloudWatch alarms",
+      "Deploy the new model to a notebook instance and redirect production DNS to the notebook endpoint URL"
+    ],
+    "q": "How should a team roll out a new model version to a production endpoint with minimal user impact?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "deployment", "canary", "safety"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Multi-model endpoints suit many small models with similar serving stacks sharing containers, but GPU-heavy or framework-divergent models need isolation. Loading or memory contention breaks the shared-container assumption.",
+    "id": "ch4-q20",
+    "options": [
+      "Hundreds of small scikit-learn models with identical containers and low per-model invocation rates each day",
+      "Dozens of regional variants of one model sharing the same framework and container dependencies",
+      "A catalog of rarely used lightweight models that tolerate on-demand loading latency on cache miss",
+      "Several large GPU models with conflicting frameworks that each need dedicated memory and containers"
+    ],
+    "q": "In which scenario is a SageMaker multi-model endpoint NOT a good fit?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "multi-model", "endpoints"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Inference pipelines chain preprocessing, prediction, and postprocessing containers behind one endpoint, avoiding extra hops. Separate endpoints, Lambda chains, or batch jobs add latency and complexity.",
+    "id": "ch4-q21",
+    "options": [
+      "Use a SageMaker inference pipeline chaining preprocessing, prediction, and postprocessing containers",
+      "Deploy three separate real-time endpoints and call them sequentially from the client application code path",
+      "Chain Lambda functions between two endpoints to transform payloads with intermediate S3 staging",
+      "Run batch transform for preprocessing and a real-time endpoint only for the final prediction step"
+    ],
+    "q": "A deployment needs tokenization, model prediction, and business-rule postprocessing per request. What is the cleanest design?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "inference-pipeline", "containers"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "BYOC images must implement the SageMaker serving contract such as /ping and /invocations handlers. Framework choice alone does not make a custom image servable on an endpoint.",
+    "id": "ch4-q22",
+    "options": [
+      "Sign the container image with a KMS key and store the model artifact in the same ECR repository",
+      "Implement the /ping and /invocations HTTP handlers so the endpoint can probe and invoke the server",
+      "Install the newest CUDA toolkit in the image so SageMaker automatically detects the custom framework",
+      "Copy the training script into the image because SageMaker reuses it directly as the serving entrypoint"
+    ],
+    "q": "What must a custom BYOC inference container implement to serve correctly on a SageMaker endpoint?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "byoc", "containers"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "A ProcessingStep runs scripts such as Spark or scikit-learn jobs, while TrainingStep fits models and EvaluationStep scores them. Registration only records an already trained artifact.",
+    "id": "ch4-q23",
+    "options": [
+      "TrainingStep, because it launches the distributed fitting job over the prepared feature dataset",
+      "EvaluationStep, because it calculates accuracy and F1 metrics that validate the prepared inputs",
+      "ProcessingStep, because it runs the Spark and scikit-learn scripts that build features at scale",
+      "RegisterModel, because it stores the final artifact together with its feature engineering lineage"
+    ],
+    "q": "A pipeline must run distributed Spark feature engineering before training. Which step performs that work?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "pipelines", "processing"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "The ConditionStep branches on evaluation metrics, for example registering only when accuracy passes a threshold. Evaluation computes the numbers but does not branch the workflow.",
+    "id": "ch4-q24",
+    "options": [
+      "Add a second TrainingStep that retrains with higher capacity whenever the accuracy metric drops low",
+      "Add a ProcessingStep that rewrites the evaluation script with stricter assertions on every run",
+      "Add a LambdaStep that deletes low-scoring model artifacts from S3 after each pipeline execution",
+      "Add a ConditionStep that registers the model only when the evaluation metric meets the threshold"
+    ],
+    "q": "A pipeline should register the model only if F1 exceeds 0.85. Which step implements that gate?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "pipelines", "condition"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Model Monitor baselines capture data statistics and constraints at training time for later comparison. Endpoint scaling policies, registry approvals, and data capture storage address other concerns.",
+    "id": "ch4-q25",
+    "options": [
+      "Generate a Model Monitor baseline with data statistics and constraints during the training pipeline",
+      "Enable endpoint autoscaling with aggressive cooldowns and step policies so traffic spikes never distort metrics",
+      "Require Model Registry manual approval before any baseline statistics are computed or persisted",
+      "Turn on endpoint data capture with full payload sampling to replace the need for any baseline"
+    ],
+    "q": "A team wires drift detection into its training pipeline. What must the pipeline produce for production comparison?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "model-monitor", "pipelines", "drift"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "PendingManualApproval blocks deployment until a reviewer approves, creating the human gate. Approved releases it, while pipeline steps and endpoint policies do not enforce review gates.",
+    "id": "ch4-q26",
+    "options": [
+      "Mark the version Approved immediately after training finishes so deployment proceeds without further review",
+      "Set the version to PendingManualApproval so deployment waits until a reviewer explicitly approves it",
+      "Delete the version from the registry and redeploy the previous artifact to simulate a review gate",
+      "Enable endpoint autoscaling with zero minimum instances so traffic pauses until reviewers respond"
+    ],
+    "q": "How does a team configure the Model Registry so no version reaches production without human review?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "model-registry", "governance"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "SageMaker Projects standardize templates with staging and production accounts, approvals, and pipelines. A single shared notebook or manual console steps cannot enforce that separation.",
+    "id": "ch4-q27",
+    "options": [
+      "Share one notebook instance where developers promote models by copying artifacts between folders",
+      "Trigger production retraining directly from developer notebooks whenever experiments look better",
+      "Use SageMaker Projects with separate staging and production environments plus approval gates",
+      "Run CodeBuild inside the development account and deploy straight to the production endpoint"
+    ],
+    "q": "A company needs separate staging and production environments with promotion approvals. Which setup delivers this?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "projects", "cicd", "governance"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "CodePipeline stages run CodeBuild for tests and require manual approval before production deployment. Direct notebook deployment skips testing, versioning, and the approval gate entirely.",
+    "id": "ch4-q28",
+    "options": [
+      "Deploy each notebook checkpoint directly to the production endpoint to shorten the release cycle",
+      "Run unit tests locally on laptops and copy the model artifact to production with the S3 console",
+      "Let training jobs overwrite the production endpoint as soon as fitting finishes to save time",
+      "Gate production deployment in CodePipeline on CodeBuild tests plus a manual approval action"
+    ],
+    "q": "Where should model tests and the production approval gate live in an ML CI/CD design?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["codepipeline", "codebuild", "cicd", "testing"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Step Functions integrates with SageMaker jobs using run-a-job patterns that pause for completion and catch failures. Fire-and-forget Lambda invocations lose tracking of long-running executions.",
+    "id": "ch4-q29",
+    "options": [
+      "Use Step Functions SageMaker integrations that wait for job completion and handle failures natively",
+      "Invoke each SageMaker job from Lambda with fire-and-forget calls and no callback or status check on completion",
+      "Poll training status from a notebook in a loop and update the endpoint manually when it finishes",
+      "Chain EventBridge rules directly to training jobs without any central state tracking or retries"
+    ],
+    "q": "A Step Functions workflow must launch training jobs and continue only after they complete. What is the right pattern?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["step-functions", "sagemaker", "orchestration"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "GPU instances cut latency for deep learning but cost far more per hour, while inference-optimized CPU or Inf1/Inf2 instances serve many models cheaply. Autoscaling and data capture do not change per-instance economics.",
+    "id": "ch4-q30",
+    "options": [
+      "GPU instances always minimize total cost because faster inference completely eliminates all other charges",
+      "GPU instances lower latency at higher hourly cost; CPU or Inferentia instances cut cost per request",
+      "Instance type never affects latency or cost since SageMaker normalizes performance across families",
+      "Data capture sampling rates determine instance pricing more than the underlying hardware family"
+    ],
+    "q": "How should a team reason about GPU versus CPU or Inferentia instance types for an endpoint?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "cost", "instances", "latency"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Inference Recommender benchmarks instance types against latency and cost targets and recommends configurations. Manual guessing, registry approvals, and data capture do not rightsize endpoints.",
+    "id": "ch4-q31",
+    "options": [
+      "Pick the largest GPU instance available to guarantee latency under every conceivable traffic spike",
+      "Copy the training instance type to the endpoint because training hardware always serves cheapest",
+      "Run SageMaker Inference Recommender to benchmark instance types against latency and cost goals",
+      "Enable full data capture sampling and infer the cheapest instance from the captured payload sizes"
+    ],
+    "q": "A team must rightsize endpoint instances against latency and cost targets. Which tool automates the comparison?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "inference-recommender", "cost"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Full 100 percent capture on high-traffic endpoints inflates S3 storage and processing costs, so sampling keeps monitoring affordable. Disabling capture entirely removes drift and bias visibility.",
+    "id": "ch4-q32",
+    "options": [
+      "Disable data capture completely on all endpoints to eliminate the associated S3 storage charges",
+      "Capture every payload at 100 percent on high-traffic endpoints and retain the stored data indefinitely",
+      "Route capture data through provisioned GPU instances to compress payloads before S3 delivery",
+      "Use sampling rates and retention limits on data capture to bound S3 and processing costs carefully"
+    ],
+    "q": "Data capture costs are growing on a high-traffic endpoint. How can the team control them without losing monitoring?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "data-capture", "cost", "monitoring"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Async endpoints accept large payloads from S3 and return results to S3 with SNS notifications, tolerating hour-long runs. Real-time and serverless options cap payload size and duration far below these needs.",
+    "id": "ch4-q33",
+    "options": [
+      "Use asynchronous inference with an S3 input location and SNS completion notifications for long jobs",
+      "Use a real-time endpoint with synchronous calls that wait up to an hour for each document result to return",
+      "Use Serverless Inference with maximum memory and concurrency to absorb the large document bursts",
+      "Use a multi-model endpoint that keeps every language model variant pinned in memory at all times"
+    ],
+    "q": "A transcription model processes 30-minute audio files submitted unpredictably. Which deployment fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "asynchronous", "endpoints"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "MaxConcurrentTransforms and instance count parallelize batch shards, while MultiRecord and batch strategy tune payload grouping. A single instance with default settings leaves throughput on the table.",
+    "id": "ch4-q34",
+    "options": [
+      "Run the job on a single small instance with default settings and wait for the slow sequential pass to end",
+      "Tune MaxConcurrentTransforms, instance count, and payload batching to parallelize shards effectively",
+      "Replace the batch job with synchronous real-time invocations issued one row at a time from Lambda",
+      "Increase the endpoint autoscaling cooldown so batch shards accumulate before processing begins"
+    ],
+    "q": "A batch transform job over terabytes of data is too slow. Which tuning approach improves throughput?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "batch-transform", "performance"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Parameter Store and Secrets Manager inject configuration and credentials at deployment time, keeping images portable. Baking secrets into images or hardcoding endpoints leaks credentials and blocks promotion.",
+    "id": "ch4-q35",
+    "options": [
+      "Bake database passwords and endpoint URLs directly into the container image separately for each environment",
+      "Hardcode production credentials in the inference script so the container starts without lookups",
+      "Inject configuration and secrets via Parameter Store or Secrets Manager resolved at deployment time",
+      "Store secrets in the training data S3 bucket so both training and serving can read the same file"
+    ],
+    "q": "A BYOC container needs different database credentials in staging and production. How should it receive them?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["byoc", "security", "cicd", "containers"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Async inference scales from zero, accepts large S3 payloads, and tolerates 15-minute cold starts, while provisioned concurrency on real-time endpoints would idle expensively. Serverless caps payload size and duration.",
+    "id": "ch4-q36",
+    "options": [
+      "A provisioned real-time endpoint with high minimum instance counts to absorb the 15-minute backlog",
+      "A Serverless Inference endpoint with maximum concurrency handling each burst synchronously in memory",
+      "A multi-model endpoint that preloads all document models and keeps instances warm around the clock",
+      "An asynchronous endpoint that scales from zero, accepts S3 payloads, and tolerates cold starts well"
+    ],
+    "q": "Document batches arrive in 15-minute bursts with large payloads, then nothing for hours. Which design minimizes cost while meeting SLAs?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "asynchronous", "cost", "architecture"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "SageMaker Model Registry with cross-account resource policies plus CodePipeline promotion stages enforces review gates per environment. Copying artifacts manually between buckets bypasses approvals and lineage.",
+    "id": "ch4-q37",
+    "options": [
+      "Promote versions through the Model Registry with cross-account policies and gated pipeline stages",
+      "Copy model.tar.gz files between account buckets manually and update each endpoint from the console",
+      "Share a single endpoint across accounts with open IAM access so every team deploys without gates",
+      "Retrain independently in each account from raw data and skip registry versioning to save approval time"
+    ],
+    "q": "A regulated enterprise promotes models across dev, staging, and prod accounts with review gates. Which pattern satisfies auditors?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "model-registry", "cicd", "governance"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Multi-record batch with MiniBatch splits large S3 inputs into shards processed in parallel, unlike single-record synchronous serving. Autoscaling a real-time endpoint cannot match offline bulk economics.",
+    "id": "ch4-q38",
+    "options": [
+      "Serve each record synchronously from a real-time endpoint with provisioned concurrency for the peak",
+      "Configure batch transform with multi-record batches and S3 sharding to parallelize offline scoring",
+      "Stream records through Serverless Inference one by one with maximum memory per invocation set",
+      "Queue records in an async endpoint with per-record SNS notifications and sequential processing"
+    ],
+    "q": "A genomics workload scores 100 GB of S3 sequences nightly with no interactive latency need. Which configuration maximizes throughput per dollar?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "batch-transform", "cost", "performance"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Endpoint invocation metrics with low invocation counts but high latency point to cold loading on a multi-model endpoint. Throttling errors or capture growth would implicate different limits.",
+    "id": "ch4-q39",
+    "options": [
+      "CloudWatch throttling errors on Serverless Inference indicate that provisioned concurrency is exhausted",
+      "Rising S3 storage from data capture indicates that payload sampling rates are set far too aggressively",
+      "P99 latency spikes with low invocation counts indicate cold model loading on a multi-model endpoint",
+      "Training job CPU metrics showing saturation indicate that the endpoint instance type is undersized"
+    ],
+    "q": "P99 latency spikes on a multi-model endpoint while overall invocations stay low. What is the most likely cause?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "multi-model", "troubleshooting", "latency"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "A LambdaStep can invoke the approval API and pause the pipeline awaiting the decision, combining automation with human control. Automatic registration or deletion removes the governance gate.",
+    "id": "ch4-q40",
+    "options": [
+      "Register every trained model automatically and deploy it straight to the production endpoint stage",
+      "Delete the Model Registry from the flow and copy artifacts to production with S3 replication rules",
+      "Add a TrainingStep that retrains continuously until metrics pass, without any human decision point",
+      "Add a LambdaStep that requests manual approval and pauses the pipeline until the decision arrives"
+    ],
+    "q": "A pipeline must pause for compliance sign-off between evaluation and registration. How should this be implemented?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "pipelines", "governance", "lambda"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Warm pools keep training clusters ready and provisioned concurrency keeps inference capacity warm, cutting queueing on both sides. Spot instances and scale-to-zero add startup delay at exactly the wrong moment.",
+    "id": "ch4-q41",
+    "options": [
+      "Use SageMaker Training warm pools plus provisioned concurrency on the endpoint to cut startup delays",
+      "Use Spot instances for training and scale-to-zero serverless inference to minimize hourly charges",
+      "Run training on single small instances and serve from one shared notebook to reduce idle capacity",
+      "Disable all caching and concurrency so every request provisions fresh capacity with full isolation"
+    ],
+    "q": "A flash-sale recommender must retrain hourly and serve traffic spikes instantly. Which combination meets both latency goals?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "latency", "warm-pools", "cost"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "MWAA workers with SageMaker operators submit training jobs and sensors wait for completion, fitting Airflow semantics. Workers lack GPUs for fitting, and runtime installs alone do not orchestrate jobs.",
+    "id": "ch4-q42",
+    "options": [
+      "Run model fitting directly on MWAA workers with heavy dependencies installed on the schedulers",
+      "Use Airflow SageMaker operators to submit training jobs and sensors to wait for their completion",
+      "Install the SageMaker SDK on workers and invoke endpoints synchronously inside short task loops",
+      "Replace Airflow sensors with fixed sleep timers that assume training always finishes in one hour"
+    ],
+    "q": "An Airflow DAG on MWAA must trigger SageMaker training and wait before downstream tasks. What is the correct pattern?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["mwaa", "airflow", "sagemaker", "orchestration"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Model cards document intended use, metrics, and limitations, and registry lineage links versions to data and jobs. Autoscaling policies and capture sampling describe operations, not model transparency.",
+    "id": "ch4-q43",
+    "options": [
+      "Endpoint autoscaling policies that record how instance counts reacted to past traffic spike events",
+      "Data capture sampling configurations that log the percentage of payloads retained for monitoring",
+      "Model cards with intended use and metrics plus registry lineage linking versions to data and jobs",
+      "CodeBuild logs from the CI pipeline that show test durations and build container image versions"
+    ],
+    "q": "Auditors demand traceability from each production model version back to its data, metrics, and intended use. What provides this?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "model-registry", "governance", "lineage"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Provisioned real-time inference plus auto rollback on alarms protects the strict sub-100 ms SLA, which serverless cold starts and async queues cannot meet. Batch precompute cannot cover unseen live inputs.",
+    "id": "ch4-q44",
+    "options": [
+      "Serverless Inference with scale-to-zero and per-invocation billing to minimize cost during off-peak",
+      "Asynchronous inference with S3 outputs and SNS notifications to absorb unpredictable request bursts",
+      "Nightly batch transform that precomputes scores for known users and caches them for live lookup",
+      "Provisioned real-time inference with autoscaling plus automatic rollback on CloudWatch alarms"
+    ],
+    "q": "A video platform needs sub-100 ms personalization for volatile live traffic with safe rollouts. Which architecture fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "real-time", "latency", "canary"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "ECR image scanning plus signed images, endpoint IAM roles, and KMS encryption cover supply chain and data protection together. Public images and open invocation skip both controls.",
+    "id": "ch4-q45",
+    "options": [
+      "Scan and sign BYOC images in ECR, restrict invocation with IAM roles, and encrypt artifacts with KMS",
+      "Pull public images at deploy time and allow open endpoint invocation to simplify cross-team access",
+      "Embed AWS credentials in the image layers so tasks authenticate without assuming any IAM role",
+      "Disable encryption on artifacts and logs to reduce latency overhead on the inference code path"
+    ],
+    "q": "A healthcare deployment uses BYOC with PHI payloads. Which combination addresses supply-chain and data protection?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["byoc", "security", "iam", "kms"],
+    "origin": "ai"
+  }
+]

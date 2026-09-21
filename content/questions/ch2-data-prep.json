@@ -1,0 +1,947 @@
+[
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "S3 is the standard durable data lake storage for raw and processed data, and it integrates natively with Glue, Athena, and SageMaker. The other options are either compute services or unsuitable for large-scale lake storage.",
+    "id": "ch2-q01",
+    "options": [
+      "Store raw and curated datasets in Amazon S3 as the central data lake",
+      "Store raw training datasets in ephemeral EC2 instance store volumes replicated manually",
+      "Keep all raw datasets in SageMaker notebook instance local disks",
+      "Load raw data directly into Amazon ElastiCache Redis clusters"
+    ],
+    "q": "A team needs durable, scalable storage for raw and processed ML datasets. Which service should hold the data lake?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "s3",
+      "data-lake",
+      "storage"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "S3 object keys with date-based prefixes give cheap partitioning that Athena, Glue, and SageMaker can all exploit for faster filtered reads. Random UUID keys or single buckets without prefixes prevent partition pruning.",
+    "id": "ch2-q02",
+    "options": [
+      "Write all incoming records into one single S3 object with a random UUID key name",
+      "Organize S3 objects with date-based prefixes such as year/month/day for partitioning",
+      "Store each daily batch inside a SageMaker Studio user profile folder only",
+      "Keep every raw file on one Amazon EBS volume attached to a single notebook instance with no partitioning"
+    ],
+    "q": "Streaming click events land hourly in S3 and are queried by date. Which key layout best supports efficient date-filtered queries?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "s3",
+      "partitioning",
+      "data-lake"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Columnar formats like Parquet let Athena and SageMaker read only the needed columns, cutting scan cost and speeding up training data loads. Row-based CSV forces full scans of every column.",
+    "id": "ch2-q03",
+    "options": [
+      "Keep large training tables as single giant CSV files with no compression at all",
+      "Convert analytics tables into multi-megabyte uncompressed JSON lines per record",
+      "Store large tabular datasets in Parquet format partitioned by date columns",
+      "Archive feature tables as serialized Python pickle objects in S3 buckets"
+    ],
+    "q": "A 500 GB tabular dataset is scanned daily by Athena and SageMaker jobs. Which storage format minimizes scan cost and time?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "s3",
+      "parquet",
+      "athena"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "S3 Event Notifications trigger processing as soon as each file arrives, giving near-real-time ingestion without polling. Scheduled full-bucket scans or manual downloads add latency and cost.",
+    "id": "ch2-q04",
+    "options": [
+      "Run a daily cron job that lists the whole bucket and reprocesses every object found",
+      "Ask analysts to download new files manually and upload them to SageMaker Studio",
+      "Poll the bucket every hour with ListObjects and copy all files to EBS volumes",
+      "Configure S3 Event Notifications to invoke Lambda or Glue on each new object"
+    ],
+    "q": "New sensor files arrive in S3 unpredictably and must trigger feature processing within seconds. What ingestion pattern should you use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "s3",
+      "ingestion",
+      "lambda"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Lake Formation provides centralized fine-grained permissions on Data Catalog tables and columns, including cross-account sharing. IAM bucket policies alone cannot enforce column-level access.",
+    "id": "ch2-q05",
+    "options": [
+      "Use AWS Lake Formation with Data Catalog grants for table and column-level access",
+      "Grant every analyst AmazonS3FullAccess so all data lake buckets stay open",
+      "Share the AWS root credentials with each analytics team for direct S3 access",
+      "Copy sensitive tables to public S3 buckets secured only by obscure unguessable key names and shared links"
+    ],
+    "q": "Multiple teams share one data lake, but PII columns must be restricted per team. How should you enforce fine-grained access?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "lake-formation",
+      "security",
+      "data-lake"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Lake Formation governs access to tables registered in the Glue Data Catalog; Athena and SageMaker then respect those grants at query time. It does not replace the crawler or rewrite file formats.",
+    "id": "ch2-q06",
+    "options": [
+      "Lake Formation crawls raw files and automatically converts every CSV into Parquet",
+      "Lake Formation centralizes Data Catalog permissions enforced by Athena and SageMaker",
+      "Lake Formation trains ML models directly on S3 data without any ETL pipeline or feature engineering stage at all",
+      "Lake Formation replaces Kinesis streams by buffering real-time events durably"
+    ],
+    "q": "What is the primary role of AWS Lake Formation in an ML data lake?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "lake-formation",
+      "data-catalog",
+      "governance"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "difficile",
+    "explain": "A Glue crawler infers schema from raw files and registers partitioned tables in the Data Catalog so Athena and SageMaker can query them. Manually copying files or training on raw paths skips cataloging entirely.",
+    "id": "ch2-q07",
+    "options": [
+      "Write a custom script that downloads each S3 file to a laptop for manual inspection",
+      "Launch an EMR cluster to train the model directly on uncatalogued raw S3 paths",
+      "Run a Glue crawler over the S3 prefixes to create partitioned Data Catalog tables",
+      "Create IAM users for every file so each object carries its own access policy"
+    ],
+    "q": "Thousands of CSV files land in S3 daily with evolving columns. How do you make them queryable with a maintained schema?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "glue",
+      "crawler",
+      "data-catalog"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "The Data Catalog stores table metadata and partitions centrally so Athena, EMR, and SageMaker share one schema definition. It stores metadata, not the data files themselves.",
+    "id": "ch2-q08",
+    "options": [
+      "It physically duplicates every S3 dataset into a faster proprietary store",
+      "It streams live events from Kinesis directly into SageMaker endpoints",
+      "It retrains Glue crawlers automatically whenever model accuracy drops",
+      "It holds shared table metadata and partitions queried by Athena and EMR"
+    ],
+    "q": "What does the Glue Data Catalog provide to Athena, EMR, and SageMaker jobs?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "glue",
+      "data-catalog",
+      "metadata"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Scheduled crawlers detect new partitions and schema changes so queries keep working as data evolves. One-time manual table definitions go stale as soon as the format drifts.",
+    "id": "ch2-q09",
+    "options": [
+      "Schedule the Glue crawler to run regularly and update new partitions and schema",
+      "Define Athena tables once manually and never update them when file formats evolve over time",
+      "Rename S3 objects randomly each day to force Athena to rescan everything",
+      "Store schema definitions only in analyst notebooks instead of the catalog"
+    ],
+    "q": "Source files gain new columns monthly and new date partitions daily. How do you keep catalog tables current?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "glue",
+      "crawler",
+      "schema-evolution"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Athena runs serverless SQL directly against S3 via the Data Catalog, ideal for quick exploration before building pipelines. Spinning up EMR or Redshift clusters adds setup overhead for ad hoc checks.",
+    "id": "ch2-q10",
+    "options": [
+      "Load a sample into ElastiCache Redis and query it with hand-written Lua scripts",
+      "Run Amazon Athena SQL queries directly against the S3 data lake files",
+      "Provision a Multi-AZ RDS cluster and bulk-load the whole lake before querying",
+      "Deploy a SageMaker endpoint to serve SQL answers from a trained LLM model"
+    ],
+    "q": "An engineer must quickly profile a new 200 GB S3 dataset with SQL before building a pipeline. Which service is simplest?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "athena",
+      "s3",
+      "exploration"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "CTAS with Parquet plus partition columns rewrites data into an optimized layout that makes repeated Athena queries and SageMaker reads much cheaper. Re-saving as bigger CSVs preserves the full-scan problem.",
+    "id": "ch2-q11",
+    "options": [
+      "Export Athena results to uncompressed CSV files inside a single S3 prefix",
+      "Duplicate the raw JSON files into additional buckets in multiple AWS Regions",
+      "Use CTAS queries to rewrite data as partitioned Parquet for repeated reads",
+      "Increase Athena workgroup limits so expensive full scans simply run longer"
+    ],
+    "q": "Repeated Athena queries over raw JSON logs are slow and costly. How should you optimize the data layout?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "athena",
+      "parquet",
+      "optimization"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Kinesis Data Streams supports real-time producers and consumers with per-record processing at low latency, fitting fraud scoring. Firehose is load-and-deliver to destinations without per-record app processing.",
+    "id": "ch2-q12",
+    "options": [
+      "Use S3 Batch Operations to copy transaction files once per day for scoring",
+      "Poll an SQS queue hourly and retrain the whole model on each new message",
+      "Buffer events with Kinesis Data Firehose directly into S3 without consumers",
+      "Ingest card transactions with Kinesis Data Streams for real-time consumers"
+    ],
+    "q": "A fraud model must score each card transaction within seconds of the swipe. Which ingestion service fits best?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "kinesis",
+      "streaming",
+      "real-time"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Firehose buffers, batches, optionally transforms via Lambda, and delivers to S3 or Redshift without managing consumers. Data Streams is needed only when custom real-time stream processing is required.",
+    "id": "ch2-q13",
+    "options": [
+      "Use Kinesis Data Firehose to buffer and deliver records to S3 destinations",
+      "Build custom Kinesis Data Streams consumers with manual checkpointing that write each record individually by hand",
+      "Run a self-managed Kafka cluster on EC2 with manual scaling and patching",
+      "Send click events through SES email messages collected into S3 buckets"
+    ],
+    "q": "Clickstream events must flow continuously into S3 with minimal operational overhead. Which service should you choose?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "kinesis",
+      "firehose",
+      "ingestion"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "difficile",
+    "explain": "Shard count with proper partition keys controls throughput and ordering per key; more shards raise parallel capacity. Retention period and Lambda timeouts do not increase ingest throughput.",
+    "id": "ch2-q14",
+    "options": [
+      "Extend the stream retention period to seven days to raise per-second throughput",
+      "Provision enough shards with a good partition key to match the write rate",
+      "Attach a longer Lambda timeout so each record consumes more processing time",
+      "Enable detailed CloudWatch alarms because monitoring alone adds more shards"
+    ],
+    "q": "A Kinesis Data Stream throttles during peak traffic with a single shard. What scaling action fixes the bottleneck?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "kinesis",
+      "scaling",
+      "shards"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Firehose invokes a Lambda function to transform each batch before delivery, the standard way to clean or enrich records in flight. Streams consumers or notebook jobs add unnecessary complexity.",
+    "id": "ch2-q15",
+    "options": [
+      "Download each delivered S3 file and edit records manually in a text editor",
+      "Route Firehose output through SNS topics that discard malformed records",
+      "Attach a Lambda transform to Firehose to clean records before S3 delivery",
+      "Train a SageMaker model that rewrites Firehose batches after they land"
+    ],
+    "q": "Records in Firehose need light cleaning and JSON-to-Parquet conversion before landing in S3. How is this done?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "firehose",
+      "lambda",
+      "etl"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Data Wrangler is the visual low-code Studio tool for exploring, cleaning, and exporting data flows, ideal for analysts avoiding Spark code. DataBrew, EMR, and Glue ETL target heavier or code-based pipelines.",
+    "id": "ch2-q16",
+    "options": [
+      "Write an EMR PySpark application with custom partitioning and cluster tuning",
+      "Build an AWS Glue ETL job with bookmarks and custom Scala transformations",
+      "Profile datasets with Amazon Athena DDL statements and manual CTAS scripts",
+      "Prepare data visually with SageMaker Data Wrangler flows in Studio Classic"
+    ],
+    "q": "An analyst must visually explore and clean tabular data with minimal coding. Which SageMaker tool fits best?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "data-wrangler",
+      "sagemaker",
+      "low-code"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Data Wrangler exports the visual flow as a reusable processing script and pipeline step, so engineers can schedule it in production. Screenshots or manual repetition do not scale or version the logic.",
+    "id": "ch2-q17",
+    "options": [
+      "Export the Data Wrangler flow as a SageMaker Processing job for pipelines",
+      "Take screenshots of the Data Wrangler flow and rebuild every transform manually before each training run",
+      "Copy the transformed CSV from Studio to S3 by hand for every new batch",
+      "Email the flow definition to engineers who retype each step into Spark"
+    ],
+    "q": "A prototype cleaning flow built in Data Wrangler must run automatically in production. What should you do?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "data-wrangler",
+      "pipelines",
+      "processing"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "DataBrew is the serverless visual data-preparation service with 250+ built-in transforms and profiling, aimed at business users. EMR and Glue require coding and cluster or job management.",
+    "id": "ch2-q18",
+    "options": [
+      "Process the files with a self-managed Hadoop cluster tuned by hand on EC2",
+      "Use AWS Glue DataBrew with built-in transforms and visual data profiling",
+      "Write raw MapReduce jobs in Java submitted through the EMR console manually",
+      "Query the data with ElastiCache Memcached using custom client-side parsing"
+    ],
+    "q": "A business user needs serverless visual profiling and 250+ built-in transforms without writing Spark. Which service fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "databrew",
+      "glue",
+      "profiling"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "DataBrew jobs scale serverlessly and can be scheduled or attached to datasets for recurring preparation. One-off console clicks or laptop scripts do not scale or track lineage.",
+    "id": "ch2-q19",
+    "options": [
+      "Rerun the recipe manually in the console whenever someone remembers to do it",
+      "Run the transforms in an Excel macro on an analyst laptop every Monday",
+      "Schedule a DataBrew job with the saved recipe on the versioned dataset",
+      "Ask engineers to rewrite the recipe as Kinesis consumers for batch files"
+    ],
+    "q": "A DataBrew recipe cleans weekly sales files. How do you run it reliably on every new arrival?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "databrew",
+      "scheduling",
+      "recipes"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "difficile",
+    "explain": "EMR with Spark handles distributed heavy transformations over terabytes that single-machine tools cannot fit in memory. DataBrew, Wrangler, and Athena suit smaller or interactive workloads instead.",
+    "id": "ch2-q20",
+    "options": [
+      "Load the terabyte join into one pandas DataFrame on a notebook instance",
+      "Clean the data interactively with Data Wrangler on a small sampled subset",
+      "Run the aggregation with Athena federated queries paginated by hand daily",
+      "Process the terabyte-scale joins with EMR Spark across a managed cluster"
+    ],
+    "q": "A 3 TB multi-table join with heavy aggregations exceeds single-machine memory. Which prep approach scales best?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "emr",
+      "spark",
+      "big-data"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Glue ETL provides serverless Spark jobs with bookmarks, catalog integration, and scheduling for recurring pipelines. Athena and crawlers query or catalog data but do not run recurring transforms.",
+    "id": "ch2-q21",
+    "options": [
+      "Build a scheduled AWS Glue ETL job with bookmarks writing to the data lake",
+      "Run one-off Athena SELECT statements and paste result rows into new hand-managed S3 files each time",
+      "Schedule Glue crawlers to rewrite the data files during each catalog scan",
+      "Copy raw files between buckets with S3 replication instead of transforming"
+    ],
+    "q": "Nightly raw logs must be transformed incrementally into curated Parquet. Which serverless ETL option fits best?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "glue",
+      "etl",
+      "spark"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Job bookmarks track processed files so reruns handle only new data, giving idempotent incremental loads. Disabling bookmarks or deleting outputs forces costly full reprocessing.",
+    "id": "ch2-q22",
+    "options": [
+      "Disable job bookmarks and reprocess the entire multi-year raw history from scratch on every run",
+      "Enable Glue job bookmarks so reruns process only newly arrived source files",
+      "Delete the curated output before each run to force a complete recomputation",
+      "Raise the worker count sharply because extra capacity alone skips old files"
+    ],
+    "q": "A Glue job reprocesses all history nightly instead of just new files. Which feature makes it incremental?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "glue",
+      "bookmarks",
+      "incremental"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "The online store serves low-latency per-record lookups for inference, while the offline store holds historical data for training. Reversing them would add latency to live predictions.",
+    "id": "ch2-q23",
+    "options": [
+      "Serve both training and inference from ad hoc Athena queries over raw unoptimized CSV files",
+      "Keep live features in ElastiCache and retrain models only on log files",
+      "Use the Feature Store online store for inference and offline store for training",
+      "Store inference features in S3 Glacier and training rows in DynamoDB tables"
+    ],
+    "q": "A recommendation endpoint needs millisecond feature lookups, plus historical features for retraining. How should Feature Store be used?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "feature-store",
+      "online",
+      "offline"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "The offline store persists point-in-time historical feature values in S3 for training and backfills. The online store keeps only the latest values for real-time serving.",
+    "id": "ch2-q24",
+    "options": [
+      "The offline store caches SageMaker endpoint responses to speed up inference",
+      "The offline store holds IAM policies that govern online store read access",
+      "The offline store buffers Kinesis events before they reach the data lake",
+      "The offline store keeps historical feature values in S3 for model training"
+    ],
+    "q": "What is the purpose of the SageMaker Feature Store offline store?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "feature-store",
+      "offline",
+      "training"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Ingestion into both stores keeps live lookups and training history consistent from one pipeline. Writing to only one store forces fragile dual writes or stale training data.",
+    "id": "ch2-q25",
+    "options": [
+      "Ingest features into both online and offline stores through one pipeline",
+      "Write features only to the online store and dump endpoint logs for training",
+      "Skip Feature Store and join raw S3 files at inference time for each request",
+      "Maintain two separate manual CSV exports, one for serving and one for ML"
+    ],
+    "q": "A fraud team wants consistent features for live scoring and retraining without skew. What ingestion setup avoids drift?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "feature-store",
+      "consistency",
+      "skew"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "difficile",
+    "explain": "Point-in-time lookups join features as of the event timestamp, preventing future data from leaking into training rows. Using latest values or random joins leaks information from after the label.",
+    "id": "ch2-q26",
+    "options": [
+      "Join each training row with the latest current feature values available today in the online store",
+      "Query the offline store with point-in-time correctness using event timestamps",
+      "Sample random historical feature rows and attach them to unrelated labels",
+      "Backfill training sets with features computed after the prediction horizon"
+    ],
+    "q": "Training rows must reflect only feature values known at each transaction time. Which offline-store query pattern ensures this?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "feature-store",
+      "point-in-time",
+      "leakage"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "One-hot encoding turns each category into binary columns without implying false ordering, unlike integer labels. Hashing or target means add collision or leakage risks for simple nominal data.",
+    "id": "ch2-q27",
+    "options": [
+      "Replace each product category with random integers that imply a false ranking",
+      "Encode categories as the mean fraud rate computed over the full dataset",
+      "Apply one-hot encoding so each category becomes its own binary column",
+      "Hash every category into a single float column with frequent collisions"
+    ],
+    "q": "A model consumes a nominal product-category column with 12 values. Which encoding avoids implying false order?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "encoding",
+      "one-hot",
+      "categorical"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "High-cardinality IDs explode one-hot width, so embeddings, hashing, or target encoding with care are preferred. Plain one-hot on millions of IDs creates unmanageable sparse matrices.",
+    "id": "ch2-q28",
+    "options": [
+      "One-hot encode every user ID because sparse matrices always train faster",
+      "Drop the identifier silently even though past behavior strongly predicts churn",
+      "Convert user IDs to floats by parsing the string prefix as a decimal number",
+      "Use embeddings or hashed features instead of one-hot for high-cardinality IDs"
+    ],
+    "q": "A user-ID column has two million distinct values. Why is plain one-hot encoding a poor choice here?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "encoding",
+      "high-cardinality",
+      "embeddings"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Fitting the imputer on training data only and applying it to validation avoids leaking validation statistics into training. Computing means over all data or dropping everything leaks or wastes data.",
+    "id": "ch2-q29",
+    "options": [
+      "Fit the median imputer on training data, then apply it to validation folds",
+      "Compute imputation means over train plus test data combined before splitting",
+      "Delete every row with any missing value even when half of the collected dataset vanishes entirely",
+      "Fill missing test values with the test labels to improve imputation quality"
+    ],
+    "q": "A numeric column has 8% missing values. Which imputation workflow avoids data leakage?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "missing-values",
+      "imputation",
+      "leakage"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Missingness itself can be predictive, so adding a binary indicator preserves that signal alongside imputation. Deleting rows or filling with labels either wastes data or leaks the target.",
+    "id": "ch2-q30",
+    "options": [
+      "Delete all rows with missing income because fewer rows and less signal always train better models",
+      "Impute the missing values and add a binary flag marking originally missing rows",
+      "Fill missing income entries with the corresponding loan approval outcome label",
+      "Replace missing entries with future values collected after the loan decision"
+    ],
+    "q": "Missing income values may themselves signal credit risk. How should you handle this column?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "missing-values",
+      "indicator",
+      "imputation"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Standardization centers features to zero mean and unit variance, helping gradient-based models converge. Min-max scaling or log transforms serve different goals like bounded ranges or skew.",
+    "id": "ch2-q31",
+    "options": [
+      "Apply min-max scaling to force every feature into an arbitrary fixed range",
+      "Take the logarithm of each feature even when values include zeros and negative amounts regularly",
+      "Standardize features to zero mean and unit variance for gradient-based training",
+      "Multiply all features by large constants to emphasize the widest columns"
+    ],
+    "q": "Features span wildly different scales and a neural network converges slowly. Which transformation helps most?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "scaling",
+      "standardization",
+      "normalization"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "difficile",
+    "explain": "Scalers must be fit on training data only, then applied to validation and test, or statistics from held-out data leak in. Fitting on the full dataset before splitting is a classic leakage error.",
+    "id": "ch2-q32",
+    "options": [
+      "Fit the scaler on the combined train and test sets together to capture the full value range",
+      "Standardize each split with its own separately fitted scaler for consistency",
+      "Tune scaling parameters by checking test accuracy after every adjustment",
+      "Fit the scaler on training data only, then transform validation and test sets"
+    ],
+    "q": "When standardizing features, which fitting procedure prevents leakage into evaluation?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "scaling",
+      "leakage",
+      "validation"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Clarify computes pre-training bias metrics such as class imbalance and KL divergence to surface dataset bias before modeling. Model accuracy and feature importance measure performance, not dataset bias.",
+    "id": "ch2-q33",
+    "options": [
+      "Run SageMaker Clarify pre-training bias metrics like class imbalance on the data",
+      "Measure final test accuracy because high accuracy alone proves fairness",
+      "Check training loss curves closely since smooth convergence alone guarantees unbiased input data",
+      "Rank features by importance because top features are always the fairest ones"
+    ],
+    "q": "Before training a hiring model, the team must quantify representation bias in the dataset. Which tool and metric apply?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "clarify",
+      "bias",
+      "fairness"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "A large positive difference in positive-outcome rates between groups signals potential bias worth investigating. Equal label counts alone or overall accuracy do not reveal group disparities.",
+    "id": "ch2-q34",
+    "options": [
+      "Confirm the dataset is fair whenever overall accuracy exceeds ninety percent",
+      "Compare positive-outcome rates across groups with difference in proportions",
+      "Count total rows per group because equal sizes alone guarantee equal outcomes",
+      "Average the loss across epochs since a low loss proves unbiased predictions"
+    ],
+    "q": "Clarify reports very different approval rates for two demographic groups. Which metric captures this disparity?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "clarify",
+      "bias-metrics",
+      "fairness"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "difficile",
+    "explain": "Post-training metrics compare predictions across groups to detect models that amplify data bias, guiding mitigation like rebalancing. Retraining on the same biased labels without checks preserves the problem.",
+    "id": "ch2-q35",
+    "options": [
+      "Delete the protected attribute column and assume all resulting bias disappears",
+      "Deploy immediately into production because biased training data never affects real model outputs",
+      "Evaluate post-training bias metrics and mitigate with rebalancing or constraints",
+      "Retrain repeatedly on identical labels until the disparity metric looks better"
+    ],
+    "q": "Pre-training metrics show strong label bias against one group. What is the sound next step before deployment?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "clarify",
+      "mitigation",
+      "fairness"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Including data only available after the label, like post-diagnosis codes, leaks the answer and inflates offline accuracy. Genuinely historical features or proper temporal splits avoid this trap.",
+    "id": "ch2-q36",
+    "options": [
+      "Add historical lab results recorded well before the prediction cutoff time",
+      "Split records by patient admission date to keep evaluation strictly forward",
+      "Use only features whose timestamps precede the label definition moment",
+      "Include post-diagnosis billing codes assigned after the outcome occurred"
+    ],
+    "q": "A readmission model scores 99% offline but fails live. The features include post-discharge billing codes. What went wrong?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "leakage",
+      "features",
+      "validation"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Temporal or grouped splits with a strict cutoff ensure no future information trains models evaluated on later data. Random shuffles mix future rows into training and hide leakage.",
+    "id": "ch2-q37",
+    "options": [
+      "Split by time with a cutoff so training only sees data before validation rows",
+      "Shuffle all dated rows randomly so future records freely mix into the historical training set",
+      "Duplicate high-performing recent rows into both training and test partitions",
+      "Select test rows by highest label values to make evaluation sets look strong"
+    ],
+    "q": "For a demand-forecasting model over three years of sales, which split strategy best prevents temporal leakage?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "leakage",
+      "time-split",
+      "validation"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "difficile",
+    "explain": "Separate train, validation, and test sets isolate fitting, tuning, and final estimation so tuning cannot overfit the reported metric. Tuning on the test set or skipping validation biases results.",
+    "id": "ch2-q38",
+    "options": [
+      "Tune every hyperparameter directly on the test set to get the best possible reported score",
+      "Use train for fitting, validation for tuning, and a held-out test for reporting",
+      "Reuse the training set for final reporting since it contains the most rows",
+      "Skip validation entirely and pick hyperparameters by intuition before testing"
+    ],
+    "q": "Why does a proper ML workflow need distinct train, validation, and test splits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "splits",
+      "validation",
+      "test"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Stratified sampling preserves the rare-class rate in every split so validation reflects reality. Pure random splits of rare events can produce folds with zero positives.",
+    "id": "ch2-q39",
+    "options": [
+      "Oversample the test set with positives until classes look artificially balanced",
+      "Split rows alphabetically by customer name to keep the process deterministic",
+      "Apply stratified sampling so each split keeps the original 2% fraud rate",
+      "Put all fraud cases in training and evaluate only on legitimate transactions"
+    ],
+    "q": "A fraud dataset has only 2% positives. How should splits preserve this rate for reliable evaluation?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "stratified",
+      "sampling",
+      "splits"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Group-aware splitting keeps all rows of one customer in a single partition, preventing near-duplicate leakage. Random row splits scatter a customer's history across train and test.",
+    "id": "ch2-q40",
+    "options": [
+      "Shuffle individual transactions randomly across train and test partitions",
+      "Duplicate each customer record into every split to maximize data reuse",
+      "Sort rows by transaction amount and cut the sorted list into three parts",
+      "Group by customer so all rows of one customer stay in a single split"
+    ],
+    "q": "One customer contributes many correlated transactions. How should you split to avoid leaking customer patterns?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "splits",
+      "grouping",
+      "leakage"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch2-data-prep",
+    "difficulty": "difficile",
+    "explain": "Cross-validation averages performance over multiple folds, giving stabler estimates on small datasets than one noisy split. A single tiny test set or tuning on test data misleads badly.",
+    "id": "ch2-q41",
+    "options": [
+      "Use stratified k-fold cross-validation to average metrics over several folds",
+      "Rely on a single fifty-row test set as the definitive performance estimate for deployment decisions",
+      "Tune hyperparameters on the test set until the reported score looks strong",
+      "Train on the full dataset and report the training error as the final result"
+    ],
+    "q": "With only 800 labeled rows, a single split gives unstable accuracy estimates. Which evaluation approach is stablest?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cross-validation",
+      "small-data",
+      "evaluation"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "media",
+    "explain": "Accuracy is misleading on skewed data, while precision, recall, F1, or AUC-PR reveal minority-class performance. Optimizing raw accuracy favors the majority class.",
+    "id": "ch2-q42",
+    "options": [
+      "Report accuracy only because ninety-eight percent always means a good model",
+      "Track precision, recall, F1, or AUC-PR instead of relying on raw accuracy",
+      "Compare models by training speed since faster convergence implies fairness",
+      "Use mean squared error because it handles imbalanced classes automatically"
+    ],
+    "q": "A 98%-negative dataset yields 98% accuracy from a model predicting all negatives. Which metric exposes the failure?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "imbalance",
+      "metrics",
+      "evaluation"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch2-data-prep",
+    "difficulty": "difficile",
+    "explain": "SMOTE and similar oversampling apply to training folds only; augmenting validation or test distorts the real distribution being measured. Resampling must stay inside the training side of each fold.",
+    "id": "ch2-q43",
+    "options": [
+      "Oversample the test set with synthetic positives to make scores look higher",
+      "Duplicate validation rows with positives so tuning favors the minority class",
+      "Apply SMOTE to training folds only and keep validation folds representative",
+      "Generate synthetic rows before splitting so copies land in every partition"
+    ],
+    "q": "Where in the pipeline should SMOTE oversampling be applied for imbalanced data?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "imbalance",
+      "smote",
+      "resampling"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch2-data-prep",
+    "difficulty": "facile",
+    "explain": "Higher class weights penalize minority errors more, letting the model learn rare cases without changing the data distribution. Lowering weights or subsampling the test set hides the problem.",
+    "id": "ch2-q44",
+    "options": [
+      "Reduce the minority class weight to zero so the optimizer ignores rare rows",
+      "Subsample the test set to remove positives and simplify the evaluation task",
+      "Train much longer on majority rows because extra epochs alone fix class imbalance by itself",
+      "Set higher class weights so minority-class errors cost more during training"
+    ],
+    "q": "Without resampling data, how can a classifier be pushed to detect a rare 1% positive class?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "imbalance",
+      "class-weights",
+      "training"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch2-data-prep",
+    "difficulty": "difficile",
+    "explain": "Undersampling the majority plus stratified splits keeps evaluation honest while easing training imbalance; discarding all majority data or balancing the test set distorts measurement.",
+    "id": "ch2-q45",
+    "options": [
+      "Discard all majority rows permanently and evaluate model quality only on minority samples alone",
+      "Combine random majority undersampling for training with stratified evaluation",
+      "Balance the test set artificially so reported metrics ignore the true skew",
+      "Duplicate minority rows into the test set until both classes appear equal"
+    ],
+    "q": "Training on 500K rows with 0.5% positives is slow and skewed. Which combined strategy handles scale and imbalance?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "imbalance",
+      "undersampling",
+      "stratified"
+    ],
+    "origin": "ai"
+  }
+]

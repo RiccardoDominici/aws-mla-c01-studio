@@ -1,0 +1,767 @@
+[
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "The MLA-C01 exam contains 65 questions in total, including scored and unscored items. Candidates should plan pacing around this fixed question count.",
+    "id": "ch1-q01",
+    "options": [
+      "55 questions, with 50 scored items and 5 unscored pretest items included",
+      "60 questions, split evenly between multiple-choice and multiple-response",
+      "80 questions, including unscored items used for future exam development",
+      "65 questions, covering both scored items and unscored pretest questions"
+    ],
+    "q": "How many questions does the AWS MLA-C01 exam contain in total?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "questions"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "Candidates get 170 minutes to complete the MLA-C01 exam. That total time budget drives the roughly 2.6-minute-per-question pacing strategy.",
+    "id": "ch1-q02",
+    "options": [
+      "170 minutes of total testing time to answer all 65 exam questions",
+      "130 minutes of total testing time, with an optional 40-minute extension",
+      "200 minutes of total testing time including a scheduled 30-minute break",
+      "90 minutes of total testing time, matching other associate-level exams"
+    ],
+    "q": "How much total testing time is allowed for the AWS MLA-C01 exam?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "time"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "The passing score for MLA-C01 is 720 out of 1000 on a scaled scoring model. Scaled scoring means raw correct counts are converted to this scale.",
+    "id": "ch1-q03",
+    "options": [
+      "A scaled score of 700 out of 1000, identical to most associate exams",
+      "A scaled score of 720 out of 1000, based on the number answered correctly",
+      "A raw score of 72 correct answers out of 100 total questions attempted",
+      "A scaled score of 750 out of 1000, requiring roughly 80 percent correct"
+    ],
+    "q": "What is the passing score for the AWS MLA-C01 exam?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "passing-score"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "MLA-C01 is delivered through Pearson VUE, either at a testing center or via online proctored delivery. Both options use the same exam content and timing.",
+    "id": "ch1-q04",
+    "options": [
+      "Only at AWS re:Invent events, during designated certification exam sessions",
+      "Exclusively through employer-run testing sites approved by AWS Training",
+      "At a Pearson VUE testing center or through online proctored delivery",
+      "At any public library computer lab, using a personal AWS Builder ID login"
+    ],
+    "q": "How is the AWS MLA-C01 exam delivered to candidates?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "pearson-vue"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "The MLA-C01 exam fee is 150 USD. Voucher or discount programs may apply, but the standard list price is 150 USD.",
+    "id": "ch1-q05",
+    "options": [
+      "75 USD, matching the price of AWS Certified Cloud Practitioner exams",
+      "100 USD, consistent with all other AWS associate-level certification exams",
+      "200 USD, reflecting the added machine learning specialty content involved",
+      "150 USD, which is the standard list price for the MLA-C01 exam"
+    ],
+    "q": "What is the standard exam fee for the AWS MLA-C01 exam?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "pricing"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "AWS certifications, including MLA-C01, are valid for three years. After that period, holders must recertify to keep the credential active.",
+    "id": "ch1-q06",
+    "options": [
+      "Three years from the exam date, after which recertification is required",
+      "Two years from the exam date, with automatic renewal upon work review",
+      "Five years from the exam date, provided continuing education is logged",
+      "Lifetime validity, since the certification never expires once it is earned"
+    ],
+    "q": "How long is the AWS MLA-C01 certification valid?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "validity"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "Domain 1, Data Preparation for ML, carries a 28 percent weight on the exam. It is the most heavily weighted domain of the four.",
+    "id": "ch1-q07",
+    "options": [
+      "Domain 1 has a 22 percent weight, focused mainly on deployment pipelines",
+      "Domain 1 (Data Preparation for ML) has a 28 percent exam weight",
+      "Domain 1 has a 26 percent weight, centered on model training techniques",
+      "Domain 1 has a 24 percent weight, covering monitoring and security topics"
+    ],
+    "q": "What is the exam weight of Domain 1 (Data Preparation for ML)?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["domains", "domain-1"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "Domain 2, Model Development, Refining, and Training, is weighted at 26 percent. It covers choosing algorithms, training, and tuning models.",
+    "id": "ch1-q08",
+    "options": [
+      "Domain 2 is weighted at 28 percent and covers mainly data ingestion work",
+      "Domain 2 is weighted at 22 percent and covers mostly deployment pipelines",
+      "Domain 2 (Model Development) is weighted at 26 percent of the exam",
+      "Domain 2 is weighted at 24 percent and covers monitoring plus generative AI"
+    ],
+    "q": "What is the exam weight of Domain 2 (Model Development)?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["domains", "domain-2"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "Domain 3, Deployment and Orchestration of ML Workflows, accounts for 22 percent. It is the smallest domain by weight on the exam.",
+    "id": "ch1-q09",
+    "options": [
+      "24 percent, tied with the monitoring, security, and generative AI domain",
+      "28 percent, making it the most heavily weighted domain on the exam",
+      "26 percent, equal to the model development and training domain weight",
+      "22 percent for Domain 3 (Deployment and Orchestration of ML Workflows)"
+    ],
+    "q": "What is the exam weight of Domain 3 (Deployment and Orchestration)?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["domains", "domain-3"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "Domain 4, Monitoring, Maintenance, Security, and Generative AI, is weighted at 24 percent. It combines MLOps monitoring with security and GenAI topics.",
+    "id": "ch1-q10",
+    "options": [
+      "24 percent for Domain 4 (Monitoring, Security, and Generative AI)",
+      "22 percent for Domain 4, the smallest weighted domain on the exam",
+      "28 percent for Domain 4, making it the largest domain by exam weight",
+      "26 percent for Domain 4, matching the model development domain weight"
+    ],
+    "q": "What is the exam weight of Domain 4 (Monitoring, Security, GenAI)?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["domains", "domain-4"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "A multiple-choice question has one correct answer among the options. Candidates select the single best response for that item.",
+    "id": "ch1-q11",
+    "options": [
+      "It has two or more correct answers, and partial credit is awarded per pick",
+      "It has exactly one correct answer to select from the four options given",
+      "It requires ranking all four options in order from best to worst answer",
+      "It asks for a free-text answer typed into the console without any options"
+    ],
+    "q": "On the MLA-C01 exam, what defines a multiple-choice question?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["question-types", "multiple-choice"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "A multiple-response question has two or more correct answers. In this study bank, such topics are framed with one combined option listing the correct pair.",
+    "id": "ch1-q12",
+    "options": [
+      "It always has exactly one correct answer, identical to multiple-choice items",
+      "It is an unscored survey question used only to collect candidate feedback",
+      "It has two or more correct responses that must all be identified together",
+      "It requires building a working ML pipeline in a live AWS console session"
+    ],
+    "q": "On the MLA-C01 exam, what defines a multiple-response question?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["question-types", "multiple-response"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "Dividing 170 minutes by 65 questions gives about 2.6 minutes per question. That average guides pacing, with harder items flagged for review.",
+    "id": "ch1-q13",
+    "options": [
+      "About 1.5 minutes per question, leaving a full hour for final review",
+      "About 2.0 minutes per question, since all unscored items can be skipped",
+      "About 3.5 minutes per question, because breaks are included in the total",
+      "About 2.6 minutes per question, based on 170 minutes for 65 questions"
+    ],
+    "q": "What average time per question should a candidate plan for on MLA-C01?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["strategy", "time-management"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "There is no penalty for wrong answers, so leaving a question blank can only hurt. Candidates should answer every question, guessing when unsure.",
+    "id": "ch1-q14",
+    "options": [
+      "Answer every question, since wrong answers carry no penalty on the exam",
+      "Skip uncertain questions entirely, because wrong answers reduce the score",
+      "Answer only multiple-choice items and leave multiple-response items blank",
+      "Guess only when two options are eliminated, otherwise leave items blank"
+    ],
+    "q": "A candidate is unsure about several questions with little time left. What should they do?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["strategy", "guessing"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "facile",
+    "explain": "The exam includes unscored pretest items mixed with scored ones, and candidates cannot tell them apart. Every question should therefore be attempted seriously.",
+    "id": "ch1-q15",
+    "options": [
+      "Unscored items are grouped in a clearly labeled section at the exam end",
+      "Unscored pretest items are mixed in and cannot be identified during the exam",
+      "Unscored items appear only as multiple-response questions about generative AI",
+      "Candidates may skip unscored items after flagging them for the test center"
+    ],
+    "q": "What should candidates know about unscored items on the MLA-C01 exam?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "unscored-items"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "The exam guide appendix lists the AWS services considered in scope. Questions are built around those services rather than every AWS offering.",
+    "id": "ch1-q16",
+    "options": [
+      "Third-party ML frameworks only, since AWS services are tested in labs instead",
+      "Every AWS service ever released, because the exam has no defined boundaries",
+      "The services listed in Appendix A of the official MLA-C01 exam guide",
+      "Only services launched after 2024, reflecting the newest platform features"
+    ],
+    "q": "A study plan references many AWS services. Which set defines the MLA-C01 scope?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["scope", "appendix-a"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Flagging difficult questions and returning later protects the overall pace. Spending too long on one item risks leaving easier points unanswered.",
+    "id": "ch1-q17",
+    "options": [
+      "Spend up to 10 minutes on each hard question to maximize accuracy there",
+      "Answer questions in reverse order so the hardest domains are freshest",
+      "Leave flagged questions blank permanently to avoid any second-guessing",
+      "Flag difficult questions, move on, and return to them during review time"
+    ],
+    "q": "A candidate gets stuck on a long scenario question early in the exam. What is the best approach?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["strategy", "flag-review"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Data Preparation at 28 percent plus Model Development at 26 percent equals 54 percent combined. Those two domains form the majority of the exam.",
+    "id": "ch1-q18",
+    "options": [
+      "Domains 1 and 2 combined, covering 54 percent of the exam content",
+      "Domains 3 and 4 combined, covering deployment and monitoring workflows",
+      "Domains 2 and 3 combined, focused on training and deployment pipelines",
+      "Domains 1 and 4 combined, spanning data preparation and generative AI"
+    ],
+    "q": "Which two domains together represent more than half of the MLA-C01 exam?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["domains", "weights"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Online proctoring requires a quiet private room, ID verification, and a proctor monitoring via webcam. It uses the same content and timing as centers.",
+    "id": "ch1-q19",
+    "options": [
+      "Bringing any study notes into the room, since only phones are prohibited",
+      "Testing in a quiet private room with ID checks and webcam proctoring",
+      "Having a colleague present to verify identity throughout the whole session",
+      "Using two monitors and a virtual machine to access documentation faster"
+    ],
+    "q": "A candidate chooses online proctored delivery for MLA-C01. What should they expect?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "online-proctoring"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "720 is a scaled score, not 72 percent raw. The scaling converts raw performance to the 100-1000 scale, so a raw percentage cannot be inferred directly.",
+    "id": "ch1-q20",
+    "options": [
+      "That exactly 72 percent of questions must be answered correctly to pass it",
+      "That the score combines exam results with prior AWS hands-on work history",
+      "That 720 is a scaled score, not a raw percentage of correct answers",
+      "That candidates need 720 correct answers across multiple exam attempts"
+    ],
+    "q": "A colleague claims a 720 passing score means answering 72 percent correctly. What is wrong with this claim?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "scoring"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Domain 1 (28 percent) outweighs Domain 3 (22 percent) by 6 points. A candidate weak in both should prioritize Domain 1 study time accordingly.",
+    "id": "ch1-q21",
+    "options": [
+      "Domain 3, because deployment topics appear more often in practice tests",
+      "Domain 2, since model development outweighs both of the listed domains",
+      "Domain 4, because generative AI questions carry double-weighted scoring",
+      "Domain 1, since its 28 percent weight exceeds Domain 3 at 22 percent"
+    ],
+    "q": "A candidate is weak in both Domain 1 and Domain 3. Which weakness costs more marks?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["domains", "weights", "strategy"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "The stem asks for TWO services, and the correct option combines Amazon SageMaker Data Wrangler with AWS Glue DataBrew. The other pairs include at least one wrong service.",
+    "id": "ch1-q22",
+    "options": [
+      "SageMaker Data Wrangler and Glue DataBrew, for visual data preparation",
+      "SageMaker Clarify and Rekognition Labels, for bias and image labeling",
+      "Bedrock Agents and SageMaker Pipelines, for deployment orchestration",
+      "Kendra search and Lex chatbots, for document search and voice tasks"
+    ],
+    "q": "Which TWO services help engineers visually prepare and profile tabular data? (Select the combined correct option.)",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["question-types", "data-preparation"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "SageMaker Training jobs plus Automatic Model Tuning cover distributed training and hyperparameter search. The remaining pairs mix deployment or search tools incorrectly.",
+    "id": "ch1-q23",
+    "options": [
+      "SageMaker Model Monitor and Clarify, for drift detection and bias analysis",
+      "SageMaker Training jobs and Automatic Model Tuning, for training and tuning",
+      "Glue crawlers and Athena queries, for cataloging and interactive SQL work",
+      "Bedrock Knowledge Bases and Guardrails, for RAG retrieval and safeguards"
+    ],
+    "q": "Which TWO options together support distributed training and hyperparameter optimization? (Select the combined correct option.)",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["question-types", "model-development"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "At roughly 2.6 minutes per question, 30 minutes remain for about 10 questions plus review. Steady pacing with a buffer is the intent of the guideline.",
+    "id": "ch1-q24",
+    "options": [
+      "They are far behind schedule and should guess randomly on all remaining items",
+      "They have extra time only because unscored items are never counted at all",
+      "They are roughly on pace, with time left for remaining items plus review",
+      "They must request extended time, since the pace guideline was clearly missed"
+    ],
+    "q": "After one hour, a candidate has answered 25 of 65 questions. How should they interpret their pace?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["strategy", "time-management"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Domain 4 blends ML monitoring and maintenance with security and generative AI on Bedrock. It is the only domain explicitly covering GenAI content.",
+    "id": "ch1-q25",
+    "options": [
+      "Data ingestion, cataloging, and feature engineering for training datasets",
+      "Algorithm selection, model training, and hyperparameter tuning workflows",
+      "Endpoint deployment, CI/CD pipelines, and workflow orchestration tasks",
+      "Model monitoring, security controls, and generative AI with Bedrock"
+    ],
+    "q": "A practice question covers Bedrock guardrails and Model Monitor drift alerts. Which domain does it belong to?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["domains", "domain-4", "bedrock"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Flagging preserves momentum and the review pass catches misreads. Changing answers should require a concrete reason, not just second-guessing.",
+    "id": "ch1-q26",
+    "options": [
+      "Flag uncertain items, keep a steady pace, and review flagged ones at the end",
+      "Answer flagged items last without review, trusting only the first instinct",
+      "Restart the exam from the beginning whenever more than five flags exist",
+      "Spend remaining time on one flagged item rather than reviewing the rest"
+    ],
+    "q": "With 20 minutes left and 8 flagged questions, what review approach works best?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["strategy", "flag-review"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Both are containers for Docker images, but ECR stores images while SageMaker hosts endpoints. The exam tests this kind of service-boundary distinction.",
+    "id": "ch1-q27",
+    "options": [
+      "Athena and Redshift are identical engines, so either satisfies any query need",
+      "ECR stores container images, while SageMaker endpoints host deployed models",
+      "Glue and Lake Formation both train models, differing only in console color",
+      "Bedrock and SageMaker Canvas are the same IDE with two different brand names"
+    ],
+    "q": "A candidate confuses similarly named services. Which statement correctly separates a commonly mixed-up pair?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["scope", "services"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "The exam guide outlines domains, weights, and in-scope services. Reading it first aligns study effort with what the exam actually measures.",
+    "id": "ch1-q28",
+    "options": [
+      "Memorize every SageMaker API parameter before attempting practice questions",
+      "Study only generative AI topics, since older ML content is rarely tested now",
+      "Read the official exam guide first, mapping study time to domain weights",
+      "Book the exam immediately, then decide which domains deserve study time"
+    ],
+    "q": "A newcomer to ML on AWS asks where to start preparing for MLA-C01. What is the best first step?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["strategy", "exam-guide"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Since every question counts the same and distractors are designed to look plausible, eliminating options and answering all items maximizes expected score.",
+    "id": "ch1-q29",
+    "options": [
+      "Leave hard scenario items blank to protect the scaled score from errors",
+      "Focus only on Domain 1 items, since the other domains matter far less",
+      "Memorize Appendix A prices, because billing details dominate the exam",
+      "Eliminate clearly wrong options first, then answer every question asked"
+    ],
+    "q": "Which guessing approach best fits the MLA-C01 scoring rules?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["strategy", "guessing"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "SageMaker Pipelines plus Model Registry cover orchestration and versioning of ML workflows. The other pairs address monitoring, search, or data prep instead.",
+    "id": "ch1-q30",
+    "options": [
+      "SageMaker Pipelines and Model Registry, for orchestration and versioning",
+      "SageMaker Clarify and Model Monitor, for bias checks and drift alerts",
+      "Amazon Kendra and OpenSearch Service, for search and analytics indexing",
+      "Glue DataBrew and Kinesis Data Streams, for profiling and stream ingest"
+    ],
+    "q": "Which TWO options together support CI/CD orchestration for ML workflows? (Select the combined correct option.)",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["question-types", "deployment"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Domain 3 at 22 percent is the smallest slice, so each of its questions carries slightly less aggregate importance than Domain 1 or 2 questions.",
+    "id": "ch1-q31",
+    "options": [
+      "It means Domain 3 has the most scenario questions despite its small weight",
+      "It means Domain 3 contributes the smallest share of the total exam score",
+      "It means Domain 3 questions award partial credit to balance the weighting",
+      "It means Domain 3 is tested only through unscored pretest items on the exam"
+    ],
+    "q": "What does the 22 percent weight of Domain 3 imply for overall scoring?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["domains", "domain-3", "scoring"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Trying to spot unscored items wastes time and risks skipping scored ones. Treating each question as scored keeps effort evenly distributed.",
+    "id": "ch1-q32",
+    "options": [
+      "Skip long questions first, assuming lengthy scenarios are always unscored",
+      "Memorize item positions, because unscored questions share fixed numbers",
+      "Treat every question as scored, since unscored items cannot be identified",
+      "Report suspected unscored items to earn extra time from the proctor team"
+    ],
+    "q": "A forum post claims candidates can spot unscored items by their length. How should a candidate react?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "unscored-items"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Pearson VUE delivers both the test-center and online-proctored versions of MLA-C01. The format, timing, and content are consistent across both.",
+    "id": "ch1-q33",
+    "options": [
+      "Only testing centers offer the exam, since online delivery was discontinued",
+      "Only online delivery is available, as physical test centers closed in 2025",
+      "Candidates must take it twice, once online and once at a testing center",
+      "Both testing centers and online proctoring are offered via Pearson VUE"
+    ],
+    "q": "A candidate must choose between a test center and online delivery. What is true about the two options?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "pearson-vue"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Elimination plus key-term matching (such as deployment versus monitoring verbs) narrows scenario questions efficiently. The remaining time funds a review pass.",
+    "id": "ch1-q34",
+    "options": [
+      "Eliminate distractors using key terms, answer all items, then review flags",
+      "Memorize service quotas first, then answer questions in strict file order",
+      "Skip every scenario over four lines, returning only if extra time remains",
+      "Answer Domain 4 first, then guess the rest without any review of flags"
+    ],
+    "q": "Which combined time strategy best handles long scenario questions under exam pressure?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["strategy", "time-management"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "media",
+    "explain": "Certification validity runs three years from earning MLA-C01. Planning recertification near expiry keeps the credential continuously active.",
+    "id": "ch1-q35",
+    "options": [
+      "The credential expires after one year unless renewal fees are paid monthly",
+      "The credential stays valid for three years from the date it is earned",
+      "The credential lasts five years but only for online-proctored exam passes",
+      "The credential never expires, though employers may request fresh exams"
+    ],
+    "q": "A manager asks how soon a newly certified engineer must recertify MLA-C01. What is the correct guidance?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "validity"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "difficile",
+    "explain": "Domains 1 and 2 total 54 percent while Domains 3 and 4 total 46 percent, so the gap is 8 points. Equal study per domain would underweight the larger pair.",
+    "id": "ch1-q36",
+    "options": [
+      "The gap is 2 points, so splitting study time evenly across domains is ideal",
+      "The gap is 4 points, meaning Domain 4 alone outweighs the other three",
+      "The gap is 8 points (54 versus 46 percent), favoring Domains 1 and 2",
+      "The gap is 12 points, so Domains 3 and 4 can be skipped with little risk"
+    ],
+    "q": "A candidate splits study time evenly across all four domains. Using the official weights, why is this suboptimal?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["domains", "weights", "strategy"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "difficile",
+    "explain": "The stem asks for TWO controls, and the correct pair is KMS encryption with IAM least-privilege roles. The other pairs mix monitoring or search tools.",
+    "id": "ch1-q37",
+    "options": [
+      "CloudWatch alarms with Model Monitor schedules, for drift and quality checks",
+      "Bedrock prompt tuning and SageMaker Studio notebooks, for iteration speed",
+      "Athena queries with QuickSight dashboards, for SQL analysis and reporting",
+      "KMS encryption with IAM least-privilege roles, for data protection and access"
+    ],
+    "q": "Which TWO options together secure training data at rest and control access? (Select the combined correct option.)",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["question-types", "security"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "difficile",
+    "explain": "Ten questions in 15 minutes demands 1.5 minutes each, well below the 2.6 average. Triage with quick elimination and guessing beats perfecting one item.",
+    "id": "ch1-q38",
+    "options": [
+      "Triage quickly: eliminate, answer, flag only the most promising for review",
+      "Perfect two answers carefully, then leave the remaining eight questions blank",
+      "Reread each scenario three times to avoid any careless misinterpretation",
+      "Challenge the proctor for extra time, citing the difficulty of the items"
+    ],
+    "q": "With 15 minutes left and 10 questions unanswered, what pacing decision maximizes the score?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["strategy", "time-management"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "difficile",
+    "explain": "Spending heavily on Domain 3 (22 percent) while neglecting Domain 1 (28 percent) misallocates effort. Fundamentals-first ordering matches the weight distribution.",
+    "id": "ch1-q39",
+    "options": [
+      "Mastering deployment deeply while ignoring data preparation fundamentals",
+      "Studying Domains 1 and 2 first, since they jointly cover 54 percent",
+      "Focusing only on pricing details, which dominate scenario-based questions",
+      "Skipping the exam guide, because third-party summaries replace it fully"
+    ],
+    "q": "Two study plans emphasize different domains. Which allocation flaw is most costly for the final score?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["domains", "strategy", "weights"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "difficile",
+    "explain": "Multiple-response items need every correct choice selected, with no partial credit. Practicing combined-option formats builds the needed precision.",
+    "id": "ch1-q40",
+    "options": [
+      "They award partial credit for each correct choice, so guessing is risk-free",
+      "They allow blank responses without penalty, unlike multiple-choice items",
+      "They require all correct choices with no partial credit for subsets",
+      "They appear only among unscored items, so they never affect the result"
+    ],
+    "q": "How does scoring of multiple-response questions differ from what many candidates assume?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["question-types", "multiple-response", "scoring"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "difficile",
+    "explain": "The stem asks for TWO monitoring signals, and the correct pair is data-quality drift plus model-bias metrics. The other pairs cover deployment or search tasks.",
+    "id": "ch1-q41",
+    "options": [
+      "Glue job bookmarks with Lambda retries, for ETL checkpoints and recovery",
+      "ECR image scans with CodePipeline stages, for container and release checks",
+      "Athena partitions with Redshift distribution keys, for query performance",
+      "Data-quality drift with model-bias metrics, for production monitoring"
+    ],
+    "q": "Which TWO options together detect production ML degradation and fairness issues? (Select the combined correct option.)",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["question-types", "monitoring"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "difficile",
+    "explain": "Appendix A defines in-scope services, so depth there beats breadth elsewhere. Out-of-scope memorization consumes time without adding exam points.",
+    "id": "ch1-q42",
+    "options": [
+      "Go deep on Appendix A services, since exam questions are scoped to that list",
+      "Memorize every AWS service equally, regardless of the official scope list",
+      "Focus on hardware specs, because instance part numbers dominate the exam",
+      "Study only whitepapers, since service-specific questions were fully removed"
+    ],
+    "q": "A candidate memorizes dozens of out-of-scope services but skims Appendix A. What is the flaw in this approach?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["scope", "appendix-a", "strategy"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "difficile",
+    "explain": "Changing a flagged answer only on concrete evidence (a misread stem or recalled fact) avoids eroding first-pass accuracy. Blanket switching usually lowers scores.",
+    "id": "ch1-q43",
+    "options": [
+      "Always switch flagged answers to the longest option during the final review",
+      "Change flagged answers only with concrete evidence, such as a misread stem",
+      "Always revert flagged answers to the first instinct without rereading them",
+      "Leave all flagged answers blank, since changed answers lose extra points"
+    ],
+    "q": "During final review, a candidate second-guesses several flagged answers. What is the evidence-based policy?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["strategy", "flag-review"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "difficile",
+    "explain": "Scaled scoring plus unscored pretest items means raw counts map nonlinearly to the 100-1000 scale. Practice percentages are rough guides, not guarantees.",
+    "id": "ch1-q44",
+    "options": [
+      "Each question contributes exactly 1000 divided by 65 points to the score",
+      "Unscored items are always the 10 longest scenarios in the exam session",
+      "Raw correct counts convert via scaling, with unscored items mixed invisibly",
+      "Online and test-center deliveries use different passing scores and scales"
+    ],
+    "q": "A candidate scoring 75 percent on practice tests assumes they will earn exactly 750. Why is this reasoning flawed?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "scoring", "unscored-items"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch1-exam-guide",
+    "difficulty": "difficile",
+    "explain": "Validity runs three years from passing, the fee is 150 USD, and delivery is via Pearson VUE centers or online proctoring. All three facts must hold together.",
+    "id": "ch1-q45",
+    "options": [
+      "Two-year validity with a 100 USD fee, delivered only at testing centers",
+      "Lifetime validity with a 200 USD fee, delivered through employer portals",
+      "Five-year validity with free retakes, delivered at AWS conference events",
+      "Three-year validity with a 150 USD fee, via centers or online proctoring"
+    ],
+    "q": "Which single option correctly combines the MLA-C01 validity period, fee, and delivery channels?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-format", "validity", "pricing"],
+    "origin": "ai"
+  }
+]

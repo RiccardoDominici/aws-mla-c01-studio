@@ -1,0 +1,767 @@
+[
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "65 questions in 170 minutes gives about 2.6 minutes per question, so budgeting a steady pace with time for review matters most.",
+    "id": "ch7-q01",
+    "options": [
+      "Answer every question in under 1 minute to finish a full hour ahead of schedule",
+      "Spend 10 minutes on each flagged question and rush the remaining ones quickly",
+      "Budget about 2.6 minutes per question and reserve time for a final review",
+      "Skip all long scenario questions first and answer only the short ones fully"
+    ],
+    "q": "The MLA-C01 exam has 65 questions in 170 minutes. What is the best time-management rule?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "time-management"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Passing requires a scaled score of 720 out of 1000, so candidates should aim comfortably above that threshold in practice tests.",
+    "id": "ch7-q02",
+    "options": [
+      "A scaled score of 720 out of 1000 is required to pass the MLA-C01 exam",
+      "A scaled score of 500 out of 1000 guarantees a pass on the MLA-C01 exam",
+      "A scaled score of 950 out of 1000 is the minimum passing mark for MLA-C01",
+      "There is no fixed passing score and every exam form is graded on a curve"
+    ],
+    "q": "What is the passing score for the AWS MLA-C01 exam?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "exam-format"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Domain 1 (data preparation) is weighted 28%, the largest single domain, so it deserves the biggest share of study time.",
+    "id": "ch7-q03",
+    "options": [
+      "Domain 2 on model development carries the highest exam weight at around 40% of total content",
+      "Domain 1 on data preparation has the highest weight at about 28% of the exam",
+      "Domain 4 on machine learning operations is weighted highest at nearly 50%",
+      "All four exam domains carry exactly the same weight of 25% on the MLA-C01"
+    ],
+    "q": "Which MLA-C01 domain carries the highest weight?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "domain-weights"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "The scenario says low-latency predictions for each request, which maps to a SageMaker real-time endpoint serving the model continuously.",
+    "id": "ch7-q04",
+    "options": [
+      "Run a SageMaker batch transform job that scores stored input files once per day",
+      "Configure a SageMaker asynchronous endpoint with a long queue for background tasks",
+      "Launch a SageMaker training job with spot instances to retrain the model weekly",
+      "Deploy the model to a SageMaker real-time endpoint for low-latency predictions"
+    ],
+    "q": "A scenario asks for real-time predictions with low latency for each incoming request. Which option fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "keyword-mapping", "sagemaker"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Extracting text from scanned documents and forms is the textbook use case for Amazon Textract in exam scenarios.",
+    "id": "ch7-q05",
+    "options": [
+      "Use Amazon Transcribe to convert the scanned document images into text output",
+      "Use Amazon Personalize to extract printed text from the scanned PDF documents",
+      "Use Amazon Textract to extract text and form data from the scanned documents",
+      "Use Amazon Forecast to parse table structures from the scanned image documents"
+    ],
+    "q": "A scenario requires extracting text from scanned loan-application documents. Which service fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "keyword-mapping", "textract"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Personalized product recommendations are the signature keyword for Amazon Personalize in scenario questions.",
+    "id": "ch7-q06",
+    "options": [
+      "Build the recommender with Amazon Forecast using historical sales time-series data",
+      "Build the recommender with Amazon Personalize using user interaction history data",
+      "Build the recommender with Amazon Textract using product catalog image scan data",
+      "Build the recommender with Amazon Polly using recorded customer support call audio"
+    ],
+    "q": "A retailer wants personalized product recommendations for each shopper. Which service should you choose?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "keyword-mapping", "personalize"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "The certification remains valid for three years, after which recertification is needed to keep the credential active.",
+    "id": "ch7-q07",
+    "options": [
+      "The MLA-C01 certification is valid for 3 years before recertification is needed",
+      "The MLA-C01 certification is valid for 1 year from the date you pass before recertification is needed",
+      "The MLA-C01 certification is valid for 5 years before recertification is needed",
+      "The MLA-C01 certification never expires and needs no recertification at all"
+    ],
+    "q": "How long is the MLA-C01 certification valid?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "exam-format"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Eliminating options that contradict a keyword in the scenario (for example batch versus real-time) quickly narrows four choices to two.",
+    "id": "ch7-q08",
+    "options": [
+      "Always pick the longest and most detailed option without reading the scenario text",
+      "Always choose the option mentioning the newest AWS service released this year",
+      "Always select two answers even when the question asks for only a single answer",
+      "Eliminate options that contradict scenario keywords to narrow four choices to two"
+    ],
+    "q": "What is the most reliable first step when facing a difficult scenario question?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "elimination"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Retrieval Augmented Generation grounds a foundation model with retrieved documents, while fine-tuning changes weights; use RAG when facts update often.",
+    "id": "ch7-q09",
+    "options": [
+      "Fine-tuning is always cheaper than RAG because it removes the vector database cost",
+      "RAG and fine-tuning are identical techniques with interchangeable architecture names",
+      "Use RAG with a knowledge base when company facts change frequently over time",
+      "Use fine-tuning whenever the model needs fresh daily documents as extra context"
+    ],
+    "q": "A chatbot must answer from company documents that change weekly. Should you pick RAG or fine-tuning?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "rag", "fine-tuning"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "The current MLA-C01 exam fee is $150 USD, so candidates should budget that amount when scheduling the exam.",
+    "id": "ch7-q10",
+    "options": [
+      "The MLA-C01 exam currently costs $150 USD at the standard registration price",
+      "The MLA-C01 exam currently costs $300 USD at the standard registration price",
+      "The MLA-C01 exam currently costs $75 USD at the standard registration price",
+      "The MLA-C01 exam is free of charge for all candidates who register online"
+    ],
+    "q": "What is the standard registration price of the MLA-C01 exam?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "exam-format"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Precision measures how many predicted positives are truly positive, which matters most when false alarms are expensive.",
+    "id": "ch7-q11",
+    "options": [
+      "Recall measures the share of true positives caught and ignores the false alarms",
+      "Precision measures the share of predicted positives that are truly positive cases",
+      "Accuracy measures only the false negatives and ignores every other error type",
+      "F1 score measures training speed and ignores classification errors almost fully"
+    ],
+    "q": "A fraud team wants to minimize false alarms. Should they optimize precision or recall?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "metrics", "precision-recall"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Recall measures coverage of actual positives, so a cancer-screening model that must miss almost no real cases optimizes recall.",
+    "id": "ch7-q12",
+    "options": [
+      "Optimize precision because missing real cancer cases is considered fully acceptable",
+      "Optimize training speed because catching every positive case is never that urgent",
+      "Optimize model size because missing positive cases reduces storage costs a lot",
+      "Optimize recall because missing a real positive case is the most costly error"
+    ],
+    "q": "A screening model must catch nearly every disease case even with some false alarms. Which metric matters?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "metrics", "precision-recall"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Batch transform is for large offline scoring jobs with no latency requirement, while real-time endpoints serve immediate requests.",
+    "id": "ch7-q13",
+    "options": [
+      "Choose a real-time endpoint for nightly scoring of millions of stored records",
+      "Choose asynchronous inference for scoring static CSV files stored in S3 buckets",
+      "Choose batch transform for overnight scoring of millions of stored records",
+      "Choose a training job with GPU instances for scoring stored records every night"
+    ],
+    "q": "A nightly job scores millions of stored records with no latency need. Which inference option fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "batch", "inference"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Feature Store is the purpose-built online and offline feature repository, while plain S3 lacks versioning, lineage, and low-latency lookup.",
+    "id": "ch7-q14",
+    "options": [
+      "Use SageMaker Feature Store for versioned features with online and offline access",
+      "Use plain Amazon S3 buckets for versioned features with online low-latency access",
+      "Use Amazon SQS queues for versioned feature storage with offline lookup support",
+      "Use Amazon SNS topics for versioned feature history with online lookup support"
+    ],
+    "q": "A team needs versioned, reusable ML features for training and serving. S3 or Feature Store?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "traps", "feature-store"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "facile",
+    "explain": "Domain weights are 28% data preparation, 26% model development, 22% deployment, and 24% operations, so all four must be studied.",
+    "id": "ch7-q15",
+    "options": [
+      "The four domain weights are 40%, 30%, 20% and 10% across the MLA-C01 exam",
+      "The four domain weights are 28%, 26%, 22% and 24% across the MLA-C01 exam",
+      "The four domain weights are 50%, 25%, 15% and 10% across the MLA-C01 exam",
+      "The four domain weights are 25% each with exactly equal coverage on the exam"
+    ],
+    "q": "What are the approximate domain weights of the MLA-C01 exam?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "domain-weights"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Asynchronous inference suits requests that take minutes and tolerate delay, unlike real-time endpoints built for millisecond responses.",
+    "id": "ch7-q16",
+    "options": [
+      "Deploy a real-time endpoint behind a load balancer for requests taking several minutes",
+      "Run batch transform on a schedule even though requests arrive unpredictably all day",
+      "Retrain the model from scratch on every request using a SageMaker training job",
+      "Use asynchronous inference with an S3-backed queue for long-running predictions"
+    ],
+    "q": "Requests take up to 5 minutes each and arrive sporadically; clients tolerate delay. Which inference fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "async", "inference"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "The trap is confusing storage (S3) with a feature repository; Feature Store adds online lookup, versioning, and lineage that S3 lacks.",
+    "id": "ch7-q17",
+    "options": [
+      "Saving features as CSV files in S3 gives automatic online lookup and lineage",
+      "Feature Store and S3 are interchangeable for real-time feature serving needs",
+      "Feature Store adds online serving, versioning and lineage that raw S3 lacks",
+      "Raw S3 buckets provide built-in feature versioning and point-in-time queries"
+    ],
+    "q": "Why is plain S3 the wrong answer when a scenario demands reusable online features?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "traps", "feature-store"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Two options mentioning the same wrong service family usually share the same flaw, so the correct answer is likely among the other two.",
+    "id": "ch7-q18",
+    "options": [
+      "When two options describe the same wrong pattern, focus on the other two choices",
+      "When two options look similar, always pick the first one without further analysis",
+      "When two options disagree, eliminate both of them and guess between the rest",
+      "When two options mention AWS services, always prefer the one with fewer words"
+    ],
+    "q": "Two options both propose batch scoring but the scenario needs real-time. What should you do?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "elimination"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "The scenario keyword combination of audio plus searchable text points to Transcribe, not to vision or forecasting services.",
+    "id": "ch7-q19",
+    "options": [
+      "Map audio-to-text scenarios to Amazon Comprehend for entity extraction from speech",
+      "Map audio-to-text scenarios to Amazon Transcribe for speech-to-text conversion",
+      "Map audio-to-text scenarios to Amazon Rekognition for speech-to-text conversion",
+      "Map audio-to-text scenarios to Amazon Forecast for speech-to-text transcription"
+    ],
+    "q": "A scenario mentions transcribing thousands of support calls into searchable text. Which mapping is right?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "keyword-mapping", "transcribe"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Flagging uncertain questions and moving on protects the 2.6-minute pace; returning at the end beats stalling mid-exam.",
+    "id": "ch7-q20",
+    "options": [
+      "Spend up to 15 minutes on the hardest question to guarantee full marks on it",
+      "Answer questions out of order randomly to keep the brain stimulated and alert",
+      "Leave every calculation question blank because they consume too much exam time",
+      "Flag uncertain questions, move on to protect pace, and return during review"
+    ],
+    "q": "You are stuck on a hard question with 50 questions remaining. What is the best tactic?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "time-management"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "A stable writing style with a small vocabulary calls for fine-tuning, while RAG suits changing factual knowledge rather than tone.",
+    "id": "ch7-q21",
+    "options": [
+      "Choose RAG because fine-tuning can never change the tone or style of outputs",
+      "Choose prompt engineering alone because training is banned for style adaptation",
+      "Choose fine-tuning because the goal is a stable custom style, not fresh facts",
+      "Choose RAG because retrieving documents is the only way to change writing style"
+    ],
+    "q": "A company wants its support bot to always use a specific brand tone. RAG or fine-tuning?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "rag", "fine-tuning"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Absolute words like always or never in an option often signal a distractor, since real AWS scenarios usually have exceptions.",
+    "id": "ch7-q22",
+    "options": [
+      "Treat absolute words like always or never as warning signs of a likely distractor",
+      "Treat absolute words like always or never as proof that the option is correct",
+      "Ignore every qualifier in the options and focus only on the service names given",
+      "Prefer options with absolute words because the exam rewards confident phrasing"
+    ],
+    "q": "An option says a solution will always be cheapest in every possible case. How should you treat it?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "elimination"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Model Monitor watches data quality, drift, and prediction quality of deployed endpoints, while training jobs and registries serve other stages.",
+    "id": "ch7-q23",
+    "options": [
+      "Use SageMaker Training jobs with spot instances to monitor deployed endpoint drift",
+      "Use SageMaker Model Monitor to detect data drift on the deployed production endpoint",
+      "Use SageMaker Model Registry with approval workflows to monitor endpoint data drift",
+      "Use SageMaker Feature Store with offline storage to monitor endpoint prediction drift"
+    ],
+    "q": "A deployed model needs automated detection of input data drift. Which service fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "keyword-mapping", "monitoring"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Ground Truth provides managed human labeling workflows, while Mechanical Turk direct use and fully manual scripts add overhead.",
+    "id": "ch7-q24",
+    "options": [
+      "Ask engineers to label data in spreadsheets without any validation workflow steps",
+      "Use Amazon Mechanical Turk directly with custom code and no quality controls",
+      "Use Amazon Rekognition with default models to label custom training data perfectly",
+      "Use SageMaker Ground Truth with a private workforce and built-in quality checks"
+    ],
+    "q": "A team needs 50,000 images labeled accurately with minimal operational overhead. What fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "keyword-mapping", "labeling"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "KMS encryption plus private endpoints addresses both stated constraints, while public access or unencrypted storage violates them.",
+    "id": "ch7-q25",
+    "options": [
+      "Store data unencrypted in public S3 buckets to simplify the security review process",
+      "Disable all logging and monitoring to reduce the compliance documentation burden",
+      "Encrypt data with KMS and use VPC endpoints to satisfy privacy and audit needs",
+      "Share credentials among team members to simplify access to the training data"
+    ],
+    "q": "A healthcare scenario stresses encryption and auditability of training data. Which option satisfies both?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "security", "mixed-review"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Multi-AZ deployment with auto-scaling endpoints handles spiky real-time traffic, while single-instance or batch options fail the latency need.",
+    "id": "ch7-q26",
+    "options": [
+      "Serve traffic from a single notebook instance without scaling for the peak event",
+      "Deploy Multi-AZ auto-scaling endpoints to absorb spiky real-time prediction traffic",
+      "Score the traffic with nightly batch transform jobs after the live event has ended and email results",
+      "Retrain the model continuously during the event instead of serving predictions"
+    ],
+    "q": "A live event brings 10x traffic spikes needing instant predictions. Which design fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "mixed-review", "deployment"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Glue DataBrew and Glue ETL cover visual and code-based preparation, which matches Domain 1's heavy 28% exam weighting.",
+    "id": "ch7-q27",
+    "options": [
+      "Prepare tabular data with Glue DataBrew and Glue ETL jobs before model training",
+      "Prepare tabular data with CloudFront distributions and Route 53 routing policies",
+      "Prepare tabular data with IAM policies and KMS keys before the model training",
+      "Prepare tabular data with SNS topics and SQS queues before the model training"
+    ],
+    "q": "A scenario asks for cleaning and joining tabular data at scale. Which preparation path fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "keyword-mapping", "data-prep"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Spot training with checkpointing plus the cheapest suitable instance is the classic cost-optimization answer for fault-tolerant jobs.",
+    "id": "ch7-q28",
+    "options": [
+      "Train only on expensive on-demand GPU clusters without checkpointing for safety",
+      "Retrain the full model every hour on maximum instances regardless of the cost",
+      "Keep training endpoints running permanently at full capacity for future reuse",
+      "Use spot instances with checkpointing and right-sized instances to cut cost"
+    ],
+    "q": "A fault-tolerant training job must minimize compute cost. Which tactic fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "cost", "training"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "A confusion-matrix question rewarding caught positives over false alarms tests recall, so the high-recall option is the intended answer.",
+    "id": "ch7-q29",
+    "options": [
+      "Pick the model with the highest precision even though it misses many positives",
+      "Pick the model with the fastest training time even though it misses positives",
+      "Pick the high-recall model that catches the most positives despite false alarms",
+      "Pick the smallest model package even though it misses most positive examples"
+    ],
+    "q": "A question shows a confusion matrix and asks for the best model when missing positives is costly. What wins?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "metrics", "precision-recall"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Comprehend detects sentiment, entities, and PII in text, which matches the review-analysis scenario better than translation or speech tools.",
+    "id": "ch7-q30",
+    "options": [
+      "Analyze review sentiment and entities with Amazon Comprehend NLP capabilities",
+      "Analyze review sentiment and entities with Amazon Translate language conversion",
+      "Analyze review sentiment and entities with Amazon Transcribe speech conversion",
+      "Analyze review sentiment and entities with Amazon Forecast time-series models"
+    ],
+    "q": "A scenario asks for sentiment and key phrases from product reviews. Which service fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "keyword-mapping", "comprehend"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Rekognition covers image and video analysis keywords, while Transcribe and Polly handle audio rather than visual content.",
+    "id": "ch7-q31",
+    "options": [
+      "Detect defects in product photos with Amazon Polly speech synthesis voices",
+      "Detect defects in product photos with Amazon Rekognition image analysis",
+      "Detect defects in product photos with Amazon Transcribe audio transcription",
+      "Detect defects in product photos with Amazon Lex conversational chatbot flows"
+    ],
+    "q": "A factory scenario mentions detecting defects in product photos. Which service fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "keyword-mapping", "rekognition"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Forecast is the managed time-series service, while Personalize and Textract address recommendations and document extraction instead.",
+    "id": "ch7-q32",
+    "options": [
+      "Predict future demand with Amazon Personalize recommendation ranking models",
+      "Predict future demand with Amazon Textract document extraction processing",
+      "Predict future demand with Amazon Rekognition image classification models",
+      "Predict future demand with Amazon Forecast time-series forecasting models"
+    ],
+    "q": "A scenario asks for demand forecasting from historical sales. Which service fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "keyword-mapping", "forecast"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Pipelines provides versioned, repeatable training-to-deployment workflows with a registry, unlike ad-hoc notebook runs.",
+    "id": "ch7-q33",
+    "options": [
+      "Retrain models manually from notebooks with untracked artifacts for each release",
+      "Deploy models by copying files between laptops without any version control steps",
+      "Automate retraining and deployment with SageMaker Pipelines and Model Registry",
+      "Trigger deployments by emailing model archives to operators for manual upload"
+    ],
+    "q": "A team needs repeatable retraining and governed promotion to production. Which approach fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "mixed-review", "mlops"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Bedrock Agents combine foundation models with API actions for multi-step tasks, while plain prompts or static rules cannot call tools.",
+    "id": "ch7-q34",
+    "options": [
+      "Build the booking assistant with Bedrock Agents that call flight and hotel APIs",
+      "Build the booking assistant with static FAQ rules that cannot call external APIs",
+      "Build the booking assistant with plain prompts that never invoke any backend tools",
+      "Build the booking assistant with batch ETL jobs that cannot hold conversations"
+    ],
+    "q": "An assistant must check flights, book hotels, and confirm by email in one chat. Which design fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "bedrock", "agents"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "media",
+    "explain": "Guardrails enforces topic, content, and PII policies on Bedrock applications, while model choice or longer prompts alone cannot guarantee safety.",
+    "id": "ch7-q35",
+    "options": [
+      "Rely on longer system prompts alone to guarantee blocking of harmful content",
+      "Apply Bedrock Guardrails with content filters and PII redaction for the app",
+      "Switch to a larger foundation model since size alone enforces safety policies",
+      "Disable all logging so harmful outputs leave no trace in the audit records"
+    ],
+    "q": "A Bedrock app must block harmful content and redact PII. Which control fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "bedrock", "responsible-ai"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "difficile",
+    "explain": "Shadow testing with full production mirroring plus metric comparison validates the challenger safely before any live traffic shifts.",
+    "id": "ch7-q36",
+    "options": [
+      "Replace the production model overnight without any comparison or rollback plan",
+      "Send all live traffic to the challenger and delete the champion model at once",
+      "Compare models only on training accuracy without any production data mirroring",
+      "Mirror live traffic to the challenger in shadow mode and compare business metrics"
+    ],
+    "q": "A bank must validate a challenger fraud model against the champion without risking live decisions. What fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "deployment", "testing"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "difficile",
+    "explain": "Score each surviving option against every scenario constraint; the winner satisfies latency, cost, and security together rather than just one.",
+    "id": "ch7-q37",
+    "options": [
+      "Pick whichever surviving option mentions the most familiar AWS service name",
+      "Pick the surviving option with the lowest sticker price ignoring other needs",
+      "Score each surviving option against every constraint and pick the full match",
+      "Pick the surviving option listed first to save time for the remaining items"
+    ],
+    "q": "After elimination, two plausible options remain with different trade-offs. What is the best tie-breaker?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "elimination", "mixed-review"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "difficile",
+    "explain": "Stratified sampling preserves the rare-class ratio in each split, while random splits or training-only shuffles can erase minority representation.",
+    "id": "ch7-q38",
+    "options": [
+      "Split data with stratified sampling so each split preserves the rare-class ratio",
+      "Split data with purely random sampling that ignores the rare-class ratio fully",
+      "Shuffle only the training split while leaving validation and test sets biased",
+      "Duplicate the majority class many times to overwhelm the rare fraud examples"
+    ],
+    "q": "A fraud dataset has 1% positives. Which splitting tactic keeps evaluation honest?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "imbalanced-data", "evaluation"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "difficile",
+    "explain": "Canary deployment with CloudWatch alarms and automatic rollback limits blast radius, unlike full cutover or unmonitored shifts.",
+    "id": "ch7-q39",
+    "options": [
+      "Shift 100% of traffic at once with no alarms or rollback plan for maximum speed",
+      "Shift traffic gradually with canary stages, alarms and automatic rollback ready",
+      "Deploy the new model without monitoring since endpoint metrics add extra cost",
+      "Keep both models running permanently at full capacity without any traffic split"
+    ],
+    "q": "A team deploys a new ranking model to a high-traffic endpoint. Which rollout is safest?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "deployment", "canary"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "difficile",
+    "explain": "The question conflates correlation with causation: Athena queries plus QuickSight explain trends but cannot prove the campaign caused them.",
+    "id": "ch7-q40",
+    "options": [
+      "Athena plus QuickSight dashboards prove the marketing campaign caused the uplift",
+      "QuickSight dashboards with more charts automatically establish causal relationships",
+      "Adding extra Athena tables converts a correlation finding into proven causation",
+      "Athena plus QuickSight show correlation, but causation needs controlled experiments"
+    ],
+    "q": "A scenario claims dashboard trends prove a campaign caused sales uplift. What is the flaw?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "traps", "analytics"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "difficile",
+    "explain": "Knowledge Bases for Bedrock with chunking, embeddings, and citations grounds answers in source documents and reduces hallucinations.",
+    "id": "ch7-q41",
+    "options": [
+      "Increase the model temperature to maximum so answers sound more creative",
+      "Remove all source citations to make the generated answers appear more fluent",
+      "Ground answers with a Bedrock Knowledge Base, chunking, embeddings and citations",
+      "Fine-tune daily on raw PDFs without any chunking or retrieval step at all"
+    ],
+    "q": "A legal assistant hallucinates case citations. Which RAG design reduces this risk?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "rag", "bedrock"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch7-practice",
+    "difficulty": "difficile",
+    "explain": "KMS with granular IAM, VPC endpoints, and CloudTrail audit trails meets the combined encryption, isolation, and lineage demands.",
+    "id": "ch7-q42",
+    "options": [
+      "Protect data with KMS encryption, VPC endpoints, IAM roles and CloudTrail audits",
+      "Protect data with public buckets, shared passwords and disabled audit logging",
+      "Protect data with hardcoded credentials, open endpoints and no encryption keys",
+      "Protect data with anonymous access, plaintext storage and no network controls"
+    ],
+    "q": "A mixed scenario demands encryption, private networking, and full lineage for Pipelines. Which bundle fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "mixed-review", "security"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch7-practice",
+    "difficulty": "difficile",
+    "explain": "Drift plus bias metrics with retraining thresholds catches both distribution shift and fairness decay, unlike accuracy-only or manual checks.",
+    "id": "ch7-q43",
+    "options": [
+      "Check training accuracy once a year and retrain only when engineers complain",
+      "Monitor drift and bias metrics continuously and retrain when thresholds breach",
+      "Monitor GPU utilization alone and retrain whenever the cluster looks too idle",
+      "Disable monitoring to save cost and retrain on a fixed date every five years"
+    ],
+    "q": "A lending model faces shifting applicant demographics and fairness scrutiny. What monitoring fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "monitoring", "bias"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch7-practice",
+    "difficulty": "difficile",
+    "explain": "A confusion matrix with 5 caught frauds and 45 missed ones is recall-bound, so the low-recall diagnosis with threshold tuning is correct.",
+    "id": "ch7-q44",
+    "options": [
+      "The matrix shows perfect precision and recall, so the model needs no further work",
+      "The matrix shows a cost problem, so replacing training hardware will fix recall",
+      "The matrix shows low recall with many missed frauds, so tune threshold and resample",
+      "The matrix shows slow inference, so a larger endpoint instance will fix the errors"
+    ],
+    "q": "A confusion matrix shows 5 true positives and 45 false negatives for fraud. What is the right read?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "metrics", "confusion-matrix"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch7-practice",
+    "difficulty": "difficile",
+    "explain": "With 10 minutes left and 15 questions, spending under a minute each with quick elimination plus review beats perfecting a few answers.",
+    "id": "ch7-q45",
+    "options": [
+      "Spend the remaining time perfecting two answers and leave the rest completely blank",
+      "Reread every earlier question from scratch even if it means answering nothing new",
+      "Close the exam immediately with 15 questions unanswered to avoid any mistakes",
+      "Answer remaining questions quickly by elimination, then review flagged items fast"
+    ],
+    "q": "You have 10 minutes left and 15 questions unanswered. What is the best closing tactic?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["exam-tactics", "time-management"],
+    "origin": "ai"
+  }
+]

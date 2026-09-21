@@ -1,0 +1,947 @@
+[
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Data quality monitoring checks the live inference inputs for schema changes, missing values, and statistical skew versus the baseline. It is the right monitor when the input distribution itself shifts.",
+    "id": "ch5-q01",
+    "options": [
+      "Model quality monitoring with ground-truth labels joined to predictions",
+      "Bias drift monitoring with fairness metrics recomputed on live traffic",
+      "Feature attribution drift monitoring with SHAP values compared to baseline",
+      "Data quality monitoring with input schema and statistics versus baseline"
+    ],
+    "q": "A SageMaker endpoint receives inference requests whose input format suddenly changes. Which Model Monitor type detects this?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "data-quality"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Model quality monitoring compares predictions against ground-truth labels to track accuracy, precision, recall, or RMSE over time. It requires labels to be collected and joined with predictions.",
+    "id": "ch5-q02",
+    "options": [
+      "Model quality monitoring by joining predictions with ground-truth labels",
+      "Data quality monitoring by validating input schema and feature statistics",
+      "Bias drift monitoring by recomputing fairness metrics on recent traffic",
+      "Feature attribution monitoring by tracking SHAP drift against the baseline"
+    ],
+    "q": "Accuracy of a deployed fraud model drops over several weeks. Which Model Monitor type tracks this degradation?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "model-quality"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Bias drift monitoring recomputes fairness metrics such as disparate impact or equalized odds on live data. It alerts when the model becomes unfair toward a protected group.",
+    "id": "ch5-q03",
+    "options": [
+      "Data quality monitoring of missing values and schema violations in inputs",
+      "Bias drift monitoring that recomputes fairness metrics on live endpoint data",
+      "Model quality monitoring of accuracy and F1 from recently collected labeled samples",
+      "Feature attribution monitoring of SHAP ranking changes versus the baseline"
+    ],
+    "q": "A loan-approval model must stay fair across demographic groups after deployment. Which monitor tracks fairness over time?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "bias"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Feature attribution drift monitoring compares SHAP values on live traffic with the baseline to detect changes in which features drive predictions. A ranking change signals the model reasons differently now.",
+    "id": "ch5-q04",
+    "options": [
+      "Data quality monitoring that checks input means, ranges, and missing-value rates daily",
+      "Model quality monitoring that joins fresh human labels to recent predictions",
+      "Feature attribution drift monitoring that compares live SHAP values to baseline",
+      "Bias drift monitoring that recomputes disparate impact on production traffic"
+    ],
+    "q": "Predictions stay accurate but the top-driving features change unexpectedly. Which Model Monitor type catches this shift?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "explainability"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Model Monitor captures endpoint traffic with data capture, then scheduled jobs compare it against baseline constraints and statistics. Violations are published as CloudWatch metrics and reports to S3.",
+    "id": "ch5-q05",
+    "options": [
+      "Stream inference payloads to Kinesis and query them manually with Athena each week",
+      "Enable VPC Flow Logs on the endpoint subnet and alarm on rejected connections",
+      "Turn on CloudTrail data events and parse prediction payloads from audit logs",
+      "Enable data capture on the endpoint and schedule monitoring jobs versus baseline"
+    ],
+    "q": "How do you set up SageMaker Model Monitor to analyze live production traffic?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "data-capture"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "A baseline job processes a representative training or validation dataset to produce statistics and constraints, such as allowed value ranges and data types. Later schedules compare live traffic against them.",
+    "id": "ch5-q06",
+    "options": [
+      "A baseline job on training data that generates statistics and constraints",
+      "A CloudWatch alarm on InvocationsPerInstance that pages the on-call team",
+      "An EventBridge rule on every InvokeEndpoint call that retrains the model",
+      "A manual approval step in Model Cards signed before each production deploy"
+    ],
+    "q": "What is the purpose of a Model Monitor baseline with statistics and constraints?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "baseline"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Suggested constraints propose rules inferred from the baseline dataset, such as completeness or data-type checks. Engineers review and edit them before enforcing on live traffic.",
+    "id": "ch5-q07",
+    "options": [
+      "IAM permission boundaries that restrict which roles can invoke the production endpoint",
+      "Suggested constraints inferred from baseline data, reviewed before enforcing",
+      "KMS key rotation schedules that re-encrypt captured payloads every 90 days",
+      "CloudWatch Contributor Insights rules that profile the top-N heavy callers"
+    ],
+    "q": "Model Monitor suggests constraints after the baseline job. What are they?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "constraints"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "Data quality violations appear in the monitoring execution reports in S3 and as CloudWatch metrics under the Model Monitor namespace. CloudTrail only records the API calls that launched the jobs.",
+    "id": "ch5-q08",
+    "options": [
+      "As new suggested constraints files that overwrite the endpoint configuration",
+      "As automatic retraining pipeline executions triggered by EventBridge rules on schedules",
+      "In S3 execution reports and CloudWatch metrics under the Model Monitor namespace",
+      "As CloudTrail data events attached to each individual InvokeEndpoint request"
+    ],
+    "q": "Where do Model Monitor data-quality violation results get published?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "cloudwatch"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Monitoring schedules run on a cron timetable, typically hourly, to analyze newly captured data. Continuous per-request checks would be costly and noisy for statistical monitors.",
+    "id": "ch5-q09",
+    "options": [
+      "On every single InvokeEndpoint call to block anomalous requests in real time inline",
+      "Only once after deployment, since baselines are assumed stable thereafter",
+      "Manually from the console whenever a data scientist requests a fresh report",
+      "On a cron schedule, typically hourly, analyzing newly captured endpoint data"
+    ],
+    "q": "How often do SageMaker Model Monitor schedules normally evaluate captured data?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "schedule"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Data capture stores request and response payloads to S3, optionally sampling a fraction of traffic. These captured files are the input for scheduled monitoring jobs.",
+    "id": "ch5-q10",
+    "options": [
+      "Data capture that stores sampled request and response payloads to Amazon S3",
+      "CloudTrail Lake queries that reconstruct payloads from management API events",
+      "VPC Traffic Mirroring that duplicates endpoint network packets to analyzers",
+      "Model Cards exports that archive approved prediction samples for auditors"
+    ],
+    "q": "Which SageMaker endpoint feature feeds production payloads into Model Monitor?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "data-capture"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "CloudWatch metrics such as Invocations, ModelLatency, and CPUUtilization reveal load and performance issues. Alarms on these metrics page the team or trigger scaling policies.",
+    "id": "ch5-q11",
+    "options": [
+      "CloudTrail event history showing who called CreateEndpointConfig last month",
+      "CloudWatch endpoint metrics such as Invocations, ModelLatency, and CPU use",
+      "KMS key rotation logs showing when the endpoint encryption key was rotated",
+      "Model Card version history showing who approved each model documentation edit"
+    ],
+    "q": "Which CloudWatch signals best reveal that a SageMaker endpoint is overloaded?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudwatch",
+      "sagemaker",
+      "metrics"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "A CloudWatch alarm on high 5xx error rates or elevated ModelLatency notifies via SNS so engineers investigate. Alarm actions can also trigger auto-scaling or runbook automation.",
+    "id": "ch5-q12",
+    "options": [
+      "A monthly Cost Explorer report emailed to finance when the endpoint budget ends",
+      "A CloudTrail Organizations trail that aggregates audit logs across all accounts",
+      "A CloudWatch alarm on 5xx errors and latency that notifies SNS for response",
+      "A Model Monitor baseline job that recomputes constraints from training data"
+    ],
+    "q": "How should a team get paged when a production endpoint starts failing requests?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudwatch",
+      "alarms",
+      "sagemaker"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Endpoint logs from the inference containers stream to CloudWatch Logs, where teams search stack traces and use metric filters to count error patterns. Metrics alone rarely show root causes.",
+    "id": "ch5-q13",
+    "options": [
+      "Query CloudTrail Lake for InvokeEndpoint data events including the full payload text",
+      "Read Model Card exports in S3 that archive the approval history of releases",
+      "Inspect KMS CloudTrail entries that record each envelope decryption request",
+      "Search container logs in CloudWatch Logs with metric filters on error patterns"
+    ],
+    "q": "Inference code throws intermittent exceptions in production. Where do you debug the stack traces?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudwatch",
+      "logs",
+      "sagemaker"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "Metric filters turn log patterns into custom CloudWatch metrics, and Contributor Insights or Log Insights highlight heavy hitters. Combined with alarms, they detect anomalous caller behavior early.",
+    "id": "ch5-q14",
+    "options": [
+      "Metric filters on endpoint logs plus Log Insights to spot anomalous callers",
+      "Baseline constraint files in S3 that reject out-of-range inputs automatically",
+      "Shadow variant traffic routing that duplicates requests to the new model",
+      "KMS grants scoped to analysts so only they can decrypt captured payloads"
+    ],
+    "q": "How do you detect a single client flooding a SageMaker endpoint with bad requests?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudwatch",
+      "logs",
+      "anomaly"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "CloudWatch tracks invocation counts, latency percentiles, and instance resource use for each endpoint. These operational metrics complement Model Monitor quality metrics.",
+    "id": "ch5-q15",
+    "options": [
+      "Fairness metrics such as disparate impact and equalized odds recomputed on predictions",
+      "Operational metrics such as invocation counts, latency, and CPU utilization",
+      "SHAP attribution rankings showing which features dominate each prediction",
+      "Lineage graph edges linking datasets, training jobs, and model artifacts"
+    ],
+    "q": "Which metrics does CloudWatch natively emit for a SageMaker endpoint?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudwatch",
+      "sagemaker",
+      "metrics"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Enabling detailed container logging and data capture sampling gives fuller visibility into failures. Raising instance counts only adds capacity without improving observability.",
+    "id": "ch5-q16",
+    "options": [
+      "Increase instance count behind the endpoint to spread log volume across more hosts",
+      "Shorten the Model Monitor cron schedule so violations page the team faster",
+      "Enable detailed container logging and request sampling into CloudWatch and S3",
+      "Rotate the KMS data key so new log streams are encrypted with fresh material"
+    ],
+    "q": "A team needs deeper visibility into endpoint errors and payloads. What should they enable?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudwatch",
+      "observability",
+      "sagemaker"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "An alarm on the Model Monitor constraint-violation metric fires when the schedule reports breaches. Routing it to SNS starts the incident workflow without manual report checks.",
+    "id": "ch5-q17",
+    "options": [
+      "Poll the S3 report bucket hourly and email screenshots of new JSON files",
+      "Retrain the model nightly so drift never has time to accumulate in metrics",
+      "Disable data capture sampling to cut monitoring costs and reduce alarm noise",
+      "Alarm on the constraint-violation metric and notify the team through SNS"
+    ],
+    "q": "How do you alert automatically when Model Monitor finds data-quality violations?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "model-monitor",
+      "cloudwatch",
+      "alarms"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "CloudWatch Evidently or endpoint production variants split traffic for A/B comparisons of latency and error rates. Model Monitor then tracks quality differences between variants.",
+    "id": "ch5-q18",
+    "options": [
+      "Split traffic across production variants and compare CloudWatch metrics per variant",
+      "Rotate IAM access keys weekly and compare login success rates across accounts",
+      "Encrypt each variant with a separate KMS key and compare decryption latency",
+      "Export both models as Model Cards and ask reviewers to vote on documentation quality"
+    ],
+    "q": "How do you compare a canary model against the current model using CloudWatch?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudwatch",
+      "ab-testing",
+      "sagemaker"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Auto Scaling policies driven by CloudWatch metrics like InvocationsPerInstance add instances under load. Static instance counts either overpay or saturate during spikes.",
+    "id": "ch5-q19",
+    "options": [
+      "Fix the instance count at peak capacity so latency never depends on scaling",
+      "Attach a scaling policy on InvocationsPerInstance to add capacity under load",
+      "Schedule Model Monitor baselines more often to absorb extra inference traffic",
+      "Enable CloudTrail data events to throttle callers that exceed request quotas"
+    ],
+    "q": "Endpoint latency spikes during peak shopping hours. Which CloudWatch-driven fix helps?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudwatch",
+      "autoscaling",
+      "sagemaker"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "A composite alarm combining error rate, latency, and violation metrics reduces false pages from any single noisy signal. It fires only when multiple indicators agree something is wrong.",
+    "id": "ch5-q20",
+    "options": [
+      "One alarm per metric with very low thresholds so every small anomaly pages someone",
+      "A daily email digest of all metrics so engineers scan graphs each morning",
+      "A composite alarm over errors, latency, and violations to cut false positives",
+      "An EventBridge rule that reboots endpoint instances whenever any alarm fires"
+    ],
+    "q": "On-call engineers get too many false-positive endpoint pages. What alarm design helps?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudwatch",
+      "alarms",
+      "operations"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "CloudTrail records management API calls such as CreateModel, CreateEndpoint, and InvokeEndpoint metadata for auditing. It answers who changed the endpoint and when.",
+    "id": "ch5-q21",
+    "options": [
+      "Model Monitor baselines that snapshot feature means and allowed value ranges",
+      "CloudWatch Logs Insights queries that search inference container stack traces deeply",
+      "KMS key policies that control which roles may encrypt and decrypt artifacts",
+      "CloudTrail management events showing who created or updated endpoint resources"
+    ],
+    "q": "Auditors ask who modified a production endpoint last week. Which service answers this?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudtrail",
+      "audit",
+      "governance"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "CloudTrail logs the caller identity, timestamp, source IP, and parameters of each SageMaker API call. This audit trail supports incident review and compliance checks.",
+    "id": "ch5-q22",
+    "options": [
+      "Caller identity, timestamp, source IP, and parameters of each management API call",
+      "Full request and response payloads of every inference including all feature values",
+      "SHAP values and fairness metrics recomputed for each production prediction",
+      "Training loss curves and validation accuracy logged by each training job"
+    ],
+    "q": "What information does CloudTrail capture for SageMaker management operations?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudtrail",
+      "audit",
+      "sagemaker"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "An Organization trail with log file validation and a locked S3 bucket provides tamper-evident audit history. CloudWatch alarms alone do not prove what changed.",
+    "id": "ch5-q23",
+    "options": [
+      "Enable data capture sampling at 100 percent so every payload is stored in S3",
+      "Use an Organization trail with validated log files stored in a locked S3 bucket",
+      "Publish Model Cards for each release and require email approval before deploy",
+      "Turn on detailed CloudWatch monitoring with one-minute metric granularity"
+    ],
+    "q": "A regulated bank needs tamper-evident audit history of all SageMaker changes. What design works?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudtrail",
+      "compliance",
+      "governance"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "CloudTrail tracks API activity while Config records configuration drift of the endpoint resources. Together they show who made a change and how the configuration differs now.",
+    "id": "ch5-q24",
+    "options": [
+      "Model Monitor bias reports joined with ground-truth labels from reviewers",
+      "CloudWatch composite alarms combining latency, errors, and CPU utilization",
+      "CloudTrail event history combined with AWS Config configuration timelines",
+      "KMS automatic rotation combined with VPC endpoint policies for inference"
+    ],
+    "q": "How do you reconstruct both who changed an endpoint and how its config drifted?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "cloudtrail",
+      "config",
+      "audit"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Data drift means live feature distributions diverge from training, while concept drift means the relationship between features and target changes. Both degrade accuracy and trigger retraining reviews.",
+    "id": "ch5-q25",
+    "options": [
+      "Data drift is GPU throttling, while concept drift is network packet loss",
+      "Data drift is label delay, while concept drift is missing CloudWatch alarms",
+      "Data drift is IAM policy change, while concept drift is KMS key rotation",
+      "Data drift is input distribution shift, while concept drift is meaning change"
+    ],
+    "q": "What is the difference between data drift and concept drift in production ML?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "drift",
+      "monitoring",
+      "concepts"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Statistical tests compare live feature distributions against the baseline to flag skew or missing-value spikes. Threshold breaches indicate the world no longer matches training assumptions.",
+    "id": "ch5-q26",
+    "options": [
+      "Statistical comparison of live feature distributions against the baseline profile",
+      "Daily rotation of KMS keys so encrypted payloads use fresh cryptographic material",
+      "Weekly reapproval of Model Cards by business owners before traffic increases",
+      "Manual review of VPC Flow Logs to count rejected connections per subnet"
+    ],
+    "q": "Which method detects data drift in features served to a SageMaker endpoint?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "drift",
+      "model-monitor",
+      "statistics"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Falling accuracy or rising error against fresh labels signals the learned relationship broke. Feature statistics alone can look normal while concept drift silently hurts results.",
+    "id": "ch5-q27",
+    "options": [
+      "Input schema validation failures when clients send malformed JSON payloads",
+      "Declining accuracy against fresh ground-truth labels despite stable inputs",
+      "Increased CloudTrail management events from engineers updating endpoints",
+      "Higher KMS decrypt latency caused by cross-account key policy misconfigurations"
+    ],
+    "q": "Which symptom most clearly indicates concept drift rather than data drift?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "drift",
+      "concept-drift",
+      "model-quality"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "EventBridge routes the monitoring-violation event to a retraining pipeline, such as a Step Functions workflow or Pipelines execution. This closes the loop from detection to remediation.",
+    "id": "ch5-q28",
+    "options": [
+      "A CloudWatch dashboard widget that turns red when violation metrics increase",
+      "A Model Card approval email sent to managers asking permission to retrain",
+      "An EventBridge rule matching monitor violations that starts a retraining pipeline",
+      "A CloudTrail Lake query that lists recent CreateTrainingJob calls for review"
+    ],
+    "q": "How do you trigger automatic retraining when Model Monitor reports violations?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "eventbridge",
+      "retraining",
+      "automation"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "A sensible trigger combines sustained quality drop or drift with enough fresh labeled data available. Retraining on every minor blip wastes budget and risks unstable releases.",
+    "id": "ch5-q29",
+    "options": [
+      "Every hour on a fixed cron, regardless of metrics, data volume, or costs",
+      "Whenever any single prediction scores below a threshold set by developers",
+      "Each time an engineer edits a notebook, to keep the endpoint code in sync",
+      "On sustained quality drop or drift, once enough fresh labeled data exists"
+    ],
+    "q": "When should a retraining trigger fire for a production model?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "retraining",
+      "mlops",
+      "monitoring"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "The pipeline retrains, evaluates against quality gates, registers the model version, and requires approval before deployment. EventBridge only starts this workflow; gates prevent bad models from shipping.",
+    "id": "ch5-q30",
+    "options": [
+      "Retrain, evaluate quality gates, register the version, and require deploy approval",
+      "Delete the endpoint, rotate KMS keys, and recreate resources from consoles",
+      "Copy the latest data capture files to production and overwrite model weights",
+      "Disable CloudWatch alarms during retraining so failed jobs never page anyone"
+    ],
+    "q": "What steps should an automated retraining workflow include before redeploying?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "retraining",
+      "pipelines",
+      "mlops"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Production variants split live traffic between model versions on one endpoint, such as 90/10 for a canary. CloudWatch metrics per variant reveal regressions before full rollout.",
+    "id": "ch5-q31",
+    "options": [
+      "Shadow deployments that log predictions without returning them to callers",
+      "Production variants that split live traffic between model versions on one endpoint",
+      "Blue/green endpoints that swap DNS records between separate AWS accounts",
+      "Scheduled retraining jobs that overwrite model artifacts in S3 every night"
+    ],
+    "q": "How does SageMaker run an A/B test between two model versions on one endpoint?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "ab-testing",
+      "variants"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Shadow deployments mirror live requests to the new model but return only the current model response. Teams validate latency and quality risk-free before shifting real traffic.",
+    "id": "ch5-q32",
+    "options": [
+      "An A/B test that routes paying customers to whichever variant responds first",
+      "A blue/green swap that deletes the old endpoint before validating the new one",
+      "A shadow deployment that mirrors requests to the new model without serving them",
+      "A retraining schedule that replaces model weights without testing predictions"
+    ],
+    "q": "A team wants to validate a risky new model on live traffic without affecting users. What fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "shadow",
+      "deployment"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "Blue/green deployment shifts traffic from the blue endpoint to the green one and rolls back instantly on alarms. Keeping both environments until validation ends makes rollback safe.",
+    "id": "ch5-q33",
+    "options": [
+      "In-place retraining that overwrites the endpoint container image while serving",
+      "Manual payload replay where engineers paste requests into the test console",
+      "KMS key rotation that re-encrypts model artifacts during peak traffic hours",
+      "Blue/green shift of traffic to the new endpoint with instant rollback on alarms"
+    ],
+    "q": "Which deployment strategy gives the safest rollback for a critical SageMaker endpoint?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "blue-green",
+      "deployment"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Variant weights control the traffic share, so shifting from 10% to 100% gradually promotes the canary. CloudWatch per-variant metrics guide each step of the ramp.",
+    "id": "ch5-q34",
+    "options": [
+      "Adjust production variant weights to shift traffic gradually toward the new model",
+      "Rotate the endpoint KMS key to force clients to reconnect to the new variant",
+      "Rewrite Model Monitor constraints so violations no longer trigger SNS alarms",
+      "Enable CloudTrail data events to log which callers prefer the canary version"
+    ],
+    "q": "A canary looks healthy at 10 percent of traffic. How do you promote it to full traffic?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "canary",
+      "variants"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Guardrails such as canary analysis, automatic rollback on alarms, and deployment circuit breakers stop bad releases. Shifting all traffic at once maximizes blast radius instead.",
+    "id": "ch5-q35",
+    "options": [
+      "Route all traffic to the new variant immediately to collect feedback faster",
+      "Use canary analysis with automatic rollback when CloudWatch alarms fire",
+      "Disable Model Monitor schedules during rollout to avoid noisy violation alerts",
+      "Grant developers admin IAM rights so they can hotfix the endpoint quickly"
+    ],
+    "q": "Which safeguard belongs in a production A/B rollout plan for SageMaker?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "sagemaker",
+      "deployment",
+      "safety"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "Statistical significance plus per-variant latency, error, and business metrics justify promotion. A short low-traffic peek rarely proves the new model is truly better.",
+    "id": "ch5-q36",
+    "options": [
+      "Developer intuition after eyeballing a few sample predictions in a notebook",
+      "Faster training time of the challenger model measured in SageMaker Pipelines",
+      "Significant A/B metrics on latency, errors, and business KPIs per variant",
+      "Lower S3 storage cost of the challenger artifact after model compression"
+    ],
+    "q": "What evidence justifies promoting a challenger model after an A/B test?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "ab-testing",
+      "evaluation",
+      "sagemaker"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "An execution role with scoped-down policies lets training and endpoint resources read data and write artifacts. Human users assume separate roles rather than sharing this role.",
+    "id": "ch5-q37",
+    "options": [
+      "A root user access key shared by the team for all SageMaker console actions",
+      "A single admin role attached to every notebook, job, and endpoint account-wide",
+      "Long-lived IAM user passwords embedded in training scripts for S3 access",
+      "A scoped execution role granting only the S3 and ECR access each job needs"
+    ],
+    "q": "What is the IAM best practice for SageMaker training jobs and endpoints?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "iam",
+      "security",
+      "sagemaker"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Least-privilege policies grant only the needed actions on specific resources, often with conditions like VPC source. Wildcard actions on all resources invite privilege abuse.",
+    "id": "ch5-q38",
+    "options": [
+      "Least-privilege policies with specific actions, resources, and conditions",
+      "Wildcard allow policies on all services to avoid permission errors in jobs",
+      "Shared credentials in code repositories so pipelines authenticate easily",
+      "Public S3 buckets for artifacts so any training job can read shared data"
+    ],
+    "q": "How should IAM policies be scoped for ML pipelines accessing sensitive data?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "iam",
+      "least-privilege",
+      "security"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "A role trust policy limiting who can assume the deployment role, plus MFA and approval steps, prevents unreviewed pushes. Broad assume-role rights defeat the control.",
+    "id": "ch5-q39",
+    "options": [
+      "Attach AdministratorAccess to the CI user so deployments never fail on rights",
+      "Restrict who can assume the deploy role and require approval before release",
+      "Store AWS secret keys in endpoint environment variables for pipeline access",
+      "Allow all principals to assume the role but log assumptions in CloudTrail"
+    ],
+    "q": "How do you prevent unauthorized model deployments to a production endpoint?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "iam",
+      "deployment",
+      "governance"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "KMS encrypts model artifacts, data capture files, and EBS volumes with customer-managed keys. Envelope encryption protects data at rest while IAM controls key use.",
+    "id": "ch5-q40",
+    "options": [
+      "TLS certificates that encrypt inference traffic in transit to the endpoint",
+      "IAM session tags that label requests for cost allocation and auditing",
+      "KMS customer-managed keys that encrypt artifacts, captures, and volumes",
+      "Security groups that filter inbound network traffic to endpoint instances"
+    ],
+    "q": "Which AWS service encrypts SageMaker model artifacts and captured data at rest?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "kms",
+      "encryption",
+      "security"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "Separate customer-managed keys per environment with key policies and grants limit blast radius. A single shared key with broad decrypt rights exposes every stage at once.",
+    "id": "ch5-q41",
+    "options": [
+      "One AWS-managed key shared by all environments to simplify key rotation tasks",
+      "Hardcoded data keys in training code so jobs decrypt artifacts without IAM",
+      "Disabled key rotation to keep ciphertext stable across retraining pipeline runs",
+      "Separate customer-managed keys per environment with scoped key policies"
+    ],
+    "q": "What is the best KMS key strategy for isolating dev, staging, and production ML data?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "kms",
+      "encryption",
+      "isolation"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "VPC configuration keeps endpoint traffic on private subnets, with VPC endpoints for SageMaker and S3 avoiding the public internet. Security groups restrict allowed sources.",
+    "id": "ch5-q42",
+    "options": [
+      "Public subnets with open security groups so clients connect with low latency",
+      "Hardcoded credentials in containers so traffic bypasses network controls safely",
+      "Internet gateways on every subnet to speed up model artifact downloads",
+      "Private subnets with VPC endpoints for SageMaker and S3 plus tight groups"
+    ],
+    "q": "How do you isolate SageMaker endpoint network traffic inside a VPC?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "vpc",
+      "networking",
+      "security"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Interface VPC endpoints enable private API calls to SageMaker without internet gateways. Traffic stays on the AWS backbone under endpoint and bucket policies.",
+    "id": "ch5-q43",
+    "options": [
+      "Interface VPC endpoints for SageMaker APIs so traffic stays off the internet",
+      "Public Elastic IPs on training instances so notebooks download data faster",
+      "Open outbound rules to any destination so monitoring agents always connect",
+      "Shared NAT gateways with full admin access for every data science notebook"
+    ],
+    "q": "Training jobs in private subnets must call SageMaker and S3 privately. What enables this?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "vpc",
+      "endpoints",
+      "networking"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Model Cards document intended uses, metrics, limitations, and ethical notes for each version. They support governance reviews and audit evidence for stakeholders.",
+    "id": "ch5-q44",
+    "options": [
+      "CloudWatch dashboards that chart latency and error rates for each variant",
+      "Model Cards that record intended use, metrics, limitations, and approvals",
+      "KMS key grants that delegate decryption rights to external audit partners",
+      "EventBridge archives that replay past monitoring events for debugging"
+    ],
+    "q": "Which SageMaker artifact documents model intent, performance, and limitations for reviewers?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "model-cards",
+      "governance",
+      "documentation"
+    ],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "ML Lineage Tracking links datasets, preprocessing, training jobs, and endpoints into one graph. It traces which data produced a bad prediction for impact analysis and rollback.",
+    "id": "ch5-q45",
+    "options": [
+      "CloudTrail digest files that hash management events for tamper detection",
+      "Manual spreadsheets where engineers paste S3 paths after each training run",
+      "ML Lineage Tracking graphs linking datasets, jobs, models, and endpoints",
+      "KMS alias rotation records showing which key encrypted each model version"
+    ],
+    "q": "A bad prediction must be traced back to its training data and code. What provides this trail?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": [
+      "lineage",
+      "governance",
+      "tracking"
+    ],
+    "origin": "ai"
+  }
+]

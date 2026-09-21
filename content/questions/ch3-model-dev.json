@@ -1,0 +1,947 @@
+[
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "XGBoost is the SageMaker built-in algorithm designed for tabular data with gradient-boosted trees for regression and classification. DeepAR targets time series and BlazingText targets text.",
+  "id": "ch3-q01",
+  "options": [
+   "XGBoost gradient-boosted trees for tabular classification and regression tasks",
+   "DeepAR recurrent network for probabilistic multi-series time-series forecasting",
+   "BlazingText Word2Vec and text classifier for large-scale natural language corpora",
+   "K-Means unsupervised clustering that assigns each record to one of K cluster groups"
+  ],
+  "q": "A bank wants to predict loan defaults from tabular customer features. Which SageMaker built-in algorithm fits best?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "xgboost",
+   "algorithm-choice"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "Linear Learner trains linear models for regression and binary or multiclass classification on tabular data. K-Means clusters unlabeled data and DeepAR forecasts time series instead.",
+  "id": "ch3-q02",
+  "options": [
+   "K-Means clustering that groups unlabeled records into K clusters by feature similarity",
+   "Linear Learner for large-scale linear regression and linear classification model training",
+   "DeepAR autoregressive RNN that produces probabilistic forecasts for many related series",
+   "BlazingText scalable Word2Vec embedding and text classification for document collections"
+  ],
+  "q": "Which SageMaker built-in algorithm trains linear regression and linear classification models at scale?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "linear-learner",
+   "algorithm-choice"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "DeepAR is the SageMaker built-in algorithm for probabilistic forecasting across many related time series. XGBoost handles tabular data and Object Detection finds objects in images.",
+  "id": "ch3-q03",
+  "options": [
+   "XGBoost, which trains gradient-boosted trees on tabular rows for regression and classification",
+   "Linear Learner, which fits linear regression and classification models on numeric feature vectors",
+   "DeepAR recurrent network for probabilistic forecasting of many related time-series streams",
+   "Object Detection, a Single Shot Detector that predicts bounding boxes plus labels in images"
+  ],
+  "q": "A retailer needs probabilistic demand forecasts for thousands of product sales histories. Which algorithm should it use?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "deepar",
+   "forecasting"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "BlazingText implements Word2Vec embeddings and text classification at scale. Factorization Machines target sparse recommendation data, not text embeddings.",
+  "id": "ch3-q04",
+  "options": [
+   "DeepAR probabilistic forecaster that learns seasonal patterns from many related time series",
+   "K-Means unsupervised method that partitions records into K groups by distance in feature space",
+   "Factorization Machines model for sparse click-through and recommendation data with pairwise interactions",
+   "BlazingText for scalable Word2Vec embeddings and fast supervised text classification tasks"
+  ],
+  "q": "A team needs fast Word2Vec embeddings and text classification on millions of documents. Which algorithm fits?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "blazingtext",
+   "nlp"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "K-Means is the unsupervised clustering algorithm that partitions unlabeled records into K groups. Linear Learner and XGBoost are supervised and need labeled targets.",
+  "id": "ch3-q05",
+  "options": [
+   "K-Means clustering that partitions unlabeled customer records into K distinct behavior segments",
+   "Linear Learner regression that fits a linear model to labeled numeric targets on tabular data",
+   "XGBoost classifier that trains boosted trees on labeled rows for binary or multiclass outcomes",
+   "Factorization Machines recommender that learns pairwise interactions from sparse click matrices"
+  ],
+  "q": "A marketing team wants to segment unlabeled customers into groups by behavior. Which algorithm should it choose?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "k-means",
+   "clustering"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "Factorization Machines are built for sparse, high-dimensional data such as clicks and recommendations. Object Detection works on images, not sparse user-item matrices.",
+  "id": "ch3-q06",
+  "options": [
+   "Object Detection SSD that predicts labeled bounding boxes around objects visible inside images",
+   "Factorization Machines for click-through prediction on sparse high-dimensional interaction data",
+   "Semantic Segmentation FCN that assigns a class label to every single pixel of an input image",
+   "Linear Learner optimizer that trains linear regression models on dense tabular numeric features"
+  ],
+  "q": "Which SageMaker built-in algorithm is designed for sparse click-through and recommendation problems?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "factorization-machines",
+   "recommendation"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "The Object Detection algorithm (Single Shot Detector) predicts bounding boxes and class labels in images. Semantic Segmentation instead labels every pixel rather than drawing boxes.",
+  "id": "ch3-q07",
+  "options": [
+   "K-Means clustering that assigns image feature vectors to K groups without any bounding boxes",
+   "Semantic Segmentation FCN that classifies every pixel of an image into a semantic category map",
+   "Object Detection SSD that locates objects with bounding boxes plus class labels in images",
+   "BlazingText classifier that labels whole text documents using learned word embedding vectors"
+  ],
+  "q": "A warehouse needs to locate boxes in photos with bounding boxes and labels. Which built-in algorithm fits?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "object-detection",
+   "vision"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "Semantic Segmentation labels every pixel of an image, which is exactly what road-scene segmentation needs. Object Detection only draws boxes and K-Means only clusters records.",
+  "id": "ch3-q08",
+  "options": [
+   "Object Detection SSD that draws one bounding box with a label around each visible object",
+   "K-Means clustering that groups whole images into K clusters by overall feature similarity",
+   "Image Classification classifier that assigns a single topic label to each entire input image",
+   "Semantic Segmentation FCN that assigns a class label to every pixel of the input image"
+  ],
+  "q": "An autonomous-driving team must label every pixel of road scenes (road, car, pedestrian). Which algorithm fits?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "semantic-segmentation",
+   "vision"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "JumpStart provides pre-trained foundation models and prebuilt solutions deployable in SageMaker with a few clicks. Training Jobs instead run fully custom training code from scratch.",
+  "id": "ch3-q09",
+  "options": [
+   "SageMaker JumpStart with pre-trained foundation models and ready-made solutions for quick deployment",
+   "SageMaker Training Jobs that run fully custom training scripts on managed compute infrastructure",
+   "SageMaker Autopilot that automatically tries preprocessing, algorithms, and tuning for tabular data",
+   "SageMaker Experiments tracker that versions datasets, parameters, and metrics across training runs"
+  ],
+  "q": "A startup wants to deploy a pre-trained foundation model with minimal effort. Which SageMaker capability fits best?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "jumpstart",
+   "foundation-models"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "SageMaker Autopilot automates the full tabular ML pipeline: preprocessing, algorithm selection, and hyperparameter tuning, then ranks candidates. JumpStart deploys prebuilt models instead.",
+  "id": "ch3-q10",
+  "options": [
+   "SageMaker JumpStart catalog that deploys pre-trained foundation models and prebuilt ML solutions",
+   "SageMaker Autopilot, which automates preprocessing, algorithm choice, and tuning for tabular data",
+   "SageMaker Debugger, which monitors tensors during training to flag vanishing gradients or overfit",
+   "SageMaker Profiler, which profiles GPU, CPU, and data-loading bottlenecks in deep learning jobs"
+  ],
+  "q": "A business analyst with no ML expertise needs a baseline classifier from a CSV. Which no-code AutoML option fits?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "autopilot",
+   "automl"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "A SageMaker Training Job runs user code on managed infrastructure, supports distributed training and Managed Spot Training. Autopilot is the automated no-code alternative for tabular data.",
+  "id": "ch3-q11",
+  "options": [
+   "SageMaker Autopilot run that automatically engineers features and tunes models for tabular CSV data",
+   "SageMaker JumpStart solution that deploys a pre-trained model or template with minimal coding effort",
+   "SageMaker Training Job on managed infrastructure with distributed and Managed Spot Training support",
+   "SageMaker Experiments trial that records parameters, datasets, and metrics to compare model versions"
+  ],
+  "q": "A team wants to train custom PyTorch code on managed GPUs. Which SageMaker capability should it use?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "training-jobs",
+   "managed-training"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "Automatic Model Tuning searches hyperparameters with Bayesian optimization and returns the best configuration. Debugger monitors training tensors rather than searching hyperparameters.",
+  "id": "ch3-q12",
+  "options": [
+   "SageMaker Debugger monitor that inspects gradients and activations during training to catch anomalies",
+   "SageMaker Profiler tool that measures hardware utilization and data pipeline bottlenecks in training",
+   "SageMaker Experiments tracker that organizes trials, artifacts, and metrics to compare model versions",
+   "Automatic Model Tuning, which uses Bayesian search over hyperparameters to find the best configuration"
+  ],
+  "q": "Which SageMaker feature automatically searches hyperparameters to find the best model configuration?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "hyperparameter-tuning",
+   "amt"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "Precision is true positives over all predicted positives, so it measures false-alarm rate. Recall instead measures how many actual positives were found.",
+  "id": "ch3-q13",
+  "options": [
+   "Precision: the share of predicted positives that are truly positive, penalizing false alarms",
+   "Recall: the share of actual positives the model found, penalizing missed positive cases",
+   "Accuracy: the share of all predictions that are correct across every class in the dataset",
+   "RMSE: the square root of averaged squared errors, penalizing large regression mistakes heavily"
+  ],
+  "q": "A spam filter must minimize false alarms on legitimate email. Which metric should the team prioritize?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "metrics",
+   "precision",
+   "classification"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "Recall measures the fraction of real positives detected, so it fits screening where missing a case is costly. Precision instead focuses on false alarms among predicted positives.",
+  "id": "ch3-q14",
+  "options": [
+   "Precision metric that rewards few false alarms among the cases the model flags as positive",
+   "Recall, the fraction of actual positive cases the model successfully detects and flags",
+   "F1 score, the harmonic mean that balances precision and recall into one single number",
+   "AUC-ROC, the ranking score computed over all classification thresholds of the model curve"
+  ],
+  "q": "A disease-screening model must miss as few true cases as possible. Which metric matters most?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "metrics",
+   "recall",
+   "classification"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "facile",
+  "explain": "Overfitting means low training error but high validation error, so regularization or more data helps. Underfitting instead shows high error on both training and validation sets.",
+  "id": "ch3-q15",
+  "options": [
+   "Underfitting, where both training and validation errors stay high because the model is too simple",
+   "Well-calibrated fitting, where training and validation errors are both low and closely aligned",
+   "Overfitting: low training error but high validation error, fixed with regularization or more data",
+   "Converged optimization, where the loss curve flattens because the learning rate decayed to zero"
+  ],
+  "q": "Training error is near zero but validation error is very high. What is happening and what helps?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "overfitting",
+   "regularization",
+   "generalization"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Managed Spot Training uses spare EC2 capacity with checkpointing so interrupted jobs resume, cutting costs up to 70%. On-Demand instances never get interrupted but cost the full price.",
+  "id": "ch3-q16",
+  "options": [
+   "On-Demand ml.p3 instances that run without interruption but bill the full hourly compute price",
+   "Reserved Savings Plan capacity that lowers price in exchange for a one- or three-year commitment",
+   "SageMaker Profiler sessions that optimize GPU kernels but leave the instance billing rate unchanged",
+   "Managed Spot Training with checkpointing, using spare capacity to cut costs despite interruptions"
+  ],
+  "q": "A team trains fault-tolerant models for many hours and must minimize compute cost. Which SageMaker option fits?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "spot-training",
+   "cost-optimization"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Data-parallel training replicates the model on each worker with synchronized gradients, scaling batch size. Model parallel instead splits a too-large model across devices.",
+  "id": "ch3-q17",
+  "options": [
+   "Data-parallel training that replicates the model on workers and synchronizes gradients each step",
+   "Model-parallel sharding that splits model layers across devices when one GPU cannot hold them",
+   "Sequential single-GPU training that processes every batch on one device without any parallelism",
+   "Spot-instance checkpointing that saves state to S3 so interrupted training jobs can resume later"
+  ],
+  "q": "A CNN fits on one GPU but training is too slow on a large dataset. Which distributed strategy should apply first?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "distributed-training",
+   "data-parallel"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Experiments tracks trials, parameters, datasets, and metrics so runs are comparable and reproducible. Debugger inspects live tensors while Profiler measures hardware utilization.",
+  "id": "ch3-q18",
+  "options": [
+   "SageMaker Debugger hook that inspects live gradients and weights to catch training anomalies early",
+   "SageMaker Experiments, which tracks datasets, parameters, and metrics to compare training runs",
+   "SageMaker Profiler report that breaks down GPU, CPU, and data-loader time across training steps",
+   "SageMaker Model Registry entry that versions approved models and controls production promotion steps"
+  ],
+  "q": "After dozens of runs nobody can reproduce the best score. Which SageMaker feature restores reproducibility?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "experiments",
+   "tracking"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Debugger inspects tensors such as gradients and activations during training and raises alerts on anomalies. Profiler measures system utilization rather than tensor values.",
+  "id": "ch3-q19",
+  "options": [
+   "SageMaker Profiler timeline that measures GPU utilization and input pipeline stalls during training",
+   "SageMaker Experiments lineage that records which dataset and parameters produced each trained model",
+   "SageMaker Debugger, which inspects training tensors and alerts on issues like vanishing gradients",
+   "Automatic Model Tuning job that searches hyperparameters with Bayesian optimization across trials"
+  ],
+  "q": "Loss stops improving and gradients may be vanishing. Which SageMaker tool diagnoses the training internals?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "debugger",
+   "training"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Profiler identifies hardware and pipeline bottlenecks such as low GPU utilization or slow data loading. Debugger instead watches tensor values like gradients for training anomalies.",
+  "id": "ch3-q20",
+  "options": [
+   "SageMaker Debugger rule that watches gradient norms and weight updates to flag training pathologies",
+   "Automatic Model Tuning search that evaluates hyperparameter combinations ranked by validation score",
+   "SageMaker Experiments comparison that aligns metrics and parameters across many recorded trials",
+   "SageMaker Profiler, which pinpoints GPU underuse and data-loading bottlenecks in training jobs"
+  ],
+  "q": "GPUs sit idle while the data pipeline lags. Which SageMaker tool pinpoints the bottleneck?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "profiler",
+   "performance"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "F1 is the harmonic mean of precision and recall, ideal for imbalanced classes where accuracy misleads. Accuracy can look high by always predicting the majority class.",
+  "id": "ch3-q21",
+  "options": [
+   "F1 score, the harmonic mean of precision and recall suited to imbalanced classification tasks",
+   "Accuracy, the overall fraction correct that looks deceptively high on strongly skewed datasets",
+   "RMSE, the root of mean squared error used for regression rather than class prediction tasks",
+   "Log-loss, the probabilistic penalty that also needs calibrated scores, not just hard labels"
+  ],
+  "q": "Fraud data is 99% legitimate, so accuracy looks great while fraud is missed. Which metric should lead instead?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "metrics",
+   "f1",
+   "imbalanced-data"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "RMSE squares errors before averaging, so large mistakes dominate it, while MAE weights all errors linearly. Teams pick RMSE when big misses are especially costly.",
+  "id": "ch3-q22",
+  "options": [
+   "MAE averages absolute errors linearly, so every unit of error counts equally regardless of size",
+   "RMSE squares errors before averaging, punishing a few large misses far more than small ones",
+   "R-squared reports explained variance as a ratio, hiding the absolute scale of prediction errors",
+   "MAPE divides errors by actuals, becoming unstable whenever true values approach zero levels"
+  ],
+  "q": "Two regression models have similar MAE, but one makes rare huge errors. Which metric exposes that difference?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "metrics",
+   "rmse",
+   "regression"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "AUC-ROC measures ranking quality across all thresholds, independent of any single cutoff. Accuracy and F1 both depend on one chosen threshold.",
+  "id": "ch3-q23",
+  "options": [
+   "Accuracy at a fixed cutoff, which hides ranking quality and shifts whenever the threshold moves",
+   "F1 at one tuned threshold, which reflects a single operating point rather than overall ranking",
+   "AUC-ROC, which measures ranking quality across all thresholds independent of any cutoff choice",
+   "Log-loss at fixed calibration, which penalizes probability errors but not pure ordering directly"
+  ],
+  "q": "A team compares classifiers independent of any decision threshold. Which metric measures overall ranking quality?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "metrics",
+   "auc-roc",
+   "classification"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "K-fold cross-validation averages performance over K held-out folds, reducing split luck and revealing variance. A single split can look good or bad by chance.",
+  "id": "ch3-q24",
+  "options": [
+   "A single train-test split, which is fast but lets one lucky or unlucky partition decide the score",
+   "A larger test set alone, which shrinks noise but still evaluates only one fixed data partition",
+   "Repeated training on the full data, which reuses the same rows and cannot estimate generalization",
+   "K-fold cross-validation, averaging scores over K held-out folds to reduce split luck and variance"
+  ],
+  "q": "With a small dataset, a single split gives unstable scores. Which evaluation approach is more reliable?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "cross-validation",
+   "evaluation",
+   "generalization"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Early stopping halts training when validation loss stops improving, keeping the best checkpoint. It prevents the extra epochs from fitting noise in the training set.",
+  "id": "ch3-q25",
+  "options": [
+   "Early stopping that halts training when validation loss stalls and keeps the best checkpoint",
+   "Longer training that continues epochs after validation stalls, fitting noise in training data",
+   "Higher learning rates that overshoot minima and make validation loss oscillate or diverge",
+   "Stronger augmentation alone that expands data variety but never decides when to stop training"
+  ],
+  "q": "Validation loss improves, then worsens while training loss keeps falling. What should the team do?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "early-stopping",
+   "overfitting",
+   "training"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Log-loss penalizes confident wrong probabilities, so it suits decisions needing calibrated risk scores. Accuracy only counts hard labels and ignores confidence entirely.",
+  "id": "ch3-q26",
+  "options": [
+   "Accuracy counting hard labels, which ignores how confident or calibrated each prediction was",
+   "Log-loss, which penalizes confident wrong probabilities and rewards well-calibrated risk scores",
+   "MAE on class indices, which treats labels as ordered numbers and misreads classification error",
+   "RMSE on one-hot vectors, which distorts probability error with an inappropriate regression scale"
+  ],
+  "q": "A credit-risk model must output calibrated default probabilities, not just labels. Which loss fits model selection?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "metrics",
+   "log-loss",
+   "calibration"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Underfitting shows high error on both training and validation data, calling for more capacity or features. Regularization would shrink capacity further and worsen it.",
+  "id": "ch3-q27",
+  "options": [
+   "Overfitting pattern, where training error is low but validation error stays high from excess capacity",
+   "Label leakage pattern, where validation scores look unrealistically perfect due to future information",
+   "Underfitting: high error on both training and validation, needing more capacity or better features",
+   "Convergence noise pattern, where both curves oscillate because the learning rate is set too high"
+  ],
+  "q": "Both training and validation errors are high with a tiny linear model. What is wrong and what helps?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "underfitting",
+   "bias-variance",
+   "model-capacity"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Autopilot builds preprocessing plus algorithm pipelines automatically and returns ranked candidates with leaderboards. AMT only tunes hyperparameters of a user-defined setup.",
+  "id": "ch3-q28",
+  "options": [
+   "Automatic Model Tuning search that optimizes hyperparameters for one user-defined training setup",
+   "SageMaker Debugger monitor that watches live tensors to flag gradient or convergence anomalies",
+   "JumpStart fine-tuning flow that adapts a chosen foundation model with custom labeled examples",
+   "Autopilot, which builds preprocessing plus algorithm pipelines and ranks candidates automatically"
+  ],
+  "q": "A team wants automated feature preprocessing plus a ranked leaderboard of models. Which option delivers that?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "autopilot",
+   "automl"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Bayesian optimization models the objective from past trials and samples promising regions, beating grid and random search efficiency. Grid search wastes budget on unpromising areas.",
+  "id": "ch3-q29",
+  "options": [
+   "Bayesian optimization, which models past trial results to sample the most promising hyperparameters",
+   "Exhaustive grid search, which evaluates every combination even in regions already known to be poor",
+   "Manual trial-and-error, which depends on engineer intuition and rarely covers the space systematically",
+   "Single default training, which accepts preset hyperparameters without exploring any alternatives"
+  ],
+  "q": "Why does SageMaker Automatic Model Tuning prefer Bayesian search over exhaustive grid search?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "hyperparameter-tuning",
+   "bayesian"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "L1 and L2 penalties plus dropout constrain capacity and reduce overfitting. Adding layers or training longer would increase overfitting instead.",
+  "id": "ch3-q30",
+  "options": [
+   "Adding hidden layers and training longer, which grows capacity and memorizes training noise further",
+   "Regularization such as L1, L2, or dropout that constrains capacity and curbs memorization of noise",
+   "Removing validation monitoring, which blinds the team while the model keeps overfitting silently",
+   "Shrinking the dataset sharply, which leaves fewer examples and makes memorization even easier"
+  ],
+  "q": "A deep network memorizes training data with a large generalization gap. Which remedy should the team apply?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "regularization",
+   "overfitting",
+   "dropout"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "MAE averages absolute errors so it stays robust to a few huge outliers. RMSE would amplify those outliers through squaring and misrepresent typical accuracy.",
+  "id": "ch3-q31",
+  "options": [
+   "RMSE objective that squares each error, letting a handful of huge outliers dominate the score",
+   "R-squared ranking that reports explained variance but obscures the absolute size of typical errors",
+   "MAE, which averages absolute errors linearly and stays robust when a few huge outliers exist",
+   "MAPE percentage that divides by actuals and becomes unstable whenever true values near zero"
+  ],
+  "q": "Delivery-time data has a few extreme outliers, and typical error matters most. Which regression metric fits?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "metrics",
+   "mae",
+   "regression"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "JumpStart solutions bundle models, notebooks, and infrastructure templates for common use cases. Training Jobs run custom code and Autopilot automates tabular pipelines instead.",
+  "id": "ch3-q32",
+  "options": [
+   "SageMaker Training Jobs that execute custom user code on managed GPU or CPU compute clusters",
+   "SageMaker Autopilot pipelines that automate preprocessing and tuning for tabular business data",
+   "SageMaker Debugger hooks that inspect live tensors to catch vanishing gradients during training",
+   "JumpStart prebuilt solutions that bundle models, notebooks, and templates for common use cases"
+  ],
+  "q": "A company needs a ready-made churn-prediction template with model, notebook, and infrastructure. Where is it?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "jumpstart",
+   "solutions"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "Stratified k-fold preserves the class ratio in every fold, so rare fraud cases appear in each validation split. Plain random folds can leave some folds with almost no positives.",
+  "id": "ch3-q33",
+  "options": [
+   "Stratified k-fold, which preserves the class ratio in every fold so rare cases validate reliably",
+   "Plain random k-fold, which can leave some folds with almost no rare positives by sampling chance",
+   "Single chronological split, which tests one time window but cannot average performance over folds",
+   "Training-only resubstitution, which reuses training rows and reports an optimistic biased score"
+  ],
+  "q": "Fraud labels are 1% positive. Which cross-validation variant gives reliable validation splits?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "cross-validation",
+   "stratified",
+   "imbalanced-data"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "The tuning objective should be the validation metric, since it guides Bayesian search toward generalizing configurations. Training loss would reward overfitted hyperparameters.",
+  "id": "ch3-q34",
+  "options": [
+   "Training loss of each trial, which rewards overfitted settings that memorize the training split",
+   "A validation metric such as F1 or RMSE that guides search toward generalizing configurations",
+   "Wall-clock time per trial, which favors tiny models regardless of their predictive quality level",
+   "Number of hyperparameters tried, which counts search effort instead of measuring model quality"
+  ],
+  "q": "When configuring an AMT tuning job, which objective should guide the Bayesian search?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "hyperparameter-tuning",
+   "validation"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "media",
+  "explain": "XGBoost handles missing values natively, encodes categoricals, and resists overfitting on tabular data. DeepAR needs time series and BlazingText needs text input.",
+  "id": "ch3-q35",
+  "options": [
+   "DeepAR forecaster that expects timestamped series and cannot exploit static mixed-type columns",
+   "BlazingText embeddings that require raw text documents rather than numeric and categorical rows",
+   "XGBoost, which handles missing values and mixed tabular features robustly with little tuning",
+   "K-Means clustering that groups unlabeled rows but predicts no supervised target column at all"
+  ],
+  "q": "A churn table has missing values and mixed categorical plus numeric columns. Which algorithm is most robust?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "xgboost",
+   "tabular"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "difficile",
+  "explain": "A fallback to On-Demand with checkpointing keeps long jobs progressing when Spot capacity vanishes. Depending on Spot alone stalls the project whenever interruptions cluster.",
+  "id": "ch3-q36",
+  "options": [
+   "Running only On-Demand instances from the start, which avoids interruptions but pays full price always",
+   "Disabling checkpoints to save S3 writes, which forces every interrupted Spot job to restart fully",
+   "Using a single Spot instance with no retry policy, which stalls training whenever capacity disappears",
+   "Managed Spot Training with S3 checkpointing plus an On-Demand fallback queue for long-running jobs"
+  ],
+  "q": "A 48-hour distributed job on Spot keeps getting interrupted and restarts from scratch. What design fixes it?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "spot-training",
+   "checkpointing"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "difficile",
+  "explain": "A giant embedding table needs model parallelism while the compute-heavy encoder scales with data parallelism. Pure data parallel fails because no single GPU holds the embeddings.",
+  "id": "ch3-q37",
+  "options": [
+   "Hybrid parallelism: model-parallel embeddings plus data-parallel encoders synchronized with AllReduce",
+   "Pure data parallelism that replicates the whole model on every GPU including the huge embedding table",
+   "Single-GPU training with gradient accumulation, which never addresses memory or throughput limits",
+   "Model-parallel-only sharding of every layer, which complicates batching without helping throughput"
+  ],
+  "q": "A ranking model has a 200 GB embedding table plus heavy encoders. Which distributed design trains it feasibly?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "distributed-training",
+   "model-parallel"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "difficile",
+  "explain": "JumpStart fine-tuning adapts a foundation model to domain language with labeled examples and evaluation. Prompt-only use cannot reliably learn niche terminology or be measured.",
+  "id": "ch3-q38",
+  "options": [
+   "Training a built-in classifier from scratch, which discards language knowledge the foundation model has",
+   "JumpStart fine-tuning of a foundation model on labeled domain tickets plus held-out evaluation",
+   "Prompting a generic model with no examples, which cannot reliably learn niche support terminology",
+   "Keyword rules over ticket text, which miss paraphrases and cannot generalize to new phrasings"
+  ],
+  "q": "Support tickets use niche product jargon and need accurate classification. Which JumpStart approach fits best?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "jumpstart",
+   "fine-tuning"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "difficile",
+  "explain": "Cold-start series lack history, so DeepAR's related-series learning plus categorical features transfers patterns. A per-series ARIMA cannot learn from other products at all.",
+  "id": "ch3-q39",
+  "options": [
+   "Per-series ARIMA models that fit each product alone and cannot transfer patterns to new items",
+   "A global moving average that ignores product attributes and seasonal structure across the catalog",
+   "DeepAR trained on related series with categorical product features to transfer patterns to new items",
+   "XGBoost on static attributes only, which discards sequential seasonality in the sales histories"
+  ],
+  "q": "Hundreds of new products have no sales history but resemble existing ones. How should forecasting handle them?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "deepar",
+   "cold-start"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "difficile",
+  "explain": "Autopilot's candidate leaderboard exposes pipelines, metrics, and notebooks so experts can inspect and override. Treating the top candidate as final hides preprocessing and validation choices.",
+  "id": "ch3-q40",
+  "options": [
+   "Deploying the top candidate blindly, which hides preprocessing choices and validation assumptions",
+   "Accepting Autopilot defaults for every dataset, which ignores domain constraints and cost limits",
+   "Skipping holdout review because AutoML tuned internally, which confuses tuning scores with generalization",
+   "Using Autopilot leaderboards and generated notebooks to inspect, compare, and override top pipelines"
+  ],
+  "q": "An expert team uses Autopilot for speed but must keep governance. How should it treat AutoML candidates?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "autopilot",
+   "governance"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 0,
+  "chapter": "ch3-model-dev",
+  "difficulty": "difficile",
+  "explain": "Time-series splits must respect chronology so validation always follows training in time. Random k-fold leaks future observations into training and inflates scores.",
+  "id": "ch3-q41",
+  "options": [
+   "Time-ordered rolling-origin splits where each validation window strictly follows its training period",
+   "Random k-fold shuffling that mixes future observations into training and inflates validation scores",
+   "Single split on sorted IDs that tests one cutoff without averaging stability across many windows",
+   "Resubstitution scoring on training rows that reports memorization rather than future performance"
+  ],
+  "q": "A demand model validated with shuffled k-fold scores well but fails live. Which validation fix applies?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "cross-validation",
+   "time-series",
+   "leakage"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 1,
+  "chapter": "ch3-model-dev",
+  "difficulty": "difficile",
+  "explain": "Widening the Bayesian search ranges and budget plus early-stopping bad trials explores better regions efficiently. Narrowing ranges around the current best traps search in a poor area.",
+  "id": "ch3-q42",
+  "options": [
+   "Narrowing ranges around the current best trial, which traps Bayesian search inside a poor region",
+   "Widening search ranges with more budget and median-stopping of clearly poor trials to explore better",
+   "Freezing all hyperparameters except one, which prevents the optimizer from finding joint interactions",
+   "Restarting identical narrow searches, which repeats the same region without learning from history"
+  ],
+  "q": "An AMT job plateaus at mediocre scores with narrow ranges and no early stopping. What improves the search?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "hyperparameter-tuning",
+   "optimization"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "difficile",
+  "explain": "Profiler traces showing host-bound data loading call for Pipe mode or more workers, not bigger GPUs. Adding GPUs to a starved pipeline leaves them idle.",
+  "id": "ch3-q43",
+  "options": [
+   "Adding larger GPUs to the job, which leaves expensive accelerators idle while input starvation persists",
+   "Raising batch size blindly, which grows memory pressure without fixing the slow host-side pipeline",
+   "Fixing the input pipeline with Pipe mode or more workers, as Profiler shows host-bound data loading",
+   "Enabling Debugger tensor rules, which inspect gradients but cannot relieve data-delivery starvation"
+  ],
+  "q": "Profiler shows low GPU use with the job bound on data loading from S3. What is the right fix?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "profiler",
+   "data-pipeline"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 3,
+  "chapter": "ch3-model-dev",
+  "difficulty": "difficile",
+  "explain": "Tuning the threshold on validation data using F1 or cost analysis picks the operating point deliberately. Default 0.5 ignores asymmetric costs and class imbalance.",
+  "id": "ch3-q44",
+  "options": [
+   "Keeping the default 0.5 cutoff, which ignores asymmetric error costs and skewed class prevalence",
+   "Maximizing training accuracy, which rewards memorization instead of choosing a live operating point",
+   "Picking the threshold by visual guess, which cannot quantify cost trade-offs across operating points",
+   "Tuning the threshold on validation data with F1 or cost analysis to match asymmetric error costs"
+  ],
+  "q": "Missing fraud costs far more than a false alarm, but the team uses cutoff 0.5. What should it do instead?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "metrics",
+   "threshold-tuning",
+   "f1"
+  ],
+  "origin": "ai"
+ },
+ {
+  "answer": 2,
+  "chapter": "ch3-model-dev",
+  "difficulty": "difficile",
+  "explain": "The elbow method plots within-cluster sum of squares against K and picks the bend where gains diminish. The silhouette score then confirms separation quality of the chosen K.",
+  "id": "ch3-q45",
+  "options": [
+   "Setting K equal to the number of rows, which memorizes every record as its own useless cluster",
+   "Fixing K at two by default, which imposes an arbitrary split unrelated to the data structure",
+   "Elbow analysis of within-cluster variance versus K, confirmed with silhouette separation scores",
+   "Maximizing K until metrics rise, which overfits clusters and destroys generalization to new data"
+  ],
+  "q": "A team must choose K for customer segmentation with K-Means. Which selection method is sound?",
+  "source": "AI-generated for MLA-C01 Studio",
+  "tags": [
+   "sagemaker",
+   "k-means",
+   "elbow-method"
+  ],
+  "origin": "ai"
+ }
+]

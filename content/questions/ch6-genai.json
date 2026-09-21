@@ -1,0 +1,767 @@
+[
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Bedrock provides serverless API access to foundation models without provisioning infrastructure. The other options require manual hosting, training, or use an unrelated service.",
+    "id": "ch6-q01",
+    "options": [
+      "Use Amazon Bedrock to access foundation models via a serverless API",
+      "Train a custom CNN classifier from scratch using SageMaker training",
+      "Launch GPU EC2 instances and manually install open-source LLM software",
+      "Use Amazon Rekognition to host a large language model for chat replies"
+    ],
+    "q": "A company wants to use a foundation model through an API without provisioning servers. Which service should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "foundation-models"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Comprehend performs NLP tasks such as sentiment analysis on unstructured text. Rekognition, Textract, and Transcribe handle images, documents, and speech instead.",
+    "id": "ch6-q02",
+    "options": [
+      "Use Amazon Rekognition to detect sentiment labels inside product photos",
+      "Use Amazon Comprehend to detect sentiment in customer product reviews",
+      "Use Amazon Textract to extract sentiment scores from scanned invoices",
+      "Use Amazon Transcribe to translate sentiment from audio into subtitles"
+    ],
+    "q": "A retailer wants to detect positive or negative sentiment in thousands of written product reviews. Which service fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["comprehend", "nlp", "sentiment"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Rekognition analyzes images and videos to detect objects, faces, and unsafe content. The other services process documents, speech, or text rather than photos.",
+    "id": "ch6-q03",
+    "options": [
+      "Use Amazon Textract to detect faces and objects inside security camera photos",
+      "Use Amazon Comprehend to recognize celebrities and objects in stored images",
+      "Use Amazon Rekognition to detect objects and faces in uploaded user photos",
+      "Use Amazon Transcribe to convert image labels into searchable audio notes"
+    ],
+    "q": "A social app must detect objects, faces, and unsafe content in user-uploaded photos. Which service should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["rekognition", "vision"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Textract extracts text, forms, and tables from scanned documents and PDFs. Rekognition identifies image content, Transcribe handles audio, and Polly synthesizes speech.",
+    "id": "ch6-q04",
+    "options": [
+      "Use Amazon Rekognition celebrity detection to digitize printed loan forms",
+      "Use Amazon Transcribe streaming to extract tables from scanned PDF pages",
+      "Use Amazon Polly neural voices to read printed mortgage forms into text",
+      "Use Amazon Textract to extract text and tables from scanned loan forms"
+    ],
+    "q": "A bank must digitize scanned loan applications, including text, forms, and tables. Which service should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["textract", "ocr", "documents"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Transcribe converts speech to text, including batch and streaming audio. Polly does the reverse, while Comprehend and Rekognition process text and images.",
+    "id": "ch6-q05",
+    "options": [
+      "Use Amazon Transcribe to convert recorded support calls into text logs",
+      "Use Amazon Polly to transcribe recorded agent calls into written notes",
+      "Use Amazon Comprehend to decode audio waveforms directly into transcripts",
+      "Use Amazon Rekognition to transcribe spoken dialogue from video soundtracks"
+    ],
+    "q": "A call center wants to convert recorded customer support calls into searchable text. Which service should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["transcribe", "speech-to-text"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Personalize builds personalized product and content recommendations from user behavior. Forecast predicts time series, while Bedrock and Lex serve different purposes.",
+    "id": "ch6-q06",
+    "options": [
+      "Use Amazon Forecast to recommend products from each shopper browsing history",
+      "Use Amazon Personalize to recommend products based on shopper behavior",
+      "Use Amazon Bedrock Guardrails to generate recommendations from purchase logs",
+      "Use Amazon Lex intents and slots to rank personalized product suggestions"
+    ],
+    "q": "An online store wants personalized product recommendations based on each shopper's browsing and purchase history. Which service fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["personalize", "recommendations"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Forecast is the time-series forecasting service for demand, inventory, and capacity planning. Personalize recommends items and Comprehend analyzes text instead.",
+    "id": "ch6-q07",
+    "options": [
+      "Use Amazon Personalize predictors to forecast next-quarter sales quantities",
+      "Use Amazon Comprehend topic modeling to project future inventory demand levels",
+      "Use Amazon Forecast to predict future product demand from history",
+      "Use Amazon Textract table extraction to estimate seasonal sales forecasts"
+    ],
+    "q": "A retailer wants to predict next-quarter product demand from historical sales data. Which service should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["forecast", "time-series"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Polly converts text into lifelike speech for announcements and voice apps. Transcribe does the reverse, while Forecast and Textract handle numbers and documents.",
+    "id": "ch6-q08",
+    "options": [
+      "Use Amazon Transcribe batch jobs to speak flight updates over loudspeakers",
+      "Use Amazon Forecast predictors to generate spoken gate announcements",
+      "Use Amazon Textract OCR output to vocalize departure boards in terminals",
+      "Use Amazon Polly to convert flight status text into spoken announcements"
+    ],
+    "q": "An airport wants to turn written flight-status updates into natural-sounding spoken announcements. Which service should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["polly", "text-to-speech"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Lex builds conversational chatbots with intents, slots, and dialog management. Polly only synthesizes speech, while Connect routing and Bedrock agents differ in scope.",
+    "id": "ch6-q09",
+    "options": [
+      "Use Amazon Lex to build a chatbot that books appointments with intents",
+      "Use Amazon Polly neural voices to manage booking dialogues and user slots",
+      "Use Amazon Connect contact flows alone to parse free-text booking requests",
+      "Use Amazon Transcribe medical mode to run the appointment booking dialogue"
+    ],
+    "q": "A clinic wants a website chatbot that books appointments by understanding patient requests. Which service should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["lex", "chatbot"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Knowledge Bases connect Bedrock models to company documents for RAG-grounded answers. Fine-tuning retrains weights, while Guardrails filter content rather than retrieve it.",
+    "id": "ch6-q10",
+    "options": [
+      "Fine-tune a Bedrock model on manuals so document retrieval becomes unneeded",
+      "Use Bedrock Knowledge Bases to ground answers in company policy documents",
+      "Apply Bedrock Guardrails filters to retrieve relevant manual passages for RAG",
+      "Export the manuals to SageMaker training jobs for nightly batch inference"
+    ],
+    "q": "A company wants its Bedrock assistant to answer using internal policy documents without retraining the model. What should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "knowledge-bases", "rag"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Guardrails enforce denied topics, content filters, and PII redaction on model inputs and outputs. Knowledge Bases retrieve documents and Agents call tools instead.",
+    "id": "ch6-q11",
+    "options": [
+      "Use Bedrock Agents action groups to block disallowed advice in responses",
+      "Use Bedrock Knowledge Bases chunking to filter out harmful model replies",
+      "Use Bedrock Guardrails to block disallowed topics and redact PII data",
+      "Use Bedrock provisioned throughput to throttle and filter sensitive replies"
+    ],
+    "q": "A firm must block disallowed advice topics and redact personal data in chatbot replies. Which Bedrock feature should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "guardrails", "safety"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Bedrock Agents decompose tasks, reason, and call tools such as Lambda functions and APIs. A plain model invocation cannot act, while Guardrails only filter content.",
+    "id": "ch6-q12",
+    "options": [
+      "Use a single Bedrock InvokeModel call with a longer prompt to book tickets",
+      "Use Bedrock Guardrails content filters to execute booking API calls directly",
+      "Use a Bedrock Knowledge Base sync job to place orders through backend APIs",
+      "Use Bedrock Agents to reason over the request and call booking APIs"
+    ],
+    "q": "A travel site wants an assistant that checks availability and books trips by calling backend APIs. Which Bedrock feature fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "agents"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "JumpStart provides prebuilt foundation models deployable into SageMaker with a few clicks. Training from scratch or hosting on EC2 manually adds unneeded effort.",
+    "id": "ch6-q13",
+    "options": [
+      "Use SageMaker JumpStart to deploy a prebuilt foundation model endpoint",
+      "Train a transformer from random weights on EC2 Spot with custom scripts",
+      "Use Amazon Rekognition labels to deploy a text generation model endpoint",
+      "Export Bedrock Guardrails rules into a SageMaker hosting configuration"
+    ],
+    "q": "A team wants to deploy a prebuilt foundation model into SageMaker quickly without training from scratch. What should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["sagemaker", "jumpstart", "deployment"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "Bedrock does not use customer inputs or prompts to train its base models. Data stays within the service and is not shared with other customers or model providers.",
+    "id": "ch6-q14",
+    "options": [
+      "Bedrock adds customer prompts to public training sets to improve base models",
+      "Bedrock does not train base models on customer prompts or private data",
+      "Bedrock shares encrypted customer data with providers for model retraining",
+      "Bedrock publishes customer Knowledge Base content for benchmark datasets"
+    ],
+    "q": "A security team asks whether Amazon Bedrock trains shared models on their prompts and documents. What is the correct answer?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "privacy", "security"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "facile",
+    "explain": "On-demand Bedrock inference bills per input and output token processed. There is no hourly endpoint charge, unlike provisioned throughput or SageMaker endpoints.",
+    "id": "ch6-q15",
+    "options": [
+      "Bedrock on-demand bills a flat monthly fee per model regardless of usage",
+      "Bedrock on-demand bills per provisioned model unit reserved each month",
+      "Bedrock on-demand bills per input and output token actually processed",
+      "Bedrock on-demand bills per training image indexed in Knowledge Bases"
+    ],
+    "q": "How is Amazon Bedrock priced when a team uses on-demand inference with no throughput commitment?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "pricing"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "RAG retrieves current documents at query time, so fast-changing catalogs stay fresh without retraining. Fine-tuning suits stable style or domain knowledge instead.",
+    "id": "ch6-q16",
+    "options": [
+      "Fine-tune the model nightly on catalog dumps to memorize prices and stock",
+      "Use Bedrock provisioned throughput so the model memorizes product details",
+      "Train a SageMaker classifier that rewrites catalog facts into model weights",
+      "Use RAG with a Knowledge Base so answers cite current catalog documents"
+    ],
+    "q": "A support chatbot must answer from a product catalog that changes daily. Should the team choose RAG or fine-tuning, and why?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["rag", "fine-tuning", "bedrock"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Fine-tuning teaches stable domain vocabulary, tone, and formats that RAG retrieval alone cannot enforce. Frequently changing facts still belong in a Knowledge Base.",
+    "id": "ch6-q17",
+    "options": [
+      "Fine-tune the model so it learns stable legal vocabulary, tone, and format",
+      "Rebuild the Knowledge Base hourly so the model adopts the formal writing tone",
+      "Raise the sampling temperature so outputs randomly match the legal style",
+      "Add Guardrails denied-topic lists to teach the model formal legal phrasing"
+    ],
+    "q": "A law firm wants contract summaries always written in a specific formal style with domain vocabulary. Which approach fits best?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["fine-tuning", "bedrock", "customization"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Knowledge Bases split documents into chunks, embed them, and retrieve the most relevant passages at query time. The foundation model weights remain unchanged.",
+    "id": "ch6-q18",
+    "options": [
+      "Knowledge Bases retrain model weights nightly on newly uploaded documents",
+      "Knowledge Bases chunk and embed documents, retrieving passages at query time",
+      "Knowledge Bases convert PDFs into Guardrails rules that rewrite user prompts",
+      "Knowledge Bases duplicate each document into model context for every request"
+    ],
+    "q": "How does an Amazon Bedrock Knowledge Base make company documents available to a foundation model?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "knowledge-bases", "embeddings"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Agents use action groups backed by Lambda functions or APIs, with schemas describing available operations. Guardrails filter content and Knowledge Bases supply documents.",
+    "id": "ch6-q19",
+    "options": [
+      "Agents store API credentials inside the prompt text for each user request",
+      "Agents rely on Guardrails thresholds to decide which Lambda to execute",
+      "Agents call Lambda-backed action groups defined by API schemas they use",
+      "Agents query Knowledge Base embeddings to run database write operations"
+    ],
+    "q": "A Bedrock Agent must look up orders and issue refunds by calling internal APIs. How does the agent execute these actions?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "agents", "lambda"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Guardrails support denied topics, sensitive-information filters with PII redaction, and word filters. They do not retrain models or manage network access.",
+    "id": "ch6-q20",
+    "options": [
+      "Configure provisioned throughput quotas to redact names in model responses",
+      "Define Knowledge Base chunk sizes that automatically mask account numbers",
+      "Write agent Lambda code that fine-tunes the model away from advice topics",
+      "Configure Guardrails denied topics plus PII filters to block and redact"
+    ],
+    "q": "A bank chatbot must refuse investment advice and mask account numbers in replies. How should the team implement this?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "guardrails", "pii"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Automatic evaluation uses metrics on labeled datasets for speed, while human evaluation judges quality and safety nuances. Guardrails enforce policy but do not score accuracy.",
+    "id": "ch6-q21",
+    "options": [
+      "Use automatic metrics for quick scoring plus human review for quality nuance",
+      "Use Guardrails thresholds as the accuracy score for each candidate model",
+      "Use provisioned throughput levels to rank which model answers most safely",
+      "Use Knowledge Base sync frequency as the main measure of model quality"
+    ],
+    "q": "A team must compare two Bedrock models on summarization quality and safety before launch. Which evaluation approach is sound?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "evaluation"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Provisioned throughput reserves model capacity for steady high-volume workloads needing consistent latency. Sporadic workloads are cheaper on pay-per-token on-demand pricing.",
+    "id": "ch6-q22",
+    "options": [
+      "Use on-demand inference for steady traffic because reservations lower costs",
+      "Use provisioned throughput for steady high-volume traffic needing stable latency",
+      "Use model evaluation jobs to reserve capacity for production inference traffic",
+      "Use Knowledge Base storage quotas to guarantee model inference throughput"
+    ],
+    "q": "An app sends steady high-volume Bedrock traffic and needs consistent latency with committed usage. Which option fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "provisioned-throughput", "pricing"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Transcribe supports real-time streaming transcription for live captioning. Comprehend analyzes text afterward, while Polly and Textract serve other modalities.",
+    "id": "ch6-q23",
+    "options": [
+      "Use Amazon Polly streaming synthesis to caption live broadcasts in real time",
+      "Use Amazon Comprehend streaming entities to transcribe live speech to text",
+      "Use Amazon Transcribe streaming to generate live captions from speech audio",
+      "Use Amazon Textract streaming OCR to transcribe spoken webinar dialogue"
+    ],
+    "q": "A media company needs real-time captions generated from live broadcast speech. Which service and mode should it use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["transcribe", "streaming"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "AnalyzeDocument extracts forms, tables, and key-value pairs, while DetectDocumentText only reads raw text. Comprehend analyzes language rather than document layout.",
+    "id": "ch6-q24",
+    "options": [
+      "Use Textract DetectDocumentText to extract key-value pairs from tax forms",
+      "Use Comprehend syntax analysis to reconstruct tables from scanned pages",
+      "Use Rekognition text detection to parse key-value pairs from claim forms",
+      "Use Textract AnalyzeDocument to extract forms, tables, and key-value pairs"
+    ],
+    "q": "An insurer must extract key-value pairs and tables from scanned claim forms, not just raw text lines. Which operation fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["textract", "forms", "tables"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Rekognition Video handles stored and streaming video for labels, faces, and unsafe content. Image-only APIs cannot process video timelines or streams.",
+    "id": "ch6-q25",
+    "options": [
+      "Use Rekognition Video to detect labels and unsafe scenes in archived footage",
+      "Use Rekognition still-image calls frame by frame for live stream moderation",
+      "Use Comprehend video mode to label objects across recorded video streams",
+      "Use Textract video OCR to flag unsafe activities in surveillance footage"
+    ],
+    "q": "A platform must detect labels, faces, and unsafe scenes across hours of archived video. Which Rekognition capability fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["rekognition", "video"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Comprehend custom classification and entity recognition train on company-labeled examples for domain-specific categories and entities. Generic built-in APIs lack that customization.",
+    "id": "ch6-q26",
+    "options": [
+      "Use Comprehend built-in sentiment to classify tickets into company categories",
+      "Use Comprehend custom classification trained on labeled company tickets",
+      "Use Transcribe custom language models to categorize written support tickets",
+      "Use Rekognition custom labels to extract entities from plain text tickets"
+    ],
+    "q": "A firm needs support tickets classified into its own custom categories using labeled historical tickets. Which approach fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["comprehend", "custom-classification"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Real-time PutEvents updates user behavior so recommendations reflect the current session. Retraining from scratch per click is slow and unnecessary.",
+    "id": "ch6-q27",
+    "options": [
+      "Retrain the Personalize solution after every click to refresh recommendations",
+      "Rebuild the entire interactions dataset nightly and ignore live click events",
+      "Send PutEvents in real time so recommendations reflect the current session",
+      "Switch the campaign to Forecast predictors for session-aware recommendations"
+    ],
+    "q": "A video service wants recommendations to adapt within the current viewing session as users click. How should it feed the signal?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["personalize", "real-time"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "What-if analysis simulates how promos or price changes would affect the forecast without altering history. Accuracy metrics and backtesting measure quality instead.",
+    "id": "ch6-q28",
+    "options": [
+      "Run backtesting exports to simulate the effect of a planned price increase",
+      "Retrain the predictor on invented future rows to preview promotion effects",
+      "Change historical sales figures directly to model the upcoming promotion",
+      "Use Forecast what-if analysis to simulate the promotion impact on demand"
+    ],
+    "q": "A planner wants to preview how a planned promotion would change the demand forecast without editing history. Which feature fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["forecast", "what-if"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Lex intents with slots and dialog management collect structured details like dates and destinations. Plain FAQ retrieval cannot run multi-turn slot filling.",
+    "id": "ch6-q29",
+    "options": [
+      "Use Lex intents with slots to collect destination, dates, and passengers",
+      "Use Polly lexicon files to parse travel dates from free-text user input",
+      "Use Transcribe vocabulary filters to manage multi-turn booking dialogues",
+      "Use Comprehend sentiment scores to fill booking slots from user replies"
+    ],
+    "q": "A Lex travel bot must collect destination, dates, and passenger count across multiple turns. Which Lex modeling approach fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["lex", "intents", "slots"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Polly neural and long-form voices produce natural narration for books and articles. Transcribe converts speech to text, which is the opposite direction.",
+    "id": "ch6-q30",
+    "options": [
+      "Use Amazon Transcribe dictation mode to narrate e-books from written text",
+      "Use Amazon Polly neural voices to narrate e-books from written chapters",
+      "Use Amazon Comprehend reading mode to vocalize long-form book chapters",
+      "Use Amazon Rekognition narration to speak book text from cover images"
+    ],
+    "q": "A publisher wants written e-book chapters converted into natural long-form narration. Which service and voice type fit?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["polly", "neural-voices"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Bedrock hosts third-party models such as Claude and Llama alongside Amazon Titan behind one API. SageMaker endpoints and direct provider contracts add unneeded complexity.",
+    "id": "ch6-q31",
+    "options": [
+      "Sign separate hosting contracts with each provider and build custom gateways",
+      "Deploy each provider model on EC2 GPUs behind a hand-built routing layer",
+      "Use Bedrock to access Titan, Claude, and Llama models through one API",
+      "Use Rekognition model hosting to serve each text model on its own endpoint"
+    ],
+    "q": "A team wants to compare Titan, Claude, and Llama models through a single managed API. How should it access them?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "model-choice"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Private VPC endpoints plus KMS-managed keys keep Bedrock traffic and stored data under customer control. Public endpoints and provider-side logging weaken isolation.",
+    "id": "ch6-q32",
+    "options": [
+      "Send Bedrock prompts over public internet and store logs in shared buckets",
+      "Allow all IAM principals full Bedrock access without VPC or key controls",
+      "Disable encryption so auditors can read Bedrock payloads more conveniently",
+      "Use VPC endpoints for Bedrock traffic and KMS keys for data encryption"
+    ],
+    "q": "A regulated firm must isolate Bedrock traffic from the public internet and control encryption keys. What should it configure?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "vpc", "kms", "security"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "Lower temperature and top-p make output more deterministic and focused, while higher values increase randomness. Max tokens limits length rather than creativity.",
+    "id": "ch6-q33",
+    "options": [
+      "Lower temperature and top-p to make Bedrock answers more deterministic",
+      "Raise temperature to maximum to force consistent and repeatable answers",
+      "Increase max tokens so the model becomes more factual and less random",
+      "Disable stop sequences so outputs converge on the single correct answer"
+    ],
+    "q": "Bedrock summary outputs vary too much between runs and the team wants consistent, focused answers. Which parameter change helps?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "inference-parameters"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "RAG grounds answers in retrieved passages that can be cited and checked, reducing hallucinations. Longer prompts and higher temperature do not verify facts.",
+    "id": "ch6-q34",
+    "options": [
+      "Increase the sampling temperature so the model invents fewer novel facts",
+      "Ground answers with RAG retrieval so outputs cite verifiable source passages",
+      "Lengthen the system prompt so the model memorizes more factual content",
+      "Switch to provisioned throughput so the same model hallucinates less often"
+    ],
+    "q": "A Bedrock assistant sometimes invents facts when answering from company documents. Which technique best reduces this?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["rag", "hallucination", "grounding"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "media",
+    "explain": "JumpStart supports selecting a foundation model, optionally fine-tuning it, and deploying to a SageMaker endpoint. Bedrock Knowledge Bases and Rekognition do not deploy SageMaker models.",
+    "id": "ch6-q35",
+    "options": [
+      "Build a Bedrock Knowledge Base sync that provisions SageMaker endpoints",
+      "Train Rekognition Custom Labels and export the weights to an LLM endpoint",
+      "Use JumpStart to fine-tune a foundation model and deploy it on SageMaker",
+      "Configure Lex fulfillment webhooks to host the foundation model endpoint"
+    ],
+    "q": "A team wants to fine-tune an open foundation model and host it on its own SageMaker endpoint. Which JumpStart workflow fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["jumpstart", "fine-tuning", "sagemaker"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "difficile",
+    "explain": "Guardrails apply to the final agent output, so tool results and drafted replies are filtered before the user sees them. Filtering only inputs or tools leaves the final text unchecked.",
+    "id": "ch6-q36",
+    "options": [
+      "Apply Guardrails only to the user input and trust the agent final answer",
+      "Filter each Lambda tool result and skip checking the final agent reply",
+      "Replace Guardrails with Knowledge Base ranking to enforce safety policy",
+      "Apply Guardrails to the final agent output including tool-derived content"
+    ],
+    "q": "A Bedrock Agent calls pricing APIs and drafts replies that must never include disallowed content. Where should Guardrails apply?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "agents", "guardrails"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "difficile",
+    "explain": "Provisioned throughput pays a time-based commitment, which wins for sustained high volume, while on-demand per-token pricing wins for spiky low-volume traffic.",
+    "id": "ch6-q37",
+    "options": [
+      "Choose provisioned throughput for sustained volume and on-demand for spiky use",
+      "Choose on-demand reservations for steady traffic and provisioned for trials",
+      "Choose fine-tuning jobs for latency control and evaluation for capacity",
+      "Choose Knowledge Base storage tiers to lock inference capacity pricing"
+    ],
+    "q": "A workload has sustained high-volume inference plus a separate spiky low-volume experiment. How should the team split Bedrock pricing?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "pricing", "provisioned-throughput"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "difficile",
+    "explain": "ROUGE-L measures summarization overlap automatically, while human review judges coherence and safety. BLEU targets translation and Guardrails enforce policy rather than score.",
+    "id": "ch6-q38",
+    "options": [
+      "Score summaries with BLEU translation metrics and provisioned latency alone",
+      "Score summaries with ROUGE metrics plus structured human review of quality",
+      "Rank summaries using Guardrails block rates as the main accuracy metric",
+      "Compare summaries by token count and Knowledge Base chunk overlap only"
+    ],
+    "q": "A team must evaluate Bedrock-generated meeting summaries rigorously before production. Which metric combination is appropriate?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "evaluation", "metrics"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "difficile",
+    "explain": "Hybrid search combines semantic embeddings with keyword matching, and metadata filters restrict retrieval to the right tenant or document subset for accuracy.",
+    "id": "ch6-q39",
+    "options": [
+      "Embed all tenants in one index and return the longest matching document",
+      "Raise the temperature so retrieval ignores tenant boundaries and finds more",
+      "Use hybrid search with metadata filters to scope retrieval per tenant topic",
+      "Disable chunking and pass every tenant document in a single giant prompt"
+    ],
+    "q": "A multi-tenant Knowledge Base returns irrelevant or cross-tenant passages. How should the team improve retrieval precision?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "knowledge-bases", "retrieval"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "difficile",
+    "explain": "Function calling with defined schemas lets the model request specific operations with validated arguments, unlike free-text replies that require fragile parsing.",
+    "id": "ch6-q40",
+    "options": [
+      "Ask the model to describe the action in prose and parse verbs with regex",
+      "Let the agent guess endpoint URLs from training memory without schemas",
+      "Return all database rows to the model and let it pick the operation",
+      "Define function schemas so the model requests actions with typed arguments"
+    ],
+    "q": "A Bedrock Agent must reliably trigger order, refund, and shipping operations with correct arguments. Which design is most robust?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "agents", "function-calling"],
+    "origin": "ai"
+  },
+  {
+    "answer": 0,
+    "chapter": "ch6-genai",
+    "difficulty": "difficile",
+    "explain": "Continued pre-training on domain corpora teaches terminology, then instruction fine-tuning shapes task behavior. A few generic prompts cannot instill deep domain knowledge.",
+    "id": "ch6-q41",
+    "options": [
+      "Continue pre-training on domain corpora, then instruction-tune for tasks",
+      "Instruction-tune only on generic chats, then hope medical terms emerge",
+      "Replace training with longer prompts containing the full medical corpus",
+      "Run model evaluation jobs repeatedly until domain vocabulary appears"
+    ],
+    "q": "A medical startup needs a model fluent in clinical terminology that also follows task instructions. Which training sequence fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["fine-tuning", "pre-training", "bedrock"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "difficile",
+    "explain": "Transcribe custom vocabularies fix domain terms during speech recognition, while call redaction masks PII in transcripts. Comprehend analyzes text after transcription instead.",
+    "id": "ch6-q42",
+    "options": [
+      "Use Comprehend custom entities to decode trading-floor audio waveforms",
+      "Use Transcribe custom vocabulary plus PII redaction for trading-call audio",
+      "Use Polly lexicons to transcribe shouted orders into timestamped text",
+      "Use Textract AnalyzeDocument to transcribe speech with trader slang"
+    ],
+    "q": "Trading-floor recordings contain heavy slang plus sensitive card numbers that must not appear in transcripts. What should the team use?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["transcribe", "pii", "custom-vocabulary"],
+    "origin": "ai"
+  },
+  {
+    "answer": 2,
+    "chapter": "ch6-genai",
+    "difficulty": "difficile",
+    "explain": "New items lack interaction history, so popularity or content-based fallbacks cover the cold start until behavior accrues. Waiting for retraining alone delays recommendations.",
+    "id": "ch6-q43",
+    "options": [
+      "Exclude new listings from recommendations until a full yearly retraining",
+      "Force random new-item placement and ignore all interaction history signals",
+      "Blend popularity and content-based fallbacks until interactions accrue",
+      "Switch the campaign to a Forecast predictor trained only on new items"
+    ],
+    "q": "A marketplace adds hundreds of new listings daily with no interaction history. How should Personalize handle these cold-start items?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["personalize", "cold-start"],
+    "origin": "ai"
+  },
+  {
+    "answer": 3,
+    "chapter": "ch6-genai",
+    "difficulty": "difficile",
+    "explain": "Cold-start products borrow signal from related time series in the same group, plus item metadata, instead of relying on nonexistent history or fabricating rows.",
+    "id": "ch6-q44",
+    "options": [
+      "Copy another product history verbatim and present it as the new forecast",
+      "Invent synthetic future sales rows to lengthen the new product history",
+      "Wait two years for history to accumulate before forecasting new items",
+      "Group new products with related series and add metadata for cold start"
+    ],
+    "q": "Forecast must predict demand for brand-new products with almost no sales history. Which cold-start strategy is sound?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["forecast", "cold-start"],
+    "origin": "ai"
+  },
+  {
+    "answer": 1,
+    "chapter": "ch6-genai",
+    "difficulty": "difficile",
+    "explain": "The robust pattern is retrieval-grounded Agents with tool actions, Guardrails filtering final output, and evaluation before launch. A bare model call lacks grounding, actions, and safety.",
+    "id": "ch6-q45",
+    "options": [
+      "Call InvokeModel with long prompts and rely on users to verify policy text",
+      "Combine Knowledge Bases, Agents with actions, Guardrails, and evaluation",
+      "Fine-tune nightly on tickets and expose the endpoint without any filters",
+      "Route all questions to Lex slots and skip grounding and safety checks"
+    ],
+    "q": "A bank needs a support assistant grounded in policies, able to act on accounts, with safety filters and tested quality. Which architecture fits?",
+    "source": "AI-generated for MLA-C01 Studio",
+    "tags": ["bedrock", "agents", "rag", "guardrails"],
+    "origin": "ai"
+  }
+]
