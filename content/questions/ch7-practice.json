@@ -932,5 +932,530 @@
       "time-management"
     ],
     "origin": "ai"
+  },
+  {
+    "id": "ch7-ext01",
+    "chapter": "ch7-practice",
+    "q": "A candidate plans pacing for the 65-question, 170-minute MLA-C01 exam. Which pacing plan best protects time for a final review?",
+    "options": [
+      "Answer the 20 longest scenarios first, then rush remaining short questions",
+      "Skip the review pass entirely and spend 5 minutes on each question once",
+      "Hold a steady pace near 2.5 minutes per question and bank 20 minutes for review",
+      "Spend 6 minutes per question on the first half and guess the second half"
+    ],
+    "answer": 2,
+    "explain": "65 questions in 170 minutes allows about 2.6 minutes each. A steady pace with banked review time beats front-loading or skipping review.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-tactics",
+      "time-management",
+      "pacing"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext02",
+    "chapter": "ch7-practice",
+    "q": "During the first pass of the exam, a candidate meets a four-paragraph scenario with two answers that both look plausible. What is the best move?",
+    "options": [
+      "Flag it for review, choose a provisional answer, and keep the first-pass momentum",
+      "Reread the whole scenario three times in a row until fully certain before moving on",
+      "Delete the provisional answer and leave the question blank for later review",
+      "Jump to another section of the testing software for a while to reset focus"
+    ],
+    "answer": 0,
+    "explain": "Flagging with a provisional answer preserves pace on the first pass. There is no penalty for a wrong answer, so never leave blanks.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-tactics",
+      "time-management",
+      "review-mode"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext03",
+    "chapter": "ch7-practice",
+    "q": "A tactic guide suggests reading the last sentence of a long scenario first. Why does this help on MLA-C01 questions?",
+    "options": [
+      "The last sentence lists the AWS documentation links needed to justify the answer",
+      "It reveals the actual goal and constraint, such as least cost or lowest latency",
+      "It reveals which two options the exam writer has already ruled out for you",
+      "It states the passing score outright so you can judge how hard to try"
+    ],
+    "answer": 1,
+    "explain": "The final sentence states the requirement (cost, latency, overhead). Knowing the target first makes the long context faster to filter.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-tactics",
+      "elimination",
+      "reading-strategy"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext04",
+    "chapter": "ch7-practice",
+    "q": "A practice-test platform offers timed mode and review mode. How should a candidate combine them during preparation?",
+    "options": [
+      "Use only timed mode from the very first study day and skip every written rationale",
+      "Stay in review mode on exam day itself while sitting inside the test center",
+      "Study with review mode first to learn reasoning, then validate with timed mocks",
+      "Alternate randomly between the two modes without ever tracking scores or timing"
+    ],
+    "answer": 2,
+    "explain": "Review mode builds concept links through explanations; timed mode builds pacing under pressure. The sequence matters: learn, then simulate.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-tactics",
+      "review-mode",
+      "mock-strategy"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext05",
+    "chapter": "ch7-practice",
+    "q": "A question asks for the MOST cost-effective way to run inference once per night on 2 TB of stored images. Which keyword contrast eliminates two options immediately?",
+    "options": [
+      "Nightly stored data with no live latency need rules out real-time endpoints",
+      "Nightly jobs always require GPU training clusters with spot instances",
+      "Image data always requires a chatbot service before any inference step",
+      "Cost-effective always means switching the workload to a larger instance"
+    ],
+    "answer": 0,
+    "explain": "Stored input plus a schedule and no latency need points to batch transform. Options built for live requests contradict the scenario.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-tactics",
+      "elimination",
+      "batch"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext06",
+    "chapter": "ch7-practice",
+    "q": "A scenario mentions spoken customer calls that must become searchable text for a downstream classifier. Which service mapping is correct?",
+    "options": [
+      "Route the audio through Rekognition and store labels as text records",
+      "Route the audio through Forecast and treat predictions as transcripts",
+      "Route the audio through Transcribe, then feed text to Comprehend",
+      "Route the audio through Personalize and treat rankings as transcripts"
+    ],
+    "answer": 2,
+    "explain": "Transcribe converts speech to text; Comprehend analyzes that text. Vision, forecasting, and recommendation services do not transcribe audio.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "transcribe"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext07",
+    "chapter": "ch7-practice",
+    "q": "An option states a solution is the cheapest choice in all regions and all workloads forever. How should a test-taker treat this phrasing?",
+    "options": [
+      "Accept it, because exam answers always reward the most confident wording style",
+      "Flag it as a likely distractor, since absolute claims rarely survive constraints",
+      "Skip the question entirely, because absolute wording means the item is experimental",
+      "Pick it whenever the option also mentions the newest AWS service released"
+    ],
+    "answer": 1,
+    "explain": "Words like always, never, and all cases usually mark distractors. Real scenarios carry exceptions around cost, latency, and scale.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-tactics",
+      "elimination",
+      "distractors"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext08",
+    "chapter": "ch7-practice",
+    "q": "A candidate finishes a timed mock with 15 minutes left and three flagged questions. What is the best closing routine?",
+    "options": [
+      "Submit the exam early to project confidence and walk out of the testing center fast",
+      "Change every flagged answer to the longest option without rereading the text",
+      "Erase all the answers and restart the entire exam from the first question",
+      "Revisit flagged items against scenario constraints, then confirm all are answered"
+    ],
+    "answer": 3,
+    "explain": "Banked time exists for flagged review. Re-check each against constraints and confirm nothing is blank, since wrong answers cost nothing.",
+    "difficulty": "facile",
+    "tags": [
+      "exam-tactics",
+      "time-management",
+      "review-mode"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext09",
+    "chapter": "ch7-practice",
+    "q": "A fraud-detection scenario sends single requests needing answers in milliseconds around the clock. Which deployment mapping survives elimination?",
+    "options": [
+      "A real-time endpoint with auto scaling serves each live request fast",
+      "A nightly batch job scores the live requests after the day ends",
+      "A training job retrains the model each time a request arrives",
+      "A notebook instance scores requests manually during office hours"
+    ],
+    "answer": 0,
+    "explain": "Per-request millisecond need maps to a real-time endpoint. Batch, training, and manual options contradict the latency and availability need.",
+    "difficulty": "media",
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "sagemaker"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext10",
+    "chapter": "ch7-practice",
+    "q": "A startup must forecast weekly spare-parts demand from three years of sales history. Which service mapping is correct?",
+    "options": [
+      "Use Textract to read the sales tables, then stop before any modeling",
+      "Use Forecast with time-series history to predict future demand periods",
+      "Use Polly to narrate past sales, then treat narration as a forecast",
+      "Use Lex to chat about sales, then treat chat logs as demand numbers"
+    ],
+    "answer": 1,
+    "explain": "Historical series plus future horizon is the Forecast pattern. Document, speech, and chatbot services do not produce time-series forecasts.",
+    "difficulty": "media",
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "forecast"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext11",
+    "chapter": "ch7-practice",
+    "q": "A team needs product-defect detection on factory photos with minimal ML code. Which option best matches the scenario keywords?",
+    "options": [
+      "Train a custom cluster on EC2 with hand-written vision libraries only",
+      "Transcribe the photos into audio and classify the sound of each image",
+      "Use Rekognition for image analysis with managed pretrained vision models",
+      "Use Forecast on photo filenames to guess defect counts by date"
+    ],
+    "answer": 2,
+    "explain": "Photos plus defect detection maps to Rekognition image analysis. Audio and forecasting services mismatch the visual input type.",
+    "difficulty": "media",
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "rekognition"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext12",
+    "chapter": "ch7-practice",
+    "q": "A request payload of 5 MB must be scored live in under a second, while 800 MB video files arrive hourly for background scoring. Which pairing fits both limits?",
+    "options": [
+      "Score both the live requests and the hourly files with batch transform nightly",
+      "Score both the live and hourly workloads with training jobs that rebuild the model from scratch each hour",
+      "Serve both the live requests and the hourly files from a notebook with manual scaling",
+      "Serve the 5 MB live payload on a real-time endpoint and the 800 MB file with async inference"
+    ],
+    "answer": 3,
+    "explain": "Real-time endpoints cap payloads near 6 MB with low latency; async inference accepts up to about 1 GB for background jobs. The split respects both limits.",
+    "difficulty": "media",
+    "tags": [
+      "exam-tactics",
+      "numbers",
+      "inference-limits"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext13",
+    "chapter": "ch7-practice",
+    "q": "A scenario demands reusable features shared by training and serving with version history. Why does raw S3 storage fail this requirement?",
+    "options": [
+      "S3 with Feature Store versioning gives online lookup plus lineage for serving",
+      "S3 charges per request, which makes every training job mathematically wrong",
+      "S3 buckets cannot store CSV or Parquet files needed for model training",
+      "S3 regions cannot replicate data, so features stay locked in one zone"
+    ],
+    "answer": 0,
+    "explain": "Only SageMaker Feature Store adds online serving, versioning, and lineage over raw storage. Raw S3 alone lacks that serving layer, so it fails the reusable online-features requirement.",
+    "difficulty": "media",
+    "tags": [
+      "exam-tactics",
+      "traps",
+      "feature-store"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext14",
+    "chapter": "ch7-practice",
+    "q": "A hospital scenario requires encrypted training data, private network paths, and audit trails. Which bundle satisfies all three constraints?",
+    "options": [
+      "Public buckets with open access plus shared team passwords and no audit trail",
+      "KMS encryption with VPC endpoints, scoped IAM roles, and CloudTrail logging",
+      "Hardcode access keys inside the deployment code with public endpoints enabled",
+      "Keep datasets in plaintext storage with anonymous reads and no network limits"
+    ],
+    "answer": 1,
+    "explain": "KMS covers encryption, VPC endpoints cover private paths, scoped roles cover access, and CloudTrail covers audits. The other bundles violate at least one constraint.",
+    "difficulty": "media",
+    "tags": [
+      "exam-tactics",
+      "traps",
+      "iam-kms"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext15",
+    "chapter": "ch7-practice",
+    "q": "A SageMaker training job fails with an access-denied error on an S3 dataset. Which IAM fix should the candidate pick first?",
+    "options": [
+      "Attach a full administrator policy to every single user in the account at once",
+      "Embed long-lived access keys directly inside the training script source code",
+      "Grant the SageMaker execution role scoped S3 read rights for the dataset",
+      "Disable KMS encryption on the bucket and open that bucket to public reads"
+    ],
+    "answer": 2,
+    "explain": "Training jobs assume the execution role, so the scoped S3 grant fixes the failure. Admin rights, hardcoded keys, and public buckets are classic traps.",
+    "difficulty": "media",
+    "tags": [
+      "exam-tactics",
+      "traps",
+      "iam-kms"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext16",
+    "chapter": "ch7-practice",
+    "q": "Production accuracy drifts after three months. Which retraining design fits a scenario asking for automation with least overhead?",
+    "options": [
+      "Model Monitor detects drift and triggers a Pipelines retraining workflow",
+      "Engineers watch dashboards yearly and rebuild the model when complaints arrive",
+      "The endpoint retrains itself on every single prediction request it serves",
+      "The team deletes the endpoint each night and redeploys the same artifact"
+    ],
+    "answer": 0,
+    "explain": "Model Monitor plus scheduled Pipelines closes the detect-retrain-deploy loop automatically. Manual, per-request, and redeploy-identical options miss the goal.",
+    "difficulty": "media",
+    "tags": [
+      "exam-tactics",
+      "retraining",
+      "monitoring"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext17",
+    "chapter": "ch7-practice",
+    "q": "Two surviving options both propose technically valid architectures, one cheaper but slower, one faster but costlier. What tie-breaker does the exam reward?",
+    "options": [
+      "Pick the cheaper one in every case regardless of stated latency needs",
+      "Pick the faster one in every case regardless of stated budget limits",
+      "Pick the one whose service name appeared most often in the course",
+      "Match each option against every stated constraint and pick the full fit"
+    ],
+    "answer": 3,
+    "explain": "When both options work in isolation, the winner satisfies all scenario constraints together. Single-factor rules like cheapest or fastest are traps.",
+    "difficulty": "media",
+    "tags": [
+      "exam-tactics",
+      "elimination",
+      "tradeoffs"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext18",
+    "chapter": "ch7-practice",
+    "q": "A company holds 10 TB of messy CSVs and wants a visual low-code prep flow feeding a pipeline step. Which pairing should the candidate select?",
+    "options": [
+      "Hand-write Spark on EMR and copy outputs between laptops for each run",
+      "Prepare with Data Wrangler and share features through Feature Store",
+      "Stream the CSVs through a chatbot and treat replies as cleaned tables",
+      "Synthesize audio narration of the data and train directly on sound"
+    ],
+    "answer": 1,
+    "explain": "Data Wrangler gives visual low-code prep and exports to pipelines; Feature Store shares versioned features. Manual and mismatched services add overhead.",
+    "difficulty": "media",
+    "tags": [
+      "exam-tactics",
+      "keyword-mapping",
+      "data-prep"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext19",
+    "chapter": "ch7-practice",
+    "q": "A question shows a binary classifier with 8 true positives, 40 false negatives, and high precision. Missing fraud costs far more than false alarms. What is the right read?",
+    "options": [
+      "Celebrate high precision and deploy without changes to the threshold",
+      "Buy larger endpoint instances, since hardware size controls recall gaps",
+      "Tune the threshold and address imbalance, because recall is the bottleneck",
+      "Rewrite the training code in another language to fix the metric gap"
+    ],
+    "answer": 2,
+    "explain": "Many missed positives with high precision means low recall. Threshold tuning plus resampling targets recall; hardware or rewrites do not.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-tactics",
+      "metrics",
+      "precision-recall"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext20",
+    "chapter": "ch7-practice",
+    "q": "A lending model faces shifting applicant profiles plus fairness audits. Which monitoring design covers both risks?",
+    "options": [
+      "Track drift and bias metrics with thresholds that trigger alerts and retraining",
+      "Track GPU temperature in the cluster and rebuild the model whenever servers run warm",
+      "Check training accuracy just once, then freeze the model unchanged for five years",
+      "Disable all logging to cut cost and review fairness by manual sampling each year"
+    ],
+    "answer": 0,
+    "explain": "Drift metrics catch distribution shift; bias metrics with Clarify catch fairness decay. Thresholds turn both into automated retraining signals.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-tactics",
+      "monitoring",
+      "bias"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext21",
+    "chapter": "ch7-practice",
+    "q": "A chatbot must answer from policy manuals updated every week. Which design handles fresh facts with least rework?",
+    "options": [
+      "Fine-tune the model weekly on raw PDFs and delete the retrieval index",
+      "Hardcode the policies into prompts and redeploy the app for each edit",
+      "Freeze the model for a year and ignore every weekly policy change",
+      "Ground answers with retrieval over versioned manuals plus cited passages"
+    ],
+    "answer": 3,
+    "explain": "Retrieval grounds answers in current documents without retraining. Weekly fine-tuning or frozen prompts either cost too much or go stale.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-tactics",
+      "rag",
+      "fine-tuning"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext22",
+    "chapter": "ch7-practice",
+    "q": "A booking assistant must check inventory APIs, reserve seats, and send confirmations inside one chat. Which design fits?",
+    "options": [
+      "Static FAQ rules with no tool calls and fixed reply templates",
+      "Plain prompts with no API access and hope the model guesses bookings",
+      "Batch jobs that email yesterday's inventory with no conversation layer",
+      "Agents that reason over tools and call inventory and booking APIs"
+    ],
+    "answer": 3,
+    "explain": "Bedrock Agents combine a foundation model with tool and API calls for multi-step tasks such as checking inventory, reserving seats, and sending confirmations. Static rules, plain prompts, and batch jobs cannot invoke APIs.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-tactics",
+      "bedrock",
+      "agents"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext23",
+    "chapter": "ch7-practice",
+    "q": "A new ranking model must replace a production model with minimal blast radius. Which rollout best matches the safety constraint?",
+    "options": [
+      "Canary stages with metric alarms and automatic rollback on regression",
+      "Full cutover at midnight with no alarms and no rollback procedure",
+      "Parallel full-capacity fleets with no traffic split and double billing",
+      "Silent redeploy with monitoring disabled to reduce operational cost"
+    ],
+    "answer": 0,
+    "explain": "Canary stages shift a slice of traffic under alarms with rollback ready. Full cutovers and unmonitored deploys maximize blast radius.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-tactics",
+      "deployment",
+      "canary"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext24",
+    "chapter": "ch7-practice",
+    "q": "A KMS-encrypted S3 dataset feeds SageMaker, but training fails though the bucket policy looks open. What is the most likely trap behind the failure?",
+    "options": [
+      "The dataset is too accurate, so the training algorithm rejects the input",
+      "The endpoint instance is too fast, so the training job times out early",
+      "The execution role lacks KMS decrypt rights even with S3 read access",
+      "The model artifact is too small, so the KMS key refuses to encrypt it"
+    ],
+    "answer": 2,
+    "explain": "S3 read plus KMS decrypt are separate grants. The classic trap grants bucket access but forgets the key policy, causing access-denied at read time.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-tactics",
+      "traps",
+      "iam-kms"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch7-ext25",
+    "chapter": "ch7-practice",
+    "q": "A dashboards-only analysis claims a campaign caused a sales uplift. Which reasoning flaw should the candidate spot?",
+    "options": [
+      "Dashboards with more charts automatically upgrade correlation to proof",
+      "Extra tables in the query convert an observed link into a proven cause",
+      "Higher dashboard refresh rates create causal evidence from raw trends",
+      "Trends show correlation, while causation needs controlled comparison"
+    ],
+    "answer": 3,
+    "explain": "Queries and charts describe co-movement but cannot isolate cause. Controlled tests or designed comparisons are required for causal claims.",
+    "difficulty": "difficile",
+    "tags": [
+      "exam-tactics",
+      "traps",
+      "analytics"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
   }
 ]
