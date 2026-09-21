@@ -2074,7 +2074,7 @@
   },
   "ch7-practice": {
    "audio": "audio/ch7-practice.mp3",
-   "duration": 272.48,
+   "duration": 272.99,
    "sentences": [
     {
      "t0": 0.0,
@@ -2084,271 +2084,271 @@
     },
     {
      "t0": 4.4,
-     "t1": 9.06,
+     "t1": 9.56,
      "slide": 0,
-     "text": "L esame MLA-C01 ha 65 domande in 130 minuti: circa due minuti per domanda."
+     "text": "L esame MLA-C01 ha 65 domande in 170 minuti: circa due minuti e mezzo per domanda."
     },
     {
-     "t0": 9.31,
-     "t1": 18.62,
+     "t0": 9.81,
+     "t1": 19.12,
      "slide": 0,
      "text": "La strategia e semplice: leggi prima vincoli e numeri, mappa lo scenario al servizio, elimina i distrattori e verifica la risposta contro i vincoli."
     },
     {
-     "t0": 18.87,
-     "t1": 24.72,
+     "t0": 19.37,
+     "t1": 25.22,
      "slide": 0,
      "text": "Non incagliarti sui casi lunghi di VPC o KMS: segnali per review e vai avanti, tornerai dopo."
     },
     {
-     "t0": 24.97,
-     "t1": 32.07,
+     "t0": 25.47,
+     "t1": 32.58,
      "slide": 0,
      "text": "La tecnica regina e l eliminazione: scarta prima le opzioni palesemente sbagliate, poi scegli tra le due rimaste."
     },
     {
-     "t0": 32.32,
-     "t1": 36.73,
+     "t0": 32.83,
+     "t1": 37.23,
      "slide": 0,
      "text": "Spesso basta separare SageMaker da non SageMaker, o managed da custom."
     },
     {
-     "t0": 36.98,
-     "t1": 50.0,
+     "t0": 37.48,
+     "t1": 50.5,
      "slide": 0,
      "text": "Impara le opzioni sempre sbagliate: access key nei job al posto degli execution role, Lambda o EC2 per il training pesante, SSE-C al posto di SSE-KMS quando serve audit, retraining a ogni singola violazione."
     },
     {
-     "t0": 50.25,
-     "t1": 53.71,
+     "t0": 50.75,
+     "t1": 54.21,
      "slide": 0,
      "text": "Le parole-chiave scenario mappano quasi meccanicamente:"
     },
     {
-     "t0": 53.96,
-     "t1": 56.6,
+     "t0": 54.46,
+     "t1": 57.1,
      "slide": 1,
      "text": "always-on e millisecondi uguale real-time,"
     },
     {
-     "t0": 56.85,
-     "t1": 59.87,
+     "t0": 57.35,
+     "t1": 60.37,
      "slide": 1,
      "text": "intermittente e scale-to-zero uguale serverless,"
     },
     {
-     "t0": 60.12,
-     "t1": 61.94,
+     "t0": 60.62,
+     "t1": 62.45,
      "slide": 1,
      "text": "1 GB e notifica uguale async,"
     },
     {
-     "t0": 62.19,
-     "t1": 64.46,
+     "t0": 62.7,
+     "t1": 64.96,
      "slide": 1,
      "text": "offline e S3 in S3 out uguale batch,"
     },
     {
-     "t0": 64.71,
-     "t1": 67.22,
+     "t0": 65.21,
+     "t1": 67.73,
      "slide": 1,
      "text": "centinaia di modelli uguale multi-model,"
     },
     {
-     "t0": 67.47,
-     "t1": 70.24,
+     "t0": 67.98,
+     "t1": 70.75,
      "slide": 1,
      "text": "dati aggiornati senza retraining uguale RAG,"
     },
     {
-     "t0": 70.49,
-     "t1": 72.69,
+     "t0": 71.0,
+     "t1": 73.2,
      "slide": 1,
      "text": "operare in autonomia uguale Agents,"
     },
     {
-     "t0": 72.94,
-     "t1": 75.4,
+     "t0": 73.45,
+     "t1": 75.9,
      "slide": 2,
      "text": "bloccare topic o PII uguale Guardrails,"
     },
     {
-     "t0": 75.65,
-     "t1": 77.41,
+     "t0": 76.15,
+     "t1": 77.91,
      "slide": 2,
      "text": "no internet uguale VPC-only,"
     },
     {
-     "t0": 77.66,
-     "t1": 79.17,
+     "t0": 78.16,
+     "t1": 79.67,
      "slide": 2,
      "text": "audit uguale CloudTrail,"
     },
     {
-     "t0": 79.42,
-     "t1": 81.43,
+     "t0": 79.92,
+     "t1": 81.94,
      "slide": 2,
      "text": "chiavi centralizzate uguale KMS."
     },
     {
-     "t0": 81.68,
-     "t1": 95.64,
+     "t0": 82.19,
+     "t1": 96.15,
      "slide": 2,
      "text": "Memorizza i numeri chiave: 6 MB e 60 secondi per real-time e serverless, 1 GB e un ora per async, sampling capture dal 10 al 100 per cento, stati Pending Approved Rejected nel Model Registry, quattro tipi di Model Monitor."
     },
     {
-     "t0": 95.89,
-     "t1": 106.27,
+     "t0": 96.4,
+     "t1": 106.78,
      "slide": 2,
      "text": "Per i practice exam usa prima la modalita review leggendo anche le spiegazioni delle risposte giuste, poi la modalita timed puntando a oltre l 80 per cento costante."
     },
     {
-     "t0": 106.52,
-     "t1": 115.64,
+     "t0": 107.03,
+     "t1": 116.15,
      "slide": 2,
      "text": "La sera prima ripassa solo mapping e numeri, dormi e presentati con un metodo fisso per ogni quesito: vincoli, mappatura, eliminazione, verifica."
     },
     {
-     "t0": 115.89,
-     "t1": 120.67,
+     "t0": 116.4,
+     "t1": 121.18,
      "slide": 2,
      "text": "Vediamo ora il metodo di risposta in quattro mosse applicato a esempi reali."
     },
     {
-     "t0": 120.92,
-     "t1": 127.84,
+     "t0": 121.43,
+     "t1": 128.35,
      "slide": 3,
      "text": "Prima mossa: sottolinea vincoli e numeri nello stem, come latenza, payload, traffico e requisiti di sicurezza."
     },
     {
-     "t0": 128.09,
-     "t1": 136.4,
+     "t0": 128.6,
+     "t1": 136.9,
      "slide": 3,
      "text": "Seconda mossa: mappa le parole-chiave al servizio prima di leggere le opzioni, cosi arrivi alle risposte con un'ipotesi gia formata."
     },
     {
-     "t0": 136.65,
-     "t1": 148.22,
+     "t0": 137.15,
+     "t1": 148.73,
      "slide": 3,
      "text": "Terza mossa: elimina i distrattori con le regole fisse, come access key nei job, training pesante su Lambda, endpoint pubblici per dati sensibili o fine-tuning per conoscenza dinamica."
     },
     {
-     "t0": 148.47,
-     "t1": 154.89,
+     "t0": 148.98,
+     "t1": 155.39,
      "slide": 3,
      "text": "Quarta mossa: verifica l'opzione rimasta contro ogni vincolo dello stem, senza aggiungere ipotesi tue."
     },
     {
-     "t0": 155.14,
-     "t1": 158.03,
+     "t0": 155.64,
+     "t1": 158.54,
      "slide": 3,
      "text": "Applichiamo il metodo a tre scenari frequenti."
     },
     {
-     "t0": 158.28,
-     "t1": 164.32,
+     "t0": 158.79,
+     "t1": 164.83,
      "slide": 3,
      "text": "Scenario uno: modello per transazioni con traffico costante e risposta sotto i 100 millisecondi."
     },
     {
-     "t0": 164.57,
-     "t1": 171.61,
+     "t0": 165.08,
+     "t1": 172.12,
      "slide": 3,
      "text": "Vincoli dicono real-time, quindi scarti serverless per i cold start e async o batch perche non sono interattivi."
     },
     {
-     "t0": 171.86,
-     "t1": 176.39,
+     "t0": 172.37,
+     "t1": 176.9,
      "slide": 3,
      "text": "Scenario due: documenti da 500 MB con elaborazione di minuti e notifica."
     },
     {
-     "t0": 176.64,
-     "t1": 181.93,
+     "t0": 177.15,
+     "t1": 182.44,
      "slide": 4,
      "text": "Il payload uccide real-time e serverless, e la notifica punta ad async con S3 e SNS."
     },
     {
-     "t0": 182.18,
-     "t1": 187.27,
+     "t0": 182.69,
+     "t1": 187.78,
      "slide": 4,
      "text": "Scenario tre: dati sensibili mai su internet pubblica con cifratura verificabile."
     },
     {
-     "t0": 187.52,
-     "t1": 194.0,
+     "t0": 188.03,
+     "t1": 194.51,
      "slide": 4,
      "text": "Solo la combinazione VPC-only, subnet private, gateway S3, KMS e ruolo minimo soddisfa tutti i vincoli."
     },
     {
-     "t0": 194.25,
-     "t1": 196.52,
+     "t0": 194.76,
+     "t1": 197.02,
      "slide": 4,
      "text": "Per la checklist dell'ultimo giorno,"
     },
     {
-     "t0": 196.77,
-     "t1": 199.78,
+     "t0": 197.27,
+     "t1": 200.29,
      "slide": 4,
      "text": "ripassa solo tabelle di mapping e numeri chiave,"
     },
     {
-     "t0": 200.03,
-     "t1": 201.86,
+     "t0": 200.54,
+     "t1": 202.37,
      "slide": 4,
      "text": "prepara documenti e percorso,"
     },
     {
-     "t0": 202.11,
-     "t1": 206.13,
+     "t0": 202.62,
+     "t1": 206.64,
      "slide": 4,
      "text": "dormi a sufficienza e decidi in anticipo la strategia di review:"
     },
     {
-     "t0": 206.38,
-     "t1": 208.77,
+     "t0": 206.89,
+     "t1": 209.28,
      "slide": 5,
      "text": "prima giro veloce con risposte sicure,"
     },
     {
-     "t0": 209.02,
-     "t1": 211.04,
+     "t0": 209.53,
+     "t1": 211.55,
      "slide": 5,
      "text": "secondo giro per i casi segnati,"
     },
     {
-     "t0": 211.29,
-     "t1": 215.06,
+     "t0": 211.8,
+     "t1": 215.57,
      "slide": 5,
      "text": "mai cambiare una risposta senza una ragione tecnica precisa."
     },
     {
-     "t0": 215.31,
-     "t1": 219.72,
+     "t0": 215.82,
+     "t1": 220.22,
      "slide": 5,
      "text": "In chiusura, tre pattern di risposta da memorizzare parola per parola."
     },
     {
-     "t0": 219.97,
-     "t1": 234.94,
+     "t0": 220.47,
+     "t1": 235.45,
      "slide": 5,
      "text": "Pattern sicurezza massima: VPC-only con subnet private, gateway endpoint per S3, interface endpoint PrivateLink per API, ECR, log e KMS, cifratura KMS con chiavi gestite dal cliente, execution role a privilegio minimo e CloudTrail attivo."
     },
     {
-     "t0": 235.19,
-     "t1": 247.96,
+     "t0": 235.7,
+     "t1": 248.47,
      "slide": 5,
      "text": "Pattern retraining automatico: Data Capture verso S3, schedule di Model Monitor, allarme CloudWatch su violazioni, regola EventBridge che avvia la pipeline di retraining con rigenerazione della baseline."
     },
     {
-     "t0": 248.21,
-     "t1": 262.61,
+     "t0": 248.72,
+     "t1": 263.12,
      "slide": 5,
      "text": "Pattern GenAI: documenti dinamici uguale Knowledge Bases, azioni autonome uguale Agents con Action Groups, contenuti da filtrare uguale Guardrails, stile di dominio uguale fine-tuning, con valutazione automatica piu review umana."
     },
     {
-     "t0": 262.86,
-     "t1": 272.48,
+     "t0": 263.37,
+     "t1": 272.99,
      "slide": 5,
      "text": "Con questi tre pattern, il metodo in quattro mosse e i numeri chiave, arrivi al giorno dell esame con una strategia solida e ripetibile per ogni quesito."
     }
