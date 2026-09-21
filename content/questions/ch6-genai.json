@@ -13,7 +13,10 @@
     ],
     "q": "A company wants to use a foundation model through an API without provisioning servers. Which service should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "foundation-models"],
+    "tags": [
+      "bedrock",
+      "foundation-models"
+    ],
     "origin": "ai"
   },
   {
@@ -30,7 +33,11 @@
     ],
     "q": "A retailer wants to detect positive or negative sentiment in thousands of written product reviews. Which service fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["comprehend", "nlp", "sentiment"],
+    "tags": [
+      "comprehend",
+      "nlp",
+      "sentiment"
+    ],
     "origin": "ai"
   },
   {
@@ -47,7 +54,10 @@
     ],
     "q": "A social app must detect objects, faces, and unsafe content in user-uploaded photos. Which service should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["rekognition", "vision"],
+    "tags": [
+      "rekognition",
+      "vision"
+    ],
     "origin": "ai"
   },
   {
@@ -64,7 +74,11 @@
     ],
     "q": "A bank must digitize scanned loan applications, including text, forms, and tables. Which service should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["textract", "ocr", "documents"],
+    "tags": [
+      "textract",
+      "ocr",
+      "documents"
+    ],
     "origin": "ai"
   },
   {
@@ -81,7 +95,10 @@
     ],
     "q": "A call center wants to convert recorded customer support calls into searchable text. Which service should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["transcribe", "speech-to-text"],
+    "tags": [
+      "transcribe",
+      "speech-to-text"
+    ],
     "origin": "ai"
   },
   {
@@ -98,7 +115,10 @@
     ],
     "q": "An online store wants personalized product recommendations based on each shopper's browsing and purchase history. Which service fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["personalize", "recommendations"],
+    "tags": [
+      "personalize",
+      "recommendations"
+    ],
     "origin": "ai"
   },
   {
@@ -115,7 +135,10 @@
     ],
     "q": "A retailer wants to predict next-quarter product demand from historical sales data. Which service should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["forecast", "time-series"],
+    "tags": [
+      "forecast",
+      "time-series"
+    ],
     "origin": "ai"
   },
   {
@@ -132,7 +155,10 @@
     ],
     "q": "An airport wants to turn written flight-status updates into natural-sounding spoken announcements. Which service should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["polly", "text-to-speech"],
+    "tags": [
+      "polly",
+      "text-to-speech"
+    ],
     "origin": "ai"
   },
   {
@@ -149,7 +175,10 @@
     ],
     "q": "A clinic wants a website chatbot that books appointments by understanding patient requests. Which service should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["lex", "chatbot"],
+    "tags": [
+      "lex",
+      "chatbot"
+    ],
     "origin": "ai"
   },
   {
@@ -166,7 +195,11 @@
     ],
     "q": "A company wants its Bedrock assistant to answer using internal policy documents without retraining the model. What should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "knowledge-bases", "rag"],
+    "tags": [
+      "bedrock",
+      "knowledge-bases",
+      "rag"
+    ],
     "origin": "ai"
   },
   {
@@ -183,7 +216,11 @@
     ],
     "q": "A firm must block disallowed advice topics and redact personal data in chatbot replies. Which Bedrock feature should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "guardrails", "safety"],
+    "tags": [
+      "bedrock",
+      "guardrails",
+      "safety"
+    ],
     "origin": "ai"
   },
   {
@@ -200,7 +237,10 @@
     ],
     "q": "A travel site wants an assistant that checks availability and books trips by calling backend APIs. Which Bedrock feature fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "agents"],
+    "tags": [
+      "bedrock",
+      "agents"
+    ],
     "origin": "ai"
   },
   {
@@ -217,7 +257,11 @@
     ],
     "q": "A team wants to deploy a prebuilt foundation model into SageMaker quickly without training from scratch. What should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["sagemaker", "jumpstart", "deployment"],
+    "tags": [
+      "sagemaker",
+      "jumpstart",
+      "deployment"
+    ],
     "origin": "ai"
   },
   {
@@ -234,7 +278,11 @@
     ],
     "q": "A security team asks whether Amazon Bedrock trains shared models on their prompts and documents. What is the correct answer?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "privacy", "security"],
+    "tags": [
+      "bedrock",
+      "privacy",
+      "security"
+    ],
     "origin": "ai"
   },
   {
@@ -251,7 +299,10 @@
     ],
     "q": "How is Amazon Bedrock priced when a team uses on-demand inference with no throughput commitment?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "pricing"],
+    "tags": [
+      "bedrock",
+      "pricing"
+    ],
     "origin": "ai"
   },
   {
@@ -268,7 +319,11 @@
     ],
     "q": "A support chatbot must answer from a product catalog that changes daily. Should the team choose RAG or fine-tuning, and why?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["rag", "fine-tuning", "bedrock"],
+    "tags": [
+      "rag",
+      "fine-tuning",
+      "bedrock"
+    ],
     "origin": "ai"
   },
   {
@@ -285,7 +340,11 @@
     ],
     "q": "A law firm wants contract summaries always written in a specific formal style with domain vocabulary. Which approach fits best?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["fine-tuning", "bedrock", "customization"],
+    "tags": [
+      "fine-tuning",
+      "bedrock",
+      "customization"
+    ],
     "origin": "ai"
   },
   {
@@ -302,7 +361,11 @@
     ],
     "q": "How does an Amazon Bedrock Knowledge Base make company documents available to a foundation model?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "knowledge-bases", "embeddings"],
+    "tags": [
+      "bedrock",
+      "knowledge-bases",
+      "embeddings"
+    ],
     "origin": "ai"
   },
   {
@@ -319,7 +382,11 @@
     ],
     "q": "A Bedrock Agent must look up orders and issue refunds by calling internal APIs. How does the agent execute these actions?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "agents", "lambda"],
+    "tags": [
+      "bedrock",
+      "agents",
+      "lambda"
+    ],
     "origin": "ai"
   },
   {
@@ -336,7 +403,11 @@
     ],
     "q": "A bank chatbot must refuse investment advice and mask account numbers in replies. How should the team implement this?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "guardrails", "pii"],
+    "tags": [
+      "bedrock",
+      "guardrails",
+      "pii"
+    ],
     "origin": "ai"
   },
   {
@@ -353,7 +424,10 @@
     ],
     "q": "A team must compare two Bedrock models on summarization quality and safety before launch. Which evaluation approach is sound?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "evaluation"],
+    "tags": [
+      "bedrock",
+      "evaluation"
+    ],
     "origin": "ai"
   },
   {
@@ -370,7 +444,11 @@
     ],
     "q": "An app sends steady high-volume Bedrock traffic and needs consistent latency with committed usage. Which option fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "provisioned-throughput", "pricing"],
+    "tags": [
+      "bedrock",
+      "provisioned-throughput",
+      "pricing"
+    ],
     "origin": "ai"
   },
   {
@@ -387,7 +465,10 @@
     ],
     "q": "A media company needs real-time captions generated from live broadcast speech. Which service and mode should it use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["transcribe", "streaming"],
+    "tags": [
+      "transcribe",
+      "streaming"
+    ],
     "origin": "ai"
   },
   {
@@ -404,7 +485,11 @@
     ],
     "q": "An insurer must extract key-value pairs and tables from scanned claim forms, not just raw text lines. Which operation fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["textract", "forms", "tables"],
+    "tags": [
+      "textract",
+      "forms",
+      "tables"
+    ],
     "origin": "ai"
   },
   {
@@ -421,7 +506,10 @@
     ],
     "q": "A platform must detect labels, faces, and unsafe scenes across hours of archived video. Which Rekognition capability fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["rekognition", "video"],
+    "tags": [
+      "rekognition",
+      "video"
+    ],
     "origin": "ai"
   },
   {
@@ -438,7 +526,10 @@
     ],
     "q": "A firm needs support tickets classified into its own custom categories using labeled historical tickets. Which approach fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["comprehend", "custom-classification"],
+    "tags": [
+      "comprehend",
+      "custom-classification"
+    ],
     "origin": "ai"
   },
   {
@@ -455,7 +546,10 @@
     ],
     "q": "A video service wants recommendations to adapt within the current viewing session as users click. How should it feed the signal?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["personalize", "real-time"],
+    "tags": [
+      "personalize",
+      "real-time"
+    ],
     "origin": "ai"
   },
   {
@@ -472,7 +566,10 @@
     ],
     "q": "A planner wants to preview how a planned promotion would change the demand forecast without editing history. Which feature fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["forecast", "what-if"],
+    "tags": [
+      "forecast",
+      "what-if"
+    ],
     "origin": "ai"
   },
   {
@@ -489,7 +586,11 @@
     ],
     "q": "A Lex travel bot must collect destination, dates, and passenger count across multiple turns. Which Lex modeling approach fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["lex", "intents", "slots"],
+    "tags": [
+      "lex",
+      "intents",
+      "slots"
+    ],
     "origin": "ai"
   },
   {
@@ -506,7 +607,10 @@
     ],
     "q": "A publisher wants written e-book chapters converted into natural long-form narration. Which service and voice type fit?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["polly", "neural-voices"],
+    "tags": [
+      "polly",
+      "neural-voices"
+    ],
     "origin": "ai"
   },
   {
@@ -523,7 +627,10 @@
     ],
     "q": "A team wants to compare Titan, Claude, and Llama models through a single managed API. How should it access them?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "model-choice"],
+    "tags": [
+      "bedrock",
+      "model-choice"
+    ],
     "origin": "ai"
   },
   {
@@ -540,7 +647,12 @@
     ],
     "q": "A regulated firm must isolate Bedrock traffic from the public internet and control encryption keys. What should it configure?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "vpc", "kms", "security"],
+    "tags": [
+      "bedrock",
+      "vpc",
+      "kms",
+      "security"
+    ],
     "origin": "ai"
   },
   {
@@ -557,7 +669,10 @@
     ],
     "q": "Bedrock summary outputs vary too much between runs and the team wants consistent, focused answers. Which parameter change helps?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "inference-parameters"],
+    "tags": [
+      "bedrock",
+      "inference-parameters"
+    ],
     "origin": "ai"
   },
   {
@@ -574,7 +689,11 @@
     ],
     "q": "A Bedrock assistant sometimes invents facts when answering from company documents. Which technique best reduces this?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["rag", "hallucination", "grounding"],
+    "tags": [
+      "rag",
+      "hallucination",
+      "grounding"
+    ],
     "origin": "ai"
   },
   {
@@ -591,7 +710,11 @@
     ],
     "q": "A team wants to fine-tune an open foundation model and host it on its own SageMaker endpoint. Which JumpStart workflow fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["jumpstart", "fine-tuning", "sagemaker"],
+    "tags": [
+      "jumpstart",
+      "fine-tuning",
+      "sagemaker"
+    ],
     "origin": "ai"
   },
   {
@@ -608,7 +731,11 @@
     ],
     "q": "A Bedrock Agent calls pricing APIs and drafts replies that must never include disallowed content. Where should Guardrails apply?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "agents", "guardrails"],
+    "tags": [
+      "bedrock",
+      "agents",
+      "guardrails"
+    ],
     "origin": "ai"
   },
   {
@@ -625,7 +752,11 @@
     ],
     "q": "A workload has sustained high-volume inference plus a separate spiky low-volume experiment. How should the team split Bedrock pricing?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "pricing", "provisioned-throughput"],
+    "tags": [
+      "bedrock",
+      "pricing",
+      "provisioned-throughput"
+    ],
     "origin": "ai"
   },
   {
@@ -642,7 +773,11 @@
     ],
     "q": "A team must evaluate Bedrock-generated meeting summaries rigorously before production. Which metric combination is appropriate?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "evaluation", "metrics"],
+    "tags": [
+      "bedrock",
+      "evaluation",
+      "metrics"
+    ],
     "origin": "ai"
   },
   {
@@ -659,7 +794,11 @@
     ],
     "q": "A multi-tenant Knowledge Base returns irrelevant or cross-tenant passages. How should the team improve retrieval precision?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "knowledge-bases", "retrieval"],
+    "tags": [
+      "bedrock",
+      "knowledge-bases",
+      "retrieval"
+    ],
     "origin": "ai"
   },
   {
@@ -676,7 +815,11 @@
     ],
     "q": "A Bedrock Agent must reliably trigger order, refund, and shipping operations with correct arguments. Which design is most robust?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "agents", "function-calling"],
+    "tags": [
+      "bedrock",
+      "agents",
+      "function-calling"
+    ],
     "origin": "ai"
   },
   {
@@ -693,7 +836,11 @@
     ],
     "q": "A medical startup needs a model fluent in clinical terminology that also follows task instructions. Which training sequence fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["fine-tuning", "pre-training", "bedrock"],
+    "tags": [
+      "fine-tuning",
+      "pre-training",
+      "bedrock"
+    ],
     "origin": "ai"
   },
   {
@@ -710,7 +857,11 @@
     ],
     "q": "Trading-floor recordings contain heavy slang plus sensitive card numbers that must not appear in transcripts. What should the team use?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["transcribe", "pii", "custom-vocabulary"],
+    "tags": [
+      "transcribe",
+      "pii",
+      "custom-vocabulary"
+    ],
     "origin": "ai"
   },
   {
@@ -727,7 +878,10 @@
     ],
     "q": "A marketplace adds hundreds of new listings daily with no interaction history. How should Personalize handle these cold-start items?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["personalize", "cold-start"],
+    "tags": [
+      "personalize",
+      "cold-start"
+    ],
     "origin": "ai"
   },
   {
@@ -744,7 +898,10 @@
     ],
     "q": "Forecast must predict demand for brand-new products with almost no sales history. Which cold-start strategy is sound?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["forecast", "cold-start"],
+    "tags": [
+      "forecast",
+      "cold-start"
+    ],
     "origin": "ai"
   },
   {
@@ -761,7 +918,538 @@
     ],
     "q": "A bank needs a support assistant grounded in policies, able to act on accounts, with safety filters and tested quality. Which architecture fits?",
     "source": "AI-generated for MLA-C01 Studio",
-    "tags": ["bedrock", "agents", "rag", "guardrails"],
+    "tags": [
+      "bedrock",
+      "agents",
+      "rag",
+      "guardrails"
+    ],
     "origin": "ai"
+  },
+  {
+    "id": "ch6-ext01",
+    "chapter": "ch6-genai",
+    "q": "A developer wants to switch between Claude, Llama, and Titan models without rewriting request code for each provider format. Which Bedrock API should the developer use?",
+    "options": [
+      "Use the Bedrock Converse API, which offers one unified interface for messages across models",
+      "Create a separate SageMaker endpoint with custom SDK request code for each model provider version",
+      "Route inference calls through Amazon Kendra indexes wrapped in provider-specific request templates",
+      "Run Bedrock model evaluation jobs to rewrite every live inference request for each provider format"
+    ],
+    "answer": 0,
+    "explain": "The Converse API normalizes messages, tool use, and parameters across Bedrock models, so switching models needs no per-provider rewrite. The other options add custom code or misuse unrelated services.",
+    "difficulty": "facile",
+    "tags": [
+      "bedrock",
+      "converse-api",
+      "foundation-models"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext02",
+    "chapter": "ch6-genai",
+    "q": "A team building a Bedrock Knowledge Base must convert documents into vectors for semantic search. Which embedding option fits?",
+    "options": [
+      "Use Amazon Polly lexicons to encode document paragraphs as speech marks",
+      "Use Amazon Titan Embeddings to generate vectors from chunked documents",
+      "Use Bedrock Guardrails word lists to embed each paragraph as filter rules",
+      "Use Amazon Transcribe language models to transcribe documents into vectors"
+    ],
+    "answer": 1,
+    "explain": "Titan Embeddings (or Cohere Embed) turns text chunks into dense vectors stored in the vector store for similarity search. The other services handle speech, filtering, or transcription, not embeddings.",
+    "difficulty": "facile",
+    "tags": [
+      "bedrock",
+      "knowledge-bases",
+      "embeddings"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext03",
+    "chapter": "ch6-genai",
+    "q": "A brand chatbot must never mention a list of competitor names or profane terms in its replies. Which Guardrails control fits?",
+    "options": [
+      "Raise the model temperature so banned terms appear less often by chance",
+      "Attach a VPC endpoint policy that deletes banned words from network packets",
+      "Configure a Guardrails word filter with the blocked terms for inputs and outputs",
+      "Enable provisioned throughput quotas that throttle replies containing those words"
+    ],
+    "answer": 2,
+    "explain": "Word filters block specific terms or phrases in prompts and responses. Temperature and networking controls cannot reliably enforce vocabulary bans.",
+    "difficulty": "facile",
+    "tags": [
+      "bedrock",
+      "guardrails",
+      "word-filter"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext04",
+    "chapter": "ch6-genai",
+    "q": "A support team wants the model to classify tickets into three categories with consistent labels, without any training. Which prompt technique fits?",
+    "options": [
+      "Continue pre-training the model on ticket archives with random labels",
+      "Increase max tokens so the model invents its own category names each time",
+      "Use provisioned throughput reservations to lock the model onto three labels",
+      "Add few-shot examples showing one ticket and its correct label per category"
+    ],
+    "answer": 3,
+    "explain": "Few-shot prompting shows labeled input-output pairs in the prompt, guiding output format with no weight updates. The other options retrain, lengthen output, or confuse pricing with behavior.",
+    "difficulty": "facile",
+    "tags": [
+      "prompt-engineering",
+      "few-shot",
+      "bedrock"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext05",
+    "chapter": "ch6-genai",
+    "q": "An application faces Bedrock throttling in one Region during peak traffic and needs higher resilience. Which feature helps?",
+    "options": [
+      "Use cross-Region inference profiles to route requests across Regions",
+      "Manually fine-tune a separate model copy in each Availability Zone for resilience",
+      "Disable encryption on requests so traffic bypasses Regional Bedrock quotas",
+      "Replace Bedrock with self-hosted models on EC2 instances in a single subnet"
+    ],
+    "answer": 0,
+    "explain": "Cross-Region inference distributes qualifying requests across Regions, raising effective quota and availability. The alternatives add ops burden or weaken security without solving throttling.",
+    "difficulty": "facile",
+    "tags": [
+      "bedrock",
+      "cross-region",
+      "resilience"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext06",
+    "chapter": "ch6-genai",
+    "q": "A company keeps procedures in SharePoint and Confluence and wants them searchable through RAG without manual exports. What should it configure?",
+    "options": [
+      "Copy each SharePoint and Confluence page by hand into prompt text before every model call",
+      "Add SharePoint and Confluence data source connectors to the Knowledge Base with sync",
+      "Train a Comprehend custom classifier to crawl SharePoint live on every incoming user query",
+      "Save page screenshots into Rekognition collections and search them for procedure text"
+    ],
+    "answer": 1,
+    "explain": "Knowledge Bases offers native connectors for S3, SharePoint, Confluence, Salesforce, and web crawlers with scheduled sync. Manual copying or unrelated AI services cannot keep content fresh.",
+    "difficulty": "facile",
+    "tags": [
+      "bedrock",
+      "knowledge-bases",
+      "data-sources"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext07",
+    "chapter": "ch6-genai",
+    "q": "A Bedrock Agent should remember user preferences across sessions to personalize follow-up tasks. Which capability enables this?",
+    "options": [
+      "Save user facts as Guardrails blocked phrases so content filters recall preferences",
+      "Reserve provisioned throughput capacity so prompts persist in cache between sessions",
+      "Agent memory (short-term and long-term) that retains session and user context",
+      "Set Knowledge Base chunk overlap so previous prompts replay verbatim each session"
+    ],
+    "answer": 2,
+    "explain": "Agent memory persists conversation summaries and user attributes across turns and sessions. Guardrails, throughput, and chunking do not retain conversational state.",
+    "difficulty": "facile",
+    "tags": [
+      "bedrock",
+      "agents",
+      "memory"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext08",
+    "chapter": "ch6-genai",
+    "q": "A team debates Bedrock customization: learning finance jargon from unlabeled filings versus learning to follow labeled support instructions. Which statement is correct?",
+    "options": [
+      "Run both the jargon and instruction tasks on identical RAG pipelines and skip model customization entirely for each case",
+      "Train finance jargon with supervised fine-tuning on unlabeled filings and pre-train on labeled support instructions",
+      "Replace both customization methods with Guardrails denied topics tuned to cover finance vocabulary and support tone",
+      "Continued pre-training suits unlabeled domain text; supervised fine-tuning suits labeled instruction pairs"
+    ],
+    "answer": 3,
+    "explain": "Continued pre-training adapts to domain language with unlabeled corpora, while supervised fine-tuning teaches task behavior with prompt-response pairs. The other options swap the methods or misstate Guardrails.",
+    "difficulty": "facile",
+    "tags": [
+      "bedrock",
+      "fine-tuning",
+      "pre-training"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext09",
+    "chapter": "ch6-genai",
+    "q": "A legal Knowledge Base splits long contract clauses mid-sentence with fixed-size chunking, hurting retrieval. Which strategy preserves clause context?",
+    "options": [
+      "Use hierarchical chunking so small child chunks retrieve with parent context",
+      "Raise sampling temperature so the model reassembles split clauses at query time",
+      "Disable vector embeddings and match contracts using exact keyword length only",
+      "Shard the search index by token count and always return the single longest chunk"
+    ],
+    "answer": 0,
+    "explain": "Hierarchical (parent-child) chunking retrieves precise child passages while supplying the parent section as context, fixing mid-clause splits. Temperature and keyword tricks cannot restore structure.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock",
+      "knowledge-bases",
+      "chunking"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext10",
+    "chapter": "ch6-genai",
+    "q": "A team already has a custom orchestration layer with its own foundation model calls and only needs top passages from the Knowledge Base. Which API fits?",
+    "options": [
+      "Call InvokeModel with the entire document corpus pasted into every single user prompt",
+      "Use the Retrieve API to fetch relevant chunks and generate with their own pipeline",
+      "Serve live end-user retrieval traffic through scheduled Bedrock model evaluation jobs",
+      "Rank and return document passages by calling ApplyGuardrail on each candidate chunk"
+    ],
+    "answer": 1,
+    "explain": "Retrieve returns scored passages for custom pipelines, while RetrieveAndGenerate adds managed generation. Evaluation and Guardrails APIs serve different purposes.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock",
+      "knowledge-bases",
+      "retrieve-api"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext11",
+    "chapter": "ch6-genai",
+    "q": "A support Knowledge Base mixes regions, and EU users must only see EU-tagged articles. How should retrieval enforce this?",
+    "options": [
+      "Deploy one foundation model per region and hope routing stays correct",
+      "Fine-tune the model to memorize which article belongs to each region",
+      "Attach region metadata at ingestion and apply retrieval filters on each query",
+      "Increase top-K to maximum so regional articles appear somewhere in results"
+    ],
+    "answer": 2,
+    "explain": "Metadata attributes plus query-time filters scope retrieval to the right subset, which separate models or larger top-K cannot guarantee. Filters are the supported mechanism.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock",
+      "knowledge-bases",
+      "metadata-filtering"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext12",
+    "chapter": "ch6-genai",
+    "q": "A refund Agent must pause before executing high-value refunds so a human can approve the action. Which design fits?",
+    "options": [
+      "Hardcode refund approvals inside the system prompt and trust the model",
+      "Let the Agent call the refund API directly with no checkpoint step",
+      "Use Knowledge Base reranking scores as the approval decision signal",
+      "Configure an Action Group with return of control to pause for human approval"
+    ],
+    "answer": 3,
+    "explain": "Return of control lets the Agent pause, hand payload control back to the application for review, then resume. Prompt-only or direct-call designs skip the required human checkpoint.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock",
+      "agents",
+      "action-groups"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext13",
+    "chapter": "ch6-genai",
+    "q": "A RAG assistant cites documents yet sometimes adds unsupported claims. Which Guardrails feature checks grounding against sources?",
+    "options": [
+      "Enable the contextual grounding check with grounding and relevance thresholds",
+      "Route responses through VPC endpoints that compare tokens against source bytes",
+      "Buy provisioned throughput to slow outputs until every claim is manually verified",
+      "Rotate KMS keys to cryptographically sign each sentence with its source document"
+    ],
+    "answer": 0,
+    "explain": "The contextual grounding check scores whether responses are grounded in the provided source and relevant to the query, flagging hallucinations. Networking, throughput, and encryption do not validate factual grounding.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock",
+      "guardrails",
+      "grounding"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext14",
+    "chapter": "ch6-genai",
+    "q": "An engineer prepares a Bedrock supervised fine-tuning job for ticket summarization. Which data and setting combination is valid?",
+    "options": [
+      "Upload recorded MP3 call audio and list sampling temperature with top-p as training columns",
+      "Provide JSONL prompt-response pairs and tune epochs, batch size, and learning rate",
+      "Submit Guardrails block logs as labels and enter provisioned throughput units as epoch counts",
+      "Pass raw contract PDFs plus vector index shard counts as the full hyperparameter set"
+    ],
+    "answer": 1,
+    "explain": "Supervised fine-tuning consumes JSONL instruction pairs plus hyperparameters such as epochs, batch size, and learning rate. Audio files, block logs, and PDFs are not valid training inputs.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock",
+      "fine-tuning",
+      "hyperparameters"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext15",
+    "chapter": "ch6-genai",
+    "q": "A team must grade thousands of draft summaries weekly for tone and factuality, but human review alone is too slow. Which evaluation mix fits?",
+    "options": [
+      "Score only token counts and provisioned latency as quality proxies",
+      "Count Knowledge Base sync runs as the weekly summary quality score",
+      "Use LLM-as-a-judge scoring for scale plus sampled human review for nuance",
+      "Replace evaluation with higher temperature to auto-improve tone"
+    ],
+    "answer": 2,
+    "explain": "LLM-as-a-judge scales judging of style and factuality, while sampled human review calibrates quality. Token counts, sync frequency, and temperature do not measure correctness.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock",
+      "evaluation",
+      "llm-as-judge"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext16",
+    "chapter": "ch6-genai",
+    "q": "A chatbot leaks internal reasoning steps and ignores brand voice rules. Which prompt structure fixes this?",
+    "options": [
+      "Merge all instructions into one user message with no role separation",
+      "Embed secret keys in the prompt so the model obeys formatting rules",
+      "Set max tokens to zero so reasoning steps cannot fit in the output",
+      "Define a system prompt with role rules and keep user input in the user role"
+    ],
+    "answer": 3,
+    "explain": "System prompts set persistent behavior, voice, and output constraints separate from user content. Merging roles or tweaking token limits cannot enforce role discipline.",
+    "difficulty": "media",
+    "tags": [
+      "prompt-engineering",
+      "system-prompt",
+      "bedrock"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext17",
+    "chapter": "ch6-genai",
+    "q": "A company already runs Aurora PostgreSQL and wants RAG vectors alongside transactional data with SQL joins. Which vector store fits?",
+    "options": [
+      "Use Aurora with the pgvector extension as the Knowledge Base vector store",
+      "Use Rekognition collections to index document embeddings as face vectors",
+      "Use Transcribe vocabularies to store embeddings as custom phrases",
+      "Use Forecast datasets to hold vectors as related time series rows"
+    ],
+    "answer": 0,
+    "explain": "Aurora PostgreSQL with pgvector is a supported Knowledge Base vector store and allows SQL over vectors plus business data. The other services cannot serve embedding similarity search.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock",
+      "knowledge-bases",
+      "vector-store"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext18",
+    "chapter": "ch6-genai",
+    "q": "A team wants safety checks on a non-Bedrock model plus versioned policies with audit metrics. Which Guardrails approach fits?",
+    "options": [
+      "Paste the Guardrails policy text into every prompt and have reviewers check each blocked reply by hand",
+      "Call the standalone ApplyGuardrail API with published Guardrails versions and CloudWatch metrics",
+      "Attach IAM permission boundaries to the outside model and treat them as inline request content filters",
+      "Stream model tokens through SageMaker Model Monitor baselines to block each toxic completion inline"
+    ],
+    "answer": 1,
+    "explain": "ApplyGuardrail evaluates any text against a versioned guardrail independently of Bedrock inference, with CloudWatch metrics for auditing. Prompt copies and IAM policies cannot enforce or version content policy.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock",
+      "guardrails",
+      "applyguardrail"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext19",
+    "chapter": "ch6-genai",
+    "q": "A Knowledge Base misses paraphrased queries and returns keyword-only matches with weak ranking. How should the engineer improve retrieval?",
+    "options": [
+      "Disable embeddings and rely on exact keyword overlap for every query",
+      "Lower top-K to one result so ranking problems disappear from view",
+      "Enable hybrid search combining semantic and keyword signals plus reranking",
+      "Raise temperature so the generator invents better matching passages"
+    ],
+    "answer": 2,
+    "explain": "Hybrid search merges vector similarity with lexical matching, and reranking reorders candidates for precision. Pure keyword search, tiny top-K, or temperature changes do not fix semantic gaps.",
+    "difficulty": "difficile",
+    "tags": [
+      "bedrock",
+      "knowledge-bases",
+      "hybrid-search"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext20",
+    "chapter": "ch6-genai",
+    "q": "An app sends the same 50K-token product manual with every request, causing high cost and latency. Which technique reduces this?",
+    "options": [
+      "Fine-tune nightly on the manual so the prompt cache becomes unnecessary",
+      "Duplicate the manual twice in each prompt to improve cache hit rates",
+      "Increase temperature to skip reading repeated manual sections faster",
+      "Enable prompt caching so the repeated manual prefix is reused across calls"
+    ],
+    "answer": 3,
+    "explain": "Prompt caching stores the repeated long prefix once and reuses it, cutting tokens processed, cost, and latency. Duplication, temperature, or retraining do not address repeated-prefix cost.",
+    "difficulty": "difficile",
+    "tags": [
+      "bedrock",
+      "prompt-caching",
+      "cost-optimization"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext21",
+    "chapter": "ch6-genai",
+    "q": "A claims workflow needs deterministic multi-step orchestration: validate input, retrieve policy text, summarize, then escalate. No ad-hoc tool reasoning is wanted. Which service fits?",
+    "options": [
+      "Build the flow with Bedrock Flows linking validation, retrieval, and generation steps",
+      "Launch a Bedrock Agent with open-ended reasoning and no predefined step definitions at all",
+      "Schedule SageMaker training pipelines to retrain a model live on every incoming user claim",
+      "Chain Guardrails word filters together to retrieve policy text and draft claim summaries"
+    ],
+    "answer": 0,
+    "explain": "Bedrock Flows (Prompt Flows) models explicit multi-step prompt chains with conditions and integrations. Agents add autonomous reasoning overhead, while training pipelines and filters cannot orchestrate prompts.",
+    "difficulty": "difficile",
+    "tags": [
+      "bedrock",
+      "flows",
+      "orchestration"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext22",
+    "chapter": "ch6-genai",
+    "q": "A team runs a Bedrock model evaluation job comparing summarization and extractive Q&A outputs against references. Which metric pairing is sound?",
+    "options": [
+      "Use BLEU for translation only and ignore Q&A because metrics never apply",
+      "Use ROUGE for summaries and F1 / exact match for extractive Q&A answers",
+      "Use Guardrails block rate as accuracy and token count as relevance",
+      "Use provisioned throughput utilization as the correctness score for both tasks"
+    ],
+    "answer": 1,
+    "explain": "ROUGE measures summary overlap while token-level F1 and exact match suit extractive Q&A. Block rates, token counts, and throughput reflect policy or ops, not answer correctness.",
+    "difficulty": "difficile",
+    "tags": [
+      "bedrock",
+      "evaluation",
+      "metrics"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext23",
+    "chapter": "ch6-genai",
+    "q": "A team has custom Llama weights fine-tuned on-premises and wants to serve them through Bedrock serverless APIs. Which path fits?",
+    "options": [
+      "Upload the weights to a Knowledge Base vector index for direct inference",
+      "Register Guardrails rules that reconstruct model weights at request time",
+      "Use Bedrock custom model import to bring the weights as an imported model",
+      "Convert weights into Lex intents and serve chat through slot filling"
+    ],
+    "answer": 2,
+    "explain": "Custom model import brings compatible open weights into Bedrock for managed inference. Knowledge Bases, Guardrails, and Lex cannot host or serve model weights.",
+    "difficulty": "difficile",
+    "tags": [
+      "bedrock",
+      "custom-models",
+      "model-import"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext24",
+    "chapter": "ch6-genai",
+    "q": "A finance Agent grounds answers in filings, executes trades via Lambda, and must stay compliant. Which ordering of controls is correct?",
+    "options": [
+      "Skip Knowledge Base grounding and invoke trading Lambda functions first, then store raw prompts with no Guardrails screening",
+      "Apply Guardrails only to tool inputs and publish each new Agent version directly without any testing or human approval step",
+      "Raise sampling temperature instead of adding grounding or Guardrails controls and rely on end users to catch every trading error",
+      "Ground retrieval in the filings Knowledge Base, act via schema-defined actions, filter final output with Guardrails"
+    ],
+    "answer": 3,
+    "explain": "The robust pattern retrieves grounded context, executes typed actions, then filters the final composed output including tool results. The alternatives skip grounding, final-output filtering, or versioned safety.",
+    "difficulty": "difficile",
+    "tags": [
+      "bedrock",
+      "agents",
+      "rag",
+      "guardrails"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch6-ext25",
+    "chapter": "ch6-genai",
+    "q": "A team needs strict JSON order records from Bedrock with stable field names across runs. Which inference setup is most reliable?",
+    "options": [
+      "Use low temperature with stop sequences and explicit JSON schema instructions",
+      "Use maximum temperature with top-K sampling for creative field naming",
+      "Use high top-p plus long rambling prompts to discover new JSON keys",
+      "Use greedy truncation of the prompt so the model guesses missing fields"
+    ],
+    "answer": 0,
+    "explain": "Low temperature plus stop sequences and schema-constrained instructions yields deterministic structured output. High randomness settings increase format drift instead of stability.",
+    "difficulty": "difficile",
+    "tags": [
+      "bedrock",
+      "inference-parameters",
+      "structured-output"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
   }
 ]
