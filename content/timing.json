@@ -4,479 +4,479 @@
  "chapters": {
   "ch1-exam-guide": {
    "audio": "audio/ch1-exam-guide.mp3",
-   "duration": 262.28,
+   "duration": 327.46,
    "sentences": [
     {
      "t0": 0.0,
-     "t1": 6.3,
+     "t1": 7.99,
      "slide": 0,
      "text": "Benvenuto al primo capitolo della preparazione per la certificazione AWS Machine Learning Engineer Associate."
     },
     {
-     "t0": 6.55,
-     "t1": 8.92,
+     "t0": 8.24,
+     "t1": 11.25,
      "slide": 0,
      "text": "Il codice ufficiale dell'esame e MLA-C01."
     },
     {
-     "t0": 9.17,
-     "t1": 14.66,
+     "t0": 11.5,
+     "t1": 18.46,
      "slide": 0,
      "text": "E un esame di livello associate dedicato a chi costruisce soluzioni di machine learning su AWS."
     },
     {
-     "t0": 14.91,
-     "t1": 18.9,
+     "t0": 18.71,
+     "t1": 23.77,
      "slide": 0,
      "text": "Questo esame sostituisce la vecchia certificazione specialty MLS-C01."
     },
     {
-     "t0": 19.15,
-     "t1": 22.5,
+     "t0": 24.02,
+     "t1": 28.28,
      "slide": 0,
      "text": "Il livello associate significa taglio pratico e operativo."
     },
     {
-     "t0": 22.75,
-     "t1": 26.97,
+     "t0": 28.53,
+     "t1": 33.88,
      "slide": 0,
      "text": "Devi saper scegliere i servizi giusti e combinarli in soluzioni complete."
     },
     {
-     "t0": 27.22,
-     "t1": 29.42,
+     "t0": 34.13,
+     "t1": 36.92,
      "slide": 0,
      "text": "L'esame contiene 65 domande in totale."
     },
     {
-     "t0": 29.67,
-     "t1": 31.98,
+     "t0": 37.17,
+     "t1": 40.1,
      "slide": 0,
      "text": "Il tempo a disposizione e di 170 minuti."
     },
     {
-     "t0": 32.23,
-     "t1": 33.97,
+     "t0": 40.35,
+     "t1": 42.55,
      "slide": 0,
      "text": "Fai il calcolo con attenzione."
     },
     {
-     "t0": 34.22,
-     "t1": 36.87,
+     "t0": 42.8,
+     "t1": 46.17,
      "slide": 0,
      "text": "Hai circa due minuti e mezzo per ogni domanda."
     },
     {
-     "t0": 37.12,
-     "t1": 41.52,
+     "t0": 46.42,
+     "t1": 51.99,
      "slide": 0,
      "text": "Chi ha diritto ad accomodamenti per la lingua puo avere trenta minuti extra."
     },
     {
-     "t0": 41.77,
-     "t1": 45.29,
+     "t0": 52.24,
+     "t1": 56.72,
      "slide": 0,
      "text": "Il punteggio minimo per superare l'esame e 720 punti su 1000."
     },
     {
-     "t0": 45.54,
-     "t1": 48.14,
+     "t0": 56.97,
+     "t1": 60.27,
      "slide": 0,
      "text": "La scala di punteggio va da 100 a 1000 punti."
     },
     {
-     "t0": 48.39,
-     "t1": 51.69,
+     "t0": 60.52,
+     "t1": 64.7,
      "slide": 1,
      "text": "Il costo dell'esame e di 150 dollari americani piu tasse."
     },
     {
-     "t0": 51.94,
-     "t1": 54.66,
+     "t0": 64.95,
+     "t1": 68.39,
      "slide": 1,
      "text": "Puoi sostenere l'esame in una sede Pearson VUE."
     },
     {
-     "t0": 54.91,
-     "t1": 58.66,
+     "t0": 68.64,
+     "t1": 73.41,
      "slide": 1,
      "text": "In alternativa puoi sostenerlo online con sorveglianza da remoto."
     },
     {
-     "t0": 58.91,
-     "t1": 62.27,
+     "t0": 73.66,
+     "t1": 77.91,
      "slide": 1,
      "text": "Controlla i requisiti tecnici prima della sessione online."
     },
     {
-     "t0": 62.52,
-     "t1": 65.06,
+     "t0": 78.16,
+     "t1": 81.39,
      "slide": 1,
      "text": "La certificazione resta valida per tre anni."
     },
     {
-     "t0": 65.31,
-     "t1": 69.01,
+     "t0": 81.64,
+     "t1": 86.33,
      "slide": 1,
      "text": "Al termine puoi ricertificarti con la nuova versione dell'esame."
     },
     {
-     "t0": 69.26,
-     "t1": 72.79,
+     "t0": 86.58,
+     "t1": 91.05,
      "slide": 1,
      "text": "L'esame e disponibile anche in italiano oltre che in inglese."
     },
     {
-     "t0": 73.04,
-     "t1": 77.37,
+     "t0": 91.3,
+     "t1": 96.8,
      "slide": 1,
      "text": "Il formato delle domande prevede scelta multipla con una risposta corretta."
     },
     {
-     "t0": 77.62,
-     "t1": 82.24,
+     "t0": 97.05,
+     "t1": 102.92,
      "slide": 1,
      "text": "Sono presenti anche domande a risposta multipla con due o piu risposte corrette."
     },
     {
-     "t0": 82.49,
-     "t1": 86.31,
+     "t0": 103.17,
+     "t1": 108.01,
      "slide": 1,
      "text": "Alcune versioni includono domande di ordinamento e casi di studio."
     },
     {
-     "t0": 86.56,
-     "t1": 89.8,
+     "t0": 108.26,
+     "t1": 112.36,
      "slide": 1,
      "text": "Devi leggere con attenzione quante risposte selezionare."
     },
     {
-     "t0": 90.05,
-     "t1": 93.0,
+     "t0": 112.61,
+     "t1": 116.35,
      "slide": 1,
      "text": "La maggior parte delle domande e basata su scenari."
     },
     {
-     "t0": 93.25,
-     "t1": 96.42,
+     "t0": 116.6,
+     "t1": 120.64,
      "slide": 1,
      "text": "Uno scenario descrive un problema aziendale realistico."
     },
     {
-     "t0": 96.67,
-     "t1": 98.81,
+     "t0": 120.89,
+     "t1": 123.6,
      "slide": 2,
      "text": "Presenta vincoli tecnici e di budget."
     },
     {
-     "t0": 99.06,
-     "t1": 102.24,
+     "t0": 123.85,
+     "t1": 127.88,
      "slide": 2,
      "text": "Tu devi scegliere la soluzione migliore tra le opzioni."
     },
     {
-     "t0": 102.49,
-     "t1": 105.27,
+     "t0": 128.13,
+     "t1": 131.65,
      "slide": 2,
      "text": "La strategia vincente e leggere prima i vincoli."
     },
     {
-     "t0": 105.52,
-     "t1": 108.41,
+     "t0": 131.9,
+     "t1": 135.57,
      "slide": 2,
      "text": "Poi eliminare le opzioni che violano quei vincoli."
     },
     {
-     "t0": 108.66,
-     "t1": 111.49,
+     "t0": 135.82,
+     "t1": 139.41,
      "slide": 2,
      "text": "Non scegliere mai solo il servizio piu economico."
     },
     {
-     "t0": 111.74,
-     "t1": 114.63,
+     "t0": 139.66,
+     "t1": 143.33,
      "slide": 2,
      "text": "Scegli il servizio che rispetta tutti i requisiti."
     },
     {
-     "t0": 114.88,
-     "t1": 117.42,
+     "t0": 143.58,
+     "t1": 146.8,
      "slide": 2,
      "text": "Le parole chiave guidano la scelta corretta."
     },
     {
-     "t0": 117.67,
-     "t1": 120.68,
+     "t0": 147.05,
+     "t1": 150.86,
      "slide": 2,
      "text": "Real-time suggerisce Kinesis o Feature Store online."
     },
     {
-     "t0": 120.93,
-     "t1": 123.01,
+     "t0": 151.11,
+     "t1": 153.75,
      "slide": 2,
      "text": "Batch suggerisce Glue, EMR o Athena."
     },
     {
-     "t0": 123.26,
-     "t1": 126.67,
+     "t0": 154.0,
+     "t1": 158.33,
      "slide": 2,
      "text": "Bassa latenza suggerisce endpoint SageMaker o store online."
     },
     {
-     "t0": 126.92,
-     "t1": 129.41,
+     "t0": 158.58,
+     "t1": 161.73,
      "slide": 2,
      "text": "Dati governati suggeriscono Lake Formation."
     },
     {
-     "t0": 129.66,
-     "t1": 131.68,
+     "t0": 161.98,
+     "t1": 164.55,
      "slide": 2,
      "text": "L'esame e diviso in quattro domini."
     },
     {
-     "t0": 131.93,
-     "t1": 134.41,
+     "t0": 164.8,
+     "t1": 167.95,
      "slide": 2,
      "text": "Il primo dominio e Data Preparation for ML."
     },
     {
-     "t0": 134.66,
-     "t1": 137.61,
+     "t0": 168.2,
+     "t1": 171.94,
      "slide": 3,
      "text": "Pesa il 28 percento ed e il dominio piu importante."
     },
     {
-     "t0": 137.86,
-     "t1": 140.29,
+     "t0": 172.19,
+     "t1": 175.27,
      "slide": 3,
      "text": "Il secondo dominio e ML Model Development."
     },
     {
-     "t0": 140.54,
-     "t1": 141.7,
+     "t0": 175.52,
+     "t1": 176.99,
      "slide": 3,
      "text": "Pesa il 26 percento."
     },
     {
-     "t0": 141.95,
-     "t1": 144.72,
+     "t0": 177.24,
+     "t1": 180.76,
      "slide": 3,
      "text": "Il terzo dominio e Deployment and Orchestration."
     },
     {
-     "t0": 144.97,
-     "t1": 146.13,
+     "t0": 181.01,
+     "t1": 182.47,
      "slide": 3,
      "text": "Pesa il 22 percento."
     },
     {
-     "t0": 146.38,
-     "t1": 149.61,
+     "t0": 182.72,
+     "t1": 186.83,
      "slide": 3,
      "text": "Il quarto dominio e Monitoring Maintenance and Security."
     },
     {
-     "t0": 149.86,
-     "t1": 151.02,
+     "t0": 187.08,
+     "t1": 188.55,
      "slide": 3,
      "text": "Pesa il 24 percento."
     },
     {
-     "t0": 151.27,
-     "t1": 152.83,
+     "t0": 188.8,
+     "t1": 190.78,
      "slide": 3,
      "text": "La somma dei pesi fa cento."
     },
     {
-     "t0": 153.08,
-     "t1": 155.8,
+     "t0": 191.03,
+     "t1": 194.47,
      "slide": 3,
      "text": "Dedica piu tempo di studio ai primi due domini."
     },
     {
-     "t0": 156.05,
-     "t1": 158.48,
+     "t0": 194.72,
+     "t1": 197.8,
      "slide": 3,
      "text": "Insieme valgono piu della meta dell'esame."
     },
     {
-     "t0": 158.73,
-     "t1": 161.21,
+     "t0": 198.05,
+     "t1": 201.21,
      "slide": 3,
      "text": "La guida ufficiale contiene una Appendix A."
     },
     {
-     "t0": 161.46,
-     "t1": 164.29,
+     "t0": 201.46,
+     "t1": 205.05,
      "slide": 3,
      "text": "Questa appendice elenca tutti i servizi in scope."
     },
     {
-     "t0": 164.54,
-     "t1": 167.32,
+     "t0": 205.3,
+     "t1": 208.82,
      "slide": 3,
      "text": "Studia solo quei servizi per non sprecare tempo."
     },
     {
-     "t0": 167.57,
-     "t1": 171.44,
+     "t0": 209.07,
+     "t1": 213.98,
      "slide": 4,
      "text": "Tra i servizi chiave ci sono SageMaker, S3, Glue, Kinesis e Athena."
     },
     {
-     "t0": 171.69,
-     "t1": 174.29,
+     "t0": 214.23,
+     "t1": 217.53,
      "slide": 4,
      "text": "Servono anche Lake Formation, EMR, KMS e IAM."
     },
     {
-     "t0": 174.54,
-     "t1": 177.89,
+     "t0": 217.78,
+     "t1": 222.03,
      "slide": 4,
      "text": "Per l'orchestrazione studia Step Functions ed EventBridge."
     },
     {
-     "t0": 178.14,
-     "t1": 180.63,
+     "t0": 222.28,
+     "t1": 225.44,
      "slide": 4,
      "text": "Per le pipeline studia SageMaker Pipelines."
     },
     {
-     "t0": 180.88,
-     "t1": 183.83,
+     "t0": 225.69,
+     "t1": 229.43,
      "slide": 4,
      "text": "AWS consiglia almeno un anno di esperienza pratica."
     },
     {
-     "t0": 184.08,
-     "t1": 187.78,
+     "t0": 229.68,
+     "t1": 234.37,
      "slide": 4,
      "text": "Devi aver usato SageMaker e workload di machine learning su AWS."
     },
     {
-     "t0": 188.03,
-     "t1": 190.4,
+     "t0": 234.62,
+     "t1": 237.62,
      "slide": 4,
      "text": "La sola teoria non basta per gli scenari."
     },
     {
-     "t0": 190.65,
-     "t1": 192.96,
+     "t0": 237.87,
+     "t1": 240.81,
      "slide": 4,
      "text": "Usa Skill Builder per i corsi ufficiali."
     },
     {
-     "t0": 193.21,
-     "t1": 195.35,
+     "t0": 241.06,
+     "t1": 243.77,
      "slide": 4,
      "text": "Svolgi le domande di prova ufficiali."
     },
     {
-     "t0": 195.6,
-     "t1": 198.14,
+     "t0": 244.02,
+     "t1": 247.25,
      "slide": 4,
      "text": "Fai laboratori pratici con SageMaker Studio."
     },
     {
-     "t0": 198.39,
-     "t1": 201.05,
+     "t0": 247.5,
+     "t1": 250.87,
      "slide": 4,
      "text": "Allena la gestione del tempo con i simulatori."
     },
     {
-     "t0": 201.3,
-     "t1": 204.83,
+     "t0": 251.12,
+     "t1": 255.59,
      "slide": 4,
      "text": "Salta le domande difficili e contrassegnale per la revisione."
     },
     {
-     "t0": 205.08,
-     "t1": 208.95,
+     "t0": 255.84,
+     "t1": 260.75,
      "slide": 4,
      "text": "Rispondi a tutte le domande perche non c e penalita per gli errori."
     },
     {
-     "t0": 209.2,
-     "t1": 212.32,
+     "t0": 261.0,
+     "t1": 264.96,
      "slide": 5,
      "text": "Rileggi ogni scenario prima di confermare la risposta."
     },
     {
-     "t0": 212.57,
-     "t1": 216.39,
+     "t0": 265.21,
+     "t1": 270.05,
      "slide": 5,
      "text": "Controlla il numero di risposte richieste nelle multiple-response."
     },
     {
-     "t0": 216.64,
-     "t1": 220.74,
+     "t0": 270.3,
+     "t1": 275.51,
      "slide": 5,
      "text": "Per ogni dominio la exam guide elenca i task e le conoscenze richieste."
     },
     {
-     "t0": 220.99,
-     "t1": 224.11,
+     "t0": 275.76,
+     "t1": 279.72,
      "slide": 5,
      "text": "Leggili con attenzione prima di pianificare lo studio."
     },
     {
-     "t0": 224.36,
-     "t1": 228.35,
+     "t0": 279.97,
+     "t1": 285.03,
      "slide": 5,
      "text": "Il primo dominio chiede ingestione storage e trasformazione dei dati."
     },
     {
-     "t0": 228.6,
-     "t1": 232.47,
+     "t0": 285.28,
+     "t1": 290.19,
      "slide": 5,
      "text": "Il secondo chiede scelta degli algoritmi e valutazione dei modelli."
     },
     {
-     "t0": 232.72,
-     "t1": 236.02,
+     "t0": 290.44,
+     "t1": 294.62,
      "slide": 5,
      "text": "Il terzo chiede deployment e orchestrazione dei workflow."
     },
     {
-     "t0": 236.27,
-     "t1": 240.37,
+     "t0": 294.87,
+     "t1": 300.08,
      "slide": 5,
      "text": "Il quarto chiede monitoraggio manutenzione e sicurezza delle soluzioni."
     },
     {
-     "t0": 240.62,
-     "t1": 245.02,
+     "t0": 300.33,
+     "t1": 305.9,
      "slide": 5,
      "text": "Durante la prova mantieni un ritmo costante di circa due minuti per domanda."
     },
     {
-     "t0": 245.27,
-     "t1": 248.39,
+     "t0": 306.15,
+     "t1": 310.11,
      "slide": 5,
      "text": "Se uno scenario e troppo lungo vai oltre e torna dopo."
     },
     {
-     "t0": 248.64,
-     "t1": 252.16,
+     "t0": 310.36,
+     "t1": 314.83,
      "slide": 5,
      "text": "Le domande facili danno gli stessi punti di quelle difficili."
     },
     {
-     "t0": 252.41,
-     "t1": 256.11,
+     "t0": 315.08,
+     "t1": 319.77,
      "slide": 5,
      "text": "Assicurati prima i punti sicuri e poi affronta i casi complessi."
     },
     {
-     "t0": 256.36,
-     "t1": 258.56,
+     "t0": 320.02,
+     "t1": 322.81,
      "slide": 5,
      "text": "Ora hai il quadro completo dell'esame."
     },
     {
-     "t0": 258.81,
-     "t1": 262.28,
+     "t0": 323.06,
+     "t1": 327.46,
      "slide": 5,
      "text": "Nel prossimo capitolo si parte con la preparazione dei dati."
     }
@@ -484,509 +484,509 @@
   },
   "ch2-data-prep": {
    "audio": "audio/ch2-data-prep.mp3",
-   "duration": 282.01,
+   "duration": 370.07,
    "sentences": [
     {
      "t0": 0.0,
-     "t1": 4.28,
+     "t1": 5.73,
      "slide": 0,
      "text": "Benvenuto al capitolo sulla preparazione dei dati per il machine learning."
     },
     {
-     "t0": 4.53,
-     "t1": 7.95,
+     "t0": 5.98,
+     "t1": 10.54,
      "slide": 0,
      "text": "Questo e il primo dominio dell'esame e pesa il 28 percento."
     },
     {
-     "t0": 8.2,
-     "t1": 10.8,
+     "t0": 10.79,
+     "t1": 14.28,
      "slide": 0,
      "text": "E il dominio piu importante di tutto il test."
     },
     {
-     "t0": 11.05,
-     "t1": 14.82,
+     "t0": 14.53,
+     "t1": 19.56,
      "slide": 0,
      "text": "Senza dati puliti e ben organizzati nessun modello funziona bene."
     },
     {
-     "t0": 15.07,
-     "t1": 17.96,
+     "t0": 19.81,
+     "t1": 23.68,
      "slide": 0,
      "text": "Iniziamo dall'ingestione e dallo storage dei dati."
     },
     {
-     "t0": 18.21,
-     "t1": 21.4,
+     "t0": 23.93,
+     "t1": 28.19,
      "slide": 0,
      "text": "Amazon S3 e il data lake centrale di ogni architettura."
     },
     {
-     "t0": 21.65,
-     "t1": 25.58,
+     "t0": 28.44,
+     "t1": 33.7,
      "slide": 0,
      "text": "I dati si organizzano in bucket con prefissi per anno mese e giorno."
     },
     {
-     "t0": 25.83,
-     "t1": 29.25,
+     "t0": 33.95,
+     "t1": 38.52,
      "slide": 0,
      "text": "Il partizionamento rende le query piu veloci ed economiche."
     },
     {
-     "t0": 29.5,
-     "t1": 33.61,
+     "t0": 38.77,
+     "t1": 44.26,
      "slide": 0,
      "text": "I formati colonnari come Parquet e ORC sono i migliori per l'analitica."
     },
     {
-     "t0": 33.86,
-     "t1": 37.04,
+     "t0": 44.51,
+     "t1": 48.77,
      "slide": 0,
      "text": "Comprimono i dati e leggono solo le colonne necessarie."
     },
     {
-     "t0": 37.29,
-     "t1": 40.24,
+     "t0": 49.02,
+     "t1": 52.97,
      "slide": 0,
      "text": "I file CSV e JSON restano utili per l'interscambio."
     },
     {
-     "t0": 40.49,
-     "t1": 43.91,
+     "t0": 53.22,
+     "t1": 57.78,
      "slide": 1,
      "text": "Abilita il versionamento del bucket per la riproducibilita."
     },
     {
-     "t0": 44.16,
-     "t1": 47.23,
+     "t0": 58.03,
+     "t1": 62.14,
      "slide": 1,
      "text": "Usa la cifratura con chiavi KMS per i dati sensibili."
     },
     {
-     "t0": 47.48,
-     "t1": 50.6,
+     "t0": 62.39,
+     "t1": 66.57,
      "slide": 1,
      "text": "AWS Lake Formation governa l'accesso ai dati nel lake."
     },
     {
-     "t0": 50.85,
-     "t1": 54.27,
+     "t0": 66.82,
+     "t1": 71.38,
      "slide": 1,
      "text": "Definisce permessi granulari su database tabelle e colonne."
     },
     {
-     "t0": 54.52,
-     "t1": 57.3,
+     "t0": 71.63,
+     "t1": 75.35,
      "slide": 1,
      "text": "Si integra con il catalogo di Glue e con Athena."
     },
     {
-     "t0": 57.55,
-     "t1": 60.21,
+     "t0": 75.6,
+     "t1": 79.16,
      "slide": 1,
      "text": "Per i dati in streaming si usa Amazon Kinesis."
     },
     {
-     "t0": 60.46,
-     "t1": 64.28,
+     "t0": 79.41,
+     "t1": 84.52,
      "slide": 1,
      "text": "Kinesis Data Streams gestisce flussi real-time con shard dedicati."
     },
     {
-     "t0": 64.53,
-     "t1": 68.41,
+     "t0": 84.77,
+     "t1": 89.95,
      "slide": 1,
      "text": "Kinesis Data Firehose consegna i dati a S3 in modo quasi real-time."
     },
     {
-     "t0": 68.66,
-     "t1": 72.31,
+     "t0": 90.2,
+     "t1": 95.08,
      "slide": 1,
      "text": "AWS DMS replica i database esistenti verso S3 in modo continuo."
     },
     {
-     "t0": 72.56,
-     "t1": 75.22,
+     "t0": 95.33,
+     "t1": 98.89,
      "slide": 1,
      "text": "Passiamo al catalogo e alle query interattive."
     },
     {
-     "t0": 75.47,
-     "t1": 78.77,
+     "t0": 99.14,
+     "t1": 103.55,
      "slide": 2,
      "text": "AWS Glue Crawler esplora i dati in S3 e scopre lo schema."
     },
     {
-     "t0": 79.02,
-     "t1": 81.97,
+     "t0": 103.8,
+     "t1": 107.75,
      "slide": 2,
      "text": "Registra le tabelle nel Glue Data Catalog centrale."
     },
     {
-     "t0": 82.22,
-     "t1": 85.81,
+     "t0": 108.0,
+     "t1": 112.8,
      "slide": 2,
      "text": "Pianifica il crawler per aggiornare le partizioni ogni giorno."
     },
     {
-     "t0": 86.06,
-     "t1": 89.48,
+     "t0": 113.05,
+     "t1": 117.62,
      "slide": 2,
      "text": "Amazon Athena esegue query SQL direttamente sui file in S3."
     },
     {
-     "t0": 89.73,
-     "t1": 92.33,
+     "t0": 117.87,
+     "t1": 121.35,
      "slide": 2,
      "text": "Usa il motore Trino o Presto sotto il cofano."
     },
     {
-     "t0": 92.58,
-     "t1": 95.25,
+     "t0": 121.6,
+     "t1": 125.16,
      "slide": 2,
      "text": "Paghi solo per i dati scansionati dalla query."
     },
     {
-     "t0": 95.5,
-     "t1": 99.2,
+     "t0": 125.41,
+     "t1": 130.36,
      "slide": 2,
      "text": "Il partizionamento e i formati colonnari riducono molto i costi."
     },
     {
-     "t0": 99.45,
-     "t1": 101.83,
+     "t0": 130.61,
+     "t1": 133.79,
      "slide": 2,
      "text": "Per l'ETL su larga scala si usa AWS Glue."
     },
     {
-     "t0": 102.08,
-     "t1": 105.61,
+     "t0": 134.04,
+     "t1": 138.76,
      "slide": 2,
      "text": "Glue ETL esegue job Spark serverless senza server da gestire."
     },
     {
-     "t0": 105.86,
-     "t1": 108.52,
+     "t0": 139.01,
+     "t1": 142.57,
      "slide": 2,
      "text": "Glue Studio offre un editor visuale per i job."
     },
     {
-     "t0": 108.77,
-     "t1": 112.47,
+     "t0": 142.82,
+     "t1": 147.77,
      "slide": 2,
      "text": "I bookmark di Glue evitano di riprocessare i dati gia elaborati."
     },
     {
-     "t0": 112.72,
-     "t1": 116.49,
+     "t0": 148.02,
+     "t1": 153.05,
      "slide": 3,
      "text": "Per volumi enormi e trasformazioni distribuite si usa Amazon EMR."
     },
     {
-     "t0": 116.74,
-     "t1": 119.46,
+     "t0": 153.3,
+     "t1": 156.94,
      "slide": 3,
      "text": "EMR esegue cluster Spark Hadoop e Hive gestiti."
     },
     {
-     "t0": 119.71,
-     "t1": 123.41,
+     "t0": 157.19,
+     "t1": 162.15,
      "slide": 3,
      "text": "E la scelta giusta per workload petabyte e pipeline programmate."
     },
     {
-     "t0": 123.66,
-     "t1": 127.77,
+     "t0": 162.4,
+     "t1": 167.89,
      "slide": 3,
      "text": "SageMaker Data Wrangler e lo strumento visuale dentro SageMaker Studio."
     },
     {
-     "t0": 128.02,
-     "t1": 131.55,
+     "t0": 168.14,
+     "t1": 172.86,
      "slide": 3,
      "text": "Permette di importare dati da S3 Athena Redshift e Snowflake."
     },
     {
-     "t0": 131.8,
-     "t1": 134.76,
+     "t0": 173.11,
+     "t1": 177.06,
      "slide": 3,
      "text": "Offre oltre trecento trasformazioni pronte all'uso."
     },
     {
-     "t0": 135.01,
-     "t1": 138.02,
+     "t0": 177.31,
+     "t1": 181.33,
      "slide": 3,
      "text": "Gestisce encoding normalizzazione e valori mancanti."
     },
     {
-     "t0": 138.27,
-     "t1": 140.64,
+     "t0": 181.58,
+     "t1": 184.76,
      "slide": 3,
      "text": "Genera report su bias leakage e anomalie."
     },
     {
-     "t0": 140.89,
-     "t1": 143.67,
+     "t0": 185.01,
+     "t1": 188.72,
      "slide": 3,
      "text": "Esporta i flussi verso pipeline e Feature Store."
     },
     {
-     "t0": 143.92,
-     "t1": 147.45,
+     "t0": 188.97,
+     "t1": 193.7,
      "slide": 3,
      "text": "AWS Glue DataBrew e l'alternativa no-code fuori da SageMaker."
     },
     {
-     "t0": 147.7,
-     "t1": 151.17,
+     "t0": 193.95,
+     "t1": 198.59,
      "slide": 4,
      "text": "Pensato per analisti che preparano dati con ricette visuali."
     },
     {
-     "t0": 151.42,
-     "t1": 155.36,
+     "t0": 198.84,
+     "t1": 204.1,
      "slide": 4,
      "text": "Offre profiling automatico e oltre duecentocinquanta trasformazioni."
     },
     {
-     "t0": 155.61,
-     "t1": 157.81,
+     "t0": 204.35,
+     "t1": 207.29,
      "slide": 4,
      "text": "Regola pratica per l'esame importante."
     },
     {
-     "t0": 158.06,
-     "t1": 161.53,
+     "t0": 207.54,
+     "t1": 212.19,
      "slide": 4,
      "text": "Esplorazione interattiva piccola scala uguale Data Wrangler."
     },
     {
-     "t0": 161.78,
-     "t1": 165.14,
+     "t0": 212.44,
+     "t1": 216.93,
      "slide": 4,
      "text": "ETL produttivo programmato grande scala uguale Glue o EMR."
     },
     {
-     "t0": 165.39,
-     "t1": 167.59,
+     "t0": 217.18,
+     "t1": 220.12,
      "slide": 4,
      "text": "Analisti senza codice uguale DataBrew."
     },
     {
-     "t0": 167.84,
-     "t1": 170.39,
+     "t0": 220.37,
+     "t1": 223.77,
      "slide": 4,
      "text": "Ora parliamo del Feature Store di SageMaker."
     },
     {
-     "t0": 170.64,
-     "t1": 174.05,
+     "t0": 224.02,
+     "t1": 228.59,
      "slide": 4,
      "text": "Un Feature Group contiene feature con nome e tipo definiti."
     },
     {
-     "t0": 174.3,
-     "t1": 177.32,
+     "t0": 228.84,
+     "t1": 232.87,
      "slide": 4,
      "text": "I tipi principali sono stringa intero e frazionario."
     },
     {
-     "t0": 177.57,
-     "t1": 180.92,
+     "t0": 233.12,
+     "t1": 237.61,
      "slide": 4,
      "text": "Ogni record ha un identificatore e un timestamp di evento."
     },
     {
-     "t0": 181.17,
-     "t1": 184.59,
+     "t0": 237.86,
+     "t1": 242.42,
      "slide": 4,
      "text": "L'Online Store serve l'inferenza real-time a bassa latenza."
     },
     {
-     "t0": 184.84,
-     "t1": 187.21,
+     "t0": 242.67,
+     "t1": 245.85,
      "slide": 5,
      "text": "E basato su tecnologia simile a DynamoDB."
     },
     {
-     "t0": 187.46,
-     "t1": 190.99,
+     "t0": 246.1,
+     "t1": 250.82,
      "slide": 5,
      "text": "Supporta lettura scrittura e cancellazione di singoli record."
     },
     {
-     "t0": 191.24,
-     "t1": 194.54,
+     "t0": 251.07,
+     "t1": 255.48,
      "slide": 5,
      "text": "L'Offline Store conserva lo storico per training e batch."
     },
     {
-     "t0": 194.79,
-     "t1": 197.17,
+     "t0": 255.73,
+     "t1": 258.9,
      "slide": 5,
      "text": "Salva in Parquet su S3 con catalogo Glue."
     },
     {
-     "t0": 197.42,
-     "t1": 199.5,
+     "t0": 259.15,
+     "t1": 261.94,
      "slide": 5,
      "text": "Si interroga con Athena e Spark SQL."
     },
     {
-     "t0": 199.75,
-     "t1": 202.41,
+     "t0": 262.19,
+     "t1": 265.75,
      "slide": 5,
      "text": "Il timestamp di evento abilita il time travel."
     },
     {
-     "t0": 202.66,
-     "t1": 206.25,
+     "t0": 266.0,
+     "t1": 270.8,
      "slide": 5,
      "text": "Le query point-in-time evitano lo skew tra training e serving."
     },
     {
-     "t0": 206.5,
-     "t1": 209.57,
+     "t0": 271.05,
+     "t1": 275.15,
      "slide": 5,
      "text": "L'ingestione puo essere streaming con record singoli."
     },
     {
-     "t0": 209.82,
-     "t1": 212.19,
+     "t0": 275.4,
+     "t1": 278.58,
      "slide": 5,
      "text": "Oppure batch da Data Wrangler EMR e Glue."
     },
     {
-     "t0": 212.44,
-     "t1": 214.88,
+     "t0": 278.83,
+     "t1": 282.08,
      "slide": 5,
      "text": "Passiamo al feature engineering tabellare."
     },
     {
-     "t0": 215.13,
-     "t1": 218.25,
+     "t0": 282.33,
+     "t1": 286.51,
      "slide": 6,
      "text": "Le variabili categoriche richiedono encoding numerico."
     },
     {
-     "t0": 218.5,
-     "t1": 221.92,
+     "t0": 286.76,
+     "t1": 291.32,
      "slide": 6,
      "text": "Il one-hot encoding crea una colonna binaria per categoria."
     },
     {
-     "t0": 222.17,
-     "t1": 225.53,
+     "t0": 291.57,
+     "t1": 296.06,
      "slide": 6,
      "text": "L'ordinal encoding assegna numeri ordinati alle categorie."
     },
     {
-     "t0": 225.78,
-     "t1": 228.67,
+     "t0": 296.31,
+     "t1": 300.18,
      "slide": 6,
      "text": "Le variabili numeriche richiedono normalizzazione."
     },
     {
-     "t0": 228.92,
-     "t1": 231.7,
+     "t0": 300.43,
+     "t1": 304.15,
      "slide": 6,
      "text": "La standardizzazione centra i dati a media zero."
     },
     {
-     "t0": 231.95,
-     "t1": 235.25,
+     "t0": 304.4,
+     "t1": 308.81,
      "slide": 6,
      "text": "La normalizzazione min-max scala i valori tra zero e uno."
     },
     {
-     "t0": 235.5,
-     "t1": 238.28,
+     "t0": 309.06,
+     "t1": 312.77,
      "slide": 6,
      "text": "I valori mancanti si gestiscono con imputazione."
     },
     {
-     "t0": 238.53,
-     "t1": 240.61,
+     "t0": 313.02,
+     "t1": 315.81,
      "slide": 6,
      "text": "Media mediana o moda per i numerici."
     },
     {
-     "t0": 240.86,
-     "t1": 244.16,
+     "t0": 316.06,
+     "t1": 320.47,
      "slide": 6,
      "text": "Categoria dedicata oppure riga scartata per i categorici."
     },
     {
-     "t0": 244.41,
-     "t1": 247.02,
+     "t0": 320.72,
+     "t1": 324.21,
      "slide": 6,
      "text": "Mai imputare usando statistiche del test set."
     },
     {
-     "t0": 247.27,
-     "t1": 250.28,
+     "t0": 324.46,
+     "t1": 328.48,
      "slide": 6,
      "text": "Lo sbilanciamento delle classi e tipico nelle frodi."
     },
     {
-     "t0": 250.53,
-     "t1": 253.59,
+     "t0": 328.73,
+     "t1": 332.83,
      "slide": 7,
      "text": "Si usano oversampling undersampling o pesi di classe."
     },
     {
-     "t0": 253.84,
-     "t1": 257.14,
+     "t0": 333.08,
+     "t1": 337.5,
      "slide": 7,
      "text": "La tecnica SMOTE genera esempi sintetici della minoranza."
     },
     {
-     "t0": 257.39,
-     "t1": 260.06,
+     "t0": 337.75,
+     "t1": 341.31,
      "slide": 7,
      "text": "Le metriche giuste sono precision recall e F1."
     },
     {
-     "t0": 260.31,
-     "t1": 263.32,
+     "t0": 341.56,
+     "t1": 345.58,
      "slide": 7,
      "text": "SageMaker Clarify misura il bias prima del training."
     },
     {
-     "t0": 263.57,
-     "t1": 266.87,
+     "t0": 345.83,
+     "t1": 350.24,
      "slide": 7,
      "text": "Confronta distribuzioni tra gruppi con metriche dedicate."
     },
     {
-     "t0": 267.12,
-     "t1": 269.95,
+     "t0": 350.49,
+     "t1": 354.29,
      "slide": 7,
      "text": "Si integra con Data Wrangler per i report visivi."
     },
     {
-     "t0": 270.2,
-     "t1": 273.33,
+     "t0": 354.54,
+     "t1": 358.72,
      "slide": 7,
      "text": "Ricorda sempre di separare training validation e test."
     },
     {
-     "t0": 273.58,
-     "t1": 276.82,
+     "t0": 358.97,
+     "t1": 363.3,
      "slide": 7,
      "text": "Evita il leakage escludendo feature future dal training."
     },
     {
-     "t0": 277.07,
-     "t1": 279.21,
+     "t0": 363.55,
+     "t1": 366.41,
      "slide": 7,
      "text": "Ora sai preparare i dati per l'esame."
     },
     {
-     "t0": 279.46,
-     "t1": 282.01,
+     "t0": 366.66,
+     "t1": 370.07,
      "slide": 7,
      "text": "Nel prossimo capitolo si allenano i modelli."
     }
@@ -994,539 +994,539 @@
   },
   "ch3-model-dev": {
    "audio": "audio/ch3-model-dev.mp3",
-   "duration": 280.59,
+   "duration": 371.24,
    "sentences": [
     {
      "t0": 0.0,
-     "t1": 3.97,
+     "t1": 5.37,
      "slide": 0,
      "text": "Benvenuto al capitolo sullo sviluppo dei modelli di machine learning."
     },
     {
-     "t0": 4.22,
-     "t1": 7.74,
+     "t0": 5.62,
+     "t1": 10.36,
      "slide": 0,
      "text": "Questo e il secondo dominio dell'esame e pesa il 26 percento."
     },
     {
-     "t0": 7.99,
-     "t1": 11.16,
+     "t0": 10.61,
+     "t1": 14.89,
      "slide": 0,
      "text": "Insieme al primo dominio copre piu della meta del test."
     },
     {
-     "t0": 11.41,
-     "t1": 13.83,
+     "t0": 15.14,
+     "t1": 18.41,
      "slide": 0,
      "text": "Qui impari a scegliere l'algoritmo giusto."
     },
     {
-     "t0": 14.08,
-     "t1": 17.01,
+     "t0": 18.66,
+     "t1": 22.63,
      "slide": 0,
      "text": "Poi ad allenare e valutare i modelli con SageMaker."
     },
     {
-     "t0": 17.26,
-     "t1": 19.63,
+     "t0": 22.88,
+     "t1": 26.07,
      "slide": 0,
      "text": "La prima decisione e il tipo di problema."
     },
     {
-     "t0": 19.88,
-     "t1": 23.33,
+     "t0": 26.32,
+     "t1": 30.99,
      "slide": 0,
      "text": "Classificazione binaria significa due sole classi possibili."
     },
     {
-     "t0": 23.58,
-     "t1": 26.92,
+     "t0": 31.24,
+     "t1": 35.75,
      "slide": 0,
      "text": "Classificazione multiclasse significa tre o piu categorie."
     },
     {
-     "t0": 27.17,
-     "t1": 30.11,
+     "t0": 36.0,
+     "t1": 39.97,
      "slide": 0,
      "text": "Regressione significa prevedere un numero continuo."
     },
     {
-     "t0": 30.36,
-     "t1": 33.47,
+     "t0": 40.22,
+     "t1": 44.42,
      "slide": 0,
      "text": "Clustering significa raggruppare dati senza etichette."
     },
     {
-     "t0": 33.72,
-     "t1": 37.18,
+     "t0": 44.67,
+     "t1": 49.34,
      "slide": 0,
      "text": "Serie temporali significa prevedere valori futuri nel tempo."
     },
     {
-     "t0": 37.43,
-     "t1": 40.6,
+     "t0": 49.59,
+     "t1": 53.86,
      "slide": 0,
      "text": "Testo significa classificare o rappresentare documenti."
     },
     {
-     "t0": 40.85,
-     "t1": 44.42,
+     "t0": 54.11,
+     "t1": 58.94,
      "slide": 0,
      "text": "Per la classificazione tabellare e la regressione usa XGBoost."
     },
     {
-     "t0": 44.67,
-     "t1": 47.2,
+     "t0": 59.19,
+     "t1": 62.61,
      "slide": 1,
      "text": "E l'algoritmo piu testato dell'intero esame."
     },
     {
-     "t0": 47.45,
-     "t1": 50.45,
+     "t0": 62.86,
+     "t1": 66.91,
      "slide": 1,
      "text": "Supporta obiettivi binari multiclasse e regressione."
     },
     {
-     "t0": 50.7,
-     "t1": 53.87,
+     "t0": 67.16,
+     "t1": 71.44,
      "slide": 1,
      "text": "Gli iperparametri chiave sono eta e profondita massima."
     },
     {
-     "t0": 54.12,
-     "t1": 56.77,
+     "t0": 71.69,
+     "t1": 75.26,
      "slide": 1,
      "text": "Eta controlla il learning rate tra zero e uno."
     },
     {
-     "t0": 57.02,
-     "t1": 59.72,
+     "t0": 75.51,
+     "t1": 79.17,
      "slide": 1,
      "text": "La profondita massima tipica va da tre a dieci."
     },
     {
-     "t0": 59.97,
-     "t1": 62.91,
+     "t0": 79.42,
+     "t1": 83.39,
      "slide": 1,
      "text": "Subsample e colsample controllano il campionamento."
     },
     {
-     "t0": 63.16,
-     "t1": 65.87,
+     "t0": 83.64,
+     "t1": 87.29,
      "slide": 1,
      "text": "Lambda e alpha controllano la regolarizzazione."
     },
     {
-     "t0": 66.12,
-     "t1": 68.71,
+     "t0": 87.54,
+     "t1": 91.05,
      "slide": 1,
      "text": "I formati di input sono CSV LibSVM e Parquet."
     },
     {
-     "t0": 68.96,
-     "t1": 72.01,
+     "t0": 91.3,
+     "t1": 95.42,
      "slide": 1,
      "text": "La modalita Pipe accelera il training su dati grandi."
     },
     {
-     "t0": 72.26,
-     "t1": 75.14,
+     "t0": 95.67,
+     "t1": 99.56,
      "slide": 1,
      "text": "Per relazioni lineari semplici usa Linear Learner."
     },
     {
-     "t0": 75.39,
-     "t1": 77.47,
+     "t0": 99.81,
+     "t1": 102.61,
      "slide": 1,
      "text": "E veloce economico e interpretabile."
     },
     {
-     "t0": 77.72,
-     "t1": 80.83,
+     "t0": 102.86,
+     "t1": 107.06,
      "slide": 1,
      "text": "Supporta classificazione e regressione su dati sparsi."
     },
     {
-     "t0": 81.08,
-     "t1": 84.25,
+     "t0": 107.31,
+     "t1": 111.59,
      "slide": 2,
      "text": "Per serie temporali con piu serie correlate usa DeepAR."
     },
     {
-     "t0": 84.5,
-     "t1": 87.09,
+     "t0": 111.84,
+     "t1": 115.34,
      "slide": 2,
      "text": "E una rete ricorrente probabilistica gestita."
     },
     {
-     "t0": 87.34,
-     "t1": 90.1,
+     "t0": 115.59,
+     "t1": 119.33,
      "slide": 2,
      "text": "Produce previsioni con intervalli di confidenza."
     },
     {
-     "t0": 90.35,
-     "t1": 92.02,
+     "t0": 119.58,
+     "t1": 121.83,
      "slide": 2,
      "text": "Per il testo usa BlazingText."
     },
     {
-     "t0": 92.27,
-     "t1": 94.87,
+     "t0": 122.08,
+     "t1": 125.58,
      "slide": 2,
      "text": "Implementa Word2Vec e classificazione veloce."
     },
     {
-     "t0": 95.12,
-     "t1": 96.84,
+     "t0": 125.83,
+     "t1": 128.17,
      "slide": 2,
      "text": "Per il clustering usa K-Means."
     },
     {
-     "t0": 97.09,
-     "t1": 99.63,
+     "t0": 128.42,
+     "t1": 131.84,
      "slide": 2,
      "text": "Raggruppa i punti in un numero K di cluster."
     },
     {
-     "t0": 99.88,
-     "t1": 102.93,
+     "t0": 132.09,
+     "t1": 136.21,
      "slide": 2,
      "text": "Ricorda di standardizzare le feature prima di usarlo."
     },
     {
-     "t0": 103.18,
-     "t1": 106.41,
+     "t0": 136.46,
+     "t1": 140.82,
      "slide": 2,
      "text": "Amazon SageMaker JumpStart offre modelli pronti all'uso."
     },
     {
-     "t0": 106.66,
-     "t1": 109.42,
+     "t0": 141.07,
+     "t1": 144.8,
      "slide": 2,
      "text": "Include modelli foundation e algoritmi classici."
     },
     {
-     "t0": 109.67,
-     "t1": 112.67,
+     "t0": 145.05,
+     "t1": 149.1,
      "slide": 2,
      "text": "Puoi personalizzarli con i tuoi dati in pochi click."
     },
     {
-     "t0": 112.92,
-     "t1": 116.37,
+     "t0": 149.35,
+     "t1": 154.02,
      "slide": 2,
      "text": "SageMaker Autopilot e la soluzione AutoML per dati tabulari."
     },
     {
-     "t0": 116.62,
-     "t1": 119.85,
+     "t0": 154.27,
+     "t1": 158.62,
      "slide": 2,
      "text": "Automatizza feature engineering e scelta dell'algoritmo."
     },
     {
-     "t0": 120.1,
-     "t1": 123.33,
+     "t0": 158.87,
+     "t1": 163.23,
      "slide": 3,
      "text": "Allena fino a duecentocinquanta candidati in automatico."
     },
     {
-     "t0": 123.58,
-     "t1": 126.46,
+     "t0": 163.48,
+     "t1": 167.37,
      "slide": 3,
      "text": "Produce notebook con le definizioni dei candidati."
     },
     {
-     "t0": 126.71,
-     "t1": 129.47,
+     "t0": 167.62,
+     "t1": 171.36,
      "slide": 3,
      "text": "Mostra l'importanza delle feature del vincitore."
     },
     {
-     "t0": 129.72,
-     "t1": 132.37,
+     "t0": 171.61,
+     "t1": 175.18,
      "slide": 3,
      "text": "Distribuisce il miglior candidato su endpoint."
     },
     {
-     "t0": 132.62,
-     "t1": 134.7,
+     "t0": 175.43,
+     "t1": 178.23,
      "slide": 3,
      "text": "Regola per l'esame molto importante."
     },
     {
-     "t0": 134.95,
-     "t1": 137.6,
+     "t0": 178.48,
+     "t1": 182.06,
      "slide": 3,
      "text": "Baseline rapida senza codice uguale Autopilot."
     },
     {
-     "t0": 137.85,
-     "t1": 141.47,
+     "t0": 182.31,
+     "t1": 187.21,
      "slide": 3,
      "text": "Controllo totale e tuning fine uguale XGBoost con training job."
     },
     {
-     "t0": 141.72,
-     "t1": 145.12,
+     "t0": 187.46,
+     "t1": 192.06,
      "slide": 3,
      "text": "I Training Job di SageMaker eseguono l'allenamento gestito."
     },
     {
-     "t0": 145.37,
-     "t1": 148.6,
+     "t0": 192.31,
+     "t1": 196.66,
      "slide": 3,
      "text": "Scegli istanza GPU per deep learning e CPU per tabulari."
     },
     {
-     "t0": 148.85,
-     "t1": 152.25,
+     "t0": 196.91,
+     "t1": 201.5,
      "slide": 3,
      "text": "Le metriche si estraggono dai log con espressioni regolari."
     },
     {
-     "t0": 152.5,
-     "t1": 155.72,
+     "t0": 201.75,
+     "t1": 206.11,
      "slide": 3,
      "text": "SageMaker AMT ottimizza gli iperparametri in automatico."
     },
     {
-     "t0": 155.97,
-     "t1": 158.1,
+     "t0": 206.36,
+     "t1": 209.24,
      "slide": 3,
      "text": "AMT significa Automatic Model Tuning."
     },
     {
-     "t0": 158.35,
-     "t1": 161.29,
+     "t0": 209.49,
+     "t1": 213.45,
      "slide": 3,
      "text": "Usa strategie bayesiane random hyperband e griglia."
     },
     {
-     "t0": 161.54,
-     "t1": 164.54,
+     "t0": 213.7,
+     "t1": 217.75,
      "slide": 4,
      "text": "La strategia bayesiana trova l'ottimo con pochi job."
     },
     {
-     "t0": 164.79,
-     "t1": 168.36,
+     "t0": 218.0,
+     "t1": 222.82,
      "slide": 4,
      "text": "Hyperband risparmia costi scartando presto i candidati deboli."
     },
     {
-     "t0": 168.61,
-     "t1": 171.49,
+     "t0": 223.07,
+     "t1": 226.96,
      "slide": 4,
      "text": "Devi definire la metrica obiettivo da ottimizzare."
     },
     {
-     "t0": 171.74,
-     "t1": 175.83,
+     "t0": 227.21,
+     "t1": 232.74,
      "slide": 4,
      "text": "Devi definire i range degli iperparametri continui interi e categorici."
     },
     {
-     "t0": 176.08,
-     "t1": 178.79,
+     "t0": 232.99,
+     "t1": 236.64,
      "slide": 4,
      "text": "Devi fissare limiti di job massimi e paralleli."
     },
     {
-     "t0": 179.04,
-     "t1": 182.21,
+     "t0": 236.89,
+     "t1": 241.17,
      "slide": 4,
      "text": "Puoi attivare early stopping per fermare i job inutili."
     },
     {
-     "t0": 182.46,
-     "t1": 185.16,
+     "t0": 241.42,
+     "t1": 245.08,
      "slide": 4,
      "text": "Puoi usare il warm start dai tuning precedenti."
     },
     {
-     "t0": 185.41,
-     "t1": 187.43,
+     "t0": 245.33,
+     "t1": 248.05,
      "slide": 4,
      "text": "Esempio tipico da esame importante."
     },
     {
-     "t0": 187.68,
-     "t1": 190.5,
+     "t0": 248.3,
+     "t1": 252.11,
      "slide": 4,
      "text": "Classificazione binaria ottimizza validation auc."
     },
     {
-     "t0": 190.75,
-     "t1": 192.94,
+     "t0": 252.36,
+     "t1": 255.32,
      "slide": 4,
      "text": "Regressione ottimizza validation rmse."
     },
     {
-     "t0": 193.19,
-     "t1": 195.61,
+     "t0": 255.57,
+     "t1": 258.84,
      "slide": 4,
      "text": "Multiclasse ottimizza validation mlogloss."
     },
     {
-     "t0": 195.86,
-     "t1": 198.57,
+     "t0": 259.09,
+     "t1": 262.75,
      "slide": 4,
      "text": "SageMaker Experiments traccia ogni esperimento."
     },
     {
-     "t0": 198.82,
-     "t1": 201.81,
+     "t0": 263.0,
+     "t1": 267.04,
      "slide": 5,
      "text": "Registra parametri metriche e artefatti di ogni run."
     },
     {
-     "t0": 202.06,
-     "t1": 205.17,
+     "t0": 267.29,
+     "t1": 271.49,
      "slide": 5,
      "text": "SageMaker Model Registry versiona i modelli approvati."
     },
     {
-     "t0": 205.42,
-     "t1": 208.59,
+     "t0": 271.74,
+     "t1": 276.02,
      "slide": 5,
      "text": "Debugger rileva gradienti anomali e training stagnante."
     },
     {
-     "t0": 208.84,
-     "t1": 211.61,
+     "t0": 276.27,
+     "t1": 280.01,
      "slide": 5,
      "text": "Profiler analizza utilizzo di CPU GPU e memoria."
     },
     {
-     "t0": 211.86,
-     "t1": 214.91,
+     "t0": 280.26,
+     "t1": 284.38,
      "slide": 5,
      "text": "Le metriche di classificazione vanno scelte con cura."
     },
     {
-     "t0": 215.16,
-     "t1": 217.81,
+     "t0": 284.63,
+     "t1": 288.21,
      "slide": 5,
      "text": "Accuracy misura le previsioni corrette totali."
     },
     {
-     "t0": 218.06,
-     "t1": 221.23,
+     "t0": 288.46,
+     "t1": 292.74,
      "slide": 5,
      "text": "Precision misura i veri positivi sui predetti positivi."
     },
     {
-     "t0": 221.48,
-     "t1": 224.3,
+     "t0": 292.99,
+     "t1": 296.8,
      "slide": 5,
      "text": "Recall misura i veri positivi sui positivi reali."
     },
     {
-     "t0": 224.55,
-     "t1": 227.14,
+     "t0": 297.05,
+     "t1": 300.55,
      "slide": 5,
      "text": "F1 e la media armonica di precision e recall."
     },
     {
-     "t0": 227.39,
-     "t1": 229.93,
+     "t0": 300.8,
+     "t1": 304.22,
      "slide": 5,
      "text": "AUC ROC misura la separazione tra le classi."
     },
     {
-     "t0": 230.18,
-     "t1": 233.46,
+     "t0": 304.47,
+     "t1": 308.91,
      "slide": 5,
      "text": "Per classi sbilanciate usa F1 o AUC mai la sola accuracy."
     },
     {
-     "t0": 233.71,
-     "t1": 236.19,
+     "t0": 309.16,
+     "t1": 312.5,
      "slide": 5,
      "text": "Per la regressione usa RMSE MAE e R quadro."
     },
     {
-     "t0": 236.44,
-     "t1": 238.68,
+     "t0": 312.75,
+     "t1": 315.79,
      "slide": 5,
      "text": "RMSE penalizza molto gli errori grandi."
     },
     {
-     "t0": 238.93,
-     "t1": 240.95,
+     "t0": 316.04,
+     "t1": 318.76,
      "slide": 6,
      "text": "MAE misura l'errore medio assoluto."
     },
     {
-     "t0": 241.2,
-     "t1": 244.02,
+     "t0": 319.01,
+     "t1": 322.82,
      "slide": 6,
      "text": "R quadro misura la varianza spiegata dal modello."
     },
     {
-     "t0": 244.27,
-     "t1": 248.07,
+     "t0": 323.07,
+     "t1": 328.21,
      "slide": 6,
      "text": "Overfitting significa memorizzare il training senza generalizzare."
     },
     {
-     "t0": 248.32,
-     "t1": 251.15,
+     "t0": 328.46,
+     "t1": 332.27,
      "slide": 6,
      "text": "Si riconosce da training alto e validation bassa."
     },
     {
-     "t0": 251.4,
-     "t1": 254.57,
+     "t0": 332.52,
+     "t1": 336.8,
      "slide": 6,
      "text": "Si cura con regolarizzazione early stopping e piu dati."
     },
     {
-     "t0": 254.82,
-     "t1": 258.16,
+     "t0": 337.05,
+     "t1": 341.56,
      "slide": 6,
      "text": "Underfitting significa modello troppo semplice per i dati."
     },
     {
-     "t0": 258.41,
-     "t1": 261.23,
+     "t0": 341.81,
+     "t1": 345.62,
      "slide": 6,
      "text": "Si riconosce da metriche basse su entrambi i set."
     },
     {
-     "t0": 261.48,
-     "t1": 264.59,
+     "t0": 345.87,
+     "t1": 350.07,
      "slide": 6,
      "text": "Si cura con modelli piu espressivi e feature migliori."
     },
     {
-     "t0": 264.84,
-     "t1": 268.01,
+     "t0": 350.32,
+     "t1": 354.6,
      "slide": 6,
      "text": "La cross validation a k fold stima la generalizzazione."
     },
     {
-     "t0": 268.26,
-     "t1": 271.43,
+     "t0": 354.85,
+     "t1": 359.13,
      "slide": 6,
      "text": "Divide i dati in k parti e ruota training e validation."
     },
     {
-     "t0": 271.68,
-     "t1": 274.9,
+     "t0": 359.38,
+     "t1": 363.74,
      "slide": 6,
      "text": "Stratificala per preservare le proporzioni delle classi."
     },
     {
-     "t0": 275.15,
-     "t1": 277.46,
+     "t0": 363.99,
+     "t1": 367.1,
      "slide": 6,
      "text": "Ora sai sviluppare e valutare i modelli."
     },
     {
-     "t0": 277.71,
-     "t1": 280.59,
+     "t0": 367.35,
+     "t1": 371.24,
      "slide": 6,
      "text": "Sei pronto per esercitarti con i quiz stile esame."
     }
@@ -1534,185 +1534,185 @@
   },
   "ch4-deploy": {
    "audio": "audio/ch4-deploy.mp3",
-   "duration": 262.82,
+   "duration": 292.01,
    "sentences": [
     {
      "t0": 0.0,
-     "t1": 7.97,
+     "t1": 8.88,
      "slide": 0,
      "text": "In questo capitolo studiamo il deploy dei modelli e l'orchestrazione dei workflow ML, un tema centrale del terzo dominio dell'esame."
     },
     {
-     "t0": 8.22,
-     "t1": 14.73,
+     "t0": 9.13,
+     "t1": 16.39,
      "slide": 0,
      "text": "Partiamo dalle cinque opzioni di inference di SageMaker, perche quasi ogni domanda di scenario ne testa una."
     },
     {
-     "t0": 14.98,
-     "t1": 22.59,
+     "t0": 16.64,
+     "t1": 25.11,
      "slide": 0,
      "text": "L'endpoint real-time e un endpoint HTTPS sempre attivo su istanze dedicate della famiglia ml, con auto scaling e data capture."
     },
     {
-     "t0": 22.84,
-     "t1": 36.05,
+     "t0": 25.36,
+     "t1": 40.09,
      "slide": 0,
      "text": "Offre latenza di millisecondi e supporta payload fino a 6 MB con timeout di 60 secondi: e la scelta giusta per traffico costante che richiede risposte immediate, come il rilevamento frodi o i sistemi di raccomandazione."
     },
     {
-     "t0": 36.3,
-     "t1": 45.05,
+     "t0": 40.34,
+     "t1": 50.08,
      "slide": 1,
      "text": "L'inference serverless invece non richiede di gestire istanze: scala automaticamente fino a zero e fattura solo per durata e numero di richieste."
     },
     {
-     "t0": 45.3,
-     "t1": 55.92,
+     "t0": 50.33,
+     "t1": 62.17,
      "slide": 1,
      "text": "E perfetta per traffico intermittente, prototipi e ambienti di test, ma ha cold start di dieci o venti secondi, quindi non va mai usata quando esiste uno SLA rigido di latenza."
     },
     {
-     "t0": 56.17,
-     "t1": 65.35,
+     "t0": 62.42,
+     "t1": 72.64,
      "slide": 1,
      "text": "L'inference asincrona accetta la richiesta tramite S3, la mette in una coda interna, elabora anche a lungo e scrive il risultato su S3 con notifica SNS."
     },
     {
-     "t0": 65.6,
-     "t1": 75.31,
+     "t0": 72.89,
+     "t1": 83.72,
      "slide": 1,
      "text": "Supporta payload fino a 1 GB e timeout fino a un ora, e scala a zero quando non c e traffico: e la risposta tipica per documenti lunghi, immagini grandi e video."
     },
     {
-     "t0": 75.56,
-     "t1": 85.16,
+     "t0": 83.97,
+     "t1": 94.66,
      "slide": 1,
      "text": "Il batch transform non e un endpoint ma un job offline: legge un dataset S3, applica il modello in parallelo su una o piu istanze e scrive le predizioni su S3."
     },
     {
-     "t0": 85.41,
-     "t1": 94.28,
+     "t0": 94.91,
+     "t1": 104.79,
      "slide": 2,
      "text": "E l'opzione piu economica per lo scoring notturno di milioni di record, con strategie di batch a singolo o multi record e partizionamento dei dati."
     },
     {
-     "t0": 94.53,
-     "t1": 108.29,
+     "t0": 105.04,
+     "t1": 120.37,
      "slide": 2,
      "text": "Il multi-model endpoint condivide un solo endpoint tra centinaia di modelli dello stesso framework, caricandoli dinamicamente da S3: quando ogni modello ha poco traffico, il risparmio rispetto a un endpoint per modello e enorme."
     },
     {
-     "t0": 108.54,
-     "t1": 119.4,
+     "t0": 120.62,
+     "t1": 132.72,
      "slide": 2,
      "text": "Se i container sono diversi si usa il multi-container endpoint, mentre per framework non nativi si porta un container custom da ECR, con controllo totale su ECS o EKS quando serve."
     },
     {
-     "t0": 119.65,
-     "t1": 130.15,
+     "t0": 132.97,
+     "t1": 144.67,
      "slide": 2,
      "text": "Passiamo poi a SageMaker Pipelines, il servizio MLOps che definisce workflow come grafi di step: Processing, Training, Evaluation, Condition, RegisterModel, Transform e Fail."
     },
     {
-     "t0": 130.4,
-     "t1": 138.25,
+     "t0": 144.92,
+     "t1": 153.67,
      "slide": 3,
      "text": "I parametri tipizzati permettono di rieseguire la pipeline cambiando tipi di istanza, path S3 o soglie senza modificare il codice."
     },
     {
-     "t0": 138.5,
-     "t1": 143.51,
+     "t0": 153.92,
+     "t1": 159.5,
      "slide": 3,
      "text": "La cache riusa gli output degli step riusciti e riduce costi e tempi di iterazione."
     },
     {
-     "t0": 143.76,
-     "t1": 151.06,
+     "t0": 159.75,
+     "t1": 167.88,
      "slide": 3,
      "text": "Le proprieta collegano gli step tra loro, cosi le metriche di evaluation guidano i passi condizionali e la registrazione."
     },
     {
-     "t0": 151.31,
-     "t1": 158.73,
+     "t0": 168.13,
+     "t1": 176.4,
      "slide": 3,
      "text": "Il Model Registry versiona i package con stati di approvazione Pending, Approved e Rejected e funge da cancello di qualita."
     },
     {
-     "t0": 158.98,
-     "t1": 170.93,
+     "t0": 176.65,
+     "t1": 189.97,
      "slide": 4,
      "text": "SageMaker Projects fornisce template CI/CD con CodePipeline e CodeBuild: il flusso tipico parte dal push Git, compila la training pipeline, registra il modello, attende l'approvazione e poi deploya."
     },
     {
-     "t0": 171.18,
-     "t1": 182.95,
+     "t0": 190.22,
+     "t1": 203.33,
      "slide": 4,
      "text": "Step Functions orchestra workflow cross-servizio con retry nativi, EventBridge attiva pipeline su eventi o schedule, Lambda gestisce la logica leggera e MWAA copre le DAG complesse multi-sistema."
     },
     {
-     "t0": 183.2,
-     "t1": 190.86,
+     "t0": 203.58,
+     "t1": 212.12,
      "slide": 4,
      "text": "Ricorda la regola pratica: tutto dentro SageMaker uguale Pipelines, orchestrazione tra servizi con stati uguale Step Functions."
     },
     {
-     "t0": 191.11,
-     "t1": 195.7,
+     "t0": 212.37,
+     "t1": 217.48,
      "slide": 4,
      "text": "Sul fronte dei container custom, l'esame vuole che distinguiamo tre livelli."
     },
     {
-     "t0": 195.95,
-     "t1": 204.46,
+     "t0": 217.73,
+     "t1": 227.21,
      "slide": 4,
      "text": "Il primo e l'immagine custom su ECR con SageMaker gestito: mantieni training e hosting gestiti ma controlli dipendenze e codice di inference."
     },
     {
-     "t0": 204.71,
-     "t1": 212.19,
+     "t0": 227.46,
+     "t1": 235.8,
      "slide": 5,
      "text": "Il secondo e ECS o EKS: controllo totale su orchestrazione e rete, ma devi gestire scaling, patching e monitoraggio da solo."
     },
     {
-     "t0": 212.44,
-     "t1": 220.65,
+     "t0": 236.05,
+     "t1": 245.19,
      "slide": 5,
      "text": "La regola e scegliere il livello piu gestito che soddisfa i vincoli: solo se serve personalizzazione profonda si scende verso ECS o EKS."
     },
     {
-     "t0": 220.9,
-     "t1": 222.83,
+     "t0": 245.44,
+     "t1": 247.59,
      "slide": 5,
      "text": "Per i tradeoff ricorda tre assi."
     },
     {
-     "t0": 223.08,
-     "t1": 235.03,
+     "t0": 247.84,
+     "t1": 261.16,
      "slide": 5,
      "text": "La latenza premia real-time e multi-model con istanze calde; il costo premia serverless, async con scala a zero e batch condiviso; il throughput premia batch con istanze parallele e partizionamento."
     },
     {
-     "t0": 235.28,
-     "t1": 239.32,
+     "t0": 261.41,
+     "t1": 265.91,
      "slide": 6,
      "text": "Nelle domande confronta sempre questi tre assi prima di rispondere."
     },
     {
-     "t0": 239.57,
-     "t1": 250.37,
+     "t0": 266.16,
+     "t1": 278.2,
      "slide": 6,
      "text": "Infine, per l'orchestrazione oltre SageMaker, Step Functions coordina stati con retry, timeout e percorsi di errore nativi, ed e ideale con approvazioni umane e Lambda intermedie."
     },
     {
-     "t0": 250.62,
-     "t1": 257.44,
+     "t0": 278.45,
+     "t1": 286.04,
      "slide": 6,
      "text": "EventBridge instrada eventi tra servizi con regole e schedule, come nuovi package nel Model Registry o upload S3."
     },
     {
-     "t0": 257.69,
-     "t1": 262.82,
+     "t0": 286.29,
+     "t1": 292.01,
      "slide": 6,
      "text": "MWAA esegue DAG Airflow quando il workflow coinvolge molti sistemi esterni oltre AWS."
     }
@@ -1720,185 +1720,185 @@
   },
   "ch5-monitor-security": {
    "audio": "audio/ch5-monitor-security.mp3",
-   "duration": 241.81,
+   "duration": 283.69,
    "sentences": [
     {
      "t0": 0.0,
-     "t1": 6.82,
+     "t1": 8.04,
      "slide": 0,
      "text": "In questo capitolo studiamo monitoraggio, manutenzione e sicurezza delle soluzioni ML, il quarto dominio dell'esame."
     },
     {
-     "t0": 7.07,
-     "t1": 13.78,
+     "t0": 8.29,
+     "t1": 16.19,
      "slide": 0,
      "text": "Il protagonista e SageMaker Model Monitor, che rileva il drift confrontando i dati di produzione con una baseline."
     },
     {
-     "t0": 14.03,
-     "t1": 27.56,
+     "t0": 16.44,
+     "t1": 32.39,
      "slide": 0,
      "text": "Tutto parte dalla Data Capture: configuriamo sull'endpoint quali richieste e risposte salvare su S3 e con quale percentuale di campionamento, ad esempio il cento per cento per traffico basso o il dieci per cento per traffico alto."
     },
     {
-     "t0": 27.81,
-     "t1": 38.22,
+     "t0": 32.64,
+     "t1": 44.91,
      "slide": 0,
      "text": "Poi generiamo la baseline dal dataset di training o validazione: otteniamo un file di statistiche con medie, deviazioni e completezza, e un file di vincoli con le regole attese."
     },
     {
-     "t0": 38.47,
-     "t1": 40.7,
+     "t0": 45.16,
+     "t1": 47.79,
      "slide": 1,
      "text": "Esistono quattro tipi di monitoraggio:"
     },
     {
-     "t0": 40.95,
-     "t1": 43.07,
+     "t0": 48.04,
+     "t1": 50.54,
      "slide": 1,
      "text": "Data Quality rileva drift di schema,"
     },
     {
-     "t0": 43.32,
-     "t1": 45.67,
+     "t0": 50.79,
+     "t1": 53.56,
      "slide": 1,
      "text": "valori mancanti e shift distribuzionali;"
     },
     {
-     "t0": 45.92,
-     "t1": 52.04,
+     "t0": 53.81,
+     "t1": 61.02,
      "slide": 1,
      "text": "Model Quality misura il calo di accuratezza o l'aumento di errore unendo le predizioni alle label reali;"
     },
     {
-     "t0": 52.29,
-     "t1": 55.93,
+     "t0": 61.27,
+     "t1": 65.56,
      "slide": 1,
      "text": "Model Bias rileva derive di equita con le metriche di Clarify;"
     },
     {
-     "t0": 56.18,
-     "t1": 59.6,
+     "t0": 65.81,
+     "t1": 69.84,
      "slide": 2,
      "text": "Explainability rileva drift nell'importanza delle feature."
     },
     {
-     "t0": 59.85,
-     "t1": 67.55,
+     "t0": 70.09,
+     "t1": 79.17,
      "slide": 2,
      "text": "Ogni schedule pubblica metriche su CloudWatch, dove creiamo allarmi sullo stato CompletedWithViolations o sul conteggio violazioni."
     },
     {
-     "t0": 67.8,
-     "t1": 77.33,
+     "t0": 79.42,
+     "t1": 90.65,
      "slide": 2,
      "text": "EventBridge intercetta i cambi di stato dello schedule e attiva la pipeline di retraining: il ciclo chiuso e cattura, baseline, monitoraggio, allarme, retraining."
     },
     {
-     "t0": 77.58,
-     "t1": 83.87,
+     "t0": 90.9,
+     "t1": 98.31,
      "slide": 2,
      "text": "Ricorda di non riaddestrare a ogni singola violazione, ma dopo violazioni consecutive o cali significativi."
     },
     {
-     "t0": 84.12,
-     "t1": 98.36,
+     "t0": 98.56,
+     "t1": 115.34,
      "slide": 3,
      "text": "Per il deploy sicuro usiamo autoscaling sulle varianti di produzione, strategie blue green per rilasci senza downtime, test A/B per confrontare versioni e shadow test per valutare il nuovo modello su traffico reale senza impattare gli utenti."
     },
     {
-     "t0": 98.61,
-     "t1": 100.49,
+     "t0": 115.59,
+     "t1": 117.81,
      "slide": 3,
      "text": "La sicurezza copre tre pilastri."
     },
     {
-     "t0": 100.74,
-     "t1": 108.97,
+     "t0": 118.06,
+     "t1": 127.76,
      "slide": 3,
      "text": "IAM impone execution role a privilegio minimo per ogni job, mai access key, con isolamento per team e audit di ogni chiamata via CloudTrail."
     },
     {
-     "t0": 109.22,
-     "t1": 115.99,
+     "t0": 128.01,
+     "t1": 135.98,
      "slide": 3,
      "text": "KMS cifra a riposo volumi, artefatti S3 ed endpoint con chiavi gestite dal cliente, rotazione e controllo centrale."
     },
     {
-     "t0": 116.24,
-     "t1": 127.59,
+     "t0": 136.23,
+     "t1": 149.61,
      "slide": 4,
      "text": "La rete usa modalita VPC-only con subnet private, gateway endpoint per S3 e interface endpoint PrivateLink per API SageMaker, ECR, CloudWatch e KMS, piu Secrets Manager per credenziali ruotate."
     },
     {
-     "t0": 127.84,
-     "t1": 135.6,
+     "t0": 149.86,
+     "t1": 159.01,
      "slide": 4,
      "text": "Model Cards e lineage garantiscono governance e riproducibilita: scopo, metriche, limiti e tracciabilita completa da dati a modello."
     },
     {
-     "t0": 135.85,
-     "t1": 138.97,
+     "t0": 159.26,
+     "t1": 162.93,
      "slide": 4,
      "text": "Approfondiamo ora il retraining guidato dagli eventi."
     },
     {
-     "t0": 139.22,
-     "t1": 146.34,
+     "t0": 163.18,
+     "t1": 171.57,
      "slide": 4,
      "text": "Quando lo schedule termina con violazioni, EventBridge riceve un evento di cambio stato con nome dello schedule ed esito."
     },
     {
-     "t0": 146.59,
-     "t1": 161.35,
+     "t0": 171.82,
+     "t1": 189.22,
      "slide": 4,
      "text": "Una regola filtra questi eventi e avvia la pipeline di retraining in SageMaker Pipelines oppure una macchina a stati Step Functions che unisce i dati catturati con le label reali, rilancia il training, rigenera la baseline e registra il nuovo package."
     },
     {
-     "t0": 161.6,
-     "t1": 173.42,
+     "t0": 189.47,
+     "t1": 203.4,
      "slide": 5,
      "text": "Prima di riaddestrare, una funzione leggera puo verificare il report di violazione su S3 e procedere solo se le violazioni sono consecutive o superano una soglia, evitando retraining costosi su rumore."
     },
     {
-     "t0": 173.67,
-     "t1": 185.2,
+     "t0": 203.65,
+     "t1": 217.24,
      "slide": 5,
      "text": "Per il rilascio, l'autoscaling regola le varianti di produzione su metriche come invocazioni per istanza, mentre le strategie blue green spostano il traffico senza downtime con rollback immediato."
     },
     {
-     "t0": 185.45,
-     "t1": 195.8,
+     "t0": 217.49,
+     "t1": 229.69,
      "slide": 5,
      "text": "I test A/B dividono il traffico per confrontare metriche di business tra versioni, e gli shadow test inviano copia del traffico live al nuovo modello senza esporlo agli utenti."
     },
     {
-     "t0": 196.05,
-     "t1": 205.11,
+     "t0": 229.94,
+     "t1": 240.61,
      "slide": 5,
      "text": "Sul lato sicurezza, ogni job assume un execution role con policy minime su S3, ECR e CloudWatch, mentre Studio isola i team con domini e profili separati."
     },
     {
-     "t0": 205.36,
-     "t1": 213.59,
+     "t0": 240.86,
+     "t1": 250.57,
      "slide": 6,
      "text": "La cifratura usa chiavi gestite dal cliente per volumi di training, artefatti e storage degli endpoint, con rotazione e audit centralizzato."
     },
     {
-     "t0": 213.84,
-     "t1": 223.84,
+     "t0": 250.82,
+     "t1": 262.6,
      "slide": 6,
      "text": "La rete in modalita solo VPC usa subnet private, gateway endpoint per S3 e interface endpoint PrivateLink per API, ECR, log e KMS, con Secrets Manager per le credenziali."
     },
     {
-     "t0": 224.09,
-     "t1": 231.74,
+     "t0": 262.85,
+     "t1": 271.86,
      "slide": 6,
      "text": "Model Cards e lineage chiudono la governance: documentano scopo, metriche e limiti e tracciano ogni artefatto dai dati al modello."
     },
     {
-     "t0": 231.99,
-     "t1": 241.81,
+     "t0": 272.11,
+     "t1": 283.69,
      "slide": 6,
      "text": "Ricorda infine il principio operativo: monitorare sempre, allarmare su soglie, reagire con pipeline automatiche e documentare ogni decisione con Model Cards e lineage."
     }
@@ -1906,167 +1906,167 @@
   },
   "ch6-genai": {
    "audio": "audio/ch6-genai.mp3",
-   "duration": 236.63,
+   "duration": 269.62,
    "sentences": [
     {
      "t0": 0.0,
-     "t1": 5.54,
+     "t1": 6.33,
      "slide": 0,
      "text": "In questo capitolo studiamo la AI generativa su AWS, uno dei temi piu pesanti del nuovo esame."
     },
     {
-     "t0": 5.79,
-     "t1": 14.45,
+     "t0": 6.58,
+     "t1": 16.48,
      "slide": 0,
      "text": "Il centro e Amazon Bedrock, il servizio serverless che espone foundation model di Amazon e di terze parti via API, senza infrastruttura da gestire."
     },
     {
-     "t0": 14.7,
-     "t1": 17.35,
+     "t0": 16.73,
+     "t1": 19.77,
      "slide": 0,
      "text": "Sopra Bedrock costruiamo tre capacita chiave."
     },
     {
-     "t0": 17.6,
-     "t1": 32.86,
+     "t0": 20.02,
+     "t1": 37.46,
      "slide": 0,
      "text": "Le Knowledge Bases implementano la RAG gestita: i documenti aziendali vengono ingeriti, suddivisi in chunk, convertiti in embedding e salvati in un database vettoriale come OpenSearch Serverless o Aurora con pgvector, per poi essere recuperati a ogni domanda."
     },
     {
-     "t0": 33.11,
-     "t1": 44.95,
+     "t0": 37.71,
+     "t1": 51.25,
      "slide": 0,
      "text": "La RAG non cambia i pesi del modello, costa poco, non richiede dataset etichettati e mantiene i dati aggiornati con la risincronizzazione: e la risposta giusta quando serve conoscenza esterna dinamica."
     },
     {
-     "t0": 45.2,
-     "t1": 55.57,
+     "t0": 51.5,
+     "t1": 63.36,
      "slide": 1,
      "text": "Gli Agents invece ragionano e agiscono in piu passi: orchestrano foundation model, Knowledge Bases e strumenti, chiamando API e database tramite Action Groups basati su Lambda."
     },
     {
-     "t0": 55.82,
-     "t1": 60.95,
+     "t0": 63.61,
+     "t1": 69.47,
      "slide": 1,
      "text": "Sono la risposta quando l assistente deve prenotare, verificare e operare in autonomia."
     },
     {
-     "t0": 61.2,
-     "t1": 77.34,
+     "t0": 69.72,
+     "t1": 88.18,
      "slide": 1,
      "text": "I Guardrails applicano l AI responsabile con quattro policy: filtri sui contenuti dannosi, topic vietati, filtri di parole e redazione delle informazioni sensibili come i PII, piu il grounding check che contrasta le allucinazioni verificando le risposte sui dati di origine."
     },
     {
-     "t0": 77.59,
-     "t1": 89.79,
+     "t0": 88.43,
+     "t1": 102.37,
      "slide": 1,
      "text": "Quando serve adattare stile, tono o linguaggio di dominio si usa la customizzazione: fine-tuning, continued pre-training o distillazione, che modificano i pesi ma richiedono dati etichettati, tempo e budget."
     },
     {
-     "t0": 90.04,
-     "t1": 94.57,
+     "t0": 102.62,
+     "t1": 107.81,
      "slide": 2,
      "text": "SageMaker JumpStart offre un alternativa rapida con modelli pronti al deploy."
     },
     {
-     "t0": 94.82,
-     "t1": 102.72,
+     "t0": 108.06,
+     "t1": 117.08,
      "slide": 2,
      "text": "Ricorda la regola d oro: conoscenza esterna uguale RAG, comportamento personalizzato uguale fine-tuning, entrambi uguale combinazione."
     },
     {
-     "t0": 102.97,
-     "t1": 116.75,
+     "t0": 117.33,
+     "t1": 133.1,
      "slide": 2,
      "text": "Accanto a Bedrock, l esame testa tre servizi di AI gestita: Comprehend per sentiment, entita e lingua sui testi, Rekognition per volti, oggetti e contenuti in immagini e video, Textract per estrarre testo e tabelle da PDF e scansioni."
     },
     {
-     "t0": 117.0,
-     "t1": 124.96,
+     "t0": 133.35,
+     "t1": 142.44,
      "slide": 2,
      "text": "Il monitoraggio di Bedrock usa invocation logging su S3 e CloudWatch, metriche di token, latenza ed errori, e copertura dei Guardrails."
     },
     {
-     "t0": 125.21,
-     "t1": 128.39,
+     "t0": 142.69,
+     "t1": 146.33,
      "slide": 2,
      "text": "Approfondiamo la customizzazione dei foundation model."
     },
     {
-     "t0": 128.64,
-     "t1": 141.48,
+     "t0": 146.58,
+     "t1": 161.26,
      "slide": 3,
      "text": "Il fine-tuning adatta i pesi con esempi supervisionati per insegnare stile, formato e linguaggio specialistico, mentre il continued pre-training espone il modello a grandi corpora di dominio per assorbire terminologia."
     },
     {
-     "t0": 141.73,
-     "t1": 147.51,
+     "t0": 161.51,
+     "t1": 168.12,
      "slide": 3,
      "text": "La distillazione trasferisce capacita da un modello grande a uno piccolo piu economico da servire."
     },
     {
-     "t0": 147.76,
-     "t1": 154.18,
+     "t0": 168.37,
+     "t1": 175.71,
      "slide": 3,
      "text": "Tutti richiedono dataset curati, tempo di training e valutazione rigorosa contro regressioni e allucinazioni."
     },
     {
-     "t0": 154.43,
-     "t1": 163.8,
+     "t0": 175.96,
+     "t1": 186.67,
      "slide": 3,
      "text": "SageMaker JumpStart accelera questo lavoro con modelli aperti pronti al deploy e notebook di esempio: utile quando serve controllo sui pesi o hosting dedicato."
     },
     {
-     "t0": 164.05,
-     "t1": 173.36,
+     "t0": 186.92,
+     "t1": 197.56,
      "slide": 4,
      "text": "Per la valutazione, Bedrock combina metriche automatiche come similarita e accuratezza con revisioni umane su tossicita, allucinazioni e aderenza alle policy."
     },
     {
-     "t0": 173.61,
-     "t1": 184.74,
+     "t0": 197.81,
+     "t1": 210.54,
      "slide": 4,
      "text": "In produzione, l'invocation logging registra prompt, risposte, latenza e identificativi su S3 e CloudWatch, mentre le metriche di token, throttling ed errori alimentano dashboard e allarmi."
     },
     {
-     "t0": 184.99,
-     "t1": 191.18,
+     "t0": 210.79,
+     "t1": 217.87,
      "slide": 4,
      "text": "I Guardrails pubblicano metriche di copertura e intervento per misurare quante risposte vengono filtrate."
     },
     {
-     "t0": 191.43,
-     "t1": 195.26,
+     "t0": 218.12,
+     "t1": 222.5,
      "slide": 4,
      "text": "Accanto a Bedrock, i servizi di AI gestita coprono casi classici."
     },
     {
-     "t0": 195.51,
-     "t1": 200.04,
+     "t0": 222.75,
+     "t1": 227.93,
      "slide": 4,
      "text": "Comprehend rileva sentiment, entita, sintassi e lingua su testi gia estratti."
     },
     {
-     "t0": 200.29,
-     "t1": 206.01,
+     "t0": 228.18,
+     "t1": 234.72,
      "slide": 5,
      "text": "Rekognition analizza immagini e video con moderazione dei contenuti e ricerca di volti e oggetti."
     },
     {
-     "t0": 206.26,
-     "t1": 211.09,
+     "t0": 234.97,
+     "t1": 240.49,
      "slide": 5,
      "text": "Textract unisce OCR e comprensione di layout per tabelle, form e scrittura a mano."
     },
     {
-     "t0": 211.34,
-     "t1": 222.24,
+     "t0": 240.74,
+     "t1": 253.2,
      "slide": 5,
      "text": "La mappa rapida e: testo da capire uguale Comprehend, foto e video uguale Rekognition, moduli scansionati uguale Textract, conoscenza dinamica uguale RAG, azioni autonome uguale Agents."
     },
     {
-     "t0": 222.49,
-     "t1": 236.63,
+     "t0": 253.45,
+     "t1": 269.62,
      "slide": 5,
      "text": "Per il monitoraggio in produzione, tieni a mente che Bedrock pubblica su CloudWatch latenza, conteggi di token, throttling ed errori, mentre i log di invocazione conservano prompt e risposte per audit e debugging nel rispetto della privacy."
     }
@@ -2074,281 +2074,281 @@
   },
   "ch7-practice": {
    "audio": "audio/ch7-practice.mp3",
-   "duration": 272.99,
+   "duration": 316.61,
    "sentences": [
     {
      "t0": 0.0,
-     "t1": 4.15,
+     "t1": 4.84,
      "slide": 0,
      "text": "In questo capitolo finale trasformiamo la teoria in punti d esame."
     },
     {
-     "t0": 4.4,
-     "t1": 9.56,
+     "t0": 5.09,
+     "t1": 11.11,
      "slide": 0,
      "text": "L esame MLA-C01 ha 65 domande in 170 minuti: circa due minuti e mezzo per domanda."
     },
     {
-     "t0": 9.81,
-     "t1": 19.12,
+     "t0": 11.36,
+     "t1": 22.22,
      "slide": 0,
      "text": "La strategia e semplice: leggi prima vincoli e numeri, mappa lo scenario al servizio, elimina i distrattori e verifica la risposta contro i vincoli."
     },
     {
-     "t0": 19.37,
-     "t1": 25.22,
+     "t0": 22.47,
+     "t1": 29.3,
      "slide": 0,
      "text": "Non incagliarti sui casi lunghi di VPC o KMS: segnali per review e vai avanti, tornerai dopo."
     },
     {
-     "t0": 25.47,
-     "t1": 32.58,
+     "t0": 29.55,
+     "t1": 37.84,
      "slide": 0,
      "text": "La tecnica regina e l eliminazione: scarta prima le opzioni palesemente sbagliate, poi scegli tra le due rimaste."
     },
     {
-     "t0": 32.83,
-     "t1": 37.23,
+     "t0": 38.09,
+     "t1": 43.23,
      "slide": 0,
      "text": "Spesso basta separare SageMaker da non SageMaker, o managed da custom."
     },
     {
-     "t0": 37.48,
-     "t1": 50.5,
+     "t0": 43.48,
+     "t1": 58.67,
      "slide": 0,
      "text": "Impara le opzioni sempre sbagliate: access key nei job al posto degli execution role, Lambda o EC2 per il training pesante, SSE-C al posto di SSE-KMS quando serve audit, retraining a ogni singola violazione."
     },
     {
-     "t0": 50.75,
-     "t1": 54.21,
+     "t0": 58.92,
+     "t1": 62.95,
      "slide": 0,
      "text": "Le parole-chiave scenario mappano quasi meccanicamente:"
     },
     {
-     "t0": 54.46,
-     "t1": 57.1,
+     "t0": 63.2,
+     "t1": 66.29,
      "slide": 1,
      "text": "always-on e millisecondi uguale real-time,"
     },
     {
-     "t0": 57.35,
-     "t1": 60.37,
+     "t0": 66.54,
+     "t1": 70.06,
      "slide": 1,
      "text": "intermittente e scale-to-zero uguale serverless,"
     },
     {
-     "t0": 60.62,
-     "t1": 62.45,
+     "t0": 70.31,
+     "t1": 72.44,
      "slide": 1,
      "text": "1 GB e notifica uguale async,"
     },
     {
-     "t0": 62.7,
-     "t1": 64.96,
+     "t0": 72.69,
+     "t1": 75.33,
      "slide": 1,
      "text": "offline e S3 in S3 out uguale batch,"
     },
     {
-     "t0": 65.21,
-     "t1": 67.73,
+     "t0": 75.58,
+     "t1": 78.51,
      "slide": 1,
      "text": "centinaia di modelli uguale multi-model,"
     },
     {
-     "t0": 67.98,
-     "t1": 70.75,
+     "t0": 78.76,
+     "t1": 81.99,
      "slide": 1,
      "text": "dati aggiornati senza retraining uguale RAG,"
     },
     {
-     "t0": 71.0,
-     "t1": 73.2,
+     "t0": 82.24,
+     "t1": 84.81,
      "slide": 1,
      "text": "operare in autonomia uguale Agents,"
     },
     {
-     "t0": 73.45,
-     "t1": 75.9,
+     "t0": 85.06,
+     "t1": 87.92,
      "slide": 2,
      "text": "bloccare topic o PII uguale Guardrails,"
     },
     {
-     "t0": 76.15,
-     "t1": 77.91,
+     "t0": 88.17,
+     "t1": 90.23,
      "slide": 2,
      "text": "no internet uguale VPC-only,"
     },
     {
-     "t0": 78.16,
-     "t1": 79.67,
+     "t0": 90.48,
+     "t1": 92.24,
      "slide": 2,
      "text": "audit uguale CloudTrail,"
     },
     {
-     "t0": 79.92,
-     "t1": 81.94,
+     "t0": 92.49,
+     "t1": 94.84,
      "slide": 2,
      "text": "chiavi centralizzate uguale KMS."
     },
     {
-     "t0": 82.19,
-     "t1": 96.15,
+     "t0": 95.09,
+     "t1": 111.38,
      "slide": 2,
      "text": "Memorizza i numeri chiave: 6 MB e 60 secondi per real-time e serverless, 1 GB e un ora per async, sampling capture dal 10 al 100 per cento, stati Pending Approved Rejected nel Model Registry, quattro tipi di Model Monitor."
     },
     {
-     "t0": 96.4,
-     "t1": 106.78,
+     "t0": 111.63,
+     "t1": 123.74,
      "slide": 2,
      "text": "Per i practice exam usa prima la modalita review leggendo anche le spiegazioni delle risposte giuste, poi la modalita timed puntando a oltre l 80 per cento costante."
     },
     {
-     "t0": 107.03,
-     "t1": 116.15,
+     "t0": 123.99,
+     "t1": 134.63,
      "slide": 2,
      "text": "La sera prima ripassa solo mapping e numeri, dormi e presentati con un metodo fisso per ogni quesito: vincoli, mappatura, eliminazione, verifica."
     },
     {
-     "t0": 116.4,
-     "t1": 121.18,
+     "t0": 134.88,
+     "t1": 140.46,
      "slide": 2,
      "text": "Vediamo ora il metodo di risposta in quattro mosse applicato a esempi reali."
     },
     {
-     "t0": 121.43,
-     "t1": 128.35,
+     "t0": 140.71,
+     "t1": 148.78,
      "slide": 3,
      "text": "Prima mossa: sottolinea vincoli e numeri nello stem, come latenza, payload, traffico e requisiti di sicurezza."
     },
     {
-     "t0": 128.6,
-     "t1": 136.9,
+     "t0": 149.03,
+     "t1": 158.72,
      "slide": 3,
      "text": "Seconda mossa: mappa le parole-chiave al servizio prima di leggere le opzioni, cosi arrivi alle risposte con un'ipotesi gia formata."
     },
     {
-     "t0": 137.15,
-     "t1": 148.73,
+     "t0": 158.97,
+     "t1": 172.47,
      "slide": 3,
      "text": "Terza mossa: elimina i distrattori con le regole fisse, come access key nei job, training pesante su Lambda, endpoint pubblici per dati sensibili o fine-tuning per conoscenza dinamica."
     },
     {
-     "t0": 148.98,
-     "t1": 155.39,
+     "t0": 172.72,
+     "t1": 180.21,
      "slide": 3,
      "text": "Quarta mossa: verifica l'opzione rimasta contro ogni vincolo dello stem, senza aggiungere ipotesi tue."
     },
     {
-     "t0": 155.64,
-     "t1": 158.54,
+     "t0": 180.46,
+     "t1": 183.83,
      "slide": 3,
      "text": "Applichiamo il metodo a tre scenari frequenti."
     },
     {
-     "t0": 158.79,
-     "t1": 164.83,
+     "t0": 184.08,
+     "t1": 191.13,
      "slide": 3,
      "text": "Scenario uno: modello per transazioni con traffico costante e risposta sotto i 100 millisecondi."
     },
     {
-     "t0": 165.08,
-     "t1": 172.12,
+     "t0": 191.38,
+     "t1": 199.6,
      "slide": 3,
      "text": "Vincoli dicono real-time, quindi scarti serverless per i cold start e async o batch perche non sono interattivi."
     },
     {
-     "t0": 172.37,
-     "t1": 176.9,
+     "t0": 199.85,
+     "t1": 205.13,
      "slide": 3,
      "text": "Scenario due: documenti da 500 MB con elaborazione di minuti e notifica."
     },
     {
-     "t0": 177.15,
-     "t1": 182.44,
+     "t0": 205.38,
+     "t1": 211.54,
      "slide": 4,
      "text": "Il payload uccide real-time e serverless, e la notifica punta ad async con S3 e SNS."
     },
     {
-     "t0": 182.69,
-     "t1": 187.78,
+     "t0": 211.79,
+     "t1": 217.74,
      "slide": 4,
      "text": "Scenario tre: dati sensibili mai su internet pubblica con cifratura verificabile."
     },
     {
-     "t0": 188.03,
-     "t1": 194.51,
+     "t0": 217.99,
+     "t1": 225.55,
      "slide": 4,
      "text": "Solo la combinazione VPC-only, subnet private, gateway S3, KMS e ruolo minimo soddisfa tutti i vincoli."
     },
     {
-     "t0": 194.76,
-     "t1": 197.02,
+     "t0": 225.8,
+     "t1": 228.44,
      "slide": 4,
      "text": "Per la checklist dell'ultimo giorno,"
     },
     {
-     "t0": 197.27,
-     "t1": 200.29,
+     "t0": 228.69,
+     "t1": 232.21,
      "slide": 4,
      "text": "ripassa solo tabelle di mapping e numeri chiave,"
     },
     {
-     "t0": 200.54,
-     "t1": 202.37,
+     "t0": 232.46,
+     "t1": 234.59,
      "slide": 4,
      "text": "prepara documenti e percorso,"
     },
     {
-     "t0": 202.62,
-     "t1": 206.64,
+     "t0": 234.84,
+     "t1": 239.54,
      "slide": 4,
      "text": "dormi a sufficienza e decidi in anticipo la strategia di review:"
     },
     {
-     "t0": 206.89,
-     "t1": 209.28,
+     "t0": 239.79,
+     "t1": 242.57,
      "slide": 5,
      "text": "prima giro veloce con risposte sicure,"
     },
     {
-     "t0": 209.53,
-     "t1": 211.55,
+     "t0": 242.82,
+     "t1": 245.17,
      "slide": 5,
      "text": "secondo giro per i casi segnati,"
     },
     {
-     "t0": 211.8,
-     "t1": 215.57,
+     "t0": 245.42,
+     "t1": 249.83,
      "slide": 5,
      "text": "mai cambiare una risposta senza una ragione tecnica precisa."
     },
     {
-     "t0": 215.82,
-     "t1": 220.22,
+     "t0": 250.08,
+     "t1": 255.21,
      "slide": 5,
      "text": "In chiusura, tre pattern di risposta da memorizzare parola per parola."
     },
     {
-     "t0": 220.47,
-     "t1": 235.45,
+     "t0": 255.46,
+     "t1": 272.93,
      "slide": 5,
      "text": "Pattern sicurezza massima: VPC-only con subnet private, gateway endpoint per S3, interface endpoint PrivateLink per API, ECR, log e KMS, cifratura KMS con chiavi gestite dal cliente, execution role a privilegio minimo e CloudTrail attivo."
     },
     {
-     "t0": 235.7,
-     "t1": 248.47,
+     "t0": 273.18,
+     "t1": 288.08,
      "slide": 5,
      "text": "Pattern retraining automatico: Data Capture verso S3, schedule di Model Monitor, allarme CloudWatch su violazioni, regola EventBridge che avvia la pipeline di retraining con rigenerazione della baseline."
     },
     {
-     "t0": 248.72,
-     "t1": 263.12,
+     "t0": 288.33,
+     "t1": 305.13,
      "slide": 5,
      "text": "Pattern GenAI: documenti dinamici uguale Knowledge Bases, azioni autonome uguale Agents con Action Groups, contenuti da filtrare uguale Guardrails, stile di dominio uguale fine-tuning, con valutazione automatica piu review umana."
     },
     {
-     "t0": 263.37,
-     "t1": 272.99,
+     "t0": 305.38,
+     "t1": 316.61,
      "slide": 5,
      "text": "Con questi tre pattern, il metodo in quattro mosse e i numeri chiave, arrivi al giorno dell esame con una strategia solida e ripetibile per ogni quesito."
     }
