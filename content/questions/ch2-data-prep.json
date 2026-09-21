@@ -943,5 +943,530 @@
       "stratified"
     ],
     "origin": "ai"
+  },
+  {
+    "id": "ch2-ext01",
+    "chapter": "ch2-data-prep",
+    "q": "A team keeps raw ML datasets in Amazon S3 and needs automatic cost savings as data ages from hot training use to long-term retention. Which S3 capability should they configure?",
+    "options": [
+      "S3 Transfer Acceleration on all data lake buckets",
+      "S3 Object Lock in legal hold mode on every training prefix",
+      "S3 Lifecycle rules that transition objects to Infrequent Access and Glacier tiers",
+      "S3 cross-origin resource sharing rules for browser uploads"
+    ],
+    "answer": 2,
+    "explain": "Lifecycle rules move aging objects to cheaper storage classes automatically, cutting data lake cost. Object Lock, Transfer Acceleration, and CORS solve immutability, upload speed, and browser access, not tiered retention.",
+    "difficulty": "facile",
+    "tags": [
+      "s3",
+      "lifecycle",
+      "data-lake"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext02",
+    "chapter": "ch2-data-prep",
+    "q": "An engineer must retrieve only a few columns from a large CSV object in S3 for a quick data check, without downloading the whole file. Which feature fits?",
+    "options": [
+      "Replicate the bucket to a second Region and read from there",
+      "Enable S3 Versioning and restore a previous object version",
+      "Use S3 Select to run SQL filtering directly on the object",
+      "Attach an S3 event notification to every GET request"
+    ],
+    "answer": 2,
+    "explain": "S3 Select pushes SQL projection and filtering down to the object, returning only matching bytes. Replication and versioning do not reduce the bytes read for one lookup.",
+    "difficulty": "facile",
+    "tags": [
+      "s3",
+      "s3-select",
+      "exploration"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext03",
+    "chapter": "ch2-data-prep",
+    "q": "Training data in S3 changes frequently and a bad overwrite corrupted a curated prefix last week. How can the team recover earlier versions of the objects?",
+    "options": [
+      "Turn on S3 Requester Pays for the curated prefix",
+      "Enable S3 access logging on the training bucket",
+      "Enable S3 Versioning so overwritten objects keep restorable prior versions",
+      "Configure S3 static website hosting for the bucket"
+    ],
+    "answer": 2,
+    "explain": "Versioning preserves prior object versions so accidental overwrites or deletes can be restored. Access logging tracks requests and Requester Pays shifts cost, neither recovers data.",
+    "difficulty": "facile",
+    "tags": [
+      "s3",
+      "versioning",
+      "data-quality"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext04",
+    "chapter": "ch2-data-prep",
+    "q": "A company migrates an on-premises NFS file share with 40 TB of labeled images to S3 for SageMaker training. Which service moves the data fastest with minimal setup?",
+    "options": [
+      "Amazon Athena with CTAS queries over the NFS mount",
+      "AWS Database Migration Service with a replication instance",
+      "AWS DataSync with an on-premises agent replicating into S3",
+      "Amazon Kinesis Data Streams with one shard per folder"
+    ],
+    "answer": 2,
+    "explain": "DataSync is built for bulk NFS/SMB to S3 transfers with scheduling and validation. DMS migrates databases, while Athena and Kinesis do not copy file shares.",
+    "difficulty": "media",
+    "tags": [
+      "datasync",
+      "s3",
+      "ingestion"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext05",
+    "chapter": "ch2-data-prep",
+    "q": "A MySQL database holds customer history that must be loaded continuously into S3 for a churn model, including ongoing changes. Which service fits best?",
+    "options": [
+      "Amazon EMR with a long-running Presto cluster",
+      "AWS Glue DataBrew with a manual recipe run",
+      "Amazon SageMaker Data Wrangler with a local CSV import",
+      "AWS Database Migration Service with change data capture to S3"
+    ],
+    "answer": 3,
+    "explain": "DMS replicates tables plus ongoing CDC changes into S3 in Parquet or CSV form for ML. EMR and visual prep tools do not capture database change streams natively.",
+    "difficulty": "media",
+    "tags": [
+      "dms",
+      "ingestion",
+      "s3"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext06",
+    "chapter": "ch2-data-prep",
+    "q": "IoT sensors emit 50,000 events per second that need SQL-style windowed aggregations before reaching the feature pipeline, with exactly-once state handling. Which AWS analytics option fits?",
+    "options": [
+      "Amazon MSK with a self-managed MirrorMaker cluster",
+      "Amazon Managed Service for Apache Flink on a Kinesis data stream",
+      "Amazon S3 Batch Operations with Lambda per object",
+      "AWS Glue DataBrew scheduled on static CSV exports"
+    ],
+    "answer": 1,
+    "explain": "Managed Flink provides stateful streaming SQL and windowed aggregations over Kinesis streams. MSK needs self-managed processing code, and batch tools cannot do sub-second windows.",
+    "difficulty": "difficile",
+    "tags": [
+      "kinesis",
+      "flink",
+      "streaming"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext07",
+    "chapter": "ch2-data-prep",
+    "q": "A team already runs Apache Kafka clients and needs a managed Kafka-compatible broker to stream click events into ML pipelines. Which service should they pick?",
+    "options": [
+      "Amazon Kinesis Data Firehose with a Lambda transform",
+      "Amazon Managed Streaming for Apache Kafka (MSK)",
+      "Amazon Athena federated query with a Kafka connector",
+      "AWS Glue DataBrew with a streaming dataset"
+    ],
+    "answer": 1,
+    "explain": "MSK offers managed Kafka brokers compatible with existing Kafka producers and consumers. Firehose is delivery-only and Athena/DataBrew are batch-oriented query and prep tools.",
+    "difficulty": "media",
+    "tags": [
+      "msk",
+      "kafka",
+      "streaming"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext08",
+    "chapter": "ch2-data-prep",
+    "q": "A Glue ETL job joins RDS orders with S3 click logs nightly and developers want a visual, low-code authoring experience with generated Spark code. Which option fits?",
+    "options": [
+      "Amazon Athena workgroups with per-query limits",
+      "Amazon SageMaker Clarify with bias metric jobs",
+      "AWS Glue Studio with visual jobs that generate Spark code",
+      "Amazon S3 Access Points with alias ARNs"
+    ],
+    "answer": 2,
+    "explain": "Glue Studio gives a visual canvas for ETL jobs and emits Spark code for RDS plus S3 sources. Clarify measures bias, workgroups control query cost, and access points manage S3 permissions.",
+    "difficulty": "facile",
+    "tags": [
+      "glue",
+      "glue-studio",
+      "etl"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext09",
+    "chapter": "ch2-data-prep",
+    "q": "A Glue job fails silently when malformed dates appear in source files. The team wants automatic data-quality rules that stop bad batches before training. Which Glue feature should they add?",
+    "options": [
+      "Glue custom classifiers that only infer file delimiters",
+      "Glue job bookmarks reset on every single run",
+      "AWS Glue Data Quality with rule sets evaluated on the dataset",
+      "Glue DevEndpoints kept running for interactive coding"
+    ],
+    "answer": 2,
+    "explain": "Glue Data Quality runs DQDL rules such as freshness and format checks and can fail or alert on violations. Bookmarks track processed files, classifiers parse formats, and DevEndpoints aid debugging.",
+    "difficulty": "media",
+    "tags": [
+      "glue",
+      "data-quality",
+      "validation"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext10",
+    "chapter": "ch2-data-prep",
+    "q": "A pipeline must transform 20 GB of daily logs with Spark but the team wants no cluster management and automatic scaling. Which compute option is most operationally efficient?",
+    "options": [
+      "Amazon EMR on EC2 with manually resized core nodes",
+      "AWS Glue ETL with serverless Spark and automatic worker scaling",
+      "Self-managed Spark on a fixed fleet of EC2 instances",
+      "Amazon Athena with long-running interactive sessions"
+    ],
+    "answer": 1,
+    "explain": "Glue ETL runs serverless Spark with automatic scaling and pay-per-second billing for batch transforms. EMR on EC2 needs cluster sizing, and Athena is a query engine rather than an ETL runner.",
+    "difficulty": "facile",
+    "tags": [
+      "glue",
+      "etl",
+      "serverless"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext11",
+    "chapter": "ch2-data-prep",
+    "q": "A DataBrew project profiles a customer table and finds skewed age values plus duplicate emails. Which built-in capability helps document these issues for stakeholders?",
+    "options": [
+      "DataBrew CloudTrail digest file validation report",
+      "DataBrew IAM policy simulator for role testing",
+      "DataBrew VPC endpoint policy for network checks",
+      "DataBrew data profile with statistics, distributions, and data lineage view"
+    ],
+    "answer": 3,
+    "explain": "DataBrew profiling generates column statistics, value distributions, and lineage that make quality issues visible. IAM, networking, and CloudTrail options address security rather than data content.",
+    "difficulty": "media",
+    "tags": [
+      "databrew",
+      "profiling",
+      "data-quality"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext12",
+    "chapter": "ch2-data-prep",
+    "q": "A DataBrew recipe must run after each partner CSV upload, then publish results partitioned by date for Athena. How should the team productionize the recipe?",
+    "options": [
+      "Convert the recipe into Kinesis shard autoscaling rules",
+      "Copy each upload by hand into Athena workgroup folders",
+      "Email the recipe JSON to an analyst for manual replay",
+      "Trigger a DataBrew job on S3 events writing partitioned Parquet outputs"
+    ],
+    "answer": 3,
+    "explain": "Event-triggered DataBrew jobs apply the saved recipe to every arrival and write partitioned outputs Athena can query. Manual copies and email replays are slow and error-prone.",
+    "difficulty": "media",
+    "tags": [
+      "databrew",
+      "automation",
+      "parquet"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext13",
+    "chapter": "ch2-data-prep",
+    "q": "Two teams run Athena queries against one data lake and finance needs separate cost tracking plus per-team concurrency limits. Which Athena construct provides this?",
+    "options": [
+      "Separate S3 Transfer Acceleration endpoints",
+      "Separate Glue crawlers with identical schedules",
+      "Separate KMS root keys shared across accounts",
+      "Separate Athena workgroups with limits, tagging, and query controls"
+    ],
+    "answer": 3,
+    "explain": "Workgroups isolate queries by team, enforce limits, and carry cost-allocation tags. Crawlers refresh metadata and KMS or acceleration settings do not partition query billing.",
+    "difficulty": "media",
+    "tags": [
+      "athena",
+      "workgroups",
+      "governance"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext14",
+    "chapter": "ch2-data-prep",
+    "q": "An Athena query joins S3 orders with a live MySQL catalog for a training extract. Which Athena feature enables SQL across both sources in one statement?",
+    "options": [
+      "Athena provisioned capacity reservations",
+      "Athena federated query with a data source connector",
+      "Athena notebook checkpoints stored in S3",
+      "Athena query result reuse for identical SQL"
+    ],
+    "answer": 1,
+    "explain": "Federated query uses Lambda connectors to reach MySQL, Redis, and other sources alongside S3 in one SQL statement. Capacity and result-reuse settings tune performance rather than adding sources.",
+    "difficulty": "difficile",
+    "tags": [
+      "athena",
+      "federated-query",
+      "rds"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext15",
+    "chapter": "ch2-data-prep",
+    "q": "A data scientist runs Terabyte-scale Spark feature jobs only twice a month and wants to avoid managing clusters. Which EMR option fits best?",
+    "options": [
+      "Amazon EMR security groups with open ingress",
+      "Amazon EMR on EC2 with always-on core nodes",
+      "Amazon EMR notebook storage with local disks",
+      "Amazon EMR Serverless with pay-per-vCPU job runs"
+    ],
+    "answer": 3,
+    "explain": "EMR Serverless launches Spark jobs on demand without cluster setup and bills per resource used, ideal for infrequent heavy jobs. Always-on clusters idle between runs and add cost.",
+    "difficulty": "facile",
+    "tags": [
+      "emr",
+      "serverless",
+      "spark"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext16",
+    "chapter": "ch2-data-prep",
+    "q": "An EMR Spark job reads versioned S3 prefixes and needs consistent listing retries when S3 is eventually consistent across writers. Which EMR filesystem feature helps?",
+    "options": [
+      "EMR bootstrap action that disables HDFS entirely",
+      "EMR step concurrency level set to maximum",
+      "EMR Kerberos ticket renewal every few minutes",
+      "EMRFS consistent view backed by DynamoDB metadata tracking"
+    ],
+    "answer": 3,
+    "explain": "EMRFS consistent view tracks S3 listings in DynamoDB so jobs see a consistent namespace during multi-writer workflows. Step concurrency and Kerberos settings do not fix listing consistency.",
+    "difficulty": "difficile",
+    "tags": [
+      "emr",
+      "emrfs",
+      "s3"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext17",
+    "chapter": "ch2-data-prep",
+    "q": "A team cleans data in SageMaker Data Wrangler and needs a custom pandas transformation plus a join with a second dataset before export. Which Data Wrangler capability covers this?",
+    "options": [
+      "Built-in Glue Data Quality rule sets only",
+      "Custom transform step with pandas code and a join step",
+      "Athena CTAS statements run outside the flow",
+      "Kinesis hot-shard rebalancing inside the flow"
+    ],
+    "answer": 1,
+    "explain": "Data Wrangler supports custom pandas transforms and join steps inside the visual flow. Data Quality rules, external CTAS, and shard management live outside the flow canvas.",
+    "difficulty": "media",
+    "tags": [
+      "data-wrangler",
+      "transform",
+      "join"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext18",
+    "chapter": "ch2-data-prep",
+    "q": "A Feature Store feature group holds click features with a 24-hour time-to-live for live lookup. What happens to expired records in the online store?",
+    "options": [
+      "They are duplicated into the offline store with new timestamps",
+      "They are held in memory until the next training job",
+      "They expire and are removed from low-latency online reads",
+      "They are converted into Athena materialized views"
+    ],
+    "answer": 2,
+    "explain": "Online store TTL drops stale records from real-time lookups while history stays in the offline store. Expiry does not create views or pin records in memory.",
+    "difficulty": "difficile",
+    "tags": [
+      "feature-store",
+      "ttl",
+      "online"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext19",
+    "chapter": "ch2-data-prep",
+    "q": "Multiple teams must discover and reuse curated ML features with schema, owner, and description metadata. Which Feature Store concept enables this sharing?",
+    "options": [
+      "Feature groups with a shared catalog of feature definitions",
+      "Kinesis enhanced fan-out consumers per team",
+      "Athena private endpoints per analyst laptop",
+      "Glue bookmark encryption keys per job run"
+    ],
+    "answer": 0,
+    "explain": "Feature groups register features with metadata in one catalog so teams can find and reuse them. Streaming consumers and private endpoints do not publish feature definitions.",
+    "difficulty": "facile",
+    "tags": [
+      "feature-store",
+      "feature-groups",
+      "sharing"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext20",
+    "chapter": "ch2-data-prep",
+    "q": "A project needs 50,000 product images labeled with bounding boxes for an object-detection model, with human review of low-confidence labels. Which service should they use?",
+    "options": [
+      "Amazon SageMaker Ground Truth with a private workforce plus review",
+      "Amazon Textract with automatic table extraction only",
+      "Amazon Comprehend with syntax analysis jobs",
+      "AWS Glue FindMatches with ML Transforms"
+    ],
+    "answer": 0,
+    "explain": "Ground Truth orchestrates human labeling workflows with bounding-box tools and verification steps. Textract and Comprehend extract text or NLP signals, and FindMatches deduplicates records.",
+    "difficulty": "facile",
+    "tags": [
+      "ground-truth",
+      "labeling",
+      "human-in-loop"
+    ],
+    "source": "Adattata da Whizlabs (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext21",
+    "chapter": "ch2-data-prep",
+    "q": "A dataset contains free-text support tickets with names, emails, and phone numbers. Before training, the team must locate PII to mask it. Which service detects these entities at scale?",
+    "options": [
+      "Amazon Macie scanning S3 buckets for sensitive data patterns",
+      "Amazon Athena engine version upgrades",
+      "Amazon EMR ganglia metrics collection",
+      "AWS Glue Python shell job timeouts"
+    ],
+    "answer": 0,
+    "explain": "Macie uses ML to find PII and credentials in S3 at scale and reports findings for masking. Engine upgrades, Ganglia metrics, and shell timeouts do not detect sensitive entities.",
+    "difficulty": "media",
+    "tags": [
+      "macie",
+      "pii",
+      "privacy"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext22",
+    "chapter": "ch2-data-prep",
+    "q": "A hospital builds a model on patient notes and must encrypt curated S3 prefixes with per-project keys plus audit every access. Which design meets the requirement?",
+    "options": [
+      "SSE-KMS with customer managed keys and CloudTrail data-event logging",
+      "SSE-S3 with default keys and public bucket policies",
+      "Client-side gzip compression without any encryption",
+      "S3 Transfer Acceleration with signed browser URLs"
+    ],
+    "answer": 0,
+    "explain": "SSE-KMS with customer managed keys gives per-project control and CloudTrail logs access for audits. Default SSE-S3 keys, plain compression, and acceleration lack key scoping or audit trails.",
+    "difficulty": "difficile",
+    "tags": [
+      "s3",
+      "kms",
+      "security"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext23",
+    "chapter": "ch2-data-prep",
+    "q": "A text classifier consumes support tickets of very different lengths. Which preprocessing step lets mini-batch training handle variable sequences efficiently?",
+    "options": [
+      "Tokenize text and pad or truncate sequences to a fixed length",
+      "Sort tickets alphabetically before every training epoch",
+      "Convert each ticket into a small thumbnail image",
+      "Drop all tickets shorter than the median length"
+    ],
+    "answer": 0,
+    "explain": "Tokenization plus padding or truncation produces uniform tensors for batching without discarding most data. Alphabetical sorting, image conversion, and dropping short tickets waste signal.",
+    "difficulty": "media",
+    "tags": [
+      "nlp",
+      "tokenization",
+      "preprocessing"
+    ],
+    "source": "Adattata da ExamTopics (MLA-C01)",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext24",
+    "chapter": "ch2-data-prep",
+    "q": "An image model overfits because training photos come from one camera angle. Which augmentation approach improves generalization?",
+    "options": [
+      "Random rotations, crops, flips, and brightness shifts at train time",
+      "Resizing every image to a single fixed thumbnail once",
+      "Removing all color channels from the dataset copy",
+      "Training only on the sharpest ten percent of images"
+    ],
+    "answer": 0,
+    "explain": "Random geometric and color augmentations expose the model to varied views and reduce angle dependence. Fixed resizing, channel removal, and aggressive filtering shrink diversity instead.",
+    "difficulty": "difficile",
+    "tags": [
+      "images",
+      "augmentation",
+      "preprocessing"
+    ],
+    "source": "Adattata da Udemy – practice test MLA-C01",
+    "origin": "esterna"
+  },
+  {
+    "id": "ch2-ext25",
+    "chapter": "ch2-data-prep",
+    "q": "A demand model uses hourly sales and needs rolling averages plus lag features without leaking future values. How should the team build these time features?",
+    "options": [
+      "Compute rolling windows strictly from past observations per timestamp",
+      "Average each row with the next seven days of sales",
+      "Shuffle timestamps randomly before computing rolling means",
+      "Copy future promotion flags into every historical row"
+    ],
+    "answer": 0,
+    "explain": "Causal windows use only data available at each timestamp, so no future information leaks. Forward-looking averages, shuffling, and copying future flags all leak the target period.",
+    "difficulty": "difficile",
+    "tags": [
+      "time-series",
+      "feature-engineering",
+      "leakage"
+    ],
+    "source": "Adattata da TutorialsDojo (MLA-C01)",
+    "origin": "esterna"
   }
 ]
