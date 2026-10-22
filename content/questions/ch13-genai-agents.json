@@ -621,7 +621,7 @@
       "It can be shortened to a one-month term at no cost, which lets the team stop paying sooner than the original contract allows"
     ],
     "answer": 1,
-    "explain": "A committed Provisioned Throughput cannot be deleted before the term ends, and billing continues until deletion. Custom models need Provisioned Throughput, so this is the case the team faces.",
+    "explain": "A committed Provisioned Throughput cannot be deleted before its term ends, and billing continues until it is deleted. A six-month commitment therefore keeps costing money after the team stops needing it.",
     "difficulty": "difficile",
     "tags": [
       "provisioned-throughput",
@@ -974,7 +974,7 @@
       "fine-tuning",
       "model-versioning"
     ],
-    "source": "AWS docs: Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock",
+    "source": "AWS docs: Accelerate generative AI development using managed MLflow on Amazon SageMaker AI",
     "origin": "ai",
     "domain": "3",
     "task": "3.3",
@@ -1293,11 +1293,11 @@
     "options": [
       "The number of EC2 instances used by the agent frontend",
       "The Bedrock monthly invoice, read once a quarter and divided by the number of users",
-      "AgentCore Observability token usage metrics, grouped by session and metadata tags",
+      "AgentCore Observability session metrics, including token usage per session",
       "The S3 storage class of the agent's knowledge base"
     ],
     "answer": 2,
-    "explain": "AgentCore Observability reports token usage by session, and metadata tags let you group by cohort. The other sources are too coarse, or measure unrelated resources.",
+    "explain": "AgentCore Observability provides session-level metrics that include token usage. The other sources are too coarse for per-session analysis or measure unrelated resources.",
     "difficulty": "media",
     "tags": [
       "agent-consumption",
@@ -1559,7 +1559,7 @@
       1,
       2
     ],
-    "explain": "The integration supports semantic search only, with limits of 1 KB of custom metadata and 35 keys per vector. Binary embeddings are not supported, and no cluster provisioning is required.",
+    "explain": "The integration supports semantic search only, with limits of 1 KB of custom metadata and 35 keys per vector. It accepts floating-point vectors only, so binary embeddings are not supported.",
     "difficulty": "media",
     "tags": [
       "s3-vectors",
@@ -1871,7 +1871,7 @@
       "fine-tuning",
       "pipeline"
     ],
-    "source": "AWS docs: Purchase a Provisioned Throughput for an Amazon Bedrock model",
+    "source": "AWS docs: Accelerate generative AI development using managed MLflow on Amazon SageMaker AI",
     "origin": "ai",
     "domain": "3",
     "task": "3.3",
@@ -1912,6 +1912,66 @@
     ],
     "todo": [
       "G-4.3.8"
+    ]
+  },
+  {
+    "id": "ch13-q066",
+    "chapter": "ch13-genai-agents",
+    "q": "A team hosts three GPU models on one SageMaker AI endpoint. Each model needs its own CPU cores, accelerators, and minimum memory, and each must scale on its own, including down to zero copies. Which SageMaker AI construct meets this need?",
+    "options": [
+      "Inference components, one per model, each with its own compute requirements and copy count",
+      "A separate endpoint per model with a fixed instance count that never changes",
+      "Production variants with traffic weights, which split requests between versions of the same model",
+      "Batch transform jobs that run each model on a schedule and write results to Amazon S3"
+    ],
+    "answer": 0,
+    "explain": "Inference components assign compute resources to each model on a shared endpoint and scale each copy count independently. Separate endpoints with fixed counts cannot scale to zero per model, production variants split traffic between versions, and batch transform is offline.",
+    "difficulty": "media",
+    "tags": [
+      "inference-components",
+      "gpu-scaling"
+    ],
+    "source": "AWS docs: Deploy models for real-time inference - Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.10"
+    ]
+  },
+  {
+    "id": "ch13-q067",
+    "chapter": "ch13-genai-agents",
+    "q": "A GPU model is hosted through inference components on a SageMaker AI endpoint, and the team wants to scale the endpoint to zero instances when idle. Which TWO statements about this setup are correct? (Select TWO.)",
+    "options": [
+      "The endpoint must host inference components, and managed instance scaling must allow a minimum of zero instances",
+      "Any endpoint can scale to zero, even one that hosts a single model without an inference component",
+      "Scaling back out from zero uses a step scaling policy triggered by a CloudWatch alarm on NoCapacityInvocationFailures",
+      "Requests sent while the endpoint is at zero are queued and served without delay once the endpoint wakes up",
+      "Scale to zero is triggered only by a CPU utilization alarm on the endpoint instances"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "Scale to zero needs inference components and a minimum of zero instances, and the scale-out path uses a step scaling policy on the NoCapacityInvocationFailures metric. Requests during provisioning fail, and CPU alarms are not the trigger the documentation describes.",
+    "difficulty": "difficile",
+    "tags": [
+      "inference-components",
+      "scale-to-zero"
+    ],
+    "source": "AWS docs: Scale an endpoint to zero instances - Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.10"
     ]
   }
 ]
