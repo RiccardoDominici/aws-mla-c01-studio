@@ -1606,10 +1606,10 @@
     "chapter": "ch14-ai-services",
     "q": "A news site wants to show trending articles to readers who have little interaction history. Which recipe type fits?",
     "options": [
-      "RELATED_ITEMS",
+      "RELATED_ITEMS, which suggests articles similar to one article the reader selected",
       "POPULAR_ITEMS, with the Trending-Now or Popularity-Count recipe",
-      "PERSONALIZED_RANKING, to re-order the articles for each reader",
-      "USER_SEGMENTATION, to group readers into segments"
+      "PERSONALIZED_RANKING, which re-orders a list of articles that the site already supplies",
+      "USER_SEGMENTATION, which groups readers into segments through a batch job"
     ],
     "answer": 1,
     "explain": "POPULAR_ITEMS recipes recommend trending or popular items, which suits readers with little history. RELATED_ITEMS would suggest similar articles rather than trending ones.",
@@ -1635,10 +1635,10 @@
     "chapter": "ch14-ai-services",
     "q": "A retailer wants to re-rank the results of a search page for each user. Which recipe type and API fit?",
     "options": [
-      "USER_PERSONALIZATION",
-      "POPULAR_ITEMS, called through CreateBatchSegmentJob for the search results",
+      "USER_PERSONALIZATION, called through GetRecommendations, which returns its own recommendations",
+      "POPULAR_ITEMS, called through GetRecommendations, which returns the most popular items",
       "PERSONALIZED_RANKING, called through GetPersonalizedRanking with the list of item IDs",
-      "RELATED_ITEMS, called through GetRecommendations with an item ID"
+      "RELATED_ITEMS, called through GetRecommendations with an item ID, which returns similar items"
     ],
     "answer": 2,
     "explain": "PERSONALIZED_RANKING re-orders a supplied list of items for a user through GetPersonalizedRanking. USER_PERSONALIZATION is the closest distractor, but it returns its own recommendations, not a re-ranked list.",
