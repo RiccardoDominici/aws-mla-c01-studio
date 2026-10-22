@@ -1,0 +1,2388 @@
+[
+  {
+    "id": "ch9-q001",
+    "chapter": "ch9-training-advanced",
+    "q": "A logistics company wants to predict whether each shipment will be late, using a 200-column tabular dataset stored in Amazon S3. The team has little ML engineering capacity. Which approach requires the LEAST operational overhead?",
+    "options": [
+      "Convert each shipment row into a synthetic image and train an image classification model to recognize the late deliveries from those pictures",
+      "Use DeepAR, because late deliveries are recorded over time, and maintain a separate forecasting pipeline for every route in the network",
+      "Build a custom Transformer model from scratch in PyTorch, run hyperparameter sweeps on GPU instances, and maintain the training containers yourself for every retraining cycle",
+      "Use the built-in XGBoost algorithm on the tabular data in S3 with a managed training job, without writing a custom training container or model code"
+    ],
+    "answer": 3,
+    "explain": "XGBoost is the built-in algorithm for tabular classification and regression, so no custom container or model code is needed. The distractors add custom training or use algorithms built for images or time series.",
+    "difficulty": "facile",
+    "tags": [
+      "algorithm-choice",
+      "xgboost",
+      "least-overhead"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K4",
+      "C13"
+    ]
+  },
+  {
+    "id": "ch9-q002",
+    "chapter": "ch9-training-advanced",
+    "q": "A factory collects vibration readings from 500 sensors. Labeled failure examples do not exist, and the team wants to flag unusual readings in near real time. Which built-in algorithm fits best?",
+    "options": [
+      "Object2Vec, which learns embeddings from pairs of related records and then compares each new reading with its nearest neighbor in the embedding space",
+      "K-Means with K equal to the number of sensors, so that each sensor forms its own cluster that is then checked for drift over the following weeks",
+      "Random Cut Forest, which detects anomalies in unlabeled numeric data and therefore does not require failure labels to learn what normal readings look like",
+      "Linear Learner trained on a binary label column that marks each reading as a failure, using the default regression loss function for the training run"
+    ],
+    "answer": 2,
+    "explain": "Random Cut Forest is an unsupervised anomaly detector for numeric data. Linear Learner needs labels, while K-Means and Object2Vec are not anomaly detectors.",
+    "difficulty": "media",
+    "tags": [
+      "anomaly-detection",
+      "random-cut-forest"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K4",
+      "C13"
+    ]
+  },
+  {
+    "id": "ch9-q003",
+    "chapter": "ch9-training-advanced",
+    "q": "A retailer wants to group customers by purchasing behavior. No segment labels exist, and the marketing team needs a grouping that can be repeated each month. Which built-in algorithm should the ML engineer choose?",
+    "options": [
+      "Factorization Machines, which model interactions between customer and product features stored in a sparse matrix of purchase events over time",
+      "Random Cut Forest, which scores each customer for how far that customer is from the typical purchasing behavior observed in the whole dataset",
+      "XGBoost, trained with the customer spending column as the target value so that it can predict the segment of each customer in the next month",
+      "K-Means, which assigns each customer to one of K clusters based on the similarity of their purchasing features in the monthly dataset"
+    ],
+    "answer": 3,
+    "explain": "K-Means is the unsupervised clustering algorithm for grouping similar records when no labels exist. The other options are supervised or anomaly algorithms.",
+    "difficulty": "facile",
+    "tags": [
+      "clustering",
+      "k-means"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K4"
+    ]
+  },
+  {
+    "id": "ch9-q004",
+    "chapter": "ch9-training-advanced",
+    "q": "A research team has 200,000 unlabeled support documents and wants to discover the main topics without defining them in advance. Which TWO built-in SageMaker algorithms address this topic modeling need? (Select TWO.)",
+    "options": [
+      "Latent Dirichlet Allocation (LDA), an unsupervised algorithm that discovers topics in a set of documents without labeled examples",
+      "Image Classification with MXNet, which assigns a single category to each document after converting the page into an image",
+      "Sequence-to-Sequence, which is designed to translate each document into a second language and produce a translated version of the text",
+      "BlazingText in classification mode, which needs predefined category labels for every document before it can learn to assign topics",
+      "Neural Topic Model (NTM), an unsupervised topic modeling algorithm that uses a neural network to discover topics in a document corpus"
+    ],
+    "answer": [
+      0,
+      4
+    ],
+    "explain": "LDA and NTM are the unsupervised topic modeling algorithms. BlazingText needs labels, Sequence-to-Sequence translates text, and Image Classification works on images.",
+    "difficulty": "media",
+    "tags": [
+      "topic-modeling",
+      "lda",
+      "ntm"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K4",
+      "C13"
+    ]
+  },
+  {
+    "id": "ch9-q005",
+    "chapter": "ch9-training-advanced",
+    "q": "A company must forecast daily demand for 20,000 products. Each product has three years of sales history, and many products share seasonal patterns. Which built-in algorithm is the best fit?",
+    "options": [
+      "Linear Learner, trained separately on the sales history of each product, so that the company maintains one model per product",
+      "DeepAR, a supervised forecasting algorithm based on recurrent neural networks that learns jointly from many related time series",
+      "PCA, to reduce the sales history of every product to a few components before fitting a separate forecasting model for each one",
+      "K-Means, to cluster products by their sales level and then forecast the average demand of each cluster for the coming weeks"
+    ],
+    "answer": 1,
+    "explain": "DeepAR is the built-in forecasting algorithm for scalar time series and learns from many related series together, which suits shared seasonality.",
+    "difficulty": "media",
+    "tags": [
+      "forecasting",
+      "deepar"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K4",
+      "C13"
+    ]
+  },
+  {
+    "id": "ch9-q006",
+    "chapter": "ch9-training-advanced",
+    "q": "A media company needs to translate subtitles from English to Italian using a built-in SageMaker algorithm. Which algorithm should it choose?",
+    "options": [
+      "LDA, which discovers topics in the subtitles and then groups the subtitles into clusters according to their dominant language",
+      "Sequence-to-Sequence, a supervised algorithm that is commonly used for neural machine translation between languages in text data",
+      "BlazingText, because its word embeddings map English words to Italian words that share the same meaning in the target language",
+      "IP Insights, which learns usage patterns between text fragments and the user accounts that produced them in the subtitle system"
+    ],
+    "answer": 1,
+    "explain": "Sequence-to-Sequence is the built-in supervised algorithm for neural machine translation. BlazingText does word embeddings and text classification, not translation.",
+    "difficulty": "facile",
+    "tags": [
+      "translation",
+      "seq2seq"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K4",
+      "C13"
+    ]
+  },
+  {
+    "id": "ch9-q007",
+    "chapter": "ch9-training-advanced",
+    "q": "A bank wants to flag login attempts in which an IPv4 address is unusual for the account being accessed. Labeled fraud examples are rare. Which built-in algorithm fits best?",
+    "options": [
+      "Random Cut Forest applied to the raw IP address string, treated as a numeric value, so that outliers in the address space are flagged",
+      "Factorization Machines trained on a binary fraud label derived from past chargebacks that the bank recorded for the same accounts",
+      "IP Insights, which learns associations between IPv4 addresses and account identifiers from usage data and flags unlikely combinations",
+      "K-Means clustering of the IP addresses into twelve regional clusters with fixed centroids that the security team defined in advance"
+    ],
+    "answer": 2,
+    "explain": "IP Insights is the built-in algorithm for learning IPv4 usage patterns and their associations with entities such as account IDs.",
+    "difficulty": "media",
+    "tags": [
+      "ip-insights",
+      "anomaly"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K4",
+      "C13"
+    ]
+  },
+  {
+    "id": "ch9-q008",
+    "chapter": "ch9-training-advanced",
+    "q": "A manufacturer must identify the exact pixels covered by scratches on metal parts in camera images. Which built-in SageMaker algorithm is designed for this task?",
+    "options": [
+      "Object Detection, which draws one bounding box around each defect in the image and assigns a class label to every box it produces",
+      "Semantic Segmentation, which assigns a class to every pixel of the image so that the exact shape of each scratch is recovered",
+      "Image Classification, which labels each image with a single defect category so that the whole picture receives one class label",
+      "Random Cut Forest, which flags images whose pixel statistics are unusual compared with the statistics of the images in the training set"
+    ],
+    "answer": 1,
+    "explain": "Semantic Segmentation is the pixel-level computer vision algorithm. Image classification labels whole images, and object detection uses bounding boxes.",
+    "difficulty": "media",
+    "tags": [
+      "semantic-segmentation",
+      "vision"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K4",
+      "C13"
+    ]
+  },
+  {
+    "id": "ch9-q009",
+    "chapter": "ch9-training-advanced",
+    "q": "Which THREE of the following are built-in SageMaker algorithms designed for tabular data? (Select THREE.)",
+    "options": [
+      "Amazon Comprehend, a managed natural language service that extracts entities and sentiment from text documents in many languages",
+      "XGBoost, an implementation of gradient boosted trees for tabular classification and regression problems",
+      "LightGBM, a gradient boosting implementation that uses GOSS and EFB to scale efficiently on tabular datasets",
+      "CatBoost, a gradient boosting implementation with ordered boosting and native handling of categorical features",
+      "Amazon Rekognition, a managed AI service that analyzes faces, objects and text found in the images that customers upload",
+      "BlazingText, an optimized implementation of Word2vec and text classification designed for large text corpora"
+    ],
+    "answer": [
+      1,
+      2,
+      3
+    ],
+    "explain": "XGBoost, LightGBM and CatBoost are built-in tabular algorithms. Rekognition and Comprehend are managed AI services, and BlazingText is for text.",
+    "difficulty": "facile",
+    "tags": [
+      "tabular",
+      "built-in"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K4",
+      "C13"
+    ]
+  },
+  {
+    "id": "ch9-q010",
+    "chapter": "ch9-training-advanced",
+    "q": "A startup has 300 labeled examples, a vague business goal, and a monthly budget of 500 USD. Which TWO actions should it take first? (Select TWO.)",
+    "options": [
+      "Choose the most accurate model regardless of hosting cost, and optimize the monthly price only after the model is deployed to production",
+      "Collect ten times more data before writing any evaluation metric, so that the dataset is large enough to justify a later comparison step",
+      "Define the business metric and the decision the model will support, and check that the labels are reliable before any training starts",
+      "Train a simple baseline, such as a linear model, and compare its accuracy and cost with the cost of a larger model before choosing one",
+      "Start with the largest deep learning model that the budget allows, so that the team can see the best accuracy achievable on this dataset"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "Feasibility depends first on a clear metric and reliable labels, and a baseline shows what extra complexity buys. Starting big or ignoring cost are the classic mistakes.",
+    "difficulty": "media",
+    "tags": [
+      "feasibility",
+      "baseline"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1S1",
+      "K-2.1S4"
+    ]
+  },
+  {
+    "id": "ch9-q011",
+    "chapter": "ch9-training-advanced",
+    "q": "A churn project has only 40 labeled customers. Which conclusion about feasibility is most accurate?",
+    "options": [
+      "Forty labeled examples are enough for any supervised algorithm, provided that the training job runs on GPU instances with enough memory",
+      "The project is feasible with a deep network, because any dataset size becomes sufficient when the architecture has enough layers and parameters to learn the patterns",
+      "Probably not ready for a complex model: forty labels are too few, so the team should validate the labels and build a baseline first",
+      "Feasibility depends only on the cloud budget, so the size of the labeled dataset can be ignored when the team takes the decision"
+    ],
+    "answer": 2,
+    "explain": "Feasibility checks data volume, label quality and a baseline before model complexity. Forty labels cannot support a complex supervised model.",
+    "difficulty": "media",
+    "tags": [
+      "feasibility",
+      "data-volume"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1S1"
+    ]
+  },
+  {
+    "id": "ch9-q012",
+    "chapter": "ch9-training-advanced",
+    "q": "Two models have accuracy within half a point of each other. One costs three times more to train and host. The business agreed that small accuracy gaps are acceptable. Which model should the engineer prefer?",
+    "options": [
+      "A model chosen only after deployment, by comparing the bill for the first month of production traffic against the accuracy of both candidates",
+      "The more expensive model, since a higher accuracy number always justifies the extra spend on training, hosting and monitoring over time",
+      "Whichever model finishes first in the training queue, because cost comparison is not part of model selection in a production project at all",
+      "The cheaper model, because the accuracy gap is within the agreed tolerance and the cost constraint was stated explicitly by the business team"
+    ],
+    "answer": 3,
+    "explain": "When the accuracy gap is inside the agreed tolerance, the stated cost constraint decides. Cost is a selection criterion, not an afterthought.",
+    "difficulty": "media",
+    "tags": [
+      "cost",
+      "selection"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1S4"
+    ]
+  },
+  {
+    "id": "ch9-q013",
+    "chapter": "ch9-training-advanced",
+    "q": "A credit team must explain each individual loan decision to auditors after training. Which approach should it use?",
+    "options": [
+      "Choose the algorithm with the most parameters, because larger models are easier to explain to auditors than simpler models",
+      "Compute SHAP values for each prediction, which attribute the output of that prediction to the input features of the applicant",
+      "Use only the overall accuracy score, since a high accuracy shows that the model treats each applicant in a fair and explainable way",
+      "Remove all sensitive features and then assume that every decision is explainable by design, without any further analysis after training"
+    ],
+    "answer": 1,
+    "explain": "SHAP values attribute each individual prediction to its features, which is what per-decision explanations require.",
+    "difficulty": "difficile",
+    "tags": [
+      "explainability",
+      "shap"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Feature Attributions that Use Shapley Values",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K3",
+      "K-2.3S5"
+    ]
+  },
+  {
+    "id": "ch9-q014",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO statements about interpretability in model development are correct? (Select TWO.)",
+    "options": [
+      "Deep networks always produce more interpretable results than linear models, so interpretability favors the most complex architecture",
+      "Explainability analysis such as SHAP is typically run after training, on the predictions of the trained model",
+      "SHAP values can only be computed during real-time inference, never on a training set or a validation set of records",
+      "SageMaker automatically chooses the most interpretable algorithm whenever a built-in algorithm is selected for a training job",
+      "Interpretability requirements should be stated before choosing the algorithm, then verified with explainability tools after training"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "Interpretability is a requirement set before selection and checked after training with explainability tools. No built-in step picks an interpretable algorithm for you.",
+    "difficulty": "difficile",
+    "tags": [
+      "interpretability",
+      "explainability"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Feature Attributions that Use Shapley Values",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K3",
+      "K-2.3S5"
+    ]
+  },
+  {
+    "id": "ch9-q015",
+    "chapter": "ch9-training-advanced",
+    "q": "A training dataset has 50,000 records and the batch size is 500. How many iterations, or steps, make up one epoch?",
+    "options": [
+      "500",
+      "100",
+      "10",
+      "1000"
+    ],
+    "answer": 1,
+    "explain": "One epoch is a full pass over the dataset. With 50,000 records and a batch of 500, one epoch takes 50,000 divided by 500, that is 100 iterations.",
+    "difficulty": "facile",
+    "tags": [
+      "epoch",
+      "batch-size"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Distributed training in Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K1"
+    ]
+  },
+  {
+    "id": "ch9-q016",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO statements about mini-batch training are correct? (Select TWO.)",
+    "options": [
+      "One epoch is a full pass over the training dataset, and it usually contains many iterations over different mini-batches",
+      "Increasing the batch size always reduces the number of epochs needed for convergence, so a larger batch is always the better choice",
+      "The batch size is measured in epochs, so the team sets it once for the whole run and it cannot be changed during training",
+      "The learning rate is the number of records processed in each mini-batch, so it is the same quantity as the batch size",
+      "One iteration performs a forward pass and a backward pass on a single mini-batch, then updates the weights with the gradient"
+    ],
+    "answer": [
+      0,
+      4
+    ],
+    "explain": "An epoch is a full pass, an iteration handles one mini-batch. Batch size is a number of records, and learning rate is a step size.",
+    "difficulty": "media",
+    "tags": [
+      "epoch",
+      "iteration",
+      "mini-batch"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Distributed training in Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K1"
+    ]
+  },
+  {
+    "id": "ch9-q017",
+    "chapter": "ch9-training-advanced",
+    "q": "Under the Linear Learner defaults, how many epochs without improvement does early stopping wait before it ends training?",
+    "options": [
+      "15",
+      "3",
+      "100",
+      "1"
+    ],
+    "answer": 1,
+    "explain": "The early_stopping_patience hyperparameter defaults to 3. The value 15 is the default maximum number of epochs, not the patience.",
+    "difficulty": "facile",
+    "tags": [
+      "early-stopping",
+      "linear-learner"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Linear Learner hyperparameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K2"
+    ]
+  },
+  {
+    "id": "ch9-q018",
+    "chapter": "ch9-training-advanced",
+    "q": "A team trains a large language model across eight instances, but throughput stopped improving after the fourth instance. Which change is the best next step?",
+    "options": [
+      "Disable early stopping, so that every replica completes all scheduled epochs before the gradients are synchronized across the cluster",
+      "Switch to a single larger instance, since more machines always increase the communication overhead between the training nodes",
+      "Add more epochs and a larger learning rate, so that each instance processes more batches in parallel before synchronizing",
+      "Use the SageMaker distributed data parallelism library, which optimizes AllReduce and AllGather communication for AWS infrastructure"
+    ],
+    "answer": 3,
+    "explain": "Scaling out is limited by gradient synchronization, and the SageMaker data parallelism library optimizes the collective operations for the AWS network.",
+    "difficulty": "media",
+    "tags": [
+      "distributed-training",
+      "smddp"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Distributed data parallelism library",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K2"
+    ]
+  },
+  {
+    "id": "ch9-q019",
+    "chapter": "ch9-training-advanced",
+    "q": "A transformer model is too large to fit in the memory of one GPU. Which distributed training strategy is needed?",
+    "options": [
+      "Early stopping, which shortens the training run once the validation loss stops improving for a number of consecutive epochs",
+      "Data parallelism, which copies the full model onto every GPU and splits only the training records among the devices in the cluster",
+      "Managed warm pools, which keep the training instances provisioned between jobs so that the next run starts without a cold start",
+      "Model parallelism, which partitions the model across several devices so that no single device has to hold the whole model in memory"
+    ],
+    "answer": 3,
+    "explain": "Model parallelism splits the model itself. Data parallelism needs the full model on each device, which is exactly what does not fit.",
+    "difficulty": "media",
+    "tags": [
+      "model-parallelism"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Distributed training in Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K2"
+    ]
+  },
+  {
+    "id": "ch9-q020",
+    "chapter": "ch9-training-advanced",
+    "q": "An XGBoost model fits the training data almost perfectly but performs poorly on validation data. Which TWO changes are most likely to reduce overfitting? (Select TWO.)",
+    "options": [
+      "Raise eta to 1.0 so that the model learns faster from each boosting round and reaches a better fit with fewer rounds overall",
+      "Lower max_depth so that each tree is simpler and cannot memorize the training records as easily as a deeper tree would",
+      "Set max_depth to 0, which removes the depth limit, so that every tree can use all the structure present in the training records",
+      "Increase lambda, the L2 regularization term, which makes the model more conservative when it updates the leaf weights",
+      "Set subsample to 1, so that every tree sees all the training records and no rows are left out of the sample for each round"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "Shallower trees and a stronger L2 penalty both make XGBoost more conservative. Removing the depth limit or raising eta moves the model toward overfitting.",
+    "difficulty": "difficile",
+    "tags": [
+      "xgboost",
+      "overfitting",
+      "regularization"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — XGBoost hyperparameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K7",
+      "K-2.2K5"
+    ]
+  },
+  {
+    "id": "ch9-q021",
+    "chapter": "ch9-training-advanced",
+    "q": "In XGBoost, eta is reduced while the number of rounds stays the same. What is the most likely consequence for the model?",
+    "options": [
+      "The model overfits faster, because each boosting round changes the weights more aggressively and so reduces the generalization of the result",
+      "The number of trees is doubled automatically by the training job, which adjusts the rounds to keep the total training time the same",
+      "The model becomes more conservative at each step, so it usually needs more boosting rounds to reach the same level of fit on the data",
+      "The model stops using the validation set during early stopping, because a smaller step makes the validation metric unreliable for the decision"
+    ],
+    "answer": 2,
+    "explain": "eta shrinks each boosting step. A smaller step is more conservative and typically needs more rounds to fit the same training signal.",
+    "difficulty": "media",
+    "tags": [
+      "xgboost",
+      "eta"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — XGBoost hyperparameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K7"
+    ]
+  },
+  {
+    "id": "ch9-q022",
+    "chapter": "ch9-training-advanced",
+    "q": "A deep network underfits: training and validation losses are both high. Which change is most likely to help, and what should the team monitor afterwards?",
+    "options": [
+      "Add layers or neurons per layer, then watch the validation loss for signs of overfitting as the capacity of the network grows",
+      "Reduce the training set to a small sample, so that the optimizer converges faster on a simpler pattern and the loss stabilizes early",
+      "Set dropout to 0.9 so that the network keeps only a few active units during training, which forces it to learn a simpler pattern",
+      "Remove the validation set, since underfitting cannot be measured on held-out data and the validation loss adds noise to the decision"
+    ],
+    "answer": 0,
+    "explain": "Underfitting means too little capacity, so more layers or neurons help. Watching validation loss shows when the extra capacity starts to overfit.",
+    "difficulty": "difficile",
+    "tags": [
+      "underfitting",
+      "capacity"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — XGBoost hyperparameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K7"
+    ]
+  },
+  {
+    "id": "ch9-q023",
+    "chapter": "ch9-training-advanced",
+    "q": "Which regularization penalty can set some model coefficients exactly to zero, which performs feature selection?",
+    "options": [
+      "Batch normalization",
+      "Dropout",
+      "L2 penalty",
+      "L1 penalty"
+    ],
+    "answer": 3,
+    "explain": "The L1 penalty drives some coefficients to exactly zero, as in Lasso. L2 shrinks them without zeroing them, and dropout and batch normalization are not coefficient penalties.",
+    "difficulty": "facile",
+    "tags": [
+      "l1",
+      "l2",
+      "lasso"
+    ],
+    "source": "scikit-learn User Guide — Linear models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K5"
+    ]
+  },
+  {
+    "id": "ch9-q024",
+    "chapter": "ch9-training-advanced",
+    "q": "An engineer wants L2 regularization on a Linear Learner model. Which hyperparameter should be changed?",
+    "options": [
+      "epochs",
+      "wd",
+      "mini_batch_size",
+      "l1"
+    ],
+    "answer": 1,
+    "explain": "wd is the weight decay parameter, also known as the L2 regularization parameter. l1 is the L1 term, and epochs and mini_batch_size control the training loop.",
+    "difficulty": "media",
+    "tags": [
+      "linear-learner",
+      "weight-decay"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Linear Learner hyperparameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K5"
+    ]
+  },
+  {
+    "id": "ch9-q025",
+    "chapter": "ch9-training-advanced",
+    "q": "During model inference, what does a dropout layer do to the activations of the network?",
+    "options": [
+      "It passes the input through unchanged, because dropout is inactive in evaluation mode and only applies during training",
+      "It doubles the values of randomly selected neurons so that the output is produced faster by the inference engine",
+      "It randomly zeroes a fraction of the activations on every forward pass, so that the output changes between two identical requests",
+      "It removes whole layers from the network for each request, which makes the inference path shorter and cheaper to compute"
+    ],
+    "answer": 0,
+    "explain": "Dropout is active only in training. In evaluation the module is an identity function, so inference is deterministic.",
+    "difficulty": "media",
+    "tags": [
+      "dropout",
+      "inference"
+    ],
+    "source": "PyTorch docs: torch.nn.Dropout",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K5"
+    ]
+  },
+  {
+    "id": "ch9-q026",
+    "chapter": "ch9-training-advanced",
+    "q": "Which THREE of the following are regularization techniques? (Select THREE.)",
+    "options": [
+      "L1 penalty on the model weights, which can drive some of them exactly to zero",
+      "Min-max normalization of the input features, which rescales each numeric column into a fixed range before training",
+      "Dropout during training, which randomly removes activations with a given probability",
+      "Learning rate warmup, which increases the step size gradually at the beginning of the training run",
+      "Increasing the number of epochs, which gives the optimizer more passes over the training dataset",
+      "Weight decay, which shrinks the weights at each update through an L2 penalty"
+    ],
+    "answer": [
+      0,
+      2,
+      5
+    ],
+    "explain": "L1, dropout and weight decay constrain the model. Normalization, warmup and more epochs are training choices, not regularization.",
+    "difficulty": "media",
+    "tags": [
+      "regularization"
+    ],
+    "source": "scikit-learn User Guide — Linear models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K5"
+    ]
+  },
+  {
+    "id": "ch9-q027",
+    "chapter": "ch9-training-advanced",
+    "q": "A pretrained model is fine-tuned only on new domain data and then loses performance on its original tasks. Which mitigation is most appropriate?",
+    "options": [
+      "Continue fine-tuning on the new data for many more epochs, since extra training passes usually restore the skills the model lost",
+      "Increase the learning rate, so that the new task overwrites the old one more quickly and the model converges on the new domain sooner",
+      "Mix representative examples of the original tasks into the fine-tuning data, so that the model keeps the earlier behavior while it learns the new domain",
+      "Remove dropout from the architecture, since dropout interferes with the knowledge stored in the pretrained weights during fine-tuning"
+    ],
+    "answer": 2,
+    "explain": "Replaying examples of the old tasks counters catastrophic forgetting. More epochs, a higher learning rate or removing dropout make the forgetting worse or do not address it.",
+    "difficulty": "difficile",
+    "tags": [
+      "catastrophic-forgetting",
+      "fine-tuning"
+    ],
+    "source": "PyTorch docs: torch.nn.Dropout",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K5"
+    ]
+  },
+  {
+    "id": "ch9-q028",
+    "chapter": "ch9-training-advanced",
+    "q": "A team trains deep decision trees that overfit. Averaging many trees trained on random bootstrap samples of the data reduces their variance. Which ensembling technique is this?",
+    "options": [
+      "Stacking",
+      "Boosting",
+      "Bagging",
+      "Voting"
+    ],
+    "answer": 2,
+    "explain": "Bagging trains many models on bootstrap samples and aggregates them, which reduces the variance of high-variance learners such as deep trees.",
+    "difficulty": "media",
+    "tags": [
+      "bagging"
+    ],
+    "source": "scikit-learn User Guide — Ensemble methods",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2S7"
+    ]
+  },
+  {
+    "id": "ch9-q029",
+    "chapter": "ch9-training-advanced",
+    "q": "A data scientist trains three different base models, then trains a final model on their out-of-fold predictions to combine them. Which technique is this?",
+    "options": [
+      "Hard voting, which takes the majority class across the base models without training any final estimator on their predictions",
+      "Bagging, which trains copies of one model on bootstrap samples and averages their predictions for each record",
+      "Boosting, which trains models one after another so that each new model focuses on the errors of the earlier models",
+      "Stacking, which uses the base model predictions as inputs to a final estimator that learns how to combine them"
+    ],
+    "answer": 3,
+    "explain": "Stacking uses base model predictions as features for a final estimator trained on out-of-fold predictions.",
+    "difficulty": "media",
+    "tags": [
+      "stacking"
+    ],
+    "source": "scikit-learn User Guide — Ensemble methods",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2S7",
+      "K-2.2K4"
+    ]
+  },
+  {
+    "id": "ch9-q030",
+    "chapter": "ch9-training-advanced",
+    "q": "Which ensemble technique does XGBoost implement?",
+    "options": [
+      "Gradient boosting over decision trees, where each new tree fits the negative gradient of the loss",
+      "Bagging of independent deep trees, where each tree is trained on a separate random subset of the data",
+      "Stacking with a logistic regression meta-model, trained on the predictions of several different base estimators",
+      "Random subspaces over feature columns, where each model sees a random set of columns but all the records"
+    ],
+    "answer": 0,
+    "explain": "XGBoost is an implementation of gradient boosted trees, which fits each new tree to the negative gradient of the loss.",
+    "difficulty": "facile",
+    "tags": [
+      "xgboost",
+      "boosting"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2S7"
+    ]
+  },
+  {
+    "id": "ch9-q031",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO actions are most likely to improve model performance in a systematic way? (Select TWO.)",
+    "options": [
+      "Use the training accuracy as the only metric for choosing the final model, because it is computed on more records than validation",
+      "Move to a larger instance type before diagnosing the errors, since more compute always fixes the underlying problem in the data",
+      "Collect more labeled examples in the regions where the model makes most of its errors, then retrain and compare the results",
+      "Remove the validation set so that the model can train for more epochs on every record available in the training channel",
+      "Engineer new features and remove the ones that add noise, then check each change on the same validation set as before"
+    ],
+    "answer": [
+      2,
+      4
+    ],
+    "explain": "Systematic improvement starts with data and features, measured on validation data. Removing validation or using training accuracy hides overfitting.",
+    "difficulty": "media",
+    "tags": [
+      "model-improvement",
+      "feature-engineering"
+    ],
+    "source": "scikit-learn User Guide — Ensemble methods",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K4"
+    ]
+  },
+  {
+    "id": "ch9-q032",
+    "chapter": "ch9-training-advanced",
+    "q": "A model endpoint runs out of memory, and the accuracy must stay close to the current level. Which change most directly reduces the model's memory footprint?",
+    "options": [
+      "Remove the validation dataset from the training channel, which frees memory for the training job and therefore shrinks the model",
+      "Add a second instance behind the endpoint, so that each instance holds a smaller share of the model in its memory at any time",
+      "Increase the batch size of the training job, since larger batches are expected to shrink the saved model artifact on disk",
+      "Reduce the numeric precision of the weights from FP32 to FP16, then validate that the accuracy stays within the agreed tolerance"
+    ],
+    "answer": 3,
+    "explain": "Lower-precision weights take fewer bytes per parameter. Adding instances does not shrink the model, and training settings do not change its size.",
+    "difficulty": "media",
+    "tags": [
+      "model-size",
+      "precision"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Model performance optimization with SageMaker Neo",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K3",
+      "K-2.2S8"
+    ]
+  },
+  {
+    "id": "ch9-q033",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO techniques reduce model size without changing the task the model performs? (Select TWO.)",
+    "options": [
+      "Pruning, which sets low-importance weights or channels to zero, possibly with a mask that is later made permanent in the model",
+      "Distillation, which trains a smaller student model to imitate the outputs of a larger teacher model on the same task",
+      "Adding more layers to capture richer patterns, which compresses the representation learned by each individual neuron",
+      "Adding dropout layers during training, which keeps some activations inactive and therefore makes the saved model smaller",
+      "Increasing the learning rate for faster convergence, which reduces the number of parameters that the optimizer must store"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Pruning and distillation reduce the model itself. Dropout is only active during training, and the other options do not shrink the model.",
+    "difficulty": "difficile",
+    "tags": [
+      "pruning",
+      "distillation"
+    ],
+    "source": "PyTorch tutorials: Pruning tutorial",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2S8"
+    ]
+  },
+  {
+    "id": "ch9-q034",
+    "chapter": "ch9-training-advanced",
+    "q": "A large teacher model reaches the target accuracy but is too big for an edge device. Which approach best fits the constraint?",
+    "options": [
+      "Use the training logs of the teacher as the deployment artifact on the device, since the logs describe the full model behavior",
+      "Double the number of layers so that the device loads the model in fewer passes through its memory during the inference step",
+      "Replace the teacher with a random forest trained on the same features, skipping validation, to save memory on the device",
+      "Distill the teacher into a smaller student model, then compile the student for the target hardware of the device"
+    ],
+    "answer": 3,
+    "explain": "Distillation shrinks the model while keeping much of its behavior, and compilation adapts it to the device. The other options increase size or skip validation.",
+    "difficulty": "difficile",
+    "tags": [
+      "distillation",
+      "edge"
+    ],
+    "source": "arXiv 1503.02531: Distilling the Knowledge in a Neural Network",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2S8",
+      "K-2.2K3"
+    ]
+  },
+  {
+    "id": "ch9-q035",
+    "chapter": "ch9-training-advanced",
+    "q": "Which SageMaker capability compiles a trained model for a specific target hardware platform, including edge devices?",
+    "options": [
+      "SageMaker Neo",
+      "SageMaker Clarify",
+      "SageMaker Model Monitor",
+      "SageMaker Canvas"
+    ],
+    "answer": 0,
+    "explain": "SageMaker Neo compiles trained models for target hardware, including edge devices. The other services monitor, explain or build models.",
+    "difficulty": "media",
+    "tags": [
+      "neo",
+      "edge"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Model performance optimization with SageMaker Neo",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-2.2S8",
+      "K-2.2K3"
+    ]
+  },
+  {
+    "id": "ch9-q036",
+    "chapter": "ch9-training-advanced",
+    "q": "A team has a PyTorch training script and wants to run it on SageMaker without building a custom container. Which approach fits?",
+    "options": [
+      "Use the PyTorch estimator in script mode, with entry_point set to the training script and the extra dependencies listed in a requirements file",
+      "Build a custom Docker image with PyTorch and every dependency installed, test it locally, push it to a private registry, and then reference that image in the training job",
+      "Export the weights to a spreadsheet and run inference with a formula in the notebook, because a spreadsheet needs no container at all",
+      "Rewrite the model as a SQL stored procedure so that it runs inside the data warehouse, with the training loop expressed as database queries"
+    ],
+    "answer": 0,
+    "explain": "Script mode runs your own training code inside a managed framework container, so no custom image is needed.",
+    "difficulty": "facile",
+    "tags": [
+      "script-mode",
+      "pytorch"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Resources for using PyTorch with SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2S2"
+    ]
+  },
+  {
+    "id": "ch9-q037",
+    "chapter": "ch9-training-advanced",
+    "q": "A team has a TensorFlow training script and a dependency file. Which configuration runs the script in script mode?",
+    "options": [
+      "A Lambda function that imports the script at each invocation, so that the training step runs inside the function itself",
+      "The Canvas interface, which uploads the script and trains the model without any code and without a framework estimator",
+      "The TensorFlow estimator with entry_point set to the script and source_dir pointing to the folder that contains the dependency file",
+      "A Docker image that contains the script, pushed to Amazon ECR, with no estimator object defined in the training code"
+    ],
+    "answer": 2,
+    "explain": "Script mode uses a framework estimator with an entry point script and a source directory with the dependencies.",
+    "difficulty": "facile",
+    "tags": [
+      "script-mode",
+      "tensorflow"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Resources for using PyTorch with SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2S2"
+    ]
+  },
+  {
+    "id": "ch9-q038",
+    "chapter": "ch9-training-advanced",
+    "q": "A team trains with a proprietary framework that has no prebuilt SageMaker container. Which approach lets SageMaker run the training job?",
+    "options": [
+      "Upload the framework as a model.tar.gz archive to S3, which SageMaker installs automatically on the training instance at startup",
+      "Run the framework only in a notebook, since training jobs cannot use custom images and must always rely on prebuilt containers",
+      "Package the framework in a Docker image, push the image to Amazon ECR, and reference that image in the training job configuration",
+      "Use script mode with the built-in TensorFlow estimator, which can load any proprietary framework from the uploaded source directory"
+    ],
+    "answer": 2,
+    "explain": "Bring your own container (BYOC) means providing a Docker image in Amazon ECR. Script mode is tied to the framework's own container.",
+    "difficulty": "media",
+    "tags": [
+      "byoc",
+      "ecr"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Model Hosting FAQs",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K8"
+    ]
+  },
+  {
+    "id": "ch9-q039",
+    "chapter": "ch9-training-advanced",
+    "q": "A model was trained on-premises with XGBoost. The team wants a SageMaker real-time endpoint for it without retraining. What should it do?",
+    "options": [
+      "Save the model artifacts, package them as a model.tar.gz archive in S3, and create a SageMaker model that points to that archive",
+      "Store the model in an archival storage class and point the endpoint to the archive only when an inference request arrives",
+      "Copy the model file into the notebook instance and call it from the notebook with a local predict function for each request",
+      "Retrain the model inside SageMaker first, because endpoints in SageMaker can host only the models that were trained by SageMaker"
+    ],
+    "answer": 0,
+    "explain": "SageMaker can host externally trained models if they are packaged as model.tar.gz with the structure the container expects.",
+    "difficulty": "media",
+    "tags": [
+      "model-import",
+      "model-tar-gz"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Model Hosting FAQs",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K8"
+    ]
+  },
+  {
+    "id": "ch9-q040",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO statements about a model.tar.gz archive for SageMaker hosting are correct? (Select TWO.)",
+    "options": [
+      "SageMaker extracts the archive into the /opt/ml/model directory inside the container that serves the model",
+      "The archive must be stored in Amazon EFS and not in S3, because the endpoint mounts the file system directly at startup",
+      "The archive must be a ZIP file with a .tar extension, because SageMaker uses a special reader for that format only",
+      "The archive should not contain symbolic links or unnecessary files, because the structure must match the framework container",
+      "The archive must contain the full training dataset, because the endpoint re-trains the model when it starts up for the first time"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "The archive is extracted into /opt/ml/model and must be clean. Training data and EFS requirements are not part of hosting.",
+    "difficulty": "media",
+    "tags": [
+      "model-tar-gz",
+      "hosting"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Model Hosting FAQs",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K8"
+    ]
+  },
+  {
+    "id": "ch9-q041",
+    "chapter": "ch9-training-advanced",
+    "q": "A tuning job searches over a continuous learning rate and a categorical optimizer choice. The team wants to try every combination of the categorical values. Which AMT strategy fits, and what limitation applies?",
+    "options": [
+      "Random search, because it can sample the continuous learning rates and the categorical optimizers together in each training job",
+      "Grid search, which enumerates the categorical combinations and cannot search continuous ranges, so the learning rate needs another strategy",
+      "Bayesian optimization, which requires an exhaustive list of learning rate values before the first training job can start running",
+      "Hyperband, which automatically enumerates every combination of categorical values and reallocates the epochs among those combinations"
+    ],
+    "answer": 1,
+    "explain": "Grid search tries categorical combinations only. A continuous range needs a random or Bayesian strategy, which is the trap in this scenario.",
+    "difficulty": "media",
+    "tags": [
+      "amt",
+      "grid-search"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Hyperparameter tuning strategies",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K4"
+    ]
+  },
+  {
+    "id": "ch9-q042",
+    "chapter": "ch9-training-advanced",
+    "q": "A neural network publishes validation accuracy after each epoch. The team wants Hyperband to reallocate epochs toward promising configurations. Which configuration is correct?",
+    "options": [
+      "Hyperband with Grid search, because Hyperband needs a fixed categorical grid of values to reallocate the epochs among the candidates",
+      "Hyperband on a model that reports only a final metric after training completes, so that the epochs can be reallocated at the end",
+      "Hyperband with TrainingJobEarlyStoppingType set to AUTO, so that both early stopping mechanisms can run together on each job",
+      "Hyperband with TrainingJobEarlyStoppingType set to OFF, because Hyperband applies its own internal early stopping to the training jobs"
+    ],
+    "answer": 3,
+    "explain": "Hyperband uses its own internal early stopping, which requires the job-level early stopping type to be OFF. It also needs per-epoch metrics.",
+    "difficulty": "difficile",
+    "tags": [
+      "hyperband",
+      "early-stopping"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Hyperparameter tuning strategies",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K4"
+    ]
+  },
+  {
+    "id": "ch9-q043",
+    "chapter": "ch9-training-advanced",
+    "q": "A team received a new dataset with the same features and the same algorithm, and it wants to reuse the results of earlier tuning jobs on that new data. Which warm start type should it choose?",
+    "options": [
+      "TRANSFER_LEARNING, which allows different input data, different hyperparameter ranges and a different algorithm version than the parent jobs",
+      "IDENTICAL_DATA_AND_ALGORITHM, because the parent jobs must always use the same dataset as the new tuning job that is about to start",
+      "Early stopping set to AUTO, which reuses the weights of the parent training jobs automatically for each configuration in the new run",
+      "A Grid warm start, which copies the parent job's grid of categorical values into the new job so that the search space stays identical"
+    ],
+    "answer": 0,
+    "explain": "TRANSFER_LEARNING allows changes in data and algorithm version. IDENTICAL_DATA_AND_ALGORITHM requires the same data and algorithm.",
+    "difficulty": "media",
+    "tags": [
+      "warm-start",
+      "transfer-learning"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Run a Warm Start Hyperparameter Tuning Job",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K4"
+    ]
+  },
+  {
+    "id": "ch9-q044",
+    "chapter": "ch9-training-advanced",
+    "q": "The data and algorithm stay the same, but the team wants to widen the hyperparameter ranges and add more training jobs to the tuning. Which warm start type fits?",
+    "options": [
+      "A new tuning job from scratch, since a warm start cannot change any hyperparameter range or the maximum number of training jobs at all",
+      "Hyperband, which accepts new ranges only when the training container has changed, so the same container must be deployed again",
+      "TRANSFER_LEARNING, since widening the ranges of the search requires a different dataset to be accepted by the tuning service",
+      "IDENTICAL_DATA_AND_ALGORITHM, which allows new ranges and a higher maximum number of training jobs with the same data and algorithm"
+    ],
+    "answer": 3,
+    "explain": "IDENTICAL_DATA_AND_ALGORITHM keeps the data and algorithm, and it permits new ranges and more jobs.",
+    "difficulty": "difficile",
+    "tags": [
+      "warm-start"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Run a Warm Start Hyperparameter Tuning Job",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K4"
+    ]
+  },
+  {
+    "id": "ch9-q045",
+    "chapter": "ch9-training-advanced",
+    "q": "Which THREE statements about warm start tuning limits are correct? (Select THREE.)",
+    "options": [
+      "Parent jobs may use different objective metrics, and the new job combines them into a single weighted objective metric value",
+      "A tuning job can have at most five parent jobs, and each parent must be in a terminal state before the new job starts",
+      "Tuning jobs created before October 1, 2018 can be used as parents without any restriction, because they are always compatible",
+      "The new tuning job must use the same objective metric as the parent jobs, so the results can be compared on one scale",
+      "Warm start is recursive, so the results of every earlier ancestor of a parent job are always reused in the new tuning job",
+      "All parent jobs must have completed, stopped or failed before the warm start can begin to launch its own training jobs"
+    ],
+    "answer": [
+      1,
+      3,
+      5
+    ],
+    "explain": "Five parents, the same objective metric and terminal parent states are the documented limits. Warm start is not recursive, and old jobs are not compatible.",
+    "difficulty": "difficile",
+    "tags": [
+      "warm-start",
+      "limits"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Run a Warm Start Hyperparameter Tuning Job",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K4"
+    ]
+  },
+  {
+    "id": "ch9-q046",
+    "chapter": "ch9-training-advanced",
+    "q": "A nightly training job takes six hours, can tolerate interruptions, and the team wants to cut the training cost. Which configuration fits best?",
+    "options": [
+      "Use a warm pool together with spot instances, so that the nightly run keeps the cost low between the runs of each night of the week",
+      "Use spot instances without checkpoints, and set MaxWaitTimeInSeconds to a smaller value than MaxRuntimeInSeconds to limit the waiting time",
+      "Use on-demand instances only, since interruptions make spot capacity unreliable for any job of this length and this kind of workload",
+      "Enable managed spot training with checkpoints saved to an S3 path, and set MaxWaitTimeInSeconds to a value greater than MaxRuntimeInSeconds"
+    ],
+    "answer": 3,
+    "explain": "Managed spot training is the cost lever, and checkpoints let an interrupted job resume. MaxWaitTimeInSeconds must be greater than MaxRuntimeInSeconds.",
+    "difficulty": "media",
+    "tags": [
+      "spot",
+      "cost"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Managed Spot Training",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C11",
+      "K-2.1S4"
+    ]
+  },
+  {
+    "id": "ch9-q047",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO statements about managed spot training are correct? (Select TWO.)",
+    "options": [
+      "When spot capacity is missing, SageMaker falls back to on-demand instances automatically, so the job always completes on time",
+      "Built-in algorithms can run longer than 3600 seconds without checkpoints, because they always resume from their last internal state",
+      "Checkpoints saved in S3 let an interrupted training job resume from the last saved state instead of starting over",
+      "Warm pools are required before spot instances can be used at all, so spot training cannot start without a warm pool beforehand",
+      "MaxWaitTimeInSeconds must be greater than MaxRuntimeInSeconds, because the wait includes the time spent for spot capacity"
+    ],
+    "answer": [
+      2,
+      4
+    ],
+    "explain": "Checkpoints provide resumption and the wait limit must exceed the runtime limit. There is no automatic fallback to on-demand.",
+    "difficulty": "media",
+    "tags": [
+      "spot",
+      "checkpoint"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Managed Spot Training",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C11"
+    ]
+  },
+  {
+    "id": "ch9-q048",
+    "chapter": "ch9-training-advanced",
+    "q": "A data scientist launches a series of similar training jobs, one after another, and loses minutes to infrastructure startup each time. Which feature reduces that latency?",
+    "options": [
+      "Managed warm pools, configured with KeepAlivePeriodInSeconds so that the provisioned infrastructure stays available for the next job",
+      "Spot instances, which start faster because they draw from idle capacity that is already running and ready for new training jobs",
+      "Early stopping, which starts each job with fewer epochs so that the infrastructure is released sooner after the start of each run",
+      "Model parallelism, which splits the model across many instances at startup so that the provisioning time is shared among them"
+    ],
+    "answer": 0,
+    "explain": "Warm pools keep provisioned infrastructure between similar jobs, which reduces the startup latency of the next job.",
+    "difficulty": "facile",
+    "tags": [
+      "warm-pool",
+      "latency"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — SageMaker AI Managed Warm Pools",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C07"
+    ]
+  },
+  {
+    "id": "ch9-q049",
+    "chapter": "ch9-training-advanced",
+    "q": "Which combination of training options is NOT supported by SageMaker managed warm pools?",
+    "options": [
+      "Managed warm pool combined with spot instances, which the warm pool documentation does not support for reuse across jobs",
+      "Managed warm pool with on-demand instances and a matching job configuration for the next job in the sequence of similar runs",
+      "A warm pool with a KeepAlivePeriodInSeconds value of 1800 seconds, which keeps the infrastructure available for half an hour",
+      "Managed spot training with checkpoints saved to S3, so that an interrupted job can resume from its last saved state"
+    ],
+    "answer": 0,
+    "explain": "Warm pools cannot be used with spot instances. The other combinations are supported as described in the documentation.",
+    "difficulty": "difficile",
+    "tags": [
+      "warm-pool",
+      "spot"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — SageMaker AI Managed Warm Pools",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C07",
+      "C11"
+    ]
+  },
+  {
+    "id": "ch9-q050",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO statements about managed warm pools are correct? (Select TWO.)",
+    "options": [
+      "Warm pools are free of charge because the instances are not running any training job while they wait for the next job",
+      "KeepAlivePeriodInSeconds can be at most 3600 seconds for a single training job, which is 60 minutes of retained infrastructure",
+      "A warm pool is a billable resource, so the retained instances are charged while the pool stays available for matching jobs",
+      "The next job reuses the pool only when it has a different instance type, so that the pool can be reused across variants",
+      "A warm pool can be used with heterogeneous cluster training, which is supported for the same reuse of provisioned infrastructure"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "The 3600-second maximum and billing are documented. Warm pools are not free, and heterogeneous clusters and different instance types do not match.",
+    "difficulty": "media",
+    "tags": [
+      "warm-pool",
+      "billing"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — SageMaker AI Managed Warm Pools",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C07"
+    ]
+  },
+  {
+    "id": "ch9-q051",
+    "chapter": "ch9-training-advanced",
+    "q": "In a training job, gradients in the early layers drop to nearly zero and the weights barely change. Which built-in SageMaker Debugger rule detects this condition?",
+    "options": [
+      "Overfit, which compares the validation loss with the training loss to detect the divergence between the two curves over the epochs",
+      "VanishingGradient, which flags the condition when the mean absolute value of the gradients drops below a configured threshold value",
+      "ExplodingTensor, which flags tensors that contain non-finite values such as NaN or infinity during the training run that is observed",
+      "StalledTrainingRule, which fires when no new tensors are emitted within the configured time window for the observed training job"
+    ],
+    "answer": 1,
+    "explain": "VanishingGradient compares the mean absolute gradient with a threshold. ExplodingTensor looks for non-finite values, and the other rules check different conditions.",
+    "difficulty": "media",
+    "tags": [
+      "debugger",
+      "vanishing-gradient"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — List of Debugger built-in rules",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-2.3K5"
+    ]
+  },
+  {
+    "id": "ch9-q052",
+    "chapter": "ch9-training-advanced",
+    "q": "A training job produces NaN values in its tensors after a few iterations. Which Debugger rule should flag it?",
+    "options": [
+      "LossNotDecreasing",
+      "VanishingGradient",
+      "Overfit",
+      "ExplodingTensor"
+    ],
+    "answer": 3,
+    "explain": "ExplodingTensor fires when tensors contain non-finite values, which includes NaN and infinity.",
+    "difficulty": "facile",
+    "tags": [
+      "debugger",
+      "nan"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — List of Debugger built-in rules",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-2.3K5"
+    ]
+  },
+  {
+    "id": "ch9-q053",
+    "chapter": "ch9-training-advanced",
+    "q": "An engineer wants a Debugger rule that compares the training and validation losses to detect overfitting. Which rule matches?",
+    "options": [
+      "TreeDepth",
+      "StalledTrainingRule",
+      "Overfit",
+      "AllZero"
+    ],
+    "answer": 2,
+    "explain": "The Overfit rule compares validation and training losses. The other rules check stalled tensors, zero tensors and tree depth.",
+    "difficulty": "difficile",
+    "tags": [
+      "debugger",
+      "overfit"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — List of Debugger built-in rules",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-2.3K5"
+    ]
+  },
+  {
+    "id": "ch9-q054",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO statements about TensorBoard in SageMaker are correct? (Select TWO.)",
+    "options": [
+      "It visualizes output tensors from training jobs for PyTorch, TensorFlow and Hugging Face Transformers training runs in SageMaker",
+      "It supports only scikit-learn training jobs and cannot read tensors produced by deep learning frameworks such as PyTorch",
+      "It is included free for every instance type, so the cost of the TensorBoard application never appears on the billing report",
+      "It lets domain users compare multiple training jobs in one place, using the visualization plugins of the TensorBoard application",
+      "It replaces the Model Registry, so the model versions and their approval status are managed inside the TensorBoard application"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "TensorBoard visualizes tensors for PyTorch, TensorFlow and Hugging Face jobs and compares jobs. It is billed and does not replace the registry.",
+    "difficulty": "media",
+    "tags": [
+      "tensorboard"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — TensorBoard in Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C08"
+    ]
+  },
+  {
+    "id": "ch9-q055",
+    "chapter": "ch9-training-advanced",
+    "q": "An engineer needs a view of loss curves and histograms across several deep learning training runs in one place. Which SageMaker tool fits?",
+    "options": [
+      "SageMaker Canvas, which builds dashboards from the training metrics of any framework without requiring any configuration",
+      "TensorBoard in SageMaker AI, which visualizes tensors from PyTorch, TensorFlow and Hugging Face training jobs side by side",
+      "CloudWatch Logs Insights, which charts the text lines printed by the training containers as numeric time series data",
+      "SageMaker Model Registry, which stores the loss curves of each registered model version as metadata for later comparison"
+    ],
+    "answer": 1,
+    "explain": "TensorBoard in SageMaker visualizes deep learning training tensors and compares multiple jobs in one place.",
+    "difficulty": "facile",
+    "tags": [
+      "tensorboard",
+      "visualization"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — TensorBoard in Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C08"
+    ]
+  },
+  {
+    "id": "ch9-q056",
+    "chapter": "ch9-training-advanced",
+    "q": "A product team wants a per-prediction explanation of which features pushed one loan score up or down. Which technique matches this need?",
+    "options": [
+      "Partial dependence plots only, which show each feature's average effect across the whole dataset rather than one prediction",
+      "SHAP values, which attribute each individual prediction to its input features so that the contributions can be read per record",
+      "A confusion matrix, which counts the true and false positives and negatives of the model across all the records in the test set",
+      "Class weights, which change the loss function so that minority classes receive more importance during the training run"
+    ],
+    "answer": 1,
+    "explain": "SHAP values give per-prediction feature attributions. Partial dependence shows average effects, and the confusion matrix and class weights do not explain individual predictions.",
+    "difficulty": "media",
+    "tags": [
+      "shap",
+      "explainability"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Feature Attributions that Use Shapley Values",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.3S5",
+      "C10"
+    ]
+  },
+  {
+    "id": "ch9-q057",
+    "chapter": "ch9-training-advanced",
+    "q": "A Clarify explainability job returns a partial dependence plot for one feature. What does this output show?",
+    "options": [
+      "The average effect of varying that feature on the model's predictions, while the other features keep their values in the data",
+      "The exact contribution of that feature to each individual prediction, which is the value attributed to it for every single record",
+      "The number of missing values in that feature across the training records, which is used to decide whether to impute the column",
+      "The bias metric that compares that feature across protected groups, which Clarify reports as a single number for the feature"
+    ],
+    "answer": 0,
+    "explain": "A partial dependence plot shows the average effect of a feature on predictions. Per-record contributions are SHAP values, and missing-value counts or bias metrics are different outputs.",
+    "difficulty": "difficile",
+    "tags": [
+      "clarify",
+      "partial-dependence"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Feature Attributions that Use Shapley Values",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-2.3S5",
+      "C10"
+    ]
+  },
+  {
+    "id": "ch9-q058",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO statements about post-training bias metrics are correct? (Select TWO.)",
+    "options": [
+      "A positive DPPL value always means that the disfavored facet receives more positive predictions than the favored facet",
+      "Post-training metrics are computed from the training labels only, before any model exists, so they require no predictions at all",
+      "Accuracy Difference compares the number of records in each facet of the dataset, so it measures the balance of the sample",
+      "DPPL measures the difference in the proportion of positive predictions between the favored facet and the disfavored facet",
+      "A Disparate Impact value of 1 indicates demographic parity between the two facets of the sensitive attribute in the data"
+    ],
+    "answer": [
+      3,
+      4
+    ],
+    "explain": "DPPL and Disparate Impact are post-training metrics on predictions. A positive DPPL means the favored facet gets more positive predictions.",
+    "difficulty": "difficile",
+    "tags": [
+      "bias",
+      "dppl",
+      "disparate-impact"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Post-training Data and Model Bias Metrics",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-2.3S1",
+      "K-2.3K4"
+    ]
+  },
+  {
+    "id": "ch9-q059",
+    "chapter": "ch9-training-advanced",
+    "q": "A model has a clearly positive DPPL value. Which interpretation is correct?",
+    "options": [
+      "The training data had more examples for the favored facet, and that alone proves that the model is biased against the other group",
+      "The favored facet has a higher proportion of positive predictions than the disfavored facet, which is a signal to investigate",
+      "The model's accuracy is higher for the disfavored facet, which shows that the model compensates for the imbalance in the data",
+      "The disfavored facet has a higher proportion of positive predictions than the favored facet, so the model favors that group"
+    ],
+    "answer": 1,
+    "explain": "A positive DPPL means the favored facet has a higher proportion of positive predictions. Accuracy or sample size are not what DPPL measures.",
+    "difficulty": "difficile",
+    "tags": [
+      "dppl",
+      "interpretation"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Post-training Data and Model Bias Metrics",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-2.3S1"
+    ]
+  },
+  {
+    "id": "ch9-q060",
+    "chapter": "ch9-training-advanced",
+    "q": "Which pre-training Clarify metric compares the proportion of positive labels between facets in the training data, before any model is trained?",
+    "options": [
+      "Difference in proportions of labels (DPL)",
+      "Treatment Equality (TE)",
+      "Difference in Positive Proportions in Predicted Labels (DPPL)",
+      "Disparate Impact (DI)"
+    ],
+    "answer": 0,
+    "explain": "DPL is a pre-training measure computed from observed labels. DI, DPPL and TE use predicted labels or error counts.",
+    "difficulty": "media",
+    "tags": [
+      "clarify",
+      "pre-training"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Post-training Data and Model Bias Metrics",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-2.3K4"
+    ]
+  },
+  {
+    "id": "ch9-q061",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO capabilities does Amazon SageMaker Clarify provide? (Select TWO.)",
+    "options": [
+      "Serverless endpoint hosting, which deploys the model behind an endpoint that scales to zero without any instances",
+      "Pre-training and post-training bias metrics computed for a dataset or for the predictions of a model",
+      "SHAP-based feature attribution that explains individual predictions and the global importance of the features",
+      "Automatic model retraining on a schedule that replaces the model as soon as the bias metric crosses a threshold value",
+      "Online storage for features, which keeps the latest feature values in a low-latency store for the inference requests"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "Clarify covers bias metrics and SHAP attributions. Retraining, serverless hosting and feature storage are other services.",
+    "difficulty": "media",
+    "tags": [
+      "clarify"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Post-training Data and Model Bias Metrics",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-2.3K4",
+      "K-2.3S5"
+    ]
+  },
+  {
+    "id": "ch9-q062",
+    "chapter": "ch9-training-advanced",
+    "q": "A fraud dataset has 0.2 percent positive records. Which metric better summarizes performance on the positive class?",
+    "options": [
+      "Accuracy, which reports the share of correct predictions across all the records, including the very many negative ones",
+      "Mean absolute error, which averages the absolute prediction error and does not depend on the class balance of the records",
+      "PR-AUC, the area under the precision-recall curve, which focuses on precision and recall for the positive class",
+      "ROC AUC, which measures ranking across all thresholds and stays high when the negative records dominate the evaluation set"
+    ],
+    "answer": 2,
+    "explain": "With rare positives, PR-AUC focuses on the positive class, while ROC AUC and accuracy can look good when negatives dominate.",
+    "difficulty": "difficile",
+    "tags": [
+      "pr-auc",
+      "imbalance"
+    ],
+    "source": "scikit-learn User Guide — Model evaluation",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C04"
+    ]
+  },
+  {
+    "id": "ch9-q063",
+    "chapter": "ch9-training-advanced",
+    "q": "A regression model predicts weekly sales. Many stores have actual sales close to zero. Which regression error metric becomes unstable in that situation?",
+    "options": [
+      "R squared, which compares the model with a constant mean prediction and does not divide any error by the actual value at all",
+      "Mean absolute percentage error, which divides each error by the actual value, so near-zero actuals produce very large terms",
+      "Root mean squared error, which penalizes large errors in the unit of the target and is not affected by the value of the actuals",
+      "Mean absolute error, which averages the absolute differences in the unit of the target and is therefore stable for near-zero values"
+    ],
+    "answer": 1,
+    "explain": "MAPE divides by the actual value, so values near zero inflate it. The other metrics do not divide by the actual.",
+    "difficulty": "media",
+    "tags": [
+      "mape",
+      "regression"
+    ],
+    "source": "scikit-learn User Guide — Model evaluation",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C04"
+    ]
+  },
+  {
+    "id": "ch9-q064",
+    "chapter": "ch9-training-advanced",
+    "q": "What does MAPE measure?",
+    "options": [
+      "The share of correct classifications among all the samples, using the predicted class for each record",
+      "The area under the precision-recall curve, computed over the predicted probabilities of the positive class",
+      "The relative error averaged over the samples, expressed as a fraction of the actual value of each sample",
+      "The absolute error in the units of the target variable, averaged over the samples without any normalization"
+    ],
+    "answer": 2,
+    "explain": "MAPE is a relative error average. It is not an absolute error, a classification accuracy or an area under a curve.",
+    "difficulty": "facile",
+    "tags": [
+      "mape"
+    ],
+    "source": "scikit-learn User Guide — Model evaluation",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C04"
+    ]
+  },
+  {
+    "id": "ch9-q065",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO statements about MAPE and average precision are correct? (Select TWO.)",
+    "options": [
+      "MAPE is unchanged when the target variable is multiplied by a global constant, so the metric does not depend on the unit of the target",
+      "PR-AUC is a regression metric that uses the squared errors of the predictions, similarly to the root mean squared error",
+      "MAPE is always defined even when an actual value is exactly zero, because the metric uses no division by the actual value at all",
+      "PR-AUC is always higher than ROC AUC on imbalanced data, so it can be compared directly with the ROC AUC of any model",
+      "For random predictions, average precision equals the fraction of positive samples, so the baseline depends on the class balance"
+    ],
+    "answer": [
+      0,
+      4
+    ],
+    "explain": "MAPE is scale-invariant and average precision has a random baseline equal to the positive rate. MAPE divides by the actual value, so zeros are undefined.",
+    "difficulty": "difficile",
+    "tags": [
+      "mape",
+      "pr-auc"
+    ],
+    "source": "scikit-learn User Guide — Model evaluation",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C04"
+    ]
+  },
+  {
+    "id": "ch9-q066",
+    "chapter": "ch9-training-advanced",
+    "q": "A business analyst with no coding experience wants to build a weekly demand forecast from a CSV file in S3. Which SageMaker capability fits?",
+    "options": [
+      "SageMaker Pipelines, which orchestrates steps defined in Python code, so the analyst must write the pipeline definition",
+      "SageMaker Neo, which compiles a trained model for a target device so that the model runs faster on that hardware",
+      "Amazon Athena, which queries the CSV file with SQL and returns the rows, but it does not train any forecasting model",
+      "SageMaker Canvas, a no-code interface that builds models from tabular data and supports time series forecasting"
+    ],
+    "answer": 3,
+    "explain": "Canvas is the no-code tool for custom models, including time series forecasting, which fits an analyst without code.",
+    "difficulty": "facile",
+    "tags": [
+      "canvas",
+      "no-code"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Amazon SageMaker Canvas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C05"
+    ]
+  },
+  {
+    "id": "ch9-q067",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO model types can SageMaker Canvas build as custom models? (Select TWO.)",
+    "options": [
+      "Three-dimensional object tracking in video, which follows the position of objects across frames of a recorded camera feed",
+      "Time series forecasting, which predicts future values of a numeric series from its history and other inputs",
+      "Multi-class classification, which assigns each record to one of several predefined categories in the training data",
+      "Graph neural networks over social networks, which learn representations from the edges between users in the platform",
+      "Reinforcement learning policies for robotics, trained in a simulated environment with reward signals over many episodes"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "Canvas custom models include time series forecasting and multi-class classification. The other options are outside the Canvas model types.",
+    "difficulty": "media",
+    "tags": [
+      "canvas"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Amazon SageMaker Canvas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C05"
+    ]
+  },
+  {
+    "id": "ch9-q068",
+    "chapter": "ch9-training-advanced",
+    "q": "Model A has 0.5 points higher accuracy than model B but needs four times the training time and cost. The retraining window is two hours each week and the budget is fixed. What should the team choose?",
+    "options": [
+      "Model B, because it meets the two-hour retraining window and the fixed budget, and the accuracy gap is small for this business goal",
+      "Both models in parallel, which doubles the training time so that the team can compare the two candidates after the window closes",
+      "Model A with the largest instance type available, which reduces the training time for the same cost as the smaller instance type",
+      "Model A, because a higher accuracy always outweighs the training time and the cost limits that the team agreed for the project"
+    ],
+    "answer": 0,
+    "explain": "The constraints on time and budget decide. A small accuracy gap does not justify missing the retraining window.",
+    "difficulty": "difficile",
+    "tags": [
+      "tradeoff",
+      "cost",
+      "time"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — SageMaker AI Managed Warm Pools",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.3S2",
+      "K-2.1S4"
+    ]
+  },
+  {
+    "id": "ch9-q069",
+    "chapter": "ch9-training-advanced",
+    "q": "A real-time endpoint must respond in under 100 milliseconds. Model X is one point more accurate but adds 300 milliseconds of latency, while model Y is slightly less accurate and meets the requirement. Which choice is most consistent with the requirement?",
+    "options": [
+      "Neither model, because accuracy and latency cannot be traded off against each other in a deployed system that serves real traffic",
+      "Model X with a larger instance, since bigger instances always remove the latency added by the model architecture at every request size",
+      "Model Y, the faster model, even though it is slightly less accurate, because the latency requirement is a hard constraint for this endpoint",
+      "Model X, since accuracy is the primary metric and latency can be fixed later on by scaling the endpoint horizontally after the launch"
+    ],
+    "answer": 2,
+    "explain": "A latency requirement is a hard constraint, so the faster model that meets it is the right trade-off.",
+    "difficulty": "media",
+    "tags": [
+      "tradeoff",
+      "latency"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — SageMaker AI Managed Warm Pools",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.3S2"
+    ]
+  },
+  {
+    "id": "ch9-q070",
+    "chapter": "ch9-training-advanced",
+    "q": "A team wants every training run's parameters, metrics and artifacts logged so that any experiment can be reproduced later. Which managed service fits best?",
+    "options": [
+      "Amazon Athena, which queries log files after the fact and cannot record the parameters of experiments as they run",
+      "AWS CloudTrail, which records the API calls made to the training service but not the parameters or the metrics of runs",
+      "MLflow on SageMaker AI, with a tracking server or MLflow app and the artifacts stored in the team's own S3 bucket",
+      "Amazon CloudWatch dashboards, which display metrics over time but do not store the parameters of each training run"
+    ],
+    "answer": 2,
+    "explain": "MLflow on SageMaker AI tracks runs with their parameters, metrics and artifacts. The other services monitor or audit calls, not experiments.",
+    "difficulty": "media",
+    "tags": [
+      "mlflow",
+      "reproducibility"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Managed MLflow on Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.1"
+    ]
+  },
+  {
+    "id": "ch9-q071",
+    "chapter": "ch9-training-advanced",
+    "q": "A generative AI team wants to version prompts and compare outputs of prompt variants across experiments. Which pair of services fits best?",
+    "options": [
+      "Amazon Comprehend for storing the prompt text, and Amazon Polly for listening to the outputs and rating them by voice",
+      "SageMaker Model Registry for prompt versions, and CloudTrail for comparing the outputs of the prompt variants with each other",
+      "Bedrock Prompt Management for versioned prompt variants, and Bedrock Evaluations to compare the outputs of those variants",
+      "Amazon S3 Versioning alone for prompt versions, with a spreadsheet maintained by hand to compare the outputs of the variants"
+    ],
+    "answer": 2,
+    "explain": "Prompt management versions prompts, and Bedrock Evaluations compares outputs. Model Registry and CloudTrail do not version prompts.",
+    "difficulty": "difficile",
+    "tags": [
+      "prompt-management",
+      "bedrock"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prompt management",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.1"
+    ]
+  },
+  {
+    "id": "ch9-q072",
+    "chapter": "ch9-training-advanced",
+    "q": "Which THREE services or features support reproducible experiments across SageMaker and Bedrock? (Select THREE.)",
+    "options": [
+      "Amazon Polly, a managed text-to-speech service that converts written text into lifelike spoken audio files",
+      "Amazon Rekognition, a managed service that detects objects and faces in images uploaded by the customers",
+      "AWS Glue DataBrew, a visual data preparation tool used to clean and transform tabular datasets before training",
+      "MLflow on SageMaker AI, for tracking experiments, runs, parameters and metrics across the team",
+      "Amazon Bedrock Prompt Management, for storing and versioning prompt variants used in the experiments",
+      "Amazon Bedrock Evaluations, for evaluating the outputs of foundation models with automatic or human methods"
+    ],
+    "answer": [
+      3,
+      4,
+      5
+    ],
+    "explain": "MLflow, Prompt Management and Bedrock Evaluations support reproducible experiments. Rekognition, DataBrew and Polly are not experiment tools.",
+    "difficulty": "media",
+    "tags": [
+      "reproducibility",
+      "mlflow",
+      "bedrock"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prompt management",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.1"
+    ]
+  },
+  {
+    "id": "ch9-q073",
+    "chapter": "ch9-training-advanced",
+    "q": "An auditor asks which model version was deployed to production last quarter and which data and metrics produced it. Which capability answers this best?",
+    "options": [
+      "An S3 bucket with date-named folders for each model file, where the file names record the training date of each model",
+      "SageMaker Model Registry, with model groups, versions, approval status and lineage that link each version to its inputs",
+      "An AWS Glue crawler that catalogs model artifacts automatically, which records the schema of each file for later queries",
+      "CloudWatch Logs with a ten-year retention period, which keeps the text output of every training job for the whole audit period"
+    ],
+    "answer": 1,
+    "explain": "Model Registry tracks versions, approval status and lineage, which is what an audit needs.",
+    "difficulty": "media",
+    "tags": [
+      "model-registry",
+      "audit"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Model Registry",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.6"
+    ]
+  },
+  {
+    "id": "ch9-q074",
+    "chapter": "ch9-training-advanced",
+    "q": "Which TWO are valid ways to manage model versions for repeatability and audits? (Select TWO.)",
+    "options": [
+      "Register each trained model as a new version in a model group, with its metadata and lineage attached to the version",
+      "Delete the previous model versions as soon as a new one is trained, so that the registry always holds only one model",
+      "Track runs and models in MLflow on SageMaker AI and link them to the versions registered in the model registry",
+      "Overwrite the same model file in S3 after each retraining, so that the latest model always lives at a fixed path",
+      "Keep the model versions only in notebook cells, where the code that produced each version can be rerun by hand"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "Registering versions and linking runs give a traceable history. Overwriting files or deleting old versions removes the audit trail.",
+    "difficulty": "difficile",
+    "tags": [
+      "model-registry",
+      "mlflow"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Model Registry",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.6",
+      "G-2.3.1"
+    ]
+  },
+  {
+    "id": "ch9-q075",
+    "chapter": "ch9-training-advanced",
+    "q": "A team wants SageMaker Pipelines to start a training job only when the input data is new. Which trigger is the simplest fit that avoids a custom polling service?",
+    "options": [
+      "An Amazon EventBridge rule on the data event, which starts the pipeline execution without a polling loop in custom code",
+      "A warm pool that keeps the instances running all the time, so that each new file starts the training with no startup delay",
+      "A manually started training job each morning, which the data engineer launches from the console after checking the new files",
+      "A cron job on a notebook instance that polls S3 every minute and launches the training job from the notebook process"
+    ],
+    "answer": 0,
+    "explain": "An event rule reacts to the data arrival event and starts the pipeline without a custom poller. The other options add polling or manual work.",
+    "difficulty": "media",
+    "tags": [
+      "eventbridge",
+      "pipelines"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Managed Spot Training",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1S4"
+    ]
+  },
+  {
+    "id": "ch9-q076",
+    "chapter": "ch9-training-advanced",
+    "q": "An ML engineer uses managed spot training for a long job. After an interruption, the job restarts from the beginning instead of resuming. What is the most likely cause?",
+    "options": [
+      "The job uses on-demand instances, which never resume from a checkpoint after an interruption because they restart the run",
+      "The MaxWaitTimeInSeconds value is greater than MaxRuntimeInSeconds, which forces the job to restart from the beginning",
+      "The training script does not write checkpoints to the local path that SageMaker syncs with the S3 checkpoint location",
+      "The warm pool keeps the old instance alive, so the new job cannot read the checkpoint files that were written before"
+    ],
+    "answer": 2,
+    "explain": "SageMaker syncs the local checkpoint directory with S3. If the script never writes checkpoints there, nothing can be resumed.",
+    "difficulty": "difficile",
+    "tags": [
+      "checkpoint",
+      "spot"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Checkpoints in Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C11"
+    ]
+  },
+  {
+    "id": "ch9-q077",
+    "chapter": "ch9-training-advanced",
+    "q": "A stochastic gradient optimizer oscillates and diverges within the first few epochs of training. Which hyperparameter should the team lower first?",
+    "options": [
+      "The number of epochs, so that the optimizer stops before the divergence starts",
+      "The early stopping patience, so the run ends sooner",
+      "The batch size, so that each update uses more records",
+      "The learning rate, so that each update moves the weights by a smaller step"
+    ],
+    "answer": 3,
+    "explain": "A learning rate that is too large makes updates overshoot and diverge. Larger batches or fewer epochs do not address the step size.",
+    "difficulty": "facile",
+    "tags": [
+      "learning-rate"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Distributed training in Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K1"
+    ]
+  },
+  {
+    "id": "ch9-q078",
+    "chapter": "ch9-training-advanced",
+    "q": "A team trains a model whose validation metric has not improved for many epochs. The training run is expensive. Which SageMaker option stops the run early on that signal?",
+    "options": [
+      "Early stopping with the patience hyperparameter of the built-in algorithm, which ends training when the metric stops improving",
+      "Managed warm pools, which keep the instances running so that the run can be resumed later from the same state at no cost",
+      "Model parallelism, which splits the model across devices and reduces the total number of epochs required by the training job",
+      "Hyperband with Grid search, which reallocates the epochs of every configuration evenly across the search space each round"
+    ],
+    "answer": 0,
+    "explain": "Early stopping ends a run when the metric no longer improves, controlled by a patience value. The other options do not stop runs.",
+    "difficulty": "facile",
+    "tags": [
+      "early-stopping"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Stop Training Jobs Early",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2K2"
+    ]
+  },
+  {
+    "id": "ch9-q079",
+    "chapter": "ch9-training-advanced",
+    "q": "A team wants to know whether SageMaker can run a PyTorch training script that depends on a custom package. Which configuration is correct?",
+    "options": [
+      "The PyTorch estimator in script mode, with the custom package listed in the requirements file that is shipped with the source directory",
+      "A Canvas project that uploads the script and the package, which then trains the model without any estimator configuration",
+      "A TensorFlow estimator, because PyTorch scripts are only supported through the TensorFlow container for custom packages",
+      "A model.tar.gz archive with the package inside, uploaded to S3 and used as the training input channel for the job"
+    ],
+    "answer": 0,
+    "explain": "Script mode uses the framework estimator and a requirements file in the source directory for extra dependencies.",
+    "difficulty": "facile",
+    "tags": [
+      "script-mode",
+      "pytorch"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide — Resources for using PyTorch with SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.2S2"
+    ]
+  }
+]
