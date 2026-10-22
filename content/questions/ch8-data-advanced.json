@@ -197,7 +197,7 @@
       4,
       5
     ],
-    "explain": "Standard-IA and One Zone-IA have 30-day minimums, and Glacier Instant Retrieval has 90 days. Standard and Intelligent-Tiering have no minimum, and Express One Zone has a one-hour minimum.",
+    "explain": "Standard-IA and One Zone-IA have 30-day minimums, and Glacier Instant Retrieval has 90 days. Standard, Intelligent-Tiering and Express One Zone have no minimum storage duration.",
     "difficulty": "difficile",
     "tags": [
       "minimum-duration"
@@ -221,13 +221,13 @@
     "chapter": "ch8-data-advanced",
     "q": "A single EC2 database needs sustained random I/O of 50,000 IOPS with 16 KiB blocks and an average latency under 500 microseconds. Which EBS volume type fits best?",
     "options": [
-      "gp3, the general purpose SSD volume type, which can be configured for high IOPS on a single instance attachment",
+      "gp2, the older general purpose SSD volume type, which tops out at 16,000 IOPS per volume",
       "io2 Block Express, the Provisioned IOPS SSD volume type, which is designed for sustained performance and sub-millisecond latency",
       "st1, the throughput optimized HDD volume type, which is built for large sequential streaming workloads",
       "sc1, the cold HDD volume type, which is built for infrequently accessed data where the lowest storage cost matters"
     ],
     "answer": 1,
-    "explain": "io2 Block Express is documented for sustained performance and average latency under 500 microseconds for 16 KiB I/O. gp3 can reach high IOPS, but it is not the Provisioned IOPS latency profile in the question.",
+    "explain": "io2 Block Express is documented for sustained performance and average latency under 500 microseconds for 16 KiB I/O. gp2 tops out at 16,000 IOPS, below the 50,000 IOPS required.",
     "difficulty": "media",
     "tags": [
       "ebs",
@@ -1271,11 +1271,11 @@
     "options": [
       "Standard Scaler, which centers each value on the mean and scales it to unit variance across the column",
       "Min Max Scaler, which maps the values of the column to a fixed range such as 0 to 1",
-      "Max Absolute Scaler, which divides each value by the largest absolute value and leaves the sign unchanged",
+      "Log transform, which compresses large values and does not bound the output to a fixed range",
       "Robust Scaler, which uses the median and quantile ranges so the scale is not driven by extreme values"
     ],
     "answer": 1,
-    "explain": "Min-max scaling maps values into a fixed range. Standard Scaler does not bound the output, and Robust Scaler is for data with outliers.",
+    "explain": "Min-max scaling maps values into a fixed range. Standard Scaler and log transform do not bound the output, and Robust Scaler is for data with outliers.",
     "difficulty": "media",
     "tags": [
       "min-max",
@@ -1388,7 +1388,7 @@
       "The drop last category option in one-hot encoding removes one output column, which avoids a redundant column",
       "Label encoding of nominal categories always helps a linear model, because the integers give it a useful scale",
       "Binary encoding creates exactly one output column for each category that appears in the training data",
-      "Ordinal encoding assigns integers from 0 to the number of categories minus one, in the order the transform finds them"
+      "Ordinal encoding assigns one integer from 0 to the number of categories minus one to each category"
     ],
     "answer": [
       1,
@@ -1696,7 +1696,7 @@
       "An internal Glue workforce that is managed through the Data Catalog and the Glue crawler configuration"
     ],
     "answer": 1,
-    "explain": "Ground Truth can use the Mechanical Turk workforce, which the documentation describes as over 500,000 independent contractors worldwide. Private and vendor workforces are the other options.",
+    "explain": "Ground Truth can use the Mechanical Turk workforce, which the documentation describes as over 500,000 independent contractors worldwide. Private and vendor workforces are the other options. AWS lists Amazon Mechanical Turk as shut down on September 29, 2026, so this item tests the concept rather than current availability.",
     "difficulty": "facile",
     "tags": [
       "mechanical-turk",
@@ -2014,15 +2014,15 @@
   {
     "id": "ch8-q068",
     "chapter": "ch8-data-advanced",
-    "q": "After adding image samples to a text classification dataset, which check should run before computing pre-training bias metrics?",
+    "q": "After adding new samples to a classification dataset, which check should run before computing pre-training bias metrics?",
     "options": [
       "GPU memory usage during the preprocessing step, which is the main factor that drives the bias of the dataset for the GPU jobs in the pipeline",
       "Number of AWS Glue crawlers in the account, which shows how many datasets were cataloged in the last month",
       "Count of Macie findings in other buckets, which indicates how many sensitive objects exist in the whole account",
-      "Label distribution per facet across all modalities, so that the image and text samples are compared on the same facets"
+      "Label distribution per facet group, so that the share of positive labels can be compared between groups"
     ],
     "answer": 3,
-    "explain": "Bias metrics depend on facet membership and labels, so the label distribution per facet must be checked across all the modalities. The other checks do not measure bias.",
+    "explain": "Pre-training bias metrics such as DPL compare label proportions between facet groups, so the label distribution per facet must be checked first. The other checks do not measure bias.",
     "difficulty": "media",
     "tags": [
       "multimodal",
@@ -2161,7 +2161,7 @@
     "chapter": "ch8-data-advanced",
     "q": "Which two statements about splitting and augmentation are correct? (Select TWO.)",
     "options": [
-      "Shuffling is never needed before a randomized split, because the split already randomizes the rows of the data",
+      "Shuffling is always needed before an ordered split, because the split must mix the classes",
       "Augmentation should be applied only to the training split, so the test set stays representative of real data",
       "Augmenting the test set makes the evaluation more honest, because the model is measured on more varied examples",
       "Resampling the minority class in the test set is recommended, so the metrics reflect a balanced class mix",
@@ -2350,15 +2350,15 @@
     "options": [
       "Amazon Comprehend PII detection, which locates PII entities in text documents with offsets for each entity",
       "Amazon Macie, which discovers sensitive data in objects stored in Amazon S3 buckets across the account",
-      "Amazon Rekognition, which labels the content of images and detects faces and objects in the pictures",
+      "Amazon Polly, which converts text into speech and does not inspect stored records",
       "Amazon Forecast, which predicts future demand from historical time series for planning and inventory",
-      "AWS Glue DataBrew, which provides visual transforms for tabular data and can also scan for PII patterns"
+      "AWS Glue DataBrew, which provides visual transforms for tabular data but cannot read objects from Amazon S3"
     ],
     "answer": [
       0,
       1
     ],
-    "explain": "Comprehend detects PII entities in text, and Macie finds sensitive data in S3 objects. Rekognition labels images, Forecast predicts demand, and DataBrew transforms rather than scanning for PII.",
+    "explain": "Comprehend detects PII entities in text, and Macie finds sensitive data in S3 objects. Rekognition labels images, Forecast predicts demand, and DataBrew reads S3 data, so the last option is false.",
     "difficulty": "difficile",
     "tags": [
       "pii",
@@ -2477,7 +2477,7 @@
       "File mode on a larger EBS volume, so the whole dataset fits on disk before the training job begins its work and copy the dataset back into S3 afterwards",
       "Copy the dataset to a local SSD on the instance first, and then run the training job against the local copy",
       "FastFile mode on the S3 prefix, which starts training without a full download and streams the files as they are read",
-      "Pipe mode with a manifest file, which streams the objects listed in the manifest through the named FIFO pipes"
+      "Pipe mode on the S3 prefix, which needs a full local copy on the instance before the training job starts"
     ],
     "answer": 2,
     "explain": "FastFile exposes the S3 prefix as a POSIX file system and streams data on demand, so training starts without a full download. Copying the data first or using a larger volume removes the speed benefit.",
