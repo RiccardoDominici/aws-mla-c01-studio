@@ -101,6 +101,8 @@ a:hover { color: var(--inchiostro-blu); }
 }
 .map-edge { fill: none; stroke: var(--inchiostro-blu); stroke-width: 2.5; }
 .map-edge.dashed { stroke-dasharray: 7 6; }
+/* Collegamenti tra aree diverse: tratteggiati e attenuati, per non competere con le frecce interne */
+.map-edge-cross { stroke: #9aa3b8; stroke-width: 1.8; stroke-dasharray: 6 5; }
 
 .map-node { cursor: pointer; font-family: var(--font-testo); }
 .map-node-box { stroke-width: 2.5; transition: filter 0.15s ease; }

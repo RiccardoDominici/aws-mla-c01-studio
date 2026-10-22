@@ -17,52 +17,55 @@
   var NARROW_QUERY = '(max-width: 640px)';
   var W = 176, H = 68;          // dimensioni nodo nello spazio SVG
   var BAND_W = 408, BAND_Y = 14, BAND_H = 440;
-  var VIEW_W = 1272, VIEW_H = 470;
+  var VIEW_W = 1336, VIEW_H = 470;
 
   /* Colonne d'area: x della fascia. Il titolo e i nodi sono relativi a queste. */
   var BANDS = [
     { area: 'fondamenti',   x: 8 },
-    { area: 'mlops',        x: 432 },
-    { area: 'applicazioni', x: 856 }
+    { area: 'mlops',        x: 464 },
+    { area: 'applicazioni', x: 920 }
   ];
 
-  /* Angolo alto-sx di ogni nodo. Riga 0 y=96, riga 1 y=216, riga 2 y=336.
-   * Colonna base: x = fascia + 16; colonna approfondimenti: fascia + 216. */
+  /* Angolo alto-sx di ogni nodo. Righe: y 96, 216, 336 (altezza 68).
+   * Colonna base: x = fascia + 16; colonna approfondimenti: x = fascia + 216. */
   var POS = {
     'ch1-exam-guide':        { x: 24,   y: 96  },
     'ch2-data-prep':         { x: 24,   y: 216 },
     'ch8-data-advanced':     { x: 224,  y: 216 },
-    'ch3-model-dev':         { x: 448,  y: 96  },
-    'ch4-deploy':            { x: 448,  y: 216 },
-    'ch5-monitor-security':  { x: 448,  y: 336 },
-    'ch9-training-advanced': { x: 648,  y: 96  },
-    'ch10-infra-cicd':       { x: 648,  y: 216 },
-    'ch11-cost-security':    { x: 648,  y: 336 },
-    'ch6-genai':             { x: 872,  y: 96  },
-    'ch14-ai-services':      { x: 872,  y: 216 },
-    'ch7-practice':          { x: 872,  y: 336 },
-    'ch12-genai-rag':        { x: 1072, y: 96  },
-    'ch13-genai-agents':     { x: 1072, y: 216 }
+    'ch3-model-dev':         { x: 480,  y: 96  },
+    'ch4-deploy':            { x: 480,  y: 216 },
+    'ch5-monitor-security':  { x: 480,  y: 336 },
+    'ch9-training-advanced': { x: 680,  y: 96  },
+    'ch10-infra-cicd':       { x: 680,  y: 216 },
+    'ch11-cost-security':    { x: 680,  y: 336 },
+    'ch6-genai':             { x: 936,  y: 96  },
+    'ch14-ai-services':      { x: 936,  y: 216 },
+    'ch7-practice':          { x: 936,  y: 336 },
+    'ch12-genai-rag':        { x: 1136, y: 96  },
+    'ch13-genai-agents':     { x: 1136, y: 216 }
   };
 
-  /* Percorso SVG di ogni freccia prerequisito, chiave "da>a".
-   * Le frecce tra colonne passano nelle fessure orizzontali (y 130, 190, 250,
-   * 310, 370, 430) e in quelle verticali tra le fasce, così non attraversano i nodi. */
+  /* Percorsi delle frecce prerequisito, chiave "da>a".
+   * Frecce interne a un'area: linea piena, nelle colonne e tra le righe.
+   * Frecce tra aree: tratteggiate e attenuate, nei corridoi:
+   *   - tra le fasce: x 432 e 448 (A|B), 888 e 904 (B|C);
+   *   - tra le righe: y 190 (tra riga 0 e 1), y 310 (tra riga 1 e 2), y 430 (sotto la riga 2).
+   * Nessun percorso passa sopra un titolo di fascia (y 40) o dentro un nodo. */
   var ROUTES = {
-    'ch1-exam-guide>ch2-data-prep':         'M112,164 V216',
-    'ch2-data-prep>ch8-data-advanced':      'M200,250 H224',
-    'ch2-data-prep>ch3-model-dev':          'M112,284 V310 H430 V130 H448',
-    'ch3-model-dev>ch4-deploy':             'M536,164 V216',
-    'ch4-deploy>ch5-monitor-security':      'M536,284 V336',
-    'ch3-model-dev>ch9-training-advanced':  'M624,130 H648',
-    'ch4-deploy>ch10-infra-cicd':           'M624,250 H648',
-    'ch5-monitor-security>ch11-cost-security': 'M624,370 H648',
-    'ch2-data-prep>ch6-genai':              'M112,284 V310 H430 V190 H860 V130 H872',
-    'ch6-genai>ch14-ai-services':           'M960,164 V216',
-    'ch6-genai>ch12-genai-rag':             'M1048,130 H1072',
-    'ch12-genai-rag>ch13-genai-agents':     'M1160,164 V216',
-    'ch1-exam-guide>ch7-practice':          'M200,130 H418 V430 H866 V370 H872',
-    'ch2-data-prep>ch7-practice':           'M112,284 V310 H856 V370 H872'
+    'ch1-exam-guide>ch2-data-prep':           'M112,164 V216',
+    'ch2-data-prep>ch8-data-advanced':        'M200,250 H224',
+    'ch3-model-dev>ch4-deploy':               'M568,164 V216',
+    'ch4-deploy>ch5-monitor-security':        'M568,284 V336',
+    'ch3-model-dev>ch9-training-advanced':    'M656,130 H680',
+    'ch4-deploy>ch10-infra-cicd':             'M656,250 H680',
+    'ch5-monitor-security>ch11-cost-security': 'M656,370 H680',
+    'ch6-genai>ch14-ai-services':             'M1024,164 V216',
+    'ch6-genai>ch12-genai-rag':               'M1112,130 H1136',
+    'ch12-genai-rag>ch13-genai-agents':       'M1224,164 V216',
+    'ch2-data-prep>ch3-model-dev':            'M112,284 V310 H432 V130 H480',
+    'ch2-data-prep>ch6-genai':                'M112,284 V310 H904 V130 H936',
+    'ch2-data-prep>ch7-practice':             'M112,284 V310 H888 V370 H936',
+    'ch1-exam-guide>ch7-practice':            'M180,164 V190 H448 V430 H1024 V404'
   };
 
   /* Stato lasciato nel modulo tra un render e l'altro (ridisegno al cambio di layout). */
@@ -114,6 +117,12 @@
     });
     marker.appendChild(mk('path', { d: 'M0,0 L10,5 L0,10 z', fill: '#8b93a7' }));
     defs.appendChild(marker);
+    var markerCross = mk('marker', {
+      id: 'arr-cross', viewBox: '0 0 10 10', refX: 8, refY: 5,
+      markerWidth: 6, markerHeight: 6, orient: 'auto-start-reverse'
+    });
+    markerCross.appendChild(mk('path', { d: 'M0,0 L10,5 L0,10 z', fill: '#b3bac8' }));
+    defs.appendChild(markerCross);
     svg.appendChild(defs);
 
     /* Fasce di sfondo delle 3 aree con etichetta. */
@@ -130,9 +139,14 @@
     prereqEdges().forEach(function (e) {
       var d = ROUTES[e.from + '>' + e.to];
       if (!d) { console.warn('[map] nessun percorso SVG per ' + e.from + ' → ' + e.to); return; }
-      var p = mk('path', { d: d, class: 'map-edge', 'marker-end': 'url(#arr)' });
-      var title = mk('title', {});
       var a = app.byId(e.from), b = app.byId(e.to);
+      // Tra aree diverse la freccia è tratteggiata e attenuata: è un collegamento lungo.
+      var cross = !!(a && b && a.area !== b.area);
+      var p = mk('path', {
+        d: d, class: 'map-edge' + (cross ? ' map-edge-cross' : ''),
+        'marker-end': cross ? 'url(#arr-cross)' : 'url(#arr)'
+      });
+      var title = mk('title', {});
       title.textContent = (a ? a.short : e.from) + ' → ' + (b ? b.short : e.to);
       p.appendChild(title);
       edgesG.appendChild(p);
