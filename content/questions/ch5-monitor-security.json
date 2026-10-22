@@ -1298,15 +1298,15 @@
   {
     "id": "ch5-ext04",
     "chapter": "ch5-monitor-security",
-    "q": "Auditors want a record of who invoked a SageMaker endpoint and when, including request metadata. Management events alone are not enough. What should the team enable?",
+    "q": "Auditors want a record of who invoked a SageMaker endpoint and when. Management events alone are not enough. What should the team enable?",
     "options": [
       "Model Monitor bias-drift schedules recomputing fairness metrics on live traffic hourly",
       "Data capture sampling at 100 percent on the production endpoint for payload archiving",
       "CloudWatch Contributor Insights charts on the training cluster network traffic",
-      "CloudTrail data events for SageMaker runtime so InvokeEndpoint calls are logged"
+      "CloudTrail data events for the SageMaker endpoint resource type, which log InvokeEndpoint and its async and streaming variants"
     ],
     "answer": 3,
-    "explain": "Management events cover control-plane calls like CreateEndpoint. Logging InvokeEndpoint data-plane calls requires enabling CloudTrail data events for the SageMaker runtime.",
+    "explain": "Management events cover control-plane calls like CreateEndpoint. Data events for AWS::SageMaker::Endpoint log InvokeEndpoint, InvokeEndpointAsync, and InvokeEndpointWithResponseStream, though they do not record the request parameters.",
     "difficulty": "facile",
     "tags": [
       "cloudtrail",
@@ -1887,6 +1887,1352 @@
     "exam": [
       "C01",
       "C02"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Captured payloads reach S3 only when data capture is enabled on the endpoint, and the monitoring schedule reads from that prefix. The baseline job and CloudTrail do not create captures.",
+    "id": "ch5-b01",
+    "options": [
+      "That the endpoint has more instances, because one instance does not write captured requests to S3",
+      "That data capture is enabled on the endpoint and the schedule reads the S3 prefix it writes to",
+      "That the baseline job ran on a larger instance type, since capture depends on the baseline size",
+      "That CloudTrail data events are on for the training bucket, since capture is logged there"
+    ],
+    "q": "A team turned on data capture for a real-time endpoint, but its Model Monitor data quality schedule reports no captured data after several hours. What should they check first?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Data capture",
+    "tags": [
+      "sagemaker",
+      "model-monitor",
+      "data-capture"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      1
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "Model quality monitoring merges captured predictions with ground-truth labels in S3 on a shared identifier, so labels must carry the matching inference ID and the job must run after they land. Manual copying and CloudTrail management events do not feed the merge.",
+    "id": "ch5-b02",
+    "options": [
+      "Upload each label to S3 with the same inference ID as its captured record, in the format the job expects",
+      "Run the model quality job after the label delay, reading the S3 prefix where the late labels are written",
+      "Keep the labels in a notebook and copy accuracy numbers to a dashboard by hand each week",
+      "Point the monitoring schedule at the training data bucket, so it reads labels from the baseline folder",
+      "Turn on CloudTrail management events, so labels are merged automatically from the API calls that write them"
+    ],
+    "q": "A demand forecasting team's endpoint captures predictions, but true sales arrive about 10 days later as a separate CSV. The team wants accuracy tracked by Model Monitor. (Select TWO.)",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Ingest Ground Truth labels and merge them with predictions",
+    "tags": [
+      "model-monitor",
+      "model-quality",
+      "ground-truth"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Data drift is detected by comparing live input statistics with the baseline, which needs no labels. Label-based accuracy is delayed, and the other two options track operations, not the input data.",
+    "id": "ch5-b03",
+    "options": [
+      "The number of CloudWatch alarms fired per day across all endpoints in the account",
+      "Live feature distributions against the statistics saved from the training data baseline",
+      "The instance type history recorded in the CloudFormation stack that deployed the endpoint",
+      "Accuracy on last week's labels, recomputed daily as soon as each label batch lands"
+    ],
+    "q": "A lending model's features stay within expected ranges, but true outcomes arrive weeks late. The team wants an early warning that live inputs no longer resemble the training data, without waiting for labels. What should it compare?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Data quality monitoring",
+    "tags": [
+      "drift",
+      "data-drift",
+      "baseline"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "AWS documents the open-source SageMaker AI monitoring solutions with CloudWatch and QuickSight as the replacement for new use, and existing customers keep their current service. CloudTrail management events do not carry inference payloads, so they cannot detect drift.",
+    "id": "ch5-b04",
+    "options": [
+      "Build monitoring with the open-source SageMaker AI monitoring solutions, plus CloudWatch and QuickSight",
+      "Detect drift with CloudTrail Lake queries, since management events record every inference payload",
+      "Ask AWS support to reopen Model Monitor for the account, the standard way to unlock a closed service",
+      "Create the schedules anyway, since the closure only affects the console and the SDK still accepts them"
+    ],
+    "q": "A new AWS account must start monitoring a production endpoint next week. The architect notes that the AWS documentation for SageMaker Model Monitor says the service is no longer open to new customers. Which recommendation fits?",
+    "source": "AWS availability change for Model Monitor",
+    "tags": [
+      "model-monitor",
+      "availability",
+      "governance"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      3
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Concept drift shows up as falling accuracy against fresh labels while inputs look normal, because the feature-to-label relationship changed. Shifting feature means describe data drift, and schema or latency symptoms belong to other causes.",
+    "id": "ch5-b05",
+    "options": [
+      "The same inputs now map to different outcomes, because the relationship between features and label changed",
+      "Errors rise only on requests with missing fields, which points to a schema change upstream",
+      "Input feature means shift while accuracy against fresh labels stays flat, so the model still predicts well",
+      "Accuracy falls on fresh labels while the input features still look like the training data",
+      "Endpoint latency rises after a scale-in event, which usually points to undersized instances"
+    ],
+    "q": "A deployed credit classifier shows lower accuracy on fresh labels, while its input feature distributions look unchanged. Which TWO statements describe concept drift rather than data drift? (Select TWO.)",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Model quality monitoring",
+    "tags": [
+      "drift",
+      "concept-drift",
+      "model-quality"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Sampling captures a fraction of traffic that is still representative, which lowers storage and analysis cost. Capturing everything or disabling capture both fail on cost or on detection, and failed-only capture misses input drift.",
+    "id": "ch5-b06",
+    "options": [
+      "Capture only failed responses, since successful predictions rarely show changes in input data",
+      "Capture a sampled percentage of requests, so monitoring reads a representative subset of traffic",
+      "Disable capture and compare CloudWatch invocation counts, which show drift in the request mix",
+      "Capture 100 percent of requests and keep every file in S3 Standard indefinitely for later analysis"
+    ],
+    "q": "An endpoint handles millions of requests a day, and the team wants drift analysis at the lowest storage and processing cost. Which data capture setting fits?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Data capture",
+    "tags": [
+      "data-capture",
+      "sampling",
+      "cost"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Pipelines emit execution status change events to EventBridge, so a rule filtered on the failed state can notify SNS within minutes. CloudTrail data events log object access, and a baseline job does not report pipeline step failures.",
+    "id": "ch5-b07",
+    "options": [
+      "A CloudTrail data event trail on the training bucket that reports failed evaluation steps in real time",
+      "Poll the pipeline console every hour with a script that reads each execution's status",
+      "An EventBridge rule that matches a pipeline execution status change to Failed, with an SNS topic as the target",
+      "A monitoring baseline job rerun every night, so any failed step appears in its report"
+    ],
+    "q": "A nightly retraining pipeline fails at its evaluation step, and the on-call team must be paged within minutes without polling the console. Which setup works?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Events that Amazon SageMaker AI sends to Amazon EventBridge",
+    "tags": [
+      "eventbridge",
+      "pipelines",
+      "alarms"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.1S2"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Bedrock model invocation logging is off by default and writes to CloudWatch Logs or S3 only after you configure it. The other options describe retention or content behavior that the service does not apply by default.",
+    "id": "ch5-b08",
+    "options": [
+      "Guardrails removed each log entry after the request was blocked or filtered by its checks",
+      "Bedrock keeps prompts only in CloudTrail management events, which do not store the response text",
+      "The logs were written to the bucket but expired after 24 hours under the default lifecycle policy",
+      "Model invocation logging was never configured, and it is disabled by default until a CloudWatch Logs or S3 destination is set"
+    ],
+    "q": "Compliance asks for the full prompts and responses of every Amazon Bedrock call made last month, and the logs are empty. What is the most likely cause?",
+    "source": "AWS docs: Amazon Bedrock User Guide — Monitor model invocation using CloudWatch Logs and Amazon S3",
+    "tags": [
+      "bedrock",
+      "logging",
+      "audit"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.1"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      3
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Invocation logging records Converse, ConverseStream, InvokeModel and InvokeModelWithResponseStream calls made through bedrock-runtime. The other operations are control-plane calls or configuration reads that the logging does not record.",
+    "id": "ch5-b09",
+    "options": [
+      "InvokeModel and InvokeModelWithResponseStream calls made through the bedrock-runtime endpoint",
+      "CreateModelCustomizationJob calls that start a fine-tuning job in the account and Region",
+      "GetModelInvocationLoggingConfiguration calls that read the current logging destination settings",
+      "Converse and ConverseStream calls made through the bedrock-runtime endpoint",
+      "ListFoundationModels calls that show which models the account can see in a Region"
+    ],
+    "q": "A team wants Bedrock invocation logs for calls its app makes through Converse and InvokeModel, and for their streamed variants. Which TWO API operations are captured? (Select TWO.)",
+    "source": "AWS docs: Amazon Bedrock User Guide — Monitor model invocation using CloudWatch Logs and Amazon S3",
+    "tags": [
+      "bedrock",
+      "logging",
+      "invocation"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.1"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "CloudWatch Logs carries bodies up to 100 KB inline, while larger or binary data goes to S3 as separate objects, so an S3 destination is needed for images. The other options assume unlimited inline storage or an automatic stream that the service does not create.",
+    "id": "ch5-b10",
+    "options": [
+      "An S3 destination for invocation logs, since large or binary data is stored there as separate objects, with CloudWatch Logs for metadata",
+      "A local EC2 disk attached to the application, copied to a bucket by a nightly cron job",
+      "A Kinesis Data Firehose stream that the Bedrock console configures automatically for image payloads",
+      "CloudWatch Logs only, because log events store request bodies of any size without an extra location"
+    ],
+    "q": "A Converse-based app sends image inputs of several megabytes, and the team needs those inputs stored for audit. Which logging destination design fits Bedrock's limits?",
+    "source": "AWS docs: Amazon Bedrock User Guide — Monitor model invocation using CloudWatch Logs and Amazon S3",
+    "tags": [
+      "bedrock",
+      "logging",
+      "s3"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.1"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "A shadow test mirrors live requests to the new variant while only the production variant answers callers, and shadow responses can be logged or discarded for offline comparison. A canary returns its responses to users, so it exposes them to the new container.",
+    "id": "ch5-b11",
+    "options": [
+      "A batch transform job that replays last week's requests against the new container image",
+      "A shadow test that copies requests to the new variant and returns only production responses to callers",
+      "A canary variant at 10 percent weight, whose responses go back to the callers routed to it",
+      "A multi-model endpoint that loads both container versions and routes requests by model name"
+    ],
+    "q": "A team validates a new serving container for latency and error rate on live traffic, without users seeing its responses. Which SageMaker option fits?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Shadow tests",
+    "tags": [
+      "sagemaker",
+      "shadow",
+      "deployment"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": [
+      2,
+      3
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "Shadow tests mirror requests and keep the shadow results offline, and they are not compatible with serverless endpoints. A/B tests split user traffic across variants, which is a different goal from validating an update with no user impact.",
+    "id": "ch5-b12",
+    "options": [
+      "Shadow tests run on serverless inference endpoints with no restrictions on the endpoint configuration",
+      "A shadow variant's responses are returned to callers, so an A/B comparison of its quality happens in production",
+      "In a shadow test only the production variant's responses reach callers, while the shadow copy receives mirrored requests",
+      "Shadow responses can be logged for offline comparison of latency and quality before any traffic shifts",
+      "Shadow tests can only compare model weights, not container images or instance types"
+    ],
+    "q": "Which TWO statements about shadow tests and A/B tests on SageMaker endpoints are correct? (Select TWO.)",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Shadow tests",
+    "tags": [
+      "sagemaker",
+      "shadow",
+      "ab-testing"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Endpoint metrics carry the VariantName dimension, so per-variant counts and errors can be charted and alarmed separately. EndpointConfigName and ModelName are not metric dimensions, and Host belongs to job metrics.",
+    "id": "ch5-b13",
+    "options": [
+      "Host, which filters metrics for a training or processing job instance rather than an endpoint",
+      "ModelName, which is shared by every variant that serves the same model artifact",
+      "VariantName, which identifies each production variant in the endpoint's CloudWatch metrics",
+      "EndpointConfigName, which changes every time the endpoint configuration is replaced"
+    ],
+    "q": "An endpoint has two production variants, and the team wants per-variant invocation and error counts in CloudWatch. Which dimension separates them?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Amazon SageMaker AI metrics in Amazon CloudWatch",
+    "tags": [
+      "cloudwatch",
+      "variants",
+      "metrics"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Matching job frequency and sampling to the actual decision cadence cuts processing cost, and CloudWatch alarms keep watch cheaply between runs. Disabling capture or deleting the baseline stops the monitoring rather than making it cheaper.",
+    "id": "ch5-b14",
+    "options": [
+      "Delete the baseline, since jobs without a baseline do not run and cost nothing",
+      "Run the same jobs every minute, so the team gets the same answer sooner each day",
+      "Turn off data capture entirely, so the jobs have no captured data to process",
+      "Align the schedule and sampling with the daily review, and keep cheap CloudWatch alarms running between the jobs"
+    ],
+    "q": "A monitoring setup runs bias and explainability jobs hourly on a large endpoint, and its cost has jumped. The decisions depend only on a daily review. What is the best change?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Data capture",
+    "tags": [
+      "cost",
+      "monitoring",
+      "schedule"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "AgentCore Observability records sessions, traces, spans, and metrics such as token usage and error rates in OpenTelemetry-compatible format, and stores them in CloudWatch. CPU metrics and Model Cards do not show each step of an agent run or where failures occurred.",
+    "id": "ch5-b15",
+    "options": [
+      "AgentCore Observability traces and spans, emitted in OpenTelemetry format and sent to CloudWatch",
+      "A Model Card updated for each agent release, listing the tools the agent can call",
+      "Lake Formation audit logs that record each query the agent issues against the data lake",
+      "CloudWatch CPU alarms on the host that runs the agent code, reviewed after each incident"
+    ],
+    "q": "A multi-step agent sometimes stops mid-answer when a downstream tool times out. The team needs per-step timing and the failing span for each session. Which observability setup fits?",
+    "source": "AWS docs: Amazon Bedrock AgentCore — Observe your agent applications on Amazon Bedrock AgentCore Observability",
+    "tags": [
+      "agentcore",
+      "observability",
+      "agents"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.5"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      2
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "AgentCore Observability reports token usage and error rates, and stores them as metrics in CloudWatch next to the traces. Training loss, shadow traffic shares, and key rotation describe model or infrastructure state, not agent runs.",
+    "id": "ch5-b16",
+    "options": [
+      "Token usage per session, which shows how much model consumption each agent run creates",
+      "Shadow variant traffic share, set to five percent instead of ten percent",
+      "Error rates for agent runs, reported as metrics in CloudWatch",
+      "Training loss from an offline experiment that no agent calls",
+      "The date of the last KMS key rotation on the account's keys"
+    ],
+    "q": "Beyond model accuracy, which TWO AgentCore Observability signals help monitor an agent in production? (Select TWO.)",
+    "source": "AWS docs: Amazon Bedrock AgentCore — Observe your agent applications on Amazon Bedrock AgentCore Observability",
+    "tags": [
+      "agents",
+      "tool-failure",
+      "streaming"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.5"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "A Bedrock model evaluation job scores responses with a judge model or a human team, and reports metrics to S3 for comparison across releases. The other options produce outputs or capacity, not quality scores.",
+    "id": "ch5-b17",
+    "options": [
+      "Provisioned Throughput model units that reserve capacity so that answers arrive with lower latency",
+      "A model evaluation job that uses a judge model and built-in metrics, writing the full report to S3",
+      "A cross-Region inference profile that routes each request to the closest Region with spare capacity",
+      "A batch inference job that runs the same prompts once, writing raw outputs to S3 for later reading"
+    ],
+    "q": "A team needs a repeatable quality score for a foundation model's answers before each release. Which Amazon Bedrock feature fits?",
+    "source": "AWS docs: Amazon Bedrock User Guide — Evaluate model performance using another LLM as a judge",
+    "tags": [
+      "bedrock",
+      "evaluation",
+      "llm-as-a-judge"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.6",
+      "G-4.1.1"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "CloudWatch anomaly detection builds a band from the metric's history, so alarms adapt to recurring patterns. Static thresholds miss the weekly shape, while CloudTrail Insights and Config track API activity and configuration, not token metrics.",
+    "id": "ch5-b18",
+    "options": [
+      "A static threshold set at a fixed token count, reviewed every quarter by the finance team",
+      "An AWS Config rule that checks token counts on each resource every hour",
+      "An anomaly detection alarm whose band learns the metric's normal pattern over time",
+      "A CloudTrail Insights event that fires on unusual management API calls in the account"
+    ],
+    "q": "A chatbot's daily token usage follows a weekly pattern, so a fixed threshold either misses spikes or fires every weekend. Which CloudWatch alarm type fits?",
+    "source": "AWS docs: Amazon CloudWatch User Guide — Using CloudWatch anomaly detection",
+    "tags": [
+      "cloudwatch",
+      "anomaly-detection",
+      "alarms"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "An M out of N alarm goes to ALARM when M of the last N datapoints breach the threshold, so brief spikes do not page, and ModelLatency is reported in microseconds. The other options use a single-point rule or a metric that does not measure model latency.",
+    "id": "ch5-b19",
+    "options": [
+      "Alarm on InvocationsPerInstance, with 3 datapoints to alarm out of 3 evaluation periods",
+      "Alarm on the maximum of OverheadLatency, with 5 datapoints to alarm out of 5 evaluation periods",
+      "Alarm on the Average of ModelLatency, with one datapoint out of one evaluation period",
+      "Alarm on the Average statistic of ModelLatency, with 3 datapoints to alarm out of 5 evaluation periods on 60-second periods"
+    ],
+    "q": "The team wants an alert only when endpoint model latency stays high: average ModelLatency above 500000 microseconds, which is 500 ms, for 3 of the last 5 one-minute periods. Which alarm configuration matches?",
+    "source": "AWS docs: Amazon CloudWatch User Guide — Alarm evaluation",
+    "tags": [
+      "cloudwatch",
+      "alarms",
+      "latency"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K1"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      3,
+      4
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "Model quality monitoring needs captured predictions, a baseline with labels, and labels merged on a shared identifier. Model Cards, CloudTrail data events, and extra instances are governance or capacity choices, not prerequisites for the job.",
+    "id": "ch5-b20",
+    "options": [
+      "Ground-truth labels in S3 that can be merged with captured predictions on a shared identifier",
+      "CloudTrail data events on every InvokeEndpoint request, enabled before the first prediction",
+      "A larger instance count, so that the monitoring job can share capacity with the endpoint",
+      "A model quality baseline built from data that includes ground-truth labels",
+      "Data capture enabled on the endpoint, writing predictions to S3",
+      "Model Cards signed by two reviewers before the endpoint receives any traffic"
+    ],
+    "q": "A team plans model quality monitoring on a real-time endpoint that serves predictions for loan decisions. Which THREE items are prerequisites? (Select THREE.)",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Model quality monitoring",
+    "tags": [
+      "model-quality",
+      "prerequisites",
+      "ground-truth"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Invocation5XXErrors counts server-side errors returned to callers, separate from the 4XX client errors. Latency, CPU, and total invocations describe speed, load, and volume, not failed responses.",
+    "id": "ch5-b21",
+    "options": [
+      "Invocation5XXErrors, which counts requests that fail with a server-side error",
+      "CPUUtilization, which measures how busy the instance CPUs are during inference",
+      "Invocations, which counts every request the endpoint receives, including successful ones",
+      "ModelLatency, which measures the time the container spends producing each response"
+    ],
+    "q": "An endpoint's clients see failed requests, and the team needs the metric that counts server-side errors returned to callers. Which CloudWatch metric is that?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Amazon SageMaker AI metrics in Amazon CloudWatch",
+    "tags": [
+      "cloudwatch",
+      "metrics",
+      "errors"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K1"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "The baseline is the reference that drift is measured against, and it should match the inference data schema, so a new baseline built from current traffic keeps comparisons valid. Pausing, sampling less, or adding instances hide or ignore the mismatch rather than fixing the reference.",
+    "id": "ch5-b22",
+    "options": [
+      "Add endpoint instances, because seasonal traffic makes each violation a capacity problem",
+      "Build a new baseline from a dataset that represents current traffic and matches the endpoint's input schema, then compare against it",
+      "Pause the monitoring schedule until the season ends, then restart it with the old baseline",
+      "Lower the captured sampling to one percent, so fewer seasonal records reach the drift check"
+    ],
+    "q": "After a seasonal shift, a drift check reports violations every day, because its baseline was built from last year's training data. What is the right fix?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Create a Baseline",
+    "tags": [
+      "drift",
+      "baseline",
+      "seasonality"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Citation precision in Bedrock RAG evaluations measures how many of the cited passages were correctly cited, which is the failure described. Perplexity, BLEU, and latency do not check citations against the retrieved sources.",
+    "id": "ch5-b23",
+    "options": [
+      "p99 ModelLatency, which measures how long the endpoint takes to return the full response",
+      "Perplexity of the generated tokens, which measures how predictable the answer text is to the model",
+      "Citation precision, which measures how many of the cited passages were correctly cited",
+      "BLEU against a reference translation, which counts matching word sequences in the answer"
+    ],
+    "q": "A RAG assistant's answers read well, but some citations point to passages that do not support the claim. Which Bedrock RAG evaluation metric measures this?",
+    "source": "AWS docs: Amazon Bedrock User Guide — Use metrics to understand RAG system performance",
+    "tags": [
+      "rag",
+      "evaluation",
+      "citations"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.6"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "ROUGE measures n-gram overlap oriented toward recall, which suits summarization against reference text. BLEU is precision-oriented and built for translation, and accuracy and silhouette do not score generated text.",
+    "id": "ch5-b24",
+    "options": [
+      "Classification accuracy, which counts exact label matches between predictions and labels",
+      "Silhouette score, which measures how well clusters separate in the embedding space",
+      "BLEU, which rewards precision of matching word sequences against a translation reference",
+      "ROUGE, which measures overlap between the generated summary and the reference, weighted toward recall"
+    ],
+    "q": "A team compares generated summaries with reference summaries and wants an overlap score that favors recall. Which metric fits?",
+    "source": "ROUGE: A Package for Automatic Evaluation of Summaries (Lin, 2004)",
+    "tags": [
+      "nlp-metrics",
+      "rouge",
+      "evaluation"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.6"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "A scale change is a data problem, so the team should confirm the upstream change and either restore the old scale or rebuild the baseline on the new one. Retraining on mismatched references or muting alarms leaves the mismatch in place.",
+    "id": "ch5-b25",
+    "options": [
+      "Confirm the upstream change, fix or version the pipeline, and rebuild the baseline if the new scale is intended",
+      "Increase the endpoint instance size, since larger instances can normalize inputs before scoring",
+      "Turn off the alarms for that feature, so the violation metric stops reaching the team",
+      "Retrain the model on the new scale and leave the old reference data in place for comparison"
+    ],
+    "q": "A monitoring check flags a feature after an upstream unit change moved its values from a 0 to 1 scale to a 0 to 100 scale. What is the right fix?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Data quality monitoring",
+    "tags": [
+      "drift",
+      "data-quality",
+      "baseline"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "With network isolation the container gets no inbound or outbound calls, while SageMaker downloads inputs and uploads outputs through the VPC on its behalf. NAT and open outbound rules let the container reach the internet, which is what isolation prevents.",
+    "id": "ch5-b26",
+    "options": [
+      "A VPC peering connection to a public account that hosts the training datasets and the container images",
+      "Network isolation enabled on the training job, with a VPC configuration so SageMaker moves the data through the VPC",
+      "A security group that allows all outbound traffic, so the container can fetch packages during training",
+      "A public subnet with a NAT gateway, so the container can reach S3 and the internet when it needs data"
+    ],
+    "q": "A training job must keep its container from making any inbound or outbound network calls, yet it still needs input data from the VPC. Which setting combination fits?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Run Training and Inference Containers in Internet-Free Mode",
+    "tags": [
+      "network-isolation",
+      "vpc",
+      "training"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3K2"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "A key policy or a grant must allow the execution role to use the key, because IAM allow policies have no effect unless the key policy permits them. Public bucket access is unsafe, and NAT or instance size do not address a decryption denial.",
+    "id": "ch5-b27",
+    "options": [
+      "Switch the instance to a larger family, because encrypted buckets need more memory per read",
+      "Add a public read statement to the bucket policy, so the job can read without decrypting",
+      "Allow the execution role to use the key with kms:Decrypt in the KMS key policy, or with a grant",
+      "Attach a NAT gateway to the subnet, since S3 requests fail without outbound internet access"
+    ],
+    "q": "A training job's execution role has s3:GetObject on a bucket encrypted with a customer managed key, yet the job fails with AccessDenied when it reads data. Which change fixes it?",
+    "source": "AWS docs: AWS Key Management Service Developer Guide — Key policies in AWS KMS",
+    "tags": [
+      "kms",
+      "accessdenied",
+      "troubleshooting"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S4"
+    ]
+  },
+  {
+    "answer": [
+      2,
+      3
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "Service control policies and permission boundaries both limit permissions, and an action must be allowed by every applicable policy type, so either one can cause a denial. A lifecycle rule, a grant that would allow the call, and trail settings do not cause AccessDenied.",
+    "id": "ch5-b28",
+    "options": [
+      "The bucket lacks a lifecycle rule, so the write is rejected until storage classes are assigned",
+      "A bucket policy in the same account grants the role s3:PutObject, which would have allowed the call",
+      "A permissions boundary attached to the role leaves s3:PutObject out, so the intersection excludes it",
+      "A service control policy on the account does not allow s3:PutObject, and an SCP must allow an action for it to succeed",
+      "CloudTrail data events are off for the bucket, which blocks writes until they are turned on"
+    ],
+    "q": "An IAM role's identity policy allows s3:PutObject, yet the call still fails with AccessDenied. Which TWO explanations fit? (Select TWO.)",
+    "source": "AWS docs: IAM User Guide — Policy evaluation logic",
+    "tags": [
+      "iam",
+      "policy-evaluation",
+      "accessdenied"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S4"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "An explicit deny in identity-based or resource-based policies overrides any allow, so the read fails. The other options assume that allows win or that denies expire or apply partially, which the evaluation logic does not do.",
+    "id": "ch5-b29",
+    "options": [
+      "It is allowed, because the identity policy grants the permission and the bucket policy only adds limits",
+      "It is allowed for the first 24 hours, then denied once CloudTrail records the access",
+      "It is denied only for the bucket, and allowed for any object already cached in the job",
+      "It is denied, because an explicit deny in any applicable policy overrides an allow"
+    ],
+    "q": "A role in account A has an identity policy that allows s3:GetObject, and the bucket's resource policy in the same account carries an explicit Deny for the same action. What happens to a read request from that role?",
+    "source": "AWS docs: IAM User Guide — Policy evaluation logic",
+    "tags": [
+      "iam",
+      "explicit-deny",
+      "policy-evaluation"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S4"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      4
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Secrets Manager rotates secrets automatically, either with managed rotation or with a Lambda function for custom secrets, so applications fetch the current value. Manual rotation, hard-coded credentials, and versioned text files all leave the rotation to people or to the application.",
+    "id": "ch5-b30",
+    "options": [
+      "A Lambda-based rotation function that Secrets Manager calls to update a custom secret and its database",
+      "A String parameter in Parameter Store, rotated by an engineer each month with a manual script",
+      "The password stored in an S3 text file that is versioned, so that old values remain recoverable",
+      "The password hard-coded in the training container image, rebuilt each month by the pipeline",
+      "AWS Secrets Manager with automatic rotation configured on the secret"
+    ],
+    "q": "A database password must rotate on a schedule without changing application code. Which TWO options meet this? (Select TWO.)",
+    "source": "AWS docs: AWS Secrets Manager User Guide — Rotate AWS Secrets Manager secrets",
+    "tags": [
+      "secrets-manager",
+      "rotation",
+      "credentials"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Managed rotation has the service configure and run rotation, so no Lambda function is required. Custom Lambda rotation, bucket exports, and CloudTrail events either need the team's own code or do not rotate anything.",
+    "id": "ch5-b31",
+    "options": [
+      "Managed rotation, where the service configures and runs rotation for the secret",
+      "A nightly export of the secret to a bucket, which overwrites the previous value",
+      "A CloudTrail event that triggers the application to request a new password",
+      "Rotation by a custom Lambda function that the team writes for each secret type"
+    ],
+    "q": "For a managed secret whose service supports it, which rotation option requires no Lambda function from the team?",
+    "source": "AWS docs: AWS Secrets Manager User Guide — Rotate AWS Secrets Manager secrets",
+    "tags": [
+      "secrets-manager",
+      "rotation"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "The sensitive information filter detects PII entities such as social security numbers and email addresses, and can block or mask them in inputs and responses. Content, grounding, and topic filters address harmful content, hallucination, and subject matter, not personal data patterns.",
+    "id": "ch5-b32",
+    "options": [
+      "The content filter for Violence, which scores the severity of violent language in each message",
+      "The sensitive information filter, which blocks or masks PII and accepts custom regex patterns",
+      "A denied topic that names social security numbers, which blocks any message mentioning them",
+      "The contextual grounding check, which tests whether an answer is supported by the retrieved source"
+    ],
+    "q": "A support chatbot built on Amazon Bedrock must block customers' social security numbers and email addresses in both prompts and answers. Which guardrail component fits?",
+    "source": "AWS docs: Amazon Bedrock User Guide — Detect and filter harmful content by using Amazon Bedrock Guardrails",
+    "tags": [
+      "guardrails",
+      "pii",
+      "sensitive-data"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.9"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "ApplyGuardrail evaluates text against a guardrail's filters without invoking a Bedrock model, so the open model's inputs and outputs can be checked anywhere. InvokeModel and Converse run a Bedrock model, and a customization job trains a model rather than checking text.",
+    "id": "ch5-b33",
+    "options": [
+      "Converse with a guardrail version, which sends the text to Bedrock for the model call",
+      "InvokeModel with the guardrail ID added to the request, which runs the open model in Bedrock",
+      "ApplyGuardrail, which evaluates text against the guardrail's filters without invoking a foundation model",
+      "CreateModelCustomizationJob, which trains the open model with the guardrail rules built in"
+    ],
+    "q": "A team runs a self-hosted open model outside Amazon Bedrock and wants the same guardrail checks on its inputs and outputs. Which API lets them apply the guardrail without invoking a Bedrock model?",
+    "source": "AWS docs: Amazon Bedrock User Guide — Detect and filter harmful content by using Amazon Bedrock Guardrails",
+    "tags": [
+      "guardrails",
+      "apply-guardrail",
+      "responsible-ai"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.9"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      2
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Bedrock Guardrails includes content filters and contextual grounding checks, along with denied topics, word filters, sensitive information filters, and Automated Reasoning checks. Drift, metric, and security group features belong to monitoring and networking, not to guardrails.",
+    "id": "ch5-b34",
+    "options": [
+      "Contextual grounding checks that flag responses unsupported by the source material",
+      "A security group filter that blocks inbound traffic to the inference endpoint",
+      "Content filters for harmful text such as hate, insults, and violence",
+      "A CloudWatch metric filter that counts matching log lines for a dashboard",
+      "A model drift filter that compares live feature distributions with a training baseline"
+    ],
+    "q": "Which TWO are filters or checks offered by Amazon Bedrock Guardrails? (Select TWO.)",
+    "source": "AWS docs: Amazon Bedrock User Guide — Detect and filter harmful content by using Amazon Bedrock Guardrails",
+    "tags": [
+      "guardrails",
+      "content-filters",
+      "grounding"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.9"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      4
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Short-term keys expire within 12 hours or with the session and inherit the generating principal's permissions, and AWS recommends them for production. Long-term keys are the ones that create an IAM user, and a key generated in one Region is not valid in another.",
+    "id": "ch5-b35",
+    "options": [
+      "A short-term key inherits the permissions of the IAM principal that generated it",
+      "A short-term key works in every Region automatically, without generating it again per Region",
+      "A short-term key is recommended for exploration only, and production should use long-term keys",
+      "A short-term key creates a new IAM user, which then holds the key's permissions",
+      "A short-term key lasts up to 12 hours or the length of the session, whichever is shorter"
+    ],
+    "q": "A production app calls Amazon Bedrock with bearer tokens instead of AWS credentials. Which TWO statements about short-term Bedrock API keys are correct? (Select TWO.)",
+    "source": "AWS docs: Amazon Bedrock User Guide — API keys",
+    "tags": [
+      "bedrock",
+      "api-keys",
+      "credentials"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.8"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "The iam:ServiceSpecificCredentialAgeDays condition key limits how long a generated service-specific credential can last, which applies to long-term Bedrock keys. Alarms, Region SCPs, and bucket policies do not limit key lifetime when the key is generated.",
+    "id": "ch5-b36",
+    "options": [
+      "An SCP that blocks all Bedrock actions in every Region outside the approved list",
+      "An S3 bucket policy on the artifacts bucket that rejects requests carrying bearer tokens",
+      "A CloudWatch alarm on the age of each key that disables it after the threshold is crossed",
+      "An IAM policy with a condition on iam:ServiceSpecificCredentialAgeDays for iam:CreateServiceSpecificCredential"
+    ],
+    "q": "A security team wants to stop developers from creating long-term Bedrock API keys that last more than 90 days. Which control enforces this?",
+    "source": "AWS docs: Amazon Bedrock User Guide — API keys",
+    "tags": [
+      "bedrock",
+      "api-keys",
+      "iam-conditions"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.8"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Event history keeps the past 90 days of management events per Region, so older activity requires a trail delivered to S3 or a Lake event data store. Event history excludes data events, and it records management events by default.",
+    "id": "ch5-b37",
+    "options": [
+      "The event history cannot answer this, because it covers only the past 90 days of management events, so a trail delivered to S3 is needed",
+      "The event history can answer this, since it keeps 13 months of management events in each Region for audits",
+      "The event history cannot answer this, because management events are never recorded unless a trail is created",
+      "The event history can answer this, because it stores data events such as object reads and writes for a year"
+    ],
+    "q": "An auditor asks who called a management API 120 days ago. The team has only the default event history. What is the correct answer?",
+    "source": "AWS docs: AWS CloudTrail User Guide — Working with CloudTrail event history",
+    "tags": [
+      "cloudtrail",
+      "event-history",
+      "audit"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.4"
+    ]
+  },
+  {
+    "answer": [
+      1,
+      3
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Invocation activity is a data event, so the endpoint resource type must be selected with advanced event selectors, and the events need a trail or event data store. Management events, Model Cards, and data capture do not record caller identity for each invocation.",
+    "id": "ch5-b38",
+    "options": [
+      "Data capture enabled on the endpoint, which records each caller identity next to the payload",
+      "A trail that delivers logs to S3, or a CloudTrail Lake event data store that holds the events",
+      "Management events only, since they include every endpoint invocation along with the payload",
+      "Data events for the SageMaker endpoint resource type, configured with advanced event selectors",
+      "A Model Card for the endpoint version, which lists each caller and the time of each request"
+    ],
+    "q": "Which TWO are needed to keep an auditable record of invocations on a SageMaker endpoint? (Select TWO.)",
+    "source": "AWS docs: AWS CloudTrail User Guide — Logging data events with AWS CloudTrail",
+    "tags": [
+      "cloudtrail",
+      "data-events",
+      "audit"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.4"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Advanced event selectors can filter data events by category, resource type, ARN, and event name, which limits cost. The other options log more than needed or do not produce trail events for the bucket.",
+    "id": "ch5-b39",
+    "options": [
+      "S3 server access logs turned on for all buckets, which are then queried by hand every quarter",
+      "Advanced event selectors that match the data event category, the S3 object resource type, the bucket ARN, and only the event names needed",
+      "Basic event selectors on the account trail, which log every S3 operation for every bucket in the account",
+      "A CloudWatch Logs metric filter on the bucket name, which counts object requests from the trail"
+    ],
+    "q": "A security team needs object-level records of reads and writes to one captured-data bucket, but not every S3 action in the account, because trail costs must stay low. What is the best setup?",
+    "source": "AWS docs: AWS CloudTrail User Guide — Logging data events with AWS CloudTrail",
+    "tags": [
+      "cloudtrail",
+      "data-events",
+      "cost"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.4"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "AWS Config tracks configuration changes and evaluates rules, flagging noncompliant resources. CloudTrail shows who made a call but does not evaluate compliance, and Model Cards and budgets do not monitor settings.",
+    "id": "ch5-b40",
+    "options": [
+      "CloudTrail Lake alone, since its queries show each configuration value and fire alerts on any change",
+      "A Model Card for the endpoint, updated by the team each time the encryption setting is changed",
+      "AWS Config recording the resource type, with a rule that flags NON_COMPLIANT resources on configuration changes",
+      "An AWS Budgets alert on the endpoint's monthly spend, which reports encryption changes as cost events"
+    ],
+    "q": "A compliance team wants an alert when a SageMaker endpoint's encryption setting drifts out of policy, plus a history of its configuration changes. Which combination fits?",
+    "source": "AWS docs: AWS Config Developer Guide — Components of an AWS Config Rule",
+    "tags": [
+      "config",
+      "compliance",
+      "eventbridge"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.4"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      1
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Rules evaluate on configuration changes, on a periodic schedule, or both, and AWS Config flags both the resource and the rule as noncompliant. Detective rules check deployed resources and do not block creation, and recording has costs.",
+    "id": "ch5-b41",
+    "options": [
+      "A rule can be triggered by configuration changes to resources in its scope, or run periodically",
+      "A rule is flagged NON_COMPLIANT when a resource in its scope does not comply, and the resource is flagged too",
+      "A periodic rule runs only when a resource in its scope is created, updated, or deleted",
+      "A detective rule blocks resource creation, so noncompliant resources never reach the account",
+      "Config records and evaluates every resource in every Region at no charge once the account is created"
+    ],
+    "q": "Which TWO statements about AWS Config rules are correct? (Select TWO.)",
+    "source": "AWS docs: AWS Config Developer Guide — Components of an AWS Config Rule",
+    "tags": [
+      "config",
+      "rules",
+      "compliance"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.4"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Inspector scans ECR images on push and, with continuous scanning, again as new vulnerabilities are added to its database. Local scans, size dashboards, and network rules do not check image packages automatically over time.",
+    "id": "ch5-b42",
+    "options": [
+      "A developer runs a local scan on each laptop before pushing, and records the result in a spreadsheet",
+      "Security group rules on the ECR interface endpoint that block images with known vulnerable layers",
+      "A CloudWatch dashboard that charts image size, so unusually large images are flagged for review",
+      "Amazon Inspector scanning enabled on the ECR registry, with continuous scanning on the repository"
+    ],
+    "q": "A CI pipeline pushes container images to Amazon ECR. The team wants vulnerabilities found automatically on push and then re-checked as new CVEs appear. Which setup fits?",
+    "source": "AWS docs: Amazon Inspector User Guide — Scanning Amazon ECR container images with Amazon Inspector",
+    "tags": [
+      "inspector",
+      "ecr",
+      "ci-cd",
+      "vulnerabilities"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.1"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch5-monitor-security",
+    "difficulty": "facile",
+    "explain": "Distributed training needs instances to reach one another, which an inbound rule for the security group's own members allows without opening traffic to the internet. Open ranges, NAT routes, and public IPs expose or route traffic the job does not need.",
+    "id": "ch5-b43",
+    "options": [
+      "An inbound rule that allows traffic from members of the same security group",
+      "A rule that opens all ports to 0.0.0.0/0, so instances can reach each other across subnets",
+      "A NAT gateway route in every subnet, so that cluster traffic leaves the VPC and returns",
+      "A public IP on each instance, so that the cluster can discover its peers over the internet"
+    ],
+    "q": "A training job runs in private subnets with no internet route. Its instances must exchange traffic during distributed training. What does the security group need?",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Give SageMaker AI training jobs access to resources in your VPC",
+    "tags": [
+      "vpc",
+      "security-groups",
+      "distributed-training"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S5"
+    ]
+  },
+  {
+    "answer": [
+      2,
+      3,
+      4
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "difficile",
+    "explain": "Inter-container traffic encryption needs the job setting, plus UDP 500 and ESP (protocol 50) rules that let cluster members reach each other through their shared security group. Glacier rules, endpoint data capture, and NAT gateways do not secure traffic between training instances.",
+    "id": "ch5-b44",
+    "options": [
+      "An S3 lifecycle rule that moves training data to Glacier after the job completes",
+      "Data capture on a real-time endpoint, which encrypts the traffic between training instances",
+      "Enable inter-container traffic encryption on the training job",
+      "A security group rule allowing UDP port 500 from the security group to itself",
+      "A security group rule allowing protocol 50 (ESP) from the security group to itself",
+      "A NAT gateway in a public subnet, which carries the cluster's traffic out to the internet"
+    ],
+    "q": "Which THREE items are needed to encrypt traffic between instances of a multi-instance SageMaker training job in a VPC? (Select THREE.)",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Protect Communications Between ML Compute Instances in a Distributed Training Job",
+    "tags": [
+      "inter-container-encryption",
+      "ipsec",
+      "security-groups"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3K2"
+    ]
+  },
+  {
+    "answer": [
+      1,
+      3
+    ],
+    "chapter": "ch5-monitor-security",
+    "difficulty": "media",
+    "explain": "Network isolation blocks the container's own network calls, and SageMaker handles data transfer on its behalf with the execution role. It can be combined with a VPC configuration, and KMS encryption is a separate control.",
+    "id": "ch5-b45",
+    "options": [
+      "The setting replaces KMS encryption, so volumes and outputs are no longer encrypted with a key",
+      "The training container cannot make inbound or outbound network calls, except between peers in a distributed cluster",
+      "The training container receives AWS credentials so it can read data from S3 on its own",
+      "SageMaker still downloads input data and uploads outputs through the job's execution role, outside the container",
+      "The setting is incompatible with a VPC configuration, so the job must run outside any VPC"
+    ],
+    "q": "Which TWO statements about EnableNetworkIsolation on a SageMaker training job are correct? (Select TWO.)",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide — Run Training and Inference Containers in Internet-Free Mode",
+    "tags": [
+      "network-isolation",
+      "training",
+      "security"
+    ],
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3K2"
     ]
   }
 ]
