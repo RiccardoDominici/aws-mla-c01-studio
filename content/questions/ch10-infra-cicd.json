@@ -63,15 +63,15 @@
     "chapter": "ch10-infra-cicd",
     "q": "A product team evaluates Neo for an edge deployment. Which TWO statements about SageMaker Neo are correct? (Select TWO.)",
     "options": [
+      "Neo removes the need to export the model from its training framework first",
+      "Neo supports only models created with SageMaker built-in algorithms",
       "Neo compiles a trained model for specific target hardware, including edge devices",
       "Neo can only compile models for real-time endpoints hosted in the cloud",
-      "Neo can deploy a compiled model to edge devices through AWS IoT Greengrass",
-      "Neo removes the need to export the model from its training framework first",
-      "Neo supports only models created with SageMaker built-in algorithms"
+      "Neo can deploy a compiled model to edge devices through AWS IoT Greengrass"
     ],
     "answer": [
-      0,
-      2
+      2,
+      4
     ],
     "explain": "Neo compiles models for target hardware and can deploy them to edge devices with Greengrass. It needs a model exported from a supported framework, and it is not limited to built-in algorithms.",
     "difficulty": "media",
@@ -186,15 +186,15 @@
     "chapter": "ch10-infra-cicd",
     "q": "Which TWO statements about running model workloads on AWS Batch and Amazon ECS are correct? (Select TWO.)",
     "options": [
-      "AWS Batch is the right target for a low-latency, always-on inference API",
-      "AWS Batch runs containerized batch jobs from job queues on EC2 or Fargate capacity",
       "Amazon ECS can run containers on EC2 instances or on AWS Fargate",
       "AWS Batch exposes a permanently running HTTPS endpoint with autoscaling",
-      "Amazon ECS requires an EKS cluster before any service can start"
+      "Amazon ECS requires an EKS cluster before any service can start",
+      "AWS Batch is the right target for a low-latency, always-on inference API",
+      "AWS Batch runs containerized batch jobs from job queues on EC2 or Fargate capacity"
     ],
     "answer": [
-      1,
-      2
+      0,
+      4
     ],
     "explain": "Batch schedules queued container jobs on EC2 or Fargate, and ECS runs containers on EC2 or Fargate. Batch does not provide an always-on endpoint, and ECS does not depend on EKS.",
     "difficulty": "media",
@@ -248,15 +248,15 @@
     "chapter": "ch10-infra-cicd",
     "q": "A team exposes a model to a web application. Which TWO services should sit in front of the endpoint to provide per-client API keys with usage plans and caching of identical responses? (Select TWO.)",
     "options": [
-      "Amazon API Gateway usage plans with API keys",
       "Amazon CloudFront with caching enabled for cacheable responses",
       "AWS Batch compute environment that runs inference for each request",
       "Amazon EMR cluster used as a request router",
-      "AWS Glue crawler that indexes the request logs"
+      "AWS Glue crawler that indexes the request logs",
+      "Amazon API Gateway usage plans with API keys"
     ],
     "answer": [
       0,
-      1
+      4
     ],
     "explain": "API Gateway enforces API keys and usage plans, and CloudFront caches cacheable responses. Batch, EMR, and Glue are not request-facing gateways for an endpoint.",
     "difficulty": "difficile",
@@ -282,15 +282,15 @@
     "chapter": "ch10-infra-cicd",
     "q": "Which TWO practices keep test and production training consistent while controlling cost? (Select TWO.)",
     "options": [
+      "Hard-code the production data bucket path inside the test code",
       "Test only against the production endpoint with real customer traffic",
       "Use the same training container image in test and production",
       "Run all test jobs on the largest production GPU instance",
-      "Parameterize the instance type so that tests run on a small instance",
-      "Hard-code the production data bucket path inside the test code"
+      "Parameterize the instance type so that tests run on a small instance"
     ],
     "answer": [
-      1,
-      3
+      2,
+      4
     ],
     "explain": "The same image and a parameterized instance type keep environments consistent while tests stay cheap. Hard-coded production paths, the largest GPU for tests, and testing only in production all raise cost or risk.",
     "difficulty": "difficile",
@@ -492,15 +492,15 @@
     "chapter": "ch10-infra-cicd",
     "q": "Which TWO statements about SageMaker endpoint auto scaling are correct? (Select TWO.)",
     "options": [
+      "Target tracking policies require you to create the CloudWatch alarms yourself",
       "Step scaling is required to scale an endpoint out from zero instances",
       "The default cooldown for scale-in and scale-out is 60 seconds",
       "Scheduled scaling is available only from the SageMaker console",
-      "Scheduled scaling actions can be created with the AWS CLI or the Application Auto Scaling API",
-      "Target tracking policies require you to create the CloudWatch alarms yourself"
+      "Scheduled scaling actions can be created with the AWS CLI or the Application Auto Scaling API"
     ],
     "answer": [
-      0,
-      3
+      1,
+      4
     ],
     "explain": "Scheduled actions are managed through the CLI or the API, and step scaling is needed for scale-out from zero. SageMaker creates the target tracking alarms, and the default cooldown is 300 seconds, not 60.",
     "difficulty": "difficile",
@@ -1935,17 +1935,17 @@
     "chapter": "ch10-infra-cicd",
     "q": "Which THREE statements about SageMaker blue/green deployment guardrails are correct? (Select THREE.)",
     "options": [
-      "All at once moves all traffic to the green fleet, then the baking period watches it before the blue fleet is terminated",
-      "The canary size should be less than or equal to 50 percent of the green fleet capacity",
       "Linear step sizes between 10 and 50 percent of the green fleet capacity are the documented range",
       "Rollback works only for all at once shifts",
       "Rollback requires redeploying the previous model from scratch before any traffic can return to the blue fleet",
-      "Shadow tests shift all traffic to the new fleet before the baking period starts"
+      "Shadow tests shift all traffic to the new fleet before the baking period starts",
+      "All at once moves all traffic to the green fleet, then the baking period watches it before the blue fleet is terminated",
+      "The canary size should be less than or equal to 50 percent of the green fleet capacity"
     ],
     "answer": [
       0,
-      1,
-      2
+      4,
+      5
     ],
     "explain": "All at once, the canary size limit, and the linear step range are documented. Rollback to the blue fleet also works for linear and canary shifts, and shadow tests do not shift user traffic.",
     "difficulty": "difficile",
