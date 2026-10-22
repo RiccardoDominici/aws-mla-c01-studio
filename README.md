@@ -45,6 +45,22 @@ python3 -m http.server 8000
 # apri http://localhost:8000
 ```
 
+## Audio e richieste Range
+
+Il player posiziona l'audio impostando `currentTime` (±10s, slider, click sulla trascrizione). Il browser può farlo solo se ottiene dal server porzioni del file tramite l'header HTTP `Range`. Cloudflare Pages però serve gli asset statici ignorando quell'header: risponde sempre `200` con il file intero, e Chrome considera l'audio non seekable (ogni salto torna a 0).
+
+Per questo il progetto contiene:
+
+- `functions/audio/[[path]].js`: una Pages Function che risponde a `/audio/*` con `206` e `416` secondo lo standard, leggendo il file dall'asset binding;
+- `_routes.json`: limita l'esecuzione della Function ai soli percorsi `/audio/*`, tutto il resto resta statico.
+
+`python3 -m http.server` non supporta `Range`, quindi per provare il seek in locale usa wrangler, che esegue anche la Function:
+
+```bash
+npx wrangler pages dev .
+# apri http://localhost:8788
+```
+
 ## Struttura
 
 ```
@@ -59,6 +75,9 @@ python3 -m http.server 8000
 ├── qbank-ui.js           # banco domande: rendering, modalità studio/esame
 ├── tracker.js            # progressi in localStorage (chiave: mla-progress)
 ├── style.css             # tema carta-penna leggibile
+├── _routes.json          # Cloudflare Pages: solo /audio/* passa dalla Function
+├── functions/
+│   └── audio/[[path]].js # Pages Function: richieste Range per l'audio
 ├── content/
 │   ├── chapters-1.json   # capitoli 1–3 (testi, slide, script, quiz)
 │   ├── chapters-2.json   # capitoli 4–7 + quick-ref
