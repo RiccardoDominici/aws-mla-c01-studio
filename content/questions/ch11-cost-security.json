@@ -1,0 +1,2408 @@
+[
+  {
+    "id": "ch11-q001",
+    "chapter": "ch11-cost-security",
+    "q": "A FinOps analyst at a retailer needs to review the last 13 months of ML spend per tag and see a forecast for the next 18 months. Which AWS tool fits best?",
+    "options": [
+      "AWS Cost Explorer",
+      "AWS Budgets",
+      "AWS Trusted Advisor checks",
+      "AWS Config rules"
+    ],
+    "answer": 0,
+    "explain": "Cost Explorer shows up to 13 months of history, filters by tag, and forecasts spend for the next 18 months. Budgets alerts on thresholds, Trusted Advisor recommends, and Config tracks configuration.",
+    "difficulty": "facile",
+    "tags": [
+      "cost-explorer",
+      "forecast"
+    ],
+    "source": "AWS docs: Cost Management User Guide - Analyzing your costs with Cost Explorer",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K5",
+      "V39"
+    ]
+  },
+  {
+    "id": "ch11-q002",
+    "chapter": "ch11-cost-security",
+    "q": "A data science team must be emailed when its monthly ML spend reaches 80 percent of a fixed target. Which AWS service should the team configure?",
+    "options": [
+      "AWS Cost Explorer forecast view, which projects future spend but never sends threshold alerts",
+      "AWS Budgets cost budget with notifications",
+      "Amazon CloudWatch Logs Insights query run over the billing log group every hour",
+      "AWS Compute Optimizer recommendation applied to the training instances"
+    ],
+    "answer": 1,
+    "explain": "A cost budget with a threshold notification sends alerts by email or Amazon SNS. Cost Explorer analyzes spend after the fact and does not alert on a threshold.",
+    "difficulty": "facile",
+    "tags": [
+      "budgets",
+      "alerts"
+    ],
+    "source": "AWS docs: Cost Management User Guide - Managing your costs with AWS Budgets",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V42"
+    ]
+  },
+  {
+    "id": "ch11-q003",
+    "chapter": "ch11-cost-security",
+    "q": "A company wants a service that inspects its AWS account and recommends improvements in cost, security, and fault tolerance. Which service is this?",
+    "options": [
+      "AWS Config conformance rules for resource evaluation",
+      "AWS Service Catalog portfolios of approved products",
+      "AWS Trusted Advisor",
+      "AWS Systems Manager Explorer dashboards"
+    ],
+    "answer": 2,
+    "explain": "Trusted Advisor inspects the environment and recommends best-practice improvements. Config records resource configuration history and evaluates rules, which is a different function.",
+    "difficulty": "facile",
+    "tags": [
+      "trusted-advisor"
+    ],
+    "source": "AWS docs: AWS Support User Guide - AWS Trusted Advisor",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V07"
+    ]
+  },
+  {
+    "id": "ch11-q004",
+    "chapter": "ch11-cost-security",
+    "q": "A team runs a SageMaker real-time endpoint whose instances show low CPU and memory use for weeks. It wants AWS to suggest a smaller instance type from 14 days of metrics, without running a load test. Which service should it use?",
+    "options": [
+      "SageMaker Inference Recommender Advanced job",
+      "Amazon CloudWatch Logs Insights queries",
+      "AWS Budgets forecast reports",
+      "AWS Compute Optimizer recommendations"
+    ],
+    "answer": 3,
+    "explain": "Compute Optimizer analyzes utilization metrics from existing resources and suggests rightsizing. An Inference Recommender job runs load tests rather than analyzing existing usage.",
+    "difficulty": "facile",
+    "tags": [
+      "rightsizing",
+      "compute-optimizer"
+    ],
+    "source": "AWS docs: Compute Optimizer User Guide - What is AWS Compute Optimizer?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-4.2S5",
+      "V08"
+    ]
+  },
+  {
+    "id": "ch11-q005",
+    "chapter": "ch11-cost-security",
+    "q": "A team must pick the endpoint instance type for a new model. It needs a load test that uses its own traffic pattern and checks latency and throughput targets before launch. Which Inference Recommender job should it run?",
+    "options": [
+      "Advanced recommendation job with a custom load test",
+      "Default recommendation job, which needs only a model package",
+      "Compute Optimizer opt-in for the account",
+      "Managed Spot Training job with checkpoints"
+    ],
+    "answer": 0,
+    "explain": "The Advanced job runs a custom load test with a traffic pattern and latency or throughput requirements. The Default job is a quick preliminary benchmark that needs only the model package.",
+    "difficulty": "facile",
+    "tags": [
+      "inference-recommender"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Recommendation jobs with Inference Recommender",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-4.2S5"
+    ]
+  },
+  {
+    "id": "ch11-q006",
+    "chapter": "ch11-cost-security",
+    "q": "A company runs training jobs for three teams. Tags were applied last week, but monthly cost reports in Cost Explorer do not show them. What should the ML engineer check first?",
+    "options": [
+      "Whether the training instance type supports network isolation for the job containers",
+      "Whether the tag key has been activated as a cost allocation tag in the Billing console",
+      "Whether the S3 bucket where the training data is stored has versioning enabled for objects",
+      "Whether the endpoint has provisioned concurrency configured for its serverless variant"
+    ],
+    "answer": 1,
+    "explain": "A user-defined cost allocation tag appears in cost reports only after it is activated in Billing. The other options concern security, storage, or Lambda features that do not affect cost reporting.",
+    "difficulty": "facile",
+    "tags": [
+      "cost-allocation-tags"
+    ],
+    "source": "AWS docs: Billing User Guide - Backfill cost allocation tags",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-4.2K6",
+      "K-4.2S7"
+    ]
+  },
+  {
+    "id": "ch11-q007",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO statements about cost allocation tags are correct? (Select TWO.)",
+    "options": [
+      "After a tag is applied to resources, the tag key can take up to 24 hours to appear on the cost allocation tags page",
+      "Backfill can cover up to 12 months of history, but only for resources that already carried the tag in that period",
+      "Activating a user-defined tag in Billing applies it retroactively to every previous month automatically",
+      "AWS-generated tags are created and applied by the customer through resource configuration templates",
+      "Cost allocation tags appear in Cost Explorer as soon as a resource is created, with no activation step"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Tag keys can take up to 24 hours to appear, and backfill covers at most 12 months but only where the tag existed. Activation is not retroactive by default, and AWS-generated tags are applied by AWS.",
+    "difficulty": "difficile",
+    "tags": [
+      "cost-allocation-tags",
+      "backfill"
+    ],
+    "source": "AWS docs: Billing User Guide - Backfill cost allocation tags",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-4.2K6",
+      "K-4.2S7"
+    ]
+  },
+  {
+    "id": "ch11-q008",
+    "chapter": "ch11-cost-security",
+    "q": "Finance asks the ML platform team where to find the monthly invoices and payment details for the account, and where to activate cost allocation tags. Which AWS console covers both?",
+    "options": [
+      "AWS Trusted Advisor checks console",
+      "Amazon CloudWatch metrics console",
+      "AWS Billing and Cost Management",
+      "AWS Config resource inventory console"
+    ],
+    "answer": 2,
+    "explain": "Billing and Cost Management covers invoices, payments, and tag activation. The other consoles serve different purposes.",
+    "difficulty": "facile",
+    "tags": [
+      "billing"
+    ],
+    "source": "AWS docs: Cost Management User Guide - Analyzing your costs with Cost Explorer",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K5",
+      "V32"
+    ]
+  },
+  {
+    "id": "ch11-q009",
+    "chapter": "ch11-cost-security",
+    "q": "A team runs SageMaker Studio notebooks and real-time inference steadily for at least a year. It wants a discount without tying itself to specific instance types. Which option fits best?",
+    "options": [
+      "Managed Spot Training",
+      "Reserved Instances for one EC2 instance type",
+      "On-Demand pricing with no commitment",
+      "SageMaker Savings Plans"
+    ],
+    "answer": 3,
+    "explain": "SageMaker Savings Plans commit to a dollar amount per hour for one or three years and apply across eligible SageMaker usage. Reserved Instances are tied to EC2 instance configurations.",
+    "difficulty": "facile",
+    "tags": [
+      "savings-plans"
+    ],
+    "source": "AWS docs: Savings Plans - Amazon SageMaker Savings Plans",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S10",
+      "C19"
+    ]
+  },
+  {
+    "id": "ch11-q010",
+    "chapter": "ch11-cost-security",
+    "q": "A training job can tolerate interruptions and writes checkpoints to Amazon S3. Which purchasing option is designed for this pattern?",
+    "options": [
+      "Managed Spot Training",
+      "On-Demand training with no checkpoints",
+      "Compute Savings Plans for the management account",
+      "Reserved Instances for the C family"
+    ],
+    "answer": 0,
+    "explain": "Managed Spot Training uses Spot capacity at a discount and resumes from S3 checkpoints after an interruption. The other options do not combine interruption tolerance with a discount.",
+    "difficulty": "facile",
+    "tags": [
+      "spot"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Managed Spot Training",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S10"
+    ]
+  },
+  {
+    "id": "ch11-q011",
+    "chapter": "ch11-cost-security",
+    "q": "Which THREE statements about SageMaker purchasing options are correct? (Select THREE.)",
+    "options": [
+      "Reserved Instances apply to any SageMaker instance family automatically",
+      "Savings Plans reduce the hourly rate only for Spot instances, and never for On-Demand usage at all",
+      "SageMaker Savings Plans commit to a dollar amount per hour for one or three years",
+      "Usage above a Savings Plans commitment is billed at On-Demand rates",
+      "SageMaker Savings Plans cover Studio notebooks, Processing, Training, real-time inference, and Batch Transform",
+      "A Savings Plans commitment must be raised before each training job starts, or the job is stopped"
+    ],
+    "answer": [
+      2,
+      3,
+      4
+    ],
+    "explain": "Savings Plans are hourly dollar commitments covering several SageMaker services, with excess usage at On-Demand rates. Reserved Instances do not automatically cover every SageMaker family, and Savings Plans do not apply only to Spot.",
+    "difficulty": "difficile",
+    "tags": [
+      "savings-plans",
+      "reserved-instances"
+    ],
+    "source": "AWS docs: Savings Plans - Amazon SageMaker Savings Plans",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S10",
+      "C19"
+    ]
+  },
+  {
+    "id": "ch11-q012",
+    "chapter": "ch11-cost-security",
+    "q": "A team wants to compare its cost this quarter with the same quarter last year and find the top services driving the change. Which tool fits best?",
+    "options": [
+      "AWS Config",
+      "Cost Explorer",
+      "AWS CloudTrail",
+      "Amazon Inspector"
+    ],
+    "answer": 1,
+    "explain": "Cost Explorer compares periods and groups costs by service, which identifies cost drivers. Config, CloudTrail, and Inspector do not analyze spend.",
+    "difficulty": "facile",
+    "tags": [
+      "cost-explorer"
+    ],
+    "source": "AWS docs: Cost Management User Guide - Analyzing your costs with Cost Explorer",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S9",
+      "V39"
+    ]
+  },
+  {
+    "id": "ch11-q013",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO statements about AWS cost tools are correct? (Select TWO.)",
+    "options": [
+      "AWS Budgets can send notifications by email or Amazon SNS when a threshold is crossed",
+      "Cost Explorer forecasts spend for the next 18 months",
+      "Basic Support customers receive every Trusted Advisor check automatically",
+      "Budgets data refreshes in real time, every minute, so spend alerts arrive immediately after each charge",
+      "Trusted Advisor replaces Cost Explorer as the source of spend forecasts"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Budgets notifies on thresholds through email or SNS, and Cost Explorer forecasts 18 months. Full Trusted Advisor checks require higher support plans, Budgets data is updated a few times per day, and Trusted Advisor does not forecast spend.",
+    "difficulty": "difficile",
+    "tags": [
+      "budgets",
+      "cost-explorer"
+    ],
+    "source": "AWS docs: AWS Support User Guide - AWS Trusted Advisor",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S9",
+      "V07"
+    ]
+  },
+  {
+    "id": "ch11-q014",
+    "chapter": "ch11-cost-security",
+    "q": "A Lambda function for an interactive API has cold-start latency at peak traffic. Which configuration reduces this, and where should it be applied?",
+    "options": [
+      "Reserved concurrency set to zero for the whole account",
+      "Provisioned concurrency applied to the unpublished $LATEST version of the function",
+      "Provisioned concurrency on a published version or alias of the function",
+      "Increasing only the memory of the unpublished $LATEST version of the function"
+    ],
+    "answer": 2,
+    "explain": "Provisioned concurrency keeps pre-initialized environments ready for requests, but it must target a published version or alias, not $LATEST.",
+    "difficulty": "facile",
+    "tags": [
+      "provisioned-concurrency"
+    ],
+    "source": "AWS docs: Lambda Developer Guide - Configuring provisioned concurrency",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S8"
+    ]
+  },
+  {
+    "id": "ch11-q015",
+    "chapter": "ch11-cost-security",
+    "q": "An ML team's training launch fails because the account has reached a service quota for an instance type. Which TWO actions address this? (Select TWO.)",
+    "options": [
+      "Create a Budgets alert on monthly spend",
+      "Turn on Trusted Advisor full checks for the account",
+      "Request a quota increase in Service Quotas if the quota is adjustable",
+      "Request a quota increase through the Service Quotas API",
+      "Add a Savings Plans commitment for the instance family"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "Adjustable quotas can be increased from Service Quotas in the console or through the API. Alerts, Trusted Advisor checks, and commitments do not raise a quota.",
+    "difficulty": "difficile",
+    "tags": [
+      "service-quotas"
+    ],
+    "source": "AWS docs: Service Quotas User Guide - What is Service Quotas?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S8"
+    ]
+  },
+  {
+    "id": "ch11-q016",
+    "chapter": "ch11-cost-security",
+    "q": "A team must decide whether a SageMaker endpoint spends more time in its model code or in SageMaker overhead. Which metric answers this directly for the model container?",
+    "options": [
+      "OverheadLatency",
+      "Invocation5XXErrors",
+      "InvocationsPerInstance",
+      "ModelLatency"
+    ],
+    "answer": 3,
+    "explain": "ModelLatency is the time the model container takes to respond. OverheadLatency is the time added by SageMaker. Error and invocation metrics do not measure time spent in the model.",
+    "difficulty": "media",
+    "tags": [
+      "endpoint-metrics",
+      "latency"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - SageMaker AI metrics in Amazon CloudWatch",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K1"
+    ]
+  },
+  {
+    "id": "ch11-q017",
+    "chapter": "ch11-cost-security",
+    "q": "An ML engineer wants to compare request load across the instances of one production variant. Which metric reports invocations normalized by the number of instances?",
+    "options": [
+      "InvocationsPerInstance",
+      "Invocations summed across the whole endpoint",
+      "CPUUtilization of the production variant",
+      "ModelLatency of each invocation"
+    ],
+    "answer": 0,
+    "explain": "InvocationsPerInstance normalizes invocations by the active instance count, which makes load comparable. The plain Invocations metric is a total for the endpoint.",
+    "difficulty": "media",
+    "tags": [
+      "endpoint-metrics",
+      "throughput"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - SageMaker AI metrics in Amazon CloudWatch",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K1"
+    ]
+  },
+  {
+    "id": "ch11-q018",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO signals indicate that a SageMaker endpoint may be under-provisioned for its traffic? (Select TWO.)",
+    "options": [
+      "CPUUtilization approaching its ceiling during peak traffic",
+      "Invocation4XXErrors rising when clients send valid requests",
+      "CloudTrail trail status changing to disabled",
+      "A Budgets threshold being crossed in the month",
+      "ModelLatency rising under sustained load"
+    ],
+    "answer": [
+      0,
+      4
+    ],
+    "explain": "High CPU and rising model latency under load show capacity pressure. Client-side 4XX errors and budget or trail events do not indicate capacity.",
+    "difficulty": "difficile",
+    "tags": [
+      "endpoint-metrics",
+      "capacity"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - SageMaker AI metrics in Amazon CloudWatch",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K1"
+    ]
+  },
+  {
+    "id": "ch11-q019",
+    "chapter": "ch11-cost-security",
+    "q": "Which THREE actions improve the availability of a SageMaker real-time endpoint? (Select THREE.)",
+    "options": [
+      "Increase MaxRuntimeInSeconds on the endpoint configuration",
+      "Set the production variant initial instance count to at least 2 so SageMaker can spread instances across Availability Zones",
+      "Enable Managed Spot Training on the endpoint",
+      "Increase CloudWatch log retention for the endpoint",
+      "Turn on Inter-container traffic encryption for the endpoint",
+      "Configure auto scaling with a minimum instance count above 1"
+    ],
+    "answer": [
+      1,
+      2,
+      5
+    ],
+    "explain": "More than one instance lets SageMaker provide multi-AZ redundancy, and a minimum above 1 keeps that capacity under auto scaling. Runtime limits, Spot training, logging, and traffic encryption do not improve availability.",
+    "difficulty": "difficile",
+    "tags": [
+      "availability",
+      "fault-tolerance"
+    ],
+    "source": "AWS docs: Security Hub User Guide - SageMaker AI controls",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K1",
+      "C15"
+    ]
+  },
+  {
+    "id": "ch11-q020",
+    "chapter": "ch11-cost-security",
+    "q": "A team runs large in-memory analytics on its ML features and must choose an EC2 family before rebuilding its cluster. Which family is designed for large in-memory workloads?",
+    "options": [
+      "C family, compute optimized for CPU-bound work",
+      "R family, memory optimized for large in-memory data sets",
+      "M family, general purpose with balanced resources",
+      "G family, accelerated for graphics and floating-point work"
+    ],
+    "answer": 1,
+    "explain": "The R family is memory optimized, C is compute optimized, M is general purpose, and G is accelerated for graphics and floating-point work.",
+    "difficulty": "facile",
+    "tags": [
+      "instance-families"
+    ],
+    "source": "AWS docs: Amazon EC2 instance types",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K4"
+    ]
+  },
+  {
+    "id": "ch11-q021",
+    "chapter": "ch11-cost-security",
+    "q": "An agent built on Amazon Bedrock AgentCore must be monitored in production for session count, latency, token usage, and error rates. Which capability provides these built-in metrics and dashboards?",
+    "options": [
+      "Amazon Inspector Code Security",
+      "AWS Trusted Advisor",
+      "AgentCore Observability",
+      "AWS CloudTrail trail"
+    ],
+    "answer": 2,
+    "explain": "AgentCore Observability provides built-in metrics for agents and dashboards in CloudWatch, using OpenTelemetry-compatible telemetry. The other services serve different purposes.",
+    "difficulty": "media",
+    "tags": [
+      "agentcore",
+      "observability"
+    ],
+    "source": "AWS docs: Amazon Bedrock AgentCore Developer Guide - Observability",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K2",
+      "G-4.2.2"
+    ]
+  },
+  {
+    "id": "ch11-q022",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO are valid ways to troubleshoot an ML workload with observability tools? (Select TWO.)",
+    "options": [
+      "Disable CloudWatch metrics to reduce noise during an incident",
+      "Replace all traces with a monthly Budgets report",
+      "Use AWS Config to see the latency of each inference request",
+      "Use AWS X-Ray to trace a request across services and find the slow one",
+      "Use CloudWatch Logs Insights to query application logs for a failing request"
+    ],
+    "answer": [
+      3,
+      4
+    ],
+    "explain": "X-Ray traces requests across services and Logs Insights queries logs. Disabling metrics, using budget reports, and using Config for latency do not troubleshoot runtime behavior.",
+    "difficulty": "difficile",
+    "tags": [
+      "troubleshooting",
+      "observability"
+    ],
+    "source": "AWS docs: AWS X-Ray Developer Guide - What is AWS X-Ray?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.2"
+    ]
+  },
+  {
+    "id": "ch11-q023",
+    "chapter": "ch11-cost-security",
+    "q": "Which THREE capabilities does AWS X-Ray provide? (Select THREE.)",
+    "options": [
+      "A trace map of the services a request calls downstream",
+      "Segments and subsegments that record the work done for each request",
+      "Ten-year retention of application logs",
+      "Automatic creation of CloudWatch alarms",
+      "Enforcement of IAM permissions on Lambda functions",
+      "Identification of latency bottlenecks from trace data"
+    ],
+    "answer": [
+      0,
+      1,
+      5
+    ],
+    "explain": "X-Ray builds trace maps, records segments and subsegments, and helps locate bottlenecks. It does not retain logs for years, create alarms, or enforce IAM permissions.",
+    "difficulty": "difficile",
+    "tags": [
+      "xray",
+      "tracing"
+    ],
+    "source": "AWS docs: AWS X-Ray Developer Guide - What is AWS X-Ray?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K2",
+      "V04"
+    ]
+  },
+  {
+    "id": "ch11-q024",
+    "chapter": "ch11-cost-security",
+    "q": "A microservice chain behind an ML inference API shows intermittent latency spikes. Which tool draws each downstream call and highlights the slow service?",
+    "options": [
+      "CloudWatch Logs Insights field index",
+      "AWS Budgets action",
+      "AWS CloudTrail data event",
+      "AWS X-Ray trace map of the downstream services"
+    ],
+    "answer": 3,
+    "explain": "The X-Ray trace map shows the client, the front-end service, and the backends it calls, so the slow hop is visible. The other options do not show request paths.",
+    "difficulty": "media",
+    "tags": [
+      "xray"
+    ],
+    "source": "AWS docs: AWS X-Ray Developer Guide - What is AWS X-Ray?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K2",
+      "V04"
+    ]
+  },
+  {
+    "id": "ch11-q025",
+    "chapter": "ch11-cost-security",
+    "q": "A team wants per-invocation CPU, memory, and cold-start diagnostics for a Lambda function without writing custom metrics code. Which service should it enable?",
+    "options": [
+      "CloudWatch Lambda Insights extension",
+      "AWS Config conformance pack",
+      "AWS Organizations service control policy",
+      "Amazon Inspector vulnerability scan"
+    ],
+    "answer": 0,
+    "explain": "Lambda Insights uses a CloudWatch extension in a layer to collect system metrics and diagnostics such as cold starts for each invocation.",
+    "difficulty": "media",
+    "tags": [
+      "lambda-insights"
+    ],
+    "source": "AWS docs: CloudWatch Developer Guide - Lambda Insights",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K2"
+    ]
+  },
+  {
+    "id": "ch11-q026",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO statements about CloudWatch Logs Insights are correct? (Select TWO.)",
+    "options": [
+      "The service supports only SQL as a query language",
+      "Queries are free regardless of how much log data they scan",
+      "Queries time out after 60 minutes if they have not completed",
+      "Query results are available for 7 days",
+      "Queries cannot reach log groups in other accounts under any setup"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "Logs Insights queries time out after 60 minutes and results are kept for 7 days. It supports three query languages and charges by data scanned, and cross-account querying is possible with a monitoring account.",
+    "difficulty": "difficile",
+    "tags": [
+      "logs-insights"
+    ],
+    "source": "AWS docs: CloudWatch Logs User Guide - Analyzing log data with CloudWatch Logs Insights",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K2"
+    ]
+  },
+  {
+    "id": "ch11-q027",
+    "chapter": "ch11-cost-security",
+    "q": "Business stakeholders need interactive dashboards built on a data lake and want to filter the data themselves. Which service fits best?",
+    "options": [
+      "Amazon CloudWatch Logs Insights",
+      "Amazon Quick Sight, the business intelligence component of Amazon Quick",
+      "AWS Budgets",
+      "Amazon Simple Notification Service"
+    ],
+    "answer": 1,
+    "explain": "Amazon Quick Sight is the business intelligence component of Amazon Quick, the former QuickSight. The other services do not provide interactive business dashboards.",
+    "difficulty": "media",
+    "tags": [
+      "quicksight",
+      "dashboard"
+    ],
+    "source": "AWS docs: Amazon Quick - What is Amazon Quick?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S3",
+      "V38"
+    ]
+  },
+  {
+    "id": "ch11-q028",
+    "chapter": "ch11-cost-security",
+    "q": "An on-call operator wants one page that shows several operational metrics as graphs. Which CloudWatch feature provides this?",
+    "options": [
+      "AWS CloudTrail event history",
+      "AWS Config timeline",
+      "CloudWatch dashboard",
+      "AWS Budgets report"
+    ],
+    "answer": 2,
+    "explain": "A CloudWatch dashboard arranges metric graphs and query widgets on one page for monitoring. The other options record events or costs.",
+    "difficulty": "facile",
+    "tags": [
+      "cloudwatch-dashboard"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - SageMaker AI metrics in Amazon CloudWatch",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S3"
+    ]
+  },
+  {
+    "id": "ch11-q029",
+    "chapter": "ch11-cost-security",
+    "q": "CloudWatch alarm notifications for an ML team must be posted to a Slack channel, with a button that runs a Lambda function. Which service handles this?",
+    "options": [
+      "AWS Config rules and conformance packs",
+      "AWS Secrets Manager rotation schedules",
+      "AWS CloudTrail trails and event selectors",
+      "Amazon Q Developer in chat applications"
+    ],
+    "answer": 3,
+    "explain": "Amazon Q Developer in chat applications, formerly AWS Chatbot, receives SNS notifications, posts them to chat channels, and supports custom actions. The other services do not deliver chat notifications.",
+    "difficulty": "media",
+    "tags": [
+      "chatbot",
+      "notifications"
+    ],
+    "source": "AWS docs: Amazon Q Developer in chat applications - What is?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V24"
+    ]
+  },
+  {
+    "id": "ch11-q030",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO chat platforms does Amazon Q Developer in chat applications support? (Select TWO.)",
+    "options": [
+      "Slack",
+      "Telegram",
+      "WhatsApp",
+      "Discord",
+      "Microsoft Teams"
+    ],
+    "answer": [
+      0,
+      4
+    ],
+    "explain": "The service supports Slack, Microsoft Teams, and Amazon Chime. The other platforms are not supported.",
+    "difficulty": "difficile",
+    "tags": [
+      "chatbot"
+    ],
+    "source": "AWS docs: Amazon Q Developer in chat applications - What is?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V24"
+    ]
+  },
+  {
+    "id": "ch11-q031",
+    "chapter": "ch11-cost-security",
+    "q": "The FinOps lead wants a smaller SageMaker instance type for an under-used endpoint, based on existing utilization and with no load test. Which service can make rightsizing recommendations from 14 days of metrics?",
+    "options": [
+      "AWS Compute Optimizer, which suggests rightsizing from utilization metrics",
+      "AWS CloudTrail event history",
+      "Amazon Inspector Code Security",
+      "AWS Config conformance packs"
+    ],
+    "answer": 0,
+    "explain": "Compute Optimizer supports SageMaker among its resource types and analyzes utilization metrics, using 14 days by default.",
+    "difficulty": "media",
+    "tags": [
+      "compute-optimizer"
+    ],
+    "source": "AWS docs: Compute Optimizer User Guide - What is AWS Compute Optimizer?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-4.2S5",
+      "V08"
+    ]
+  },
+  {
+    "id": "ch11-q032",
+    "chapter": "ch11-cost-security",
+    "q": "Which THREE statements about AWS Compute Optimizer are correct? (Select THREE.)",
+    "options": [
+      "It creates new endpoints automatically when it finds an under-used one",
+      "It requires the account or organization to opt in before it analyzes resources",
+      "Its default analysis uses 14 days of utilization metrics",
+      "It replaces Inference Recommender load tests for new models",
+      "It analyzes data only from the management account of an organization",
+      "It supports Amazon SageMaker resources among its resource types"
+    ],
+    "answer": [
+      1,
+      2,
+      5
+    ],
+    "explain": "Compute Optimizer requires opt-in, uses 14 days by default, and supports SageMaker. It does not create endpoints, replace load tests, or limit analysis to the management account.",
+    "difficulty": "difficile",
+    "tags": [
+      "compute-optimizer"
+    ],
+    "source": "AWS docs: Compute Optimizer User Guide - What is AWS Compute Optimizer?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-4.2S5",
+      "V08"
+    ]
+  },
+  {
+    "id": "ch11-q033",
+    "chapter": "ch11-cost-security",
+    "q": "A team wants a managed service that uses machine learning to find operational anomalies in application metrics and events and then recommends fixes. Which service fits?",
+    "options": [
+      "AWS Trusted Advisor",
+      "Amazon DevOps Guru",
+      "AWS Budgets",
+      "AWS Compute Optimizer"
+    ],
+    "answer": 1,
+    "explain": "DevOps Guru applies machine learning to operational data, detects deviations, and produces insights with recommendations. The other services do not detect operational anomalies.",
+    "difficulty": "facile",
+    "tags": [
+      "devops-guru"
+    ],
+    "source": "AWS docs: Amazon DevOps Guru User Guide - What is Amazon DevOps Guru?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V19"
+    ]
+  },
+  {
+    "id": "ch11-q034",
+    "chapter": "ch11-cost-security",
+    "q": "An operations team wants advance warning of issues that might hit its application later, not only the ones happening now. Which DevOps Guru output predicts future operational issues?",
+    "options": [
+      "Reactive insights",
+      "Budget alerts",
+      "Proactive insights",
+      "Trusted Advisor checks"
+    ],
+    "answer": 2,
+    "explain": "DevOps Guru creates reactive insights for current issues and proactive insights for likely future issues. Budget alerts and Trusted Advisor checks are different services.",
+    "difficulty": "media",
+    "tags": [
+      "devops-guru"
+    ],
+    "source": "AWS docs: Amazon DevOps Guru User Guide - What is Amazon DevOps Guru?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V19"
+    ]
+  },
+  {
+    "id": "ch11-q035",
+    "chapter": "ch11-cost-security",
+    "q": "A team will run one EC2 instance configuration all year and wants a discount on it. Which purchase option is designed for EC2 reservations of specific instance configurations?",
+    "options": [
+      "SageMaker Savings Plans",
+      "Managed Spot Training",
+      "On-Demand Instances",
+      "Reserved Instances, which apply to EC2 configurations"
+    ],
+    "answer": 3,
+    "explain": "Reserved Instances apply to EC2 configurations. Savings Plans commit a dollar amount per hour, and Spot and On-Demand do not involve reservations.",
+    "difficulty": "media",
+    "tags": [
+      "reserved-instances"
+    ],
+    "source": "AWS docs: Savings Plans - Amazon SageMaker Savings Plans",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S10",
+      "C19"
+    ]
+  },
+  {
+    "id": "ch11-q036",
+    "chapter": "ch11-cost-security",
+    "q": "A team must serve an already trained model at the lowest cost per prediction. Which compute option should it evaluate first?",
+    "options": [
+      "Inferentia-based Inf2 instances, designed for high-throughput inference",
+      "C family compute optimized instances without accelerators",
+      "P5 GPU instances for large model training",
+      "R family memory optimized instances"
+    ],
+    "answer": 0,
+    "explain": "Inferentia is an AWS chip designed for inference, and Inf2 offers higher throughput and lower latency than Inf1. The other families are not designed for this inference pattern.",
+    "difficulty": "media",
+    "tags": [
+      "inferentia",
+      "inference"
+    ],
+    "source": "AWS docs: AWS Inferentia",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2",
+      "C15"
+    ]
+  },
+  {
+    "id": "ch11-q037",
+    "chapter": "ch11-cost-security",
+    "q": "A company runs a containerized CPU-bound inference API. It wants the lowest cost for the same performance and is willing to rebuild its images for ARM64. Which option fits best?",
+    "options": [
+      "x86 instances of the same size, with the same performance profile",
+      "Graviton-based instances",
+      "P5 GPU instances with eight accelerators for training",
+      "Trainium-based training clusters for large distributed jobs"
+    ],
+    "answer": 1,
+    "explain": "Graviton is AWS's ARM processor family, with a documented price-performance advantage over comparable x86 instances. The GPU and training options do not match a CPU-bound inference workload.",
+    "difficulty": "facile",
+    "tags": [
+      "graviton",
+      "compute"
+    ],
+    "source": "AWS docs: AWS Graviton",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2",
+      "C15"
+    ]
+  },
+  {
+    "id": "ch11-q038",
+    "chapter": "ch11-cost-security",
+    "q": "A data science team trains a deep learning model that needs GPU memory for large language models. Which EC2 family is designed for high-performance GPU training?",
+    "options": [
+      "M general purpose with balanced compute, memory, and networking",
+      "C compute optimized for CPU-bound batch processing work",
+      "P accelerated GPU for high-performance deep learning training",
+      "R memory optimized for large in-memory data set analysis"
+    ],
+    "answer": 2,
+    "explain": "The P family provides high-performance GPUs for deep learning and HPC, and P5 is described for training large models. The other families do not carry GPUs for this purpose.",
+    "difficulty": "media",
+    "tags": [
+      "p-family",
+      "training"
+    ],
+    "source": "AWS docs: Amazon EC2 instance types",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2",
+      "C15"
+    ]
+  },
+  {
+    "id": "ch11-q039",
+    "chapter": "ch11-cost-security",
+    "q": "A study group reviews the Well-Architected material for the MLA-C01 exam. Which document provides design principles for ML workloads and is listed under monitoring in the MLA-C01 guide?",
+    "options": [
+      "AWS Shared Responsibility Model guide",
+      "AWS Trusted Advisor cost and security report",
+      "SageMaker Model Card documentation template",
+      "Well-Architected Machine Learning Lens"
+    ],
+    "answer": 3,
+    "explain": "The Well-Architected Machine Learning Lens defines design principles for ML workloads, and the MLA-C01 guide ties design principles for ML lenses to monitoring. The other documents cover different topics.",
+    "difficulty": "facile",
+    "tags": [
+      "well-architected"
+    ],
+    "source": "AWS docs: Well-Architected Machine Learning Lens - Design principles",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-4.1K3"
+    ]
+  },
+  {
+    "id": "ch11-q040",
+    "chapter": "ch11-cost-security",
+    "q": "An ML platform team wants to version infrastructure, data, models, and code so that it can return to any point-in-time release. Which Well-Architected ML Lens principle addresses this?",
+    "options": [
+      "Enable reproducibility",
+      "Enable reusability",
+      "Optimize resources",
+      "Minimize environmental impact"
+    ],
+    "answer": 0,
+    "explain": "Enable reproducibility asks for version control across components so releases can be traced back. Reusability concerns modular components, and the other two principles address different goals.",
+    "difficulty": "facile",
+    "tags": [
+      "well-architected",
+      "reproducibility"
+    ],
+    "source": "AWS docs: Well-Architected Machine Learning Lens - Design principles",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-4.1K3"
+    ]
+  },
+  {
+    "id": "ch11-q041",
+    "chapter": "ch11-cost-security",
+    "q": "A monitoring job reports a constraint violation on a production endpoint. Which action gives the fastest notification to the team?",
+    "options": [
+      "Deleting the monitoring schedule and recreating it from the notebook",
+      "A CloudWatch alarm on the violation metric that notifies an SNS topic",
+      "Increasing the endpoint instance count to absorb more inference traffic",
+      "Disabling Data Capture on the endpoint so that no more data is recorded"
+    ],
+    "answer": 1,
+    "explain": "A CloudWatch alarm on the violation metric sends a notification when the violation appears. The other options do not notify anyone and some remove the monitoring signal.",
+    "difficulty": "media",
+    "tags": [
+      "monitoring",
+      "alarm"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - SageMaker AI metrics in Amazon CloudWatch",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.1S2"
+    ]
+  },
+  {
+    "id": "ch11-q042",
+    "chapter": "ch11-cost-security",
+    "q": "A training job fails because of a bug in the training script, not because of a service error. Which retry behavior applies?",
+    "options": [
+      "The job is retried up to MaximumRetryAttempts for any failure, including errors in the training script code",
+      "The job restarts automatically on a different instance family chosen by the service at launch time",
+      "The job is retried only for InternalServerError, so the bug must be fixed and the job submitted again",
+      "The job retries after the Spot interruption window expires, using the same checkpoint and configuration"
+    ],
+    "answer": 2,
+    "explain": "RetryStrategy retries a training job only when it fails with an InternalServerError. A code bug is not retried automatically, so the code or input must be corrected.",
+    "difficulty": "facile",
+    "tags": [
+      "retry",
+      "training"
+    ],
+    "source": "AWS docs: SageMaker AI API Reference - CreateTrainingJob",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.1S2"
+    ]
+  },
+  {
+    "id": "ch11-q043",
+    "chapter": "ch11-cost-security",
+    "q": "A SageMaker pipeline has a failing step. Which pipeline metric is the right one to put on an alarm?",
+    "options": [
+      "CPUUtilization of the endpoint instances in the production variant group",
+      "ModelLatency of the endpoint for each invocation request received",
+      "Invocation4XXErrors of the endpoint for client request validation",
+      "StepFailed in the AWS/Sagemaker/ModelBuildingPipeline namespace"
+    ],
+    "answer": 3,
+    "explain": "StepFailed counts failed steps in the pipeline namespace, which makes it the pipeline-level signal. The endpoint metrics describe inference, not pipeline steps.",
+    "difficulty": "media",
+    "tags": [
+      "pipelines",
+      "alarm"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - SageMaker AI metrics in Amazon CloudWatch",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.1S2"
+    ]
+  },
+  {
+    "id": "ch11-q044",
+    "chapter": "ch11-cost-security",
+    "q": "A company wants a record of every API call in its ML account, delivered to an S3 bucket. Which AWS feature creates this delivery?",
+    "options": [
+      "A CloudTrail trail that delivers management event logs to an S3 bucket",
+      "A CloudWatch dashboard",
+      "An AWS Config conformance pack",
+      "A Trusted Advisor report"
+    ],
+    "answer": 0,
+    "explain": "A CloudTrail trail delivers management event logs to an S3 bucket. The other features do not record API calls to S3.",
+    "difficulty": "media",
+    "tags": [
+      "cloudtrail",
+      "trail"
+    ],
+    "source": "AWS docs: CloudTrail User Guide - Creating a trail",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S2"
+    ]
+  },
+  {
+    "id": "ch11-q045",
+    "chapter": "ch11-cost-security",
+    "q": "An auditor needs to see reads of individual objects in a training data bucket, which are not recorded by default. Which setting is required?",
+    "options": [
+      "Management events only, which the trail already records by default",
+      "Data events for the S3 resource type in the trail",
+      "A Savings Plans commitment applied to the S3 storage class",
+      "A Logs Insights field index on the bucket name"
+    ],
+    "answer": 1,
+    "explain": "Object-level S3 reads are data events, which are not logged by default and must be selected for the trail. Management events do not include object reads.",
+    "difficulty": "media",
+    "tags": [
+      "cloudtrail",
+      "data-events"
+    ],
+    "source": "AWS docs: CloudTrail User Guide - Logging data events",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S2"
+    ]
+  },
+  {
+    "id": "ch11-q046",
+    "chapter": "ch11-cost-security",
+    "q": "A security team must answer two audit questions: who called an API, and what a security group looked like last month. Which THREE actions meet these needs? (Select THREE.)",
+    "options": [
+      "Enable data events on the training data bucket to see who changed the security group",
+      "Use CloudWatch dashboards to view past IAM policy versions and the security group rules they contain for auditors",
+      "Use Trusted Advisor full checks to read the historical state of the security group",
+      "Create a multi-Region CloudTrail trail that delivers logs to an S3 bucket",
+      "Use AWS Config configuration history to see the security group configuration on a past date",
+      "Send CloudTrail events to CloudWatch Logs and create alarms on specific API calls"
+    ],
+    "answer": [
+      3,
+      4,
+      5
+    ],
+    "explain": "CloudTrail answers who called the API and Config answers the past configuration. Sending CloudTrail to CloudWatch Logs adds alarms. Data events on the bucket do not record security group changes, and dashboards and Trusted Advisor do not keep this history.",
+    "difficulty": "difficile",
+    "tags": [
+      "cloudtrail",
+      "config",
+      "audit"
+    ],
+    "source": "AWS docs: AWS Config Developer Guide - What is AWS Config?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S2",
+      "G-4.3.4",
+      "V44"
+    ]
+  },
+  {
+    "id": "ch11-q047",
+    "chapter": "ch11-cost-security",
+    "q": "An auditor asks for the history of resource configurations and their compliance against internal rules. Which AWS service records configuration history and evaluates resources against rules?",
+    "options": [
+      "AWS CloudTrail",
+      "Amazon CloudWatch Logs",
+      "AWS Config",
+      "AWS X-Ray"
+    ],
+    "answer": 2,
+    "explain": "AWS Config records resource configurations and their history, and evaluates them with rules. CloudTrail records API calls, which is a different question.",
+    "difficulty": "media",
+    "tags": [
+      "aws-config"
+    ],
+    "source": "AWS docs: AWS Config Developer Guide - What is AWS Config?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.4",
+      "V44"
+    ]
+  },
+  {
+    "id": "ch11-q048",
+    "chapter": "ch11-cost-security",
+    "q": "An auditor needs proof of who changed an IAM role and what its policy looked like before the change. Which combination fits best?",
+    "options": [
+      "CloudWatch dashboards for the API call history plus Trusted Advisor for the configuration history",
+      "AWS Budgets for the API call history plus Cost Explorer for the configuration history",
+      "AWS X-Ray traces for the API call history plus Logs Insights for the configuration history",
+      "CloudTrail for the API call history plus AWS Config for the configuration history"
+    ],
+    "answer": 3,
+    "explain": "CloudTrail shows the API call that made the change, and Config shows the configuration before and after. Together they answer both audit questions.",
+    "difficulty": "facile",
+    "tags": [
+      "cloudtrail",
+      "config"
+    ],
+    "source": "AWS docs: AWS Config Developer Guide - What is AWS Config?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.4"
+    ]
+  },
+  {
+    "id": "ch11-q049",
+    "chapter": "ch11-cost-security",
+    "q": "A training job processes regulated data and must not make any outbound network call, including calls to Amazon S3 from inside the container. Which setting meets this requirement?",
+    "options": [
+      "EnableNetworkIsolation set to True",
+      "Inter-container traffic encryption",
+      "A Savings Plans commitment",
+      "Managed Spot Training with checkpoints"
+    ],
+    "answer": 0,
+    "explain": "Network isolation blocks inbound and outbound calls from the container, including to S3, and makes no AWS credentials available inside it. The other options address cost or encryption between nodes.",
+    "difficulty": "media",
+    "tags": [
+      "network-isolation"
+    ],
+    "source": "AWS docs: SageMaker AI API Reference - CreateTrainingJob",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3K2",
+      "C03"
+    ]
+  },
+  {
+    "id": "ch11-q050",
+    "chapter": "ch11-cost-security",
+    "q": "A distributed training job must be isolated from the internet, and its nodes must encrypt traffic between them. Which TWO settings are required? (Select TWO.)",
+    "options": [
+      "EnableNetworkIsolation set to True",
+      "EnableInterContainerTrafficEncryption set to True",
+      "Public subnets with an internet gateway attached",
+      "Managed Spot Training enabled for the job",
+      "A NAT gateway for outbound access from the training containers"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Network isolation blocks the container from internet and AWS service calls, while inter-container encryption protects communication between nodes. Public subnets and NAT gateways add outbound access, which the requirement rules out.",
+    "difficulty": "difficile",
+    "tags": [
+      "network-isolation",
+      "encryption"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Protect communications between ML compute instances",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3K2",
+      "C03",
+      "C18"
+    ]
+  },
+  {
+    "id": "ch11-q051",
+    "chapter": "ch11-cost-security",
+    "q": "A single-instance training job is configured with inter-container traffic encryption. What effect does the setting have on training time?",
+    "options": [
+      "It doubles the training time for every job, because all traffic is re-encrypted on each step",
+      "None, because there is no communication between instances in a single-instance job",
+      "It requires a NAT gateway to be created before the job can start in the VPC subnet",
+      "It disables CloudWatch metrics for the job, which then cannot report instance utilization"
+    ],
+    "answer": 1,
+    "explain": "Inter-container encryption encrypts traffic between compute instances, so a single-instance job has no such traffic and is not affected. The other options describe effects the setting does not have.",
+    "difficulty": "media",
+    "tags": [
+      "inter-container-encryption"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Protect communications between ML compute instances",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C18"
+    ]
+  },
+  {
+    "id": "ch11-q052",
+    "chapter": "ch11-cost-security",
+    "q": "A training job in private subnets must read training data from S3, but the subnets have no internet route. What is the most direct fix?",
+    "options": [
+      "Attach a public IP address to each training instance so it can reach S3 directly",
+      "Disable VPC mode for the job so that it runs on the service-managed network",
+      "Add an S3 gateway VPC endpoint associated with the subnet route tables",
+      "Add an inbound rule on port 443 to the security group used by the training job"
+    ],
+    "answer": 2,
+    "explain": "An S3 gateway endpoint adds routes that keep S3 traffic inside the VPC, which lets the private job reach its data. Public IPs and VPC removal change the security posture, and inbound rules do not give outbound S3 access.",
+    "difficulty": "facile",
+    "tags": [
+      "vpc",
+      "s3-endpoint"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Give training jobs access to resources in your VPC",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S5"
+    ]
+  },
+  {
+    "id": "ch11-q053",
+    "chapter": "ch11-cost-security",
+    "q": "In distributed training inside a VPC, training nodes must communicate with each other. Which security group rule enables this?",
+    "options": [
+      "An inbound rule from 0.0.0.0/0 on all ports for every training instance in the job",
+      "A rule that allows only the S3 prefix list, so training nodes can reach the bucket",
+      "No rule at all, because training nodes communicate through IAM role credentials",
+      "A self-referencing rule that allows traffic from the same security group"
+    ],
+    "answer": 3,
+    "explain": "A self-referencing rule lets members of the same security group reach each other, which distributed training requires. Open-to-the-world rules are not needed and IAM does not carry node traffic.",
+    "difficulty": "media",
+    "tags": [
+      "security-group",
+      "distributed-training"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Give training jobs access to resources in your VPC",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S5"
+    ]
+  },
+  {
+    "id": "ch11-q054",
+    "chapter": "ch11-cost-security",
+    "q": "A team needs private connectivity from a VPC to the SageMaker API without using the internet. Which endpoint type is used for most AWS services, based on AWS PrivateLink?",
+    "options": [
+      "Interface endpoint, based on AWS PrivateLink for most services",
+      "Gateway endpoint, used for S3 and DynamoDB in the VPC route tables",
+      "NAT gateway, which sends outbound traffic to the internet",
+      "Internet gateway, which attaches the VPC to the public internet"
+    ],
+    "answer": 0,
+    "explain": "Interface endpoints use AWS PrivateLink for most services, including the SageMaker API. Gateway endpoints are used for S3 and DynamoDB, and NAT or internet gateways send traffic out to the internet.",
+    "difficulty": "media",
+    "tags": [
+      "vpc-endpoint",
+      "privatelink"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Give training jobs access to resources in your VPC",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S5"
+    ]
+  },
+  {
+    "id": "ch11-q055",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO are needed for a private-subnet training job to reach S3 without internet access? (Select TWO.)",
+    "options": [
+      "A public IP address on each training instance",
+      "An internet gateway attached to the subnet",
+      "An S3 gateway endpoint associated with the subnet route tables",
+      "A bucket policy or endpoint policy that restricts access to the VPC",
+      "A Savings Plans commitment for the training instances"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "The gateway endpoint provides the route to S3, and a bucket or endpoint policy can restrict access to the VPC. Public IPs and internet gateways give internet access the requirement excludes.",
+    "difficulty": "difficile",
+    "tags": [
+      "vpc",
+      "s3-endpoint"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Give training jobs access to resources in your VPC",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S5"
+    ]
+  },
+  {
+    "id": "ch11-q056",
+    "chapter": "ch11-cost-security",
+    "q": "An IAM principal in a member account has the required action in its identity policy but still gets AccessDenied. Which layer could be blocking it?",
+    "options": [
+      "The bucket name is longer than the allowed length for an S3 request path",
+      "A service control policy in the organization that does not allow the action",
+      "The instance type selected for the job is larger than the default instance size",
+      "The training image in the container registry uses a newer tag than expected"
+    ],
+    "answer": 1,
+    "explain": "Identity policies grant permissions, but an SCP can deny an action for member accounts even when the identity policy allows it. The other options do not produce AccessDenied.",
+    "difficulty": "facile",
+    "tags": [
+      "accessdenied",
+      "scp"
+    ],
+    "source": "AWS docs: IAM User Guide - Policy evaluation logic",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S4"
+    ]
+  },
+  {
+    "id": "ch11-q057",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO causes can produce AccessDenied when an ML engineer creates a training job? (Select TWO.)",
+    "options": [
+      "The caller lacks iam:PassRole on the execution role",
+      "The notebook kernel version is outdated",
+      "The Logs Insights query uses too many fields",
+      "The instance family has more GPUs than the job needs",
+      "The KMS key policy does not allow the execution role to use the key"
+    ],
+    "answer": [
+      0,
+      4
+    ],
+    "explain": "Passing the execution role requires iam:PassRole, and a customer managed KMS key requires its key policy to allow the role. Kernel versions, query fields, and GPU counts do not cause AccessDenied.",
+    "difficulty": "difficile",
+    "tags": [
+      "accessdenied",
+      "passrole",
+      "kms"
+    ],
+    "source": "AWS docs: IAM User Guide - Policy evaluation logic",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S4"
+    ]
+  },
+  {
+    "id": "ch11-q058",
+    "chapter": "ch11-cost-security",
+    "q": "Which THREE are evaluated when investigating an AccessDenied error on an AWS API call? (Select THREE.)",
+    "options": [
+      "The notebook kernel name",
+      "The identity policy of the calling principal",
+      "The resource policy on the target resource",
+      "The CPU count of the instance",
+      "The Logs Insights query language",
+      "The service control policies of the organization"
+    ],
+    "answer": [
+      1,
+      2,
+      5
+    ],
+    "explain": "Identity policies, resource policies, and SCPs all take part in the authorization decision. Kernel names, CPU counts, and query languages do not.",
+    "difficulty": "difficile",
+    "tags": [
+      "accessdenied",
+      "policy-evaluation"
+    ],
+    "source": "AWS docs: IAM User Guide - Policy evaluation logic",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S4"
+    ]
+  },
+  {
+    "id": "ch11-q059",
+    "chapter": "ch11-cost-security",
+    "q": "A role's identity policy allows s3:GetObject, but a permissions boundary attached to the role does not include it. What happens when the role calls GetObject?",
+    "options": [
+      "The call is allowed, because the identity policy takes precedence over any permissions boundary attached",
+      "The call is allowed only when the request originates from the management account of the organization",
+      "The call is denied, because effective permissions are the intersection of the identity policy and the boundary",
+      "The call is retried by the service until the permissions boundary is updated by an administrator"
+    ],
+    "answer": 2,
+    "explain": "A permissions boundary limits the maximum permissions, so the action must be allowed by both the identity policy and the boundary. The call is denied.",
+    "difficulty": "facile",
+    "tags": [
+      "permissions-boundary"
+    ],
+    "source": "AWS docs: IAM User Guide - Policy evaluation logic",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3S4"
+    ]
+  },
+  {
+    "id": "ch11-q060",
+    "chapter": "ch11-cost-security",
+    "q": "A security lead wants guardrails across all member accounts of an organization. Which statement about service control policies is correct?",
+    "options": [
+      "They grant permissions to every IAM user and role that exists in the management account of the organization",
+      "They apply to the root user of the management account and override every other policy type",
+      "They replace identity-based policies for member accounts, so those policies are no longer evaluated",
+      "They limit the maximum permissions for member accounts and do not grant permissions by themselves"
+    ],
+    "answer": 3,
+    "explain": "SCPs set the maximum permissions for member accounts and never grant permissions. They do not apply to the management account, and identity policies are still needed.",
+    "difficulty": "media",
+    "tags": [
+      "scp",
+      "organizations"
+    ],
+    "source": "AWS docs: AWS Organizations User Guide - Service control policies",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V45"
+    ]
+  },
+  {
+    "id": "ch11-q061",
+    "chapter": "ch11-cost-security",
+    "q": "An SCP denies s3:DeleteObject for member accounts. An administrator attaches AdministratorAccess to a role in a member account. Can the role delete objects?",
+    "options": [
+      "No, the SCP denial still applies to the role",
+      "Yes, AdministratorAccess overrides SCPs",
+      "Yes, but only in the management account",
+      "Only after the SCP is detached from the account"
+    ],
+    "answer": 0,
+    "explain": "An SCP is a guardrail that applies to all principals in the member account, and an identity policy cannot override it. The role is denied.",
+    "difficulty": "difficile",
+    "tags": [
+      "scp"
+    ],
+    "source": "AWS docs: AWS Organizations User Guide - Service control policies",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V45"
+    ]
+  },
+  {
+    "id": "ch11-q062",
+    "chapter": "ch11-cost-security",
+    "q": "A company wants persona-based SageMaker execution roles with preconfigured permissions for data scientists and MLOps engineers. Which SageMaker feature was designed for this?",
+    "options": [
+      "SageMaker Pipelines for orchestrating model build steps",
+      "SageMaker Role Manager",
+      "SageMaker Clarify for bias and explainability reports",
+      "SageMaker Feature Store for reusing features across teams"
+    ],
+    "answer": 1,
+    "explain": "Role Manager creates persona-based IAM roles with suggested permissions. It is no longer open to new customers as of 30 July 2026, and existing customers continue to use it.",
+    "difficulty": "media",
+    "tags": [
+      "role-manager"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Role Manager availability change",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C23"
+    ]
+  },
+  {
+    "id": "ch11-q063",
+    "chapter": "ch11-cost-security",
+    "q": "A team wants least-privilege policies generated from the actual CloudTrail activity of its SageMaker execution role. Which IAM capability fits best?",
+    "options": [
+      "AWS Budgets forecast for IAM role usage",
+      "AWS Config rules that evaluate role configuration",
+      "IAM Access Analyzer policy generation",
+      "Amazon Inspector scan of IAM role permissions"
+    ],
+    "answer": 2,
+    "explain": "IAM Access Analyzer generates least-privilege policies from CloudTrail access activity, and AWS names it as the alternative to Role Manager.",
+    "difficulty": "media",
+    "tags": [
+      "iam-access-analyzer"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Role Manager availability change",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C23"
+    ]
+  },
+  {
+    "id": "ch11-q064",
+    "chapter": "ch11-cost-security",
+    "q": "A developer must store an API key in Parameter Store so that the value is encrypted with AWS KMS. Which Parameter Store type provides this encryption?",
+    "options": [
+      "StringList",
+      "String",
+      "Standard tier parameter",
+      "SecureString"
+    ],
+    "answer": 3,
+    "explain": "SecureString parameters are encrypted with AWS KMS. StringList and String store plain text, and the tier is a capacity setting, not an encryption type.",
+    "difficulty": "media",
+    "tags": [
+      "parameter-store"
+    ],
+    "source": "AWS docs: Systems Manager User Guide - Parameter Store",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V46"
+    ]
+  },
+  {
+    "id": "ch11-q065",
+    "chapter": "ch11-cost-security",
+    "q": "A team stores a database password and needs automatic rotation every 30 days. Which service fits?",
+    "options": [
+      "AWS Secrets Manager, with automatic rotation for credentials",
+      "Systems Manager Parameter Store SecureString",
+      "AWS Config",
+      "Amazon Inspector"
+    ],
+    "answer": 0,
+    "explain": "Secrets Manager is designed for credentials and supports automatic rotation. Parameter Store SecureString encrypts values but does not rotate them automatically.",
+    "difficulty": "media",
+    "tags": [
+      "secrets-manager"
+    ],
+    "source": "AWS docs: AWS Secrets Manager User Guide - What is Secrets Manager?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V52",
+      "V46"
+    ]
+  },
+  {
+    "id": "ch11-q066",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO statements about Systems Manager Parameter Store are correct? (Select TWO.)",
+    "options": [
+      "SecureString values are rotated automatically",
+      "Values are limited to 512 characters on all tiers",
+      "Parameter Store keeps only the last 10 versions of a parameter",
+      "The standard tier supports up to 10000 parameters per account and Region",
+      "The advanced tier supports parameter policies"
+    ],
+    "answer": [
+      3,
+      4
+    ],
+    "explain": "The standard tier allows 10000 parameters and the advanced tier supports policies. SecureString is not rotated automatically, and Parameter Store keeps up to 100 versions, not 10.",
+    "difficulty": "difficile",
+    "tags": [
+      "parameter-store"
+    ],
+    "source": "AWS docs: Systems Manager User Guide - Parameter Store",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V52",
+      "V46"
+    ]
+  },
+  {
+    "id": "ch11-q067",
+    "chapter": "ch11-cost-security",
+    "q": "A team wants container images in Amazon ECR scanned for software vulnerabilities at each push, and rescanned when new CVEs appear. Which service provides this?",
+    "options": [
+      "AWS Config",
+      "Amazon Inspector",
+      "AWS Secrets Manager",
+      "Amazon Quick Sight"
+    ],
+    "answer": 1,
+    "explain": "Amazon Inspector scans ECR images for software vulnerabilities, on push or continuously with enhanced scanning. The other services do not scan images for vulnerabilities.",
+    "difficulty": "media",
+    "tags": [
+      "inspector",
+      "ecr"
+    ],
+    "source": "AWS docs: Amazon Inspector User Guide - Scanning ECR images",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "V56"
+    ]
+  },
+  {
+    "id": "ch11-q068",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO statements about Amazon Inspector scanning are correct? (Select TWO.)",
+    "options": [
+      "Enhanced scanning of ECR images covers operating system and programming language packages",
+      "Inspector does not scan Lambda functions encrypted with customer managed keys",
+      "Basic ECR scanning is billed through Amazon Inspector",
+      "Archived ECR images are scanned continuously",
+      "Lambda code scanning can be enabled without standard scanning"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Enhanced scanning covers OS and language packages and is billed by Inspector. Inspector does not scan Lambda functions encrypted with customer managed keys. Basic scanning is billed by ECR, archived images are not scanned, and code scanning requires standard scanning first.",
+    "difficulty": "difficile",
+    "tags": [
+      "inspector",
+      "ecr",
+      "lambda"
+    ],
+    "source": "AWS docs: Amazon Inspector User Guide - Scanning Lambda functions",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "V56",
+      "G-4.3.1"
+    ]
+  },
+  {
+    "id": "ch11-q069",
+    "chapter": "ch11-cost-security",
+    "q": "A pipeline deploys container images to a SageMaker endpoint. Which design best ensures that a vulnerable image never reaches production? (Select TWO.)",
+    "options": [
+      "Give the pipeline role AdministratorAccess so that deployments never fail",
+      "Scan the image only after it has been deployed to production",
+      "Scan each image in ECR on push and gate the deployment on the scan result",
+      "Give the pipeline role only the actions needed to build, scan, and deploy",
+      "Disable image scanning to speed up builds"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "Gating deployment on a scan blocks vulnerable images before release, and a least-privilege pipeline role limits the damage from a compromised pipeline. Scanning after deployment or disabling scans does not prevent exposure, and administrator access is excessive.",
+    "difficulty": "difficile",
+    "tags": [
+      "ci-cd",
+      "inspector"
+    ],
+    "source": "AWS docs: MLA-C02 exam guide - skill 4.3.1",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.1",
+      "K-4.3K4"
+    ]
+  },
+  {
+    "id": "ch11-q070",
+    "chapter": "ch11-cost-security",
+    "q": "The MLA-C02 exam guide skill for securing CI/CD pipelines names two services for checking code and image vulnerabilities. Which pair is named?",
+    "options": [
+      "Amazon Macie and AWS Config for pipeline security",
+      "AWS Trusted Advisor and AWS Budgets for pipeline cost",
+      "Amazon CodeGuru and Amazon Inspector",
+      "Amazon Cognito and AWS Shield for pipeline access"
+    ],
+    "answer": 2,
+    "explain": "Skill 4.3.1 of the MLA-C02 guide names Amazon CodeGuru and Amazon Inspector for securing CI/CD pipelines. The other pairs are not named in that skill.",
+    "difficulty": "media",
+    "tags": [
+      "ci-cd",
+      "codeguru"
+    ],
+    "source": "AWS docs: MLA-C02 exam guide - skill 4.3.1",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "K-4.3K4",
+      "V13"
+    ]
+  },
+  {
+    "id": "ch11-q071",
+    "chapter": "ch11-cost-security",
+    "q": "A DevSecOps lead reads the MLA-C02 CI/CD security skill and wants the code-review service it names, as opposed to the image scanner. Which service is it?",
+    "options": [
+      "Amazon Inspector for image and code scanning",
+      "AWS Config for resource compliance evaluation",
+      "AWS CloudTrail for API call auditing",
+      "Amazon CodeGuru"
+    ],
+    "answer": 3,
+    "explain": "CodeGuru is named in skill 4.3.1 for code review, while Inspector is named for vulnerability scanning of images and code. Config and CloudTrail are not CI/CD code tools.",
+    "difficulty": "difficile",
+    "tags": [
+      "codeguru",
+      "ci-cd"
+    ],
+    "source": "AWS docs: MLA-C02 exam guide - skill 4.3.1",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "V13"
+    ]
+  },
+  {
+    "id": "ch11-q072",
+    "chapter": "ch11-cost-security",
+    "q": "A team uses Savings Plans and must be alerted when the share of its eligible usage covered by Savings Plans drops below a target. Which budget type fits?",
+    "options": [
+      "Savings Plans coverage budget",
+      "Cost budget for the whole account",
+      "Usage budget for Lambda invocations",
+      "RI utilization budget"
+    ],
+    "answer": 0,
+    "explain": "A Savings Plans coverage budget alerts when coverage falls below a threshold. A cost budget tracks spend, a usage budget tracks consumption, and an RI utilization budget applies to Reserved Instances.",
+    "difficulty": "media",
+    "tags": [
+      "budgets",
+      "savings-plans"
+    ],
+    "source": "AWS docs: Cost Management User Guide - Managing your costs with AWS Budgets",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V42"
+    ]
+  },
+  {
+    "id": "ch11-q073",
+    "chapter": "ch11-cost-security",
+    "q": "An administrator of the management account of an AWS organization must turn on cost allocation tags and request backfills. Which console is used?",
+    "options": [
+      "AWS Trusted Advisor checks console",
+      "AWS Billing and Cost Management",
+      "Amazon CloudWatch metrics console",
+      "AWS Config resource inventory console"
+    ],
+    "answer": 1,
+    "explain": "Cost allocation tag activation and backfill are managed from Billing and Cost Management, by the management account. The other consoles do not manage tags for cost reporting.",
+    "difficulty": "media",
+    "tags": [
+      "billing",
+      "cost-allocation-tags"
+    ],
+    "source": "AWS docs: Billing User Guide - Backfill cost allocation tags",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V32",
+      "K-4.2K5"
+    ]
+  },
+  {
+    "id": "ch11-q074",
+    "chapter": "ch11-cost-security",
+    "q": "A stakeholder asks how the QuickSight name relates to the current AWS console naming. How is Amazon QuickSight related to Amazon Quick?",
+    "options": [
+      "QuickSight replaced Amazon Quick and is now a standalone chatbot service for chat channels",
+      "Amazon Quick is the new name of the data pipeline service that moves data between AWS services",
+      "QuickSight is now Amazon Quick Sight, a feature within Amazon Quick, and its APIs keep working",
+      "QuickSight and Amazon Quick are unrelated services that were launched in different AWS Regions"
+    ],
+    "answer": 2,
+    "explain": "QuickSight became Amazon Quick Sight, a feature within Amazon Quick, and existing QuickSight APIs and integrations continue to work.",
+    "difficulty": "media",
+    "tags": [
+      "quicksight",
+      "amazon-quick"
+    ],
+    "source": "AWS docs: Amazon Quick - What is Amazon Quick?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V38"
+    ]
+  },
+  {
+    "id": "ch11-q075",
+    "chapter": "ch11-cost-security",
+    "q": "A company wants monthly cost reports per project for all training jobs and endpoints. Which tagging approach best supports this?",
+    "options": [
+      "One catch-all tag named misc applied to every resource in the account for reporting purposes",
+      "Tags applied only to S3 buckets, while training jobs and endpoints are left without any tags",
+      "Tag values changed at random every week so that each report shows a different breakdown",
+      "Project and CostCenter tags applied consistently to training jobs and endpoints at creation"
+    ],
+    "answer": 3,
+    "explain": "Consistent project and cost-center tags at creation let cost reports group spend by project. A single catch-all tag or tags on only one resource type cannot attribute cost.",
+    "difficulty": "media",
+    "tags": [
+      "tagging-strategy"
+    ],
+    "source": "AWS docs: Billing User Guide - Backfill cost allocation tags",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S7"
+    ]
+  },
+  {
+    "id": "ch11-q076",
+    "chapter": "ch11-cost-security",
+    "q": "A web team needs balanced compute, memory, and networking for its API servers. Which EC2 family is described as general purpose?",
+    "options": [
+      "M general purpose, balancing compute, memory, and networking",
+      "R memory optimized for large in-memory data sets",
+      "G accelerated for graphics and floating-point work",
+      "P high-performance GPU instances for deep learning"
+    ],
+    "answer": 0,
+    "explain": "The M family is general purpose, balancing compute, memory, and networking. R is memory optimized, G is for graphics and accelerated work, and P is for high-performance GPU work.",
+    "difficulty": "media",
+    "tags": [
+      "instance-families"
+    ],
+    "source": "AWS docs: Amazon EC2 instance types",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K4"
+    ]
+  },
+  {
+    "id": "ch11-q077",
+    "chapter": "ch11-cost-security",
+    "q": "Which THREE statements about SageMaker instance right-sizing are correct? (Select THREE.)",
+    "options": [
+      "Inference Recommender Default jobs need only a model package ARN",
+      "Compute Optimizer analyzes utilization of resources already in use",
+      "Compute Optimizer creates new endpoints after each recommendation",
+      "Inference Recommender analyzes existing CloudTrail logs to size endpoints",
+      "Inference Recommender Advanced jobs run a custom load test with a traffic pattern",
+      "Both Inference Recommender job types return an initial instance count for autoscaling"
+    ],
+    "answer": [
+      0,
+      4,
+      5
+    ],
+    "explain": "Default jobs need only the model package, Advanced jobs run custom load tests, and both return an initial instance count for autoscaling. Compute Optimizer analyzes running resources, while Inference Recommender does not analyze CloudTrail or create endpoints.",
+    "difficulty": "difficile",
+    "tags": [
+      "rightsizing",
+      "inference-recommender"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Recommendation jobs with Inference Recommender",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S5",
+      "V08"
+    ]
+  },
+  {
+    "id": "ch11-q078",
+    "chapter": "ch11-cost-security",
+    "q": "A team runs agents on Amazon Bedrock AgentCore and wants built-in dashboards for session count, latency, token usage, and errors. Which feature gives these detailed trace and metric dashboards?",
+    "options": [
+      "AWS Trusted Advisor cost and security checks",
+      "AgentCore Observability",
+      "AWS Budgets monthly cost and usage alerts",
+      "Amazon Inspector vulnerability findings for images"
+    ],
+    "answer": 1,
+    "explain": "AgentCore Observability provides session, latency, token, and error metrics in CloudWatch dashboards. The other services do not monitor agent sessions.",
+    "difficulty": "media",
+    "tags": [
+      "agentcore"
+    ],
+    "source": "AWS docs: Amazon Bedrock AgentCore Developer Guide - Observability",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2K2",
+      "G-4.2.2"
+    ]
+  },
+  {
+    "id": "ch11-q079",
+    "chapter": "ch11-cost-security",
+    "q": "Which TWO statements about Lambda provisioned concurrency are correct? (Select TWO.)",
+    "options": [
+      "It is the right choice for asynchronous batch pipelines, which are the main beneficiaries",
+      "The configuration cannot be applied to the $LATEST version",
+      "Initialization cost is billed even when no requests arrive",
+      "Reserved concurrency and provisioned concurrency are the same setting",
+      "Provisioned concurrency costs nothing at all when the traffic on the function is low or idle"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "Provisioned concurrency must target a published version or alias, and it is billed continuously, including initialization. It mainly helps latency-sensitive interactive workloads, and it is not the same as reserved concurrency.",
+    "difficulty": "difficile",
+    "tags": [
+      "provisioned-concurrency"
+    ],
+    "source": "AWS docs: Lambda Developer Guide - Configuring provisioned concurrency",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S8",
+      "K-4.2S9"
+    ]
+  },
+  {
+    "id": "ch11-q080",
+    "chapter": "ch11-cost-security",
+    "q": "A training team uses Managed Spot Training with MaxRuntimeInSeconds set to 7200. Which value of MaxWaitTimeInSeconds is valid?",
+    "options": [
+      "3600, because it must be smaller than MaxRuntimeInSeconds",
+      "7200, because it must equal MaxRuntimeInSeconds",
+      "10800, because it is greater than MaxRuntimeInSeconds",
+      "0, because the wait time is ignored for Spot"
+    ],
+    "answer": 2,
+    "explain": "MaxWaitTimeInSeconds must be larger than MaxRuntimeInSeconds, because it covers the runtime plus the time spent waiting for Spot capacity. Equal or smaller values are invalid.",
+    "difficulty": "difficile",
+    "tags": [
+      "spot",
+      "stopping-condition"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Managed Spot Training",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.2S10"
+    ]
+  }
+]
