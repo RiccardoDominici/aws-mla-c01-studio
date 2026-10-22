@@ -1,0 +1,1939 @@
+[
+  {
+    "id": "ch12-q001",
+    "chapter": "ch12-genai-rag",
+    "q": "A company builds a RAG application on Amazon Bedrock with 40 million short product documents and needs sub-second semantic search. The team wants no cluster management and the LEAST operational overhead. Which vector store should it choose?",
+    "options": [
+      "Amazon OpenSearch Serverless with a vector search collection",
+      "A self-managed PostgreSQL with pgvector on Amazon EC2 instances that the team patches monthly",
+      "Amazon Redshift with a COPY into a text column and a SQL function for cosine distance",
+      "Amazon DynamoDB with a global secondary index on a JSON attribute that stores the vectors as text"
+    ],
+    "answer": 0,
+    "explain": "OpenSearch Serverless provides a vector search collection without cluster management. The others need manual management or are not designed for vector similarity search.",
+    "difficulty": "facile",
+    "tags": [
+      "opensearch",
+      "vector-store"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prerequisites for using a vector store you created for a knowledge base",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.1.7"
+    ]
+  },
+  {
+    "id": "ch12-q002",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO services can be used as vector stores for an Amazon Bedrock knowledge base? (Select TWO.)",
+    "options": [
+      "Amazon ElastiCache for Memcached used as a key-value cache",
+      "Amazon Aurora PostgreSQL with the pgvector extension",
+      "Amazon Athena querying partitioned Parquet files in Amazon S3",
+      "Amazon S3 Vectors",
+      "Amazon Kinesis Data Streams with a Lambda consumer that writes records to a log"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "Aurora PostgreSQL with pgvector and S3 Vectors are supported vector stores for knowledge bases. Athena queries data but does not store vector indexes, and Kinesis and Memcached are not vector stores.",
+    "difficulty": "difficile",
+    "tags": [
+      "aurora",
+      "s3-vectors"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prerequisites for using a vector store you created for a knowledge base",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.1.7"
+    ]
+  },
+  {
+    "id": "ch12-q003",
+    "chapter": "ch12-genai-rag",
+    "q": "A team stores embeddings in Amazon S3 Vectors for a Bedrock knowledge base and wants to attach document metadata for filtering. Which limit must the design respect?",
+    "options": [
+      "Vector indexes accept only binary embeddings, so float embeddings must be quantized first",
+      "Each vector carries up to 1 KB of custom metadata and up to 35 metadata keys",
+      "Queries must run from inside a VPC because the bucket policy requires private access for every client",
+      "Metadata is limited to 10 MB per index shared by every vector in the bucket"
+    ],
+    "answer": 1,
+    "explain": "S3 Vectors allows up to 1 KB of custom metadata and 35 keys per vector in knowledge bases. S3 Vectors supports float embeddings only, not binary ones.",
+    "difficulty": "media",
+    "tags": [
+      "s3-vectors",
+      "metadata"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prerequisites for using a vector store you created for a knowledge base",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.1.7"
+    ]
+  },
+  {
+    "id": "ch12-q004",
+    "chapter": "ch12-genai-rag",
+    "q": "A retail team embeds product photos and text descriptions into one vector space so shoppers can search with text and get matching images. Which Amazon Bedrock model fits this need?",
+    "options": [
+      "Amazon Rekognition DetectLabels API for image tags and confidence scores",
+      "Amazon Comprehend DetectEntities API for named entity recognition in documents",
+      "Amazon Titan Multimodal Embeddings G1 for text and image vectors",
+      "Amazon Titan Text Embeddings V2 for text-only vectors and search"
+    ],
+    "answer": 2,
+    "explain": "Titan Multimodal Embeddings G1 maps text and images into vectors for cross-modal search. The text-only embedding model and the image analysis APIs cannot produce a shared text and image space.",
+    "difficulty": "media",
+    "tags": [
+      "titan",
+      "multimodal"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Amazon Titan Text Embeddings models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.5"
+    ]
+  },
+  {
+    "id": "ch12-q005",
+    "chapter": "ch12-genai-rag",
+    "q": "What is the default output vector size of Amazon Titan Text Embeddings V2?",
+    "options": [
+      "768 dimensions",
+      "256 dimensions, the smallest option, which gives the lowest storage cost",
+      "512 dimensions",
+      "1024 dimensions"
+    ],
+    "answer": 3,
+    "explain": "Titan Text Embeddings V2 outputs 1024 dimensions by default, and 512 and 256 are optional sizes.",
+    "difficulty": "facile",
+    "tags": [
+      "titan",
+      "dimensions"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Amazon Titan Text Embeddings models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.5"
+    ]
+  },
+  {
+    "id": "ch12-q006",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO statements about Amazon Titan Text Embeddings V2 are correct? (Select TWO.)",
+    "options": [
+      "It accepts up to 8,192 tokens or 50,000 characters per input",
+      "It returns 4096-dimension vectors by default for every request",
+      "It supports maxTokenCount and topP inference parameters for generation",
+      "Its output sizes are 1024 by default, with 512 and 256 as options",
+      "It only works with images as input, so text needs a different embedding model entirely"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Titan Text Embeddings V2 accepts up to 8,192 tokens or 50,000 characters and outputs 1024 dimensions by default with 512 and 256 as options. It does not support inference parameters such as maxTokenCount or topP, and it is a text model.",
+    "difficulty": "difficile",
+    "tags": [
+      "titan",
+      "limits"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Amazon Titan Text Embeddings models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.5"
+    ]
+  },
+  {
+    "id": "ch12-q007",
+    "chapter": "ch12-genai-rag",
+    "q": "A company fine-tunes a model on Italian legal text. Token counts are much higher than expected and long inputs are cut off. What is the most likely cause, and what should the team do?",
+    "options": [
+      "The tokenizer splits non-English text into more tokens, so the team should count tokens with the target model's tokenizer and segment long documents",
+      "Training ran for too many epochs, so the model learned to use longer token sequences than necessary",
+      "The temperature was too low, so the tokenizer produced longer sequences during inference",
+      "The vector database truncates prompts before inference, so the team should reduce the index size"
+    ],
+    "answer": 0,
+    "explain": "Tokenizers trained mainly on English split other languages into more tokens, so limits must be checked in tokens. Measuring with the target tokenizer and segmenting documents fixes the truncation.",
+    "difficulty": "media",
+    "tags": [
+      "tokenization",
+      "context-window"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Amazon Titan Text Embeddings models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.6"
+    ]
+  },
+  {
+    "id": "ch12-q008",
+    "chapter": "ch12-genai-rag",
+    "q": "A team augments a small domain dataset with synonym replacement for technical terms, and model accuracy drops. Which change is the BEST fix?",
+    "options": [
+      "Remove the domain terms from the vocabulary to keep the token count small",
+      "Augment with synonyms that keep technical terms unchanged, and validate that the meaning of each example is preserved",
+      "Double the learning rate so the model adapts faster to the augmented examples",
+      "Replace the most frequent words with random synonyms to increase variety in the dataset"
+    ],
+    "answer": 1,
+    "explain": "Domain augmentation must preserve technical meaning, so protected terms stay unchanged and the output is validated. Random replacement and higher learning rates do not address the semantic drift.",
+    "difficulty": "difficile",
+    "tags": [
+      "augmentation"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prepare data for fine-tuning your models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.6"
+    ]
+  },
+  {
+    "id": "ch12-q009",
+    "chapter": "ch12-genai-rag",
+    "q": "Which technique splits rare words into smaller, frequently seen pieces so that a tokenizer keeps its vocabulary manageable?",
+    "options": [
+      "Reranking of retrieved passages",
+      "Chunking with a percentage overlap between neighboring pieces of a document",
+      "Subword tokenization",
+      "Metadata filtering on a vector store"
+    ],
+    "answer": 2,
+    "explain": "Subword tokenization breaks rare words into frequent fragments, keeping the vocabulary bounded while still representing new words.",
+    "difficulty": "facile",
+    "tags": [
+      "tokenization",
+      "subword"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Amazon Titan Text Embeddings models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.6"
+    ]
+  },
+  {
+    "id": "ch12-q010",
+    "chapter": "ch12-genai-rag",
+    "q": "A knowledge base over long policy manuals returns answers that split one rule across two chunks. The team wants a fixed chunk size with overlap between neighboring chunks. Which chunking strategy matches?",
+    "options": [
+      "Semantic chunking with the maximum buffer size set to zero",
+      "Hierarchical chunking with the overlap set as a percentage of the parent chunk",
+      "No chunking at all, so each manual is stored as a single chunk regardless of its length or structure",
+      "Fixed-size chunking with an overlap percentage between consecutive chunks"
+    ],
+    "answer": 3,
+    "explain": "Fixed-size chunking sets a token maximum and an overlap percentage, which reduces split rules. Hierarchical overlap is expressed in absolute tokens, and no chunking keeps each manual whole.",
+    "difficulty": "media",
+    "tags": [
+      "chunking",
+      "overlap"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — How content chunking works for knowledge bases",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.7"
+    ]
+  },
+  {
+    "id": "ch12-q011",
+    "chapter": "ch12-genai-rag",
+    "q": "A team uses hierarchical chunking with very large parent chunks on an S3 Vectors store, and ingestion fails with a metadata size error. Which change is the BEST fix?",
+    "options": [
+      "Reduce the combined parent and child token sizes, or choose a vector store with larger metadata limits, because hierarchical context is stored as metadata",
+      "Increase numberOfResults so the ingestion job retries with more capacity",
+      "Add a reranker, which lowers the metadata size stored for each vector",
+      "Delete the data source and recreate the knowledge base with identical settings and the same chunking"
+    ],
+    "answer": 0,
+    "explain": "Hierarchical context is stored as non-filterable metadata in S3 Vectors, and large combined token counts can exceed the per-vector limit. Smaller chunk sizes or a store with larger limits fix it.",
+    "difficulty": "difficile",
+    "tags": [
+      "hierarchical",
+      "s3-vectors",
+      "metadata"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — How content chunking works for knowledge bases",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.7"
+    ]
+  },
+  {
+    "id": "ch12-q012",
+    "chapter": "ch12-genai-rag",
+    "q": "A company wants a cheaper model to imitate a larger model's answers on its support prompts. It has no labelled answers. Which data should it prepare?",
+    "options": [
+      "Only raw PDF files, which Bedrock is expected to convert into labelled prompt-response pairs automatically during ingestion of the entire document archive",
+      "A JSONL file of prompts, since the teacher model generates the responses used to train the student",
+      "Unlabelled text in CSV format with one document per row and no prompt field at all",
+      "A set of images with captions organized in folders named after the answer classes"
+    ],
+    "answer": 1,
+    "explain": "Distillation needs prompts, and the teacher model generates the responses that train the student. Raw PDFs and images do not fit this distillation input.",
+    "difficulty": "media",
+    "tags": [
+      "distillation",
+      "jsonl"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prepare data for fine-tuning your models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.9"
+    ]
+  },
+  {
+    "id": "ch12-q013",
+    "chapter": "ch12-genai-rag",
+    "q": "Which format does a non-conversational Bedrock fine-tuning dataset use?",
+    "options": [
+      "A CSV file with a header row",
+      "A single very large JSON array in one file, with nested objects for every record and no line breaks",
+      "JSONL with prompt and completion fields in each line",
+      "Parquet files with a schema defined by the data scientist"
+    ],
+    "answer": 2,
+    "explain": "The non-conversational format is JSONL, one JSON object per line, with prompt and completion fields. A JSON array in one file is not the expected layout.",
+    "difficulty": "facile",
+    "tags": [
+      "jsonl",
+      "fine-tuning"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prepare data for fine-tuning your models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.9"
+    ]
+  },
+  {
+    "id": "ch12-q014",
+    "chapter": "ch12-genai-rag",
+    "q": "A company wants a model to learn its internal jargon from 50 GB of unlabelled product manuals. Which approach fits best?",
+    "options": [
+      "Fine-tuning with prompt-completion pairs of questions and answers",
+      "Distillation from a larger teacher model's answers",
+      "Few-shot prompting with three examples of jargon",
+      "Continued pre-training on unlabelled domain text"
+    ],
+    "answer": 3,
+    "explain": "Continued pre-training uses unlabelled text to teach domain vocabulary. Prompt-completion fine-tuning needs labelled answers, and distillation transfers behavior rather than vocabulary.",
+    "difficulty": "difficile",
+    "tags": [
+      "continued-pretraining"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prepare data for fine-tuning your models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.9"
+    ]
+  },
+  {
+    "id": "ch12-q015",
+    "chapter": "ch12-genai-rag",
+    "q": "A team finds that some prompt-response pairs in its training JSONL contain a response that answers a different prompt. What should it do before training?",
+    "options": [
+      "Validate each pair, then fix or remove the mismatched records before starting the job",
+      "Raise the temperature during training so the model averages out the wrong answers",
+      "Move the file to a public bucket so reviewers can fix it on their own schedule",
+      "Ignore it, since the fine-tuning job corrects mismatched pairs automatically during training"
+    ],
+    "answer": 0,
+    "explain": "Mismatched prompt-response pairs teach wrong behavior silently, so each pair must be validated and corrected before training. Training does not repair data.",
+    "difficulty": "media",
+    "tags": [
+      "data-quality",
+      "prompt-response"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prepare data for fine-tuning your models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.3.6"
+    ]
+  },
+  {
+    "id": "ch12-q016",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO checks help validate AI training data integrity before fine-tuning? (Select TWO.)",
+    "options": [
+      "Scan records for toxic or unsafe content",
+      "Confirm every record is valid JSON with the required fields",
+      "Increase the learning rate to match the dataset size",
+      "Store the dataset in a public S3 bucket for review",
+      "Remove the vector store index to reduce noise"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Content safety screening and format checks catch unsafe and malformed records before training. Changing the learning rate, publishing the data, or removing an index does not validate data.",
+    "difficulty": "media",
+    "tags": [
+      "content-safety",
+      "validation"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prepare data for fine-tuning your models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.3.6"
+    ]
+  },
+  {
+    "id": "ch12-q017",
+    "chapter": "ch12-genai-rag",
+    "q": "A healthcare team's training responses contain patient names copied from source notes. Which action best reduces privacy risk before fine-tuning?",
+    "options": [
+      "Encrypt the JSONL file only after training finishes so the model can read it",
+      "Detect and anonymize personal data in the training files before upload",
+      "Lower the temperature so the model never repeats names",
+      "Attach a larger validation set so privacy is measured automatically during the job"
+    ],
+    "answer": 1,
+    "explain": "Personal data must be detected and anonymized in the training data itself, since the model learns what it sees. Encryption, temperature, and validation sets do not remove it.",
+    "difficulty": "difficile",
+    "tags": [
+      "pii",
+      "privacy"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prepare data for fine-tuning your models",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.3.6"
+    ]
+  },
+  {
+    "id": "ch12-q018",
+    "chapter": "ch12-genai-rag",
+    "q": "A startup needs a chat model that handles long contracts in English, must not manage any infrastructure, and wants to compare candidate models on context window and price. Which approach is best?",
+    "options": [
+      "Use Amazon Comprehend for summarization of contracts in English",
+      "Train a transformer from scratch on SageMaker because off-the-shelf foundation models cannot read long contracts and the team wants full control",
+      "Compare the Amazon Bedrock foundation models on context window, language support and price, then invoke the chosen model through the Converse API",
+      "Deploy a custom BERT classifier on EC2 and fine-tune it for summarization of contracts"
+    ],
+    "answer": 2,
+    "explain": "Bedrock gives serverless access to many foundation models, and their context window, language support and price are the criteria to compare. The other options add infrastructure or use a service not built for generation.",
+    "difficulty": "media",
+    "tags": [
+      "foundation-model",
+      "selection"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Supported models and Regions for Amazon Bedrock knowledge bases",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.1"
+    ]
+  },
+  {
+    "id": "ch12-q019",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO criteria should drive foundation model selection on Amazon Bedrock? (Select TWO.)",
+    "options": [
+      "Latency and per-token cost for the expected traffic",
+      "The color of the Bedrock console theme",
+      "The model provider's logo on the model card page",
+      "Context window and supported languages",
+      "The number of CPU cores on the client laptop used to open the console"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Context window, language support, latency and cost are model-selection criteria tied to the task. Laptop hardware, console appearance and logos do not affect the model's fit.",
+    "difficulty": "facile",
+    "tags": [
+      "foundation-model",
+      "criteria"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Supported models and Regions for Amazon Bedrock knowledge bases",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.1"
+    ]
+  },
+  {
+    "id": "ch12-q020",
+    "chapter": "ch12-genai-rag",
+    "q": "A company has 2,000 labelled examples and wants a model to follow its ticket-triage format. It needs the lowest training cost and the smallest change to the base model. Which strategy fits?",
+    "options": [
+      "Distillation from a larger teacher with no labelled data and no adapter training",
+      "Full fine-tuning of all parameters with the same examples on the largest instance type available",
+      "Continued pre-training on unlabelled ticket text only, with no labelled examples used at all",
+      "Parameter-efficient fine-tuning with LoRA on the labelled examples"
+    ],
+    "answer": 3,
+    "explain": "LoRA trains a small set of adapter weights on labelled examples, which is cheaper than full fine-tuning and keeps the base model largely unchanged. Continued pre-training uses unlabelled text.",
+    "difficulty": "media",
+    "tags": [
+      "lora",
+      "peft"
+    ],
+    "source": "AWS ML Blog: Advanced fine-tuning methods on Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.2",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch12-q021",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO statements about LoRA are correct? (Select TWO.)",
+    "options": [
+      "It trains small low-rank matrices that are added to model layers",
+      "It updates every parameter of the base model during training",
+      "It keeps the base model weights frozen during training",
+      "It is only available for image generation models and never for language models",
+      "It removes the need for any training data"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "LoRA adds trainable low-rank matrices and keeps the base weights frozen, which makes it cheap to train. It is used for language models too, and it still needs training data.",
+    "difficulty": "media",
+    "tags": [
+      "lora"
+    ],
+    "source": "AWS ML Blog: Advanced fine-tuning methods on Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.2",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch12-q022",
+    "chapter": "ch12-genai-rag",
+    "q": "After fine-tuning an FM on a narrow dataset, the model fails general questions it answered well before. What is the most likely cause, and which mitigation fits?",
+    "options": [
+      "Catastrophic forgetting from over-training on narrow data, so mix in general examples and evaluate on broad tasks",
+      "The context window was set too large for the narrow dataset, so the model lost track of general facts during training",
+      "Inference parameters were set too high, so the team should lower top P at inference time only",
+      "Stop sequences were removed from the inference call, so the model no longer ends its answers"
+    ],
+    "answer": 0,
+    "explain": "Catastrophic forgetting happens when fine-tuning overwrites general capabilities, and mixing general data and broad evaluation is the standard mitigation. Inference parameters and stop sequences do not change learned weights.",
+    "difficulty": "difficile",
+    "tags": [
+      "catastrophic-forgetting"
+    ],
+    "source": "AWS ML Blog: Advanced fine-tuning methods on Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.2",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch12-q023",
+    "chapter": "ch12-genai-rag",
+    "q": "What does PEFT stand for in the context of model customization?",
+    "options": [
+      "Probabilistic evaluation of fine-tuned transformers on held-out data",
+      "Parameter-efficient fine-tuning",
+      "Pretrained embedding feature transfer for search indexes",
+      "Post-epoch feature tuning with automatic learning rate schedules"
+    ],
+    "answer": 1,
+    "explain": "PEFT stands for parameter-efficient fine-tuning, a family of methods such as LoRA that train a small fraction of parameters.",
+    "difficulty": "facile",
+    "tags": [
+      "peft"
+    ],
+    "source": "AWS ML Blog: Advanced fine-tuning methods on Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.2"
+    ]
+  },
+  {
+    "id": "ch12-q024",
+    "chapter": "ch12-genai-rag",
+    "q": "A company must predict monthly churn from 40 tabular columns and must explain each prediction to auditors. Which option meets the requirement with the least complexity?",
+    "options": [
+      "A custom diffusion model trained on images generated from the customer records",
+      "A multimodal foundation model that writes a churn narrative for each individual customer row in the table",
+      "A tree-based model from SageMaker built-in algorithms, which is interpretable and fast",
+      "A 70 billion parameter generative model with a chat prompt for each customer record"
+    ],
+    "answer": 2,
+    "explain": "For tabular prediction with an audit need, a classic interpretable model is simpler and cheaper than a generative model. Generative options add cost and do not give auditable predictions.",
+    "difficulty": "media",
+    "tags": [
+      "ml-vs-genai"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Supported models and Regions for Amazon Bedrock knowledge bases",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.3"
+    ]
+  },
+  {
+    "id": "ch12-q025",
+    "chapter": "ch12-genai-rag",
+    "q": "A team must compare a classic classifier and a generative model for ticket routing. Which metric set best supports the comparison?",
+    "options": [
+      "Only the number of words in the model card",
+      "Only the release year printed on the provider's announcement page for the generative model",
+      "The number of Bedrock console tabs the team visited during the evaluation",
+      "Accuracy, latency and cost per prediction on a held-out labelled set"
+    ],
+    "answer": 3,
+    "explain": "A fair comparison uses the same held-out labelled data and measures accuracy, latency and cost. Model card length, release year and console usage say nothing about routing quality.",
+    "difficulty": "difficile",
+    "tags": [
+      "evaluation",
+      "ml-vs-genai"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Supported models and Regions for Amazon Bedrock knowledge bases",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.3"
+    ]
+  },
+  {
+    "id": "ch12-q026",
+    "chapter": "ch12-genai-rag",
+    "q": "A team of three developers must launch a document Q&A assistant in two weeks with the least operational overhead. Which option fits?",
+    "options": [
+      "Use an Amazon Bedrock Managed Knowledge Base for ingestion, storage and retrieval",
+      "Build a custom vector pipeline on EKS with self-managed Elasticsearch shards and custom autoscaling rules",
+      "Train a custom transformer on SageMaker from scratch with a bespoke tokenizer and a long training schedule",
+      "Host an open-source LLM on self-managed GPU instances with custom autoscaling and manual patching"
+    ],
+    "answer": 0,
+    "explain": "A managed knowledge base removes the ingestion, storage and retrieval infrastructure, which suits a small team on a short deadline. The other options add significant operational work.",
+    "difficulty": "media",
+    "tags": [
+      "managed-service",
+      "tradeoff"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Build a managed knowledge base",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.4"
+    ]
+  },
+  {
+    "id": "ch12-q027",
+    "chapter": "ch12-genai-rag",
+    "q": "A regulated bank requires that customer documents stay inside the European Union, and it accepts a managed service. Which configuration is right?",
+    "options": [
+      "Copy the documents to a bucket in every Region so that requests never need to be routed at all",
+      "A geographic cross-region inference profile for the EU, which keeps requests inside the geography",
+      "A global cross-region inference profile, which can route requests to any commercial Region",
+      "A global profile with a service control policy that allows only us-east-1"
+    ],
+    "answer": 1,
+    "explain": "A geographic profile routes only within its geography, so EU data stays in the EU. A global profile can route to any commercial Region and does not meet the residency rule.",
+    "difficulty": "difficile",
+    "tags": [
+      "cross-region",
+      "residency"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Route model inference requests across AWS Regions with cross-Region inference",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.4"
+    ]
+  },
+  {
+    "id": "ch12-q028",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO situations favor a custom solution over a managed service? (Select TWO.)",
+    "options": [
+      "The company wants the lowest operational overhead possible for the next year",
+      "Compliance requires buying a managed product for each Region separately, with separate contracts and separate billing accounts",
+      "The workload needs a specific model architecture that no managed option provides",
+      "The team has no engineers and must deliver everything within one week",
+      "Strict control over every component is a hard requirement of the project"
+    ],
+    "answer": [
+      2,
+      4
+    ],
+    "explain": "A custom solution is justified when a required architecture or strict component-level control cannot be met by managed options. Low overhead and small teams favor managed services.",
+    "difficulty": "difficile",
+    "tags": [
+      "custom",
+      "managed-service"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Build a managed knowledge base",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.4"
+    ]
+  },
+  {
+    "id": "ch12-q029",
+    "chapter": "ch12-genai-rag",
+    "q": "In the context of AI solution design, what is a managed service?",
+    "options": [
+      "A custom model you train and host on your own EC2 instances",
+      "A reporting tool that only generates dashboards from logs",
+      "A service that runs the infrastructure and operations for you, so you configure it rather than build and operate it",
+      "A service that stores your training data on a shared public bucket"
+    ],
+    "answer": 2,
+    "explain": "A managed service takes over infrastructure and operations, so the team configures it. The other options describe self-managed or unrelated services.",
+    "difficulty": "facile",
+    "tags": [
+      "managed-service"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Build a managed knowledge base",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.4"
+    ]
+  },
+  {
+    "id": "ch12-q030",
+    "chapter": "ch12-genai-rag",
+    "q": "A legal team asks questions that connect parties, contracts and dates across 100,000 documents, and each answer must explain the relationships. Which RAG pattern fits best?",
+    "options": [
+      "Basic RAG with a larger chunk size and no reranker in the pipeline",
+      "Fine-tuning a model on the contract text so it memorizes all the relationships between parties",
+      "Keyword search with a fixed top-1 result and no generation step",
+      "GraphRAG with a knowledge graph in Amazon Neptune Analytics"
+    ],
+    "answer": 3,
+    "explain": "GraphRAG traverses entities and relationships, which suits questions that connect many documents. Basic RAG and memorization through fine-tuning do not model relationships explicitly.",
+    "difficulty": "difficile",
+    "tags": [
+      "graphrag",
+      "neptune"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prerequisites for using a vector store you created for a knowledge base",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.5"
+    ]
+  },
+  {
+    "id": "ch12-q031",
+    "chapter": "ch12-genai-rag",
+    "q": "Retrieved results match the right topic, but the top three often miss the exact product code the user typed. Which pattern addresses this?",
+    "options": [
+      "Hybrid search that combines vector similarity with keyword matching",
+      "Removing metadata so every chunk is equally ranked by the vector engine",
+      "Switching to fixed-size chunking with zero overlap between neighboring chunks",
+      "Increasing the temperature of the generative model so the answer becomes more creative and varied"
+    ],
+    "answer": 0,
+    "explain": "Exact codes are poorly represented by embeddings, so hybrid search adds keyword matching. Temperature, metadata removal and chunk overlap do not fix retrieval of exact terms.",
+    "difficulty": "media",
+    "tags": [
+      "hybrid-search"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Improve the relevance of query responses with a reranker model in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.5"
+    ]
+  },
+  {
+    "id": "ch12-q032",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO use cases suit agentic RAG? (Select TWO.)",
+    "options": [
+      "A single-table lookup by primary key with one fixed result",
+      "A research assistant that decides whether to query another source after a search",
+      "A static FAQ with a fixed answer for each question that never changes over time",
+      "A multi-step question that needs searches over separate systems, followed by a combined answer",
+      "A nightly batch that copies files to Amazon S3 without any questions, schedules or user interaction at all"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "Agentic RAG lets an agent decide when and where to search, which fits multi-step and multi-source questions. A fixed FAQ, a batch copy and a key lookup need no such decisions.",
+    "difficulty": "difficile",
+    "tags": [
+      "agentic-rag"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Build a managed knowledge base",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.5"
+    ]
+  },
+  {
+    "id": "ch12-q033",
+    "chapter": "ch12-genai-rag",
+    "q": "Which AWS service stores the entity graph used for GraphRAG in a Bedrock knowledge base?",
+    "options": [
+      "Amazon Athena",
+      "Amazon Neptune Analytics",
+      "Amazon QuickSight dashboards for business users",
+      "Amazon Kinesis Data Firehose delivery stream with buffered Amazon S3 output"
+    ],
+    "answer": 1,
+    "explain": "Neptune Analytics stores the graph and vector index for GraphRAG in Bedrock knowledge bases. The other services do not hold a graph for retrieval.",
+    "difficulty": "facile",
+    "tags": [
+      "neptune",
+      "graphrag"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Supported models and Regions for Amazon Bedrock knowledge bases",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.5"
+    ]
+  },
+  {
+    "id": "ch12-q034",
+    "chapter": "ch12-genai-rag",
+    "q": "A chatbot must answer in under one second for interactive users, and the budget is tight. Which change is the BEST starting point?",
+    "options": [
+      "Route all traffic through a global cross-region profile without measuring latency first",
+      "Add more reranker models to the chain so every request is scored twice",
+      "Choose a smaller or distilled model after measuring its quality on your task, and cache frequent answers",
+      "Increase max tokens to 4096 so each answer is richer"
+    ],
+    "answer": 2,
+    "explain": "A smaller or distilled model reduces latency and cost, and caching avoids repeated generation, but quality must be measured on the task. The other options increase latency or cost.",
+    "difficulty": "media",
+    "tags": [
+      "latency",
+      "cost"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Route model inference requests across AWS Regions with cross-Region inference",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.7"
+    ]
+  },
+  {
+    "id": "ch12-q035",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO actions reduce per-request cost without an unacceptable quality loss? (Select TWO.)",
+    "options": [
+      "Set max tokens far above what the answers need",
+      "Use a smaller distilled model after measuring quality on your task",
+      "Send every query to the largest model by default, because quality matters more than budget in every case",
+      "Disable all evaluation so the monthly bill stays low",
+      "Retrieve fewer chunks and rerank them so the prompt is shorter"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "Fewer, better-ranked chunks shorten the prompt and cost, and a smaller distilled model cuts per-call cost once quality is measured. Large defaults and no evaluation increase cost or risk.",
+    "difficulty": "difficile",
+    "tags": [
+      "cost",
+      "reranking"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Improve the relevance of query responses with a reranker model in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.7"
+    ]
+  },
+  {
+    "id": "ch12-q036",
+    "chapter": "ch12-genai-rag",
+    "q": "A team must choose between a larger model and a smaller one for a support assistant with a strict latency target. Which evaluation approach is correct?",
+    "options": [
+      "Choose the largest model, because quality always outweighs latency in production",
+      "Compare only the list prices of the two models, since latency is the same for both",
+      "Decide from marketing claims on the model provider's page without running a test",
+      "Measure latency and cost on production-like traffic and compare answer quality on a labelled test set for each model"
+    ],
+    "answer": 3,
+    "explain": "Latency, cost and quality must be measured on realistic traffic and labelled tests before choosing. Marketing claims and list prices alone do not show the latency or quality for your workload.",
+    "difficulty": "media",
+    "tags": [
+      "evaluation",
+      "tradeoff"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Route model inference requests across AWS Regions with cross-Region inference",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.7",
+      "G-2.1.4"
+    ]
+  },
+  {
+    "id": "ch12-q037",
+    "chapter": "ch12-genai-rag",
+    "q": "A model misclassifies multi-step word problems. Which technique most directly improves its reasoning without retraining?",
+    "options": [
+      "Chain-of-thought prompting that asks for step-by-step reasoning before the final answer",
+      "Adding more GPUs to the inference endpoint so each call finishes faster",
+      "Switching the endpoint to a model with a larger context window and no other prompt changes",
+      "Lowering max tokens to 10 so the answer is short"
+    ],
+    "answer": 0,
+    "explain": "Chain-of-thought prompting asks for intermediate steps and improves multi-step reasoning without weight changes. Hardware, context size and output length do not change reasoning.",
+    "difficulty": "media",
+    "tags": [
+      "chain-of-thought"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Influence response generation with inference parameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.2.8"
+    ]
+  },
+  {
+    "id": "ch12-q038",
+    "chapter": "ch12-genai-rag",
+    "q": "What does few-shot prompting add to a prompt?",
+    "options": [
+      "A higher temperature for more creative output",
+      "A few worked input and output examples placed in the prompt",
+      "A full fine-tuning run on the company dataset, which updates every model weight",
+      "A new vector index for document retrieval"
+    ],
+    "answer": 1,
+    "explain": "Few-shot prompting places a small number of worked examples in the prompt. It does not train the model or change the index.",
+    "difficulty": "facile",
+    "tags": [
+      "few-shot"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Influence response generation with inference parameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.2.8"
+    ]
+  },
+  {
+    "id": "ch12-q039",
+    "chapter": "ch12-genai-rag",
+    "q": "A customer support assistant must return JSON with the fields category, priority and summary for every ticket. Which prompt elements matter most?",
+    "options": [
+      "A longer ticket history with unrelated past conversations so the model sees more examples of JSON output",
+      "Disabling the system prompt so the model is not constrained by any rules at all",
+      "A system prompt that sets the role, an explicit JSON schema, and delimiters that separate the ticket text from the instructions",
+      "A high temperature so the output varies in structure from one ticket to the next"
+    ],
+    "answer": 2,
+    "explain": "A system prompt, an explicit schema and delimiters make the output format and inputs unambiguous. High temperature and unrelated history do not give a stable structure.",
+    "difficulty": "media",
+    "tags": [
+      "structured-output",
+      "prompt"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Influence response generation with inference parameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.2.8"
+    ]
+  },
+  {
+    "id": "ch12-q040",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO techniques customize a model's behavior without changing its weights? (Select TWO.)",
+    "options": [
+      "LoRA fine-tuning on a labelled dataset",
+      "A system prompt that defines role and output rules",
+      "Continued pre-training on a large collection of unlabelled documents from the company archive",
+      "Distillation into a smaller student model",
+      "Few-shot examples placed in the prompt"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "Few-shot examples and system prompts shape behavior at inference time, without weight updates. LoRA, continued pre-training and distillation all train the model.",
+    "difficulty": "difficile",
+    "tags": [
+      "prompt",
+      "customization"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Influence response generation with inference parameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.2.8"
+    ]
+  },
+  {
+    "id": "ch12-q041",
+    "chapter": "ch12-genai-rag",
+    "q": "A RAG system retrieves the right document within the top 50 results, but an irrelevant chunk appears in the top 3 used for the answer. Which component should you optimize?",
+    "options": [
+      "Increase the embedding dimension of the generator model used for answering the user",
+      "Remove metadata filters so more chunks reach the prompt",
+      "Lower top P on the generator so it picks the first chunk it sees",
+      "Add a reranker to reorder the retrieved chunks"
+    ],
+    "answer": 3,
+    "explain": "A reranker reorders retrieved candidates by relevance to the query, which fixes the order of the top results. Generator settings and more chunks do not fix the ranking.",
+    "difficulty": "difficile",
+    "tags": [
+      "reranker"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Improve the relevance of query responses with a reranker model in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.2.9"
+    ]
+  },
+  {
+    "id": "ch12-q042",
+    "chapter": "ch12-genai-rag",
+    "q": "A team on Aurora PostgreSQL sees slow hybrid search on English content. Which change improves both accuracy and latency?",
+    "options": [
+      "Create the GIN full-text index with the english dictionary instead of simple",
+      "Drop the hnsw index so the database uses sequential scans over every row in the table",
+      "Set the chunk size to one character so each row is indexed separately",
+      "Store the embeddings as a JSON string in a text column"
+    ],
+    "answer": 0,
+    "explain": "The english dictionary is the recommended choice for English content in hybrid search, improving accuracy and latency. Dropping the hnsw index forces full scans, and the other options harm retrieval.",
+    "difficulty": "media",
+    "tags": [
+      "aurora",
+      "hybrid-search"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prerequisites for using a vector store you created for a knowledge base",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.2.9"
+    ]
+  },
+  {
+    "id": "ch12-q043",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO statements about optimizing retrieval are correct? (Select TWO.)",
+    "options": [
+      "Re-embedding is unnecessary when the embedding model changes, because the new vectors are fully compatible with the old index",
+      "Fewer retrieved chunks always increase answer quality",
+      "A reranker only reorders chunks that retrieval has already found",
+      "A reranker adds documents that are missing from the index",
+      "Hybrid search fuses vector similarity with keyword ranking"
+    ],
+    "answer": [
+      2,
+      4
+    ],
+    "explain": "A reranker only reorders what retrieval returns, and hybrid search combines vector and keyword rankings. Changing the embedding model requires re-indexing, and fewer chunks can drop needed evidence.",
+    "difficulty": "difficile",
+    "tags": [
+      "reranker",
+      "hybrid-search"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Improve the relevance of query responses with a reranker model in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.2.9"
+    ]
+  },
+  {
+    "id": "ch12-q044",
+    "chapter": "ch12-genai-rag",
+    "q": "A team switches to a new embedding model with different dimensions, and retrieval quality collapses. Which action is required?",
+    "options": [
+      "Keep the old vectors and mix them with the new ones, because the reranker will sort out the scores",
+      "Re-index the whole corpus with the new model so that all vectors are comparable",
+      "Increase top K to compensate for the mismatch between old and new vectors",
+      "Add a reranker, which corrects mismatched vector spaces automatically"
+    ],
+    "answer": 1,
+    "explain": "Vectors from different embedding models are not comparable, so the corpus must be re-indexed. Reranking, top K and mixing vectors do not repair the vector space.",
+    "difficulty": "media",
+    "tags": [
+      "embedding",
+      "re-indexing"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Supported models and Regions for Amazon Bedrock knowledge bases",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.2.9"
+    ]
+  },
+  {
+    "id": "ch12-q045",
+    "chapter": "ch12-genai-rag",
+    "q": "An application calls the knowledge base and needs only the retrieved chunks, not a generated answer. Which API call fits?",
+    "options": [
+      "StartIngestionJob with a query parameter that streams the top chunks back to the caller",
+      "GetIngestionJob to read the top chunks of the last sync",
+      "Retrieve on the agent runtime, which returns chunks with relevance scores",
+      "RetrieveAndGenerate with the answer disabled in the request"
+    ],
+    "answer": 2,
+    "explain": "Retrieve returns chunks and scores without generating an answer. RetrieveAndGenerate generates the answer, and the ingestion calls manage documents, not queries.",
+    "difficulty": "media",
+    "tags": [
+      "retrieve",
+      "knowledge-base"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Improve the relevance of query responses with a reranker model in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.8"
+    ]
+  },
+  {
+    "id": "ch12-q046",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO settings change which chunks a knowledge base returns? (Select TWO.)",
+    "options": [
+      "numberOfResults in the retrieval configuration",
+      "The bucket name of the source documents, which is shown only for display purposes",
+      "A reranking model configured on the retrieval request",
+      "The console theme selected by the developer",
+      "The Lambda runtime version of the ingestion job"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "The number of results and the reranking model change the returned chunks. Display names, console themes and runtimes do not affect retrieval.",
+    "difficulty": "media",
+    "tags": [
+      "retrieval-config"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Improve the relevance of query responses with a reranker model in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.8"
+    ]
+  },
+  {
+    "id": "ch12-q047",
+    "chapter": "ch12-genai-rag",
+    "q": "A team in us-east-1 wants to add an Amazon reranker to its knowledge base. Which option works?",
+    "options": [
+      "Use Amazon Rerank 1.0, which is available in every Region",
+      "Use the reranker only for images and video content, after converting each frame to text captions",
+      "Use Titan Text Embeddings as the reranker model",
+      "Use Cohere Rerank 3.5, because Amazon Rerank 1.0 is not available in us-east-1"
+    ],
+    "answer": 3,
+    "explain": "Amazon Rerank 1.0 is not available in us-east-1, while Cohere Rerank 3.5 is. Rerankers work on text only, and embedding models do not rerank.",
+    "difficulty": "difficile",
+    "tags": [
+      "rerank",
+      "region"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Supported Regions and models for reranking in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.8"
+    ]
+  },
+  {
+    "id": "ch12-q048",
+    "chapter": "ch12-genai-rag",
+    "q": "Which Amazon Bedrock model is a reranker?",
+    "options": [
+      "Cohere Rerank 3.5 for reordering retrieved passages",
+      "Claude 3 Haiku for text generation",
+      "Nova Micro for text generation",
+      "Titan Text Embeddings V2, a text embedding model that outputs vectors"
+    ],
+    "answer": 0,
+    "explain": "Cohere Rerank 3.5 is the reranker model listed for Bedrock. The embedding model and the generation models do not rerank passages.",
+    "difficulty": "facile",
+    "tags": [
+      "rerank"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Supported Regions and models for reranking in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.8"
+    ]
+  },
+  {
+    "id": "ch12-q049",
+    "chapter": "ch12-genai-rag",
+    "q": "A company creates a knowledge base over Amazon S3 documents and then adds new files. Users still do not see the new content. What is missing?",
+    "options": [
+      "Recreate the knowledge base with the same configuration, so the new files are picked up on its next creation",
+      "Run a sync (ingestion job) on the data source after adding the new files",
+      "Increase the number of results returned by Retrieve",
+      "Switch the embedding model to a different language"
+    ],
+    "answer": 1,
+    "explain": "Each time files are added, modified or removed, the data source must be synced so the knowledge base is re-indexed. Recreating the knowledge base is unnecessary.",
+    "difficulty": "media",
+    "tags": [
+      "sync",
+      "knowledge-base"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Sync your data with your Amazon Bedrock knowledge base",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.7"
+    ]
+  },
+  {
+    "id": "ch12-q050",
+    "chapter": "ch12-genai-rag",
+    "q": "Metadata filtering on an Aurora PostgreSQL knowledge base returns fewer results than requested. Which configuration fixes it?",
+    "options": [
+      "Increase the chunk size to 10000 tokens per chunk to add more results to every query",
+      "Remove the metadata column so filters have nothing to match and return every row",
+      "Enable HNSW iterative scans in pgvector 0.8.0 or later, using the relaxed_order setting",
+      "Disable the hnsw index so the filter runs before the scan on every table row in the database"
+    ],
+    "answer": 2,
+    "explain": "Without iterative scans, filters run after the HNSW scan and selective filters return fewer results. Enabling relaxed_order with pgvector 0.8.0 or later keeps scanning until enough filtered results are found.",
+    "difficulty": "difficile",
+    "tags": [
+      "aurora",
+      "iterative-scan"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Prerequisites for using a vector store you created for a knowledge base",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.7"
+    ]
+  },
+  {
+    "id": "ch12-q051",
+    "chapter": "ch12-genai-rag",
+    "q": "Which API operation starts a sync of a knowledge base data source?",
+    "options": [
+      "GetIngestionJob",
+      "ListIngestionJobs",
+      "StopIngestionJob",
+      "StartIngestionJob"
+    ],
+    "answer": 3,
+    "explain": "StartIngestionJob starts ingestion of a data source. GetIngestionJob reads status, ListIngestionJobs lists jobs, and StopIngestionJob stops a running job.",
+    "difficulty": "facile",
+    "tags": [
+      "ingestion-job"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Sync your data with your Amazon Bedrock knowledge base",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.7"
+    ]
+  },
+  {
+    "id": "ch12-q052",
+    "chapter": "ch12-genai-rag",
+    "q": "A pipeline must retrieve chunks, filter them by department metadata, and then call a generation model. Which sequence is correct?",
+    "options": [
+      "Call Retrieve with a metadata filter, pass the returned chunks in the prompt, then invoke the generation model with that prompt",
+      "Call RetrieveAndGenerate first, then run Retrieve to find the chunks that were used in the generated answer",
+      "Invoke the generation model first, then call StartIngestionJob to fetch the relevant chunks for the prompt",
+      "Query the vector database directly with no metadata filter, then restrict the answer in the prompt"
+    ],
+    "answer": 0,
+    "explain": "A retrieval pipeline filters at retrieval time, puts the chunks in the prompt, and then generates. The other sequences reverse the order or skip the filter.",
+    "difficulty": "media",
+    "tags": [
+      "retrieve",
+      "pipeline"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Improve the relevance of query responses with a reranker model in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.8"
+    ]
+  },
+  {
+    "id": "ch12-q053",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO statements about RetrieveAndGenerate are correct? (Select TWO.)",
+    "options": [
+      "It combines retrieval and generation in one call",
+      "It is the same API as StartIngestionJob, so it also requires a data source identifier to run correctly",
+      "It returns generated text together with citations",
+      "It only returns raw chunks and never an answer",
+      "It can be used without a knowledge base identifier"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "RetrieveAndGenerate retrieves and generates in one call and returns citations. It needs a knowledge base, and it is not an ingestion API.",
+    "difficulty": "media",
+    "tags": [
+      "retrieve-and-generate"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Sync your data with your Amazon Bedrock knowledge base",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.8"
+    ]
+  },
+  {
+    "id": "ch12-q054",
+    "chapter": "ch12-genai-rag",
+    "q": "A company refreshes a knowledge base nightly after new documents land in Amazon S3. Engineers want a serverless, scheduled trigger that starts a sync. Which design fits?",
+    "options": [
+      "Recreate the knowledge base each night so that the sync happens implicitly on creation",
+      "An EventBridge scheduled rule invokes a Lambda function that calls StartIngestionJob",
+      "A cron job on a permanent EC2 instance that runs the ingestion CLI and polls the status every second",
+      "A manual weekly ingestion started from the console, with no alerting on failures"
+    ],
+    "answer": 1,
+    "explain": "A scheduled EventBridge rule invoking a Lambda that calls StartIngestionJob is serverless and triggers the incremental sync. Recreating the knowledge base is costly and unnecessary.",
+    "difficulty": "difficile",
+    "tags": [
+      "eventbridge",
+      "lambda",
+      "sync"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Sync your data with your Amazon Bedrock knowledge base",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.11"
+    ]
+  },
+  {
+    "id": "ch12-q055",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO conditions must hold for Bedrock to update metadata without re-embedding the content? (Select TWO.)",
+    "options": [
+      "The content files are CSV files",
+      "No custom transformation Lambda function is used by the data source",
+      "The sync was launched from the console instead of the API",
+      "The data source is in Aurora, so the optimization requires a GIN index on the custom metadata column for every table",
+      "Only metadata files changed, with no content files changed"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "The metadata-only optimization applies when only metadata files change, the content is not CSV, and no custom transformation Lambda is used. The sync source and the storage type do not decide it.",
+    "difficulty": "difficile",
+    "tags": [
+      "metadata",
+      "sync"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Sync your data with your Amazon Bedrock knowledge base",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.11"
+    ]
+  },
+  {
+    "id": "ch12-q056",
+    "chapter": "ch12-genai-rag",
+    "q": "A team wants a knowledge base refresh cycle that stays fresh and does not waste embedding costs. Which two design choices support it? (Select TWO.)",
+    "options": [
+      "Incremental sync that re-ingests only added, modified or deleted documents",
+      "Recreating the vector store on every refresh to avoid stale data",
+      "Step Functions to orchestrate sync, status checks and retries",
+      "Deleting the data source before each upload to keep it clean",
+      "Re-embedding the entire corpus every hour regardless of whether any document actually changed since the last run"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "Incremental sync limits work to changed documents, and Step Functions can orchestrate syncs with status checks and retries. Recreating stores or re-embedding everything wastes cost.",
+    "difficulty": "media",
+    "tags": [
+      "refresh",
+      "step-functions"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Sync your data with your Amazon Bedrock knowledge base",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.11"
+    ]
+  },
+  {
+    "id": "ch12-q057",
+    "chapter": "ch12-genai-rag",
+    "q": "A company wants to build a new knowledge base for internal documents and finds Amazon Kendra in its legacy design. What is the current guidance?",
+    "options": [
+      "Use Kendra only in us-east-1 with a new GenAI index, which is open to all customers",
+      "Connect Kendra to a new Bedrock agent without any knowledge base",
+      "Kendra is closed to new customers, so use Bedrock Knowledge Bases or a Bedrock Managed Knowledge Base",
+      "Start a new Kendra Developer Edition index for every new project and keep the Developer Edition for production traffic"
+    ],
+    "answer": 2,
+    "explain": "AWS documents that Amazon Kendra is no longer open to new customers, and recommends Bedrock Knowledge Bases for similar capabilities. The Developer Edition is not for production.",
+    "difficulty": "media",
+    "tags": [
+      "kendra"
+    ],
+    "source": "AWS docs: Amazon Kendra Developer Guide — Index types in Amazon Kendra",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V35"
+    ]
+  },
+  {
+    "id": "ch12-q058",
+    "chapter": "ch12-genai-rag",
+    "q": "A Kendra GenAI Enterprise Edition index is used as a Bedrock knowledge base retriever. Which Region constraint applies?",
+    "options": [
+      "Only eu-west-1 supports GenAI indexes, so European data must use it",
+      "GenAI indexes are available only in ap-northeast-1 for all customers",
+      "All commercial Regions support GenAI indexes equally, with the same capacity and features everywhere",
+      "Only us-east-1 and us-west-2 support GenAI indexes"
+    ],
+    "answer": 3,
+    "explain": "GenAI Enterprise Edition indexes are available only in US East (N. Virginia) and US West (Oregon). The other statements are not documented.",
+    "difficulty": "media",
+    "tags": [
+      "kendra",
+      "region"
+    ],
+    "source": "AWS docs: Amazon Kendra Developer Guide — Index types in Amazon Kendra",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V35"
+    ]
+  },
+  {
+    "id": "ch12-q059",
+    "chapter": "ch12-genai-rag",
+    "q": "Which statement about the language support of a Kendra GenAI Enterprise Edition index is correct?",
+    "options": [
+      "It supports English language content",
+      "It supports any language without any configuration",
+      "It supports only Japanese content",
+      "It supports only French and German content"
+    ],
+    "answer": 0,
+    "explain": "The GenAI Enterprise Edition index supports English content only. The other language statements are not correct for this index.",
+    "difficulty": "facile",
+    "tags": [
+      "kendra",
+      "language"
+    ],
+    "source": "AWS docs: Amazon Kendra Developer Guide — Index types in Amazon Kendra",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V35"
+    ]
+  },
+  {
+    "id": "ch12-q060",
+    "chapter": "ch12-genai-rag",
+    "q": "A classifier call must return the same label every time for identical input. Which inference setting is most appropriate?",
+    "options": [
+      "Random stop sequences inserted into the prompt so the output differs on each call",
+      "Temperature set to 0 or close to 0",
+      "Top P set to 1.0 with temperature set high",
+      "Max tokens set to 4096 for every call"
+    ],
+    "answer": 1,
+    "explain": "A low temperature makes the model choose the most probable tokens, giving repeatable output. High temperature and random stop sequences increase variation.",
+    "difficulty": "media",
+    "tags": [
+      "temperature",
+      "inference"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Influence response generation with inference parameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C01"
+    ]
+  },
+  {
+    "id": "ch12-q061",
+    "chapter": "ch12-genai-rag",
+    "q": "A creative writing app wants varied answers. Which combination of inference parameters best fits?",
+    "options": [
+      "Stop sequences only, with no sampling parameters configured at all",
+      "A max tokens of 1 so the model cannot repeat itself",
+      "Higher temperature with top P near 0.9",
+      "Temperature 0 with top K 1 for deterministic output"
+    ],
+    "answer": 2,
+    "explain": "A higher temperature flattens the distribution, and top P around 0.9 keeps a broad candidate set. Temperature 0 with top K 1 gives deterministic output.",
+    "difficulty": "media",
+    "tags": [
+      "temperature",
+      "top-p"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Influence response generation with inference parameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C01"
+    ]
+  },
+  {
+    "id": "ch12-q062",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO statements about inference parameters are correct? (Select TWO.)",
+    "options": [
+      "Max tokens sets the embedding dimension of the output vector",
+      "Top K limits the candidates to the K most probable tokens",
+      "Top P keeps a share of the cumulative probability distribution",
+      "Temperature decides how many results Retrieve returns",
+      "Stop sequences make the model pick higher probability tokens"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "Top K limits candidates by count and top P by cumulative probability. Temperature shapes randomness, stop sequences end generation, and max tokens limits length.",
+    "difficulty": "media",
+    "tags": [
+      "top-k",
+      "top-p"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Influence response generation with inference parameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C01"
+    ]
+  },
+  {
+    "id": "ch12-q063",
+    "chapter": "ch12-genai-rag",
+    "q": "Using the candidates horses with probability 0.7, zebras 0.2 and unicorns 0.1, which tokens remain with top P set to 0.7?",
+    "options": [
+      "Horses and zebras",
+      "Horses, zebras and unicorns",
+      "Only unicorns, because a high temperature was applied to the distribution first",
+      "Only horses"
+    ],
+    "answer": 3,
+    "explain": "Horses alone covers 70 per cent of the probability, so top P 0.7 keeps only horses. A top P of 0.9 would add zebras.",
+    "difficulty": "media",
+    "tags": [
+      "top-p",
+      "probability"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Influence response generation with inference parameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C01"
+    ]
+  },
+  {
+    "id": "ch12-q064",
+    "chapter": "ch12-genai-rag",
+    "q": "Which parameter caps the length of a generated response?",
+    "options": [
+      "Max tokens",
+      "Top K",
+      "Temperature",
+      "Top P value applied separately to every request in the batch"
+    ],
+    "answer": 0,
+    "explain": "Max tokens limits the length of the generated response. Top K and top P control candidate selection, and temperature controls randomness.",
+    "difficulty": "facile",
+    "tags": [
+      "max-tokens"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Influence response generation with inference parameters",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C01"
+    ]
+  },
+  {
+    "id": "ch12-q065",
+    "chapter": "ch12-genai-rag",
+    "q": "A team uses LoRA for a 7 billion parameter model on a single GPU and must serve several domain variants. Which strategy keeps cost lowest?",
+    "options": [
+      "Distill each domain into a fresh student model with no adapter at all",
+      "One LoRA adapter per domain, on the same frozen base model",
+      "Train a full copy of the model per domain, with every parameter updated",
+      "Retrain the base model from scratch for each domain"
+    ],
+    "answer": 1,
+    "explain": "Multiple LoRA adapters share one frozen base model, so each variant costs only a small adapter. Full copies and retraining from scratch multiply cost.",
+    "difficulty": "media",
+    "tags": [
+      "lora",
+      "adapters"
+    ],
+    "source": "AWS ML Blog: Advanced fine-tuning methods on Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "C02"
+    ]
+  },
+  {
+    "id": "ch12-q066",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO actions help a RAG system return more relevant chunks without changing the generation model? (Select TWO.)",
+    "options": [
+      "Add a reranker that reorders the retrieved candidates",
+      "Use hybrid search that combines vector and keyword ranking",
+      "Increase max tokens of the generation model to 4096",
+      "Set temperature to 1.0 on the generator model",
+      "Delete the metadata so that filters cannot exclude irrelevant chunks from any search at all"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "A reranker and hybrid search improve which chunks are returned, without touching the generator. Longer outputs and higher temperature change generation, and deleting metadata removes the filtering ability.",
+    "difficulty": "media",
+    "tags": [
+      "reranker",
+      "hybrid-search"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Improve the relevance of query responses with a reranker model in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.2.9"
+    ]
+  },
+  {
+    "id": "ch12-q067",
+    "chapter": "ch12-genai-rag",
+    "q": "Which TWO statements about Amazon Titan Multimodal Embeddings G1 in Knowledge Bases are correct? (Select TWO.)",
+    "options": [
+      "It is a generation model that writes captions for images",
+      "It produces 1024-dimension vectors in Knowledge Bases",
+      "It is a text-only model that cannot process images",
+      "It maps text and images into vectors for cross-modal search",
+      "It supports only 512-dimension vectors in Knowledge Bases, which is why text-only vectors are recommended instead"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "In Knowledge Bases the Titan Multimodal Embeddings G1 model uses 1024 dimensions and maps text and images into one space. It is an embedding model, not a generator, and it accepts images.",
+    "difficulty": "media",
+    "tags": [
+      "titan",
+      "multimodal"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Supported models and Regions for Amazon Bedrock knowledge bases",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.2.5"
+    ]
+  }
+]
