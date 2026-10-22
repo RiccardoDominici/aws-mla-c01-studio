@@ -2801,7 +2801,7 @@
   {
     "id": "ch8-q094",
     "chapter": "ch8-data-advanced",
-    "q": "A producer writes 1 KB records at 2,000 records per second. Three independent enhanced fan-out consumers read the whole stream, and the stream uses provisioned mode. Which shard count does the documented sizing formula give?",
+    "q": "A producer writes 1 KB records at 2,000 records per second. Three independent consumers read the whole stream with the default shared throughput, using GetRecords, and the stream uses provisioned mode. Which shard count does the documented sizing formula give?",
     "options": [
       "2 shards, which covers the write bandwidth alone and ignores the three consumers that also read the stream",
       "3 shards, because the read bandwidth of three consumers needs the ceiling of 6,000 KB divided by 2,048",
@@ -2809,7 +2809,7 @@
       "10 shards, one for each batch of 200 records written per second"
     ],
     "answer": 1,
-    "explain": "The formula takes the larger of write bandwidth divided by 1,024 and read bandwidth divided by 2,048, then rounds up. Write needs 1.95 shards and read needs 2.93, so the result is 3.",
+    "explain": "The formula takes the larger of write bandwidth divided by 1,024 and read bandwidth divided by 2,048, then rounds up. Write needs 1.95 shards and shared reads by three consumers need 2.93, so the result is 3. With enhanced fan-out, each consumer gets its own 2 MB per second per shard, so the reads would not add to the shard count and 2 shards would cover the write bandwidth alone.",
     "difficulty": "difficile",
     "tags": [
       "kinesis",
