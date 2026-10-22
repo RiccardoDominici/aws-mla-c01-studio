@@ -33,10 +33,10 @@
     "q": "Which TWO services can be used as vector stores for an Amazon Bedrock knowledge base? (Select TWO.)",
     "options": [
       "Amazon ElastiCache for Memcached used as a key-value cache",
-      "Amazon Aurora PostgreSQL with the pgvector extension",
+      "Amazon Aurora PostgreSQL with the pgvector extension installed",
       "Amazon Athena querying partitioned Parquet files in Amazon S3",
-      "Amazon S3 Vectors",
-      "Amazon Kinesis Data Streams with a Lambda consumer that writes records to a log"
+      "Amazon S3 Vectors, a vector index inside an S3 vector bucket",
+      "Amazon Kinesis Data Streams with a Lambda consumer that writes logs"
     ],
     "answer": [
       1,
@@ -104,7 +104,7 @@
       "titan",
       "multimodal"
     ],
-    "source": "AWS docs: Amazon Bedrock User Guide — Amazon Titan Text Embeddings models",
+    "source": "AWS docs: Amazon Bedrock User Guide — Supported models and Regions for Amazon Bedrock knowledge bases",
     "origin": "ai",
     "domain": "1",
     "task": "1.2",
@@ -152,7 +152,7 @@
       "It returns 4096-dimension vectors by default for every request",
       "It supports maxTokenCount and topP inference parameters for generation",
       "Its output sizes are 1024 by default, with 512 and 256 as options",
-      "It only works with images as input, so text needs a different embedding model entirely"
+      "It only accepts images as input, not text"
     ],
     "answer": [
       0,
@@ -332,7 +332,7 @@
       "distillation",
       "jsonl"
     ],
-    "source": "AWS docs: Amazon Bedrock User Guide — Prepare data for fine-tuning your models",
+    "source": "AWS docs: Amazon Bedrock User Guide — Customize a model with distillation in Amazon Bedrock",
     "origin": "ai",
     "domain": "1",
     "task": "1.2",
@@ -387,7 +387,7 @@
     "tags": [
       "continued-pretraining"
     ],
-    "source": "AWS docs: Amazon Bedrock User Guide — Prepare data for fine-tuning your models",
+    "source": "AWS docs: Amazon Bedrock User Guide — Customize your model to improve its performance for your use case",
     "origin": "ai",
     "domain": "1",
     "task": "1.2",
@@ -522,7 +522,7 @@
       "Latency and per-token cost for the expected traffic",
       "The color of the Bedrock console theme",
       "The model provider's logo on the model card page",
-      "Context window and supported languages",
+      "Context window size and supported languages for the task",
       "The number of CPU cores on the client laptop used to open the console"
     ],
     "answer": [
@@ -779,7 +779,7 @@
     "q": "Which TWO situations favor a custom solution over a managed service? (Select TWO.)",
     "options": [
       "The company wants the lowest operational overhead possible for the next year",
-      "Compliance requires buying a managed product for each Region separately, with separate contracts and separate billing accounts",
+      "Compliance requires a separate managed product contract for each Region",
       "The workload needs a specific model architecture that no managed option provides",
       "The team has no engineers and must deliver everything within one week",
       "Strict control over every component is a hard requirement of the project"
@@ -876,7 +876,7 @@
     "tags": [
       "hybrid-search"
     ],
-    "source": "AWS docs: Amazon Bedrock User Guide — Improve the relevance of query responses with a reranker model in Amazon Bedrock",
+    "source": "AWS docs: Amazon Bedrock User Guide — Prerequisites for using a vector store you created for a knowledge base",
     "origin": "ai",
     "domain": "2",
     "task": "2.1",
@@ -1124,9 +1124,9 @@
     "options": [
       "LoRA fine-tuning on a labelled dataset",
       "A system prompt that defines role and output rules",
-      "Continued pre-training on a large collection of unlabelled documents from the company archive",
+      "Continued pre-training on unlabelled company documents",
       "Distillation into a smaller student model",
-      "Few-shot examples placed in the prompt"
+      "Few-shot examples placed in the prompt itself"
     ],
     "answer": [
       1,
@@ -1209,7 +1209,7 @@
     "chapter": "ch12-genai-rag",
     "q": "Which TWO statements about optimizing retrieval are correct? (Select TWO.)",
     "options": [
-      "Re-embedding is unnecessary when the embedding model changes, because the new vectors are fully compatible with the old index",
+      "No re-embedding is needed after changing the embedding model",
       "Fewer retrieved chunks always increase answer quality",
       "A reranker only reorders chunks that retrieval has already found",
       "A reranker adds documents that are missing from the index",
@@ -1297,8 +1297,8 @@
     "chapter": "ch12-genai-rag",
     "q": "Which TWO settings change which chunks a knowledge base returns? (Select TWO.)",
     "options": [
-      "numberOfResults in the retrieval configuration",
-      "The bucket name of the source documents, which is shown only for display purposes",
+      "numberOfResults in the retrieval configuration of the query",
+      "The bucket name of the source documents, shown only for display",
       "A reranking model configured on the retrieval request",
       "The console theme selected by the developer",
       "The Lambda runtime version of the ingestion job"
@@ -1494,9 +1494,9 @@
     "chapter": "ch12-genai-rag",
     "q": "Which TWO statements about RetrieveAndGenerate are correct? (Select TWO.)",
     "options": [
-      "It combines retrieval and generation in one call",
-      "It is the same API as StartIngestionJob, so it also requires a data source identifier to run correctly",
-      "It returns generated text together with citations",
+      "It combines retrieval and generation in a single API call",
+      "It is the same API as StartIngestionJob and needs a data source identifier",
+      "It returns the generated text together with the source citations",
       "It only returns raw chunks and never an answer",
       "It can be used without a knowledge base identifier"
     ],
@@ -1590,7 +1590,7 @@
       "Recreating the vector store on every refresh to avoid stale data",
       "Step Functions to orchestrate sync, status checks and retries",
       "Deleting the data source before each upload to keep it clean",
-      "Re-embedding the entire corpus every hour regardless of whether any document actually changed since the last run"
+      "Re-embedding the entire corpus every hour, even if nothing changed"
     ],
     "answer": [
       0,
@@ -1881,7 +1881,7 @@
       "Use hybrid search that combines vector and keyword ranking",
       "Increase max tokens of the generation model to 4096",
       "Set temperature to 1.0 on the generator model",
-      "Delete the metadata so that filters cannot exclude irrelevant chunks from any search at all"
+      "Delete all metadata so filters cannot exclude any chunk"
     ],
     "answer": [
       0,
@@ -1913,7 +1913,7 @@
       "It produces 1024-dimension vectors in Knowledge Bases",
       "It is a text-only model that cannot process images",
       "It maps text and images into vectors for cross-modal search",
-      "It supports only 512-dimension vectors in Knowledge Bases, which is why text-only vectors are recommended instead"
+      "It supports only 512-dimension vectors in Knowledge Bases"
     ],
     "answer": [
       1,
