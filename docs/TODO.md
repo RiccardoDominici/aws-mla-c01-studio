@@ -3,7 +3,7 @@
 Generata da `docs/todo.json` (fonte: report sui gap di copertura, 22/10/2026).
 Ogni voce di teoria è chiusa solo se compare nella teoria del capitolo (copione e slide) e in almeno 2 domande del banco. Lo stato si verifica con `tools/check_coverage.py`.
 
-## Dati in profondità: storage, qualità, etichette e bias (`ch8-data-advanced`) — 44 voci
+## Dati in profondità: storage, qualità, etichette e bias (`ch8-data-advanced`) — 45 voci
 
 - [ ] **K-1.1K1** 1.1K1 Formati (Parquet, JSON, CSV, ORC, Avro, RecordIO) — Parquet, ORC, CSV, JSON spiegati (ch2); Avro e RecordIO-protobuf (formato dei built-in) mai citati
 - [ ] **K-1.1K2** 1.1K2 Sorgenti core (S3, EFS, FSx for NetApp ONTAP) — S3 spiegato bene; EFS e FSx (Lustre, NetApp ONTAP) assenti da teoria e banco
@@ -49,8 +49,9 @@ Ogni voce di teoria è chiusa solo se compare nella teoria del capitolo (copione
 - [ ] **C14** Lake Formation LF-Tags e permessi granulari — Assente.
 - [ ] **C16** Modalità di input File, Pipe, FastFile — Solo Pipe per XGBoost.
 - [ ] **C21** SageMaker Ground Truth e Ground Truth Plus — Assente dalla teoria.
+- [ ] **N01** Funzionalità SageMaker chiuse ai nuovi clienti dal 30/07/2026 — Mechanical Turk, Ground Truth, Augmented AI, Studio Lab, Model Monitor, Clarify, Debugger, Role Manager, Geospatial e Profiler non accettano nuovi clienti dal 30/07/2026 (chi li usava prima continua); Ground Truth Plus dismesso dal 30/06/2026. Restano materia d'esame MLA-C01; la guida MLA-C02 non li nomina più. Alternative indicate da AWS: MLflow su SageMaker AI, soluzioni di monitoraggio open source AWS (Evidently), CloudWatch, QuickSight, libreria SHAP, Bedrock Evaluations e Guardrails, IAM Access Analyzer al posto di Role Manager.
 
-## Training avanzato, algoritmi built-in e spiegabilità (`ch9-training-advanced`) — 28 voci
+## Training avanzato, algoritmi built-in e spiegabilità (`ch9-training-advanced`) — 29 voci
 
 - [ ] **K-2.1K3** 2.1K3 Interpretabilità nella scelta — Interpretabilità solo come monitor di explainability e Model Cards, non come criterio di scelta del modello
 - [ ] **K-2.1K4** 2.1K4 Algoritmi built-in — 5 built-in su circa 17 (XGBoost, Linear Learner, DeepAR, BlazingText, K-Means); RCF, k-NN, FM, IP Insights, Object2Vec, Seq2Seq, algoritmi di visione quasi assenti
@@ -80,6 +81,7 @@ Ogni voce di teoria è chiusa solo se compare nella teoria del capitolo (copione
 - [ ] **C10** SHAP e partial dependence plot — Solo nel banco (8 domande).
 - [ ] **C11** Managed Spot Training e checkpointing — Solo nel banco; risparmio fino al 90%.
 - [ ] **C13** Tutti gli algoritmi built-in di SageMaker — Oggi 5 su circa 17: aggiungere RCF, k-NN, Factorization Machines, IP Insights, Object2Vec, Seq2Seq, LDA, NTM, PCA, image classification, object detection, semantic segmentation, LightGBM, CatBoost, TabTransformer, AutoGluon.
+- [ ] **N01** Funzionalità SageMaker chiuse ai nuovi clienti dal 30/07/2026 — Mechanical Turk, Ground Truth, Augmented AI, Studio Lab, Model Monitor, Clarify, Debugger, Role Manager, Geospatial e Profiler non accettano nuovi clienti dal 30/07/2026 (chi li usava prima continua); Ground Truth Plus dismesso dal 30/06/2026. Restano materia d'esame MLA-C01; la guida MLA-C02 non li nomina più. Alternative indicate da AWS: MLflow su SageMaker AI, soluzioni di monitoraggio open source AWS (Evidently), CloudWatch, QuickSight, libreria SHAP, Bedrock Evaluations e Guardrails, IAM Access Analyzer al posto di Role Manager.
 
 ## Infrastruttura come codice, container e CI/CD (`ch10-infra-cicd`) — 41 voci
 
@@ -125,7 +127,7 @@ Ogni voce di teoria è chiusa solo se compare nella teoria del capitolo (copione
 - [ ] **C20** SageMaker Neo e deploy su edge — Assente.
 - [ ] **C25** Provisioned concurrency del serverless e scale-to-zero dell'async — Solo nel banco.
 
-## Costi, osservabilità e sicurezza avanzata (`ch11-cost-security`) — 42 voci
+## Costi, osservabilità e sicurezza avanzata (`ch11-cost-security`) — 43 voci
 
 - [ ] **K-3.1S2** 3.1S2 Compute per training e inferenza — Famiglie di istanze (Inferentia, Trainium, Graviton, GPU per training), banda di rete: 0 teoria, 3 domande
 - [ ] **K-4.1K3** 4.1K3 Principi ML Lens — Well-Architected Machine Learning Lens: mai citato
@@ -169,6 +171,7 @@ Ogni voce di teoria è chiusa solo se compare nella teoria del capitolo (copione
 - [ ] **C18** Cifratura del traffico tra container — Assente.
 - [ ] **C19** Savings Plans e Reserved Instances — Solo come distrattori.
 - [ ] **C23** SageMaker Role Manager — Assente.
+- [ ] **N01** Funzionalità SageMaker chiuse ai nuovi clienti dal 30/07/2026 — Mechanical Turk, Ground Truth, Augmented AI, Studio Lab, Model Monitor, Clarify, Debugger, Role Manager, Geospatial e Profiler non accettano nuovi clienti dal 30/07/2026 (chi li usava prima continua); Ground Truth Plus dismesso dal 30/06/2026. Restano materia d'esame MLA-C01; la guida MLA-C02 non li nomina più. Alternative indicate da AWS: MLflow su SageMaker AI, soluzioni di monitoraggio open source AWS (Evidently), CloudWatch, QuickSight, libreria SHAP, Bedrock Evaluations e Guardrails, IAM Access Analyzer al posto di Role Manager.
 
 ## GenAI: modelli di fondazione, embedding e RAG avanzato (`ch12-genai-rag`) — 21 voci
 
@@ -194,7 +197,7 @@ Ogni voce di teoria è chiusa solo se compare nella teoria del capitolo (copione
 - [ ] **C01** Parametri di inferenza dei modelli generativi — temperature, top_p, top_k, max tokens, stop sequences: solo nel banco.
 - [ ] **C02** LoRA e PEFT — Fine-tuning efficiente nei parametri: assente.
 
-## GenAI in produzione: valutazione, agenti e costi (`ch13-genai-agents`) — 29 voci
+## GenAI in produzione: valutazione, agenti e costi (`ch13-genai-agents`) — 30 voci
 
 - [ ] **G-2.3.7** 2.3.7 Implement integrated human evaluation frameworks (for example, human-in-the-loop workflows, text generation quality assessment).
 - [ ] **G-2.3.8** 2.3.8 Apply natural language processing (NLP) evaluation metrics (for example, bilingual evaluation understudy [BLEU], Recall-Oriented Understudy for Gisting Evaluation [ROUGE], BERTScore, semantic similarity).
@@ -225,8 +228,9 @@ Ogni voce di teoria è chiusa solo se compare nella teoria del capitolo (copione
 - [ ] **G-4.2.2** 4.2.2 Configure and use tools to troubleshoot and analyze resources (for example, Amazon CloudWatch, Amazon Bedrock AgentCore Observability, AWS X-Ray).
 - [ ] **V53** Amazon Bedrock AgentCore — nuovo in-scope MLA-C02
 - [ ] **C24** SageMaker HyperPod e cluster GPU — Assente.
+- [ ] **N01** Funzionalità SageMaker chiuse ai nuovi clienti dal 30/07/2026 — Mechanical Turk, Ground Truth, Augmented AI, Studio Lab, Model Monitor, Clarify, Debugger, Role Manager, Geospatial e Profiler non accettano nuovi clienti dal 30/07/2026 (chi li usava prima continua); Ground Truth Plus dismesso dal 30/06/2026. Restano materia d'esame MLA-C01; la guida MLA-C02 non li nomina più. Alternative indicate da AWS: MLflow su SageMaker AI, soluzioni di monitoraggio open source AWS (Evidently), CloudWatch, QuickSight, libreria SHAP, Bedrock Evaluations e Guardrails, IAM Access Analyzer al posto di Role Manager.
 
-## Servizi AI pronti e catalogo dei servizi d'esame (`ch14-ai-services`) — 16 voci
+## Servizi AI pronti e catalogo dei servizi d'esame (`ch14-ai-services`) — 18 voci
 
 - [ ] **K-2.1K2** 2.1K2 AI services (Translate, Transcribe, Rekognition, Bedrock) — Comprehend, Rekognition, Textract, Bedrock nella teoria; Translate, Transcribe, Polly, Lex, Personalize solo nel banco
 - [ ] **V11** Amazon Augmented AI (A2I) — mai citato
@@ -244,8 +248,10 @@ Ogni voce di teoria è chiusa solo se compare nella teoria del capitolo (copione
 - [ ] **V-CAT** Catalogo completo dei servizi in-scope MLA-C01 e MLA-C02 — Ogni servizio dell'Appendix MLA-C01 e dell'elenco in-scope MLA-C02 con una riga 'a cosa serve / quando sceglierlo', più l'elenco dei servizi fuori ambito da non confondere.
 - [ ] **C05** SageMaker Canvas — No-code ML, anche per il forecasting al posto di Forecast.
 - [ ] **C22** Alternative ad Amazon Forecast — Forecast chiuso ai nuovi clienti: Canvas, DeepAR, Chronos.
+- [ ] **N01** Funzionalità SageMaker chiuse ai nuovi clienti dal 30/07/2026 — Mechanical Turk, Ground Truth, Augmented AI, Studio Lab, Model Monitor, Clarify, Debugger, Role Manager, Geospatial e Profiler non accettano nuovi clienti dal 30/07/2026 (chi li usava prima continua); Ground Truth Plus dismesso dal 30/06/2026. Restano materia d'esame MLA-C01; la guida MLA-C02 non li nomina più. Alternative indicate da AWS: MLflow su SageMaker AI, soluzioni di monitoraggio open source AWS (Evidently), CloudWatch, QuickSight, libreria SHAP, Bedrock Evaluations e Guardrails, IAM Access Analyzer al posto di Role Manager.
+- [ ] **N02** Stato di disponibilità dei servizi AI gestiti — Kendra non è più aperto ai nuovi clienti (alternativa: Bedrock Knowledge Bases); Forecast chiuso dal 29/07/2024. Verificare sulle pagine AWS lo stato di Lookout for Equipment, Metrics e Vision, Fraud Detector e degli altri servizi del capitolo, e dirlo.
 
-## Correzioni ai capitoli 1-7, scheda rapida e banco esistente (`fix`) — 21 voci
+## Correzioni ai capitoli 1-7, scheda rapida e banco esistente (`fix`) — 23 voci
 
 - [ ] **E01** Durata d'esame: 65 domande in 170 minuti — ch1 (slide 1, riassunto, copione), ch7 (slide 1), home, domande.html, timer qbank-ui.js; domande ch1-q02, ch1-q13, ch1-ext15, ch7-q01, ch7-ext01. Corretto: MLA-C01 65 domande in 130 minuti; MLA-C02 beta 85 domande in 170 minuti; in entrambi 2,0 minuti a domanda.
 - [ ] **E02** Nessun cenno all'MLA-C02 — ch1, ch7, home. L'MLA-C01 in inglese è finito il 28/09/2026; dal 29/09/2026 si sostiene la beta MLA-C02 (85 domande, 170 minuti, 75 USD), GA a inizio 2027; MLA-C01 resta in giapponese, coreano, cinese semplificato fino alla GA.
@@ -268,6 +274,8 @@ Ogni voce di teoria è chiusa solo se compare nella teoria del capitolo (copione
 - [ ] **E19** Range XGBoost presentati come limiti — ch3 (slide 2): eta 0,05-0,3 e max_depth 3-10 sono range tipici di tuning; default eta 0,3, max_depth 6.
 - [ ] **E20** Quiz in inglese e scheda rapida nei JSON — content/chapters-*.json: il contratto chiede quiz di fine capitolo in italiano; la scheda rapida sta in chapters-2.json mentre il README dice il contrario.
 - [ ] **X05** Home e README aggiornati — Conteggi (capitoli, minuti audio, domande), MLA-C02, fonti, nome progetto Pages mla-c01-studio.
+- [ ] **N01** Funzionalità SageMaker chiuse ai nuovi clienti dal 30/07/2026 — Mechanical Turk, Ground Truth, Augmented AI, Studio Lab, Model Monitor, Clarify, Debugger, Role Manager, Geospatial e Profiler non accettano nuovi clienti dal 30/07/2026 (chi li usava prima continua); Ground Truth Plus dismesso dal 30/06/2026. Restano materia d'esame MLA-C01; la guida MLA-C02 non li nomina più. Alternative indicate da AWS: MLflow su SageMaker AI, soluzioni di monitoraggio open source AWS (Evidently), CloudWatch, QuickSight, libreria SHAP, Bedrock Evaluations e Guardrails, IAM Access Analyzer al posto di Role Manager.
+- [ ] **N03** Servizi chiusi o ritirati: tabella e tattica d'esame — Una slide nel capitolo 7 (e una riga nella scheda rapida) con lo stato dei servizi al 22/10/2026: funzionalità SageMaker chiuse ai nuovi clienti dal 30/07/2026, Kendra chiuso ai nuovi clienti, Forecast chiuso dal 29/07/2024, CodeGuru Security dismesso il 20/11/2025, CodeGuru Reviewer in maintenance mode dal 07/11/2025, DevOps Guru chiuso ai nuovi clienti dal 29/10/2026 (fine il 30/09/2027), più gli stati verificati nel capitolo 14. Tattica: l'esame valuta le competenze della guida, quindi se una domanda nomina un servizio della guida si risponde sulla sua funzione.
 
 ## Motore banco domande e simulazione (qbank.js, qbank-ui.js, tools) (`engine`) — 9 voci
 

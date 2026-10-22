@@ -1,0 +1,677 @@
+{
+  "id": "ch9-training-advanced",
+  "area": "mlops",
+  "title": "Training avanzato, algoritmi built-in e spiegabilità",
+  "prereq": [
+    "ch3-model-dev"
+  ],
+  "summary": "Questo capitolo approfondisce lo sviluppo del modello, con più dettaglio su training e tuning. Parte dalla fattibilità di una soluzione ML e attraversa gli algoritmi built-in di SageMaker, dai tabellari al testo, alle serie temporali e alla visione. Spiega gli elementi del training, gli iperparametri principali, la regolarizzazione e l'ensembling, con i tranelli tipici dell'esame. Mostra come ridurre tempo e costo con early stopping, training distribuito, warm pool e Managed Spot Training con checkpoint, e come funziona Automatic Model Tuning. Chiude con la diagnosi della convergenza, le metriche per dati sbilanciati e di regressione, Clarify per bias ed explainability, e gli strumenti per esperimenti riproducibili. Dal 30 luglio 2026 Clarify, Debugger e Profiler non accettano nuovi clienti, e chi li usava già continua. Alcuni punti valgono per una sola guida: Clarify e Debugger compaiono nella guida MLA-C01 ma non nella MLA-C02, mentre MLflow compare nella MLA-C02.",
+  "keywords": [
+    {
+      "term": "Fattibilità di una soluzione ML",
+      "def": "Verifica preliminare che il problema abbia dati sufficienti, etichette affidabili, una baseline e un valore di business misurabile prima di scegliere un algoritmo."
+    },
+    {
+      "term": "Epoch",
+      "def": "Un passaggio completo su tutto il dataset di training. Linear Learner ha come valore predefinito 15 epoch come massimo."
+    },
+    {
+      "term": "Mini-batch e batch size",
+      "def": "Il mini-batch è il sottoinsieme di dati usato per un aggiornamento dei pesi. Il batch size è il numero di esempi di quel sottoinsieme."
+    },
+    {
+      "term": "Learning rate",
+      "def": "La dimensione del passo che l'ottimizzatore compie a ogni aggiornamento dei pesi. Se è troppo alto il training può divergere, se è troppo basso impara lentamente."
+    },
+    {
+      "term": "Early stopping",
+      "def": "Interruzione anticipata del training quando la metrica non migliora per un certo numero di epoch. In Linear Learner il parametro è early_stopping_patience."
+    },
+    {
+      "term": "Data parallelism",
+      "def": "Strategia di training distribuito in cui il dataset è diviso tra più dispositivi, ognuno con una copia del modello, e i gradienti vengono sincronizzati."
+    },
+    {
+      "term": "Model parallelism",
+      "def": "Strategia di training distribuito in cui il modello è partizionato tra più dispositivi, perché non entra in memoria su un solo dispositivo."
+    },
+    {
+      "term": "Managed Warm Pool",
+      "def": "Infrastruttura di training mantenuta provisionata dopo un job, per ridurre la latenza di avvio dei job successivi simili. Il limite di KeepAlivePeriodInSeconds è 3600 secondi."
+    },
+    {
+      "term": "Managed Spot Training",
+      "def": "Esecuzione dei training job su istanze EC2 Spot, con risparmio fino al 90 per cento rispetto al prezzo on-demand, che richiede MaxWaitTimeInSeconds maggiore di MaxRuntimeInSeconds."
+    },
+    {
+      "term": "Checkpoint",
+      "def": "Snapshot dello stato del modello salvato durante il training. Il percorso locale predefinito è /opt/ml/checkpoints e SageMaker lo sincronizza con S3."
+    },
+    {
+      "term": "Automatic Model Tuning",
+      "def": "Servizio di ricerca degli iperparametri migliori, che lancia più training job e confronta la metrica obiettivo. Supporta le strategie Bayesian, Random, Grid e Hyperband."
+    },
+    {
+      "term": "Hyperband",
+      "def": "Strategia multi-fidelity che rialloca le risorse alle configurazioni promettenti e ferma quelle deboli. Va usata solo con algoritmi iterativi che pubblicano metriche per livello di risorse."
+    },
+    {
+      "term": "Warm start",
+      "def": "Avvio di un tuning job usando uno o più job di tuning precedenti come padri. I tipi sono IDENTICAL_DATA_AND_ALGORITHM e TRANSFER_LEARNING."
+    },
+    {
+      "term": "Regolarizzazione L1 e L2",
+      "def": "Penalità sui coefficienti. L1 può portare pesi esattamente a zero e seleziona le feature. L2 riduce i pesi senza azzerarli."
+    },
+    {
+      "term": "Dropout",
+      "def": "Tecnica delle reti neurali che azzera a caso una frazione di elementi durante il training, con probabilità p. In valutazione non azzera nulla."
+    },
+    {
+      "term": "Overfitting e underfitting",
+      "def": "Overfitting è un modello che memorizza il training e generalizza male. Underfitting è un modello troppo semplice che non impara nemmeno il training."
+    },
+    {
+      "term": "Bagging, boosting, stacking, voting",
+      "def": "Quattro modi di combinare modelli. Il bagging riduce la varianza con campioni casuali, il boosting corregge gli errori in sequenza, lo stacking usa le predizioni come input di un modello finale, il voting combina per voto o per media."
+    },
+    {
+      "term": "Pruning",
+      "def": "Azzeramento di pesi o canali tramite una maschera binaria. Il risultato può essere reso permanente, ma da solo non garantisce un file più piccolo."
+    },
+    {
+      "term": "Distillazione",
+      "def": "Addestramento di un modello piccolo a imitare un modello grande o un ensemble, per ottenere un modello più leggero da distribuire."
+    },
+    {
+      "term": "Vanishing e exploding gradient",
+      "def": "Gradienti così piccoli da non muovere più i pesi, oppure così grandi da far divergere il training. Debugger li rileva con le regole VanishingGradient e ExplodingTensor."
+    },
+    {
+      "term": "SageMaker Debugger",
+      "def": "Servizio con regole built-in che analizza tensori e metriche durante il training. Dal 30 luglio 2026 non accetta nuovi clienti, mentre chi lo usava già può continuare."
+    },
+    {
+      "term": "PR-AUC",
+      "def": "Area sotto la curva precision-recall. Si concentra sulla classe positiva ed è più informativa dei dati sbilanciati rispetto alla ROC AUC."
+    },
+    {
+      "term": "MAPE",
+      "def": "Mean Absolute Percentage Error, errore relativo medio della regressione. Diventa molto grande quando i valori veri sono vicini allo zero."
+    },
+    {
+      "term": "SHAP e Kernel SHAP",
+      "def": "Metodo basato sui valori di Shapley per attribuire a ogni feature il suo contributo a una predizione. Clarify usa l'approssimazione Kernel SHAP."
+    },
+    {
+      "term": "Post-training bias metrics",
+      "def": "Metriche di bias calcolate sulle predizioni del modello, come DPPL e Disparate Impact. Clarify ne fornisce undici."
+    },
+    {
+      "term": "MLflow su SageMaker AI",
+      "def": "Servizio gestito per tracciare esperimenti e modelli con MLflow. Il backend è gestito da AWS e gli artefatti restano nel bucket S3 del proprio account."
+    },
+    {
+      "term": "SageMaker Model Registry",
+      "def": "Catalogo delle versioni di un modello, organizzate in model group, con metadati, lineage e stato di approvazione per la produzione."
+    },
+    {
+      "term": "SageMaker Canvas",
+      "def": "Interfaccia senza codice per costruire modelli personalizzati su dati propri, inclusi la regressione, la classificazione e il forecasting di serie temporali."
+    },
+    {
+      "term": "RecordIO-protobuf",
+      "def": "Formato binario di input usato da molti algoritmi built-in, come Linear Learner, K-Means, PCA e Random Cut Forest, con modalità File o Pipe."
+    },
+    {
+      "term": "model.tar.gz",
+      "def": "Archivio con gli artefatti di un modello addestrato altrove. SageMaker lo estrae in /opt/ml/model e richiede che non contenga link simbolici."
+    },
+    {
+      "term": "Script mode",
+      "def": "Modo di eseguire il proprio script di training dentro un container di un framework gestito, come TensorFlow, PyTorch o scikit-learn."
+    }
+  ],
+  "slides": [
+    {
+      "title": "Fattibilità e criteri di scelta",
+      "bullets": [
+        "Prima del modello: dati disponibili, etichette affidabili, baseline, valore di business",
+        "Il costo è un vincolo da dichiarare, non un confronto già fatto",
+        "L'interpretabilità si verifica dopo il training con explainability, non è un criterio built-in",
+        "Problema e metrica prima dell'algoritmo",
+        "Senza etichette non c'è apprendimento supervisionato"
+      ],
+      "narration": "Prima di scegliere un algoritmo, l'ingegnere di machine learning verifica che la soluzione sia fattibile. Le domande da porsi sono semplici ma decisive. Il problema è descritto con precisione? Esistono dati storici sufficienti e di buona qualità? Per un problema supervisionato, le etichette, cioè la risposta giusta per ogni esempio, sono disponibili e affidabili? Senza etichette non c'è apprendimento supervisionato, e una domanda che descrive dati senza target va letta come problema non supervisionato. Poi serve una baseline semplice, per esempio una regola o un modello lineare, per capire quanto il modello complesso aggiunge davvero. Infine bisogna stimare il valore: quanto vale migliorare la metrica in termini di denaro o di tempo. Il criterio di scelta comprende anche il costo. Il costo è spesso citato come vincolo generico nelle domande. Un modello più semplice, più economico da addestrare e da ospitare, può essere la risposta corretta anche quando ne esiste uno più accurato. L'interpretabilità va trattata con attenzione. In SageMaker la spiegazione dei risultati arriva dopo il training, con strumenti come Clarify. Non è una voce del menu degli algoritmi. Quindi, se la domanda chiede un modello spiegabile, ragiona prima sul tipo di modello e sul requisito di business, poi verifica con l'explainability.",
+      "todo": [
+        "K-2.1S1",
+        "K-2.1S4",
+        "K-2.1K3"
+      ]
+    },
+    {
+      "title": "Algoritmi built-in tabellari",
+      "bullets": [
+        "XGBoost: gradient boosted trees su dati tabellari, input CSV, LibSVM o Parquet",
+        "Linear Learner: funzione lineare per regressione o classificazione, input recordIO-protobuf o CSV",
+        "k-NN: non parametrico, usa i k punti etichettati più vicini",
+        "Factorization Machines: interazioni tra feature in dati sparsi e ad alta dimensione",
+        "LightGBM, CatBoost, TabTransformer, AutoGluon-Tabular: alternative tabellari moderne"
+      ],
+      "narration": "Gli algoritmi built-in tabellari sono il primo gruppo da conoscere, perché i dati in forma di tabella sono la situazione più comune nell'esame. XGBoost è un'implementazione di gradient boosted trees: combina un insieme di modelli più semplici e più deboli, di solito alberi, costruiti in sequenza. È la scelta da considerare quando la domanda parla di dati tabellari, classificazione o regressione con buone prestazioni. Linear Learner impara una funzione lineare per la regressione oppure una soglia lineare per la classificazione. Accetta formati recordIO-protobuf o CSV, e può ottimizzare obiettivi come accuratezza, F1, precisione o richiamo. È la risposta quando la domanda chiede un modello semplice, veloce e facile da leggere nella sua struttura lineare. Il k-NN è un metodo non parametrico: per classificare un nuovo punto guarda le etichette dei k punti più vicini. Factorization Machines modella le interazioni tra feature in dataset sparsi e ad alta dimensione. LightGBM usa GOSS ed EFB per essere più efficiente e scalabile. CatBoost introduce il boosting ordinato e gestisce bene le feature categoriche. TabTransformer usa l'attenzione dei Transformer sui dati tabellari. AutoGluon-Tabular combina molti modelli e li impila in più livelli. Il suggerimento d'esame è semplice: se la domanda chiede un modello da provare velocemente su tabelle, pensa a XGBoost o a Linear Learner, non a una rete profonda.",
+      "todo": [
+        "K-2.1K4",
+        "C13"
+      ]
+    },
+    {
+      "title": "Algoritmi non supervisionati e anomalie",
+      "bullets": [
+        "K-Means: raggruppa i dati in cluster di elementi simili",
+        "PCA: riduce il numero di feature proiettando sulle componenti principali",
+        "Random Cut Forest: rileva punti anomali rispetto ai dati regolari",
+        "IP Insights: impara i pattern di uso degli indirizzi IPv4 e le associazioni con utenti o account",
+        "Il verbo della domanda decide l'algoritmo: raggruppare, ridurre, rilevare o classificare"
+      ],
+      "narration": "Gli algoritmi non supervisionati non ricevono la risposta giusta, quindi cercano struttura nei dati. K-Means divide i dati in gruppi in modo che i membri di un gruppo siano simili tra loro e diversi dagli altri. È il classico clustering dei clienti per spesa. PCA riduce il numero di feature proiettando i dati sulle componenti principali, cioè le direzioni che conservano la maggiore variazione possibile. Serve quando la domanda parla di troppe colonne, di feature molto correlate o di riduzione della dimensionalità prima dell'addestramento. Random Cut Forest rileva le anomalie, cioè i punti che si discostano dai dati regolari. Non richiede esempi etichettati di anomalia, e per questo è la risposta tipica quando la domanda descrive eventi rari e sconosciuti, per esempio letture anomale di un sensore. IP Insights impara i pattern di utilizzo degli indirizzi IPv4 e le loro associazioni con utenti o account, per segnalare accessi sospetti. Attenzione alla trappola. Se la domanda dice che l'obiettivo è assegnare una categoria nota a ogni elemento, si tratta di classificazione supervisionata, non di anomalia. Il verbo della domanda conta: raggruppare, ridurre, rilevare anomalie e classificare sono algoritmi diversi, anche quando i dati sono gli stessi.",
+      "todo": [
+        "C13"
+      ]
+    },
+    {
+      "title": "Testo, serie temporali e visione",
+      "bullets": [
+        "BlazingText: Word2vec e classificazione del testo su dataset grandi",
+        "Sequence-to-Sequence: traduzione, riassunto e trascrizione del parlato",
+        "LDA e NTM: topic modeling non supervisionato, statistico o neurale",
+        "Object2Vec: embedding di oggetti per confrontare, per esempio, ticket di supporto",
+        "DeepAR per serie temporali; Image Classification, Object Detection e Semantic Segmentation per immagini"
+      ],
+      "narration": "Il gruppo testo contiene algoritmi per il linguaggio naturale e i documenti. BlazingText è un'implementazione ottimizzata di Word2vec e della classificazione del testo, utile come base per molti compiti di NLP. Sequence-to-Sequence è un algoritmo supervisionato usato per la traduzione automatica, per il riassunto del testo e per la trascrizione del parlato in testo. LDA e NTM sono algoritmi non supervisionati per il topic modeling: scoprono argomenti in un insieme di documenti senza che siano noti in anticipo. LDA è di tipo statistico, NTM usa una rete neurale. Object2Vec produce embedding densi di oggetti ad alta dimensione, utili per trovare ticket di supporto duplicati o per instradarli in base alla somiglianza del testo. La serie temporale è coperta da DeepAR, un algoritmo supervisionato che prevede valori scalari nel tempo con reti ricorrenti, addestrato su file JSON Lines o Parquet. Per la visione ci sono Image Classification, che classifica immagini con il transfer learning, Object Detection, che individua e classifica oggetti nelle immagini, e Semantic Segmentation, che assegna una categoria a ogni pixel. Il formato di input conta. Molti algoritmi accettano recordIO-protobuf, con modalità File o Pipe, mentre le immagini arrivano come file jpg o png. Ricorda: per un'immagine serve la visione, per un testo serve NLP, per una serie temporale serve DeepAR.",
+      "todo": [
+        "K-2.1K4",
+        "C13"
+      ]
+    },
+    {
+      "title": "Script mode, framework e modelli importati",
+      "bullets": [
+        "Script mode: il proprio codice di training gira dentro un container gestito del framework",
+        "Deep Learning Containers: immagini AWS già pronte con il framework installato",
+        "BYOC: container proprio caricato su Amazon ECR",
+        "model.tar.gz: modello addestrato altrove, estratto in /opt/ml/model",
+        "Niente link simbolici né file inutili nell'archivio"
+      ],
+      "narration": "Quando il modello è scritto in TensorFlow, PyTorch, Hugging Face o scikit-learn, si usa la script mode. Il codice di training è uno script Python, e l'estimator del framework lo esegue dentro un container gestito. Il container è un Deep Learning Container di AWS, cioè un'immagine già pronta con il framework installato. Le dipendenze extra si dichiarano in un file requirements. Per l'esame, la distinzione è questa: se usi un framework supportato, non costruisci un'immagine; se usi un ambiente tuo, costruisci un container e lo carichi su Amazon ECR, il percorso BYOC, cioè bring your own container. Il secondo tema è il modello addestrato altrove. SageMaker accetta un modello addestrato fuori dal servizio solo se lo impacchetti in un file model.tar.gz con la struttura attesa dal container. Il file viene estratto nella cartella /opt/ml/model dentro il container, e non deve contenere link simbolici né file inutili. Per PyTorch, per esempio, il file del modello va insieme a una cartella code con inference.py e requirements.txt. Quindi la domanda che descrive un modello già addestrato su un altro server ha come risposta: impacchetta in model.tar.gz, carica su S3 e importa in SageMaker. Non serve rifare il training dentro SageMaker.",
+      "todo": [
+        "K-2.2S2",
+        "K-2.2K8"
+      ]
+    },
+    {
+      "title": "Elementi del training: epoch, step, batch, learning rate",
+      "bullets": [
+        "Epoch: un passaggio completo su tutto il dataset di training",
+        "Mini-batch: sottoinsieme dei dati usato per un aggiornamento",
+        "Iterazione o step: un passaggio avanti e indietro su un mini-batch",
+        "Esempio: 5000 campioni con batch globale 500 danno 10 iterazioni per epoch",
+        "Linear Learner: epochs 15 e mini_batch_size 1000 come valori predefiniti"
+      ],
+      "narration": "Gli elementi del training si confondono facilmente, quindi conviene fissarli con una definizione precisa. Un'epoch è un passaggio completo su tutto il dataset di training. Un mini-batch è un sottoinsieme dei dati con cui si calcola un aggiornamento dei pesi. Il batch size è il numero di esempi di quel sottoinsieme, e l'iterazione, chiamata anche step, è un singolo passaggio avanti e indietro su un mini-batch. Il numero di iterazioni per epoch dipende quindi dalla dimensione del dataset rispetto al batch size. La documentazione AWS fa un esempio chiaro: con 5000 campioni e un batch globale di 500, servono 10 iterazioni per completare un'epoch. Il learning rate è la dimensione del passo che l'ottimizzatore compie a ogni aggiornamento. Se è troppo grande il modello può oscillare o divergere, se è troppo piccolo l'apprendimento diventa lento. Linear Learner mostra questi concetti nei suoi iperparametri. Il parametro epochs ha valore predefinito 15, cioè il numero massimo di passaggi completi sui dati. Il parametro mini_batch_size vale 1000 per default. Il learning_rate, se impostato su auto, viene calcolato in base all'ottimizzatore scelto. Nelle domande d'esame, un batch molto grande rende il gradiente più stabile ma gli aggiornamenti meno frequenti. Sono questi i compromessi da riconoscere.",
+      "todo": [
+        "K-2.2K1"
+      ]
+    },
+    {
+      "title": "Iperparametri principali e i loro effetti",
+      "bullets": [
+        "num_round: numero di round di boosting, obbligatorio in XGBoost",
+        "eta: passo di riduzione, predefinito 0,3 con intervallo tra 0 e 1",
+        "max_depth: profondità massima, predefinito 6, più alta significa più overfitting",
+        "subsample: frazione di istanze per albero, 0,5 usa metà dei dati",
+        "alpha (L1, predefinito 0) e lambda (L2, predefinito 1) rendono il modello più conservativo"
+      ],
+      "narration": "Gli iperparametri sono le manopole che l'ingegnere imposta prima del training. Nei modelli ad albero di XGBoost le principali sono cinque. Il parametro num_round indica quanti round di boosting eseguire, ed è obbligatorio: in pratica è il numero di alberi costruiti in sequenza. Il parametro eta è il fattore di riduzione dello step: il valore predefinito è 0,3 e l'intervallo va da 0 a 1. Un eta più piccolo rende il processo più prudente, ma richiede più round. Il parametro max_depth è la profondità massima di ogni albero, con valore predefinito 6. Aumentarlo rende il modello più complesso e più esposto all'overfitting. Il parametro subsample è la frazione di istanze campionate per ogni albero: impostarlo a 0,5 significa usare metà dei dati per costruire ciascun albero, il che aiuta a evitare l'overfitting. Gli iperparametri alpha e lambda sono i termini di regolarizzazione. Alpha è la penalità L1, con valore predefinito 0, e lambda è la penalità L2, con valore predefinito 1. Aumentarli rende il modello più conservativo. Nelle reti neurali le manopole sono il numero di layer e il numero di neuroni per layer. Più layer e più neuroni aumentano la capacità del modello, quindi il rischio di overfitting, e anche il tempo di training. La regola per l'esame: se la domanda chiede di ridurre l'overfitting di un albero, pensa a un max_depth più basso, a subsample sotto 1, a un eta più piccolo e a una regolarizzazione più forte.",
+      "todo": [
+        "K-2.2K7"
+      ]
+    },
+    {
+      "title": "Regolarizzazione, overfitting e forgetting",
+      "bullets": [
+        "L1 azzera alcuni pesi e seleziona le feature, L2 riduce i pesi",
+        "Linear Learner: l1 per la penalità L1, wd per il weight decay L2",
+        "Dropout: azzera a caso elementi durante il training con probabilità p",
+        "Overfitting: la loss di validazione sale mentre quella di training scende",
+        "Catastrophic forgetting: un modello dimentica il compito precedente dopo un nuovo training"
+      ],
+      "narration": "La regolarizzazione è l'insieme di tecniche che limitano la complessità del modello per migliorare la generalizzazione. Il problema di fondo è l'overfitting: il modello memorizza il training e fallisce sui dati nuovi. L'underfitting è il caso opposto, con un modello troppo semplice che non impara nemmeno il training. Il segnale da controllare è la differenza tra la loss di training e quella di validazione. Ridge applica una penalità L2 sulla somma dei quadrati dei coefficienti: più alto è il parametro alpha, più i coefficienti si restringono. Lasso applica una penalità L1 e può portare alcuni coefficienti esattamente a zero, quindi fa anche selezione delle feature. In Linear Learner i parametri sono l1 per la regolarizzazione L1 e wd per il weight decay, cioè la regolarizzazione L2. Se non vuoi regolarizzare, imposti il valore a 0. Il dropout, nelle reti neurali, azzera a caso una frazione di elementi durante il training, con probabilità p, e in valutazione non azzera nulla. Il catastrophic forgetting è un problema diverso: una rete che impara un nuovo compito dimentica in gran parte il precedente. Non è un iperparametro, ma un sintomo da riconoscere quando si fa fine-tuning senza precauzioni. La trappola d'esame più comune è confondere L1 e L2. L1 azzera, L2 riduce.",
+      "todo": [
+        "K-2.2K5"
+      ]
+    },
+    {
+      "title": "Ensembling: bagging, boosting, stacking, voting",
+      "bullets": [
+        "Bagging: modelli su campioni casuali con reinserimento, riduce la varianza",
+        "Boosting: modelli deboli in sequenza, ognuno corregge gli errori precedenti",
+        "Stacking: le predizioni dei modelli base sono input di un modello finale",
+        "Voting: hard voting a maggioranza, soft voting con la media delle probabilità",
+        "Un ensemble migliora le prestazioni ma moltiplica il costo di training"
+      ],
+      "narration": "L'ensembling combina più modelli per ottenere una predizione più robusta di quella di un singolo modello. Il bagging addestra più istanze dello stesso modello su campioni casuali del training set, con reinserimento, e poi ne aggrega le predizioni. Serve soprattutto a ridurre la varianza di un modello complesso, come un albero profondo. Il boosting fa il contrario: costruisce modelli deboli in sequenza, e ogni nuovo modello corregge gli errori dei precedenti. Il gradient boosting, come quello di XGBoost, adatta ogni nuovo albero ai gradienti negativi della funzione di perdita. Lo stacking usa le predizioni di più modelli base come input di un modello finale, addestrato con validazione incrociata. A volte batte il migliore dei modelli base, ma il costo di training è alto. Il voting combina modelli diversi con un voto di maggioranza, cioè hard voting, oppure con la media delle probabilità, cioè soft voting, che richiede modelli capaci di restituire probabilità. Nell'esame, la domanda sul costo è spesso la chiave. Un ensemble migliora la performance, ma moltiplica il tempo di training e di inferenza. Se il vincolo è il costo, la risposta giusta può essere un singolo modello ben regolato.",
+      "todo": [
+        "K-2.2S7",
+        "K-2.2K4"
+      ]
+    },
+    {
+      "title": "Migliorare un modello in modo sistematico",
+      "bullets": [
+        "Prima leva: più dati e etichette migliori",
+        "Seconda leva: feature selezionate, create e normalizzate",
+        "Terza leva: tuning con Automatic Model Tuning",
+        "Quarta leva: algoritmo diverso se le relazioni non sono lineari",
+        "Quinta leva: ensemble quando i modelli fanno errori diversi"
+      ],
+      "narration": "Quando un modello non basta, la domanda d'esame chiede il passo successivo più efficace. Il primo strumento è quasi sempre il dato: più esempi, più varietà, etichette migliori. Il secondo sono le feature: selezionare quelle utili, crearne di migliori, normalizzarle. Linear Learner, per esempio, ha normalize_data attivo per default, quindi la normalizzazione è già prevista. Il terzo strumento è il tuning degli iperparametri, con Automatic Model Tuning. Il quarto è cambiare algoritmo, per esempio passare da un modello lineare a un albero di boosting, se i dati hanno relazioni non lineari. Il quinto è l'ensemble, utile quando i modelli diversi sbagliano in punti diversi. Questi passi non vanno scelti a caso. Prima si diagnostica. Se la loss di validazione sale mentre quella di training scende, il problema è overfitting, e il rimedio è più dati, più regolarizzazione o early stopping. Se entrambe restano alte, il modello è troppo semplice o le feature non bastano. Lasso mostra come selezionare le feature quando molte sono irrilevanti. Il consiglio pratico è misurare, cambiare una leva alla volta, confrontare i risultati sullo stesso set di validazione e registrare ogni esperimento.",
+      "todo": [
+        "K-2.2K4"
+      ]
+    },
+    {
+      "title": "Dimensione del modello e come ridurla",
+      "bullets": [
+        "Fattori: numero di parametri, precisione numerica, architettura",
+        "Cambio di data type: FP32 verso FP16 o INT8, con verifica del risultato",
+        "Pruning: pesi o canali azzerati tramite maschera",
+        "Distillazione: un modello piccolo imita un modello grande o un ensemble",
+        "SageMaker Neo ottimizza il modello per l'hardware di destinazione"
+      ],
+      "narration": "La dimensione del modello è la quantità di memoria e di spazio su disco che occupa, e dipende da tre fattori. Il primo sono i parametri: più pesi significa più memoria. Il secondo è la precisione numerica, cioè quanti bit occupa ogni peso. SageMaker Neo può ottimizzare un modello in FP32 oppure in versioni a precisione ridotta, FP16 e INT8. Il terzo è l'architettura, cioè quanti layer ha la rete e che forma ha. Per ridurre la dimensione ci sono quattro leve. Il cambio di data type riduce il numero di byte per peso, ma va valutato sul risultato, perché la precisione più bassa può costare accuratezza. Il pruning azzera pesi o canali tramite una maschera binaria. In PyTorch i valori originali restano memorizzati, e il metodo remove rende permanente il risultato. La distillazione addestra un modello piccolo a imitare un modello grande o un ensemble, come nel lavoro del 2015 sulla distillazione della conoscenza. La compilazione con SageMaker Neo ottimizza il modello per il dispositivo o l'istanza di destinazione, nel cloud o sull'edge. La quantizzazione con analisi d'impatto non è un tema di questo ruolo per la guida MLA-C01, e va solo riconosciuta come termine. Nella domanda d'esame, se il vincolo è la memoria dell'endpoint, cerca la risposta che cambia precisione o modello, non quella che aggiunge risorse.",
+      "todo": [
+        "K-2.2K3",
+        "K-2.2S8"
+      ]
+    },
+    {
+      "title": "Ridurre il tempo di training: early stopping e distribuzione",
+      "bullets": [
+        "Early stopping: early_stopping_patience di Linear Learner vale 3 per default",
+        "Automatic Model Tuning ferma i job peggiori confrontando con la mediana",
+        "Data parallelism: dataset diviso, copie del modello, gradienti sincronizzati con allreduce",
+        "Model parallelism: il modello è partizionato tra più dispositivi",
+        "Più istanze non significano sempre più velocità, perché la comunicazione ha un costo"
+      ],
+      "narration": "Ridurre il tempo di training significa agire su tre cose: quando fermarsi, quante macchine usare e come non pagare il tempo perso. Il primo strumento è l'early stopping. Linear Learner lo controlla con il parametro early_stopping_patience, che ha valore predefinito 3: se per tre epoch la metrica non migliora, il training si ferma. Nel tuning, Automatic Model Tuning può fermare i job peggiori confrontando il loro valore con la mediana dei job precedenti, alla stessa epoch. Il secondo strumento è il training distribuito. Nella data parallelism il dataset viene diviso tra più dispositivi, ognuno con una copia del modello, e i gradienti vengono mediati tra tutti con un'operazione di allreduce. È la strategia più comune. Nella model parallelism il modello viene partizionato tra più dispositivi, perché non entra in memoria su uno solo. La libreria SageMaker distributed data parallelism ottimizza le operazioni di comunicazione AllReduce e AllGather per l'infrastruttura AWS. La trappola è pensare che più istanze significhino sempre più velocità. Il dataset distribuito richiede comunicazione tra i nodi, e se questa non è ottimizzata il tempo di training può salire. Il terzo strumento, cioè il costo del tempo di attesa, è trattato nella slide successiva con le warm pool e lo spot.",
+      "todo": [
+        "K-2.2K2"
+      ]
+    },
+    {
+      "title": "Warm pool e Managed Spot Training con checkpoint",
+      "bullets": [
+        "Warm pool: KeepAlivePeriodInSeconds fino a 3600 secondi, massimo 28 giorni di catena",
+        "Il job successivo deve avere stesso ruolo, InstanceType, InstanceCount e configurazione di rete",
+        "Warm pool non compatibili con istanze spot né con cluster eterogenei",
+        "Managed Spot Training: risparmio fino al 90 per cento, nessun ritorno automatico all'on-demand",
+        "Checkpoint in /opt/ml/checkpoints, sincronizzati con S3; senza checkpoint il limite è 3600 secondi"
+      ],
+      "narration": "Le warm pool e lo spot risolvono due problemi diversi, e le domande d'esame li confondono spesso. Una managed warm pool mantiene l'infrastruttura provisionata dopo un job, per ridurre la latenza di avvio dei job successivi simili. Si imposta KeepAlivePeriodInSeconds nella configurazione delle risorse, con un massimo di 3600 secondi, cioè 60 minuti. Il job successivo riutilizza la pool solo se ha lo stesso ruolo, lo stesso tipo e numero di istanze, e la stessa configurazione di rete e volume. Una pool può passare da un job all'altro per un massimo di 28 giorni. Le warm pool sono una risorsa fatturabile, e non possono essere usate con istanze spot né con cluster eterogenei. Il Managed Spot Training è il secondo strumento. Usa istanze EC2 Spot, con un risparmio fino al 90 per cento rispetto al prezzo on-demand di SageMaker. Per attivarlo si imposta EnableManagedSpotTraining a True e MaxWaitTimeInSeconds a un valore più grande di MaxRuntimeInSeconds. Non c'è un ritorno automatico all'on-demand: se manca capacità spot, il job aspetta fino al limite. Per non perdere lavoro si usano i checkpoint. Il container salva lo stato nella cartella /opt/ml/checkpoints, SageMaker lo sincronizza con S3, e dopo un'interruzione il job riparte dall'ultimo checkpoint. Gli algoritmi built-in che non salvano checkpoint sono limitati a un MaxWaitTimeInSeconds di 3600 secondi.",
+      "todo": [
+        "C07",
+        "C11"
+      ]
+    },
+    {
+      "title": "Automatic Model Tuning in profondità",
+      "bullets": [
+        "Grid: solo parametri categorici, MaxNumberOfTrainingJobs uguale al numero di combinazioni",
+        "Random: combinazioni indipendenti, parallelismo massimo senza perdere efficacia",
+        "Bayesian: un modello di regressione sceglie la prossima combinazione",
+        "Hyperband: rialloca le epoch, va usato solo con algoritmi iterativi",
+        "Warm start: IDENTICAL_DATA_AND_ALGORITHM oppure TRANSFER_LEARNING, con massimo 5 job padre"
+      ],
+      "narration": "Automatic Model Tuning cerca la combinazione migliore di iperparametri provando più job di training. Le strategie sono quattro. Grid search prova le combinazioni dei valori categorici. Funziona solo con parametri categorici, e il numero di job deve coincidere con il numero di combinazioni possibili. Random search sceglie combinazioni a caso in modo indipendente dai risultati precedenti, quindi può lanciare il massimo numero di job in parallelo senza perdere efficacia. Bayesian optimization tratta il tuning come un problema di regressione: usa i risultati passati per scegliere la prossima combinazione, bilanciando sfruttamento ed esplorazione. Hyperband è una strategia multi-fidelity. Rialloca le epoch alle configurazioni promettenti e interrompe quelle deboli, ma va usata solo con algoritmi iterativi che pubblicano la metrica a ogni livello di risorse, per esempio a ogni epoch. Con Hyperband l'early stopping interno richiede TrainingJobEarlyStoppingType impostato su OFF, quindi non si combina con l'early stopping AUTO. Con AUTO, invece, un job viene fermato se la sua metrica, a una certa epoch, è peggiore della mediana delle medie correnti dei job precedenti. Il warm start usa job di tuning precedenti come padri. IDENTICAL_DATA_AND_ALGORITHM richiede stessi dati e stesso algoritmo, e permette di cambiare intervalli e numero di job. TRANSFER_LEARNING permette dati, intervalli e versione dell'algoritmo diversi. I limiti sono al massimo 5 job padre, la stessa metrica obiettivo, e il fatto che i job dei padri contano nel tetto di 500 training job.",
+      "todo": []
+    },
+    {
+      "title": "Convergenza: Debugger e TensorBoard",
+      "bullets": [
+        "Vanishing gradient: gradienti vicini a zero, regola VanishingGradient con soglia predefinita 0,0000001",
+        "Exploding: valori NaN o infiniti, regola ExplodingTensor",
+        "Regole anche per loss che non scende, overfit, overtraining e stallo",
+        "Massimo 20 regole built-in per job",
+        "TensorBoard su SageMaker per PyTorch, TensorFlow e Hugging Face Transformers"
+      ],
+      "narration": "Quando un training non converge, la domanda d'esame chiede di riconoscere il sintomo e lo strumento. Il gradiente vanishing è un gradiente così piccolo da non muovere più i pesi. Il gradiente exploding è così grande da far divergere il training. SageMaker Debugger fornisce regole built-in che analizzano tensori e metriche durante il training. La regola VanishingGradient segnala quando la media dei valori assoluti dei gradienti scende sotto una soglia, con valore predefinito 0,0000001. La regola ExplodingTensor segnala valori non finiti, cioè infiniti o NaN. LossNotDecreasing segnala una loss che non scende a un ritmo adeguato. Overfit confronta la loss di validazione con quella di training. Overtraining segnala il momento in cui il modello smette di migliorare e la validazione comincia a salire. StalledTrainingRule scatta se nessun tensore viene emesso entro la soglia, che di default è 1800 secondi. Ogni job può avere al massimo 20 regole. Debugger compare nella guida MLA-C01 per la convergenza. Dal 30 luglio 2026 non accetta nuovi clienti, mentre chi lo usava già può continuare, e la guida MLA-C02 non lo nomina più. TensorBoard su SageMaker visualizza i tensori dei job di PyTorch, TensorFlow e Hugging Face Transformers, e permette di confrontare più job nello stesso posto. Il suggerimento d'esame: gradienti vicini a zero indicano vanishing, valori NaN indicano exploding, e il rimedio include un learning rate più basso e la normalizzazione.",
+      "todo": [
+        "K-2.3K5",
+        "C08"
+      ]
+    },
+    {
+      "title": "Metriche per dati sbilanciati e regressione",
+      "bullets": [
+        "Dati sbilanciati: la ROC AUC può sembrare buona anche con pochi positivi trovati",
+        "PR-AUC: area sotto la curva precision-recall, centrata sulla classe positiva",
+        "Con predizioni casuali l'average precision è la frazione di campioni positivi",
+        "MAPE: errore relativo medio, insensibile al cambio di scala del target",
+        "MAPE instabile con valori veri vicini allo zero; scikit-learn la restituisce come frazione"
+      ],
+      "narration": "Le metriche decidono se il modello è buono, e sbagliare metrica è un errore classico d'esame. Con dati sbilanciati, per esempio frodi rare su milioni di transazioni, la ROC AUC può sembrare alta anche quando il modello trova poche frodi reali. La PR-AUC, cioè l'area sotto la curva precision-recall, si concentra sulla classe positiva ed è quindi più informativa. La documentazione scikit-learn osserva che con predizioni casuali l'average precision è pari alla frazione di campioni positivi. Il baseline dipende quindi dalla rarità della classe, e con classi rare va confrontato con quel baseline. Passiamo alla regressione. La MAPE misura l'errore relativo medio: per ogni campione prende il valore assoluto della differenza tra vero e previsto, lo divide per il valore vero in valore assoluto, e fa la media. Un piccolo epsilon evita la divisione per zero. La metrica non cambia se il target viene scalato globalmente, ma diventa enorme quando i valori veri sono vicini allo zero. Rispetto all'errore assoluto medio, che nell'esempio della documentazione riflette soprattutto l'errore sui valori grandi, la MAPE pesa gli errori in modo relativo. Scikit-learn restituisce la MAPE come frazione e non come percentuale: va moltiplicata per 100 per leggerla in percentuale.",
+      "todo": [
+        "C04"
+      ]
+    },
+    {
+      "title": "Clarify: bias post-training e explainability",
+      "bullets": [
+        "Clarify non è più aperto a nuovi clienti e non riceve nuove funzionalità",
+        "Undici metriche di bias post-training, tra cui DPPL e Disparate Impact",
+        "DPPL vicino a zero indica proporzioni di predizioni positive più equilibrate",
+        "Disparate Impact uguale a 1 indica parità demografica",
+        "SHAP con Kernel SHAP, partial dependence plot tra gli output"
+      ],
+      "narration": "Clarify è il servizio AWS per il bias e per l'explainability. Prima di tutto, una nota fondamentale: dal 30 luglio 2026 Clarify non accetta nuovi clienti, e AWS non prevede nuove funzionalità. Chi lo usava già può continuare. Stessa data per Debugger e Profiler. Per un progetto nuovo conviene quindi conoscerne i concetti e le alternative indicate da AWS. Per l'explainability c'è la libreria SHAP, per tracciare i risultati MLflow su SageMaker AI. Per il monitoraggio ci sono CloudWatch e QuickSight, e per i modelli fondazionali Bedrock Evaluations. Sul bias post-training, Clarify fornisce undici metriche. La Difference in Positive Proportions in Predicted Labels, DPPL, confronta la proporzione di predizioni positive tra il gruppo favorito e quello svantaggiato. Valori vicini a zero indicano proporzioni più uguali, valori positivi indicano che il gruppo favorito riceve più predizioni positive. La Disparate Impact è il rapporto tra le stesse proporzioni: il valore 1 indica parità demografica, valori sotto 1 indicano che il gruppo favorito ha più predizioni positive, valori sopra 1 indicano il contrario. Le altre metriche includono Accuracy Difference, Recall Difference, Treatment Equality e Counterfactual Fliptest. Interpretare significa chiedersi quale gruppo subisce l'errore, e di quale tipo, falsi positivi o falsi negativi. Sull'explainability, Clarify calcola i valori di Shapley con l'approssimazione Kernel SHAP. Il valore SHAP di una feature misura il suo contributo alla predizione, e la somma dei contributi spiega la differenza tra la predizione del modello e quella di un modello senza feature. Gli output includono anche i partial dependence plot, che mostrano l'effetto di una feature. AWS suggerisce, come sostituti, la libreria SHAP per l'explainability e il calcolo diretto delle metriche con pandas e scikit-learn. Per l'esame MLA-C01 Clarify e Debugger restano materia d'esame, mentre la guida MLA-C02 non li nomina più. Profiler non compare in nessuna delle due guide.",
+      "todo": [
+        "K-2.3K4",
+        "K-2.3S1",
+        "K-2.3S5",
+        "C10",
+        "N01"
+      ]
+    },
+    {
+      "title": "Esperimenti riproducibili, registry e compromessi",
+      "bullets": [
+        "MLflow su SageMaker AI: tracking server o MLflow App, artefatti in S3 nel proprio account",
+        "Dimensioni Small, Medium e Large; Small è il valore predefinito",
+        "SageMaker Experiments esiste solo in Studio Classic; AWS consiglia MLflow",
+        "Model Registry: model group, versioni, lineage e stato di approvazione",
+        "Canvas senza codice, con forecasting di serie temporali; trade-off tra prestazioni, tempo e costo"
+      ],
+      "narration": "L'ultimo gruppo riguarda la riproducibilità e il compromesso finale. MLflow su SageMaker AI è il servizio gestito per tracciare esperimenti: un tracking server o una MLflow App registra parametri, metriche e run, mentre gli artefatti come pesi e file restano nel bucket S3 del proprio account. Il tracking server ha dimensioni Small, Medium o Large, e Small è il valore predefinito. SageMaker Experiments esiste ancora, ma solo in Studio Classic, e AWS raccomanda MLflow per i nuovi progetti. Model Registry risponde a un'altra domanda: quale versione del modello è approvata e da dove viene. I model group raccolgono le versioni di un modello. Ogni versione ha metadati e lineage per la tracciabilità, e lo stato di approvazione governa il passaggio in produzione. Per la domanda su ripetibilità e audit, la risposta combina tracking e registry. Sul fronte generativo, Bedrock Prompt Management salva le versioni dei prompt, e Bedrock Evaluations valuta i modelli fondazionali. SageMaker Canvas è l'interfaccia senza codice: importa dati, costruisce modelli di regressione, classificazione, forecasting di serie temporali e classificazione di immagini o testi. Il compromesso finale è tra prestazioni, tempo di training e costo. Un modello un po' più accurato può costare molto di più e richiedere ore in più. La domanda d'esame cerca il trade-off dichiarato. Se il vincolo è il budget, si accetta un modello leggermente peggiore. Se conta la velocità di rilascio, si usano warm pool e spot con checkpoint.",
+      "todo": [
+        "G-2.3.1",
+        "G-3.3.6",
+        "C05",
+        "K-2.3S2"
+      ]
+    }
+  ],
+  "script": "Prima di scegliere un algoritmo, l'ingegnere di machine learning verifica che la soluzione sia fattibile. Le domande da porsi sono semplici ma decisive. Il problema è descritto con precisione? Esistono dati storici sufficienti e di buona qualità? Per un problema supervisionato, le etichette, cioè la risposta giusta per ogni esempio, sono disponibili e affidabili? Senza etichette non c'è apprendimento supervisionato, e una domanda che descrive dati senza target va letta come problema non supervisionato. Poi serve una baseline semplice, per esempio una regola o un modello lineare, per capire quanto il modello complesso aggiunge davvero. Infine bisogna stimare il valore: quanto vale migliorare la metrica in termini di denaro o di tempo. Il criterio di scelta comprende anche il costo. Il costo è spesso citato come vincolo generico nelle domande. Un modello più semplice, più economico da addestrare e da ospitare, può essere la risposta corretta anche quando ne esiste uno più accurato. L'interpretabilità va trattata con attenzione. In SageMaker la spiegazione dei risultati arriva dopo il training, con strumenti come Clarify. Non è una voce del menu degli algoritmi. Quindi, se la domanda chiede un modello spiegabile, ragiona prima sul tipo di modello e sul requisito di business, poi verifica con l'explainability. Gli algoritmi built-in tabellari sono il primo gruppo da conoscere, perché i dati in forma di tabella sono la situazione più comune nell'esame. XGBoost è un'implementazione di gradient boosted trees: combina un insieme di modelli più semplici e più deboli, di solito alberi, costruiti in sequenza. È la scelta da considerare quando la domanda parla di dati tabellari, classificazione o regressione con buone prestazioni. Linear Learner impara una funzione lineare per la regressione oppure una soglia lineare per la classificazione. Accetta formati recordIO-protobuf o CSV, e può ottimizzare obiettivi come accuratezza, F1, precisione o richiamo. È la risposta quando la domanda chiede un modello semplice, veloce e facile da leggere nella sua struttura lineare. Il k-NN è un metodo non parametrico: per classificare un nuovo punto guarda le etichette dei k punti più vicini. Factorization Machines modella le interazioni tra feature in dataset sparsi e ad alta dimensione. LightGBM usa GOSS ed EFB per essere più efficiente e scalabile. CatBoost introduce il boosting ordinato e gestisce bene le feature categoriche. TabTransformer usa l'attenzione dei Transformer sui dati tabellari. AutoGluon-Tabular combina molti modelli e li impila in più livelli. Il suggerimento d'esame è semplice: se la domanda chiede un modello da provare velocemente su tabelle, pensa a XGBoost o a Linear Learner, non a una rete profonda. Gli algoritmi non supervisionati non ricevono la risposta giusta, quindi cercano struttura nei dati. K-Means divide i dati in gruppi in modo che i membri di un gruppo siano simili tra loro e diversi dagli altri. È il classico clustering dei clienti per spesa. PCA riduce il numero di feature proiettando i dati sulle componenti principali, cioè le direzioni che conservano la maggiore variazione possibile. Serve quando la domanda parla di troppe colonne, di feature molto correlate o di riduzione della dimensionalità prima dell'addestramento. Random Cut Forest rileva le anomalie, cioè i punti che si discostano dai dati regolari. Non richiede esempi etichettati di anomalia, e per questo è la risposta tipica quando la domanda descrive eventi rari e sconosciuti, per esempio letture anomale di un sensore. IP Insights impara i pattern di utilizzo degli indirizzi IPv4 e le loro associazioni con utenti o account, per segnalare accessi sospetti. Attenzione alla trappola. Se la domanda dice che l'obiettivo è assegnare una categoria nota a ogni elemento, si tratta di classificazione supervisionata, non di anomalia. Il verbo della domanda conta: raggruppare, ridurre, rilevare anomalie e classificare sono algoritmi diversi, anche quando i dati sono gli stessi. Il gruppo testo contiene algoritmi per il linguaggio naturale e i documenti. BlazingText è un'implementazione ottimizzata di Word2vec e della classificazione del testo, utile come base per molti compiti di NLP. Sequence-to-Sequence è un algoritmo supervisionato usato per la traduzione automatica, per il riassunto del testo e per la trascrizione del parlato in testo. LDA e NTM sono algoritmi non supervisionati per il topic modeling: scoprono argomenti in un insieme di documenti senza che siano noti in anticipo. LDA è di tipo statistico, NTM usa una rete neurale. Object2Vec produce embedding densi di oggetti ad alta dimensione, utili per trovare ticket di supporto duplicati o per instradarli in base alla somiglianza del testo. La serie temporale è coperta da DeepAR, un algoritmo supervisionato che prevede valori scalari nel tempo con reti ricorrenti, addestrato su file JSON Lines o Parquet. Per la visione ci sono Image Classification, che classifica immagini con il transfer learning, Object Detection, che individua e classifica oggetti nelle immagini, e Semantic Segmentation, che assegna una categoria a ogni pixel. Il formato di input conta. Molti algoritmi accettano recordIO-protobuf, con modalità File o Pipe, mentre le immagini arrivano come file jpg o png. Ricorda: per un'immagine serve la visione, per un testo serve NLP, per una serie temporale serve DeepAR. Quando il modello è scritto in TensorFlow, PyTorch, Hugging Face o scikit-learn, si usa la script mode. Il codice di training è uno script Python, e l'estimator del framework lo esegue dentro un container gestito. Il container è un Deep Learning Container di AWS, cioè un'immagine già pronta con il framework installato. Le dipendenze extra si dichiarano in un file requirements. Per l'esame, la distinzione è questa: se usi un framework supportato, non costruisci un'immagine; se usi un ambiente tuo, costruisci un container e lo carichi su Amazon ECR, il percorso BYOC, cioè bring your own container. Il secondo tema è il modello addestrato altrove. SageMaker accetta un modello addestrato fuori dal servizio solo se lo impacchetti in un file model.tar.gz con la struttura attesa dal container. Il file viene estratto nella cartella /opt/ml/model dentro il container, e non deve contenere link simbolici né file inutili. Per PyTorch, per esempio, il file del modello va insieme a una cartella code con inference.py e requirements.txt. Quindi la domanda che descrive un modello già addestrato su un altro server ha come risposta: impacchetta in model.tar.gz, carica su S3 e importa in SageMaker. Non serve rifare il training dentro SageMaker. Gli elementi del training si confondono facilmente, quindi conviene fissarli con una definizione precisa. Un'epoch è un passaggio completo su tutto il dataset di training. Un mini-batch è un sottoinsieme dei dati con cui si calcola un aggiornamento dei pesi. Il batch size è il numero di esempi di quel sottoinsieme, e l'iterazione, chiamata anche step, è un singolo passaggio avanti e indietro su un mini-batch. Il numero di iterazioni per epoch dipende quindi dalla dimensione del dataset rispetto al batch size. La documentazione AWS fa un esempio chiaro: con 5000 campioni e un batch globale di 500, servono 10 iterazioni per completare un'epoch. Il learning rate è la dimensione del passo che l'ottimizzatore compie a ogni aggiornamento. Se è troppo grande il modello può oscillare o divergere, se è troppo piccolo l'apprendimento diventa lento. Linear Learner mostra questi concetti nei suoi iperparametri. Il parametro epochs ha valore predefinito 15, cioè il numero massimo di passaggi completi sui dati. Il parametro mini_batch_size vale 1000 per default. Il learning_rate, se impostato su auto, viene calcolato in base all'ottimizzatore scelto. Nelle domande d'esame, un batch molto grande rende il gradiente più stabile ma gli aggiornamenti meno frequenti. Sono questi i compromessi da riconoscere. Gli iperparametri sono le manopole che l'ingegnere imposta prima del training. Nei modelli ad albero di XGBoost le principali sono cinque. Il parametro num_round indica quanti round di boosting eseguire, ed è obbligatorio: in pratica è il numero di alberi costruiti in sequenza. Il parametro eta è il fattore di riduzione dello step: il valore predefinito è 0,3 e l'intervallo va da 0 a 1. Un eta più piccolo rende il processo più prudente, ma richiede più round. Il parametro max_depth è la profondità massima di ogni albero, con valore predefinito 6. Aumentarlo rende il modello più complesso e più esposto all'overfitting. Il parametro subsample è la frazione di istanze campionate per ogni albero: impostarlo a 0,5 significa usare metà dei dati per costruire ciascun albero, il che aiuta a evitare l'overfitting. Gli iperparametri alpha e lambda sono i termini di regolarizzazione. Alpha è la penalità L1, con valore predefinito 0, e lambda è la penalità L2, con valore predefinito 1. Aumentarli rende il modello più conservativo. Nelle reti neurali le manopole sono il numero di layer e il numero di neuroni per layer. Più layer e più neuroni aumentano la capacità del modello, quindi il rischio di overfitting, e anche il tempo di training. La regola per l'esame: se la domanda chiede di ridurre l'overfitting di un albero, pensa a un max_depth più basso, a subsample sotto 1, a un eta più piccolo e a una regolarizzazione più forte. La regolarizzazione è l'insieme di tecniche che limitano la complessità del modello per migliorare la generalizzazione. Il problema di fondo è l'overfitting: il modello memorizza il training e fallisce sui dati nuovi. L'underfitting è il caso opposto, con un modello troppo semplice che non impara nemmeno il training. Il segnale da controllare è la differenza tra la loss di training e quella di validazione. Ridge applica una penalità L2 sulla somma dei quadrati dei coefficienti: più alto è il parametro alpha, più i coefficienti si restringono. Lasso applica una penalità L1 e può portare alcuni coefficienti esattamente a zero, quindi fa anche selezione delle feature. In Linear Learner i parametri sono l1 per la regolarizzazione L1 e wd per il weight decay, cioè la regolarizzazione L2. Se non vuoi regolarizzare, imposti il valore a 0. Il dropout, nelle reti neurali, azzera a caso una frazione di elementi durante il training, con probabilità p, e in valutazione non azzera nulla. Il catastrophic forgetting è un problema diverso: una rete che impara un nuovo compito dimentica in gran parte il precedente. Non è un iperparametro, ma un sintomo da riconoscere quando si fa fine-tuning senza precauzioni. La trappola d'esame più comune è confondere L1 e L2. L1 azzera, L2 riduce. L'ensembling combina più modelli per ottenere una predizione più robusta di quella di un singolo modello. Il bagging addestra più istanze dello stesso modello su campioni casuali del training set, con reinserimento, e poi ne aggrega le predizioni. Serve soprattutto a ridurre la varianza di un modello complesso, come un albero profondo. Il boosting fa il contrario: costruisce modelli deboli in sequenza, e ogni nuovo modello corregge gli errori dei precedenti. Il gradient boosting, come quello di XGBoost, adatta ogni nuovo albero ai gradienti negativi della funzione di perdita. Lo stacking usa le predizioni di più modelli base come input di un modello finale, addestrato con validazione incrociata. A volte batte il migliore dei modelli base, ma il costo di training è alto. Il voting combina modelli diversi con un voto di maggioranza, cioè hard voting, oppure con la media delle probabilità, cioè soft voting, che richiede modelli capaci di restituire probabilità. Nell'esame, la domanda sul costo è spesso la chiave. Un ensemble migliora la performance, ma moltiplica il tempo di training e di inferenza. Se il vincolo è il costo, la risposta giusta può essere un singolo modello ben regolato. Quando un modello non basta, la domanda d'esame chiede il passo successivo più efficace. Il primo strumento è quasi sempre il dato: più esempi, più varietà, etichette migliori. Il secondo sono le feature: selezionare quelle utili, crearne di migliori, normalizzarle. Linear Learner, per esempio, ha normalize_data attivo per default, quindi la normalizzazione è già prevista. Il terzo strumento è il tuning degli iperparametri, con Automatic Model Tuning. Il quarto è cambiare algoritmo, per esempio passare da un modello lineare a un albero di boosting, se i dati hanno relazioni non lineari. Il quinto è l'ensemble, utile quando i modelli diversi sbagliano in punti diversi. Questi passi non vanno scelti a caso. Prima si diagnostica. Se la loss di validazione sale mentre quella di training scende, il problema è overfitting, e il rimedio è più dati, più regolarizzazione o early stopping. Se entrambe restano alte, il modello è troppo semplice o le feature non bastano. Lasso mostra come selezionare le feature quando molte sono irrilevanti. Il consiglio pratico è misurare, cambiare una leva alla volta, confrontare i risultati sullo stesso set di validazione e registrare ogni esperimento. La dimensione del modello è la quantità di memoria e di spazio su disco che occupa, e dipende da tre fattori. Il primo sono i parametri: più pesi significa più memoria. Il secondo è la precisione numerica, cioè quanti bit occupa ogni peso. SageMaker Neo può ottimizzare un modello in FP32 oppure in versioni a precisione ridotta, FP16 e INT8. Il terzo è l'architettura, cioè quanti layer ha la rete e che forma ha. Per ridurre la dimensione ci sono quattro leve. Il cambio di data type riduce il numero di byte per peso, ma va valutato sul risultato, perché la precisione più bassa può costare accuratezza. Il pruning azzera pesi o canali tramite una maschera binaria. In PyTorch i valori originali restano memorizzati, e il metodo remove rende permanente il risultato. La distillazione addestra un modello piccolo a imitare un modello grande o un ensemble, come nel lavoro del 2015 sulla distillazione della conoscenza. La compilazione con SageMaker Neo ottimizza il modello per il dispositivo o l'istanza di destinazione, nel cloud o sull'edge. La quantizzazione con analisi d'impatto non è un tema di questo ruolo per la guida MLA-C01, e va solo riconosciuta come termine. Nella domanda d'esame, se il vincolo è la memoria dell'endpoint, cerca la risposta che cambia precisione o modello, non quella che aggiunge risorse. Ridurre il tempo di training significa agire su tre cose: quando fermarsi, quante macchine usare e come non pagare il tempo perso. Il primo strumento è l'early stopping. Linear Learner lo controlla con il parametro early_stopping_patience, che ha valore predefinito 3: se per tre epoch la metrica non migliora, il training si ferma. Nel tuning, Automatic Model Tuning può fermare i job peggiori confrontando il loro valore con la mediana dei job precedenti, alla stessa epoch. Il secondo strumento è il training distribuito. Nella data parallelism il dataset viene diviso tra più dispositivi, ognuno con una copia del modello, e i gradienti vengono mediati tra tutti con un'operazione di allreduce. È la strategia più comune. Nella model parallelism il modello viene partizionato tra più dispositivi, perché non entra in memoria su uno solo. La libreria SageMaker distributed data parallelism ottimizza le operazioni di comunicazione AllReduce e AllGather per l'infrastruttura AWS. La trappola è pensare che più istanze significhino sempre più velocità. Il dataset distribuito richiede comunicazione tra i nodi, e se questa non è ottimizzata il tempo di training può salire. Il terzo strumento, cioè il costo del tempo di attesa, è trattato nella slide successiva con le warm pool e lo spot. Le warm pool e lo spot risolvono due problemi diversi, e le domande d'esame li confondono spesso. Una managed warm pool mantiene l'infrastruttura provisionata dopo un job, per ridurre la latenza di avvio dei job successivi simili. Si imposta KeepAlivePeriodInSeconds nella configurazione delle risorse, con un massimo di 3600 secondi, cioè 60 minuti. Il job successivo riutilizza la pool solo se ha lo stesso ruolo, lo stesso tipo e numero di istanze, e la stessa configurazione di rete e volume. Una pool può passare da un job all'altro per un massimo di 28 giorni. Le warm pool sono una risorsa fatturabile, e non possono essere usate con istanze spot né con cluster eterogenei. Il Managed Spot Training è il secondo strumento. Usa istanze EC2 Spot, con un risparmio fino al 90 per cento rispetto al prezzo on-demand di SageMaker. Per attivarlo si imposta EnableManagedSpotTraining a True e MaxWaitTimeInSeconds a un valore più grande di MaxRuntimeInSeconds. Non c'è un ritorno automatico all'on-demand: se manca capacità spot, il job aspetta fino al limite. Per non perdere lavoro si usano i checkpoint. Il container salva lo stato nella cartella /opt/ml/checkpoints, SageMaker lo sincronizza con S3, e dopo un'interruzione il job riparte dall'ultimo checkpoint. Gli algoritmi built-in che non salvano checkpoint sono limitati a un MaxWaitTimeInSeconds di 3600 secondi. Automatic Model Tuning cerca la combinazione migliore di iperparametri provando più job di training. Le strategie sono quattro. Grid search prova le combinazioni dei valori categorici. Funziona solo con parametri categorici, e il numero di job deve coincidere con il numero di combinazioni possibili. Random search sceglie combinazioni a caso in modo indipendente dai risultati precedenti, quindi può lanciare il massimo numero di job in parallelo senza perdere efficacia. Bayesian optimization tratta il tuning come un problema di regressione: usa i risultati passati per scegliere la prossima combinazione, bilanciando sfruttamento ed esplorazione. Hyperband è una strategia multi-fidelity. Rialloca le epoch alle configurazioni promettenti e interrompe quelle deboli, ma va usata solo con algoritmi iterativi che pubblicano la metrica a ogni livello di risorse, per esempio a ogni epoch. Con Hyperband l'early stopping interno richiede TrainingJobEarlyStoppingType impostato su OFF, quindi non si combina con l'early stopping AUTO. Con AUTO, invece, un job viene fermato se la sua metrica, a una certa epoch, è peggiore della mediana delle medie correnti dei job precedenti. Il warm start usa job di tuning precedenti come padri. IDENTICAL_DATA_AND_ALGORITHM richiede stessi dati e stesso algoritmo, e permette di cambiare intervalli e numero di job. TRANSFER_LEARNING permette dati, intervalli e versione dell'algoritmo diversi. I limiti sono al massimo 5 job padre, la stessa metrica obiettivo, e il fatto che i job dei padri contano nel tetto di 500 training job. Quando un training non converge, la domanda d'esame chiede di riconoscere il sintomo e lo strumento. Il gradiente vanishing è un gradiente così piccolo da non muovere più i pesi. Il gradiente exploding è così grande da far divergere il training. SageMaker Debugger fornisce regole built-in che analizzano tensori e metriche durante il training. La regola VanishingGradient segnala quando la media dei valori assoluti dei gradienti scende sotto una soglia, con valore predefinito 0,0000001. La regola ExplodingTensor segnala valori non finiti, cioè infiniti o NaN. LossNotDecreasing segnala una loss che non scende a un ritmo adeguato. Overfit confronta la loss di validazione con quella di training. Overtraining segnala il momento in cui il modello smette di migliorare e la validazione comincia a salire. StalledTrainingRule scatta se nessun tensore viene emesso entro la soglia, che di default è 1800 secondi. Ogni job può avere al massimo 20 regole. Debugger compare nella guida MLA-C01 per la convergenza. Dal 30 luglio 2026 non accetta nuovi clienti, mentre chi lo usava già può continuare, e la guida MLA-C02 non lo nomina più. TensorBoard su SageMaker visualizza i tensori dei job di PyTorch, TensorFlow e Hugging Face Transformers, e permette di confrontare più job nello stesso posto. Il suggerimento d'esame: gradienti vicini a zero indicano vanishing, valori NaN indicano exploding, e il rimedio include un learning rate più basso e la normalizzazione. Le metriche decidono se il modello è buono, e sbagliare metrica è un errore classico d'esame. Con dati sbilanciati, per esempio frodi rare su milioni di transazioni, la ROC AUC può sembrare alta anche quando il modello trova poche frodi reali. La PR-AUC, cioè l'area sotto la curva precision-recall, si concentra sulla classe positiva ed è quindi più informativa. La documentazione scikit-learn osserva che con predizioni casuali l'average precision è pari alla frazione di campioni positivi. Il baseline dipende quindi dalla rarità della classe, e con classi rare va confrontato con quel baseline. Passiamo alla regressione. La MAPE misura l'errore relativo medio: per ogni campione prende il valore assoluto della differenza tra vero e previsto, lo divide per il valore vero in valore assoluto, e fa la media. Un piccolo epsilon evita la divisione per zero. La metrica non cambia se il target viene scalato globalmente, ma diventa enorme quando i valori veri sono vicini allo zero. Rispetto all'errore assoluto medio, che nell'esempio della documentazione riflette soprattutto l'errore sui valori grandi, la MAPE pesa gli errori in modo relativo. Scikit-learn restituisce la MAPE come frazione e non come percentuale: va moltiplicata per 100 per leggerla in percentuale. Clarify è il servizio AWS per il bias e per l'explainability. Prima di tutto, una nota fondamentale: dal 30 luglio 2026 Clarify non accetta nuovi clienti, e AWS non prevede nuove funzionalità. Chi lo usava già può continuare. Stessa data per Debugger e Profiler. Per un progetto nuovo conviene quindi conoscerne i concetti e le alternative indicate da AWS. Per l'explainability c'è la libreria SHAP, per tracciare i risultati MLflow su SageMaker AI. Per il monitoraggio ci sono CloudWatch e QuickSight, e per i modelli fondazionali Bedrock Evaluations. Sul bias post-training, Clarify fornisce undici metriche. La Difference in Positive Proportions in Predicted Labels, DPPL, confronta la proporzione di predizioni positive tra il gruppo favorito e quello svantaggiato. Valori vicini a zero indicano proporzioni più uguali, valori positivi indicano che il gruppo favorito riceve più predizioni positive. La Disparate Impact è il rapporto tra le stesse proporzioni: il valore 1 indica parità demografica, valori sotto 1 indicano che il gruppo favorito ha più predizioni positive, valori sopra 1 indicano il contrario. Le altre metriche includono Accuracy Difference, Recall Difference, Treatment Equality e Counterfactual Fliptest. Interpretare significa chiedersi quale gruppo subisce l'errore, e di quale tipo, falsi positivi o falsi negativi. Sull'explainability, Clarify calcola i valori di Shapley con l'approssimazione Kernel SHAP. Il valore SHAP di una feature misura il suo contributo alla predizione, e la somma dei contributi spiega la differenza tra la predizione del modello e quella di un modello senza feature. Gli output includono anche i partial dependence plot, che mostrano l'effetto di una feature. AWS suggerisce, come sostituti, la libreria SHAP per l'explainability e il calcolo diretto delle metriche con pandas e scikit-learn. Per l'esame MLA-C01 Clarify e Debugger restano materia d'esame, mentre la guida MLA-C02 non li nomina più. Profiler non compare in nessuna delle due guide. L'ultimo gruppo riguarda la riproducibilità e il compromesso finale. MLflow su SageMaker AI è il servizio gestito per tracciare esperimenti: un tracking server o una MLflow App registra parametri, metriche e run, mentre gli artefatti come pesi e file restano nel bucket S3 del proprio account. Il tracking server ha dimensioni Small, Medium o Large, e Small è il valore predefinito. SageMaker Experiments esiste ancora, ma solo in Studio Classic, e AWS raccomanda MLflow per i nuovi progetti. Model Registry risponde a un'altra domanda: quale versione del modello è approvata e da dove viene. I model group raccolgono le versioni di un modello. Ogni versione ha metadati e lineage per la tracciabilità, e lo stato di approvazione governa il passaggio in produzione. Per la domanda su ripetibilità e audit, la risposta combina tracking e registry. Sul fronte generativo, Bedrock Prompt Management salva le versioni dei prompt, e Bedrock Evaluations valuta i modelli fondazionali. SageMaker Canvas è l'interfaccia senza codice: importa dati, costruisce modelli di regressione, classificazione, forecasting di serie temporali e classificazione di immagini o testi. Il compromesso finale è tra prestazioni, tempo di training e costo. Un modello un po' più accurato può costare molto di più e richiedere ore in più. La domanda d'esame cerca il trade-off dichiarato. Se il vincolo è il budget, si accetta un modello leggermente peggiore. Se conta la velocità di rilascio, si usano warm pool e spot con checkpoint.",
+  "quiz": [
+    {
+      "q": "Quale iperparametro di XGBoost controlla la profondità massima di ogni albero?",
+      "options": [
+        "eta",
+        "subsample",
+        "max_depth",
+        "lambda"
+      ],
+      "answer": 2,
+      "explain": "max_depth ha valore predefinito 6, e aumentarlo rende il modello più complesso e più esposto all'overfitting. eta controlla il passo, subsample la frazione di dati per albero, lambda la penalità L2."
+    },
+    {
+      "q": "In un job di Managed Spot Training, quale condizione deve valere?",
+      "options": [
+        "MaxWaitTimeInSeconds è minore di MaxRuntimeInSeconds",
+        "MaxWaitTimeInSeconds è maggiore di MaxRuntimeInSeconds",
+        "Il job passa automaticamente all'on-demand se lo spot manca",
+        "Il checkpoint non serve mai"
+      ],
+      "answer": 1,
+      "explain": "MaxWaitTimeInSeconds include anche l'attesa della capacità spot, quindi deve essere maggiore di MaxRuntimeInSeconds. Lo spot non ripiega sull'on-demand: il job aspetta fino al limite."
+    },
+    {
+      "q": "Quale strategia di Automatic Model Tuning accetta solo parametri categorici?",
+      "options": [
+        "Bayesian",
+        "Random",
+        "Hyperband",
+        "Grid"
+      ],
+      "answer": 3,
+      "explain": "Grid search prova tutte le combinazioni dei valori categorici, e il numero di job è determinato dal numero di combinazioni possibili."
+    },
+    {
+      "q": "Quale tipo di warm start richiede stessi dati e stesso algoritmo dei job padre?",
+      "options": [
+        "IDENTICAL_DATA_AND_ALGORITHM",
+        "TRANSFER_LEARNING",
+        "Hyperband",
+        "Grid"
+      ],
+      "answer": 0,
+      "explain": "Con IDENTICAL_DATA_AND_ALGORITHM si possono cambiare intervalli e numero di job. Con TRANSFER_LEARNING si possono cambiare anche dati e versione dell'algoritmo."
+    },
+    {
+      "q": "Quale affermazione sulle managed warm pool è corretta?",
+      "options": [
+        "Si possono usare con istanze spot",
+        "KeepAlivePeriodInSeconds può arrivare fino a 3600 secondi",
+        "Sono gratuite finché il job è fermo, anche con capacità riservata",
+        "Non richiedono quote di servizio"
+      ],
+      "answer": 1,
+      "explain": "Il valore massimo di KeepAlivePeriodInSeconds per un singolo job è 3600 secondi. Le warm pool sono fatturabili e non sono compatibili con le istanze spot."
+    },
+    {
+      "q": "Quale regola di Debugger segnala valori NaN o infiniti nei tensori?",
+      "options": [
+        "VanishingGradient",
+        "Overfit",
+        "StalledTrainingRule",
+        "ExplodingTensor"
+      ],
+      "answer": 3,
+      "explain": "ExplodingTensor rileva valori non finiti. VanishingGradient guarda gradienti troppo piccoli, StalledTrainingRule guarda l'assenza di tensori nel tempo."
+    },
+    {
+      "q": "Quale algoritmo di explainability usa Clarify per la feature attribution?",
+      "options": [
+        "Kernel SHAP",
+        "PCA",
+        "k-fold",
+        "Random Cut Forest"
+      ],
+      "answer": 0,
+      "explain": "Clarify usa valori di Shapley con l'approssimazione Kernel SHAP. PCA riduce le dimensioni, k-fold è una tecnica di validazione, Random Cut Forest rileva anomalie."
+    },
+    {
+      "q": "Perché la MAPE diventa instabile quando i valori veri sono vicini allo zero?",
+      "options": [
+        "Perché usa la radice quadrata degli errori",
+        "Perché divide per il valore vero, che diventa piccolissimo",
+        "Perché ignora i valori negativi",
+        "Perché è una metrica di classificazione"
+      ],
+      "answer": 1,
+      "explain": "La MAPE divide ogni errore per il valore vero in valore assoluto. Con valori vicini allo zero il quoziente diventa molto grande, e per questo si usa un epsilon."
+    },
+    {
+      "q": "A cosa serve Clarify nel flusso di un modello?",
+      "options": [
+        "Calcolare metriche di bias e valori SHAP sui modelli",
+        "Versionare i modelli in un registry, con approvazione manuale",
+        "Eseguire il training su istanze spot",
+        "Costruire un container BYOC"
+      ],
+      "answer": 0,
+      "explain": "Clarify calcola le metriche di bias post-training e le attribuzioni SHAP. Il versionamento spetta a Model Registry, il risparmio sul training a Managed Spot Training e il container personalizzato a BYOC."
+    },
+    {
+      "q": "Quale tecnica addestra modelli su campioni casuali con reinserimento e aggrega le predizioni?",
+      "options": [
+        "Bagging",
+        "Boosting",
+        "Stacking",
+        "Voting"
+      ],
+      "answer": 0,
+      "explain": "Il bagging usa campioni casuali con reinserimento e riduce la varianza. Il boosting lavora in sequenza, lo stacking usa un modello finale, il voting combina modelli diversi."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Amazon SageMaker AI: Built-in algorithms and pretrained models",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/algos.html"
+    },
+    {
+      "title": "Managed Spot Training in Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html"
+    },
+    {
+      "title": "SageMaker AI Managed Warm Pools",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/train-warm-pools.html"
+    },
+    {
+      "title": "Understand the hyperparameter tuning strategies available in Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html"
+    },
+    {
+      "title": "Stop Training Jobs Early",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html"
+    },
+    {
+      "title": "Run a Warm Start Hyperparameter Tuning Job",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-warm-start.html"
+    },
+    {
+      "title": "Post-training Data and Model Bias Metrics",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-measure-post-training-bias.html"
+    },
+    {
+      "title": "Feature Attributions that Use Shapley Values",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-shapley-values.html"
+    },
+    {
+      "title": "Clarify availability change",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-availability-change.html"
+    },
+    {
+      "title": "List of Debugger built-in rules",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-built-in-rules.html"
+    },
+    {
+      "title": "Distributed training in Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/distributed-training.html"
+    },
+    {
+      "title": "Run distributed training with the SageMaker AI distributed data parallelism library",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/data-parallel.html"
+    },
+    {
+      "title": "Checkpoints in Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-checkpoints.html"
+    },
+    {
+      "title": "Amazon SageMaker Canvas",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/canvas.html"
+    },
+    {
+      "title": "Accelerate generative AI development using managed MLflow on Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/mlflow.html"
+    },
+    {
+      "title": "Model Registration Deployment with Model Registry",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry.html"
+    },
+    {
+      "title": "TensorBoard in Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/tensorboard-on-sagemaker.html"
+    },
+    {
+      "title": "XGBoost hyperparameters",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/xgboost_hyperparameters.html"
+    },
+    {
+      "title": "Linear Learner hyperparameters",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/ll_hyperparameters.html"
+    },
+    {
+      "title": "Parameters for Built-in Algorithms",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/common-info-all-im-models.html"
+    },
+    {
+      "title": "Model Hosting FAQs",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/hosting-faqs.html"
+    },
+    {
+      "title": "Model performance optimization with SageMaker Neo",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/neo.html"
+    },
+    {
+      "title": "Amazon SageMaker Experiments in Studio Classic",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/experiments.html"
+    },
+    {
+      "title": "Construct and store reusable prompts with Prompt management in Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html"
+    },
+    {
+      "title": "scikit-learn User Guide: Metrics and scoring (precision-recall, MAPE)",
+      "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+    },
+    {
+      "title": "scikit-learn User Guide: Ensemble methods",
+      "url": "https://scikit-learn.org/stable/modules/ensemble.html"
+    },
+    {
+      "title": "scikit-learn User Guide: Linear models (Ridge, Lasso)",
+      "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+    },
+    {
+      "title": "PyTorch documentation: torch.nn.Dropout",
+      "url": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Dropout.html"
+    },
+    {
+      "title": "PyTorch tutorial: Pruning tutorial",
+      "url": "https://docs.pytorch.org/tutorials/intermediate/pruning_tutorial.html"
+    },
+    {
+      "title": "Distilling the Knowledge in a Neural Network (arXiv 1503.02531)",
+      "url": "https://arxiv.org/abs/1503.02531"
+    },
+    {
+      "title": "Resources for using PyTorch with Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/pytorch.html"
+    },
+    {
+      "title": "Amazon SageMaker AI features: End of Support Notice",
+      "url": "https://aws.amazon.com/sagemaker/ai/features/"
+    }
+  ],
+  "todo": [
+    "K-2.1K3",
+    "K-2.1K4",
+    "K-2.1S1",
+    "K-2.1S4",
+    "K-2.2K1",
+    "K-2.2K2",
+    "K-2.2K3",
+    "K-2.2K4",
+    "K-2.2K5",
+    "K-2.2K7",
+    "K-2.2K8",
+    "K-2.2S2",
+    "K-2.2S7",
+    "K-2.2S8",
+    "K-2.3K4",
+    "K-2.3K5",
+    "K-2.3S1",
+    "K-2.3S2",
+    "K-2.3S5",
+    "G-2.3.1",
+    "G-3.3.6",
+    "C04",
+    "C05",
+    "C07",
+    "C08",
+    "C10",
+    "C11",
+    "C13",
+    "N01"
+  ]
+}

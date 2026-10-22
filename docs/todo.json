@@ -4447,6 +4447,61 @@
    ],
    "regex": [],
    "status": "todo"
+  },
+  {
+   "id": "N01",
+   "group": "Novità AWS da segnalare",
+   "title": "Funzionalità SageMaker chiuse ai nuovi clienti dal 30/07/2026",
+   "detail": "Mechanical Turk, Ground Truth, Augmented AI, Studio Lab, Model Monitor, Clarify, Debugger, Role Manager, Geospatial e Profiler non accettano nuovi clienti dal 30/07/2026 (chi li usava prima continua); Ground Truth Plus dismesso dal 30/06/2026. Restano materia d'esame MLA-C01; la guida MLA-C02 non li nomina più. Alternative indicate da AWS: MLflow su SageMaker AI, soluzioni di monitoraggio open source AWS (Evidently), CloudWatch, QuickSight, libreria SHAP, Bedrock Evaluations e Guardrails, IAM Access Analyzer al posto di Role Manager.",
+   "targets": [
+    "fix",
+    "ch8-data-advanced",
+    "ch9-training-advanced",
+    "ch11-cost-security",
+    "ch13-genai-agents",
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "nuovi clienti|new customers"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "N02",
+   "group": "Novità AWS da segnalare",
+   "title": "Stato di disponibilità dei servizi AI gestiti",
+   "detail": "Kendra non è più aperto ai nuovi clienti (alternativa: Bedrock Knowledge Bases); Forecast chiuso dal 29/07/2024. Verificare sulle pagine AWS lo stato di Lookout for Equipment, Metrics e Vision, Fraud Detector e degli altri servizi del capitolo, e dirlo.",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "nuovi clienti|new customers|end of support|fine del supporto|dismess|ritirat"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "N03",
+   "group": "Novità AWS da segnalare",
+   "title": "Servizi chiusi o ritirati: tabella e tattica d'esame",
+   "detail": "Una slide nel capitolo 7 (e una riga nella scheda rapida) con lo stato dei servizi al 22/10/2026: funzionalità SageMaker chiuse ai nuovi clienti dal 30/07/2026, Kendra chiuso ai nuovi clienti, Forecast chiuso dal 29/07/2024, CodeGuru Security dismesso il 20/11/2025, CodeGuru Reviewer in maintenance mode dal 07/11/2025, DevOps Guru chiuso ai nuovi clienti dal 29/10/2026 (fine il 30/09/2027), più gli stati verificati nel capitolo 14. Tattica: l'esame valuta le competenze della guida, quindi se una domanda nomina un servizio della guida si risponde sulla sua funzione.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "teoria"
+   ],
+   "regex": [
+    "nuovi clienti|ritirat|dismess"
+   ],
+   "status": "todo"
   }
  ]
 }

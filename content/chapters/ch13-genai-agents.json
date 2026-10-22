@@ -1,0 +1,690 @@
+{
+  "id": "ch13-genai-agents",
+  "area": "applicazioni",
+  "title": "GenAI in produzione: valutazione, agenti e costi",
+  "prereq": [
+    "ch12-genai-rag"
+  ],
+  "summary": "La GenAI in produzione richiede tre competenze: valutare l'output, distribuire i modelli e gli agenti, e controllarne costi e sicurezza. La valutazione combina metriche lessicali come BLEU e ROUGE, metriche semantiche come BERTScore, e giudizi con un modello valutatore o con persone. Per i sistemi RAG si valutano separatamente il retrieval e la generazione, con metriche come context relevance e faithfulness. Sul deploy si scelgono on-demand, batch inference o Provisioned Throughput, a seconda del traffico, mentre Custom Model Import porta in Bedrock i modelli costruiti fuori AWS. Gli agenti si costruiscono con Amazon Bedrock AgentCore, con Runtime, Memory, Gateway e Observability, e protocolli MCP e A2A. Il monitoraggio combina il logging delle invocazioni, le dashboard CloudWatch e le tracce degli agenti. Sul costo contano token, batch, caching e routing, e negli RAG anche embedding e storage vettoriale. Per la sicurezza servono credenziali di breve durata e i Guardrails, con contextual grounding per la fedeltà alle fonti.",
+  "keywords": [
+    {
+      "term": "Valutazione GenAI",
+      "def": "Valutazione di testo generato su più dimensioni, come accuratezza, robustezza, tossicità e fedeltà al contesto, perché non esiste una sola risposta giusta."
+    },
+    {
+      "term": "BLEU",
+      "def": "Metrica lessicale che confronta sequenze di parole tra output e riferimento, nata per la traduzione automatica."
+    },
+    {
+      "term": "ROUGE",
+      "def": "Metrica lessicale orientata al richiamo, che misura quante parole del riferimento compaiono nell'output, usata per i riassunti."
+    },
+    {
+      "term": "BERTScore",
+      "def": "Metrica che confronta gli embedding contestuali dei token della risposta e del riferimento, e tollera le parafrasi."
+    },
+    {
+      "term": "LLM-as-a-judge",
+      "def": "Uso di un modello valutatore che assegna punteggi alle risposte di un modello generatore, secondo metriche definite con un prompt."
+    },
+    {
+      "term": "Human-in-the-loop",
+      "def": "Processo in cui una persona rivede, valuta o corregge gli output del modello dentro il ciclo di produzione."
+    },
+    {
+      "term": "Faithfulness",
+      "def": "Metrica RAG che misura quanto la risposta evita informazioni non presenti nei chunk recuperati."
+    },
+    {
+      "term": "Context relevance",
+      "def": "Metrica di retrieval che misura quanto i chunk recuperati sono pertinenti alla domanda."
+    },
+    {
+      "term": "Context coverage",
+      "def": "Metrica di retrieval che misura quanto i chunk recuperati coprono le informazioni del ground truth, e richiede un riferimento."
+    },
+    {
+      "term": "Prompt management",
+      "def": "Funzione di Bedrock per creare, versionare e riusare i prompt, con variabili e varianti."
+    },
+    {
+      "term": "MLflow su SageMaker AI",
+      "def": "Servizio gestito per tracciare esperimenti, confrontare run e registrare modelli, utile per la riproducibilità."
+    },
+    {
+      "term": "On-demand",
+      "def": "Modalità in cui si paga per token di input e output, senza impegno e senza capacità riservata."
+    },
+    {
+      "term": "Batch inference",
+      "def": "Elaborazione asincrona di molte richieste da file su S3, con prezzo più basso, ma senza Provisioned Throughput."
+    },
+    {
+      "term": "Provisioned Throughput",
+      "def": "Capacità riservata in model unit, con costo orario e impegno opzionale di uno o sei mesi."
+    },
+    {
+      "term": "Model unit",
+      "def": "Unità di capacità del Provisioned Throughput, che definisce quanti token di input e output si possono processare al minuto."
+    },
+    {
+      "term": "Custom Model Import",
+      "def": "Funzione che importa in Bedrock un modello costruito fuori AWS, in formato Hugging Face, e lo usa con InvokeModel."
+    },
+    {
+      "term": "JumpStart",
+      "def": "Catalogo di modelli pubblici di SageMaker, distribuibili su endpoint o su HyperPod con una risorsa JumpStartModel."
+    },
+    {
+      "term": "Amazon Bedrock AgentCore",
+      "def": "Piattaforma AWS per costruire, distribuire e operare agenti, con componenti modulari come Runtime, Memory e Gateway."
+    },
+    {
+      "term": "MCP",
+      "def": "Model Context Protocol, protocollo che collega un agente ai tool e alle fonti dati."
+    },
+    {
+      "term": "A2A",
+      "def": "Agent to agent, protocollo che permette a un agente di comunicare con un altro agente."
+    },
+    {
+      "term": "AgentCore Memory",
+      "def": "Componente che gestisce la memoria a breve termine di una sessione e quella a lungo termine tra sessioni."
+    },
+    {
+      "term": "Alias",
+      "def": "Puntatore stabile a una versione di un agente, usato dall'applicazione per chiamare l'agente con InvokeAgent."
+    },
+    {
+      "term": "Model invocation logging",
+      "def": "Registrazione di richieste, risposte e token delle chiamate a Bedrock, disattivata di default, verso S3 o CloudWatch Logs."
+    },
+    {
+      "term": "CloudWatch generative AI observability",
+      "def": "Insieme di dashboard CloudWatch per modelli e agenti, con invocazioni, token, latenza ed errori."
+    },
+    {
+      "term": "Prompt caching",
+      "def": "Riuso di un prefisso di prompt già elaborato, che riduce il costo dei token letti dalla cache, solo on-demand."
+    },
+    {
+      "term": "Intelligent prompt routing",
+      "def": "Endpoint unico che instrada le richieste tra modelli della stessa famiglia per bilanciare qualità e costo."
+    },
+    {
+      "term": "S3 Vectors",
+      "def": "Storage vettoriale di Amazon S3, usabile come vector store di Bedrock Knowledge Bases per ridurre il costo del RAG."
+    },
+    {
+      "term": "Guardrails",
+      "def": "Controlli di sicurezza di Bedrock su input e output: contenuti, argomenti, parole, dati sensibili, grounding e logica."
+    },
+    {
+      "term": "Contextual grounding",
+      "def": "Controllo di Guardrails che verifica che la risposta sia fondata sul contesto fornito e pertinente alla domanda."
+    },
+    {
+      "term": "ApplyGuardrail",
+      "def": "API che applica i controlli di Guardrails a un testo, anche prodotto da un modello non ospitato su Bedrock."
+    }
+  ],
+  "slides": [
+    {
+      "title": "Valutare la GenAI non è come valutare un modello classico",
+      "bullets": [
+        "Il ML classico produce una classe o un numero, confrontabili con un'etichetta",
+        "Un foundation model produce testo libero: più risposte possono essere giuste",
+        "Dimensioni: accuratezza, robustezza, tossicità, fedeltà al contesto",
+        "Serve un riferimento: risposta attesa, contesto recuperato o criteri scritti",
+        "La guida MLA-C01 quasi non tratta la GenAI: è un tema nuovo della MLA-C02"
+      ],
+      "narration": "Benvenuti al capitolo sulla GenAI in produzione. Qui vediamo come valutare, distribuire, controllare e pagare i foundation model e gli agenti. Partiamo dalla valutazione, perché è il punto dove l'esame costruisce più trappole. Con un modello di ML classico il risultato è una classe, un numero o un valore previsto. Si confronta con un'etichetta vera, e le metriche sono quasi automatiche: accuratezza, precisione, recall. Con un foundation model l'output è testo libero. Due risposte diverse possono essere entrambe corrette. Una risposta fluida può anche essere sbagliata, e questo è il problema più subdolo. Per questo la valutazione di un sistema GenAI guarda più dimensioni. L'accuratezza dice se la risposta è corretta. La robustezza dice se il sistema resta affidabile quando la domanda cambia forma. La tossicità misura contenuti offensivi o dannosi. La fedeltà al contesto dice se la risposta resta dentro le informazioni fornite, senza inventare. Serve anche un riferimento. Può essere una risposta attesa, un contesto recuperato da un database di documenti, oppure criteri di qualità scritti in modo esplicito. Se la domanda d'esame chiede come valutare un chatbot senza etichette, la risposta non è l'accuratezza. Servono giudizi di qualità e di fedeltà, spesso fatti con un altro modello o con persone. La regola da ricordare è semplice: nella GenAI la metrica si sceglie in base al compito, non si copia dal ML classico.",
+      "todo": [
+        "G-2.3.6"
+      ]
+    },
+    {
+      "title": "Metriche NLP: BLEU, ROUGE, BERTScore e similarità semantica",
+      "bullets": [
+        "BLEU: confronta sequenze di parole con il riferimento, nato per la traduzione automatica",
+        "ROUGE: misura la sovrapposizione orientata al richiamo, usata per i riassunti",
+        "BERTScore: confronta gli embedding contestuali dei token",
+        "Similarità semantica: confronta il significato tra vettori, senza contare le parole uguali",
+        "Limite comune: servono riferimenti, e le metriche lessicali penalizzano le parafrasi"
+      ],
+      "narration": "Le metriche NLP classiche nascono per misurare la qualità di traduzioni e riassunti, quando esiste un testo di riferimento. Per la MLA-C02 bisogna conoscerne quattro. BLEU, cioè bilingual evaluation understudy, è stato proposto nel 2002 per la traduzione automatica. Confronta le sequenze di parole, gli n-grammi, tra la risposta generata e quella di riferimento. Più parole coincidono nell'ordine giusto, più il punteggio sale. ROUGE, cioè recall-oriented understudy for gisting evaluation, è del 2004 e nasce per i riassunti. Qui il punto chiave è il richiamo: quante parole del riferimento compaiono nell'output. Entrambe sono metriche lessicali. Se la risposta dice la stessa cosa con parole diverse, il punteggio crolla anche se il senso è giusto. BERTScore fa un passo avanti. Confronta gli embedding contestuali dei token della risposta e del riferimento, quindi tollera le parafrasi. Secondo gli autori, correla meglio con il giudizio umano rispetto alle metriche lessicali. La similarità semantica confronta direttamente i vettori di due testi, e non conta le parole in comune. Una trappola d'esame è questa. Se la domanda chiede di valutare un riassunto con un riferimento e misurare il richiamo, la risposta è ROUGE. Se chiede di valutare una traduzione, la risposta è BLEU. Se vuole tollerare sinonimi e parafrasi, pensa a BERTScore o alla similarità semantica. In tutti i casi, le metriche automatiche sono un segnale utile, ma non sostituiscono una verifica umana.",
+      "todo": [
+        "G-2.3.8"
+      ]
+    },
+    {
+      "title": "LLM-as-a-judge: un modello che giudica un altro modello",
+      "bullets": [
+        "Il generatore produce le risposte, il valutatore assegna i punteggi",
+        "Ogni metrica usa un prompt diverso per il valutatore",
+        "La console mostra la spiegazione del punteggio per le prime cinque coppie del dataset",
+        "Limiti: bias del valutatore, costo, variabilità, controlli a campione con persone",
+        "Usato anche per la bias detection e per la qualità dei contenuti"
+      ],
+      "narration": "LLM as a judge significa usare un modello di linguaggio come giudice. Il modello generatore riceve i prompt di un dataset e produce le risposte. Il modello valutatore riceve la coppia prompt e risposta e assegna un punteggio secondo una metrica. In Amazon Bedrock servono due modelli distinti: un generatore e un valutatore. Le metriche integrate, come correttezza, completezza, fedeltà e utilità, usano ciascuna un prompt specifico per il valutatore. Il vantaggio è la scala. Si valutano migliaia di risposte senza che una persona le legga tutte. Il secondo vantaggio è la spiegazione. La console mostra il motivo del punteggio per le prime cinque coppie del dataset, e questo aiuta a capire un voto basso. Il limite è reale. Il giudice ha dei bias: può preferire risposte lunghe o lo stile del proprio modello, e può sbagliare. Per questo si fanno controlli a campione con persone, e si confronta il giudizio del valutatore con quello umano. Nelle domande d'esame, LLM as a judge è la risposta giusta quando si chiede una valutazione scalabile della qualità di testo generato, senza etichette umane per ogni risposta. Lo stesso schema serve per la bias detection e per il controllo della qualità dei contenuti, purché il valutatore riceva criteri espliciti. Ricordate: il giudice è uno strumento automatico. Va tarato, e i suoi punteggi vanno verificati.",
+      "todo": [
+        "G-2.3.9"
+      ]
+    },
+    {
+      "title": "Amazon Bedrock Model Evaluation: automatica, con giudice o umana",
+      "bullets": [
+        "Generatore: un modello di Bedrock, un modello importato, oppure risposte tue già pronte",
+        "Valutatore: un modello giudice supportato, per metriche integrate o personalizzate",
+        "Metriche integrate: correttezza, completezza, fedeltà, utilità, coerenza, rilevanza, dannosità",
+        "Valutazione umana: un team di lavoro scelto da te, gestibile in SageMaker Ground Truth",
+        "Il report completo va nel bucket S3 indicato alla creazione del job"
+      ],
+      "narration": "Amazon Bedrock Model Evaluation è il servizio che esegue i job di valutazione. Un job si configura in tre modi: automatico, con un modello giudice, oppure con persone. Il job ha un generatore, cioè il modello da valutare, e un eventuale valutatore. Il generatore può essere un modello di Bedrock, un modello personalizzato o importato, oppure un prompt router. Se hai già le risposte, puoi caricarle nel dataset: Bedrock salta la fase di invocazione e valuta direttamente i dati. Questo è utile per i modelli esterni ad AWS. Il valutatore deve essere uno dei modelli giudice supportati, e devi avere l'accesso a quel modello. Le metriche integrate per il giudice includono correttezza, completezza, fedeltà al contesto, utilità, coerenza logica, rilevanza, aderenza alle istruzioni, stile professionale, dannosità, stereotipi e rifiuti. Sono tutte scritte come prompt per il valutatore, e puoi definirne di tue. La valutazione umana usa un team di lavoro scelto da te, per esempio dipendenti o esperti del settore. Il team si gestisce in Amazon Cognito o in SageMaker Ground Truth. Il report completo finisce nel bucket S3 che specifichi. Attenzione alle domande d'esame. La valutazione con giudice richiede due modelli, un generatore e un valutatore. Per scegliere il tipo di job guarda due cose: quanto serve il giudizio umano, e quanto è grande il dataset.",
+      "todo": [
+        "G-4.1.6"
+      ]
+    },
+    {
+      "title": "Human-in-the-loop: la valutazione umana della qualità",
+      "bullets": [
+        "Serve quando la qualità è soggettiva: tono, utilità, sicurezza del consiglio",
+        "Team di lavoro: massimo 50 valutatori per team in Bedrock",
+        "La notifica arriva solo quando aggiungi il lavoratore al team",
+        "Le istruzioni per i valutatori sono parte della metrica",
+        "Human in the loop: revisione periodica dentro il processo, non solo alla fine",
+        "Dal 30 luglio 2026 A2I e Ground Truth non sono aperti ai nuovi clienti"
+      ],
+      "narration": "La valutazione umana resta il riferimento quando la qualità è soggettiva. Pensa al tono di una risposta, alla sua utilità per il cliente o alla sicurezza di un consiglio. In questi casi nessuna metrica automatica basta. Con Amazon Bedrock puoi creare un job di valutazione con persone scegliendo un team di lavoro. È un gruppo che scegli tu, e può contenere al massimo 50 valutatori per team. La notifica arriva solo quando aggiungi una persona al team. Per i job successivi devi avvisare tu i valutatori e dare loro l'indirizzo del portale. Le istruzioni sono parte della metrica. Descrivi ogni metodo di valutazione, spiega la scala dei voti e, se ci sono risposte di riferimento, dillo chiaramente. Il ciclo human in the loop nasce quando la persona non valuta solo alla fine del progetto, ma entra nel processo. Rivede campioni periodici, corregge le risposte, e i suoi giudizi tornano nel dataset per migliorare le valutazioni future. Il servizio Amazon A2I, Augmented AI, serve proprio a costruire flussi di revisione umana per le predizioni di machine learning. Attenzione però: dal 30 luglio 2026 A2I, Ground Truth e Clarify non sono più aperti ai nuovi clienti. Chi li usava prima continua a usarli. Per valutare i foundation model, AWS indica oggi Amazon Bedrock Evaluations, con valutazione automatica, umana e LLM as a judge. In alternativa c'è la libreria open source fmeval. Nelle domande d'esame, se la richiesta insiste su giudizio umano, esperti di dominio o revisione periodica, la risposta è la valutazione umana. Non è LLM as a judge, che è automatico.",
+      "todo": [
+        "G-2.3.7",
+        "N01"
+      ]
+    },
+    {
+      "title": "Valutare un RAG: retrieval e generazione separati",
+      "bullets": [
+        "Solo retrieval: context relevance e context coverage, con ground truth per la copertura",
+        "Retrieve e generate: correctness, completeness, faithfulness, citation precision e coverage",
+        "Faithfulness: misura quanto la risposta evita di inventare rispetto ai chunk recuperati",
+        "Ogni metrica è una media tra 0 e 1 su tutte le domande del dataset",
+        "Monitorare il retrieval: i chunk trovati servono davvero alla domanda?"
+      ],
+      "narration": "La valutazione di un sistema RAG va separata in due parti, perché il problema può stare nel recupero oppure nella generazione. Se valuti solo il retrieval, Bedrock misura le metriche di recupero. Context relevance dice quanto i chunk recuperati sono pertinenti alla domanda. Context coverage dice quanto i chunk coprono le informazioni del testo di riferimento, e per questo richiede un ground truth. Se valuti anche la generazione, entrano correctness, completeness, faithfulness e le metriche di citazione. Faithfulness misura quanto la risposta evita di inventare rispetto ai chunk recuperati. È il controllo principale contro le allucinazioni. Ogni metrica è una media normalizzata tra 0 e 1 su tutte le domande del dataset, e un valore vicino a 1 indica che quella caratteristica è molto presente. Il monitoraggio dell'accuratezza del retrieval risponde a una domanda pratica: quando il modello sbaglia, ha ricevuto i documenti giusti? Se context relevance è bassa, il problema sta nella ricerca, nel chunking o negli embedding, e cambiare modello generatore non basta. Se context relevance è alta ma faithfulness è bassa, il generatore sta inventando. È una distinzione tipica dei quesiti d'esame. Il RAG evaluation funziona sia con una Knowledge Base di Bedrock sia con un sistema RAG personalizzato.",
+      "todo": [
+        "G-2.3.10"
+      ]
+    },
+    {
+      "title": "Prompt management, test dei prompt e riproducibilità",
+      "bullets": [
+        "Prompt management: prompt con variabili, varianti e versioni salvate",
+        "Una variante cambia messaggio, modello o parametri di inferenza",
+        "Confronto tra varianti: si tiene quella con output migliori",
+        "Un prompt versionato si richiama dall'applicazione senza rilasciare il codice",
+        "Riproducibilità: stessi dataset, stessa versione, esperimenti tracciati con MLflow"
+      ],
+      "narration": "Prompt management in Amazon Bedrock serve a creare, salvare e riusare i prompt come oggetti versionati. Così non restano sparsi nel codice. Un prompt può contenere variabili, cioè segnaposto valorizzati al test o al momento della chiamata. Una variante è una configurazione alternativa del prompt. Può cambiare il messaggio, il modello o i parametri di inferenza. Puoi confrontare le varianti nella stessa schermata e tenere quella che produce output migliori. Quando un prompt è pronto, salvi una versione. L'applicazione richiama quella versione, quindi cambiare il testo non richiede un nuovo rilascio del codice. Per il test dei prompt conta la riproducibilità. Ogni esperimento deve usare lo stesso dataset, la stessa versione del prompt e gli stessi parametri, altrimenti i confronti non valgono. Per tracciare gli esperimenti, confrontare i run e registrare i modelli, su AWS si usa MLflow gestito su SageMaker AI. MLflow registra parametri e metriche, e li confronta nella sua interfaccia. Il prompt management si integra con Amazon Bedrock Flows, dove un nodo prompt può usare una versione salvata. Nell'esame, se la domanda chiede di cambiare il prompt senza rilasciare il codice, la risposta è il prompt management con le versioni. Se chiede esperimenti riproducibili e confrontabili, pensa a MLflow e a dataset fissi.",
+      "todo": [
+        "G-3.3.7",
+        "G-3.3.9",
+        "G-2.3.1"
+      ]
+    },
+    {
+      "title": "Opzioni di deploy dei foundation model",
+      "bullets": [
+        "On-demand: paghi per token di input e output, senza impegno",
+        "Batch inference: job asincrono su S3, circa la metà del prezzo on-demand per i modelli elencati",
+        "Provisioned Throughput: model unit con impegno senza scadenza, di un mese o di sei mesi",
+        "Cross-region inference: profili che instradano tra Regioni della stessa area geografica",
+        "Endpoint SageMaker JumpStart: modello pubblico su un endpoint che gestisci tu"
+      ],
+      "narration": "Scegliere come distribuire un foundation model significa bilanciare costo, latenza e prevedibilità. Il primo modo è on-demand. Paghi per token di input e di output, senza impegno e senza capacità riservata. È la scelta giusta per traffico variabile o per prototipi. Il secondo modo è il batch inference. Invii un file di richieste su S3, Bedrock elabora il job in modo asincrono e scrive i risultati su S3. La pagina prezzi indica un prezzo inferiore del 50 per cento rispetto all'on-demand per i modelli elencati. Il batch non è per il tempo reale, e non si usa con i modelli su Provisioned Throughput. Il terzo modo è il Provisioned Throughput. Prenoti capacità in model unit, che garantiscono un certo numero di token al minuto. Puoi acquistarlo senza impegno, con impegno di un mese o di sei mesi. Più lungo è l'impegno, più scende il costo orario. Non puoi eliminarlo prima della fine del periodo di impegno, e la fatturazione continua finché non lo cancelli. I modelli personalizzati richiedono il Provisioned Throughput per essere usati. Per il multi-Regione, il cross-region inference usa profili che instradano le richieste tra Regioni della stessa area geografica. Infine, per i modelli pubblici puoi creare un endpoint SageMaker JumpStart. Qui gestisci tu l'istanza, lo scaling e i costi di quell'endpoint. Nell'esame, la parola chiave è il traffico: variabile si legge on-demand, grande e non urgente si legge batch, alto e costante si legge Provisioned Throughput.",
+      "todo": [
+        "G-3.1.4",
+        "G-3.1.7"
+      ]
+    },
+    {
+      "title": "Modelli costruiti fuori AWS e versioni dei modelli personalizzati",
+      "bullets": [
+        "Custom Model Import: pesi Hugging Face in formato safetensors, caricati su S3",
+        "Architetture supportate: Llama, Mistral, Mixtral, Qwen, GPT-OSS e altre",
+        "Limiti: pesi sotto 100 GB se multimodali, sotto 200 GB se testuali, contesto sotto 128K",
+        "Il modello importato si usa con InvokeModel on-demand, non in batch inference",
+        "Versioni: ogni modello personalizzato è un artefatto versionato in pipeline di deploy"
+      ],
+      "narration": "Un modello costruito fuori AWS si porta in Bedrock con Custom Model Import. Carichi su S3 i pesi nel formato Hugging Face, con file safetensors, il config e i file del tokenizer. L'architettura deve essere tra quelle supportate. Tra le famiglie ci sono Llama, Mistral, Mixtral, Qwen e GPT-OSS. I pesi multimodali devono stare sotto i 100 GB, quelli testuali sotto i 200 GB, e il contesto massimo deve restare sotto i 128K token. Il modello importato si usa con InvokeModel on-demand, ma non con il batch inference. Per i modelli di embedding il servizio non è adatto. La seconda opzione è portare il modello in SageMaker AI, con un container per LLM, quando serve più controllo sull'infrastruttura. La trappola d'esame è questa: se il modello è già nel catalogo di Bedrock, non serve importarlo. Custom Model Import serve per modelli personalizzati o costruiti fuori dal catalogo. Sul fronte delle versioni, un modello fine-tuned va versionato come ogni altro artefatto. Una pipeline di deploy automatico crea la nuova versione, la valida con i test e la promuove in produzione solo se i punteggi non peggiorano. Per i modelli personalizzati di Bedrock, la documentazione del Provisioned Throughput indica che devi acquistarlo per usarli. Ricordalo quando la domanda chiede il costo di inferenza di un modello fine-tuned.",
+      "todo": [
+        "G-3.1.5",
+        "G-3.3.10"
+      ]
+    },
+    {
+      "title": "GPU e SageMaker HyperPod per l'inferenza",
+      "bullets": [
+        "Il carico GPU si legge con metriche di invocazione, latenza e capacità",
+        "HyperPod: operatore di inferenza su Kubernetes per distribuire i modelli",
+        "JumpStartModel per i modelli pubblici, configurazione personalizzata per i tuoi",
+        "KEDA scala su CloudWatch, coda SQS, Prometheus, CPU e memoria",
+        "Con minReplicaCount a zero il deployment scende a zero pod quando è inattivo"
+      ],
+      "narration": "I workload di AI pesano sulle GPU, quindi la prima domanda è se la capacità sia costante o variabile. Su SageMaker HyperPod, la distribuzione dei modelli usa l'operatore di inferenza su Kubernetes. Un modello pubblico si descrive con una risorsa JumpStartModel, mentre un modello fine-tuned o personale usa una configurazione dedicata. Lo scaling è affidato a KEDA, che può reagire a metriche di CloudWatch, alla lunghezza di una coda SQS, a query Prometheus, e a CPU e memoria. Un esempio tipico: come trigger si usa la metrica Invocations del namespace AWS SageMaker. Con minReplicaCount uguale a zero, il deployment scende fino a zero pod quando è inattivo, e riparte con una soglia di attivazione. Attenzione alla trappola: i trigger di CPU e memoria da soli non portano a zero. Serve almeno un altro trigger, per esempio una coda o Prometheus. Per la scelta tra HyperPod e un endpoint gestito, pensa al controllo. HyperPod ti dà un cluster Kubernetes con GPU che governi tu, mentre un endpoint gestito riduce la gestione dell'infrastruttura. Le metriche GPU vanno lette insieme a latenza e invocazioni, per capire se serve più capacità o un modello più piccolo. Nell'esame, se la domanda chiede di scalare a zero un'inferenza su GPU con trigger personalizzati, la risposta è HyperPod con KEDA.",
+      "todo": [
+        "G-3.2.10",
+        "C24"
+      ]
+    },
+    {
+      "title": "Amazon Bedrock AgentCore: componenti, MCP e A2A",
+      "bullets": [
+        "AgentCore: piattaforma per costruire, distribuire e far operare agenti",
+        "Componenti: Runtime, Memory, Gateway, Identity, Code Interpreter, Browser, Observability",
+        "Anche Evaluations, Policy, Registry, Optimization, Payments e Harness",
+        "MCP collega l'agente ai tool, A2A collega un agente a un altro agente",
+        "Bedrock Agents Classic non è più aperto a nuovi clienti"
+      ],
+      "narration": "Amazon Bedrock AgentCore è la piattaforma AWS per costruire, distribuire e far operare gli agenti. Funziona con qualsiasi framework open source e con qualsiasi foundation model, anche fuori da Bedrock. I suoi componenti sono modulari e si usano insieme o separatamente. Runtime esegue l'agente in modo serverless, con isolamento della sessione. Memory gestisce il contesto a breve e a lungo termine. Gateway converte API, funzioni Lambda e server MCP in tool disponibili agli agenti. Identity gestisce autenticazione e credenziali. Code Interpreter e Browser sono ambienti isolati per eseguire codice e navigare il web. Observability offre tracce e metriche in formato OpenTelemetry. Ci sono anche Evaluations, Policy, Registry, Optimization e Payments. Due protocolli contano per l'esame. MCP, cioè Model Context Protocol, collega l'agente ai tool. A2A, agent to agent, collega un agente a un altro agente. La domanda tipica chiede quale componente o protocollo serve a un caso. Il tranello più importante è questo: Amazon Bedrock Agents Classic non è più aperto a nuovi clienti, e la documentazione indica AgentCore come alternativa per funzionalità simili. Per un esame che chiede di costruire un nuovo agente, guarda ad AgentCore. Il servizio Classic resta usabile dai clienti esistenti.",
+      "todo": [
+        "V53",
+        "G-3.1.6"
+      ]
+    },
+    {
+      "title": "AgentCore Memory: memoria a breve e a lungo termine",
+      "bullets": [
+        "Short-term memory: i turni di una singola sessione, per il contesto immediato",
+        "Long-term memory: preferenze, fatti e riassunti che durano tra sessioni diverse",
+        "Una memoria può essere condivisa tra più agenti",
+        "Stato di sessione e stato di business non vanno confusi",
+        "La memoria dà contesto e personalizzazione, non sostituisce un database"
+      ],
+      "narration": "Un agente senza memoria tratta ogni richiesta come nuova. AgentCore Memory risolve questo con due tipi di memoria. La short-term memory registra i turni di una singola sessione. Così l'agente capisce il riferimento in una domanda di follow up, come e domani. La long-term memory estrae e conserva insight che durano oltre la sessione: preferenze dell'utente, fatti importanti e riassunti di sessione. Se un cliente dice che preferisce il posto vicino al finestrino, l'agente lo ricorda nelle prossime prenotazioni. La memoria si può condividere tra più agenti, e questo è utile nei sistemi multi-agente che devono sincronizzare lo stato. Il tema d'esame sulla gestione dello stato è questo: distinguere lo stato della sessione, temporaneo e legato a un identificativo di sessione, dallo stato di lungo periodo, che va salvato in una memoria persistente. Lo stato di business, per esempio un ordine o un saldo, non va tenuto solo nella memoria dell'agente. Va nel sistema di origine. La memoria serve al contesto e alla personalizzazione, non a sostituire un database. Per l'esame, se la domanda chiede di ricordare preferenze tra sessioni diverse, la risposta è la long-term memory. Se chiede di seguire il filo di una conversazione in corso, la risposta è la short-term memory.",
+      "todo": [
+        "G-3.2.9"
+      ]
+    },
+    {
+      "title": "AgentCore Runtime e Gateway: dove gira l'agente e come usa i tool",
+      "bullets": [
+        "Runtime: ambiente serverless con isolamento tra sessioni e avvio rapido",
+        "Runtime funziona con LangGraph, Strands, CrewAI, LlamaIndex, Google ADK, OpenAI Agents SDK",
+        "Gateway: converte API OpenAPI, Lambda e server MCP in tool MCP",
+        "Gateway gestisce autenticazione in ingresso e in uscita",
+        "Runtime e Gateway supportano MCP e A2A"
+      ],
+      "narration": "Per distribuire un agente servono due parti: un ambiente dove gira, e un modo per dargli accesso a tool e dati. AgentCore Runtime è l'ambiente serverless. Offre avvii rapidi per interazioni in tempo reale, supporto a esecuzioni asincrone lunghe e isolamento tra sessioni. Funziona con framework come LangGraph, Strands Agents, CrewAI, LlamaIndex, Google ADK e OpenAI Agents SDK, e con modelli dentro o fuori Bedrock. Il Runtime supporta i protocolli MCP e A2A. AgentCore Gateway è il punto d'ingresso sicuro per il traffico degli agenti. Converte API con specifica OpenAPI, funzioni Lambda e server MCP esistenti in tool compatibili con MCP. Gestisce l'autenticazione in ingresso, cioè chi può chiamare l'agente, e quella in uscita, cioè come il Gateway si autentica verso i servizi a valle. Ha anche una ricerca semantica dei tool, utile quando la lista è molto lunga. Il tranello è confondere i due componenti. Il Runtime esegue l'agente. Il Gateway espone i tool. Per l'esame, se la domanda chiede di trasformare una funzione Lambda in tool MCP senza riscrivere il codice, la risposta è Gateway. Se chiede dove far girare un agente con isolamento per sessione, la risposta è Runtime.",
+      "todo": [
+        "G-3.2.11"
+      ]
+    },
+    {
+      "title": "Versioni, alias e pipeline di deploy degli agenti",
+      "bullets": [
+        "Un agente si distribuisce creando un alias, poi si chiama con InvokeAgent",
+        "Spostare l'alias su una nuova versione cambia l'agente senza toccare il client",
+        "Il supervisore va salvato prima di associare i collaboratori",
+        "Pipeline: codice e configurazione in repository, infrastruttura come codice, test prima dell'alias",
+        "Bedrock Agents Classic prevede action group, knowledge base e guardrail"
+      ],
+      "narration": "Un agente di Bedrock si usa tramite un alias. La documentazione dice che, prima di usarlo, devi distribuirlo creando un alias. L'applicazione chiama l'agente con l'operazione InvokeAgent sull'alias, non sulla bozza. Questo permette di pubblicare una nuova versione senza cambiare il codice client. Sposti l'alias sulla versione nuova, e le chiamate successive usano quella. Per tornare indietro basta riportare l'alias alla versione precedente. Nelle pipeline di deploy automatico, il percorso è questo. Codice e configurazione dell'agente stanno in un repository. L'infrastruttura è definita come codice. I test verificano il comportamento, e solo dopo il test l'alias viene aggiornato. Con la multi-agent collaboration, un agente supervisore riceve la domanda e la smista a collaboratori specializzati. Il supervisore va salvato prima di associare i collaboratori. Ogni agente può avere action group, knowledge base e guardrail. Il tranello d'esame è questo: per una versione stabile per gli utenti, la risposta è un alias. Non è la bozza, né il nome dell'agente. Ricorda che Bedrock Agents Classic non è più aperto ai nuovi clienti. Per i nuovi progetti, valuta AgentCore come riferimento.",
+      "todo": [
+        "G-3.3.8"
+      ]
+    },
+    {
+      "title": "Monitorare i foundation model: logging e CloudWatch",
+      "bullets": [
+        "Model invocation logging: disattivato di default, scrive su S3 o CloudWatch Logs",
+        "Registra le chiamate Converse, ConverseStream, InvokeModel e InvokeModelWithResponseStream su bedrock-runtime",
+        "CloudWatch dashboard Model invocations: invocazioni, token, errori, log",
+        "Metriche di latenza: media, P90 e P99, più errori e throttling",
+        "Valutazione continua: confrontare i punteggi nel tempo dopo ogni cambio"
+      ],
+      "narration": "Monitorare un foundation model significa capire cosa entra, cosa esce e quanto costa. Il primo strumento è il model invocation logging. È disattivato di default. Lo attivi nelle impostazioni di Bedrock e scegli la destinazione: Amazon S3, CloudWatch Logs, o entrambe. Ogni record contiene metadati come il modello, l'operazione, l'identità chiamante e i conteggi di token, oltre al corpo di input e output fino a 100 KB. I corpi più grandi e i dati binari finiscono su S3. Il logging copre le chiamate Converse, ConverseStream, InvokeModel e InvokeModelWithResponseStream sull'endpoint bedrock-runtime. Le chiamate su altri endpoint non risultano registrate. Il secondo strumento è CloudWatch generative AI observability. Ha due dashboard. Model invocations mostra invocazioni, consumo di token, errori e log delle chiamate. Bedrock AgentCore mostra le metriche degli agenti. Le metriche includono la latenza media, P90 e P99, il tasso di errore e il throttling. Il terzo passo è la valutazione continua. Confronti periodicamente i punteggi di qualità, per vedere un peggioramento dopo un cambio di prompt o di modello. Per l'esame, se la richiesta chiede prompt e risposte per un audit, la risposta è il logging di invocazione. Se chiede latenza e throttling in tempo reale, la risposta sono le metriche della dashboard di CloudWatch.",
+      "todo": [
+        "G-4.1.6",
+        "G-4.1.1"
+      ]
+    },
+    {
+      "title": "Monitorare gli agenti: errori, tracce e consumo",
+      "bullets": [
+        "Errori tipici: tool che falliscono, streaming troncato, coordinamento tra agenti",
+        "AgentCore Observability: tracce e span del percorso dell'agente, in OpenTelemetry",
+        "Metriche di sessione: numero di sessioni, latenza, durata, token, errori",
+        "AWS X-Ray: tracing distribuito e mappa dei servizi",
+        "Consumo: monitorare token e chiamate ai tool per sessione"
+      ],
+      "narration": "Gli agenti falliscono in modi diversi dai modelli. Il primo caso è il tool che fallisce: un'API risponde con errore, o scade il timeout. Il secondo è lo streaming troncato: la risposta arriva a metà, e il client non sa che è incompleta. Il terzo è il coordinamento tra agenti: il supervisore smista male, o due agenti lavorano sulla stessa cosa. Per vedere questi errori serve tracciare ogni passo. AgentCore Observability offre tracce e span dell'esecuzione dell'agente, con il percorso, gli output intermedi e i colli di bottiglia. Le metriche includono numero di sessioni, latenza, durata, uso di token e tasso di errore. I dati usano il formato OpenTelemetry, quindi si integrano con altri stack di monitoraggio, e finiscono in CloudWatch. AWS X-Ray è il servizio di tracing distribuito: raccoglie i segmenti delle richieste e costruisce una mappa dei servizi. Serve a trovare quale servizio rallenta. Il consumo di risorse degli agenti va osservato per sessione: quanti token, quante chiamate ai tool, quanto tempo. Un agente che entra in un ciclo di chiamate ai tool consuma molto senza dare una risposta. Per l'esame, se la domanda chiede di seguire il percorso di una richiesta tra servizi, la risposta è il tracing con X-Ray. Se chiede di vedere l'esecuzione di un agente, la risposta è AgentCore Observability.",
+      "todo": [
+        "G-4.1.5",
+        "G-4.2.2",
+        "G-4.2.8"
+      ]
+    },
+    {
+      "title": "Costi dei foundation model: token, batch, caching e routing",
+      "bullets": [
+        "Il costo di inferenza si calcola per token di input e di output",
+        "Batch inference: prezzo più basso per carichi grandi e non urgenti",
+        "Prompt caching: solo on-demand, non in batch, con TTL di 5 minuti o 1 ora",
+        "Intelligent prompt routing: due modelli della stessa famiglia, scelta per costo e qualità",
+        "Provisioned Throughput: conviene con traffico alto, costante e prevedibile"
+      ],
+      "narration": "Il costo di un foundation model in produzione si calcola per token. Ogni richiesta paga i token di input e i token di output. Il primo ottimizzatore è il batch inference. Per carichi grandi e non urgenti il prezzo è più basso, circa la metà dell'on-demand per i modelli della pagina prezzi. Non si usa con il Provisioned Throughput, e nei job Converse non supporta la chiamata di tool. Il secondo è il Provisioned Throughput. Conviene quando il traffico è alto, costante e prevedibile, perché paghi l'ora di capacità anche se non la usi. Il terzo è il prompt caching. Se il prompt inizia con un prefisso lungo e ripetuto, come le istruzioni di sistema o un documento, Bedrock può riusarlo. Le letture dalla cache costano meno dei token normali. Il caching funziona solo on-demand, non in batch. Ha un TTL di 5 minuti, oppure di 1 ora per i modelli Claude che lo supportano. Il quarto è l'intelligent prompt routing. È un endpoint unico che instrada le richieste tra due modelli della stessa famiglia, scegliendo quello più economico con qualità sufficiente. Non è garantito che costi di meno: il risultato dipende dal criterio di differenza di qualità che imposti, e dal modello di riferimento scelto. Per l'esame, se il carico è grande e non urgente, la risposta è batch. Se il prefisso si ripete, è caching. Se due modelli della stessa famiglia vanno bene, è routing.",
+      "todo": [
+        "G-4.2.7",
+        "G-4.2.9"
+      ]
+    },
+    {
+      "title": "Costi degli embedding e dello storage vettoriale",
+      "bullets": [
+        "Embedding: ogni documento va trasformato in vettori, con costo di calcolo",
+        "Storage vettoriale: più vettori e dimensioni significano più spazio e più costo",
+        "Amazon S3 Vectors è un'opzione economica per grandi dataset vettoriali",
+        "Latenza di S3 Vectors in Knowledge Bases: sotto il secondo a freddo, circa 100 millisecondi a caldo",
+        "Limiti: ricerca solo semantica, 1 KB di metadati personalizzati, vettori in virgola mobile"
+      ],
+      "narration": "Un sistema RAG ha costi nascosti oltre al modello generatore. Il primo è il calcolo degli embedding. Ogni documento va trasformato in vettori, e ogni nuova versione del corpus richiede di ricalcolarli. Il secondo è lo storage vettoriale: più vettori e più dimensioni significano più spazio e più costo di ricerca. Chunk più piccoli producono più vettori, quindi più embedding e più storage. Amazon S3 Vectors è una scelta economica per grandi dataset di vettori. Bedrock Knowledge Bases può usarlo come vector store. La documentazione dell'integrazione indica il vantaggio nel costo, con una latenza di interrogazione sotto il secondo al freddo e di circa 100 millisecondi a caldo. Ci sono limiti da conoscere. La ricerca è solo semantica, non ibrida. Ogni vettore ha al massimo 1 KB di metadati personalizzati e 35 chiavi. I vettori devono essere in virgola mobile, non binari. Per l'esame, se la domanda chiede di ridurre il costo di storage di un RAG molto grande, e la latenza è accettabile, la risposta è S3 Vectors. Se servono ricerca ibrida o metadati molto ricchi, valuta un altro vector store. Il costo del RAG è quindi la somma di embedding, storage e interrogazioni, e non solo dei token del modello.",
+      "todo": [
+        "G-4.2.10"
+      ]
+    },
+    {
+      "title": "Sicurezza: credenziali per i FM e guardrail",
+      "bullets": [
+        "Chiave API di breve durata: al massimo 12 ore, legata alla Region, eredita i permessi",
+        "Chiave API di lungo termine: crea un utente IAM, consigliata solo per esplorare",
+        "Guardrails: filtri di contenuto, denied topics, word filter, dati sensibili, grounding, Automated Reasoning",
+        "Contextual grounding: la risposta è fondata sul contesto e pertinente alla domanda",
+        "ApplyGuardrail applica i controlli anche a modelli fuori Bedrock"
+      ],
+      "narration": "L'ultimo blocco riguarda sicurezza e responsabilità. Il primo punto è la credenziale con cui l'applicazione chiama un foundation model. Bedrock offre chiavi API di due tipi. Quella di breve durata vale al massimo 12 ore, o per la durata della sessione che l'ha generata, se è più breve. È legata alla Region in cui è stata creata, ed eredita i permessi del principal che la genera. Quella di lungo termine crea un utente IAM dedicato, ed è consigliata solo per esplorare Bedrock. Per applicazioni con requisiti di sicurezza più stringenti, la documentazione indica di passare a credenziali temporanee. Nell'esame, la risposta giusta per un'applicazione in produzione è la credenziale temporanea, come un ruolo IAM o una chiave di breve durata, non la chiave di lungo termine. Il secondo punto sono i Guardrails. Offrono sei famiglie di controlli. I filtri di contenuto coprono odio, insulti, sessualità, violenza, condotta scorretta e attacchi di prompt. Le denied topics bloccano argomenti vietati, e i word filter bloccano parole o frasi precise. Il filtro di informazioni sensibili blocca o maschera dati come l'SSN, la data di nascita o l'indirizzo, e accetta regex personalizzate. Il contextual grounding verifica che la risposta sia fondata sul contesto e pertinente alla domanda, quindi è il controllo anti allucinazione per i sistemi RAG. Automated Reasoning verifica la risposta contro regole logiche definite da te. ApplyGuardrail applica i controlli a qualsiasi testo, anche prodotto da modelli fuori Bedrock. Per l'esame: se la domanda chiede di verificare che una risposta sia fondata sul contesto, la risposta è contextual grounding. Se chiede di mascherare dati personali, è il sensitive information filter.",
+      "todo": [
+        "G-4.3.8",
+        "G-4.3.9"
+      ]
+    }
+  ],
+  "script": "Benvenuti al capitolo sulla GenAI in produzione. Qui vediamo come valutare, distribuire, controllare e pagare i foundation model e gli agenti. Partiamo dalla valutazione, perché è il punto dove l'esame costruisce più trappole. Con un modello di ML classico il risultato è una classe, un numero o un valore previsto. Si confronta con un'etichetta vera, e le metriche sono quasi automatiche: accuratezza, precisione, recall. Con un foundation model l'output è testo libero. Due risposte diverse possono essere entrambe corrette. Una risposta fluida può anche essere sbagliata, e questo è il problema più subdolo. Per questo la valutazione di un sistema GenAI guarda più dimensioni. L'accuratezza dice se la risposta è corretta. La robustezza dice se il sistema resta affidabile quando la domanda cambia forma. La tossicità misura contenuti offensivi o dannosi. La fedeltà al contesto dice se la risposta resta dentro le informazioni fornite, senza inventare. Serve anche un riferimento. Può essere una risposta attesa, un contesto recuperato da un database di documenti, oppure criteri di qualità scritti in modo esplicito. Se la domanda d'esame chiede come valutare un chatbot senza etichette, la risposta non è l'accuratezza. Servono giudizi di qualità e di fedeltà, spesso fatti con un altro modello o con persone. La regola da ricordare è semplice: nella GenAI la metrica si sceglie in base al compito, non si copia dal ML classico. Le metriche NLP classiche nascono per misurare la qualità di traduzioni e riassunti, quando esiste un testo di riferimento. Per la MLA-C02 bisogna conoscerne quattro. BLEU, cioè bilingual evaluation understudy, è stato proposto nel 2002 per la traduzione automatica. Confronta le sequenze di parole, gli n-grammi, tra la risposta generata e quella di riferimento. Più parole coincidono nell'ordine giusto, più il punteggio sale. ROUGE, cioè recall-oriented understudy for gisting evaluation, è del 2004 e nasce per i riassunti. Qui il punto chiave è il richiamo: quante parole del riferimento compaiono nell'output. Entrambe sono metriche lessicali. Se la risposta dice la stessa cosa con parole diverse, il punteggio crolla anche se il senso è giusto. BERTScore fa un passo avanti. Confronta gli embedding contestuali dei token della risposta e del riferimento, quindi tollera le parafrasi. Secondo gli autori, correla meglio con il giudizio umano rispetto alle metriche lessicali. La similarità semantica confronta direttamente i vettori di due testi, e non conta le parole in comune. Una trappola d'esame è questa. Se la domanda chiede di valutare un riassunto con un riferimento e misurare il richiamo, la risposta è ROUGE. Se chiede di valutare una traduzione, la risposta è BLEU. Se vuole tollerare sinonimi e parafrasi, pensa a BERTScore o alla similarità semantica. In tutti i casi, le metriche automatiche sono un segnale utile, ma non sostituiscono una verifica umana. LLM as a judge significa usare un modello di linguaggio come giudice. Il modello generatore riceve i prompt di un dataset e produce le risposte. Il modello valutatore riceve la coppia prompt e risposta e assegna un punteggio secondo una metrica. In Amazon Bedrock servono due modelli distinti: un generatore e un valutatore. Le metriche integrate, come correttezza, completezza, fedeltà e utilità, usano ciascuna un prompt specifico per il valutatore. Il vantaggio è la scala. Si valutano migliaia di risposte senza che una persona le legga tutte. Il secondo vantaggio è la spiegazione. La console mostra il motivo del punteggio per le prime cinque coppie del dataset, e questo aiuta a capire un voto basso. Il limite è reale. Il giudice ha dei bias: può preferire risposte lunghe o lo stile del proprio modello, e può sbagliare. Per questo si fanno controlli a campione con persone, e si confronta il giudizio del valutatore con quello umano. Nelle domande d'esame, LLM as a judge è la risposta giusta quando si chiede una valutazione scalabile della qualità di testo generato, senza etichette umane per ogni risposta. Lo stesso schema serve per la bias detection e per il controllo della qualità dei contenuti, purché il valutatore riceva criteri espliciti. Ricordate: il giudice è uno strumento automatico. Va tarato, e i suoi punteggi vanno verificati. Amazon Bedrock Model Evaluation è il servizio che esegue i job di valutazione. Un job si configura in tre modi: automatico, con un modello giudice, oppure con persone. Il job ha un generatore, cioè il modello da valutare, e un eventuale valutatore. Il generatore può essere un modello di Bedrock, un modello personalizzato o importato, oppure un prompt router. Se hai già le risposte, puoi caricarle nel dataset: Bedrock salta la fase di invocazione e valuta direttamente i dati. Questo è utile per i modelli esterni ad AWS. Il valutatore deve essere uno dei modelli giudice supportati, e devi avere l'accesso a quel modello. Le metriche integrate per il giudice includono correttezza, completezza, fedeltà al contesto, utilità, coerenza logica, rilevanza, aderenza alle istruzioni, stile professionale, dannosità, stereotipi e rifiuti. Sono tutte scritte come prompt per il valutatore, e puoi definirne di tue. La valutazione umana usa un team di lavoro scelto da te, per esempio dipendenti o esperti del settore. Il team si gestisce in Amazon Cognito o in SageMaker Ground Truth. Il report completo finisce nel bucket S3 che specifichi. Attenzione alle domande d'esame. La valutazione con giudice richiede due modelli, un generatore e un valutatore. Per scegliere il tipo di job guarda due cose: quanto serve il giudizio umano, e quanto è grande il dataset. La valutazione umana resta il riferimento quando la qualità è soggettiva. Pensa al tono di una risposta, alla sua utilità per il cliente o alla sicurezza di un consiglio. In questi casi nessuna metrica automatica basta. Con Amazon Bedrock puoi creare un job di valutazione con persone scegliendo un team di lavoro. È un gruppo che scegli tu, e può contenere al massimo 50 valutatori per team. La notifica arriva solo quando aggiungi una persona al team. Per i job successivi devi avvisare tu i valutatori e dare loro l'indirizzo del portale. Le istruzioni sono parte della metrica. Descrivi ogni metodo di valutazione, spiega la scala dei voti e, se ci sono risposte di riferimento, dillo chiaramente. Il ciclo human in the loop nasce quando la persona non valuta solo alla fine del progetto, ma entra nel processo. Rivede campioni periodici, corregge le risposte, e i suoi giudizi tornano nel dataset per migliorare le valutazioni future. Il servizio Amazon A2I, Augmented AI, serve proprio a costruire flussi di revisione umana per le predizioni di machine learning. Attenzione però: dal 30 luglio 2026 A2I, Ground Truth e Clarify non sono più aperti ai nuovi clienti. Chi li usava prima continua a usarli. Per valutare i foundation model, AWS indica oggi Amazon Bedrock Evaluations, con valutazione automatica, umana e LLM as a judge. In alternativa c'è la libreria open source fmeval. Nelle domande d'esame, se la richiesta insiste su giudizio umano, esperti di dominio o revisione periodica, la risposta è la valutazione umana. Non è LLM as a judge, che è automatico. La valutazione di un sistema RAG va separata in due parti, perché il problema può stare nel recupero oppure nella generazione. Se valuti solo il retrieval, Bedrock misura le metriche di recupero. Context relevance dice quanto i chunk recuperati sono pertinenti alla domanda. Context coverage dice quanto i chunk coprono le informazioni del testo di riferimento, e per questo richiede un ground truth. Se valuti anche la generazione, entrano correctness, completeness, faithfulness e le metriche di citazione. Faithfulness misura quanto la risposta evita di inventare rispetto ai chunk recuperati. È il controllo principale contro le allucinazioni. Ogni metrica è una media normalizzata tra 0 e 1 su tutte le domande del dataset, e un valore vicino a 1 indica che quella caratteristica è molto presente. Il monitoraggio dell'accuratezza del retrieval risponde a una domanda pratica: quando il modello sbaglia, ha ricevuto i documenti giusti? Se context relevance è bassa, il problema sta nella ricerca, nel chunking o negli embedding, e cambiare modello generatore non basta. Se context relevance è alta ma faithfulness è bassa, il generatore sta inventando. È una distinzione tipica dei quesiti d'esame. Il RAG evaluation funziona sia con una Knowledge Base di Bedrock sia con un sistema RAG personalizzato. Prompt management in Amazon Bedrock serve a creare, salvare e riusare i prompt come oggetti versionati. Così non restano sparsi nel codice. Un prompt può contenere variabili, cioè segnaposto valorizzati al test o al momento della chiamata. Una variante è una configurazione alternativa del prompt. Può cambiare il messaggio, il modello o i parametri di inferenza. Puoi confrontare le varianti nella stessa schermata e tenere quella che produce output migliori. Quando un prompt è pronto, salvi una versione. L'applicazione richiama quella versione, quindi cambiare il testo non richiede un nuovo rilascio del codice. Per il test dei prompt conta la riproducibilità. Ogni esperimento deve usare lo stesso dataset, la stessa versione del prompt e gli stessi parametri, altrimenti i confronti non valgono. Per tracciare gli esperimenti, confrontare i run e registrare i modelli, su AWS si usa MLflow gestito su SageMaker AI. MLflow registra parametri e metriche, e li confronta nella sua interfaccia. Il prompt management si integra con Amazon Bedrock Flows, dove un nodo prompt può usare una versione salvata. Nell'esame, se la domanda chiede di cambiare il prompt senza rilasciare il codice, la risposta è il prompt management con le versioni. Se chiede esperimenti riproducibili e confrontabili, pensa a MLflow e a dataset fissi. Scegliere come distribuire un foundation model significa bilanciare costo, latenza e prevedibilità. Il primo modo è on-demand. Paghi per token di input e di output, senza impegno e senza capacità riservata. È la scelta giusta per traffico variabile o per prototipi. Il secondo modo è il batch inference. Invii un file di richieste su S3, Bedrock elabora il job in modo asincrono e scrive i risultati su S3. La pagina prezzi indica un prezzo inferiore del 50 per cento rispetto all'on-demand per i modelli elencati. Il batch non è per il tempo reale, e non si usa con i modelli su Provisioned Throughput. Il terzo modo è il Provisioned Throughput. Prenoti capacità in model unit, che garantiscono un certo numero di token al minuto. Puoi acquistarlo senza impegno, con impegno di un mese o di sei mesi. Più lungo è l'impegno, più scende il costo orario. Non puoi eliminarlo prima della fine del periodo di impegno, e la fatturazione continua finché non lo cancelli. I modelli personalizzati richiedono il Provisioned Throughput per essere usati. Per il multi-Regione, il cross-region inference usa profili che instradano le richieste tra Regioni della stessa area geografica. Infine, per i modelli pubblici puoi creare un endpoint SageMaker JumpStart. Qui gestisci tu l'istanza, lo scaling e i costi di quell'endpoint. Nell'esame, la parola chiave è il traffico: variabile si legge on-demand, grande e non urgente si legge batch, alto e costante si legge Provisioned Throughput. Un modello costruito fuori AWS si porta in Bedrock con Custom Model Import. Carichi su S3 i pesi nel formato Hugging Face, con file safetensors, il config e i file del tokenizer. L'architettura deve essere tra quelle supportate. Tra le famiglie ci sono Llama, Mistral, Mixtral, Qwen e GPT-OSS. I pesi multimodali devono stare sotto i 100 GB, quelli testuali sotto i 200 GB, e il contesto massimo deve restare sotto i 128K token. Il modello importato si usa con InvokeModel on-demand, ma non con il batch inference. Per i modelli di embedding il servizio non è adatto. La seconda opzione è portare il modello in SageMaker AI, con un container per LLM, quando serve più controllo sull'infrastruttura. La trappola d'esame è questa: se il modello è già nel catalogo di Bedrock, non serve importarlo. Custom Model Import serve per modelli personalizzati o costruiti fuori dal catalogo. Sul fronte delle versioni, un modello fine-tuned va versionato come ogni altro artefatto. Una pipeline di deploy automatico crea la nuova versione, la valida con i test e la promuove in produzione solo se i punteggi non peggiorano. Per i modelli personalizzati di Bedrock, la documentazione del Provisioned Throughput indica che devi acquistarlo per usarli. Ricordalo quando la domanda chiede il costo di inferenza di un modello fine-tuned. I workload di AI pesano sulle GPU, quindi la prima domanda è se la capacità sia costante o variabile. Su SageMaker HyperPod, la distribuzione dei modelli usa l'operatore di inferenza su Kubernetes. Un modello pubblico si descrive con una risorsa JumpStartModel, mentre un modello fine-tuned o personale usa una configurazione dedicata. Lo scaling è affidato a KEDA, che può reagire a metriche di CloudWatch, alla lunghezza di una coda SQS, a query Prometheus, e a CPU e memoria. Un esempio tipico: come trigger si usa la metrica Invocations del namespace AWS SageMaker. Con minReplicaCount uguale a zero, il deployment scende fino a zero pod quando è inattivo, e riparte con una soglia di attivazione. Attenzione alla trappola: i trigger di CPU e memoria da soli non portano a zero. Serve almeno un altro trigger, per esempio una coda o Prometheus. Per la scelta tra HyperPod e un endpoint gestito, pensa al controllo. HyperPod ti dà un cluster Kubernetes con GPU che governi tu, mentre un endpoint gestito riduce la gestione dell'infrastruttura. Le metriche GPU vanno lette insieme a latenza e invocazioni, per capire se serve più capacità o un modello più piccolo. Nell'esame, se la domanda chiede di scalare a zero un'inferenza su GPU con trigger personalizzati, la risposta è HyperPod con KEDA. Amazon Bedrock AgentCore è la piattaforma AWS per costruire, distribuire e far operare gli agenti. Funziona con qualsiasi framework open source e con qualsiasi foundation model, anche fuori da Bedrock. I suoi componenti sono modulari e si usano insieme o separatamente. Runtime esegue l'agente in modo serverless, con isolamento della sessione. Memory gestisce il contesto a breve e a lungo termine. Gateway converte API, funzioni Lambda e server MCP in tool disponibili agli agenti. Identity gestisce autenticazione e credenziali. Code Interpreter e Browser sono ambienti isolati per eseguire codice e navigare il web. Observability offre tracce e metriche in formato OpenTelemetry. Ci sono anche Evaluations, Policy, Registry, Optimization e Payments. Due protocolli contano per l'esame. MCP, cioè Model Context Protocol, collega l'agente ai tool. A2A, agent to agent, collega un agente a un altro agente. La domanda tipica chiede quale componente o protocollo serve a un caso. Il tranello più importante è questo: Amazon Bedrock Agents Classic non è più aperto a nuovi clienti, e la documentazione indica AgentCore come alternativa per funzionalità simili. Per un esame che chiede di costruire un nuovo agente, guarda ad AgentCore. Il servizio Classic resta usabile dai clienti esistenti. Un agente senza memoria tratta ogni richiesta come nuova. AgentCore Memory risolve questo con due tipi di memoria. La short-term memory registra i turni di una singola sessione. Così l'agente capisce il riferimento in una domanda di follow up, come e domani. La long-term memory estrae e conserva insight che durano oltre la sessione: preferenze dell'utente, fatti importanti e riassunti di sessione. Se un cliente dice che preferisce il posto vicino al finestrino, l'agente lo ricorda nelle prossime prenotazioni. La memoria si può condividere tra più agenti, e questo è utile nei sistemi multi-agente che devono sincronizzare lo stato. Il tema d'esame sulla gestione dello stato è questo: distinguere lo stato della sessione, temporaneo e legato a un identificativo di sessione, dallo stato di lungo periodo, che va salvato in una memoria persistente. Lo stato di business, per esempio un ordine o un saldo, non va tenuto solo nella memoria dell'agente. Va nel sistema di origine. La memoria serve al contesto e alla personalizzazione, non a sostituire un database. Per l'esame, se la domanda chiede di ricordare preferenze tra sessioni diverse, la risposta è la long-term memory. Se chiede di seguire il filo di una conversazione in corso, la risposta è la short-term memory. Per distribuire un agente servono due parti: un ambiente dove gira, e un modo per dargli accesso a tool e dati. AgentCore Runtime è l'ambiente serverless. Offre avvii rapidi per interazioni in tempo reale, supporto a esecuzioni asincrone lunghe e isolamento tra sessioni. Funziona con framework come LangGraph, Strands Agents, CrewAI, LlamaIndex, Google ADK e OpenAI Agents SDK, e con modelli dentro o fuori Bedrock. Il Runtime supporta i protocolli MCP e A2A. AgentCore Gateway è il punto d'ingresso sicuro per il traffico degli agenti. Converte API con specifica OpenAPI, funzioni Lambda e server MCP esistenti in tool compatibili con MCP. Gestisce l'autenticazione in ingresso, cioè chi può chiamare l'agente, e quella in uscita, cioè come il Gateway si autentica verso i servizi a valle. Ha anche una ricerca semantica dei tool, utile quando la lista è molto lunga. Il tranello è confondere i due componenti. Il Runtime esegue l'agente. Il Gateway espone i tool. Per l'esame, se la domanda chiede di trasformare una funzione Lambda in tool MCP senza riscrivere il codice, la risposta è Gateway. Se chiede dove far girare un agente con isolamento per sessione, la risposta è Runtime. Un agente di Bedrock si usa tramite un alias. La documentazione dice che, prima di usarlo, devi distribuirlo creando un alias. L'applicazione chiama l'agente con l'operazione InvokeAgent sull'alias, non sulla bozza. Questo permette di pubblicare una nuova versione senza cambiare il codice client. Sposti l'alias sulla versione nuova, e le chiamate successive usano quella. Per tornare indietro basta riportare l'alias alla versione precedente. Nelle pipeline di deploy automatico, il percorso è questo. Codice e configurazione dell'agente stanno in un repository. L'infrastruttura è definita come codice. I test verificano il comportamento, e solo dopo il test l'alias viene aggiornato. Con la multi-agent collaboration, un agente supervisore riceve la domanda e la smista a collaboratori specializzati. Il supervisore va salvato prima di associare i collaboratori. Ogni agente può avere action group, knowledge base e guardrail. Il tranello d'esame è questo: per una versione stabile per gli utenti, la risposta è un alias. Non è la bozza, né il nome dell'agente. Ricorda che Bedrock Agents Classic non è più aperto ai nuovi clienti. Per i nuovi progetti, valuta AgentCore come riferimento. Monitorare un foundation model significa capire cosa entra, cosa esce e quanto costa. Il primo strumento è il model invocation logging. È disattivato di default. Lo attivi nelle impostazioni di Bedrock e scegli la destinazione: Amazon S3, CloudWatch Logs, o entrambe. Ogni record contiene metadati come il modello, l'operazione, l'identità chiamante e i conteggi di token, oltre al corpo di input e output fino a 100 KB. I corpi più grandi e i dati binari finiscono su S3. Il logging copre le chiamate Converse, ConverseStream, InvokeModel e InvokeModelWithResponseStream sull'endpoint bedrock-runtime. Le chiamate su altri endpoint non risultano registrate. Il secondo strumento è CloudWatch generative AI observability. Ha due dashboard. Model invocations mostra invocazioni, consumo di token, errori e log delle chiamate. Bedrock AgentCore mostra le metriche degli agenti. Le metriche includono la latenza media, P90 e P99, il tasso di errore e il throttling. Il terzo passo è la valutazione continua. Confronti periodicamente i punteggi di qualità, per vedere un peggioramento dopo un cambio di prompt o di modello. Per l'esame, se la richiesta chiede prompt e risposte per un audit, la risposta è il logging di invocazione. Se chiede latenza e throttling in tempo reale, la risposta sono le metriche della dashboard di CloudWatch. Gli agenti falliscono in modi diversi dai modelli. Il primo caso è il tool che fallisce: un'API risponde con errore, o scade il timeout. Il secondo è lo streaming troncato: la risposta arriva a metà, e il client non sa che è incompleta. Il terzo è il coordinamento tra agenti: il supervisore smista male, o due agenti lavorano sulla stessa cosa. Per vedere questi errori serve tracciare ogni passo. AgentCore Observability offre tracce e span dell'esecuzione dell'agente, con il percorso, gli output intermedi e i colli di bottiglia. Le metriche includono numero di sessioni, latenza, durata, uso di token e tasso di errore. I dati usano il formato OpenTelemetry, quindi si integrano con altri stack di monitoraggio, e finiscono in CloudWatch. AWS X-Ray è il servizio di tracing distribuito: raccoglie i segmenti delle richieste e costruisce una mappa dei servizi. Serve a trovare quale servizio rallenta. Il consumo di risorse degli agenti va osservato per sessione: quanti token, quante chiamate ai tool, quanto tempo. Un agente che entra in un ciclo di chiamate ai tool consuma molto senza dare una risposta. Per l'esame, se la domanda chiede di seguire il percorso di una richiesta tra servizi, la risposta è il tracing con X-Ray. Se chiede di vedere l'esecuzione di un agente, la risposta è AgentCore Observability. Il costo di un foundation model in produzione si calcola per token. Ogni richiesta paga i token di input e i token di output. Il primo ottimizzatore è il batch inference. Per carichi grandi e non urgenti il prezzo è più basso, circa la metà dell'on-demand per i modelli della pagina prezzi. Non si usa con il Provisioned Throughput, e nei job Converse non supporta la chiamata di tool. Il secondo è il Provisioned Throughput. Conviene quando il traffico è alto, costante e prevedibile, perché paghi l'ora di capacità anche se non la usi. Il terzo è il prompt caching. Se il prompt inizia con un prefisso lungo e ripetuto, come le istruzioni di sistema o un documento, Bedrock può riusarlo. Le letture dalla cache costano meno dei token normali. Il caching funziona solo on-demand, non in batch. Ha un TTL di 5 minuti, oppure di 1 ora per i modelli Claude che lo supportano. Il quarto è l'intelligent prompt routing. È un endpoint unico che instrada le richieste tra due modelli della stessa famiglia, scegliendo quello più economico con qualità sufficiente. Non è garantito che costi di meno: il risultato dipende dal criterio di differenza di qualità che imposti, e dal modello di riferimento scelto. Per l'esame, se il carico è grande e non urgente, la risposta è batch. Se il prefisso si ripete, è caching. Se due modelli della stessa famiglia vanno bene, è routing. Un sistema RAG ha costi nascosti oltre al modello generatore. Il primo è il calcolo degli embedding. Ogni documento va trasformato in vettori, e ogni nuova versione del corpus richiede di ricalcolarli. Il secondo è lo storage vettoriale: più vettori e più dimensioni significano più spazio e più costo di ricerca. Chunk più piccoli producono più vettori, quindi più embedding e più storage. Amazon S3 Vectors è una scelta economica per grandi dataset di vettori. Bedrock Knowledge Bases può usarlo come vector store. La documentazione dell'integrazione indica il vantaggio nel costo, con una latenza di interrogazione sotto il secondo al freddo e di circa 100 millisecondi a caldo. Ci sono limiti da conoscere. La ricerca è solo semantica, non ibrida. Ogni vettore ha al massimo 1 KB di metadati personalizzati e 35 chiavi. I vettori devono essere in virgola mobile, non binari. Per l'esame, se la domanda chiede di ridurre il costo di storage di un RAG molto grande, e la latenza è accettabile, la risposta è S3 Vectors. Se servono ricerca ibrida o metadati molto ricchi, valuta un altro vector store. Il costo del RAG è quindi la somma di embedding, storage e interrogazioni, e non solo dei token del modello. L'ultimo blocco riguarda sicurezza e responsabilità. Il primo punto è la credenziale con cui l'applicazione chiama un foundation model. Bedrock offre chiavi API di due tipi. Quella di breve durata vale al massimo 12 ore, o per la durata della sessione che l'ha generata, se è più breve. È legata alla Region in cui è stata creata, ed eredita i permessi del principal che la genera. Quella di lungo termine crea un utente IAM dedicato, ed è consigliata solo per esplorare Bedrock. Per applicazioni con requisiti di sicurezza più stringenti, la documentazione indica di passare a credenziali temporanee. Nell'esame, la risposta giusta per un'applicazione in produzione è la credenziale temporanea, come un ruolo IAM o una chiave di breve durata, non la chiave di lungo termine. Il secondo punto sono i Guardrails. Offrono sei famiglie di controlli. I filtri di contenuto coprono odio, insulti, sessualità, violenza, condotta scorretta e attacchi di prompt. Le denied topics bloccano argomenti vietati, e i word filter bloccano parole o frasi precise. Il filtro di informazioni sensibili blocca o maschera dati come l'SSN, la data di nascita o l'indirizzo, e accetta regex personalizzate. Il contextual grounding verifica che la risposta sia fondata sul contesto e pertinente alla domanda, quindi è il controllo anti allucinazione per i sistemi RAG. Automated Reasoning verifica la risposta contro regole logiche definite da te. ApplyGuardrail applica i controlli a qualsiasi testo, anche prodotto da modelli fuori Bedrock. Per l'esame: se la domanda chiede di verificare che una risposta sia fondata sul contesto, la risposta è contextual grounding. Se chiede di mascherare dati personali, è il sensitive information filter.",
+  "quiz": [
+    {
+      "q": "Un RAG deve verificare che ogni affermazione della risposta sia presente nei chunk recuperati. Quale metrica usi?",
+      "options": [
+        "Context coverage",
+        "Faithfulness",
+        "BLEU",
+        "Throughput"
+      ],
+      "answer": 1,
+      "explain": "Faithfulness misura quanto la risposta evita informazioni non presenti nel contesto recuperato. Context coverage riguarda il retrieval, non la risposta."
+    },
+    {
+      "q": "Vuoi misurare quante parole di un riassunto di riferimento compaiono nell'output. Quale metrica privilegia il richiamo?",
+      "options": [
+        "BERTScore",
+        "BLEU",
+        "ROUGE",
+        "Accuratezza di classificazione"
+      ],
+      "answer": 2,
+      "explain": "ROUGE è orientata al richiamo e nasce per i riassunti. BLEU nasce per la traduzione, BERTScore usa embedding contestuali."
+    },
+    {
+      "q": "Un modello di Bedrock assegna punteggi alle risposte di un altro modello in modo scalabile. Quale architettura descrive questo caso?",
+      "options": [
+        "LLM-as-a-judge",
+        "Batch inference",
+        "Custom Model Import",
+        "Guardrails con denied topics"
+      ],
+      "answer": 0,
+      "explain": "Nel caso LLM-as-a-judge un modello valutatore assegna punteggi con prompt specifici per metrica. Gli altri termini riguardano inferenza, importazione e sicurezza."
+    },
+    {
+      "q": "Un'applicazione ha traffico imprevedibile e non vuole impegni. Quale modalità di deploy scegli?",
+      "options": [
+        "On-demand",
+        "Provisioned Throughput con impegno di sei mesi",
+        "Un endpoint HyperPod sempre attivo",
+        "Batch inference notturno"
+      ],
+      "answer": 0,
+      "explain": "On-demand paga per token senza impegno e senza capacità riservata. Il batch non serve al tempo reale e il Provisioned Throughput richiede capacità prenotata."
+    },
+    {
+      "q": "Un job batch inference deve usare un modello acquistato con Provisioned Throughput. Che cosa devi sapere?",
+      "options": [
+        "Il batch supporta sempre il prompt caching",
+        "Il batch non è supportato per i modelli con Provisioned Throughput",
+        "Il batch richiede un endpoint SageMaker",
+        "Il batch costa sempre più dell'on-demand"
+      ],
+      "answer": 1,
+      "explain": "La documentazione indica che la batch inference non è supportata per i modelli con Provisioned Throughput. Il prompt caching, invece, non funziona in batch."
+    },
+    {
+      "q": "Hai un modello open source addestrato fuori AWS, in formato safetensors, da usare con InvokeModel in Bedrock. Quale servizio serve?",
+      "options": [
+        "AgentCore Gateway",
+        "Prompt management",
+        "Custom Model Import",
+        "CloudWatch Logs Insights"
+      ],
+      "answer": 2,
+      "explain": "Custom Model Import importa un modello costruito fuori AWS, con pesi in formato Hugging Face, e lo rende disponibile in Bedrock."
+    },
+    {
+      "q": "Quale componente di AgentCore converte una funzione Lambda in un tool MCP senza riscriverne il codice?",
+      "options": [
+        "AgentCore Memory",
+        "AgentCore Identity",
+        "AgentCore Gateway",
+        "AgentCore Browser"
+      ],
+      "answer": 2,
+      "explain": "Gateway converte API, funzioni Lambda e server MCP in tool compatibili con MCP. Memory gestisce il contesto, Identity l'autenticazione, Browser la navigazione web."
+    },
+    {
+      "q": "Vuoi che gli utenti usino sempre la versione stabile di un agente, mentre il team prova una versione nuova. Quale meccanismo usi?",
+      "options": [
+        "Un alias che punta alla versione stabile",
+        "Eliminare la bozza dell'agente",
+        "Abilitare il logging di invocazione",
+        "Cambiare la Region dell'applicazione"
+      ],
+      "answer": 0,
+      "explain": "L'applicazione chiama l'agente tramite un alias, che puoi spostare su una nuova versione o riportare indietro."
+    },
+    {
+      "q": "Un audit richiede il testo di tutte le richieste e risposte inviate a Bedrock. Che cosa devi attivare?",
+      "options": [
+        "Model invocation logging con destinazione S3 o CloudWatch Logs",
+        "Solo i dashboard automatici di CloudWatch",
+        "Un trigger KEDA sul numero di pod",
+        "Una chiave API di lungo termine"
+      ],
+      "answer": 0,
+      "explain": "Il model invocation logging è disattivato di default. Quando lo attivi, registra input e output verso S3 o CloudWatch Logs."
+    },
+    {
+      "q": "Per un'applicazione in produzione, quale credenziale è consigliata per chiamare i foundation model?",
+      "options": [
+        "Chiave API di lungo termine con scadenza mai",
+        "Chiave API di breve durata o credenziali IAM temporanee",
+        "Chiave API di lungo termine copiata in un file di configurazione condiviso con il team",
+        "Credenziali root dell'account"
+      ],
+      "answer": 1,
+      "explain": "La documentazione consiglia le chiavi di lungo termine solo per esplorare Bedrock. Per la produzione si usano chiavi di breve durata o credenziali temporanee."
+    },
+    {
+      "q": "Vuoi verificare che la risposta di un RAG sia fondata sul contesto fornito e pertinente alla domanda. Quale controllo usi?",
+      "options": [
+        "Word filter",
+        "Sensitive information filter",
+        "Content filter sulla categoria Hate",
+        "Contextual grounding check"
+      ],
+      "answer": 3,
+      "explain": "Il contextual grounding check rileva risposte non fondate sul contesto o non pertinenti, ed è il controllo anti allucinazione per il RAG."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Prompt caching for faster model inference - Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html"
+    },
+    {
+      "title": "Understanding intelligent prompt routing in Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-routing.html"
+    },
+    {
+      "title": "Review metrics for RAG evaluations that use LLMs (console) - Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-eval-llm-results.html"
+    },
+    {
+      "title": "How Amazon Bedrock API keys work - Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/api-keys-how.html"
+    },
+    {
+      "title": "Detect and filter harmful content by using Amazon Bedrock Guardrails",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html"
+    },
+    {
+      "title": "Amazon Bedrock AgentCore - Overview",
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-bedrock-agentcore.html"
+    },
+    {
+      "title": "Purchase a Provisioned Throughput for an Amazon Bedrock model",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/prov-thru-purchase.html"
+    },
+    {
+      "title": "Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html"
+    },
+    {
+      "title": "Evaluate model performance using another LLM as a judge - Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/evaluation-judge.html"
+    },
+    {
+      "title": "Use metrics to understand model performance - Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-evaluation-metrics.html"
+    },
+    {
+      "title": "Manage a work team for human evaluations of models in Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/human-worker-evaluations.html"
+    },
+    {
+      "title": "Process multiple prompts with batch inference - Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/batch-inference.html"
+    },
+    {
+      "title": "Use Custom model import to import a customized open-source model into Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html"
+    },
+    {
+      "title": "Deploy and use an Amazon Bedrock agent in your application",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-deploy.html"
+    },
+    {
+      "title": "Use multi-agent collaboration with Amazon Bedrock Agents",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-multi-agent-collaboration.html"
+    },
+    {
+      "title": "Construct and store reusable prompts with Prompt management in Amazon Bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-management.html"
+    },
+    {
+      "title": "Monitor model invocation using CloudWatch Logs and Amazon S3",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html"
+    },
+    {
+      "title": "Add memory to your Amazon Bedrock AgentCore agent",
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.md"
+    },
+    {
+      "title": "Amazon Bedrock AgentCore Gateway",
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/gateway.md"
+    },
+    {
+      "title": "Observe your agent applications on Amazon Bedrock AgentCore Observability",
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/observability.md"
+    },
+    {
+      "title": "Amazon Bedrock Pricing",
+      "url": "https://aws.amazon.com/bedrock/pricing/"
+    },
+    {
+      "title": "Generative AI observability - Amazon CloudWatch",
+      "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/GenAI-observability.html"
+    },
+    {
+      "title": "Autoscaling policies for your HyperPod inference model deployment - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment-autoscaling.html"
+    },
+    {
+      "title": "Using S3 Vectors with Amazon Bedrock Knowledge Bases",
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-bedrock-kb.html"
+    },
+    {
+      "title": "Accelerate generative AI development using managed MLflow on Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/mlflow.html"
+    },
+    {
+      "title": "Clarify availability change - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-availability-change.html"
+    },
+    {
+      "title": "What is AWS X-Ray?",
+      "url": "https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html"
+    },
+    {
+      "title": "BLEU: a Method for Automatic Evaluation of Machine Translation (Papineni et al., 2002)",
+      "url": "https://aclanthology.org/P02-1040/"
+    },
+    {
+      "title": "ROUGE: A Package for Automatic Evaluation of Summaries (Lin, 2004)",
+      "url": "https://aclanthology.org/W04-1013/"
+    },
+    {
+      "title": "BERTScore: Evaluating Text Generation with BERT (Zhang et al.)",
+      "url": "https://arxiv.org/abs/1904.09675"
+    }
+  ],
+  "todo": [
+    "G-2.3.7",
+    "G-2.3.8",
+    "G-2.3.9",
+    "G-2.3.10",
+    "G-3.1.4",
+    "G-3.1.5",
+    "G-3.1.6",
+    "G-3.1.7",
+    "G-3.2.9",
+    "G-3.2.10",
+    "G-3.2.11",
+    "G-3.3.7",
+    "G-3.3.8",
+    "G-3.3.9",
+    "G-3.3.10",
+    "G-4.1.5",
+    "G-4.1.6",
+    "G-4.2.7",
+    "G-4.2.8",
+    "G-4.2.9",
+    "G-4.2.10",
+    "G-4.3.8",
+    "G-4.3.9",
+    "G-2.3.1",
+    "G-2.3.6",
+    "G-4.1.1",
+    "G-4.2.2",
+    "V53",
+    "C24",
+    "N01"
+  ]
+}
