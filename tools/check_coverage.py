@@ -11,9 +11,10 @@ Per ogni voce che ha `regex` (espressioni cercate senza distinzione di maiuscole
     capitolo di almeno uno dei `targets` che sono capitoli.
   - BANCO: conta le domande di content/questions/*.json in cui una regex compare in
     domanda, opzioni o spiegazione, oppure in cui l'id della voce e' nel campo `todo`.
-La voce e' COPERTA se e' presente in teoria e allenata in almeno 2 domande. Le voci
-senza capitoli tra i `targets` non hanno una verifica di teoria: per loro conta solo
-il banco.
+La voce e' COPERTA se soddisfa i requisiti del campo `needs` di todo.json: "teoria"
+richiede il riscontro nei capitoli target, "banco" richiede almeno 2 domande. Senza
+`needs` valgono entrambi. Una voce con teoria richiesta e senza capitoli tra i `targets`
+risulta "senza teoria".
 
 Il codice di uscita e' 1 se una voce di teoria (gruppi K, G, V, C) non e' coperta,
 compresa una voce senza `regex` (non verificabile, quindi non dimostrata coperta).
@@ -109,18 +110,26 @@ def check_item(item, theory, questions):
     # I target che sono capitoli hanno l'id "chN-..."; gli altri (engine, fix, banco...) sono agenti.
     chapter_targets = [t for t in item.get('targets') or [] if t.startswith('ch')]
     theory_required = item['id'][0] in THEORY_PREFIXES
+    # Cosa serve per dichiarare la voce coperta, dal campo `needs` di todo.json.
+    # Senza `needs` vale il default storico: teoria e banco.
+    needs = item.get('needs') or ['teoria', 'banco']
+    need_theory = 'teoria' in needs
+    need_bank = 'banco' in needs
 
     result = {
         'id': item['id'],
         'group': item.get('group', ''),
         'title': item.get('title', ''),
         'theory_required': theory_required,
+        'needs': needs,
         'has_regex': bool(item.get('regex')),
         'chapter_targets': chapter_targets,
         'theory_hits': {},          # capitolo -> occorrenze
         'missing_chapters': [],     # target capitolo senza file in content/chapters
         'questions_hit': 0,
         'covered': False,
+        'senza_teoria': False,        # serve la teoria e nei capitoli target non c'e' riscontro
+        'banco_insufficiente': False, # serve il banco e le domande sono meno di MIN_QUESTIONS
         'note': '',
     }
 
@@ -148,35 +157,40 @@ def check_item(item, theory, questions):
 
     theory_ok = bool(result['theory_hits'])
     bank_ok = hit >= MIN_QUESTIONS
-    if chapter_targets:
-        result['covered'] = theory_ok and bank_ok
-    else:
-        # Senza capitoli target non c'e' una teoria da cercare: vale solo il banco,
-        # ma una voce di teoria senza capitolo non puo' essere dimostrata coperta.
-        result['covered'] = bank_ok and not theory_required
+    result['senza_teoria'] = need_theory and not theory_ok
+    result['banco_insufficiente'] = need_bank and not bank_ok
+    # Coperta se ogni requisito in `needs` è soddisfatto. Una voce con teoria richiesta
+    # e nessun capitolo target non può risultare coperta.
+    result['covered'] = not result['senza_teoria'] and not result['banco_insufficiente']
 
     notes = []
-    if chapter_targets and not theory_ok:
+    if result['senza_teoria']:
         if result['missing_chapters']:
             notes.append('capitolo mancante: ' + ', '.join(result['missing_chapters']))
         else:
-            notes.append('non spiegata nei capitoli target')
-    if hit < MIN_QUESTIONS:
+            notes.append('senza teoria: nessun riscontro nei capitoli target')
+    if result['banco_insufficiente']:
         notes.append(f'banco: {hit} domande su {MIN_QUESTIONS} richieste')
     result['note'] = '; '.join(notes)
     return result
 
 
 def summarize(results):
-    """Riepilogo per gruppo: voci totali, coperte, mancanti."""
+    """Riepilogo per gruppo. Una voce non coperta può contare sia in `senza_teoria`
+    sia in `banco_insufficiente` (se entrambi i requisiti mancano)."""
     groups = {}
     for r in results:
-        g = groups.setdefault(r['group'], {'total': 0, 'covered': 0, 'theory_missing': 0})
+        g = groups.setdefault(r['group'], {'total': 0, 'covered': 0, 'senza_teoria': 0,
+                                           'banco_insufficiente': 0, 'senza_regex': 0})
         g['total'] += 1
         if r['covered']:
             g['covered'] += 1
-        elif r['theory_required']:
-            g['theory_missing'] += 1
+        if r['senza_teoria']:
+            g['senza_teoria'] += 1
+        if r['banco_insufficiente']:
+            g['banco_insufficiente'] += 1
+        if not r['has_regex']:
+            g['senza_regex'] += 1
     return groups
 
 
@@ -196,8 +210,10 @@ def print_table(results, groups):
     print()
     print('Riepilogo per gruppo')
     print('-' * 78)
+    print(f"{'gruppo':<42}{'coperte':>10}{'senza teoria':>14}{'banco insuff.':>15}{'senza regex':>13}")
     for name, g in sorted(groups.items()):
-        print(f"{name:<42} coperte {g['covered']:>3} / {g['total']:<3}  teoria mancante {g['theory_missing']}")
+        print(f"{name:<42}{g['covered']:>4} / {g['total']:<4}{g['senza_teoria']:>14}"
+              f"{g['banco_insufficiente']:>15}{g['senza_regex']:>13}")
     total = len(results)
     covered = sum(1 for r in results if r['covered'])
     print('-' * 78)

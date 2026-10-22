@@ -4462,8 +4462,7 @@
     "ch14-ai-services"
    ],
    "needs": [
-    "teoria",
-    "banco"
+    "teoria"
    ],
    "regex": [
     "nuovi clienti|new customers"
@@ -4479,8 +4478,7 @@
     "ch14-ai-services"
    ],
    "needs": [
-    "teoria",
-    "banco"
+    "teoria"
    ],
    "regex": [
     "nuovi clienti|new customers|end of support|fine del supporto|dismess|ritirat"
@@ -4493,7 +4491,8 @@
    "title": "Servizi chiusi o ritirati: tabella e tattica d'esame",
    "detail": "Una slide nel capitolo 7 (e una riga nella scheda rapida) con lo stato dei servizi al 22/10/2026: funzionalità SageMaker chiuse ai nuovi clienti dal 30/07/2026, Kendra chiuso ai nuovi clienti, Forecast chiuso dal 29/07/2024, CodeGuru Security dismesso il 20/11/2025, CodeGuru Reviewer in maintenance mode dal 07/11/2025, DevOps Guru chiuso ai nuovi clienti dal 29/10/2026 (fine il 30/09/2027), più gli stati verificati nel capitolo 14. Tattica: l'esame valuta le competenze della guida, quindi se una domanda nomina un servizio della guida si risponde sulla sua funzione.",
    "targets": [
-    "fix"
+    "fix",
+    "ch7-practice"
    ],
    "needs": [
     "teoria"
