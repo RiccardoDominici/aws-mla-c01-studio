@@ -1888,5 +1888,1381 @@
       "C01",
       "C02"
     ]
+  },
+  {
+    "id": "ch2-b01",
+    "chapter": "ch2-data-prep",
+    "q": "A team switched a Kinesis data stream between provisioned and on-demand capacity modes three times within 20 hours. Their next mode change fails. What is the cause?",
+    "options": [
+      "Each stream can switch between provisioned and on-demand capacity modes at most twice within any 24-hour window",
+      "Mode changes have no fixed limit, so the failure most likely comes from a throttled IAM role on the producer account",
+      "Mode changes are limited to one per AWS account and Region per calendar day, shared by all of the account's streams",
+      "After the first switch to on-demand capacity, the stream stays in that mode until it is deleted and created again"
+    ],
+    "answer": 0,
+    "explain": "Kinesis Data Streams allows each stream to switch between on-demand and provisioned modes twice within 24 hours. The other options describe limits that the quota table does not contain.",
+    "difficulty": "media",
+    "tags": [
+      "kinesis",
+      "quotas",
+      "capacity-mode"
+    ],
+    "source": "AWS docs: Amazon Kinesis Data Streams — Quotas and limits",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ]
+  },
+  {
+    "id": "ch2-b02",
+    "chapter": "ch2-data-prep",
+    "q": "Five analytics consumers each read the same Kinesis shard with GetRecords. They now get ProvisionedThroughputExceededException, although producers stay far below the shard write limit. Which change gives each consumer its own read throughput without adding shards?",
+    "options": [
+      "Increase the GetRecords batch size to 10,000 records per call, so that each consumer receives more data per request",
+      "Register enhanced fan-out consumers that read through SubscribeToShard, each with its own shard throughput",
+      "Add a separate Firehose delivery stream in parallel for each consumer, so that each reads its own copy of the data",
+      "Raise the producer PutRecords batch size to 500 records per request, so that the shard absorbs more records in total"
+    ],
+    "answer": 1,
+    "explain": "The shared read limit of 2 MB per second per shard is the bottleneck, and enhanced fan-out gives each registered consumer its own dedicated throughput through SubscribeToShard. Larger GetRecords batches and producer changes do not raise the read limit.",
+    "difficulty": "difficile",
+    "tags": [
+      "kinesis",
+      "enhanced-fan-out",
+      "throttling"
+    ],
+    "source": "AWS docs: Amazon Kinesis Data Streams — Quotas and limits",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ]
+  },
+  {
+    "id": "ch2-b03",
+    "chapter": "ch2-data-prep",
+    "q": "A team moves 2 million image thumbnails of 60 KB each into S3 Intelligent-Tiering because their access pattern is unknown. What should the team expect?",
+    "options": [
+      "Objects move to Archive Instant Access after 30 days without access, which lowers the storage bill quickly for the team",
+      "Objects move to Infrequent Access after 30 days, at a higher storage price than S3 Standard, after monitoring fees apply",
+      "Objects stay in the Frequent Access tier, since objects under 128 KB are never monitored or moved between tiers",
+      "Objects are compressed and archived automatically once they reach 90 days of inactivity, without any retrieval charges"
+    ],
+    "answer": 2,
+    "explain": "Intelligent-Tiering does not monitor objects smaller than 128 KB, so they are never eligible for automatic tiering and remain in the Frequent Access tier. The lower tiers apply only to monitored objects.",
+    "difficulty": "media",
+    "tags": [
+      "s3",
+      "intelligent-tiering",
+      "object-size"
+    ],
+    "source": "AWS docs: Amazon S3 User Guide — How S3 Intelligent-Tiering works",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S6"
+    ]
+  },
+  {
+    "id": "ch2-b04",
+    "chapter": "ch2-data-prep",
+    "q": "A 40 TB training archive is read only twice a year, by batch jobs that can wait several hours for data. The team wants the lowest storage cost while keeping automatic tiering. Which Intelligent-Tiering configuration fits best?",
+    "options": [
+      "Keep only the default tiers, because archive tiers cannot be combined",
+      "Enable only Archive Instant Access, because it is the cheapest option",
+      "Add a Lifecycle rule that expires the objects after 180 days",
+      "Activate the Archive Access and Deep Archive Access tiers"
+    ],
+    "answer": 3,
+    "explain": "The optional Archive Access and Deep Archive Access tiers store data that is accessed asynchronously, at the lowest cost. Archive Instant Access offers millisecond access at a higher price, and expiring the objects would delete the training data.",
+    "difficulty": "media",
+    "tags": [
+      "s3",
+      "intelligent-tiering",
+      "archive"
+    ],
+    "source": "AWS docs: Amazon S3 User Guide — How S3 Intelligent-Tiering works",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K4",
+      "K-1.1S6"
+    ]
+  },
+  {
+    "id": "ch2-b05",
+    "chapter": "ch2-data-prep",
+    "q": "A nightly Glue Spark job uses job bookmarks and writes Parquet files to a curated prefix. After a bug fix, the team resets the bookmark so that all source files are processed again. What happens to the files already written to the target prefix?",
+    "options": [
+      "Nothing is cleaned, because bookmarks track only source files, so the team must manage the old outputs itself",
+      "AWS Glue deletes the earlier target files as part of the reset, so the output prefix is rebuilt from scratch automatically",
+      "The reset restores the target prefix to its exact state before the previous run, including earlier partitions and their metadata",
+      "Each earlier target file is rewritten in place with the corrected records, so duplicate rows never appear in the output"
+    ],
+    "answer": 0,
+    "explain": "Job bookmarks track only source files, and AWS Glue does not clean target files when a bookmark is reset. The team must write to a new output location or remove the old files to avoid duplicates.",
+    "difficulty": "difficile",
+    "tags": [
+      "glue",
+      "job-bookmarks",
+      "reprocessing"
+    ],
+    "source": "AWS docs: AWS Glue — Tracking processed data using job bookmarks",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S1"
+    ]
+  },
+  {
+    "id": "ch2-b06",
+    "chapter": "ch2-data-prep",
+    "q": "A computer vision team keeps its training images on Amazon EFS and wants SageMaker training to read them directly. Which requirement applies?",
+    "options": [
+      "The training job copies the dataset from EFS to S3 during startup, so the data is staged before the first epoch begins",
+      "The images must already be in EFS before training, and the job must run in a VPC that can reach the file system",
+      "Pipe mode is the only input mode that can read EFS, so the team must convert the files to RecordIO before the job starts",
+      "The EFS file system can sit in a different Region from the training job, as long as a mount target is reachable over the network"
+    ],
+    "answer": 1,
+    "explain": "For EFS, SageMaker AI expects the data to reside in the file system before training starts, and the training job connects to a VPC to reach it. The dataset and training job must also be in the same Region.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "efs",
+      "training-input"
+    ],
+    "source": "AWS docs: SageMaker AI — Setting up training jobs to access datasets",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.1K2",
+      "K-1.3S4"
+    ]
+  },
+  {
+    "id": "ch2-b07",
+    "chapter": "ch2-data-prep",
+    "q": "A team mounts an Amazon FSx for Lustre file system for training jobs and wants to avoid cross-Availability Zone data transfer charges. Which networking setup meets this goal?",
+    "options": [
+      "Use a subnet in any Availability Zone, because the mount is independent of the zone",
+      "Run the job outside any VPC and mount the file system through a public endpoint",
+      "Use a subnet that maps to the same Availability Zone as the file system",
+      "Create one file system per Availability Zone and mount them all"
+    ],
+    "answer": 2,
+    "explain": "FSx for Lustre uses a single Availability Zone to avoid data transfer costs, so the training VPC subnet must map to that same zone. The job also has to run inside a VPC, so a public endpoint is not an option.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "fsx-lustre",
+      "vpc"
+    ],
+    "source": "AWS docs: SageMaker AI — Setting up training jobs to access datasets",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.1K2"
+    ]
+  },
+  {
+    "id": "ch2-b08",
+    "chapter": "ch2-data-prep",
+    "q": "A training job uses FastFile mode on an S3 prefix, and the team now wants to feed it an augmented manifest file. What is the correct conclusion?",
+    "options": [
+      "FastFile supports augmented manifests as well, but only when the training job is also configured to run in File mode",
+      "FastFile reads plain manifests but not augmented manifests, so the team must convert them to CSV before the job starts",
+      "FastFile requires an EFS file system to resolve manifest entries, so the S3 prefix must be mirrored onto a file system",
+      "FastFile supports only S3 prefixes, not manifest or augmented manifest files, so manifest-based inputs need File mode"
+    ],
+    "answer": 3,
+    "explain": "FastFile is a file-system view of S3 that works only with S3 prefixes, and it does not support manifest or augmented manifest files. For manifest-based datasets, the team must use File mode instead.",
+    "difficulty": "difficile",
+    "tags": [
+      "sagemaker",
+      "fastfile",
+      "manifest"
+    ],
+    "source": "AWS docs: SageMaker AI — Setting up training jobs to access datasets",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C16"
+    ]
+  },
+  {
+    "id": "ch2-b09",
+    "chapter": "ch2-data-prep",
+    "q": "A team stores clickstream data in S3 for Athena and wants fewer bytes scanned per query. Which two statements about columnar formats such as Parquet and ORC are correct? (Select TWO.)",
+    "options": [
+      "Each column is compressed with an algorithm chosen for its data type, which reduces the data read from S3",
+      "Predicate pushdown lets Athena skip blocks whose min and max statistics cannot match the filter",
+      "Columnar files must be stored uncompressed so that Athena can split them across readers",
+      "Athena can read Parquet only when each row is stored as a separate S3 object",
+      "ORC files are always larger than CSV files, so they are never chosen to reduce storage cost"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Columnar formats compress each column separately and use block statistics for predicate pushdown, so Athena reads less data. Splitting works with compressed files, and the other two statements are invented constraints.",
+    "difficulty": "media",
+    "tags": [
+      "athena",
+      "parquet",
+      "orc"
+    ],
+    "source": "AWS docs: Amazon Athena — Use columnar storage formats",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K1"
+    ]
+  },
+  {
+    "id": "ch2-b10",
+    "chapter": "ch2-data-prep",
+    "q": "A team wants a Kinesis stream to keep clickstream records for a full year, so that models can be retrained by replaying them. Which setting meets this, and what is the limit?",
+    "options": [
+      "Set the retention period to 8,760 hours (365 days), which is the maximum the stream supports",
+      "Set the retention period to 30 days, which is the maximum for every stream in the account",
+      "Keep the 24-hour minimum retention and copy the records to a second stream for longer replay",
+      "Set the retention period to 12 hours, because the minimum is one hour and cost falls with it"
+    ],
+    "answer": 0,
+    "explain": "Kinesis Data Streams lets you increase the retention period up to 8,760 hours (365 days), and it cannot be decreased below 24 hours. The other options misstate the retention limits or add a copy step that the requirement does not need.",
+    "difficulty": "media",
+    "tags": [
+      "kinesis",
+      "retention",
+      "replay"
+    ],
+    "source": "AWS docs: Amazon Kinesis Data Streams — Quotas and limits",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ]
+  },
+  {
+    "id": "ch2-b11",
+    "chapter": "ch2-data-prep",
+    "q": "A Firehose stream transforms records with a Lambda function. On large batches the function runs about 7 minutes, and deliveries fail. What is the cause and the fix?",
+    "options": [
+      "Firehose can run a transformation for up to 15 minutes, so the buffer size must be raised to 3 MB to allow the longer run",
+      "Firehose invokes Lambda synchronously with a 5-minute maximum, so the team must send smaller batches or speed up the function",
+      "Firehose does not support Lambda transforms on JSON records, so the data must be converted to Parquet before any transform",
+      "The transformation must be rewritten as an AWS Glue job, so that records are processed in parallel across many workers"
+    ],
+    "answer": 1,
+    "explain": "Firehose calls the transformation Lambda synchronously, and the supported invocation time is at most 5 minutes. Smaller buffers or a faster function fix the failure, while the other options misstate the limits.",
+    "difficulty": "media",
+    "tags": [
+      "firehose",
+      "lambda",
+      "transformation"
+    ],
+    "source": "AWS docs: Amazon Data Firehose — Transform source data",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K5"
+    ]
+  },
+  {
+    "id": "ch2-b12",
+    "chapter": "ch2-data-prep",
+    "q": "A data scientist built a Data Wrangler flow in SageMaker Studio. The nightly batch job runs on an on-premises scheduler that cannot call SageMaker Pipelines. Which export option produces code the job can run?",
+    "options": [
+      "Export to Amazon SageMaker Feature Store through a Jupyter notebook, so the transformed features are stored for later reuse",
+      "SageMaker AI Inference Pipeline, which creates a serial inference pipeline that is deployed behind a real-time endpoint",
+      "Python Code, which exports the flow steps to a Python file that the team can integrate into its own batch workflow",
+      "Export data, which writes the transformed rows to a CSV file on the notebook disk for the scheduler to pick up"
+    ],
+    "answer": 2,
+    "explain": "The Python Code export writes the flow steps as a Python script that can run outside SageMaker, though the team may need to adjust it for its environment. The other options create a feature group, an endpoint, or a local file, not a standalone job.",
+    "difficulty": "facile",
+    "tags": [
+      "data-wrangler",
+      "export",
+      "python"
+    ],
+    "source": "AWS docs: SageMaker AI — Data Wrangler export",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch2-b13",
+    "chapter": "ch2-data-prep",
+    "q": "A Data Wrangler flow imports only the first 50,000 rows of a 10 million row file and applies Encode Categorical. In production, the category Peru appears only in the full file. What should the team do before exporting?",
+    "options": [
+      "Remove the Encode Categorical step, because encodings can only be computed from the imported sample and not from the file",
+      "Use Export data, which re-samples the source file each time it runs, so that every run sees a fresh sample of the rows",
+      "Filter Peru out of the Athena query, so that categories absent from the imported sample are ignored in the production run",
+      "Refit the transformations to the entire dataset before exporting, so that the encoding learns every category in the file"
+    ],
+    "answer": 3,
+    "explain": "Data Wrangler computes transforms such as Encode Categorical from the imported sample by default, so categories outside the sample are missed. Refitting the transforms to the entire dataset fixes this before export.",
+    "difficulty": "difficile",
+    "tags": [
+      "data-wrangler",
+      "refit",
+      "sampling"
+    ],
+    "source": "AWS docs: SageMaker AI — Data Wrangler export",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch2-b14",
+    "chapter": "ch2-data-prep",
+    "q": "Which statement about scheduling a Data Wrangler job is correct?",
+    "options": [
+      "Schedules use CRON or rate expressions, and EventBridge starts the job as a SageMaker pipeline step on that cadence",
+      "Schedules are triggered automatically whenever a new object lands in the source S3 bucket, with no extra setup needed",
+      "Schedules run inside the notebook kernel, so the notebook must stay open for the whole duration of each scheduled run",
+      "Schedules can be attached only to Feature Store destinations, while S3 destinations must be run by hand each time"
+    ],
+    "answer": 0,
+    "explain": "A Data Wrangler schedule is time-based, defined with CRON, rate, recurring, or specific-time settings, and EventBridge starts the processing job as a pipeline step. It does not react to file arrivals, and it is not tied to a notebook session.",
+    "difficulty": "media",
+    "tags": [
+      "data-wrangler",
+      "schedule",
+      "eventbridge"
+    ],
+    "source": "AWS docs: SageMaker AI — Data Wrangler export",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch2-b15",
+    "chapter": "ch2-data-prep",
+    "q": "A training pipeline calls PutRecord on a Feature Store feature group that has an offline store. Two minutes later a training job reads the offline store in S3, and some new records are missing. What explains this?",
+    "options": [
+      "The offline store writes synchronously, so the missing rows must have failed validation and been rejected by the service",
+      "Offline store writes are buffered and batched, and can take up to 15 minutes to reach S3, so the pipeline must wait or read the online store",
+      "The offline store keeps only the latest record per identifier, so earlier rows for the same identifier were overwritten",
+      "Training jobs cannot read the offline store until the feature group is deleted and created again with the same schema"
+    ],
+    "answer": 1,
+    "explain": "PutRecord data is buffered, batched, and written to the offline store in S3 within 15 minutes, so very recent records may be absent. The latest-record-only behavior belongs to the online store, not the offline store.",
+    "difficulty": "difficile",
+    "tags": [
+      "feature-store",
+      "offline-store",
+      "latency"
+    ],
+    "source": "AWS docs: SageMaker AI — Feature Store offline store data format",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch2-b16",
+    "chapter": "ch2-data-prep",
+    "q": "A team reads its Feature Store offline store in the Apache Iceberg table format and runs an incremental daily job that should read only new data. Which tracking method does AWS recommend?",
+    "options": [
+      "Track progress by the write_time column, filtering rows newer than the last run",
+      "Track progress by api_invocation_time, which is set by the calling job",
+      "Track progress by Iceberg snapshot instead of write_time",
+      "Rebuild the whole table every day and compare row counts"
+    ],
+    "answer": 2,
+    "explain": "For incremental reads of an Iceberg offline store, AWS documentation says to track progress by Iceberg snapshot rather than by write_time. The other options use fields that the documentation does not recommend for this purpose.",
+    "difficulty": "difficile",
+    "tags": [
+      "feature-store",
+      "iceberg",
+      "incremental"
+    ],
+    "source": "AWS docs: SageMaker AI — Feature Store offline store data format",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch2-b17",
+    "chapter": "ch2-data-prep",
+    "q": "A privacy request requires removing a record from a Feature Store feature group that has an offline store. The team calls DeleteRecord. What does the offline store show afterward?",
+    "options": [
+      "The original rows are physically removed from the Parquet files at once, so no trace of the record remains in S3 storage",
+      "Nothing changes in the offline store, because deletions apply only to the online store and not to the historical files",
+      "Athena returns an error for every query on that feature group until the offline store is rebuilt from the source files",
+      "A new record with the same identifier is written with is_deleted set to true, so the deletion is recorded in the store"
+    ],
+    "answer": 3,
+    "explain": "DeleteRecord adds a new offline-store record with is_deleted set to true for the same identifier, so the deletion is recorded rather than erased in place. Deletions do affect the offline store, and queries still succeed.",
+    "difficulty": "media",
+    "tags": [
+      "feature-store",
+      "deleterecord",
+      "offline-store"
+    ],
+    "source": "AWS docs: SageMaker AI — Feature Store offline store data format",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch2-b18",
+    "chapter": "ch2-data-prep",
+    "q": "A model uses clothing sizes XS, S, M, L and XL, where the order carries meaning. Which encoding keeps that order in the feature values?",
+    "options": [
+      "Ordinal encoding, which maps each size to an integer that follows the rank order of XS, S, M, L and XL",
+      "One-hot encoding, with one binary column per size, so that each size gets its own indicator in the feature matrix",
+      "Hashing each size into a sparse vector with 4,096 dimensions, so that the model handles new sizes without a lookup table",
+      "Tokenization with TF-IDF, where each size becomes a term in a bag-of-words vector that the classifier reads directly"
+    ],
+    "answer": 0,
+    "explain": "Ordinal encoding maps categories with a natural order to integers, so the model sees XS below S below M. One-hot encoding discards the order, and hashing and TF-IDF are not designed for ranked categories.",
+    "difficulty": "facile",
+    "tags": [
+      "encoding",
+      "ordinal",
+      "categorical"
+    ],
+    "source": "AWS docs: SageMaker AI — Data Wrangler transforms",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K3"
+    ]
+  },
+  {
+    "id": "ch2-b19",
+    "chapter": "ch2-data-prep",
+    "q": "A team prepares support tickets in Data Wrangler for a linear classifier. Which two configurations are part of a TF-IDF featurization? (Select TWO.)",
+    "options": [
+      "One-hot encoding of each full ticket as a single category",
+      "Min-hash encoding of each ticket into a 3-gram embedding",
+      "A standard tokenizer that splits on white space and converts words to lowercase",
+      "A Count or Hashing vectorizer that turns the token list into a sparse numeric vector",
+      "Ordinal encoding that assigns integers by ticket length"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "Data Wrangler's text embedding tokenizes the text, vectorizes the tokens with Count or Hashing, and converts the result to TF-IDF vectors. One-hot, min-hash, and ordinal encodings are separate transforms that do not produce TF-IDF vectors.",
+    "difficulty": "media",
+    "tags": [
+      "data-wrangler",
+      "text",
+      "tf-idf"
+    ],
+    "source": "AWS docs: SageMaker AI — Data Wrangler transforms",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K3",
+      "G-1.2.6"
+    ]
+  },
+  {
+    "id": "ch2-b20",
+    "chapter": "ch2-data-prep",
+    "q": "A company that has never used Amazon SageMaker Ground Truth wants to start a labeling project next month. What does the current AWS documentation say about this service?",
+    "options": [
+      "Ground Truth is fully open to new customers, with new features added every quarter for accounts that sign up",
+      "Ground Truth is no longer open to new customers, although existing customers can keep using it without new features",
+      "Ground Truth is open only to accounts that belong to the Amazon Mechanical Turk workforce and its requester rules",
+      "Ground Truth has been replaced by Amazon Q for all labeling tasks, so the team should start its project in Amazon Q"
+    ],
+    "answer": 1,
+    "explain": "The current documentation says Ground Truth is no longer open to new customers, while existing customers can keep using it and AWS no longer plans new features. The other options contradict this status.",
+    "difficulty": "facile",
+    "tags": [
+      "ground-truth",
+      "availability",
+      "labeling"
+    ],
+    "source": "AWS docs: SageMaker AI — Training data labeling with Ground Truth",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.2K6",
+      "K-1.2S3"
+    ]
+  },
+  {
+    "id": "ch2-b21",
+    "chapter": "ch2-data-prep",
+    "q": "Which three workforce options can Ground Truth use to label data? (Select THREE.)",
+    "options": [
+      "The Amazon Mechanical Turk workforce",
+      "A private workforce made of the company's own employees or contractors",
+      "A vendor company from AWS Marketplace that specializes in data labeling",
+      "Amazon Comprehend, which assigns entity labels from a trained model",
+      "Amazon Textract, which reads forms and tables for human review",
+      "The Amazon Q assistant, which chats with the labeling team"
+    ],
+    "answer": [
+      0,
+      1,
+      2
+    ],
+    "explain": "Ground Truth labels data with Mechanical Turk, a private workforce, or an AWS Marketplace vendor. Comprehend, Textract, and Amazon Q are AWS services, not labeling workforces.",
+    "difficulty": "media",
+    "tags": [
+      "ground-truth",
+      "workforce",
+      "labeling"
+    ],
+    "source": "AWS docs: SageMaker AI — Training data labeling with Ground Truth",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.2S3"
+    ]
+  },
+  {
+    "id": "ch2-b22",
+    "chapter": "ch2-data-prep",
+    "q": "A team plans to shrink an EMR cluster overnight to cut cost. Which change puts HDFS data at risk?",
+    "options": [
+      "Removing task nodes that run Spark executors but store no HDFS data, so the cluster keeps its full HDFS capacity",
+      "Adding task nodes on Spot Instances during the day, so that more executors can run during the peak data processing window",
+      "Removing core nodes that run the DataNode daemon while HDFS still holds data, which risks losing blocks stored on them",
+      "Reducing the number of YARN containers on the primary node, so that fewer applications can be scheduled at the same time"
+    ],
+    "answer": 2,
+    "explain": "Core nodes run the DataNode daemon and store HDFS data, so removing them while HDFS holds data risks data loss. Task nodes store no HDFS data and can be added or removed freely.",
+    "difficulty": "media",
+    "tags": [
+      "emr",
+      "hdfs",
+      "core-node"
+    ],
+    "source": "AWS docs: Amazon EMR — Understand node types in Amazon EMR",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C12"
+    ]
+  },
+  {
+    "id": "ch2-b23",
+    "chapter": "ch2-data-prep",
+    "q": "A team exports a Data Wrangler flow to an S3 destination node. Which two settings can it configure for the output? (Select TWO.)",
+    "options": [
+      "A Kinesis stream that receives each output partition as a record",
+      "The file type, such as CSV or Parquet",
+      "A Glacier storage class that is applied to every output object",
+      "The compression method, such as bzip2, deflate, or gzip",
+      "An AWS Lambda function that encrypts each object before it is written"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "The S3 destination node lets you choose the output file type, with CSV or Parquet, and a compression method such as bzip2, deflate, or gzip. The other options are not settings of the destination node.",
+    "difficulty": "facile",
+    "tags": [
+      "data-wrangler",
+      "s3",
+      "export"
+    ],
+    "source": "AWS docs: SageMaker AI — Data Wrangler export",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch2-b24",
+    "chapter": "ch2-data-prep",
+    "q": "A team updates an existing Feature Store feature group from a Data Wrangler flow. Which two statements are correct? (Select TWO.)",
+    "options": [
+      "The dataset schema must match the feature group schema",
+      "Data Wrangler appends new columns automatically and keeps the old records",
+      "The feature group can be updated only if it has no offline store",
+      "All records in the feature group are replaced with the observations in the dataset",
+      "Each export can use a different record identifier for the same feature group"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Updating an existing feature group requires a matching schema, and the observations in the dataset replace the existing records. The other statements invent behaviors that the export does not support.",
+    "difficulty": "difficile",
+    "tags": [
+      "data-wrangler",
+      "feature-store",
+      "schema"
+    ],
+    "source": "AWS docs: SageMaker AI — Data Wrangler export",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch2-b25",
+    "chapter": "ch2-data-prep",
+    "q": "Which two statements about the Feature Store online and offline stores are correct? (Select TWO.)",
+    "options": [
+      "The online store keeps the full history for time-travel training queries",
+      "The offline store serves sub-second real-time lookups for inference requests",
+      "A feature group must enable both stores, so an online-only group is not possible",
+      "The online store serves low-latency lookups of the latest record for each identifier",
+      "The offline store keeps records as Parquet files in S3, in either the Glue or the Iceberg table format"
+    ],
+    "answer": [
+      3,
+      4
+    ],
+    "explain": "The online store is a low-latency cache of the latest record per identifier, and the offline store holds Parquet data in S3 for training and batch use. The online store does not keep history, and only one of the two stores is required.",
+    "difficulty": "media",
+    "tags": [
+      "feature-store",
+      "online-store",
+      "offline-store"
+    ],
+    "source": "AWS docs: SageMaker AI — Feature Store offline store data format",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "id": "ch2-b26",
+    "chapter": "ch2-data-prep",
+    "q": "A Clarify pre-training report shows a Class Imbalance value of +0.8 for the favored facet. What does that mean?",
+    "options": [
+      "Facet d has far more positive labels than facet a",
+      "The dataset is balanced between the two facets",
+      "The model performs 80 percent worse on facet a",
+      "Facet a has far more training samples than facet d"
+    ],
+    "answer": 3,
+    "explain": "Class Imbalance is normalized to the range minus one to plus one, and positive values mean the favored facet a has more training samples. The metric is computed before training and does not describe model accuracy.",
+    "difficulty": "facile",
+    "tags": [
+      "clarify",
+      "class-imbalance",
+      "pre-training"
+    ],
+    "source": "AWS docs: SageMaker Clarify — Pre-training bias metrics",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1",
+      "K-1.3S2"
+    ]
+  },
+  {
+    "id": "ch2-b27",
+    "chapter": "ch2-data-prep",
+    "q": "Clarify reports a Difference in Proportions of Labels of -0.2 for a loan dataset, with facet a as the favored group. What does the sign tell you?",
+    "options": [
+      "Facet d has a higher share of positive outcomes than facet a, so the disfavored group receives positive labels more often",
+      "Facet a has a higher share of positive outcomes than facet d, so the favored group receives positive labels more often",
+      "Facet a has twenty percent more rows than facet d, which is why the proportion of positive labels appears lower for d",
+      "The labels are normalized, so a value of minus 0.2 means that no bias exists between the two facets of the loan dataset"
+    ],
+    "answer": 0,
+    "explain": "A negative DPL means the disfavored facet d has the higher proportion of positive outcomes. The metric compares label proportions, not row counts, and a non-zero value does signal imbalance.",
+    "difficulty": "media",
+    "tags": [
+      "clarify",
+      "dpl",
+      "labels"
+    ],
+    "source": "AWS docs: SageMaker Clarify — Pre-training bias metrics",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ]
+  },
+  {
+    "id": "ch2-b28",
+    "chapter": "ch2-data-prep",
+    "q": "A hiring dataset has equal counts for two genders, but the positive hire label is 30 percent for one group and 60 percent for the other. Which pre-training metric reveals this disparity?",
+    "options": [
+      "Class Imbalance, because the counts are equal, so the metric shows the hire rates of each group in the dataset",
+      "Difference in Proportions of Labels, because it compares the proportion of positive labels between the two facets",
+      "Kolmogorov-Smirnov, whose range runs from minus one to plus one, so that it reports the gap between the two groups",
+      "Total Variation Distance, because it is restricted to row counts and therefore cannot report the label rates directly"
+    ],
+    "answer": 1,
+    "explain": "Equal counts give Class Imbalance a value of zero, so it cannot show the disparity. DPL compares the proportion of positive labels between the two facets and exposes the 30 versus 60 percent gap.",
+    "difficulty": "difficile",
+    "tags": [
+      "clarify",
+      "dpl",
+      "class-imbalance"
+    ],
+    "source": "AWS docs: SageMaker Clarify — Pre-training bias metrics",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ]
+  },
+  {
+    "id": "ch2-b29",
+    "chapter": "ch2-data-prep",
+    "q": "A team needs a pre-training metric for a multi-category outcome in which a value close to 1 means one outcome category sits almost entirely in one facet. Which metric fits?",
+    "options": [
+      "Class Imbalance, which compares the sizes of the facets, so that it reports how many rows each facet contributes",
+      "Conditional Demographic Disparity, which measures rejections by subgroup, so that it reports the outcomes within each group",
+      "Kolmogorov-Smirnov, whose values near 1 mean that label categories are strongly concentrated in one facet",
+      "Lp-norm, which has no upper bound, so that it reports the size of the difference between the two outcome distributions"
+    ],
+    "answer": 2,
+    "explain": "Kolmogorov-Smirnov has a range from 0 to 1, and values near 1 indicate that one label category is concentrated in one facet. Lp-norm is unbounded, and the other metrics measure different aspects.",
+    "difficulty": "difficile",
+    "tags": [
+      "clarify",
+      "kolmogorov-smirnov",
+      "label-imbalance"
+    ],
+    "source": "AWS docs: SageMaker Clarify — Pre-training bias metrics",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ]
+  },
+  {
+    "id": "ch2-b30",
+    "chapter": "ch2-data-prep",
+    "q": "A Clarify report gives a Conditional Demographic Disparity of +0.15 for an admissions dataset. Which reading is correct?",
+    "options": [
+      "Facet d has a larger training sample than facet a, which is why the admissions outcomes lean against the disfavored group",
+      "Facet a is rejected more often than it is accepted, so the favored group carries most of the rejections in the outcomes",
+      "CDD values are normalized and cannot indicate direction, so the sign of the report carries no meaning for the team",
+      "Facet d is rejected more often than it is accepted, so the disparity leans against facet d in the outcome labels"
+    ],
+    "answer": 3,
+    "explain": "Positive CDD values mean that facet d is rejected more than it is accepted, so the disparity leans against it. CDD is a directional metric, and the sample-size statement is a different metric (Class Imbalance).",
+    "difficulty": "difficile",
+    "tags": [
+      "clarify",
+      "cdd",
+      "outcomes"
+    ],
+    "source": "AWS docs: SageMaker Clarify — Pre-training bias metrics",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ]
+  },
+  {
+    "id": "ch2-b31",
+    "chapter": "ch2-data-prep",
+    "q": "A team wants a pre-training bias service that computes metrics on a raw dataset before any model is trained. Which service fits?",
+    "options": [
+      "SageMaker Clarify, which computes pre-training bias metrics on the raw dataset before any model has been trained",
+      "Amazon Macie, which finds personal data in S3 objects and reports it in findings for security reviews by the team",
+      "AWS Glue DataBrew, which profiles and cleans data in a no-code interface but does not compute any bias metrics",
+      "Amazon Comprehend, which detects sentiment, entities and key phrases in text for downstream analysis by the team"
+    ],
+    "answer": 0,
+    "explain": "SageMaker Clarify provides pre-training bias metrics that are model-agnostic, so they can be computed on the raw dataset. Macie, DataBrew, and Comprehend solve other problems.",
+    "difficulty": "facile",
+    "tags": [
+      "clarify",
+      "bias",
+      "pre-training"
+    ],
+    "source": "AWS docs: SageMaker Clarify — Pre-training bias metrics",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3S2"
+    ]
+  },
+  {
+    "id": "ch2-b32",
+    "chapter": "ch2-data-prep",
+    "q": "A team trains on 2 TB of RecordIO files stored in S3. It wants a small EBS volume on each instance, plus managed sharding and shuffling across instances. Which input mode fits best?",
+    "options": [
+      "File mode, which downloads the whole dataset to the instance before training starts, so the volume must hold all of it",
+      "Pipe mode, which streams data from S3 with managed sharding and shuffling, so the training volume can stay small",
+      "EFS mounting, which requires the files to be copied to an EFS file system in advance by a separate process each time",
+      "Local mode on a notebook, which keeps the whole dataset in memory on the notebook instance for the duration of the run"
+    ],
+    "answer": 1,
+    "explain": "Pipe mode streams the data directly from S3 with managed sharding and shuffling, which lets the training volume stay small. File mode needs room for the whole dataset, and EFS and local mode do not match the S3 streaming requirement.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "pipe-mode",
+      "shuffling"
+    ],
+    "source": "AWS docs: SageMaker AI — Setting up training jobs to access datasets",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S3",
+      "K-1.3S4"
+    ]
+  },
+  {
+    "id": "ch2-b33",
+    "chapter": "ch2-data-prep",
+    "q": "A healthcare company must keep audit records unchangeable for seven years, even for the account root user. Which Object Lock setting fits?",
+    "options": [
+      "Governance mode, which lets users with the bypass permission alter the retention settings or delete the object version",
+      "A legal hold alone, because it expires automatically after seven years and then releases the object for deletion",
+      "Compliance mode with a retention period, which no user can overwrite or delete until the period expires, root included",
+      "Bucket versioning alone, because old object versions cannot be deleted once versioning is enabled on the bucket"
+    ],
+    "answer": 2,
+    "explain": "In compliance mode, no user, including the root user, can overwrite or delete a protected object version until its retention period expires. A legal hold has no expiration date, and versioning alone does not prevent deletion.",
+    "difficulty": "facile",
+    "tags": [
+      "s3",
+      "object-lock",
+      "compliance"
+    ],
+    "source": "AWS docs: Amazon S3 User Guide — Locking objects with Object Lock",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K5"
+    ]
+  },
+  {
+    "id": "ch2-b34",
+    "chapter": "ch2-data-prep",
+    "q": "A data lake administrator sets classification=confidential on a database and does not tag its tables. An analyst is granted permissions on the tag value classification=confidential. Which tables can the analyst reach through tag-based permissions?",
+    "options": [
+      "None, because each table needs its own LF-Tag before the inheritance from the database can apply to the table",
+      "Only the tables that were created before the tag was added to the database, since new tables need an explicit tag",
+      "Only the database object itself, because the grant applies to databases and never extends to the tables inside them",
+      "All tables in the database, because tables inherit LF-Tags from their database, so the analyst's grant reaches them"
+    ],
+    "answer": 3,
+    "explain": "Tables inherit LF-Tags from their database, and columns inherit from their table. The analyst's grant on the matching tag value therefore reaches the untagged tables as well.",
+    "difficulty": "media",
+    "tags": [
+      "lake-formation",
+      "lf-tags",
+      "inheritance"
+    ],
+    "source": "AWS docs: AWS Lake Formation — Lake Formation tag-based access control",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K5"
+    ]
+  },
+  {
+    "id": "ch2-b35",
+    "chapter": "ch2-data-prep",
+    "q": "A team tags S3 buckets and Glue tables with IAM resource tags and expects those tags to control Lake Formation access. What is the problem?",
+    "options": [
+      "IAM tags define IAM policies, while LF-Tags are the attributes Lake Formation uses to grant permissions, so they differ",
+      "IAM tags can grant Lake Formation column permissions as long as the IAM tag uses the same key as the LF-Tag",
+      "Lake Formation requires an IAM tag on every column of every table, which the service does not support for tagging",
+      "Tags cannot be attached to Glue tables at all, so the team must move the data into a new bucket before any access"
+    ],
+    "answer": 0,
+    "explain": "Lake Formation documentation states that IAM tags and LF-Tags are not interchangeable: LF-Tags grant Lake Formation permissions, and IAM tags are used in IAM policies. Tagging the resources with IAM tags does not change Lake Formation access.",
+    "difficulty": "difficile",
+    "tags": [
+      "lake-formation",
+      "lf-tags",
+      "iam-tags"
+    ],
+    "source": "AWS docs: AWS Lake Formation — Lake Formation tag-based access control",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K5"
+    ]
+  },
+  {
+    "id": "ch2-b36",
+    "chapter": "ch2-data-prep",
+    "q": "A nightly AWS Glue Data Quality evaluation passes 45 of 50 rules. What is the data quality score?",
+    "options": [
+      "45",
+      "90 percent",
+      "50 percent",
+      "5, because five rules failed"
+    ],
+    "answer": 1,
+    "explain": "The data quality score is the percentage of rules that pass when a ruleset is evaluated, so 45 of 50 gives 90 percent. The other values confuse the count of passing rules with the score.",
+    "difficulty": "facile",
+    "tags": [
+      "glue-data-quality",
+      "score",
+      "ruleset"
+    ],
+    "source": "AWS docs: AWS Glue — AWS Glue Data Quality",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ]
+  },
+  {
+    "id": "ch2-b37",
+    "chapter": "ch2-data-prep",
+    "q": "A team wants to quarantine the exact rows that fail AWS Glue Data Quality checks, not just read a score. Where should the check run?",
+    "options": [
+      "In a Data Catalog evaluation on the table, because that evaluation identifies the failing records for quarantine",
+      "In a CloudWatch alarm on the data quality score, which lists the failing rows in the alarm notification for the team",
+      "In an AWS Glue ETL job, because identifying failing records is supported there but not for Data Catalog evaluations",
+      "In an Athena view that runs the rules as SQL, because Glue cannot identify individual rows through any of its features"
+    ],
+    "answer": 2,
+    "explain": "Identifying the records that failed the checks is supported for AWS Glue ETL jobs, while Data Catalog evaluations report rule results without per-record identification. A CloudWatch alarm works on the score, not on rows.",
+    "difficulty": "difficile",
+    "tags": [
+      "glue-data-quality",
+      "etl",
+      "records"
+    ],
+    "source": "AWS docs: AWS Glue — AWS Glue Data Quality",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ]
+  },
+  {
+    "id": "ch2-b38",
+    "chapter": "ch2-data-prep",
+    "q": "Which two Clarify pre-training metrics have a normalized range from minus one to plus one? (Select TWO.)",
+    "options": [
+      "Kolmogorov-Smirnov (KS)",
+      "Class Imbalance (CI)",
+      "Difference in Proportions of Labels (DPL)",
+      "Jensen-Shannon Divergence (JS)",
+      "Total Variation Distance (TVD)"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "CI and DPL are normalized to minus one to plus one, where the sign shows which facet is favored. KS is bounded from 0 to 1, while JS and TVD range from 0 upward.",
+    "difficulty": "difficile",
+    "tags": [
+      "clarify",
+      "metric-range",
+      "pre-training"
+    ],
+    "source": "AWS docs: SageMaker Clarify — Pre-training bias metrics",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ]
+  },
+  {
+    "id": "ch2-b39",
+    "chapter": "ch2-data-prep",
+    "q": "Which two statements about Amazon Macie are correct? (Select TWO.)",
+    "options": [
+      "It scans Amazon RDS tables directly for personal data, without any S3 bucket",
+      "It encrypts every S3 object in place when it finds personal data",
+      "It uses machine learning and pattern matching to discover sensitive data in S3 objects",
+      "It publishes sensitive data findings as events to Amazon EventBridge",
+      "It supports only custom data identifiers and no managed identifiers"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "Macie discovers sensitive data in S3 through managed and custom data identifiers that combine machine learning and pattern matching, and it publishes findings to EventBridge. It does not scan RDS tables, encrypt objects, or limit itself to custom identifiers.",
+    "difficulty": "facile",
+    "tags": [
+      "macie",
+      "pii",
+      "s3"
+    ],
+    "source": "AWS docs: Amazon Macie — What is Amazon Macie?",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K4",
+      "G-1.2.8"
+    ]
+  },
+  {
+    "id": "ch2-b40",
+    "chapter": "ch2-data-prep",
+    "q": "Which two statements about Lake Formation tag-based access control are correct? (Select TWO.)",
+    "options": [
+      "Tables inherit LF-Tags from their database, and columns inherit from their table",
+      "LF-Tags are the same as IAM resource tags, so they can be used inside IAM policies",
+      "Each table must be granted to each principal by name, because tags cannot drive grants",
+      "LF-TBAC replaces the Data Catalog, so existing tables must be recreated",
+      "A principal can access a resource when it holds a grant on a tag value that matches the resource tag"
+    ],
+    "answer": [
+      0,
+      4
+    ],
+    "explain": "Inheritance and tag-value grants are the core of LF-TBAC, and the access check matches the principal's granted tag value with the resource tag. LF-Tags and IAM tags are explicitly not interchangeable, and tags do not require recreating tables.",
+    "difficulty": "difficile",
+    "tags": [
+      "lake-formation",
+      "lf-tags",
+      "tbac"
+    ],
+    "source": "AWS docs: AWS Lake Formation — Lake Formation tag-based access control",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K5"
+    ]
+  },
+  {
+    "id": "ch2-b41",
+    "chapter": "ch2-data-prep",
+    "q": "Which two Amazon S3 features help meet write-once-read-many (WORM) requirements? (Select TWO.)",
+    "options": [
+      "S3 Object Lock in compliance mode",
+      "S3 Object Lock legal hold",
+      "S3 Intelligent-Tiering",
+      "S3 Transfer Acceleration",
+      "A Lifecycle rule that expires objects after a set number of days"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Object Lock uses a WORM model, with retention periods in compliance or governance mode and legal holds that stay in place until removed. Tiering, acceleration, and expiration rules do not prevent overwrites or deletions.",
+    "difficulty": "media",
+    "tags": [
+      "s3",
+      "object-lock",
+      "worm"
+    ],
+    "source": "AWS docs: Amazon S3 User Guide — Locking objects with Object Lock",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K5"
+    ]
+  },
+  {
+    "id": "ch2-b42",
+    "chapter": "ch2-data-prep",
+    "q": "Which two statements about AWS Glue Data Quality are correct? (Select TWO.)",
+    "options": [
+      "Rulesets are written in Python and must be compiled before evaluation",
+      "The service works only with Amazon Redshift tables",
+      "The data quality score is the percentage of rules that pass when a ruleset is evaluated",
+      "A ruleset can contain up to 2,000 rules and is limited to 65 KB in size",
+      "Data Catalog evaluations identify every failing record in the table"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "The score is the share of passing rules, and the documented limits are 2,000 rules and 65 KB per ruleset. Rules are written in DQDL rather than Python, the service supports more sources than Redshift, and per-record identification belongs to ETL jobs.",
+    "difficulty": "media",
+    "tags": [
+      "glue-data-quality",
+      "dqdl",
+      "limits"
+    ],
+    "source": "AWS docs: AWS Glue — AWS Glue Data Quality",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ]
+  },
+  {
+    "id": "ch2-b43",
+    "chapter": "ch2-data-prep",
+    "q": "Which three metrics are pre-training data bias metrics in SageMaker Clarify? (Select THREE.)",
+    "options": [
+      "ROC AUC, a classification metric that summarizes how well a trained model ranks positive examples across thresholds",
+      "F1 score, a classification metric that combines precision and recall for the predictions of a trained model",
+      "Silhouette score, a clustering metric that measures how well each point fits its own cluster compared with others",
+      "Class Imbalance (CI), which compares how many training samples each facet contributes to the dataset before training",
+      "Difference in Proportions of Labels (DPL), which compares the positive label rates of the two facets in the dataset",
+      "Kullback-Leibler Divergence (KL), which measures how far the outcome distributions of the two facets diverge from each other"
+    ],
+    "answer": [
+      3,
+      4,
+      5
+    ],
+    "explain": "CI, DPL, and KL are pre-training bias metrics that Clarify computes on the dataset. ROC AUC, F1, and silhouette score are model or clustering metrics and are not Clarify bias metrics.",
+    "difficulty": "media",
+    "tags": [
+      "clarify",
+      "bias-metrics"
+    ],
+    "source": "AWS docs: SageMaker Clarify — Pre-training bias metrics",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ]
+  },
+  {
+    "id": "ch2-b44",
+    "chapter": "ch2-data-prep",
+    "q": "Which two SageMaker training input modes stream data without downloading the full dataset first? (Select TWO.)",
+    "options": [
+      "File mode",
+      "Pipe mode",
+      "EFS mount with the data copied in advance",
+      "FastFile mode",
+      "Local mode on a notebook"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "Pipe mode and FastFile mode both stream data on demand, so training can start before the full dataset is downloaded. File mode downloads everything first, and the EFS and local options do not stream from S3.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker",
+      "input-mode",
+      "streaming"
+    ],
+    "source": "AWS docs: SageMaker AI — Setting up training jobs to access datasets",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S4"
+    ]
+  },
+  {
+    "id": "ch2-b45",
+    "chapter": "ch2-data-prep",
+    "q": "Which two statements about SageMaker Clarify pre-training bias metrics are correct? (Select TWO.)",
+    "options": [
+      "They are computed on the raw dataset, before any model is trained",
+      "They require a deployed endpoint that returns predictions",
+      "CDD ranges from zero to infinity, and larger values mean less bias",
+      "A negative Class Imbalance value means facet d has more training samples",
+      "DPL compares only the rejection rates of the two facets"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Pre-training metrics do not depend on model outputs, so they run on the raw dataset, and negative CI values indicate that facet d has more samples. CDD has a range of minus one to plus one, and DPL compares positive label proportions, not rejections.",
+    "difficulty": "difficile",
+    "tags": [
+      "clarify",
+      "pre-training",
+      "class-imbalance"
+    ],
+    "source": "AWS docs: SageMaker Clarify — Pre-training bias metrics",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ]
   }
 ]
