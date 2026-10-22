@@ -2703,5 +2703,1378 @@
     ],
     "origin": "ai",
     "domain": "1"
+  },
+  {
+    "id": "ch8-q091",
+    "chapter": "ch8-data-advanced",
+    "q": "A training team wants the lowest input latency for a dataset stored in an S3 Express One Zone directory bucket. Which three input modes can read from a directory bucket? (Select THREE.)",
+    "options": [
+      "Cross-region replication mode, which copies the bucket to a second Region before training starts",
+      "File mode, which downloads the data to the training instance before the job starts",
+      "Batch manifest mode, which reads a list of object keys from a CSV file stored in the bucket",
+      "Pipe mode, which streams the objects from S3 through named pipes while the job runs",
+      "Glacier restore mode, which restores archived objects to S3 Standard before training begins",
+      "FastFile mode, which exposes the objects as POSIX files that are streamed on demand"
+    ],
+    "answer": [
+      1,
+      3,
+      5
+    ],
+    "explain": "The documentation lists file, fast file and pipe mode as input modes that support directory buckets. Replication, batch manifests and Glacier restore are not SageMaker training input modes.",
+    "difficulty": "media",
+    "tags": [
+      "s3-express",
+      "input-mode"
+    ],
+    "source": "AWS docs: Setting up training jobs to access datasets",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S4"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q092",
+    "chapter": "ch8-data-advanced",
+    "q": "A distributed training job reads 2 million small CSV objects under one S3 prefix, and each of four instances must train on a different subset without downloading duplicates. Which setting divides the objects across the instances?",
+    "options": [
+      "Pipe mode, which gives every instance its own FIFO for each object in the prefix",
+      "An Amazon EBS io2 volume attached to all four instances, so that each one reads its own region of the disk",
+      "The ShardedByS3Key distribution, which splits the S3 objects across the instances of the job",
+      "Amazon EFS mounted on each instance, so that the instances divide the files by taking file locks"
+    ],
+    "answer": 2,
+    "explain": "ShardedByS3Key shards the dataset across the instances of a distributed job. Pipe mode gives each pipe to one reader and does not partition the dataset, and EBS and EFS do not split an S3 dataset.",
+    "difficulty": "media",
+    "tags": [
+      "distributed-training",
+      "sharding"
+    ],
+    "source": "AWS docs: Setting up training jobs to access datasets",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S4",
+      "K-1.1K2"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q093",
+    "chapter": "ch8-data-advanced",
+    "q": "A training container reads an S3 dataset through a Pipe mode FIFO. A second process inside the same container also tries to read that pipe. What is the consequence?",
+    "options": [
+      "The second process cannot share the pipe, because each pipe can be read by only one process",
+      "Both processes read records in parallel, because the FIFO copies each record for every reader",
+      "The second process receives a copy of the data starting from the first record in S3",
+      "The job fails at startup, because Pipe mode does not allow any process other than the training script"
+    ],
+    "answer": 0,
+    "explain": "The documentation states that each pipe may be read by only one process. The FIFO does not copy records for each reader, and a second reader does not restart the stream from the beginning.",
+    "difficulty": "media",
+    "tags": [
+      "pipe-mode",
+      "fifo"
+    ],
+    "source": "AWS docs: Common data formats for training",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S4"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q094",
+    "chapter": "ch8-data-advanced",
+    "q": "A producer writes 1 KB records at 2,000 records per second. Three independent enhanced fan-out consumers read the whole stream, and the stream uses provisioned mode. Which shard count does the documented sizing formula give?",
+    "options": [
+      "2 shards, which covers the write bandwidth alone and ignores the three consumers that also read the stream",
+      "3 shards, because the read bandwidth of three consumers needs the ceiling of 6,000 KB divided by 2,048",
+      "6 shards, which is 6,000 KB per second divided by 1,024 KB per shard",
+      "10 shards, one for each batch of 200 records written per second"
+    ],
+    "answer": 1,
+    "explain": "The formula takes the larger of write bandwidth divided by 1,024 and read bandwidth divided by 2,048, then rounds up. Write needs 1.95 shards and read needs 2.93, so the result is 3.",
+    "difficulty": "difficile",
+    "tags": [
+      "kinesis",
+      "sizing"
+    ],
+    "source": "AWS docs: Choose the right mode to stream in",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q095",
+    "chapter": "ch8-data-advanced",
+    "q": "A team wants to keep Kinesis Data Streams history for two years so it can replay the records. Which two statements are correct? (Select TWO.)",
+    "options": [
+      "Firehose can deliver the records to Amazon S3, which keeps a longer archive than the stream retains",
+      "The stream retention period can be set to 730 days to cover the full two years",
+      "Retention cannot be set below one hour, so a short retention period saves nothing",
+      "Retention can be set up to 365 days, so older history must be stored in another service",
+      "The number of shards determines how many days of records the stream keeps"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Stream retention ranges from 24 hours to 365 days, which is 8,760 hours. Firehose can write the records to S3 for a longer archive, and retention is not tied to the shard count.",
+    "difficulty": "media",
+    "tags": [
+      "kinesis",
+      "retention"
+    ],
+    "source": "AWS docs: Kinesis Data Streams quotas and limits",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q096",
+    "chapter": "ch8-data-advanced",
+    "q": "A single GetRecords consumer reads from one shard at about 2.5 MB per second, and the stream has no other consumers. What happens?",
+    "options": [
+      "The read succeeds, because the read limit of a shard grows with the number of records it serves and with the number of consumers attached to it",
+      "Reads above 2 MB per second on the shard raise ProvisionedThroughputExceededException, so the consumer must slow down or use enhanced fan-out",
+      "Nothing is throttled, because only the write side of a shard has a bandwidth limit",
+      "The shard splits automatically, so the consumer's read rate is divided between the two new shards at once"
+    ],
+    "answer": 1,
+    "explain": "Each shard allows 2 MB per second of GetRecords reads and then throws ProvisionedThroughputExceededException. Enhanced fan-out gives each registered consumer dedicated throughput, and provisioned streams are resharded manually.",
+    "difficulty": "media",
+    "tags": [
+      "kinesis",
+      "efo",
+      "getrecords"
+    ],
+    "source": "AWS docs: Kinesis Data Streams quotas and limits",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q097",
+    "chapter": "ch8-data-advanced",
+    "q": "A company with a modest streaming workload is offered On-demand Advantage for its account. Which statement is correct?",
+    "options": [
+      "Enabling it carries no commitment, so the account pays only for the shards that it provisions by hand each month",
+      "It applies only to provisioned streams and raises their enhanced fan-out limit to 50 consumers",
+      "Enabling it commits the account to 25 MiB per second of ingest and retrieval, with a 24-hour minimum before it can be disabled",
+      "It stops write throttling for any traffic level, so producers never need any retry logic, and bursts never reach the stream limits"
+    ],
+    "answer": 2,
+    "explain": "On-demand Advantage is an account-level setting with a 25 MiB per second minimum commitment for ingest and retrieval, and a 24-hour minimum before it can be disabled. Option 3 is wrong because the mode does not make throttling impossible.",
+    "difficulty": "difficile",
+    "tags": [
+      "kinesis",
+      "on-demand-advantage"
+    ],
+    "source": "AWS docs: Choose the right mode to stream in",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K4"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q098",
+    "chapter": "ch8-data-advanced",
+    "q": "A company switched a data stream from provisioned to on-demand mode earlier today, and then back to provisioned mode this afternoon. Which two statements about switching a Kinesis data stream's capacity mode are correct? (Select TWO.)",
+    "options": [
+      "Switching interrupts producers and consumers until the new mode is active",
+      "The stream shows Updating during a switch, so the next change must wait until the status returns to Active",
+      "Switching is allowed only from provisioned to on-demand, never in the other direction",
+      "Each stream can switch between the two modes twice within 24 hours",
+      "Switching is limited to one change per week for each account"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "The documentation allows two switches per stream within 24 hours, and the stream stays in Updating until it returns to Active. Switching does not disrupt the applications that read and write the stream.",
+    "difficulty": "media",
+    "tags": [
+      "kinesis",
+      "mode-switch"
+    ],
+    "source": "AWS docs: Choose the right mode to stream in",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q099",
+    "chapter": "ch8-data-advanced",
+    "q": "A provisioned stream already has 20 registered enhanced fan-out consumers, and a 21st application needs dedicated throughput. Which action fits the documented limits?",
+    "options": [
+      "Register the 21st consumer anyway, because the limit applies only to shared GetRecords consumers",
+      "Use GetRecords for the 21st application, which has no limit on the number of consumers",
+      "Switch the stream to On-demand Standard, which allows 50 registered consumers per stream and removes the need for any consumer planning at all",
+      "Consolidate the consumers, because a provisioned stream allows at most 20 registered enhanced fan-out consumers"
+    ],
+    "answer": 3,
+    "explain": "Standard and provisioned modes allow up to 20 registered enhanced fan-out consumers per stream. On-demand Advantage raises the limit to 50 but applies to on-demand streams, and GetRecords is capped at 5 calls per second per shard.",
+    "difficulty": "media",
+    "tags": [
+      "kinesis",
+      "efo"
+    ],
+    "source": "AWS docs: Kinesis Data Streams quotas and limits",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K2"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q100",
+    "chapter": "ch8-data-advanced",
+    "q": "A team provisions an io2 Block Express volume at 50,000 IOPS and attaches it to an instance type that is not Nitro-based. What IOPS can the instance achieve?",
+    "options": [
+      "The full 50,000 IOPS, because the volume type sets the performance for every instance type that attaches it, with no exceptions",
+      "Up to 32,000 IOPS, because other instance types can attach volumes of up to 64,000 IOPS but achieve at most 32,000",
+      "Up to 64,000 IOPS, which is the io1 limit that every instance type reaches",
+      "No more than 16,000 IOPS, because only gp3 volumes can attach to non-Nitro instances"
+    ],
+    "answer": 1,
+    "explain": "Nitro-based instances support io2 Block Express volumes of up to 256,000 IOPS. Other instance types can attach volumes provisioned up to 64,000 IOPS, but they achieve at most 32,000 IOPS.",
+    "difficulty": "difficile",
+    "tags": [
+      "ebs",
+      "io2",
+      "nitro"
+    ],
+    "source": "AWS docs: Amazon EBS volume types",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S1",
+      "G-1.1.1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q101",
+    "chapter": "ch8-data-advanced",
+    "q": "A GPU training cluster runs in one Availability Zone and needs consistent single-digit millisecond data access to its dataset. Which storage option fits best?",
+    "options": [
+      "S3 Express One Zone, a single-AZ storage class with single-digit millisecond access that training jobs can read",
+      "S3 Standard-IA, a lower-cost class with a 30-day minimum storage duration that suits infrequently accessed data and backups",
+      "S3 Glacier Flexible Retrieval, which restores archived objects in minutes or hours",
+      "S3 Intelligent-Tiering with archive access tiers, which moves objects to colder tiers over time"
+    ],
+    "answer": 0,
+    "explain": "S3 Express One Zone is the single-AZ storage class that the documentation describes with consistent single-digit millisecond access, including for training. The other classes are cheaper or archival and are not built for this latency.",
+    "difficulty": "facile",
+    "tags": [
+      "s3-express",
+      "storage"
+    ],
+    "source": "AWS docs: Setting up training jobs to access datasets",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K4"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q102",
+    "chapter": "ch8-data-advanced",
+    "q": "A team sends 600 records with PutRecords to a stream. Which two statements about PutRecords and shard write limits are correct? (Select TWO.)",
+    "options": [
+      "A PutRecords request can carry up to 500 records",
+      "A PutRecords request can carry up to 10,000 records, the same limit as GetRecords",
+      "Each shard accepts up to 1,000 records per second for writes",
+      "Each record must be exactly 1 KB, or the request is rejected",
+      "All records in one request must share the same partition key"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "PutRecords accepts up to 500 records per request, and each shard accepts up to 1,000 records per second for writes. The 10,000-record limit belongs to GetRecords, and records can be up to 10 MiB.",
+    "difficulty": "media",
+    "tags": [
+      "kinesis",
+      "putrecords"
+    ],
+    "source": "AWS docs: Kinesis Data Streams quotas and limits",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q103",
+    "chapter": "ch8-data-advanced",
+    "q": "A clustered application needs one block volume attached to several instances. Which two statements about EBS Multi-Attach are correct? (Select TWO.)",
+    "options": [
+      "gp3 volumes support Multi-Attach, so the team can use the cheapest SSD type",
+      "io1 and io2 volumes support Multi-Attach",
+      "HDD volumes such as st1 support Multi-Attach for analytics clusters",
+      "gp2 volumes do not support Multi-Attach",
+      "Multi-Attach lets instances in different Regions share one volume"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "The EBS volume types table marks Multi-Attach as supported for io1 and io2, and as not supported for gp2, gp3 and HDD volumes. Multi-Attach never crosses Regions.",
+    "difficulty": "media",
+    "tags": [
+      "ebs",
+      "multi-attach"
+    ],
+    "source": "AWS docs: Amazon EBS volume types",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K4"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q104",
+    "chapter": "ch8-data-advanced",
+    "q": "A team archives log bundles in S3 Glacier Instant Retrieval. Which two statements about the class are correct? (Select TWO.)",
+    "options": [
+      "Its minimum storage duration is 30 days, the same as Standard-IA",
+      "Its minimum storage duration is 90 days",
+      "Objects should be at least 128 KB, because the class has a 128 KB minimum object size",
+      "Its minimum storage duration is 180 days, the same as Deep Archive",
+      "Its minimum storage duration is 60 days for archived objects"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "Glacier Instant Retrieval has a 90-day minimum storage duration and a 128 KB minimum object size. Standard-IA uses 30 days and Deep Archive uses 180 days.",
+    "difficulty": "media",
+    "tags": [
+      "glacier",
+      "minimum-duration"
+    ],
+    "source": "AWS docs: Amazon S3 storage classes",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K4"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q105",
+    "chapter": "ch8-data-advanced",
+    "q": "A team wants to change a provisioned Kinesis stream from 4 shards to 8 shards during a product launch, and the producers keep writing. Which statement is correct?",
+    "options": [
+      "Producers must stop first, because shard counts can change only while the stream is idle and no consumer is attached to it",
+      "The stream can be resharded while producers and consumers keep running, through the console or UpdateShardCount",
+      "The shard count is fixed at creation, so the team must create a new stream and migrate the data",
+      "Only on-demand streams can change shard count, so the stream must be switched to on-demand first"
+    ],
+    "answer": 1,
+    "explain": "Provisioned streams can be scaled with UpdateShardCount, or through the console, while producers and consumers keep using the stream. The fixed-count and idle-only rules are not in the documentation.",
+    "difficulty": "facile",
+    "tags": [
+      "kinesis",
+      "resharding"
+    ],
+    "source": "AWS docs: Choose the right mode to stream in",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q106",
+    "chapter": "ch8-data-advanced",
+    "q": "A team plans automated data labeling with Ground Truth. Which two expected accuracy levels does the documentation state for auto-labeled data? (Select TWO.)",
+    "options": [
+      "Mean IoU of 0.95 for semantic segmentation",
+      "Mean IoU of 0.6 for bounding box labels",
+      "99 percent label accuracy for text classification",
+      "Mean IoU of 0.7 for semantic segmentation",
+      "95 percent label accuracy for bounding box labels"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "Ground Truth requires a mean IoU of 0.6 for bounding boxes and 0.7 for semantic segmentation, and 95 percent label accuracy for image and text classification. These requirements are predetermined and cannot be configured.",
+    "difficulty": "media",
+    "tags": [
+      "ground-truth",
+      "accuracy"
+    ],
+    "source": "AWS docs: Automate data labeling",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.2K6",
+      "K-1.2S3"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q107",
+    "chapter": "ch8-data-advanced",
+    "q": "An automated labeling job stops with an error saying that more than 10 percent of a random sample failed. Which first check does the documentation recommend?",
+    "options": [
+      "Check the worker UI display, the clarity of the instructions and the time given to workers",
+      "Increase the number of objects to at least 10,000 objects, so that the random sample becomes larger and more representative",
+      "Switch the job to a streaming labeling job, which skips the random sample step",
+      "Turn on Mechanical Turk for the failed objects, which removes the sample step"
+    ],
+    "answer": 0,
+    "explain": "Ground Truth samples objects at random and fails the job when more than 10 percent of them fail. The documentation recommends checking the worker UI, the instructions and the time given to workers. Streaming jobs do not support automated labeling.",
+    "difficulty": "facile",
+    "tags": [
+      "ground-truth",
+      "troubleshooting"
+    ],
+    "source": "AWS docs: Automate data labeling",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.2K6"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q108",
+    "chapter": "ch8-data-advanced",
+    "q": "A team adds a Lambda transformation to a Firehose stream. Which two statements about the documented limits are correct? (Select TWO.)",
+    "options": [
+      "The Lambda invocation can run for up to 15 minutes, the full Lambda timeout",
+      "The buffering size hint must be between 0.2 MB and 3 MB",
+      "Each batch can be as large as 128 MB, because Firehose sends it in one call",
+      "A transformation that runs longer than 5 minutes produces a timeout error",
+      "The Lambda function receives records one at a time, never in batches"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "Firehose buffers between 0.2 MB and 3 MB and invokes the Lambda function synchronously with each batch, with a maximum of 5 minutes per invocation. Requests and responses are each limited to 6 MB.",
+    "difficulty": "media",
+    "tags": [
+      "firehose",
+      "lambda"
+    ],
+    "source": "AWS docs: Transform source data in Amazon Data Firehose",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K5"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q109",
+    "chapter": "ch8-data-advanced",
+    "q": "A tree-based model accepts missing values natively. In the Data Wrangler Ordinal encode transform, which invalid handling strategy does the documentation recommend for this case?",
+    "options": [
+      "Replace with NaN, which is recommended when the algorithm can handle missing values",
+      "Skip, which removes the rows with missing values before encoding and leaves the category count unchanged",
+      "Error, which stops the transform as soon as a missing value is found",
+      "Keep, which turns the missing values into a dummy column for each category"
+    ],
+    "answer": 0,
+    "explain": "The documentation recommends Replace with NaN when the algorithm handles missing values itself. Skip, Keep and Error are the first options to try when it does not.",
+    "difficulty": "media",
+    "tags": [
+      "data-wrangler",
+      "missing-values"
+    ],
+    "source": "AWS docs: Transform Data (SageMaker Data Wrangler)",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K2"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q110",
+    "chapter": "ch8-data-advanced",
+    "q": "An object detection job reads JPEG images from S3. Which ContentType value belongs in the input channel configuration for those images?",
+    "options": [
+      "text/csv, the format used by tabular built-in algorithms such as XGBoost for classification and regression",
+      "application/jsonlines, the format used by BlazingText and DeepAR",
+      "image/jpeg, the content type that object detection accepts for JPEG images",
+      "text/libsvm, the sparse format that XGBoost reads"
+    ],
+    "answer": 2,
+    "explain": "Object detection and semantic segmentation accept image/jpeg and image/png. The other content types belong to tabular or text algorithms.",
+    "difficulty": "facile",
+    "tags": [
+      "content-type",
+      "image"
+    ],
+    "source": "AWS docs: Common data formats for training",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q111",
+    "chapter": "ch8-data-advanced",
+    "q": "A team prepares image and text samples for SageMaker training. Which two statements are correct? (Select TWO.)",
+    "options": [
+      "Object detection reads images as application/x-recordio-protobuf, so JPEG files must be converted first",
+      "All the training data should be uploaded to S3 before the job starts, because adding data later requires a new training call that builds a new model",
+      "Text and images can share one channel, because the built-in algorithms read both under the image content type",
+      "Image channels for semantic segmentation accept image/jpeg and image/png",
+      "Multimodal samples must be converted to Parquet before any built-in algorithm accepts them"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "The documentation says to upload all data at once, because later additions need a new training call. Semantic segmentation accepts image/jpeg and image/png. Parquet is not in the content types table, and text and images do not share an image channel.",
+    "difficulty": "difficile",
+    "tags": [
+      "multimodal",
+      "content-type"
+    ],
+    "source": "AWS docs: Common data formats for training",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-1.1.8"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q112",
+    "chapter": "ch8-data-advanced",
+    "q": "A linear model uses an hour-of-day feature derived from a timestamp. Which Data Wrangler embedding mode does the documentation recommend?",
+    "options": [
+      "Cyclic, which the documentation recommends for linear models and deep networks",
+      "Ordinal, which the documentation recommends for linear models and deep networks",
+      "Hashing, which turns the hour into a sparse vector of token counts",
+      "TF-IDF, which weights each hour by how rare it is in the column"
+    ],
+    "answer": 0,
+    "explain": "Cyclic embedding is recommended for linear models and deep networks, and ordinal embedding is recommended for tree-based algorithms. Hashing and TF-IDF are text vectorizers, not date embeddings.",
+    "difficulty": "media",
+    "tags": [
+      "data-wrangler",
+      "datetime"
+    ],
+    "source": "AWS docs: Transform Data (SageMaker Data Wrangler)",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K2"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q113",
+    "chapter": "ch8-data-advanced",
+    "q": "A column of ordered shirt sizes has some missing values. The team wants the Ordinal encode transform to fail immediately if any missing value appears, so that bad data never reaches training. Which invalid handling strategy does that?",
+    "options": [
+      "Skip, which keeps the rows and marks the missing values as the last category in the encoded output column",
+      "Keep, which retains the missing values as the last category",
+      "Error, which makes Data Wrangler throw an error when a missing value is encountered",
+      "Replace with NaN, which turns the missing values into a new category"
+    ],
+    "answer": 2,
+    "explain": "Error makes the transform stop when it meets a missing value in the input column. Skip removes rows with missing values, Keep retains them as the last category, and Replace with NaN passes them on as NaN.",
+    "difficulty": "media",
+    "tags": [
+      "data-wrangler",
+      "ordinal"
+    ],
+    "source": "AWS docs: Transform Data (SageMaker Data Wrangler)",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K3"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q114",
+    "chapter": "ch8-data-advanced",
+    "q": "A team vectorizes product descriptions in Data Wrangler and wants short tokens such as 'a' and 'in' removed. Which two statements about the text transform are correct? (Select TWO.)",
+    "options": [
+      "The Standard tokenizer has a minimum token length field that drops short words",
+      "The Custom tokenizer's minimum token length of 3 drops tokens shorter than 3 characters",
+      "The Standard tokenizer splits on white space and converts each word to lowercase",
+      "The IDF minimum document frequency removes tokens shorter than a set number of characters",
+      "The number of features field in the hashing vectorizer sets the length of each token"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "A Custom tokenizer exposes a minimum token length, which defaults to 1. The Standard tokenizer splits on white space and lowercases each word, while minimum document frequency counts rows, not characters.",
+    "difficulty": "media",
+    "tags": [
+      "text",
+      "tokenization"
+    ],
+    "source": "AWS docs: Transform Data (SageMaker Data Wrangler)",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K3",
+      "G-1.2.6"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q115",
+    "chapter": "ch8-data-advanced",
+    "q": "A text column has millions of rows, and the team needs the fastest vectorization with a fixed number of output features. Which Data Wrangler vectorizer fits?",
+    "options": [
+      "Count vectorize with a minimum document frequency of 5, which keeps every token in a learned vocabulary",
+      "Flattened count vectorize, which creates one column for every category found in the text",
+      "TF-IDF with the standard tokenizer, which keeps a full vocabulary for each run",
+      "Hashing vectorize, which is computationally faster and uses a set number of features"
+    ],
+    "answer": 3,
+    "explain": "The documentation describes hashing as computationally faster, and its number of features sets the output size. Count vectorize builds a vocabulary, and the flattened output creates one column per category.",
+    "difficulty": "media",
+    "tags": [
+      "text",
+      "hashing"
+    ],
+    "source": "AWS docs: Transform Data (SageMaker Data Wrangler)",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K3"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q116",
+    "chapter": "ch8-data-advanced",
+    "q": "A product feed must have an email value in at least 95 percent of its rows. Which DQDL rule expresses this requirement?",
+    "options": [
+      "IsComplete \"email\", because it returns a percentage of complete rows when used with a threshold",
+      "Completeness \"email\" > 0.95, which compares the completeness ratio against 95 percent",
+      "ColumnCount \"email\" = 0.95, which checks that 95 percent of the columns are filled",
+      "Mean \"email\" > 0.95, which averages the email values and compares the result"
+    ],
+    "answer": 1,
+    "explain": "Completeness returns a ratio, so a comparison expresses the 95 percent requirement. IsComplete returns a Boolean result, and ColumnCount and Mean do not measure row completeness.",
+    "difficulty": "facile",
+    "tags": [
+      "dqdl",
+      "completeness"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q117",
+    "chapter": "ch8-data-advanced",
+    "q": "A Glue Data Quality rule reads (ColumnValues \"age\" >= 26) OR (ColumnLength \"name\" >= 4) and must pass each row that meets either condition. By default the rule is evaluated across the whole table. Which setting changes the evaluation to row level?",
+    "options": [
+      "Add a with threshold clause to each side of the OR",
+      "Replace ColumnLength with Completeness, so that both sides become ratios",
+      "Set compositeRuleEvaluation.method to ROW in the additional options of the job",
+      "Move the whole expression into an Analyzers block, which evaluates it for each row"
+    ],
+    "answer": 2,
+    "explain": "Composite rules are evaluated column by column by default. Setting compositeRuleEvaluation.method to ROW evaluates the whole composite rule for each row. Completeness is a ratio rule and does not change the evaluation mode.",
+    "difficulty": "difficile",
+    "tags": [
+      "dqdl",
+      "composite"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q118",
+    "chapter": "ch8-data-advanced",
+    "q": "A Glue Data Quality rule counts only rows where region is 'EU', written as a where clause. The job runs on AWS Glue 3.0. What must change before the where clause works?",
+    "options": [
+      "Replace the where clause with a DynamicRule, which supports filters in Glue 3.0",
+      "Remove the quotes around the SparkSQL statement, because Glue 3.0 reads them as literals",
+      "Use AWS Glue 4.0, because the where clause is supported only in that version",
+      "Move the where clause to the Data Catalog, which applies filters before the job runs"
+    ],
+    "answer": 2,
+    "explain": "The documentation states that the where clause is supported only in AWS Glue 4.0. Dynamic rules are an ETL feature rather than a filter, and the SparkSQL statement must stay inside quotes.",
+    "difficulty": "media",
+    "tags": [
+      "dqdl",
+      "where-clause"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q119",
+    "chapter": "ch8-data-advanced",
+    "q": "Which DQDL rule places the where clause in the documented position when the rule also has a threshold?",
+    "options": [
+      "ColumnValues \"status\" in [\"A\", \"B\"] with threshold > 0.9 where \"region = 'EU'\"",
+      "ColumnValues \"status\" in [\"A\", \"B\"] where \"region = 'EU'\" with threshold > 0.9",
+      "where \"region = 'EU'\" ColumnValues \"status\" in [\"A\", \"B\"] with threshold > 0.9",
+      "ColumnValues \"status\" in [\"A\", \"B\"] with threshold > 0.9 and where \"region = 'EU'\""
+    ],
+    "answer": 1,
+    "explain": "When a where clause is added to a rule with a threshold, it comes before the with threshold condition. Placing it after the threshold, or as a prefix, is not the documented syntax.",
+    "difficulty": "media",
+    "tags": [
+      "dqdl",
+      "where-clause",
+      "threshold"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q120",
+    "chapter": "ch8-data-advanced",
+    "q": "A team plans Glue Data Quality checks in the Data Catalog. Which two statements are correct? (Select TWO.)",
+    "options": [
+      "Dynamic rules, such as RowCount > avg(last(5)), are supported only in AWS Glue ETL jobs",
+      "Analyzers in the Analyzers block work in Data Catalog-based data quality",
+      "DQDL labels appear in the rule outcomes of Data Catalog-based evaluations",
+      "Labels are available only in AWS Glue ETL and not in Data Catalog-based data quality",
+      "Dynamic rules run in Data Catalog-based evaluations once the table has at least five runs"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Dynamic rules and labels are ETL-only features, and analyzers are not supported in Data Catalog-based data quality either.",
+    "difficulty": "difficile",
+    "tags": [
+      "dqdl",
+      "catalog-limits"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q121",
+    "chapter": "ch8-data-advanced",
+    "q": "An ETL job tags each Glue Data Quality rule with labels for team and criticality. Which two label limits does DQDL document? (Select TWO.)",
+    "options": [
+      "A maximum of 10 labels per DQDL rule",
+      "A maximum of 5 labels per ruleset, shared by all the rules",
+      "Label keys up to 128 characters long",
+      "Label values up to 64 characters, so long descriptions must be stored elsewhere",
+      "Unlimited labels, as long as each key is unique across the job"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "Each rule accepts up to 10 labels, with keys of up to 128 characters and values of up to 256 characters. The other limits do not match the documentation.",
+    "difficulty": "media",
+    "tags": [
+      "dqdl",
+      "labels"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q122",
+    "chapter": "ch8-data-advanced",
+    "q": "An ETL job evaluates Glue Data Quality rules with row-level results, but the labels on the rules do not appear in the row-level dataframe. Which option enables them?",
+    "options": [
+      "A DefaultLabels block at the top of the ruleset, which copies the labels into the row results",
+      "rowLevelConfiguration.ruleWithLabels set to ENABLED in the additional options",
+      "A Data Catalog-based evaluation, which exposes the labels in row-level results",
+      "A bucket policy on the results location that allows label columns to be written"
+    ],
+    "answer": 1,
+    "explain": "DQDL labels are disabled by default in row-level results and are enabled with the ruleWithLabels option in AdditionalOptions. DefaultLabels only assigns labels to the rules, and Catalog-based evaluation does not support labels.",
+    "difficulty": "difficile",
+    "tags": [
+      "dqdl",
+      "labels",
+      "row-level"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q123",
+    "chapter": "ch8-data-advanced",
+    "q": "A data quality rule needs a long SQL query that would exceed the query size limit if written inline. Which DQDL feature avoids the problem?",
+    "options": [
+      "A DynamicRule with last(1), which stores the query in the job history so that the rule can reuse it later",
+      "A comment line that starts with a hash symbol, which DQDL reads as SQL",
+      "A constant, such as mySql = \"select count(*) from primary\", referenced with a dollar prefix",
+      "An LF-Tag on the source table, which lets the rule read the query text from Lake Formation"
+    ],
+    "answer": 2,
+    "explain": "DQDL constants hold long values, and the $ prefix references them inside a rule. Comments are ignored by DQDL, and dynamic rules compare metrics rather than store queries.",
+    "difficulty": "difficile",
+    "tags": [
+      "dqdl",
+      "constants",
+      "customsql"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q124",
+    "chapter": "ch8-data-advanced",
+    "q": "A Distribution analyzer on a salary column runs every night in an ETL job, and the team wants the histogram bins to stay comparable across runs. What does AWS Glue Data Quality do on later runs?",
+    "options": [
+      "Reuses the bin edges from the first run for the same statistic, which keeps the bins frozen",
+      "Recomputes the bin edges from scratch on each run, so the bins always fit the new range",
+      "Stores the histogram only in the Data Catalog, which holds one set of edges per table",
+      "Rebins after a single run with overflow values, because one overflow is enough to change the edges"
+    ],
+    "answer": 0,
+    "explain": "Frozen edges keep the bins consistent across runs. Automatic rebinning happens only after three consecutive runs with more than 5 percent overflow, and it can be turned off with rebin set to false.",
+    "difficulty": "difficile",
+    "tags": [
+      "dqdl",
+      "analyzers",
+      "distribution"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q125",
+    "chapter": "ch8-data-advanced",
+    "q": "A column of customer codes must match a regex on at least 90 percent of its rows. Which rule meets this requirement?",
+    "options": [
+      "IsComplete \"code\" with threshold > 0.9, which checks the completeness of the code column",
+      "ColumnLength \"code\" = 7 with threshold > 0.9, which checks the length of each code value",
+      "ColumnValues \"code\" matches \"[A-Z]{3}[0-9]{4}\" with threshold > 0.9",
+      "Completeness \"code\" matches \"[A-Z]{3}[0-9]{4}\" > 0.9"
+    ],
+    "answer": 2,
+    "explain": "The threshold clause works with ColumnValues, ColumnDataType and CustomSQL, and a regex match with a threshold belongs to ColumnValues. IsComplete is a Boolean rule, and ColumnLength does not take this form.",
+    "difficulty": "media",
+    "tags": [
+      "dqdl",
+      "regex",
+      "threshold"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q126",
+    "chapter": "ch8-data-advanced",
+    "q": "A team wants to find dataset bias before it chooses a model. Which property of Clarify pre-training bias metrics supports that goal?",
+    "options": [
+      "They are model-agnostic, since they use observed labels and not model outputs",
+      "They read predicted labels from a deployed endpoint, so a model must be live first",
+      "They run only on Parquet files with a GPU instance, which makes them expensive to repeat",
+      "They need a Model Registry entry for every dataset version before the metrics can start"
+    ],
+    "answer": 0,
+    "explain": "The documentation states that pre-training metrics are model-agnostic because they do not depend on model outputs. The other options describe requirements that the documentation does not impose.",
+    "difficulty": "facile",
+    "tags": [
+      "clarify",
+      "pre-training"
+    ],
+    "source": "AWS docs: Pre-training Bias Metrics (SageMaker Clarify)",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q127",
+    "chapter": "ch8-data-advanced",
+    "q": "A team compares the outcome label distributions of two facets and wants the metric that reports the largest single divergence between them. Which Clarify metric fits?",
+    "options": [
+      "Total Variation Distance, which measures half the L1 norm between the two distributions",
+      "Jensen-Shannon Divergence, which measures entropic divergence between the two facet distributions and is symmetric in them",
+      "Kullback-Leibler Divergence, which measures how the entropy of one facet differs from another",
+      "Kolmogorov-Smirnov, which measures the maximum divergence between the outcome distributions of the facets"
+    ],
+    "answer": 3,
+    "explain": "KS reports the maximum divergence between outcome distributions, which is the largest gap between them. The other metrics measure divergence across the whole distribution or use different norms.",
+    "difficulty": "media",
+    "tags": [
+      "clarify",
+      "ks"
+    ],
+    "source": "AWS docs: Pre-training Bias Metrics (SageMaker Clarify)",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q128",
+    "chapter": "ch8-data-advanced",
+    "q": "A lending team wants to know whether one facet has more rejections than acceptances, both overall and within each subgroup of a legitimate factor. Which Clarify metric measures this?",
+    "options": [
+      "Conditional Demographic Disparity, which measures disparity overall and within subgroups",
+      "Class Imbalance, which counts how many samples each facet contains in the dataset",
+      "Kolmogorov-Smirnov, which reports the largest divergence between the two outcome distributions",
+      "Lp-norm, which measures the p-norm difference between the outcome distributions of the facets"
+    ],
+    "answer": 0,
+    "explain": "CDD measures outcome disparity between facets overall and within subgroups. CI only counts samples per facet, and KS and the Lp-norm compare distributions without conditioning on subgroups.",
+    "difficulty": "difficile",
+    "tags": [
+      "clarify",
+      "cdd"
+    ],
+    "source": "AWS docs: Pre-training Bias Metrics (SageMaker Clarify)",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3S2"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q129",
+    "chapter": "ch8-data-advanced",
+    "q": "A Glue Studio job must change detected PII values in place, not only flag them. Which two Detect PII actions do that? (Select TWO.)",
+    "options": [
+      "Enrich data with detection results, which stores the findings in a new column",
+      "Redact detected text, replacing the value with a string that you choose",
+      "Detect only, which leaves the data unchanged and reports the entities",
+      "Export the entities to a Lake Formation data filter, which hides them from queries",
+      "Partially redact detected text, keeping the ends unmasked or masking with a regex"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "Redact replaces the detected value with a string, and partial redaction masks part of the value with unmasked ends or a regex. Enrich and detect-only leave the values unchanged, and data filters are not a Detect PII action.",
+    "difficulty": "media",
+    "tags": [
+      "glue-studio",
+      "pii",
+      "masking"
+    ],
+    "source": "AWS docs: Detect and process sensitive data (AWS Glue Studio)",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K4",
+      "G-1.2.8"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q130",
+    "chapter": "ch8-data-advanced",
+    "q": "Sample test IDs in a staging bucket match a custom data identifier, and the compliance team wants Macie to ignore them in discovery results. Which Macie feature does that?",
+    "options": [
+      "An allow list, which defines text or text patterns that Macie should ignore in S3 objects",
+      "A second custom data identifier with the same regex, which cancels the first match and removes those matches from every finding",
+      "A bucket policy that blocks Macie from reading the staging bucket",
+      "Turning off automated sensitive data discovery for the whole account"
+    ],
+    "answer": 0,
+    "explain": "Allow lists define text that Macie ignores when it analyzes objects. A second identifier adds matches rather than removing them, and the other options change access or scope rather than the results.",
+    "difficulty": "media",
+    "tags": [
+      "macie",
+      "allow-list"
+    ],
+    "source": "AWS docs: What is Amazon Macie",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K4"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q131",
+    "chapter": "ch8-data-advanced",
+    "q": "A security team wants a deep analysis of two named S3 buckets, with custom criteria and a recurring schedule. Which Macie capability fits?",
+    "options": [
+      "Automated sensitive data discovery, which samples representative objects across the whole inventory of buckets in the account",
+      "A sensitive data discovery job, which sets the buckets, sampling depth and custom criteria, and runs on a schedule",
+      "A policy finding on the buckets, which reports public access but not the data inside objects",
+      "An AWS Config rule that evaluates the bucket resource against a schema"
+    ],
+    "answer": 1,
+    "explain": "Discovery jobs let you define the buckets, sampling depth and custom criteria, and they can run once or on a recurring basis. Automated discovery is broad and sampled, and policy findings cover bucket security rather than the data content.",
+    "difficulty": "difficile",
+    "tags": [
+      "macie",
+      "discovery-job"
+    ],
+    "source": "AWS docs: What is Amazon Macie",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K5"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q132",
+    "chapter": "ch8-data-advanced",
+    "q": "A CSV export writes missing middle names as empty strings instead of nulls. Which DQDL keyword counts those values as missing in a string column?",
+    "options": [
+      "NULL, which matches only values that are truly null in the column",
+      "EMPTY, which matches empty strings in a string column",
+      "WHITESPACES_ONLY, which matches values that contain only spaces and so catches empty strings",
+      "Mean, which averages the string lengths and flags a zero-length average"
+    ],
+    "answer": 1,
+    "explain": "EMPTY resolves to true for empty strings, which some formats produce instead of nulls. NULL matches only null values, and WHITESPACES_ONLY matches strings made only of spaces.",
+    "difficulty": "difficile",
+    "tags": [
+      "dqdl",
+      "empty"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q133",
+    "chapter": "ch8-data-advanced",
+    "q": "A stream of records should pass when more than half of the rows have a non-null email. Which DQDL rule does that?",
+    "options": [
+      "ColumnValues \"email\" != NULL with threshold > 0.5",
+      "IsComplete \"email\" with threshold > 0.5, which checks that the email values are complete",
+      "ColumnLength \"email\" > 0 with threshold > 0.5",
+      "Mean \"email\" != NULL > 0.5"
+    ],
+    "answer": 0,
+    "explain": "The documentation gives this exact pattern: a NULL keyword inside a ColumnValues expression with a threshold returns the share of non-null values. IsComplete is Boolean, ColumnLength does not take a threshold, and Mean needs numeric values.",
+    "difficulty": "media",
+    "tags": [
+      "dqdl",
+      "null",
+      "threshold"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q134",
+    "chapter": "ch8-data-advanced",
+    "q": "A team sets compositeRuleEvaluation.method to ROW for a Glue Data Quality ruleset. Which two rule types are documented as not supported in that row-level composite mode? (Select TWO.)",
+    "options": [
+      "Completeness",
+      "IsComplete",
+      "RowCount",
+      "Uniqueness",
+      "ColumnLength"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Rules that rely on ratios, such as Completeness and Uniqueness, and rules with a threshold are not supported with row-level composite evaluation. IsComplete, RowCount and ColumnLength are not on that list.",
+    "difficulty": "difficile",
+    "tags": [
+      "dqdl",
+      "composite",
+      "row-level"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S1"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q135",
+    "chapter": "ch8-data-advanced",
+    "q": "A Lake Formation data filter must return only the rows where product_type equals pharma. Which row filter expression uses valid syntax?",
+    "options": [
+      "product_type = \"pharma\" AND region = \"EU\"",
+      "product_type = 'pharma'",
+      "product_type IN pharma OR product_type IS MISSING",
+      "product type = 'pharma'"
+    ],
+    "answer": 1,
+    "explain": "The row filter expression uses PartiQL WHERE-clause syntax, with the string literal in single quotes. Double quotes mark identifiers, so the first option would compare against a column named pharma, and the other options are not valid expressions.",
+    "difficulty": "media",
+    "tags": [
+      "lake-formation",
+      "row-filter"
+    ],
+    "source": "AWS docs: Data filtering and cell-level security in Lake Formation",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K5"
+    ],
+    "origin": "ai",
+    "domain": "1"
   }
 ]
