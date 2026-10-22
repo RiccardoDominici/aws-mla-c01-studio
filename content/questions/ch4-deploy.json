@@ -2245,16 +2245,16 @@
     "answer": 3,
     "chapter": "ch4-deploy",
     "difficulty": "media",
-    "explain": "For direct invocation on a multi-container endpoint, the sagemaker:TargetModel condition key matches the target container hostname. Inference component names and model names are not the keys for that check, and the region key does not select a container.",
+    "explain": "On a multi-container endpoint with direct invocation, the sagemaker:TargetContainerHostname condition key restricts which containers a caller can invoke. The sagemaker:TargetModel key applies to multi-model endpoints, and the inference component and region keys do not select a container.",
     "id": "ch4-b11",
     "options": [
       "sagemaker:InferenceComponentName, matched with StringEquals against one component",
-      "sagemaker:ModelName, matched with StringEquals against one model name",
+      "sagemaker:TargetModel, which restricts invocations of a multi-model endpoint by model name",
       "aws:RequestedRegion, restricted to the region of the endpoint",
-      "sagemaker:TargetModel, matched with StringLike against the container pattern"
+      "sagemaker:TargetContainerHostname, matched with StringLike against the container pattern"
     ],
     "q": "A team wants an IAM policy that lets a caller invoke only the containers of one multi-container endpoint whose hostname matches a pattern. Which condition key applies?",
-    "source": "AWS docs: SageMaker AI Developer Guide — Multi-container endpoints",
+    "source": "AWS docs: SageMaker AI Developer Guide — Security with multi-container endpoints with direct invocation",
     "tags": [
       "multi-container",
       "iam",
