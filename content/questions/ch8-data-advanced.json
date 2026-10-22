@@ -185,17 +185,17 @@
     "chapter": "ch8-data-advanced",
     "q": "Which three S3 storage classes have a minimum storage duration of 30 days or longer? (Select THREE.)",
     "options": [
-      "S3 Standard-IA, which has a 30-day minimum storage duration for objects in the infrequent tier",
-      "S3 One Zone-IA, which has a 30-day minimum storage duration and stores data in one zone",
       "S3 Glacier Instant Retrieval, which has a 90-day minimum storage duration and a 128 KB minimum size",
       "S3 Express One Zone, which has a one-hour minimum storage duration in a single directory bucket",
       "S3 Intelligent-Tiering, which has no minimum storage duration and no retrieval charges for tiers",
-      "S3 Standard, which has no minimum storage duration and no minimum billable object size at all"
+      "S3 Standard, which has no minimum storage duration and no minimum billable object size at all",
+      "S3 Standard-IA, which has a 30-day minimum storage duration for objects in the infrequent tier",
+      "S3 One Zone-IA, which has a 30-day minimum storage duration and stores data in one zone"
     ],
     "answer": [
       0,
-      1,
-      2
+      4,
+      5
     ],
     "explain": "Standard-IA and One Zone-IA have 30-day minimums, and Glacier Instant Retrieval has 90 days. Standard and Intelligent-Tiering have no minimum, and Express One Zone has a one-hour minimum.",
     "difficulty": "difficile",
@@ -251,14 +251,14 @@
     "chapter": "ch8-data-advanced",
     "q": "Which two statements about EBS volume types are correct? (Select TWO.)",
     "options": [
-      "st1 is optimized for small random I/O operations, which is why it is the default for transactional databases",
-      "io1 reaches a maximum of 64,000 IOPS per volume, and it supports Multi-attach on supported instances",
       "gp2 reaches a maximum of 80,000 IOPS per volume, which is why gp2 is recommended for large databases",
       "io2 Block Express reaches a maximum of 64,000 IOPS per volume, the same ceiling as the older io1 volume type",
-      "gp3 reaches a maximum throughput of 2,000 MiB per second, with IOPS provisioned separately from capacity"
+      "gp3 reaches a maximum throughput of 2,000 MiB per second, with IOPS provisioned separately from capacity",
+      "st1 is optimized for small random I/O operations, which is why it is the default for transactional databases",
+      "io1 reaches a maximum of 64,000 IOPS per volume, and it supports Multi-attach on supported instances"
     ],
     "answer": [
-      1,
+      2,
       4
     ],
     "explain": "gp3 reaches 2,000 MiB/s and io1 reaches 64,000 IOPS according to the EBS volume types page. io2 Block Express reaches 256,000 IOPS, st1 is for throughput-heavy streams, and gp2 is capped at 16,000 IOPS.",
@@ -761,15 +761,15 @@
     "chapter": "ch8-data-advanced",
     "q": "A media company uploads raw footage from several continents to one bucket. Which two statements about S3 Transfer Acceleration are correct? (Select TWO.)",
     "options": [
-      "Bucket names may contain periods, provided the bucket is in a supported Region",
       "It replaces VPC endpoints for private access from applications inside a virtual network",
       "It uses AWS Direct Connect links only, so it is available only from connected data centers",
       "Additional data transfer charges may apply after you enable it on a bucket",
-      "It is enabled per bucket, and the bucket owner must set the acceleration state"
+      "It is enabled per bucket, and the bucket owner must set the acceleration state",
+      "Bucket names may contain periods, provided the bucket is in a supported Region"
     ],
     "answer": [
-      3,
-      4
+      2,
+      3
     ],
     "explain": "Transfer Acceleration is enabled at the bucket level, and the documentation notes possible extra transfer charges. Bucket names must not contain periods, it does not replace VPC endpoints, and it does not use Direct Connect.",
     "difficulty": "difficile",
@@ -908,15 +908,15 @@
     "chapter": "ch8-data-advanced",
     "q": "Which two statements about Kinesis Data Streams provisioned capacity are correct? (Select TWO.)",
     "options": [
+      "Each shard supports up to 1 MB per second or 1,000 records per second of writes, whichever limit is reached first",
+      "Each shard supports up to 2 MB per second or 2,000 records per second of reads, whichever limit is reached first",
       "Switching between capacity modes is unlimited, so a stream can change its mode as often as needed in a day",
       "On-demand streams require the operator to enter a fixed shard count when the stream is created",
-      "Writes per shard are capped at 10 MB per second, which is the same limit for every shard in the stream",
-      "Each shard supports up to 1 MB per second or 1,000 records per second of writes, whichever limit is reached first",
-      "Each shard supports up to 2 MB per second or 2,000 records per second of reads, whichever limit is reached first"
+      "Writes per shard are capped at 10 MB per second, which is the same limit for every shard in the stream"
     ],
     "answer": [
-      3,
-      4
+      0,
+      1
     ],
     "explain": "The quotas page lists 1 MB or 1,000 records per second of writes and 2 MB or 2,000 records per second of reads per shard. Mode switches are limited to two in 24 hours, and on-demand streams do not take a shard count.",
     "difficulty": "difficile",
@@ -1178,15 +1178,15 @@
     "chapter": "ch8-data-advanced",
     "q": "Which two statements about Amazon EMR node types are correct? (Select TWO.)",
     "options": [
-      "A cluster can have only one primary node in every EMR release that is available today",
       "The primary node runs the YARN ResourceManager and the HDFS NameNode for the cluster",
       "Task nodes run the HDFS DataNode daemon and store the data blocks of the cluster",
       "Core nodes can run Spark executors together with the HDFS DataNode daemon",
-      "The primary node must always be a Spot instance, because it is the least critical node"
+      "The primary node must always be a Spot instance, because it is the least critical node",
+      "A cluster can have only one primary node in every EMR release that is available today"
     ],
     "answer": [
-      1,
-      3
+      0,
+      2
     ],
     "explain": "The primary node runs YARN ResourceManager and the NameNode, and core nodes run executors as well as DataNodes. Task nodes have no DataNode, primary nodes are not Spot by requirement, and EMR 5.23.0 and later allow three primary nodes.",
     "difficulty": "difficile",
@@ -1384,15 +1384,15 @@
     "chapter": "ch8-data-advanced",
     "q": "Which two statements about categorical encodings are correct? (Select TWO.)",
     "options": [
-      "Ordinal encoding assigns integers from 0 to the number of categories minus one, in the order the transform finds them",
       "One-hot encoding is the right choice when the categories have a meaningful order that the model should learn",
       "The drop last category option in one-hot encoding removes one output column, which avoids a redundant column",
       "Label encoding of nominal categories always helps a linear model, because the integers give it a useful scale",
-      "Binary encoding creates exactly one output column for each category that appears in the training data"
+      "Binary encoding creates exactly one output column for each category that appears in the training data",
+      "Ordinal encoding assigns integers from 0 to the number of categories minus one, in the order the transform finds them"
     ],
     "answer": [
-      0,
-      2
+      1,
+      4
     ],
     "explain": "Ordinal encoding produces indices from 0 to N minus 1, and the drop last option removes one column. One-hot is for categories without order, label encoding of nominal values can mislead linear models, and binary encoding is not one column per category.",
     "difficulty": "difficile",
@@ -1474,17 +1474,17 @@
     "chapter": "ch8-data-advanced",
     "q": "Which three transforms help a linear model with skewed numeric and categorical features? (Select THREE.)",
     "options": [
-      "Deleting the only numeric feature, which removes the skew from the data before the model is trained",
-      "Log transform of the skewed numeric feature, which compresses the long tail of its distribution",
-      "Standard Scaler on the numeric features, which centers them and gives them a unit variance",
       "One-hot encoding of the nominal categories, which turns each category into a separate binary column",
       "Balance data on the feature column, which resamples the rows of each category to equal counts",
-      "Tokenizing the numeric values into words, which creates a term vector out of each number in the column"
+      "Tokenizing the numeric values into words, which creates a term vector out of each number in the column",
+      "Deleting the only numeric feature, which removes the skew from the data before the model is trained",
+      "Log transform of the skewed numeric feature, which compresses the long tail of its distribution",
+      "Standard Scaler on the numeric features, which centers them and gives them a unit variance"
     ],
     "answer": [
-      1,
-      2,
-      3
+      0,
+      4,
+      5
     ],
     "explain": "A log transform reduces skew, a standard scaler centers the numeric inputs, and one-hot encodes nominal categories. Balancing rows is not a feature transform, tokenizing numbers is meaningless, and deleting the feature loses information.",
     "difficulty": "difficile",
@@ -1594,14 +1594,14 @@
     "chapter": "ch8-data-advanced",
     "q": "Which two statements about cleaning data before training are correct? (Select TWO.)",
     "options": [
-      "Imputation statistics should be computed on the training split only, to avoid leakage into the test data",
       "Duplicate rows should be kept, because they preserve the class weights that the training algorithm expects",
       "Missing-value indicators are useless for tree models, since trees can split only on the observed values",
       "Deleting every outlier always improves the model, because the model then only learns from typical values",
-      "Clipping keeps the rows but limits the extreme values to the detected thresholds of the column"
+      "Clipping keeps the rows but limits the extreme values to the detected thresholds of the column",
+      "Imputation statistics should be computed on the training split only, to avoid leakage into the test data"
     ],
     "answer": [
-      0,
+      3,
       4
     ],
     "explain": "Clipping limits extremes while keeping rows, and computing imputation statistics on the training split avoids leakage. Deleting all outliers can remove real signal, duplicates distort training, and indicators can help tree models.",
@@ -1956,15 +1956,15 @@
     "chapter": "ch8-data-advanced",
     "q": "Which two statements about Clarify pre-training bias metrics are correct? (Select TWO.)",
     "options": [
-      "CI ranges from negative one to one, with values near zero meaning the facets are balanced",
-      "Accuracy of a trained model is required before CI can be computed for the dataset",
       "KS ranges from zero to one, with values near one meaning the labels are concentrated in one facet",
       "Pre-training metrics need a trained model, because they compare the outputs of the model across facets",
-      "DPL is computed on predicted labels produced by a model that was trained on the same dataset"
+      "DPL is computed on predicted labels produced by a model that was trained on the same dataset",
+      "CI ranges from negative one to one, with values near zero meaning the facets are balanced",
+      "Accuracy of a trained model is required before CI can be computed for the dataset"
     ],
     "answer": [
       0,
-      2
+      3
     ],
     "explain": "CI ranges from -1 to 1 and KS ranges from 0 to 1, according to the cheat sheet. Pre-training metrics use observed labels and do not need a model, and DPL uses observed labels rather than predictions.",
     "difficulty": "difficile",
@@ -2161,15 +2161,15 @@
     "chapter": "ch8-data-advanced",
     "q": "Which two statements about splitting and augmentation are correct? (Select TWO.)",
     "options": [
-      "Resampling the minority class in the test set is recommended, so the metrics reflect a balanced class mix",
-      "A randomized split can use a seed to make the split reproducible across runs of the same pipeline",
       "Shuffling is never needed before a randomized split, because the split already randomizes the rows of the data",
       "Augmentation should be applied only to the training split, so the test set stays representative of real data",
-      "Augmenting the test set makes the evaluation more honest, because the model is measured on more varied examples"
+      "Augmenting the test set makes the evaluation more honest, because the model is measured on more varied examples",
+      "Resampling the minority class in the test set is recommended, so the metrics reflect a balanced class mix",
+      "A randomized split can use a seed to make the split reproducible across runs of the same pipeline"
     ],
     "answer": [
       1,
-      3
+      4
     ],
     "explain": "Augmentation belongs to training so that the test set stays representative, and a seed makes randomized splits reproducible, as the Data Wrangler documentation describes. Augmenting or resampling the test set distorts the evaluation.",
     "difficulty": "difficile",
@@ -2314,15 +2314,15 @@
     "chapter": "ch8-data-advanced",
     "q": "A compliance team must find personal data across its S3 buckets. Which two statements about Amazon Macie are correct? (Select TWO.)",
     "options": [
+      "It encrypts all S3 objects automatically, so the buckets do not need a separate encryption setting",
       "It detects PII in streaming Kinesis records as they are written into the stream by producers",
       "It discovers sensitive data in S3 using managed and custom data identifiers",
       "It publishes findings to Amazon EventBridge so that other services can react to them",
-      "It scans relational databases in Amazon RDS for personal data stored in their tables",
-      "It encrypts all S3 objects automatically, so the buckets do not need a separate encryption setting"
+      "It scans relational databases in Amazon RDS for personal data stored in their tables"
     ],
     "answer": [
-      1,
-      2
+      2,
+      3
     ],
     "explain": "Macie uses managed and custom data identifiers on S3 and publishes findings to EventBridge. It does not scan RDS or Kinesis streams, and it does not encrypt objects.",
     "difficulty": "difficile",
