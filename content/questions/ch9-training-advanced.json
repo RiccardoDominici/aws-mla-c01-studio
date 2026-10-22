@@ -301,7 +301,7 @@
       "feasibility",
       "baseline"
     ],
-    "source": "AWS docs: SageMaker AI Developer Guide — Built-in algorithms and pretrained models",
+    "source": "AWS Well-Architected Machine Learning Lens",
     "origin": "ai",
     "domain": "2",
     "task": "2.1",
@@ -666,7 +666,7 @@
       "underfitting",
       "capacity"
     ],
-    "source": "AWS docs: SageMaker AI Developer Guide — XGBoost hyperparameters",
+    "source": "AWS Well-Architected Machine Learning Lens",
     "origin": "ai",
     "domain": "2",
     "task": "2.2",
@@ -817,7 +817,7 @@
       "catastrophic-forgetting",
       "fine-tuning"
     ],
-    "source": "PyTorch docs: torch.nn.Dropout",
+    "source": "AWS Well-Architected Machine Learning Lens",
     "origin": "ai",
     "domain": "2",
     "task": "2.2",
@@ -936,7 +936,7 @@
       "model-improvement",
       "feature-engineering"
     ],
-    "source": "scikit-learn User Guide — Ensemble methods",
+    "source": "AWS Well-Architected Machine Learning Lens",
     "origin": "ai",
     "domain": "2",
     "task": "2.2",
@@ -1344,7 +1344,7 @@
       "Tuning jobs created before October 1, 2018 can be used as parents without any restriction, because they are always compatible",
       "The new tuning job must use the same objective metric as the parent jobs, so the results can be compared on one scale",
       "Warm start is recursive, so the results of every earlier ancestor of a parent job are always reused in the new tuning job",
-      "All parent jobs must have completed, stopped or failed before the warm start can begin to launch its own training jobs"
+      "Parent jobs may still be running, because the warm start reads their results as they arrive and launches new training jobs in parallel"
     ],
     "answer": [
       1,
@@ -2048,7 +2048,7 @@
       "cost",
       "time"
     ],
-    "source": "AWS docs: SageMaker AI Developer Guide — SageMaker AI Managed Warm Pools",
+    "source": "AWS Well-Architected Machine Learning Lens",
     "origin": "ai",
     "domain": "2",
     "task": "2.3",
@@ -2078,7 +2078,7 @@
       "tradeoff",
       "latency"
     ],
-    "source": "AWS docs: SageMaker AI Developer Guide — SageMaker AI Managed Warm Pools",
+    "source": "AWS Well-Architected Machine Learning Lens",
     "origin": "ai",
     "domain": "2",
     "task": "2.3",
@@ -2259,7 +2259,7 @@
       "eventbridge",
       "pipelines"
     ],
-    "source": "AWS docs: SageMaker AI Developer Guide — Managed Spot Training",
+    "source": "AWS docs: SageMaker AI Developer Guide — Schedule Pipeline Runs",
     "origin": "ai",
     "domain": "3",
     "task": "3.3",

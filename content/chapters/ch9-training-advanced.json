@@ -641,6 +641,26 @@
     {
       "title": "Amazon SageMaker AI features: End of Support Notice",
       "url": "https://aws.amazon.com/sagemaker/ai/features/"
+    },
+    {
+      "title": "Debugger availability change",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/debugger-availability-change.html"
+    },
+    {
+      "title": "Pre-training Bias Metrics",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-measure-data-bias.html"
+    },
+    {
+      "title": "DeepAR forecasting algorithm",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/deepar.html"
+    },
+    {
+      "title": "Schedule Pipeline Runs (SageMaker Pipelines with Amazon EventBridge)",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/pipeline-eventbridge.html"
+    },
+    {
+      "title": "AWS Well-Architected Machine Learning Lens",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/machine-learning-lens/machine-learning-lens.html"
     }
   ],
   "todo": [
