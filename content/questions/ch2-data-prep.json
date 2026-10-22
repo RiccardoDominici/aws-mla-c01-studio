@@ -1622,15 +1622,15 @@
   {
     "id": "ch2-ext16",
     "chapter": "ch2-data-prep",
-    "q": "An EMR Spark job reads versioned S3 prefixes and needs consistent listing retries when S3 is eventually consistent across writers. Which EMR filesystem feature helps?",
+    "q": "An EMR Spark job reads S3 prefixes that other writers update while it runs. Which statement about S3 listing consistency is correct?",
     "options": [
-      "EMR bootstrap action that disables HDFS entirely",
-      "EMR step concurrency level set to maximum",
-      "EMR Kerberos ticket renewal every few minutes",
-      "EMRFS consistent view backed by DynamoDB metadata tracking"
+      "EMRFS consistent view must be enabled with DynamoDB metadata, because S3 listings are eventually consistent",
+      "Step concurrency must be set to the maximum so that listings catch up with the writers",
+      "Kerberos ticket renewal every few minutes keeps the listings aligned with the latest writes",
+      "S3 offers strong read-after-write and list consistency, so the job sees the latest writes without extra configuration"
     ],
     "answer": 3,
-    "explain": "EMRFS consistent view tracks S3 listings in DynamoDB so jobs see a consistent namespace during multi-writer workflows. Step concurrency and Kerberos settings do not fix listing consistency.",
+    "explain": "S3 provides strong read-after-write consistency for new objects and overwrites, and strong consistency for list operations, so the EMRFS consistent view is no longer needed. Step concurrency and Kerberos settings do not affect listing consistency.",
     "difficulty": "difficile",
     "tags": [
       "emr",

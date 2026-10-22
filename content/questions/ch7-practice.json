@@ -3,15 +3,15 @@
     "answer": 2,
     "chapter": "ch7-practice",
     "difficulty": "facile",
-    "explain": "65 questions in 170 minutes gives about 2.6 minutes per question, so budgeting a steady pace with time for review matters most.",
+    "explain": "65 questions in 130 minutes gives exactly 2.0 minutes per question, so budgeting a steady pace with time for review matters most.",
     "id": "ch7-q01",
     "options": [
       "Answer every question in under 1 minute to finish a full hour ahead of schedule",
       "Spend 10 minutes on each flagged question and rush the remaining ones quickly",
-      "Budget about 2.6 minutes per question and reserve time for a final review",
+      "Budget about 2.0 minutes per question and reserve time for a final review",
       "Skip all long scenario questions first and answer only the short ones fully"
     ],
-    "q": "The MLA-C01 exam has 65 questions in 170 minutes. What is the best time-management rule?",
+    "q": "The MLA-C01 exam has 65 questions in 130 minutes. What is the best time-management rule?",
     "source": "AI-generated for MLA-C01 Studio",
     "tags": [
       "exam-tactics",
@@ -21,8 +21,7 @@
     "domain": "META",
     "task": "-",
     "exam": [
-      "C01",
-      "C02"
+      "C01"
     ]
   },
   {
@@ -830,13 +829,13 @@
     "answer": 3,
     "chapter": "ch7-practice",
     "difficulty": "media",
-    "explain": "Forecast is the managed time-series service, while Personalize and Textract address recommendations and document extraction instead.",
+    "explain": "SageMaker Canvas, or DeepAR, replaces Amazon Forecast, which closed to new customers on 29 July 2024. Personalize and Textract address recommendations and document extraction instead.",
     "id": "ch7-q32",
     "options": [
       "Predict future demand with Amazon Personalize recommendation ranking models",
       "Predict future demand with Amazon Textract document extraction processing",
       "Predict future demand with Amazon Rekognition image classification models",
-      "Predict future demand with Amazon Forecast time-series forecasting models"
+      "Predict future demand with Amazon SageMaker Canvas time-series forecasting models"
     ],
     "q": "A scenario asks for demand forecasting from historical sales. Which service fits?",
     "source": "AI-generated for MLA-C01 Studio",
@@ -1206,15 +1205,15 @@
   {
     "id": "ch7-ext01",
     "chapter": "ch7-practice",
-    "q": "A candidate plans pacing for the 65-question, 170-minute MLA-C01 exam. Which pacing plan best protects time for a final review?",
+    "q": "A candidate plans pacing for the 65-question, 130-minute MLA-C01 exam. Which pacing plan best protects time for a final review?",
     "options": [
       "Answer the 20 longest scenarios first, then rush remaining short questions",
       "Skip the review pass entirely and spend 5 minutes on each question once",
-      "Hold a steady pace near 2.5 minutes per question and bank 20 minutes for review",
+      "Hold a steady pace near 1.7 minutes per question and keep about 20 minutes for review",
       "Spend 6 minutes per question on the first half and guess the second half"
     ],
     "answer": 2,
-    "explain": "65 questions in 170 minutes allows about 2.6 minutes each. A steady pace with banked review time beats front-loading or skipping review.",
+    "explain": "65 questions in 130 minutes gives exactly 2.0 minutes each. A steady pace near 1.7 minutes leaves about 20 minutes for review, which beats front-loading or skipping review.",
     "difficulty": "facile",
     "tags": [
       "exam-tactics",
@@ -1226,8 +1225,7 @@
     "domain": "META",
     "task": "-",
     "exam": [
-      "C01",
-      "C02"
+      "C01"
     ]
   },
   {
@@ -1452,12 +1450,12 @@
     "q": "A startup must forecast weekly spare-parts demand from three years of sales history. Which service mapping is correct?",
     "options": [
       "Use Textract to read the sales tables, then stop before any modeling",
-      "Use Forecast with time-series history to predict future demand periods",
+      "Use SageMaker Canvas or DeepAR with time-series history to predict future demand periods",
       "Use Polly to narrate past sales, then treat narration as a forecast",
       "Use Lex to chat about sales, then treat chat logs as demand numbers"
     ],
     "answer": 1,
-    "explain": "Historical series plus future horizon is the Forecast pattern. Document, speech, and chatbot services do not produce time-series forecasts.",
+    "explain": "Historical series plus a future horizon is the forecasting pattern. Amazon Forecast closed to new customers on 29 July 2024, so SageMaker Canvas or DeepAR replaces it. Document, speech, and chatbot services do not produce time-series forecasts.",
     "difficulty": "media",
     "tags": [
       "exam-tactics",
@@ -1511,7 +1509,7 @@
       "Serve the 5 MB live payload on a real-time endpoint and the 800 MB file with async inference"
     ],
     "answer": 3,
-    "explain": "Real-time endpoints cap payloads near 6 MB with low latency; async inference accepts up to about 1 GB for background jobs. The split respects both limits.",
+    "explain": "Real-time endpoints cap payloads at 25 MB with low latency; async inference accepts up to about 1 GB for background jobs. The split respects both limits.",
     "difficulty": "media",
     "tags": [
       "exam-tactics",

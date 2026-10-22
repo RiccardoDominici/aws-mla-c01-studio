@@ -408,7 +408,7 @@
     "answer": 3,
     "chapter": "ch3-model-dev",
     "difficulty": "media",
-    "explain": "Managed Spot Training uses spare EC2 capacity with checkpointing so interrupted jobs resume, cutting costs up to 70%. On-Demand instances never get interrupted but cost the full price.",
+    "explain": "Managed Spot Training uses spare EC2 capacity with checkpointing so interrupted jobs resume, cutting costs up to 90 percent compared with on-demand. On-Demand instances never get interrupted but cost the full price.",
     "id": "ch3-q16",
     "options": [
       "On-Demand ml.p3 instances that run without interruption but bill the full hourly compute price",
@@ -1305,10 +1305,10 @@
     "explain": "Warm start reuses parent tuning history to seed the new search; on new or refreshed input data the correct type is TRANSFER_LEARNING (same algorithm, different data), while IDENTICAL_DATA_AND_ALGORITHM requires unchanged input data and image, e.g. to add more jobs.",
     "id": "ch3-ext04",
     "options": [
-      "A brand-new random search each week, discarding all previous tuning trial results",
+      "Warm start with IDENTICAL_DATA_AND_ALGORITHM, reusing parent jobs on unchanged input",
       "Grid search over identical ranges, which repeats past evaluations without transfer",
       "Tuning on training loss only, which reuses logs but pushes search toward overfitting",
-      "Warm start tuning with IDENTICAL_DATA_AND_ALGORITHM to seed search from parent jobs"
+      "Warm start tuning with TRANSFER_LEARNING to seed the search from parent jobs on fresh data"
     ],
     "origin": "esterna",
     "q": "A team retrains the same XGBoost model weekly on fresh sales data and wants to reuse prior tuning history. What should it configure?",

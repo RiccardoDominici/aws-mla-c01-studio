@@ -45,11 +45,11 @@
     },
     {
       "term": "Debugger e Profiler",
-      "def": "Debugger rileva anomalie di training, Profiler analizza uso di CPU, GPU e memoria."
+      "def": "Debugger rileva anomalie di training, Profiler analizza uso di CPU, GPU e memoria. Non accettano nuovi clienti dal 30 luglio 2026: chi li usava continua."
     },
     {
-      "term": "F1 e AUC",
-      "def": "F1 come media armonica di precision e recall, AUC come separazione tra classi, ideali su dati sbilanciati."
+      "term": "F1 e PR AUC",
+      "def": "F1 come media armonica di precision e recall. La PR AUC e la misura piu utile su classi molto sbilanciate, perche la ROC AUC puo sembrare ottimistica."
     },
     {
       "term": "RMSE e MAE",
@@ -72,12 +72,12 @@
       "title": "XGBoost in dettaglio",
       "bullets": [
         "Obiettivi: binary logistic, multiclasse softprob, regressione squarederror",
-        "Iperparametri eta 0,05-0,3 e max_depth 3-10",
+        "Iperparametri: eta con default 0,3 e max_depth con default 6",
         "Subsample colsample lambda e alpha contro overfitting",
         "Input CSV LibSVM Parquet con modalita Pipe su dati grandi",
         "Metriche tuning: validation auc, error, rmse, mlogloss"
       ],
-      "narration": "E l'algoritmo piu testato dell'intero esame. Supporta obiettivi binari multiclasse e regressione. Gli iperparametri chiave sono eta e profondita massima. Eta controlla il learning rate tra zero e uno. La profondita massima tipica va da tre a dieci. Subsample e colsample controllano il campionamento. Lambda e alpha controllano la regolarizzazione. I formati di input sono CSV LibSVM e Parquet. La modalita Pipe accelera il training su dati grandi. Per relazioni lineari semplici usa Linear Learner. E veloce economico e interpretabile. Supporta classificazione e regressione su dati sparsi."
+      "narration": "E l'algoritmo piu testato dell'intero esame. Supporta obiettivi binari multiclasse e regressione. Gli iperparametri chiave sono eta e profondita massima. Eta controlla il learning rate, con valori tra zero e uno e default 0,3. La profondita massima ha default 6. Chi fa tuning prova spesso intervalli piu stretti, per esempio eta tra 0,05 e 0,3 o profondita tra tre e dieci: sono scelte di ricerca, non limiti dell'algoritmo. Subsample e colsample controllano il campionamento. Lambda e alpha controllano la regolarizzazione. I formati di input sono CSV LibSVM e Parquet. La modalita Pipe accelera il training su dati grandi. Per relazioni lineari semplici usa Linear Learner. E veloce economico e interpretabile. Supporta classificazione e regressione su dati sparsi."
     },
     {
       "title": "JumpStart e Autopilot",
@@ -118,10 +118,10 @@
         "Accuracy totale ingannevole su classi sbilanciate",
         "Precision sui predetti positivi e recall sui reali positivi",
         "F1 come media armonica e AUC come separazione",
-        "Su frodi e sbilanciati usare F1 o AUC",
+        "Su frodi e sbilanciati guardare PR AUC e F1, non la sola accuratezza",
         "Confusion matrix per errori per classe"
       ],
-      "narration": "Registra parametri metriche e artefatti di ogni run. SageMaker Model Registry versiona i modelli approvati. Debugger rileva gradienti anomali e training stagnante. Profiler analizza utilizzo di CPU GPU e memoria. Le metriche di classificazione vanno scelte con cura. Accuracy misura le previsioni corrette totali. Precision misura i veri positivi sui predetti positivi. Recall misura i veri positivi sui positivi reali. F1 e la media armonica di precision e recall. AUC ROC misura la separazione tra le classi. Per classi sbilanciate usa F1 o AUC mai la sola accuracy. Per la regressione usa RMSE MAE e R quadro. RMSE penalizza molto gli errori grandi."
+      "narration": "Registra parametri metriche e artefatti di ogni run. SageMaker Model Registry versiona i modelli approvati. Debugger rileva gradienti anomali e training stagnante. Profiler analizza utilizzo di CPU GPU e memoria. Attenzione alla data: dal 30 luglio 2026 Debugger e Profiler non accettano nuovi clienti, e chi li usava prima continua. La guida MLA-C01 li nomina ancora, mentre la guida MLA-C02 non li nomina piu, ma chiede comunque di diagnosticare la convergenza del training. Le metriche di classificazione vanno scelte con cura. Accuracy misura le previsioni corrette totali. Precision misura i veri positivi sui predetti positivi. Recall misura i veri positivi sui positivi reali. F1 e la media armonica di precision e recall. AUC ROC misura la separazione tra le classi. Per classi molto sbilanciate usa PR AUC e F1, mai la sola accuracy. La ROC AUC puo sembrare ottimistica, perche il tasso di falsi positivi si diluisce tra tantissimi negativi. Per la regressione usa RMSE MAE e R quadro. RMSE penalizza molto gli errori grandi."
     },
     {
       "title": "Regressione, fit e validazione",
@@ -135,84 +135,84 @@
       "narration": "MAE misura l'errore medio assoluto. R quadro misura la varianza spiegata dal modello. Overfitting significa memorizzare il training senza generalizzare. Si riconosce da training alto e validation bassa. Si cura con regolarizzazione early stopping e piu dati. Underfitting significa modello troppo semplice per i dati. Si riconosce da metriche basse su entrambi i set. Si cura con modelli piu espressivi e feature migliori. La cross validation a k fold stima la generalizzazione. Divide i dati in k parti e ruota training e validation. Stratificala per preservare le proporzioni delle classi. Ora sai sviluppare e valutare i modelli. Sei pronto per esercitarti con i quiz stile esame."
     }
   ],
-  "script": "Benvenuto al capitolo sullo sviluppo dei modelli di machine learning. Questo e il secondo dominio dell'esame e pesa il 26 percento. Insieme al primo dominio copre piu della meta del test. Qui impari a scegliere l'algoritmo giusto. Poi ad allenare e valutare i modelli con SageMaker. La prima decisione e il tipo di problema. Classificazione binaria significa due sole classi possibili. Classificazione multiclasse significa tre o piu categorie. Regressione significa prevedere un numero continuo. Clustering significa raggruppare dati senza etichette. Serie temporali significa prevedere valori futuri nel tempo. Testo significa classificare o rappresentare documenti. Per la classificazione tabellare e la regressione usa XGBoost. E l'algoritmo piu testato dell'intero esame. Supporta obiettivi binari multiclasse e regressione. Gli iperparametri chiave sono eta e profondita massima. Eta controlla il learning rate tra zero e uno. La profondita massima tipica va da tre a dieci. Subsample e colsample controllano il campionamento. Lambda e alpha controllano la regolarizzazione. I formati di input sono CSV LibSVM e Parquet. La modalita Pipe accelera il training su dati grandi. Per relazioni lineari semplici usa Linear Learner. E veloce economico e interpretabile. Supporta classificazione e regressione su dati sparsi. Per serie temporali con piu serie correlate usa DeepAR. E una rete ricorrente probabilistica gestita. Produce previsioni con intervalli di confidenza. Per il testo usa BlazingText. Implementa Word2Vec e classificazione veloce. Per il clustering usa K-Means. Raggruppa i punti in un numero K di cluster. Ricorda di standardizzare le feature prima di usarlo. Amazon SageMaker JumpStart offre modelli pronti all'uso. Include modelli foundation e algoritmi classici. Puoi personalizzarli con i tuoi dati in pochi click. SageMaker Autopilot e la soluzione AutoML per dati tabulari. Automatizza feature engineering e scelta dell'algoritmo. Allena fino a duecentocinquanta candidati in automatico. Produce notebook con le definizioni dei candidati. Mostra l'importanza delle feature del vincitore. Distribuisce il miglior candidato su endpoint. Regola per l'esame molto importante. Baseline rapida senza codice uguale Autopilot. Controllo totale e tuning fine uguale XGBoost con training job. I Training Job di SageMaker eseguono l'allenamento gestito. Scegli istanza GPU per deep learning e CPU per tabulari. Le metriche si estraggono dai log con espressioni regolari. SageMaker AMT ottimizza gli iperparametri in automatico. AMT significa Automatic Model Tuning. Usa strategie bayesiane random hyperband e griglia. La strategia bayesiana trova l'ottimo con pochi job. Hyperband risparmia costi scartando presto i candidati deboli. Devi definire la metrica obiettivo da ottimizzare. Devi definire i range degli iperparametri continui interi e categorici. Devi fissare limiti di job massimi e paralleli. Puoi attivare early stopping per fermare i job inutili. Puoi usare il warm start dai tuning precedenti. Esempio tipico da esame importante. Classificazione binaria ottimizza validation auc. Regressione ottimizza validation rmse. Multiclasse ottimizza validation mlogloss. SageMaker Experiments traccia ogni esperimento. Registra parametri metriche e artefatti di ogni run. SageMaker Model Registry versiona i modelli approvati. Debugger rileva gradienti anomali e training stagnante. Profiler analizza utilizzo di CPU GPU e memoria. Le metriche di classificazione vanno scelte con cura. Accuracy misura le previsioni corrette totali. Precision misura i veri positivi sui predetti positivi. Recall misura i veri positivi sui positivi reali. F1 e la media armonica di precision e recall. AUC ROC misura la separazione tra le classi. Per classi sbilanciate usa F1 o AUC mai la sola accuracy. Per la regressione usa RMSE MAE e R quadro. RMSE penalizza molto gli errori grandi. MAE misura l'errore medio assoluto. R quadro misura la varianza spiegata dal modello. Overfitting significa memorizzare il training senza generalizzare. Si riconosce da training alto e validation bassa. Si cura con regolarizzazione early stopping e piu dati. Underfitting significa modello troppo semplice per i dati. Si riconosce da metriche basse su entrambi i set. Si cura con modelli piu espressivi e feature migliori. La cross validation a k fold stima la generalizzazione. Divide i dati in k parti e ruota training e validation. Stratificala per preservare le proporzioni delle classi. Ora sai sviluppare e valutare i modelli. Sei pronto per esercitarti con i quiz stile esame.",
+  "script": "Benvenuto al capitolo sullo sviluppo dei modelli di machine learning. Questo e il secondo dominio dell'esame e pesa il 26 percento. Insieme al primo dominio copre piu della meta del test. Qui impari a scegliere l'algoritmo giusto. Poi ad allenare e valutare i modelli con SageMaker. La prima decisione e il tipo di problema. Classificazione binaria significa due sole classi possibili. Classificazione multiclasse significa tre o piu categorie. Regressione significa prevedere un numero continuo. Clustering significa raggruppare dati senza etichette. Serie temporali significa prevedere valori futuri nel tempo. Testo significa classificare o rappresentare documenti. Per la classificazione tabellare e la regressione usa XGBoost. E l'algoritmo piu testato dell'intero esame. Supporta obiettivi binari multiclasse e regressione. Gli iperparametri chiave sono eta e profondita massima. Eta controlla il learning rate, con valori tra zero e uno e default 0,3. La profondita massima ha default 6. Chi fa tuning prova spesso intervalli piu stretti, per esempio eta tra 0,05 e 0,3 o profondita tra tre e dieci: sono scelte di ricerca, non limiti dell'algoritmo. Subsample e colsample controllano il campionamento. Lambda e alpha controllano la regolarizzazione. I formati di input sono CSV LibSVM e Parquet. La modalita Pipe accelera il training su dati grandi. Per relazioni lineari semplici usa Linear Learner. E veloce economico e interpretabile. Supporta classificazione e regressione su dati sparsi. Per serie temporali con piu serie correlate usa DeepAR. E una rete ricorrente probabilistica gestita. Produce previsioni con intervalli di confidenza. Per il testo usa BlazingText. Implementa Word2Vec e classificazione veloce. Per il clustering usa K-Means. Raggruppa i punti in un numero K di cluster. Ricorda di standardizzare le feature prima di usarlo. Amazon SageMaker JumpStart offre modelli pronti all'uso. Include modelli foundation e algoritmi classici. Puoi personalizzarli con i tuoi dati in pochi click. SageMaker Autopilot e la soluzione AutoML per dati tabulari. Automatizza feature engineering e scelta dell'algoritmo. Allena fino a duecentocinquanta candidati in automatico. Produce notebook con le definizioni dei candidati. Mostra l'importanza delle feature del vincitore. Distribuisce il miglior candidato su endpoint. Regola per l'esame molto importante. Baseline rapida senza codice uguale Autopilot. Controllo totale e tuning fine uguale XGBoost con training job. I Training Job di SageMaker eseguono l'allenamento gestito. Scegli istanza GPU per deep learning e CPU per tabulari. Le metriche si estraggono dai log con espressioni regolari. SageMaker AMT ottimizza gli iperparametri in automatico. AMT significa Automatic Model Tuning. Usa strategie bayesiane random hyperband e griglia. La strategia bayesiana trova l'ottimo con pochi job. Hyperband risparmia costi scartando presto i candidati deboli. Devi definire la metrica obiettivo da ottimizzare. Devi definire i range degli iperparametri continui interi e categorici. Devi fissare limiti di job massimi e paralleli. Puoi attivare early stopping per fermare i job inutili. Puoi usare il warm start dai tuning precedenti. Esempio tipico da esame importante. Classificazione binaria ottimizza validation auc. Regressione ottimizza validation rmse. Multiclasse ottimizza validation mlogloss. SageMaker Experiments traccia ogni esperimento. Registra parametri metriche e artefatti di ogni run. SageMaker Model Registry versiona i modelli approvati. Debugger rileva gradienti anomali e training stagnante. Profiler analizza utilizzo di CPU GPU e memoria. Attenzione alla data: dal 30 luglio 2026 Debugger e Profiler non accettano nuovi clienti, e chi li usava prima continua. La guida MLA-C01 li nomina ancora, mentre la guida MLA-C02 non li nomina piu, ma chiede comunque di diagnosticare la convergenza del training. Le metriche di classificazione vanno scelte con cura. Accuracy misura le previsioni corrette totali. Precision misura i veri positivi sui predetti positivi. Recall misura i veri positivi sui positivi reali. F1 e la media armonica di precision e recall. AUC ROC misura la separazione tra le classi. Per classi molto sbilanciate usa PR AUC e F1, mai la sola accuracy. La ROC AUC puo sembrare ottimistica, perche il tasso di falsi positivi si diluisce tra tantissimi negativi. Per la regressione usa RMSE MAE e R quadro. RMSE penalizza molto gli errori grandi. MAE misura l'errore medio assoluto. R quadro misura la varianza spiegata dal modello. Overfitting significa memorizzare il training senza generalizzare. Si riconosce da training alto e validation bassa. Si cura con regolarizzazione early stopping e piu dati. Underfitting significa modello troppo semplice per i dati. Si riconosce da metriche basse su entrambi i set. Si cura con modelli piu espressivi e feature migliori. La cross validation a k fold stima la generalizzazione. Divide i dati in k parti e ruota training e validation. Stratificala per preservare le proporzioni delle classi. Ora sai sviluppare e valutare i modelli. Sei pronto per esercitarti con i quiz stile esame.",
   "quiz": [
     {
-      "q": "A team needs a quick baseline on tabular churn data without manual feature engineering. Which service should it use?",
+      "q": "Un team ha bisogno di una baseline rapida su dati tabellari di churn, senza feature engineering manuale. Quale servizio usa?",
       "options": [
-        "SageMaker Autopilot AutoML job",
-        "Custom MPI training on EC2",
-        "Amazon Kendra search index",
-        "Manual SQL rules engine"
+        "Un job SageMaker Autopilot di AutoML",
+        "Training MPI personalizzato su istanze EC2 dedicate",
+        "Un indice di ricerca Amazon Kendra costruito sui dati",
+        "Un motore di regole SQL scritto a mano dal team"
       ],
       "answer": 0,
-      "explain": "Autopilot automates feature engineering, algorithm selection, and tuning for tabular classification and regression, producing deployable candidates."
+      "explain": "Autopilot automatizza feature engineering, scelta dell'algoritmo e tuning per la classificazione e la regressione su dati tabellari, e produce candidati pronti per il deploy."
     },
     {
-      "q": "A binary fraud classifier must be tuned with SageMaker AMT. Which objective metric should the tuning job optimize?",
+      "q": "Un classificatore binario di frodi va ottimizzato con SageMaker AMT. Quale metrica obiettivo deve massimizzare il job di tuning?",
       "options": [
-        "validation:rmse",
-        "validation:auc",
-        "validation:mlogloss for regression",
-        "Training data size"
+        "validation:rmse, che misura l'errore quadratico medio",
+        "validation:auc, che misura la separazione tra classi",
+        "validation:mlogloss, pensata per la regressione con molte etichette",
+        "La dimensione del training set, che guida la scelta dei candidati"
       ],
       "answer": 1,
-      "explain": "For binary classification, validation:auc measures class separation and is the standard AMT objective; RMSE suits regression and mlogloss suits multiclass."
+      "explain": "Per la classificazione binaria validation:auc misura la separazione tra classi ed e l'obiettivo standard di AMT. Su dati molto sbilanciati conviene verificare anche PR AUC e F1, perche la ROC AUC puo sembrare ottimistica."
     },
     {
-      "q": "An XGBoost model shows 99% training accuracy but 72% validation accuracy. What is the diagnosis and fix?",
+      "q": "Un modello XGBoost mostra 99% di accuratezza in training ma 72% in validation. Qual e la diagnosi e la correzione?",
       "options": [
-        "Underfitting; add more layers immediately",
-        "Overfitting; add regularization such as lambda, use early stopping, or add data",
-        "Data leakage in the test set only",
-        "Wrong instance type with no effect on accuracy"
+        "Underfitting: aggiungere subito altri livelli alla rete, cosi il modello impara di piu",
+        "Overfitting: regolarizzazione come lambda, early stopping o piu dati",
+        "Data leakage solo nel test set, senza effetti reali sul training del modello",
+        "Tipo di istanza sbagliato, senza effetti sull'accuratezza del modello finale"
       ],
       "answer": 1,
-      "explain": "High training with low validation accuracy is classic overfitting. Regularization, early stopping, shallower depth, and more data restore generalization."
+      "explain": "Accuratezza alta in training e bassa in validation e l'overfitting classico. Regolarizzazione, early stopping, profondita minore e piu dati ripristinano la generalizzazione."
     },
     {
-      "q": "A retailer forecasts demand across hundreds of correlated product time series with uncertainty intervals. Which algorithm fits?",
+      "q": "Un retailer prevede la domanda di centinaia di serie temporali correlate di prodotti, con intervalli di incertezza. Quale algoritmo e adatto?",
       "options": [
-        "Linear Learner",
-        "K-Means",
-        "DeepAR",
-        "BlazingText"
+        "Linear Learner, con regressione lineare su feature tabellari e interpretabili",
+        "K-Means, con raggruppamento dei prodotti per similarita e nessuna previsione futura",
+        "DeepAR, algoritmo probabilistico per previsioni su serie correlate",
+        "BlazingText, pensato per il testo, gli embedding e la classificazione di documenti"
       ],
       "answer": 2,
-      "explain": "DeepAR is SageMaker's probabilistic forecasting algorithm for multiple correlated series and outputs quantiles and confidence intervals."
+      "explain": "DeepAR e l'algoritmo probabilistico di SageMaker per previsioni su piu serie correlate, e restituisce quantili e intervalli di confidenza."
     },
     {
-      "q": "A text team must train fast embeddings and document classification on a huge corpus with distributed training. Which algorithm fits?",
+      "q": "Un team di testo deve addestrare embedding veloci e una classificazione di documenti su un corpus enorme, con training distribuito. Quale algoritmo e adatto?",
       "options": [
-        "DeepAR",
-        "XGBoost with LibSVM",
-        "BlazingText",
-        "K-Means on raw text"
+        "DeepAR, pensato per le previsioni su serie temporali con intervalli di confidenza",
+        "XGBoost con input in formato LibSVM, usato per dati tabellari e non per il testo",
+        "BlazingText, con Word2Vec e classificazione del testo su larga scala",
+        "K-Means applicato direttamente al testo grezzo, senza alcuna rappresentazione"
       ],
       "answer": 2,
-      "explain": "BlazingText implements Word2Vec and text classification at scale with distributed training, ideal for large corpora."
+      "explain": "BlazingText implementa Word2Vec e la classificazione del testo con training distribuito, ed e ideale per corpus molto grandi."
     },
     {
-      "q": "A regression model for house prices reports RMSE 45000 and MAE 28000. A stakeholder asks what changes. What do you answer?",
+      "q": "Un modello per i prezzi delle case riporta RMSE 45000 e MAE 28000. Uno stakeholder chiede cosa cambia. Cosa rispondi?",
       "options": [
-        "RMSE penalizes large errors more than MAE; investigate outliers with big residuals",
-        "Both metrics are identical so nothing changes",
-        "MAE is only for classification",
-        "Retrain without validation data"
+        "RMSE penalizza di piu gli errori grandi: cerca gli outlier",
+        "Le due metriche sono identiche per costruzione, quindi non cambia nulla per lo stakeholder",
+        "MAE serve soltanto per la classificazione binaria, non per la regressione continua",
+        "Riaddestrare il modello senza dati di validation, cosi le metriche diventano piu alte"
       ],
       "answer": 0,
-      "explain": "RMSE squares errors so outliers inflate it more than MAE. A large RMSE-MAE gap points to a few large residuals worth investigating."
+      "explain": "RMSE eleva gli errori al quadrato, quindi gli outlier lo gonfiano piu del MAE. Un divario ampio tra RMSE e MAE indica pochi residui molto grandi, da investigare."
     },
     {
-      "q": "A team wants Bayesian tuning with cost control that stops weak candidates early across 50 training jobs. Which AMT setup fits?",
+      "q": "Un team vuole un tuning bayesiano con controllo dei costi, che fermi in anticipo i candidati deboli su 50 job di training. Quale setup AMT scegli?",
       "options": [
-        "Grid search without limits",
-        "Bayesian strategy with Hyperband-style early stopping, MaxJobs and MaxParallelJobs set",
-        "Random search with one job",
-        "Manual tuning in notebooks only"
+        "Grid search senza alcun limite sul numero di job, con tutte le combinazioni",
+        "Bayesiano con early stopping in stile Hyperband e limiti di job",
+        "Random search con un solo job, senza alcun confronto tra i candidati",
+        "Tuning manuale solo nei notebook, provando una configurazione alla volta"
       ],
       "answer": 1,
-      "explain": "Bayesian optimization finds strong hyperparameters efficiently while Hyperband-style early stopping terminates weak trials, and job limits cap cost."
+      "explain": "L'ottimizzazione bayesiana trova buoni iperparametri in modo efficiente, l'early stopping in stile Hyperband ferma i tentativi deboli, e i limiti di job controllano il costo."
     }
   ]
 }

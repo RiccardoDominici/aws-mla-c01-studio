@@ -143,7 +143,7 @@
     "options": [
       "A ProcessingStep that runs a preprocessing script on the training data before model fitting",
       "A TrainingStep that launches a managed SageMaker training job as part of the pipeline flow",
-      "An EvaluationStep that computes metrics on a held-out test set after the model is trained",
+      "A QualityCheckStep that computes metrics on a held-out test set after the model is trained",
       "A RegisterModel step that adds the trained artifact to the Model Registry with its metadata"
     ],
     "q": "Which SageMaker Pipelines step actually launches a model training job inside the pipeline?",
@@ -169,7 +169,7 @@
     "id": "ch4-q07",
     "options": [
       "A SageMaker training job that retrains the model nightly and overwrites the previous artifact",
-      "A Pipelines EvaluationStep that recomputes accuracy metrics on each new candidate model build",
+      "A ConditionStep that recomputes accuracy metrics on each new candidate model build",
       "The Model Registry approval workflow that gates deployment until a reviewer marks it Approved",
       "An EventBridge rule that automatically restarts failed pipeline executions with doubled capacity"
     ],
@@ -436,7 +436,7 @@
     "answer": 0,
     "chapter": "ch4-deploy",
     "difficulty": "media",
-    "explain": "Payload size caps, up to 6 MB for async and small limits for serverless, plus the 60-second real-time timeout decide feasibility. Compute power alone does not resolve hard request-size limits.",
+    "explain": "A 50 MB payload exceeds the real-time limit of 25 MB and the serverless limit of 4 MB, and 10-minute runs exceed the 60-second cap. Asynchronous inference supports payloads up to 1 GB and processing times up to one hour, so check these limits first.",
     "id": "ch4-q17",
     "options": [
       "Check payload size limits and timeout caps first, since large inputs rule out real-time and serverless",
@@ -601,11 +601,11 @@
     "answer": 2,
     "chapter": "ch4-deploy",
     "difficulty": "media",
-    "explain": "A ProcessingStep runs scripts such as Spark or scikit-learn jobs, while TrainingStep fits models and EvaluationStep scores them. Registration only records an already trained artifact.",
+    "explain": "A ProcessingStep runs scripts such as Spark or scikit-learn jobs, while TrainingStep fits models. Evaluation runs as a processing job whose metrics feed a ConditionStep. Registration only records an already trained artifact.",
     "id": "ch4-q23",
     "options": [
       "TrainingStep, because it launches the distributed fitting job over the prepared feature dataset",
-      "EvaluationStep, because it calculates accuracy and F1 metrics that validate the prepared inputs",
+      "ConditionStep, because it calculates accuracy and F1 metrics that validate the prepared inputs",
       "ProcessingStep, because it runs the Spark and scikit-learn scripts that build features at scale",
       "RegisterModel, because it stores the final artifact together with its feature engineering lineage"
     ],
@@ -1070,13 +1070,13 @@
     "answer": 3,
     "chapter": "ch4-deploy",
     "difficulty": "difficile",
-    "explain": "A LambdaStep can invoke the approval API and pause the pipeline awaiting the decision, combining automation with human control. Automatic registration or deletion removes the governance gate.",
+    "explain": "A CallbackStep sends a message with a token to an external process and waits for the response, so the pipeline can pause for a human decision. A LambdaStep runs a function and returns, so it cannot wait for sign-off. Approving in the Model Registry with an EventBridge rule is the other valid pattern. Automatic registration or deletion removes the governance gate.",
     "id": "ch4-q40",
     "options": [
       "Register every trained model automatically and deploy it straight to the production endpoint stage",
       "Delete the Model Registry from the flow and copy artifacts to production with S3 replication rules",
       "Add a TrainingStep that retrains continuously until metrics pass, without any human decision point",
-      "Add a LambdaStep that requests manual approval and pauses the pipeline until the decision arrives"
+      "Add a CallbackStep that sends a token to the approver and waits for the response before registration"
     ],
     "q": "A pipeline must pause for compliance sign-off between evaluation and registration. How should this be implemented?",
     "source": "AI-generated for MLA-C01 Studio",
@@ -1245,7 +1245,7 @@
       "Keep the real-time endpoint and raise the timeout to 15 minutes with larger instances"
     ],
     "answer": 2,
-    "explain": "Real-time endpoints cap payloads near 6 MB with a 60-second timeout, so 8 MB and 90 seconds fail there. Asynchronous inference accepts up to 1 GB with up to 60 minutes of processing plus queueing and SNS notifications.",
+    "explain": "Real-time endpoints time out after 60 seconds, so 90-second requests fail there. Asynchronous inference accepts up to 1 GB and one hour of processing, with queueing and SNS notifications.",
     "difficulty": "facile",
     "tags": [
       "sagemaker",
@@ -1823,7 +1823,7 @@
     "options": [
       "Raise serverless concurrency to 200 and keep the 60-second synchronous path",
       "Migrate to async inference with S3 payloads, longer timeouts, and queueing",
-      "Shard payloads for real-time 6 MB calls and hold connections open longer",
+      "Shard payloads for real-time 25 MB calls and hold connections open longer",
       "Add notebook polling loops that retry the same serverless call repeatedly"
     ],
     "answer": 1,

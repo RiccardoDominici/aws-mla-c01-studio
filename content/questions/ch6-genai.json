@@ -161,12 +161,12 @@
     "answer": 2,
     "chapter": "ch6-genai",
     "difficulty": "facile",
-    "explain": "Forecast is the time-series forecasting service for demand, inventory, and capacity planning. Personalize recommends items and Comprehend analyzes text instead.",
+    "explain": "SageMaker Canvas, or DeepAR for a custom model, replaces Amazon Forecast, which closed to new customers on 29 July 2024. Personalize recommends items and Comprehend analyzes text instead.",
     "id": "ch6-q07",
     "options": [
       "Use Amazon Personalize predictors to forecast next-quarter sales quantities",
       "Use Amazon Comprehend topic modeling to project future inventory demand levels",
-      "Use Amazon Forecast to predict future product demand from history",
+      "Use SageMaker Canvas time-series forecasting to predict product demand",
       "Use Amazon Textract table extraction to estimate seasonal sales forecasts"
     ],
     "q": "A retailer wants to predict next-quarter product demand from historical sales data. Which service should it use?",
@@ -718,13 +718,13 @@
     "answer": 3,
     "chapter": "ch6-genai",
     "difficulty": "media",
-    "explain": "What-if analysis simulates how promos or price changes would affect the forecast without altering history. Accuracy metrics and backtesting measure quality instead.",
+    "explain": "A what-if scenario keeps the history untouched and compares forecasts with and without the planned promotion. The old Forecast what-if feature is no longer open to new customers since 29 July 2024. Accuracy metrics and backtesting measure quality instead.",
     "id": "ch6-q28",
     "options": [
       "Run backtesting exports to simulate the effect of a planned price increase",
       "Retrain the predictor on invented future rows to preview promotion effects",
       "Change historical sales figures directly to model the upcoming promotion",
-      "Use Forecast what-if analysis to simulate the promotion impact on demand"
+      "Run a what-if scenario with the promotion as a separate input"
     ],
     "q": "A planner wants to preview how a planned promotion would change the demand forecast without editing history. Which feature fits?",
     "source": "AI-generated for MLA-C01 Studio",

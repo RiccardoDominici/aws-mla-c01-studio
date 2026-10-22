@@ -3,7 +3,7 @@
   "area": "fondamenti",
   "title": "Guida all'esame MLA-C01",
   "prereq": [],
-  "summary": "Questo capitolo presenta l'esame AWS MLA-C01 Machine Learning Engineer Associate: 65 domande in 170 minuti, punteggio minimo 720 su 1000, costo 150 dollari tramite Pearson VUE e validita di tre anni. Descrive i quattro domini con i relativi pesi, dal Data Preparation al Monitoring con Security. Spiega la strategia per le domande scenario-based e i prerequisiti consigliati, con i servizi in scope della Appendix A.",
+  "summary": "Questo capitolo presenta l'esame AWS MLA-C01 Machine Learning Engineer Associate: 65 domande in 130 minuti, circa 2,0 minuti per domanda, punteggio minimo 720 su 1000, costo 150 dollari tramite Pearson VUE e validita di tre anni. Descrive i quattro domini con i relativi pesi, dal Data Preparation al Monitoring con Security. Spiega la strategia per le domande scenario-based e i prerequisiti consigliati, con i servizi in scope della Appendix A. Spiega anche la transizione all'MLA-C02: beta dal 29 settembre 2026, 85 domande in 170 minuti, pesi dei domini aggiornati e GenAI in tutti i domini.",
   "keywords": [
     {
       "term": "MLA-C01",
@@ -27,7 +27,7 @@
     },
     {
       "term": "Time management",
-      "def": "Tempo medio disponibile per domanda: 170 minuti diviso 65 domande."
+      "def": "Tempo medio disponibile per domanda: 130 minuti diviso 65 domande, circa 2,0 minuti per domanda."
     },
     {
       "term": "Hands-on consigliato",
@@ -36,6 +36,10 @@
     {
       "term": "Skill Builder e exam guide",
       "def": "Documenti, corsi e laboratori ufficiali AWS per preparare l'esame."
+    },
+    {
+      "term": "MLA-C02 beta",
+      "def": "Versione aggiornata dell'esame, in beta dal 29 settembre 2026 con 85 domande in 170 minuti. Ha GenAI e agenti in tutti i domini."
     }
   ],
   "slides": [
@@ -43,12 +47,24 @@
       "title": "Formato ufficiale dell'esame",
       "bullets": [
         "Codice esame MLA-C01, livello Associate per ML Engineer",
-        "65 domande in 170 minuti, circa 2,5 minuti per domanda",
+        "65 domande in 130 minuti, circa 2,0 minuti per domanda",
         "Punteggio minimo 720 su scala da 100 a 1000",
         "Costo 150 dollari, erogato da Pearson VUE in sede o online",
         "Validita della certificazione pari a 3 anni"
       ],
-      "narration": "Benvenuto al primo capitolo della preparazione per la certificazione AWS Machine Learning Engineer Associate. Il codice ufficiale dell'esame e MLA-C01. E un esame di livello associate dedicato a chi costruisce soluzioni di machine learning su AWS. Questo esame sostituisce la vecchia certificazione specialty MLS-C01. Il livello associate significa taglio pratico e operativo. Devi saper scegliere i servizi giusti e combinarli in soluzioni complete. L'esame contiene 65 domande in totale. Il tempo a disposizione e di 170 minuti. Fai il calcolo con attenzione. Hai circa due minuti e mezzo per ogni domanda. Chi ha diritto ad accomodamenti per la lingua puo avere trenta minuti extra. Il punteggio minimo per superare l'esame e 720 punti su 1000. La scala di punteggio va da 100 a 1000 punti."
+      "narration": "Benvenuto al primo capitolo della preparazione per la certificazione AWS Machine Learning Engineer Associate. Il codice ufficiale dell'esame e MLA-C01. E un esame di livello associate dedicato a chi costruisce soluzioni di machine learning su AWS. Questo esame sostituisce la vecchia certificazione specialty MLS-C01. Il livello associate significa taglio pratico e operativo. Devi saper scegliere i servizi giusti e combinarli in soluzioni complete. L'esame contiene 65 domande in totale. Il tempo a disposizione e di 130 minuti. Fai il calcolo con attenzione. Hai circa due minuti per ogni domanda. Chi ha diritto ad accomodamenti per la lingua puo avere trenta minuti extra. Il punteggio minimo per superare l'esame e 720 punti su 1000. La scala di punteggio va da 100 a 1000 punti."
+    },
+    {
+      "title": "Transizione verso l'MLA-C02",
+      "bullets": [
+        "MLA-C01 in inglese fino al 28/09/2026",
+        "Beta MLA-C02 dal 29/09/2026, GA prevista a inizio 2027",
+        "MLA-C02: 85 domande in 170 minuti, 75 USD in beta",
+        "Pesi MLA-C02 28/24/24/24 contro 28/26/22/24 della MLA-C01",
+        "GenAI e agenti in tutti i domini nella MLA-C02",
+        "MLA-C01 resta in giapponese, coreano e cinese semplificato fino alla GA"
+      ],
+      "narration": "Ora una novita importante: l'esame sta cambiando. La versione MLA-C01 si puo sostenere in inglese fino al 28 settembre 2026. Dal 29 settembre 2026 AWS apre la beta dell'MLA-C02, la versione aggiornata, con disponibilita generale prevista per l'inizio del 2027. Durante la beta l'esame costa 75 dollari americani e si svolge solo in inglese. Le domande aggiuntive servono solo alla valutazione statistica e non incidono sul punteggio. Il formato e piu lungo: 85 domande in 170 minuti, contro le 65 domande in 130 minuti dell'MLA-C01. Restano domande a scelta singola e a risposta multipla. Cambiano anche i pesi dei domini. Data Preparation resta al 28 per cento, Model Development scende al 24 per cento, Deployment and Orchestration sale al 24 per cento e Monitoring resta al 24 per cento. La differenza piu importante riguarda il contenuto. Nella MLA-C01 la GenAI compare solo nella scelta dei modelli di fondazione in Bedrock. Nella MLA-C02 generative AI, RAG, agenti e modelli di fondazione sono distribuiti in tutti e quattro i domini, quindi questo punto vale solo per la nuova versione. Le lingue giapponese, coreano e cinese semplificato restano per la MLA-C01 fino alla disponibilita generale della MLA-C02. I capitoli 12 e 13 di questo sito trattano le novita: RAG, agenti e modelli di fondazione. Se studi per la MLA-C01 puoi rimandarli, ma ti preparano al cambio."
     },
     {
       "title": "Tipi di domanda",
@@ -59,7 +75,7 @@
         "Nessuna penalita per le risposte errate: rispondere sempre",
         "Contrassegnare i dubbi e rivederli alla fine"
       ],
-      "narration": "Il costo dell'esame e di 150 dollari americani piu tasse. Puoi sostenere l'esame in una sede Pearson VUE. In alternativa puoi sostenerlo online con sorveglianza da remoto. Controlla i requisiti tecnici prima della sessione online. La certificazione resta valida per tre anni. Al termine puoi ricertificarti con la nuova versione dell'esame. L'esame e disponibile anche in italiano oltre che in inglese. Il formato delle domande prevede scelta multipla con una risposta corretta. Sono presenti anche domande a risposta multipla con due o piu risposte corrette. Alcune versioni includono domande di ordinamento e casi di studio. Devi leggere con attenzione quante risposte selezionare. La maggior parte delle domande e basata su scenari. Uno scenario descrive un problema aziendale realistico."
+      "narration": "Il costo dell'esame e di 150 dollari americani piu tasse. Puoi sostenere l'esame in una sede Pearson VUE. In alternativa puoi sostenerlo online con sorveglianza da remoto. Controlla i requisiti tecnici prima della sessione online. La certificazione resta valida per tre anni. Al termine puoi ricertificarti con la nuova versione dell'esame. L'esame e disponibile in inglese, giapponese, coreano e cinese semplificato. L'inglese resta disponibile fino al 28 settembre 2026. Il formato delle domande prevede scelta multipla con una risposta corretta. Sono presenti anche domande a risposta multipla con due o piu risposte corrette. Alcune versioni includono domande di ordinamento e casi di studio. Devi leggere con attenzione quante risposte selezionare. La maggior parte delle domande e basata su scenari. Uno scenario descrive un problema aziendale realistico."
     },
     {
       "title": "I quattro domini e i pesi",
@@ -106,84 +122,84 @@
       "narration": "Rileggi ogni scenario prima di confermare la risposta. Controlla il numero di risposte richieste nelle multiple-response. Per ogni dominio la exam guide elenca i task e le conoscenze richieste. Leggili con attenzione prima di pianificare lo studio. Il primo dominio chiede ingestione storage e trasformazione dei dati. Il secondo chiede scelta degli algoritmi e valutazione dei modelli. Il terzo chiede deployment e orchestrazione dei workflow. Il quarto chiede monitoraggio manutenzione e sicurezza delle soluzioni. Durante la prova mantieni un ritmo costante di circa due minuti per domanda. Se uno scenario e troppo lungo vai oltre e torna dopo. Le domande facili danno gli stessi punti di quelle difficili. Assicurati prima i punti sicuri e poi affronta i casi complessi. Ora hai il quadro completo dell'esame. Nel prossimo capitolo si parte con la preparazione dei dati."
     }
   ],
-  "script": "Benvenuto al primo capitolo della preparazione per la certificazione AWS Machine Learning Engineer Associate. Il codice ufficiale dell'esame e MLA-C01. E un esame di livello associate dedicato a chi costruisce soluzioni di machine learning su AWS. Questo esame sostituisce la vecchia certificazione specialty MLS-C01. Il livello associate significa taglio pratico e operativo. Devi saper scegliere i servizi giusti e combinarli in soluzioni complete. L'esame contiene 65 domande in totale. Il tempo a disposizione e di 170 minuti. Fai il calcolo con attenzione. Hai circa due minuti e mezzo per ogni domanda. Chi ha diritto ad accomodamenti per la lingua puo avere trenta minuti extra. Il punteggio minimo per superare l'esame e 720 punti su 1000. La scala di punteggio va da 100 a 1000 punti. Il costo dell'esame e di 150 dollari americani piu tasse. Puoi sostenere l'esame in una sede Pearson VUE. In alternativa puoi sostenerlo online con sorveglianza da remoto. Controlla i requisiti tecnici prima della sessione online. La certificazione resta valida per tre anni. Al termine puoi ricertificarti con la nuova versione dell'esame. L'esame e disponibile anche in italiano oltre che in inglese. Il formato delle domande prevede scelta multipla con una risposta corretta. Sono presenti anche domande a risposta multipla con due o piu risposte corrette. Alcune versioni includono domande di ordinamento e casi di studio. Devi leggere con attenzione quante risposte selezionare. La maggior parte delle domande e basata su scenari. Uno scenario descrive un problema aziendale realistico. Presenta vincoli tecnici e di budget. Tu devi scegliere la soluzione migliore tra le opzioni. La strategia vincente e leggere prima i vincoli. Poi eliminare le opzioni che violano quei vincoli. Non scegliere mai solo il servizio piu economico. Scegli il servizio che rispetta tutti i requisiti. Le parole chiave guidano la scelta corretta. Real-time suggerisce Kinesis o Feature Store online. Batch suggerisce Glue, EMR o Athena. Bassa latenza suggerisce endpoint SageMaker o store online. Dati governati suggeriscono Lake Formation. L'esame e diviso in quattro domini. Il primo dominio e Data Preparation for ML. Pesa il 28 percento ed e il dominio piu importante. Il secondo dominio e ML Model Development. Pesa il 26 percento. Il terzo dominio e Deployment and Orchestration. Pesa il 22 percento. Il quarto dominio e Monitoring Maintenance and Security. Pesa il 24 percento. La somma dei pesi fa cento. Dedica piu tempo di studio ai primi due domini. Insieme valgono piu della meta dell'esame. La guida ufficiale contiene una Appendix A. Questa appendice elenca tutti i servizi in scope. Studia solo quei servizi per non sprecare tempo. Tra i servizi chiave ci sono SageMaker, S3, Glue, Kinesis e Athena. Servono anche Lake Formation, EMR, KMS e IAM. Per l'orchestrazione studia Step Functions ed EventBridge. Per le pipeline studia SageMaker Pipelines. AWS consiglia almeno un anno di esperienza pratica. Devi aver usato SageMaker e workload di machine learning su AWS. La sola teoria non basta per gli scenari. Usa Skill Builder per i corsi ufficiali. Svolgi le domande di prova ufficiali. Fai laboratori pratici con SageMaker Studio. Allena la gestione del tempo con i simulatori. Salta le domande difficili e contrassegnale per la revisione. Rispondi a tutte le domande perche non c e penalita per gli errori. Rileggi ogni scenario prima di confermare la risposta. Controlla il numero di risposte richieste nelle multiple-response. Per ogni dominio la exam guide elenca i task e le conoscenze richieste. Leggili con attenzione prima di pianificare lo studio. Il primo dominio chiede ingestione storage e trasformazione dei dati. Il secondo chiede scelta degli algoritmi e valutazione dei modelli. Il terzo chiede deployment e orchestrazione dei workflow. Il quarto chiede monitoraggio manutenzione e sicurezza delle soluzioni. Durante la prova mantieni un ritmo costante di circa due minuti per domanda. Se uno scenario e troppo lungo vai oltre e torna dopo. Le domande facili danno gli stessi punti di quelle difficili. Assicurati prima i punti sicuri e poi affronta i casi complessi. Ora hai il quadro completo dell'esame. Nel prossimo capitolo si parte con la preparazione dei dati.",
+  "script": "Benvenuto al primo capitolo della preparazione per la certificazione AWS Machine Learning Engineer Associate. Il codice ufficiale dell'esame e MLA-C01. E un esame di livello associate dedicato a chi costruisce soluzioni di machine learning su AWS. Questo esame sostituisce la vecchia certificazione specialty MLS-C01. Il livello associate significa taglio pratico e operativo. Devi saper scegliere i servizi giusti e combinarli in soluzioni complete. L'esame contiene 65 domande in totale. Il tempo a disposizione e di 130 minuti. Fai il calcolo con attenzione. Hai circa due minuti per ogni domanda. Chi ha diritto ad accomodamenti per la lingua puo avere trenta minuti extra. Il punteggio minimo per superare l'esame e 720 punti su 1000. La scala di punteggio va da 100 a 1000 punti. Ora una novita importante: l'esame sta cambiando. La versione MLA-C01 si puo sostenere in inglese fino al 28 settembre 2026. Dal 29 settembre 2026 AWS apre la beta dell'MLA-C02, la versione aggiornata, con disponibilita generale prevista per l'inizio del 2027. Durante la beta l'esame costa 75 dollari americani e si svolge solo in inglese. Le domande aggiuntive servono solo alla valutazione statistica e non incidono sul punteggio. Il formato e piu lungo: 85 domande in 170 minuti, contro le 65 domande in 130 minuti dell'MLA-C01. Restano domande a scelta singola e a risposta multipla. Cambiano anche i pesi dei domini. Data Preparation resta al 28 per cento, Model Development scende al 24 per cento, Deployment and Orchestration sale al 24 per cento e Monitoring resta al 24 per cento. La differenza piu importante riguarda il contenuto. Nella MLA-C01 la GenAI compare solo nella scelta dei modelli di fondazione in Bedrock. Nella MLA-C02 generative AI, RAG, agenti e modelli di fondazione sono distribuiti in tutti e quattro i domini, quindi questo punto vale solo per la nuova versione. Le lingue giapponese, coreano e cinese semplificato restano per la MLA-C01 fino alla disponibilita generale della MLA-C02. I capitoli 12 e 13 di questo sito trattano le novita: RAG, agenti e modelli di fondazione. Se studi per la MLA-C01 puoi rimandarli, ma ti preparano al cambio. Il costo dell'esame e di 150 dollari americani piu tasse. Puoi sostenere l'esame in una sede Pearson VUE. In alternativa puoi sostenerlo online con sorveglianza da remoto. Controlla i requisiti tecnici prima della sessione online. La certificazione resta valida per tre anni. Al termine puoi ricertificarti con la nuova versione dell'esame. L'esame e disponibile in inglese, giapponese, coreano e cinese semplificato. L'inglese resta disponibile fino al 28 settembre 2026. Il formato delle domande prevede scelta multipla con una risposta corretta. Sono presenti anche domande a risposta multipla con due o piu risposte corrette. Alcune versioni includono domande di ordinamento e casi di studio. Devi leggere con attenzione quante risposte selezionare. La maggior parte delle domande e basata su scenari. Uno scenario descrive un problema aziendale realistico. Presenta vincoli tecnici e di budget. Tu devi scegliere la soluzione migliore tra le opzioni. La strategia vincente e leggere prima i vincoli. Poi eliminare le opzioni che violano quei vincoli. Non scegliere mai solo il servizio piu economico. Scegli il servizio che rispetta tutti i requisiti. Le parole chiave guidano la scelta corretta. Real-time suggerisce Kinesis o Feature Store online. Batch suggerisce Glue, EMR o Athena. Bassa latenza suggerisce endpoint SageMaker o store online. Dati governati suggeriscono Lake Formation. L'esame e diviso in quattro domini. Il primo dominio e Data Preparation for ML. Pesa il 28 percento ed e il dominio piu importante. Il secondo dominio e ML Model Development. Pesa il 26 percento. Il terzo dominio e Deployment and Orchestration. Pesa il 22 percento. Il quarto dominio e Monitoring Maintenance and Security. Pesa il 24 percento. La somma dei pesi fa cento. Dedica piu tempo di studio ai primi due domini. Insieme valgono piu della meta dell'esame. La guida ufficiale contiene una Appendix A. Questa appendice elenca tutti i servizi in scope. Studia solo quei servizi per non sprecare tempo. Tra i servizi chiave ci sono SageMaker, S3, Glue, Kinesis e Athena. Servono anche Lake Formation, EMR, KMS e IAM. Per l'orchestrazione studia Step Functions ed EventBridge. Per le pipeline studia SageMaker Pipelines. AWS consiglia almeno un anno di esperienza pratica. Devi aver usato SageMaker e workload di machine learning su AWS. La sola teoria non basta per gli scenari. Usa Skill Builder per i corsi ufficiali. Svolgi le domande di prova ufficiali. Fai laboratori pratici con SageMaker Studio. Allena la gestione del tempo con i simulatori. Salta le domande difficili e contrassegnale per la revisione. Rispondi a tutte le domande perche non c e penalita per gli errori. Rileggi ogni scenario prima di confermare la risposta. Controlla il numero di risposte richieste nelle multiple-response. Per ogni dominio la exam guide elenca i task e le conoscenze richieste. Leggili con attenzione prima di pianificare lo studio. Il primo dominio chiede ingestione storage e trasformazione dei dati. Il secondo chiede scelta degli algoritmi e valutazione dei modelli. Il terzo chiede deployment e orchestrazione dei workflow. Il quarto chiede monitoraggio manutenzione e sicurezza delle soluzioni. Durante la prova mantieni un ritmo costante di circa due minuti per domanda. Se uno scenario e troppo lungo vai oltre e torna dopo. Le domande facili danno gli stessi punti di quelle difficili. Assicurati prima i punti sicuri e poi affronta i casi complessi. Ora hai il quadro completo dell'esame. Nel prossimo capitolo si parte con la preparazione dei dati.",
   "quiz": [
     {
-      "q": "How many questions does the MLA-C01 exam contain, and how much time is allowed?",
+      "q": "Quante domande contiene l'esame MLA-C01 e quanto tempo e previsto?",
       "options": [
-        "90 questions in 120 minutes",
-        "65 questions in 170 minutes",
-        "50 questions in 90 minutes",
-        "80 questions in 200 minutes"
+        "90 domande in 120 minuti, con una pausa obbligatoria di 10 minuti a metà esame",
+        "65 domande in 130 minuti",
+        "50 domande in 90 minuti, senza domande di prova non valutate",
+        "80 domande in 200 minuti, con tempo extra per chi usa una lingua diversa"
       ],
       "answer": 1,
-      "explain": "65 questions in 170 minutes gives about 2.5 minutes per question. Budget your time and flag difficult scenario questions for review."
+      "explain": "65 domande in 130 minuti equivalgono a circa 2,0 minuti per domanda. Organizza il tempo e segna per la revisione le domande scenario piu difficili."
     },
     {
-      "q": "What is the minimum passing score for the MLA-C01 exam?",
+      "q": "Qual e il punteggio minimo per superare l'esame MLA-C01?",
       "options": [
-        "650 out of 1000",
-        "700 out of 1000",
-        "720 out of 1000",
-        "750 out of 1000"
+        "650 su una scala da 100 a 1000",
+        "700 su una scala da 100 a 1000",
+        "720 su una scala da 100 a 1000",
+        "750 su una scala da 100 a 1000"
       ],
       "answer": 2,
-      "explain": "The scaled passing score is 720 out of 1000. AWS does not publish the exact raw number of correct answers needed."
+      "explain": "Il punteggio scalato minimo e 720 su 1000. AWS non pubblica il numero esatto di risposte corrette necessarie."
     },
     {
-      "q": "Which exam domain has the highest weight in MLA-C01?",
+      "q": "Quale dominio dell'esame MLA-C01 ha il peso piu alto?",
       "options": [
-        "Data Preparation for ML at 28%",
-        "Deployment and Orchestration at 22%",
-        "ML Model Development at 26%",
-        "Monitoring, Maintenance, and Security at 24%"
+        "Deployment and Orchestration of ML Workflows, con il 22 per cento del punteggio",
+        "Data Preparation for ML, con il 28 per cento del punteggio",
+        "ML Model Development, con il 26 per cento del punteggio",
+        "Monitoring, Maintenance, and Security, con il 24 per cento del punteggio"
       ],
-      "answer": 0,
-      "explain": "Data Preparation for ML (Domain 1) has the highest weight at 28%, followed by Model Development at 26%."
+      "answer": 1,
+      "explain": "Data Preparation for ML, cioe il dominio 1, ha il peso piu alto con il 28%, seguito da Model Development con il 26%."
     },
     {
-      "q": "A colleague asks what the four MLA-C01 domains cover. What do you answer?",
+      "q": "Un collega chiede cosa coprono i quattro domini di MLA-C01. Cosa rispondi?",
       "options": [
-        "Only SageMaker built-in algorithms",
-        "Only data preparation topics",
-        "Data preparation, model development, deployment, and monitoring with security",
-        "Only MLOps pipeline tools"
+        "Solo gli algoritmi integrati di SageMaker, senza la parte di pipeline e monitoraggio",
+        "Solo la preparazione dei dati e il caricamento dei dataset di training su S3",
+        "Preparazione dati, modelli, deploy e monitoraggio con sicurezza",
+        "Solo gli strumenti delle pipeline MLOps, senza la parte sui dati e sui modelli"
       ],
       "answer": 2,
-      "explain": "MLA-C01 covers the full ML lifecycle: data preparation, model development, deployment and orchestration, plus monitoring, maintenance, and security."
+      "explain": "MLA-C01 copre tutto il ciclo di vita del machine learning: preparazione dei dati, sviluppo dei modelli, deploy e orchestrazione, e poi monitoraggio, manutenzione e sicurezza."
     },
     {
-      "q": "How is the MLA-C01 exam delivered, what does it cost, and how long is the certification valid?",
+      "q": "Come viene erogato l'esame MLA-C01, quanto costa e quanto vale la certificazione?",
       "options": [
-        "Only in AWS offices for $300",
-        "Only online without proctoring for $100",
-        "Through Kryterion for $200 with lifetime validity",
-        "Through Pearson VUE for $150 with 3-year validity"
+        "Solo in sedi AWS dedicate, per una quota di 300 dollari",
+        "Solo online senza sorveglianza, per una quota di 100 dollari",
+        "Tramite Kryterion per 200 dollari, con validita illimitata nel tempo",
+        "Tramite Pearson VUE per 150 dollari, con validita di 3 anni"
       ],
       "answer": 3,
-      "explain": "Pearson VUE delivers AWS exams both in test centers and online with remote proctoring. The exam fee is $150 USD and the certification is valid for 3 years."
+      "explain": "Pearson VUE eroga gli esami AWS in sede e online con sorveglianza a distanza. La quota e di 150 dollari e la certificazione vale 3 anni."
     },
     {
-      "q": "What is the most effective strategy for scenario-based MLA-C01 questions?",
+      "q": "Qual e la strategia piu efficace per le domande scenario di MLA-C01?",
       "options": [
-        "Memorize every API parameter of each service",
-        "Read each scenario, identify constraints, then eliminate options that violate them",
-        "Always choose the cheapest service regardless of requirements",
-        "Answer questions in reverse order without reading fully"
+        "Memorizzare ogni parametro delle API di ogni servizio, senza leggere lo scenario nel dettaglio",
+        "Individuare i vincoli dello scenario ed eliminare le opzioni che li violano",
+        "Scegliere sempre il servizio piu economico, anche quando ignora i requisiti dichiarati",
+        "Rispondere in ordine inverso, senza leggere per intero domande e opzioni"
       ],
       "answer": 1,
-      "explain": "Most MLA-C01 questions are scenario-based: they describe a business problem with constraints and ask for the best solution. Eliminate options that violate a stated constraint first."
+      "explain": "La maggior parte delle domande e basata su scenari: descrivono un problema aziendale con vincoli e chiedono la soluzione migliore. Elimina per prima le opzioni che violano un vincolo dichiarato."
     },
     {
-      "q": "Which background best prepares a candidate for MLA-C01?",
+      "q": "Quale background prepara meglio un candidato a MLA-C01?",
       "options": [
-        "About one year of hands-on ML experience on AWS plus knowledge of the Appendix A services",
-        "A PhD in statistics with no AWS experience",
-        "Only passing the Cloud Practitioner exam the week before",
-        "Memorizing whitepapers without ever using the console"
+        "Circa un anno di esperienza pratica con ML su AWS e servizi dell'Appendix A",
+        "Un dottorato in statistica, senza alcuna esperienza pratica con AWS o con SageMaker",
+        "Superare l'esame Cloud Practitioner la settimana prima della prova",
+        "Studiare solo i whitepaper, senza mai usare la console o provare un servizio"
       ],
       "answer": 0,
-      "explain": "AWS recommends about one year of hands-on experience with SageMaker and ML workloads on AWS, plus familiarity with the services listed in Appendix A of the exam guide."
+      "explain": "AWS consiglia circa un anno di esperienza pratica con SageMaker e i carichi di lavoro ML su AWS, oltre alla familiarita con i servizi elencati nell'Appendix A della guida."
     }
   ]
 }

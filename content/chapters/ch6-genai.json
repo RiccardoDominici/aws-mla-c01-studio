@@ -44,70 +44,70 @@
   ],
   "quiz": [
     {
-      "answer": 2,
-      "explain": "Daily-changing PDFs with no retraining is the textbook RAG case: Bedrock Knowledge Bases chunk, embed, store in a vector DB and retrieve at query time.",
+      "q": "Un chatbot deve rispondere usando PDF interni che cambiano ogni giorno, senza riaddestramento. Cosa usi?",
       "options": [
-        "Fine-tune a Bedrock model",
-        "Train a SageMaker model from scratch",
-        "Bedrock Knowledge Bases (RAG)",
-        "Bedrock Guardrails only"
+        "Fare fine-tuning di un modello Bedrock, a ogni modifica dei documenti",
+        "Addestrare da zero un modello SageMaker",
+        "Bedrock Knowledge Bases, cioe RAG",
+        "Solo Bedrock Guardrails, senza alcuna fonte di conoscenza"
       ],
-      "q": "A chatbot must answer from internal PDFs that change daily, without retraining. What should you use?"
+      "answer": 2,
+      "explain": "PDF che cambiano ogni giorno, senza riaddestramento, sono il caso tipico della RAG: Bedrock Knowledge Bases divide i documenti in chunk, crea gli embedding, li salva in un vector store e recupera i passaggi al momento della domanda."
     },
     {
+      "q": "Un'azienda deve bloccare risposte su consigli di investimento e mascherare i numeri di carta di credito nell'output del modello. Quale funzione serve?",
+      "options": [
+        "Bedrock Guardrails con topic vietati e filtri PII",
+        "SageMaker Model Monitor, che controlla il drift dei dati in produzione",
+        "Un modello di fondazione piu grande, con piu parametri e costi maggiori",
+        "Batch transform, che elabora dataset offline e salva le predizioni su S3"
+      ],
       "answer": 0,
-      "explain": "Denied Topics plus sensitive-information (PII) filters are the Guardrails policies for blocking subjects and masking data like credit card numbers.",
-      "options": [
-        "Bedrock Guardrails with Denied Topics and PII filters",
-        "SageMaker Model Monitor",
-        "A larger foundation model",
-        "Batch transform"
-      ],
-      "q": "A company must block investment-advice answers and mask credit card numbers in model outputs. Which feature fits?"
+      "explain": "Denied Topics e i filtri per informazioni sensibili (PII) sono le policy di Guardrails per bloccare argomenti e mascherare dati come i numeri di carta di credito."
     },
     {
+      "q": "Un assistente deve controllare lo stato di un ordine, consultare l'inventario e prenotare le spedizioni in autonomia. Quale soluzione serve?",
+      "options": [
+        "Solo Bedrock Knowledge Bases, che recuperano documenti ma non eseguono azioni",
+        "Batch transform di SageMaker, con job notturni su file salvati in S3",
+        "Un template di prompt statico, riusato uguale per ogni richiesta dell'utente",
+        "Bedrock Agents con Action Groups"
+      ],
       "answer": 3,
-      "explain": "Agents reason and act over multiple steps, calling APIs and data sources through Action Groups backed by Lambda. Knowledge Bases alone only retrieve data.",
-      "options": [
-        "Bedrock Knowledge Bases only",
-        "SageMaker batch transform",
-        "A static prompt template",
-        "Bedrock Agents with Action Groups"
-      ],
-      "q": "An assistant must check order status, query inventory, and book shipments autonomously. Which solution fits?"
+      "explain": "Gli agenti ragionano e agiscono su piu passi, chiamando API e dati tramite Action Group basati su Lambda. Le Knowledge Base da sole recuperano soltanto informazioni."
     },
     {
+      "q": "Qual e la differenza chiave tra RAG e fine-tuning per l'esame?",
+      "options": [
+        "Entrambi richiedono dataset etichettati e un ciclo di training supervisionato lungo",
+        "RAG aggiunge conoscenza esterna, il fine-tuning cambia stile e comportamento",
+        "Il fine-tuning costa sempre meno, anche quando i dati cambiano ogni giorno e serve rifarlo",
+        "La RAG cambia i pesi del modello, ma solo per le domande piu complesse"
+      ],
       "answer": 1,
-      "explain": "RAG adds external knowledge without changing weights; fine-tuning changes behavior and style but needs labeled data. Dynamic company docs point to RAG.",
-      "options": [
-        "Both require labeled datasets",
-        "RAG supplies external knowledge without changing weights; fine-tuning adapts behavior and style",
-        "Fine-tuning is always cheaper",
-        "RAG changes model weights"
-      ],
-      "q": "What is the key difference between RAG and fine-tuning for the exam?"
+      "explain": "La RAG aggiunge conoscenza esterna senza cambiare i pesi; il fine-tuning cambia comportamento e stile ma richiede dati etichettati. Documenti aziendali che cambiano indicano la RAG."
     },
     {
-      "answer": 2,
-      "explain": "Text sentiment, entities, and language detection on plain text is the Comprehend scenario. Rekognition is images/video, Textract is document OCR.",
+      "q": "Una pipeline deve rilevare sentiment ed entita in migliaia di recensioni di clienti. Quale servizio gestito va bene?",
       "options": [
         "Amazon Rekognition",
         "Amazon Textract",
         "Amazon Comprehend",
         "Amazon Polly"
       ],
-      "q": "A pipeline must detect sentiment and entities in thousands of customer reviews. Which managed service fits?"
+      "answer": 2,
+      "explain": "Sentiment ed entita su testo semplice sono lo scenario di Comprehend. Rekognition riguarda immagini e video, Textract l'estrazione di testo dai documenti."
     },
     {
-      "answer": 3,
-      "explain": "Extracting text and tables from scanned forms is the Textract scenario. Comprehend analyzes already-extracted text; Rekognition targets photos and video.",
+      "q": "Una banca deve digitalizzare moduli scansionati, con tabelle e scrittura a mano. Quale servizio gestito va bene?",
       "options": [
         "Amazon Comprehend",
         "Amazon Rekognition",
-        "Amazon Bedrock Agents",
+        "Amazon Bedrock Agents, per orchestrare piu passaggi",
         "Amazon Textract"
       ],
-      "q": "A bank must digitize scanned loan forms including tables and handwriting. Which managed service fits?"
+      "answer": 3,
+      "explain": "Estrarre testo e tabelle da moduli scansionati e lo scenario di Textract. Comprehend analizza testo gia estratto; Rekognition riguarda foto e video."
     }
   ],
   "script": "In questo capitolo studiamo la AI generativa su AWS, uno dei temi piu pesanti del nuovo esame. Il centro e Amazon Bedrock, il servizio serverless che espone foundation model di Amazon e di terze parti via API, senza infrastruttura da gestire. Sopra Bedrock costruiamo tre capacita chiave. Le Knowledge Bases implementano la RAG gestita: i documenti aziendali vengono ingeriti, suddivisi in chunk, convertiti in embedding e salvati in un database vettoriale come OpenSearch Serverless o Aurora con pgvector, per poi essere recuperati a ogni domanda. La RAG non cambia i pesi del modello, costa poco, non richiede dataset etichettati e mantiene i dati aggiornati con la risincronizzazione: e la risposta giusta quando serve conoscenza esterna dinamica. Gli Agents invece ragionano e agiscono in piu passi: orchestrano foundation model, Knowledge Bases e strumenti, chiamando API e database tramite Action Groups basati su Lambda. Sono la risposta quando l assistente deve prenotare, verificare e operare in autonomia. I Guardrails applicano l AI responsabile con quattro policy: filtri sui contenuti dannosi, topic vietati, filtri di parole e redazione delle informazioni sensibili come i PII, piu il grounding check che contrasta le allucinazioni verificando le risposte sui dati di origine. Quando serve adattare stile, tono o linguaggio di dominio si usa la customizzazione: fine-tuning, continued pre-training o distillazione, che modificano i pesi ma richiedono dati etichettati, tempo e budget. SageMaker JumpStart offre un alternativa rapida con modelli pronti al deploy. Ricorda la regola d oro: conoscenza esterna uguale RAG, comportamento personalizzato uguale fine-tuning, entrambi uguale combinazione. Accanto a Bedrock, l esame testa tre servizi di AI gestita: Comprehend per sentiment, entita e lingua sui testi, Rekognition per volti, oggetti e contenuti in immagini e video, Textract per estrarre testo e tabelle da PDF e scansioni. Il monitoraggio di Bedrock usa invocation logging su S3 e CloudWatch, metriche di token, latenza ed errori, e copertura dei Guardrails. Approfondiamo la customizzazione dei foundation model. Il fine-tuning adatta i pesi con esempi supervisionati per insegnare stile, formato e linguaggio specialistico, mentre il continued pre-training espone il modello a grandi corpora di dominio per assorbire terminologia. La distillazione trasferisce capacita da un modello grande a uno piccolo piu economico da servire. Tutti richiedono dataset curati, tempo di training e valutazione rigorosa contro regressioni e allucinazioni. SageMaker JumpStart accelera questo lavoro con modelli aperti pronti al deploy e notebook di esempio: utile quando serve controllo sui pesi o hosting dedicato. Per la valutazione, Bedrock combina metriche automatiche come similarita e accuratezza con revisioni umane su tossicita, allucinazioni e aderenza alle policy. In produzione, l'invocation logging registra prompt, risposte, latenza e identificativi su S3 e CloudWatch, mentre le metriche di token, throttling ed errori alimentano dashboard e allarmi. I Guardrails pubblicano metriche di copertura e intervento per misurare quante risposte vengono filtrate. Accanto a Bedrock, i servizi di AI gestita coprono casi classici. Comprehend rileva sentiment, entita, sintassi e lingua su testi gia estratti. Rekognition analizza immagini e video con moderazione dei contenuti e ricerca di volti e oggetti. Textract unisce OCR e comprensione di layout per tabelle, form e scrittura a mano. La mappa rapida e: testo da capire uguale Comprehend, foto e video uguale Rekognition, moduli scansionati uguale Textract, conoscenza dinamica uguale RAG, azioni autonome uguale Agents. Per il monitoraggio in produzione, tieni a mente che Bedrock pubblica su CloudWatch latenza, conteggi di token, throttling ed errori, mentre i log di invocazione conservano prompt e risposte per audit e debugging nel rispetto della privacy.",
