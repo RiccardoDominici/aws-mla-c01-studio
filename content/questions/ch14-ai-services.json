@@ -726,7 +726,7 @@
     "q": "Which TWO features of Amazon Transcribe help a contact center react during a live call? (Select TWO.)",
     "options": [
       "Real-time alerts on key phrases, such as a customer asking to speak to a manager",
-      "Custom categories applied to a completed call only",
+      "Custom categories that flag keywords during the live call",
       "Custom terminology that changes brand names in translated text",
       "Lexicons that change how the agent's voice is pronounced",
       "Textract Queries that answer questions about a contract PDF"
@@ -1262,7 +1262,7 @@
       "a2i",
       "moderation"
     ],
-    "source": "AWS docs: Amazon Rekognition Developer Guide: Moderating content",
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide: Use Amazon Augmented AI with Amazon Rekognition",
     "origin": "ai",
     "domain": "2",
     "task": "2.3",
@@ -1277,15 +1277,15 @@
   {
     "id": "ch14-q043",
     "chapter": "ch14-ai-services",
-    "q": "Which Textract operation is designed to return the fields of an invoice or receipt without custom training?",
+    "q": "A bank onboarding team must extract the name, date of birth, and document number from US driver's licenses and passports, without custom training. Which Textract operation fits?",
     "options": [
       "AnalyzeID",
       "AnalyzeExpense",
       "Queries",
       "Analyze Lending"
     ],
-    "answer": 1,
-    "explain": "AnalyzeExpense is the operation for invoices and receipts. AnalyzeID is for identity documents, and Analyze Lending routes mortgage package pages.",
+    "answer": 0,
+    "explain": "AnalyzeID reads identity documents such as driver's licenses and passports issued by the US government. AnalyzeExpense targets invoices and receipts, and Analyze Lending routes the pages of mortgage packages.",
     "difficulty": "facile",
     "tags": [
       "textract",
@@ -1755,15 +1755,15 @@
   {
     "id": "ch14-q059",
     "chapter": "ch14-ai-services",
-    "q": "A data team needs FHIR search queries on patient resources and wants the results exported to Amazon S3. Which service fits?",
+    "q": "A data team needs to run FHIR queries on patient resources in a managed, HIPAA eligible service. Which service fits?",
     "options": [
       "Amazon Textract with Queries on the exported JSON files",
-      "AWS HealthLake, which supports FHIR REST search and import and export jobs",
+      "AWS HealthLake, a managed FHIR R4 server",
       "Amazon Lex with one intent per FHIR resource type",
       "Amazon Kendra with a GenAI index over the FHIR bundles"
     ],
     "answer": 1,
-    "explain": "HealthLake is the FHIR R4 server, with search and import and export jobs. Kendra is a document search service, which makes it the strongest distractor because it also searches large data sets.",
+    "explain": "HealthLake is the managed, HIPAA eligible FHIR R4 server for storing and querying patient resources. Kendra is a document search service, which makes it the strongest distractor because it also searches large data sets.",
     "difficulty": "media",
     "tags": [
       "healthlake",
