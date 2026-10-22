@@ -76,17 +76,34 @@
     });
   }
 
-  function fallbackSentences(script, duration, nSlides) {
-    var texts = splitScript(script);
-    var n = texts.length;
-    if (!n) return [];
-    return texts.map(function (text, i) {
-      return {
-        t0: (duration * i) / n,
-        t1: (duration * (i + 1)) / n,
-        slide: Math.min(nSlides - 1, Math.floor((i * nSlides) / n)),
-        text: text
-      };
+  /* Frasi con la slide di appartenenza, dalle narrazioni di ogni slide.
+   * Ritorna null se anche una sola slide non ha `narration`. */
+  function narrationItems(slides) {
+    if (!Array.isArray(slides) || !slides.length) return null;
+    var complete = slides.every(function (s) {
+      return s && typeof s.narration === 'string' && s.narration.trim();
+    });
+    if (!complete) return null;
+    var out = [];
+    slides.forEach(function (s, i) {
+      splitScript(s.narration).forEach(function (text) { out.push({ text: text, slide: i }); });
+    });
+    return out;
+  }
+
+  /* Frasi senza timing reale (audio assente o timing.json mancante). Le slide
+   * vengono dalle narrazioni se ci sono; i tempi sono proporzionali ai caratteri. */
+  function fallbackSentences(ch, duration, nSlides) {
+    var items = narrationItems(ch.slides) || splitScript(ch.script).map(function (text, i, all) {
+      return { text: text, slide: Math.min(nSlides - 1, Math.floor((i * nSlides) / all.length)) };
+    });
+    if (!items.length) return [];
+    var total = items.reduce(function (acc, it) { return acc + it.text.length; }, 0) || 1;
+    var done = 0;
+    return items.map(function (it) {
+      var t0 = (duration * done) / total;
+      done += it.text.length;
+      return { t0: t0, t1: (duration * done) / total, slide: Math.min(nSlides - 1, it.slide), text: it.text };
     });
   }
 
@@ -96,7 +113,10 @@
     function tryNext(i) {
       if (i >= candidates.length) return Promise.resolve(null);
       return fetch(candidates[i], { method: 'HEAD' }).then(function (res) {
-        if (res.ok) return candidates[i];
+        // Un file mancante può tornare 200 con la pagina HTML (fallback del server):
+        // accetto solo una risposta audio.
+        var type = res.headers.get('Content-Type') || '';
+        if (res.ok && /^audio\//.test(type)) return candidates[i];
         return tryNext(i + 1);
       }).catch(function () { return tryNext(i + 1); });
     }
@@ -217,8 +237,8 @@
     /* --- player custom --- */
     var playerWrap = app.el('div', 'player', '');
     if (audioMissing) {
-      playerWrap.appendChild(app.el('p', 'muted audio-missing',
-        '🎧 Audio non ancora disponibile per questo capitolo (in arrivo).'));
+      playerWrap.appendChild(app.el('p', 'notice audio-missing',
+        '🎧 Audio in preparazione: puoi già studiare slide e trascrizione. La lezione parlata arriverà a breve.'));
       panel.appendChild(playerWrap);
     } else {
       var row = app.el('div', 'player-row', '');
@@ -532,7 +552,7 @@
           ? audio.duration : estimateDuration(ch.script);
         time.textContent = fmtTime(0) + ' / ' + fmtTime(dur);
         if (isFallback) {
-          finalize(fallbackSentences(ch.script, dur, nSlides), dur);
+          finalize(fallbackSentences(ch, dur, nSlides), dur);
         } else {
           finalize(sentences, dur);
         }
@@ -547,9 +567,10 @@
     }
 
     /* --- prima pittura: fallback subito (dura finché i metadata arrivano) --- */
-    if (isFallback) {
+    // Senza audio non ci sono tempi reali: la trascrizione segue le narrazioni.
+    if (isFallback || audioMissing) {
       var dur0 = duration > 0 ? duration : estimateDuration(ch.script);
-      finalize(fallbackSentences(ch.script, dur0, nSlides), dur0);
+      finalize(fallbackSentences(ch, dur0, nSlides), dur0);
     } else {
       finalize(sentences, duration > 0 ? duration : estimateDuration(ch.script));
     }
