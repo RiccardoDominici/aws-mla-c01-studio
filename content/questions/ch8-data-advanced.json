@@ -1,0 +1,2707 @@
+[
+  {
+    "id": "ch8-q001",
+    "chapter": "ch8-data-advanced",
+    "q": "A data scientist must train XGBoost on a CSV export that has a header row and the label in the last column. What must change before training starts?",
+    "options": [
+      "Move the label to the first column and remove the header row, since the CSV format expects the target first",
+      "Nothing is needed, because XGBoost reads the header row and finds the label by its column name in the file",
+      "Convert the whole file to Parquet, because XGBoost requires a columnar format to read its training input",
+      "Add a sequential row index as the first column so the training job can locate the label reliably"
+    ],
+    "answer": 0,
+    "explain": "The SageMaker CSV format for built-in algorithms has no header record and expects the target in the first column. Parquet is not required for XGBoost, and an index column would break the layout.",
+    "difficulty": "media",
+    "tags": [
+      "csv",
+      "xgboost"
+    ],
+    "source": "AWS docs: Common data formats for training",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K1"
+    ]
+  },
+  {
+    "id": "ch8-q002",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about training data formats for SageMaker built-in algorithms are correct? (Select TWO.)",
+    "options": [
+      "Parquet is the default content type that every built-in algorithm accepts without any conversion step",
+      "RecordIO-protobuf stores each observation as 32-bit floats in the values field of the record",
+      "Avro files are read directly by the Linear Learner algorithm without converting them first to another format",
+      "application/jsonlines is the content type used by the BlazingText and DeepAR built-in algorithms",
+      "CSV input must include a header record so that the target column can be identified by name"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "The documented content types list RecordIO-protobuf for algorithms such as Linear Learner and K-Means, with 32-bit float values, and application/jsonlines for BlazingText and DeepAR. Parquet and Avro are not in that list, and CSV must have no header.",
+    "difficulty": "media",
+    "tags": [
+      "recordio",
+      "jsonlines"
+    ],
+    "source": "AWS docs: Common data formats for training",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K1"
+    ]
+  },
+  {
+    "id": "ch8-q003",
+    "chapter": "ch8-data-advanced",
+    "q": "A research archive of sensor files is almost never read, but when it is needed the team can wait minutes or hours. Which S3 storage class fits best?",
+    "options": [
+      "S3 Standard, which keeps objects in the frequent access tier with millisecond retrieval for every request",
+      "S3 Glacier Flexible Retrieval, designed for archives where retrieval in minutes or hours is acceptable",
+      "S3 Intelligent-Tiering frequent access tier, which moves objects between tiers automatically based on access",
+      "S3 Express One Zone, a single-zone class designed for latency-sensitive access and high request rates"
+    ],
+    "answer": 1,
+    "explain": "Glacier Flexible Retrieval is designed for archives with retrieval in minutes or hours. Standard and Intelligent-Tiering cost more for cold data, and Express One Zone targets low-latency access in one zone.",
+    "difficulty": "facile",
+    "tags": [
+      "glacier",
+      "archive"
+    ],
+    "source": "AWS docs: Amazon S3 storage classes",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K4",
+      "V40"
+    ]
+  },
+  {
+    "id": "ch8-q004",
+    "chapter": "ch8-data-advanced",
+    "q": "A training dataset is read at unpredictable intervals, and the team wants no retrieval fees and no manual tiering rules. Which storage choice meets this with the LEAST operational overhead?",
+    "options": [
+      "S3 Standard-IA with a 30-day minimum storage duration, billed per GB retrieved whenever objects are read back",
+      "S3 Glacier Instant Retrieval with a 90-day minimum storage duration and millisecond access when objects are read",
+      "S3 Intelligent-Tiering, which moves each object to the cheapest tier for its access pattern, with no retrieval charges",
+      "S3 One Zone-IA, which stores data in a single Availability Zone at a lower price than the standard infrequent tier in every region"
+    ],
+    "answer": 2,
+    "explain": "Intelligent-Tiering moves objects automatically and has no retrieval charges. The other classes charge retrieval or require a minimum storage duration that fits access patterns badly.",
+    "difficulty": "media",
+    "tags": [
+      "intelligent-tiering"
+    ],
+    "source": "AWS docs: Amazon S3 storage classes",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S6",
+      "V40"
+    ]
+  },
+  {
+    "id": "ch8-q005",
+    "chapter": "ch8-data-advanced",
+    "q": "A cost review finds that objects stored in S3 Glacier Instant Retrieval are deleted after 45 days and still billed for the rest of the period. Which fact explains this?",
+    "options": [
+      "Glacier Instant Retrieval has a 30-day minimum storage duration, so the first month of every object is always charged in full on each stored object",
+      "Glacier classes cannot be deleted before 180 days because of a policy that the service enforces on every bucket",
+      "Intelligent-Tiering charges a retrieval fee for any object older than 45 days, even when the object is never read",
+      "Glacier Instant Retrieval has a 90-day minimum storage duration, so the remaining days are billed when objects are deleted earlier"
+    ],
+    "answer": 3,
+    "explain": "The storage classes page lists a 90-day minimum storage duration for Glacier Instant Retrieval. Deleting earlier still bills the remaining minimum period.",
+    "difficulty": "difficile",
+    "tags": [
+      "glacier",
+      "minimum-duration"
+    ],
+    "source": "AWS docs: Amazon S3 storage classes",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K4",
+      "K-1.1S6"
+    ]
+  },
+  {
+    "id": "ch8-q006",
+    "chapter": "ch8-data-advanced",
+    "q": "A team wants the class with the longest minimum storage duration among these options. Which one should they choose?",
+    "options": [
+      "S3 Glacier Deep Archive, with a minimum storage duration of 180 days for each stored object in the bucket",
+      "S3 Standard-IA, with a minimum storage duration of 30 days before the object can be deleted without charge",
+      "S3 Glacier Instant Retrieval, with a minimum storage duration of 90 days for each stored object in the bucket",
+      "S3 Express One Zone, with a minimum storage duration of one hour for objects stored in the directory bucket"
+    ],
+    "answer": 0,
+    "explain": "Deep Archive has the longest minimum storage duration in the list, 180 days. The others have 30, 90 and one hour respectively.",
+    "difficulty": "media",
+    "tags": [
+      "glacier",
+      "deep-archive"
+    ],
+    "source": "AWS docs: Amazon S3 storage classes",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K4",
+      "V40"
+    ]
+  },
+  {
+    "id": "ch8-q007",
+    "chapter": "ch8-data-advanced",
+    "q": "Which three S3 storage classes have a minimum storage duration of 30 days or longer? (Select THREE.)",
+    "options": [
+      "S3 Standard-IA, which has a 30-day minimum storage duration for objects in the infrequent tier",
+      "S3 One Zone-IA, which has a 30-day minimum storage duration and stores data in one zone",
+      "S3 Glacier Instant Retrieval, which has a 90-day minimum storage duration and a 128 KB minimum size",
+      "S3 Express One Zone, which has a one-hour minimum storage duration in a single directory bucket",
+      "S3 Intelligent-Tiering, which has no minimum storage duration and no retrieval charges for tiers",
+      "S3 Standard, which has no minimum storage duration and no minimum billable object size at all"
+    ],
+    "answer": [
+      0,
+      1,
+      2
+    ],
+    "explain": "Standard-IA and One Zone-IA have 30-day minimums, and Glacier Instant Retrieval has 90 days. Standard and Intelligent-Tiering have no minimum, and Express One Zone has a one-hour minimum.",
+    "difficulty": "difficile",
+    "tags": [
+      "minimum-duration"
+    ],
+    "source": "AWS docs: Amazon S3 storage classes",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1K4",
+      "V40",
+      "K-1.1S6"
+    ]
+  },
+  {
+    "id": "ch8-q008",
+    "chapter": "ch8-data-advanced",
+    "q": "A single EC2 database needs sustained random I/O of 50,000 IOPS with 16 KiB blocks and an average latency under 500 microseconds. Which EBS volume type fits best?",
+    "options": [
+      "gp3, the general purpose SSD volume type, which can be configured for high IOPS on a single instance attachment",
+      "io2 Block Express, the Provisioned IOPS SSD volume type, which is designed for sustained performance and sub-millisecond latency",
+      "st1, the throughput optimized HDD volume type, which is built for large sequential streaming workloads",
+      "sc1, the cold HDD volume type, which is built for infrequently accessed data where the lowest storage cost matters"
+    ],
+    "answer": 1,
+    "explain": "io2 Block Express is documented for sustained performance and average latency under 500 microseconds for 16 KiB I/O. gp3 can reach high IOPS, but it is not the Provisioned IOPS latency profile in the question.",
+    "difficulty": "media",
+    "tags": [
+      "ebs",
+      "io2"
+    ],
+    "source": "AWS docs: Amazon EBS volume types",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V33",
+      "K-1.1K4"
+    ]
+  },
+  {
+    "id": "ch8-q009",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about EBS volume types are correct? (Select TWO.)",
+    "options": [
+      "st1 is optimized for small random I/O operations, which is why it is the default for transactional databases",
+      "io1 reaches a maximum of 64,000 IOPS per volume, and it supports Multi-attach on supported instances",
+      "gp2 reaches a maximum of 80,000 IOPS per volume, which is why gp2 is recommended for large databases",
+      "io2 Block Express reaches a maximum of 64,000 IOPS per volume, the same ceiling as the older io1 volume type",
+      "gp3 reaches a maximum throughput of 2,000 MiB per second, with IOPS provisioned separately from capacity"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "gp3 reaches 2,000 MiB/s and io1 reaches 64,000 IOPS according to the EBS volume types page. io2 Block Express reaches 256,000 IOPS, st1 is for throughput-heavy streams, and gp2 is capped at 16,000 IOPS.",
+    "difficulty": "difficile",
+    "tags": [
+      "ebs"
+    ],
+    "source": "AWS docs: Amazon EBS volume types",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V33",
+      "K-1.1K4"
+    ]
+  },
+  {
+    "id": "ch8-q010",
+    "chapter": "ch8-data-advanced",
+    "q": "A company runs Windows and Linux applications that need NFS and SMB access, snapshots, clones and automatic tiering to lower-cost storage. Which AWS service fits?",
+    "options": [
+      "Amazon EFS One Zone, a managed NFS file system for Linux workloads that is stored in a single Availability Zone for Linux workloads only",
+      "Amazon EBS io2 Block Express, a block volume attached to a single instance for high-performance database storage",
+      "Amazon FSx for NetApp ONTAP, which supports NFS, SMB, iSCSI and NVMe with snapshots, clones and automatic tiering",
+      "Amazon FSx for Lustre, a high-performance file system designed for compute clusters and large parallel workloads"
+    ],
+    "answer": 2,
+    "explain": "FSx for NetApp ONTAP supports NFS, SMB, iSCSI and NVMe, with snapshots, clones and tiering. EFS is NFS only, EBS is single-instance block storage, and Lustre targets high-throughput compute.",
+    "difficulty": "media",
+    "tags": [
+      "fsx",
+      "ontap"
+    ],
+    "source": "AWS docs: What is Amazon FSx for NetApp ONTAP",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V06",
+      "K-1.1K2"
+    ]
+  },
+  {
+    "id": "ch8-q011",
+    "chapter": "ch8-data-advanced",
+    "q": "A file system must be shared by many EC2 instances, containers and Lambda functions, and the team wants a managed NFS service that scales without provisioning capacity. Which service is the best fit?",
+    "options": [
+      "Amazon EBS Multi-attach on io2 volumes, which lets several instances in the same Availability Zone mount one volume at once",
+      "Amazon S3 mounted through a Lambda layer, with the bucket exposed as a local directory for each function",
+      "Amazon FSx for Windows File Server, which provides SMB shares that are accessible from Windows clients only",
+      "Amazon EFS, a managed and elastic NFS file system that many compute services can mount at the same time"
+    ],
+    "answer": 3,
+    "explain": "EFS is a serverless, elastic NFS file system accessible from EC2, ECS, EKS, Lambda and Fargate. Multi-attach on EBS is limited to a few instances, not a general shared service.",
+    "difficulty": "facile",
+    "tags": [
+      "efs"
+    ],
+    "source": "AWS docs: What is Amazon Elastic File System",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V05",
+      "K-1.1K2"
+    ]
+  },
+  {
+    "id": "ch8-q012",
+    "chapter": "ch8-data-advanced",
+    "q": "A data engineer must train a SageMaker job from a dataset in FSx for Lustre linked to an S3 bucket. Which job configuration element is required?",
+    "options": [
+      "A FileSystemDataSource with FileSystemType FSxLustre and a directory path that starts with the file system mount name",
+      "An S3DataSource that points at the bucket URI, so SageMaker streams the objects from S3 directly into the training container",
+      "A bucket policy that grants public read access, so the file system can download the training data without credentials",
+      "A Glue Data Catalog table that lists every S3 object, so that SageMaker can resolve the files at job start time"
+    ],
+    "answer": 0,
+    "explain": "SageMaker reads FSx for Lustre through a FileSystemDataSource with FileSystemType FSxLustre, and the directory path begins with the mount name. The job must also have VPC and subnet settings that match the file system.",
+    "difficulty": "difficile",
+    "tags": [
+      "fsx-lustre",
+      "training-input"
+    ],
+    "source": "AWS docs: Configure data input channel to use Amazon FSx for Lustre",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "C09",
+      "K-1.3S4"
+    ]
+  },
+  {
+    "id": "ch8-q013",
+    "chapter": "ch8-data-advanced",
+    "q": "A training job reads data from EFS. Which statement is correct?",
+    "options": [
+      "SageMaker copies the EFS data to an S3 bucket automatically at the start of every training job it runs",
+      "The dataset must already reside in the EFS file system before training starts, because SageMaker only mounts it",
+      "The training job can reach the EFS file system without any VPC configuration, because the mount is public",
+      "EFS can only be used for training in One Zone mode, since regional file systems are not supported by SageMaker and only in the same Region"
+    ],
+    "answer": 1,
+    "explain": "The documentation says the data must already reside in EFS before training. The job must connect to a VPC to mount the file system.",
+    "difficulty": "media",
+    "tags": [
+      "efs",
+      "training-input"
+    ],
+    "source": "AWS docs: Setting up training jobs to access datasets",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V05",
+      "K-1.3S4"
+    ]
+  },
+  {
+    "id": "ch8-q014",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about shared file systems as SageMaker training inputs are correct? (Select TWO.)",
+    "options": [
+      "FSx for Lustre spans three Availability Zones automatically, so a single subnet is never needed",
+      "Training with EFS needs no VPC configuration, because the file system is reachable over the internet",
+      "EFS data must already be in the file system before the training job starts reading the channel",
+      "FSx for Lustre can be linked to an S3 bucket through a data repository association for training",
+      "EFS is accessed from Windows EC2 instances with SMB by default, without any additional gateway"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "EFS must hold the data beforehand, and FSx for Lustre links to S3 through a data repository. EFS does not support Windows instances in this context, FSx for Lustre runs in a single Availability Zone, and EFS needs a VPC.",
+    "difficulty": "difficile",
+    "tags": [
+      "efs",
+      "fsx"
+    ],
+    "source": "AWS docs: Setting up training jobs to access datasets",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V05",
+      "V06",
+      "K-1.1K2"
+    ]
+  },
+  {
+    "id": "ch8-q015",
+    "chapter": "ch8-data-advanced",
+    "q": "An analytics team needs SQL aggregations over five years of sales data from many sources, at petabyte scale. Which store is best for this analytical workload?",
+    "options": [
+      "Amazon DynamoDB with a global secondary index that supports key-based queries on the sales attributes",
+      "Amazon ElastiCache for Redis OSS, an in-memory cache that serves repeated reads with very low latency",
+      "Amazon Redshift, a managed petabyte-scale SQL data warehouse designed for analytical aggregations",
+      "Amazon Neptune with openCypher queries, a graph database that is built for traversing connected entities"
+    ],
+    "answer": 2,
+    "explain": "Redshift is a managed petabyte-scale data warehouse queried with SQL. DynamoDB is for key-based operational access, ElastiCache is an in-memory cache, and Neptune is a graph database.",
+    "difficulty": "media",
+    "tags": [
+      "redshift",
+      "warehouse"
+    ],
+    "source": "AWS docs: What is Amazon Redshift",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S6"
+    ]
+  },
+  {
+    "id": "ch8-q016",
+    "chapter": "ch8-data-advanced",
+    "q": "A product team runs a MongoDB application and wants a managed service that keeps existing MongoDB drivers and tools. Which service fits?",
+    "options": [
+      "Amazon DynamoDB, a serverless NoSQL database that uses its own API and data model instead of MongoDB drivers",
+      "Amazon Neptune, a graph database that queries with Gremlin, openCypher or SPARQL instead of MongoDB queries",
+      "Amazon ElastiCache, an in-memory cache engine that stores key-value data with Valkey, Memcached or Redis OSS",
+      "Amazon DocumentDB with MongoDB compatibility, which works with the same drivers and tools as MongoDB"
+    ],
+    "answer": 3,
+    "explain": "DocumentDB is MongoDB-compatible, so the same drivers and tools work. DynamoDB uses its own API, Neptune is a graph database, and ElastiCache is a cache.",
+    "difficulty": "facile",
+    "tags": [
+      "documentdb"
+    ],
+    "source": "AWS docs: What is Amazon DocumentDB",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V16"
+    ]
+  },
+  {
+    "id": "ch8-q017",
+    "chapter": "ch8-data-advanced",
+    "q": "A product catalog runs on DocumentDB and needs read scaling with up to 15 replicas. Which statement is correct?",
+    "options": [
+      "DocumentDB supports up to 15 replicas for reads, and all instances share the cluster storage volume",
+      "A DocumentDB cluster can have at most two instances, a primary and a single replica for read traffic",
+      "Replicas must be created in a different AWS Region from the primary instance, which adds latency to reads",
+      "DocumentDB replicas are write-only instances that cannot serve read traffic from the application layer"
+    ],
+    "answer": 0,
+    "explain": "The documentation describes up to 15 replicas for read throughput, sharing the cluster volume. Replicas serve reads and do not accept writes.",
+    "difficulty": "media",
+    "tags": [
+      "documentdb",
+      "replicas"
+    ],
+    "source": "AWS docs: What is Amazon DocumentDB",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V16"
+    ]
+  },
+  {
+    "id": "ch8-q018",
+    "chapter": "ch8-data-advanced",
+    "q": "A fraud team must traverse relationships between accounts, devices and cards in milliseconds, using the openCypher query language. Which database fits best?",
+    "options": [
+      "Amazon RDS for PostgreSQL, a relational database that stores connected entities in normalized tables and joins",
+      "Amazon Neptune, a graph database that supports openCypher, Gremlin and SPARQL for connected data queries",
+      "Amazon DynamoDB, a key-value and document database that is designed for fast lookups by primary key",
+      "Amazon OpenSearch Service, a managed search and analytics engine used for log analysis and text search"
+    ],
+    "answer": 1,
+    "explain": "Neptune is a graph database that supports openCypher, Gremlin and SPARQL. RDS stores relational tables, DynamoDB is key-value and document, and OpenSearch targets search and analytics.",
+    "difficulty": "media",
+    "tags": [
+      "neptune",
+      "graph"
+    ],
+    "source": "AWS docs: What Is Amazon Neptune",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V17"
+    ]
+  },
+  {
+    "id": "ch8-q019",
+    "chapter": "ch8-data-advanced",
+    "q": "A supply-chain team models suppliers as nodes and edges and queries the graph with Gremlin. Which AWS service should they use?",
+    "options": [
+      "Amazon Redshift, a data warehouse that stores the supplier records in columnar tables for SQL analytics",
+      "Amazon ElastiCache, an in-memory cache used to store frequently read supplier lookups for applications",
+      "Amazon Neptune, a managed graph database that supports Gremlin, openCypher and SPARQL query languages",
+      "Amazon Data Firehose, a managed delivery service that loads streaming records into storage destinations"
+    ],
+    "answer": 2,
+    "explain": "Neptune supports Gremlin, openCypher and SPARQL for graph queries. The other options are a warehouse, a cache and a delivery service.",
+    "difficulty": "facile",
+    "tags": [
+      "neptune",
+      "gremlin"
+    ],
+    "source": "AWS docs: What Is Amazon Neptune",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V17"
+    ]
+  },
+  {
+    "id": "ch8-q020",
+    "chapter": "ch8-data-advanced",
+    "q": "Feature lookups for a real-time model are repeated thousands of times per second and must be served from memory. Which service is the best fit?",
+    "options": [
+      "Amazon RDS with Provisioned IOPS storage, which keeps the lookup table on fast SSD volumes for each query",
+      "Amazon S3 Glacier Deep Archive, a low-cost archive class for objects that are rarely retrieved by applications",
+      "Amazon Redshift with concurrency scaling, which adds temporary capacity for many simultaneous read queries",
+      "Amazon ElastiCache, an in-memory cache that also offers a serverless option with no node provisioning"
+    ],
+    "answer": 3,
+    "explain": "ElastiCache is an in-memory cache, and it has a serverless option that removes node provisioning. RDS and Redshift are disk-based stores, and Glacier is archival storage.",
+    "difficulty": "media",
+    "tags": [
+      "elasticache",
+      "cache"
+    ],
+    "source": "AWS docs: What is Amazon ElastiCache",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V34"
+    ]
+  },
+  {
+    "id": "ch8-q021",
+    "chapter": "ch8-data-advanced",
+    "q": "Application logs need full-text search and dashboards over recent data. Which AWS service is designed for this?",
+    "options": [
+      "Amazon OpenSearch Service, a managed search and analytics engine that supports log analytics and dashboards",
+      "Amazon Kinesis Video Streams, which ingests and stores video and time-serialized media from connected devices",
+      "AWS Glue DataBrew, a visual tool that profiles and transforms tabular datasets for analytics and training",
+      "Amazon Macie, a service that discovers and reports sensitive data stored in Amazon S3 buckets"
+    ],
+    "answer": 0,
+    "explain": "OpenSearch Service is a managed search and analytics engine used for log analytics and dashboards. Kinesis Video Streams handles video, DataBrew prepares tabular data, and Macie finds sensitive data.",
+    "difficulty": "facile",
+    "tags": [
+      "opensearch"
+    ],
+    "source": "AWS docs: What is Amazon OpenSearch Service",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-1.1.1"
+    ]
+  },
+  {
+    "id": "ch8-q022",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about extracting data from databases and search services are correct? (Select TWO.)",
+    "options": [
+      "Amazon Redshift is an in-memory cache that serves sub-millisecond reads for application lookups",
+      "Amazon RDS supports MySQL, PostgreSQL, Oracle, SQL Server, MariaDB and Db2 as database engines",
+      "DynamoDB supports SQL JOIN queries natively, so relational reporting works without a separate engine",
+      "Amazon RDS requires you to manage operating system patching yourself on every database instance",
+      "OpenSearch Service is a managed search and analytics engine that scales by adding data nodes"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "RDS supports six engines listed in its documentation, and OpenSearch Service is the managed search and analytics engine. DynamoDB has no JOIN, RDS manages patching, and Redshift is a warehouse.",
+    "difficulty": "difficile",
+    "tags": [
+      "rds",
+      "opensearch"
+    ],
+    "source": "AWS docs: What is Amazon RDS",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S1",
+      "G-1.1.1"
+    ]
+  },
+  {
+    "id": "ch8-q023",
+    "chapter": "ch8-data-advanced",
+    "q": "A factory must move about 5 TB per day from on-premises to AWS over a stable, private link with predictable latency. Which service fits?",
+    "options": [
+      "Amazon S3 Transfer Acceleration on the destination bucket, which speeds uploads over public internet paths",
+      "AWS Direct Connect, a dedicated network connection from the factory network to an AWS location",
+      "AWS Storage Gateway with Tape Gateway, which archives on-premises backups to a virtual tape library",
+      "AWS DataSync with an agent that copies files over the public internet on a recurring schedule"
+    ],
+    "answer": 1,
+    "explain": "Direct Connect provides a dedicated connection that bypasses internet service providers. Transfer Acceleration speeds uploads over the internet, and Tape Gateway archives to tape-like storage.",
+    "difficulty": "facile",
+    "tags": [
+      "direct-connect"
+    ],
+    "source": "AWS docs: What is Direct Connect",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V26"
+    ]
+  },
+  {
+    "id": "ch8-q024",
+    "chapter": "ch8-data-advanced",
+    "q": "A bank links its data center to AWS for a steady flow of training data. Which two statements about AWS Direct Connect are correct? (Select TWO.)",
+    "options": [
+      "It provides a dedicated network connection that bypasses internet service providers in the network path",
+      "Public virtual interfaces reach public AWS services such as Amazon S3 using public IP addresses",
+      "It encrypts all traffic by default with no additional configuration needed on the customer routers",
+      "It requires an Internet Gateway to be attached to every VPC that receives traffic over the connection",
+      "It replaces the need for any VPC, because traffic goes straight to the managed services"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Direct Connect is a dedicated connection with public, private and transit virtual interfaces. It does not encrypt by default and does not replace VPCs.",
+    "difficulty": "difficile",
+    "tags": [
+      "direct-connect",
+      "vif"
+    ],
+    "source": "AWS docs: What is Direct Connect",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V26",
+      "K-1.1S1"
+    ]
+  },
+  {
+    "id": "ch8-q025",
+    "chapter": "ch8-data-advanced",
+    "q": "Analysts in distant continents upload large video datasets to one S3 bucket, and the uploads are slow. Which feature helps?",
+    "options": [
+      "S3 Object Lock in compliance mode, which prevents objects from being deleted or overwritten for a fixed period",
+      "S3 Requester Pays, which moves the request and data transfer charges to the account that downloads the objects",
+      "S3 Transfer Acceleration, enabled on the bucket so uploads enter the AWS edge network close to the users",
+      "S3 Lifecycle rules that move the uploaded objects to Glacier after a number of days in the bucket"
+    ],
+    "answer": 2,
+    "explain": "Transfer Acceleration routes uploads through CloudFront edge locations to the bucket. The other features address retention, billing and storage cost.",
+    "difficulty": "media",
+    "tags": [
+      "s3",
+      "transfer-acceleration"
+    ],
+    "source": "AWS docs: Amazon S3 Transfer Acceleration",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S1"
+    ]
+  },
+  {
+    "id": "ch8-q026",
+    "chapter": "ch8-data-advanced",
+    "q": "A media company uploads raw footage from several continents to one bucket. Which two statements about S3 Transfer Acceleration are correct? (Select TWO.)",
+    "options": [
+      "Bucket names may contain periods, provided the bucket is in a supported Region",
+      "It replaces VPC endpoints for private access from applications inside a virtual network",
+      "It uses AWS Direct Connect links only, so it is available only from connected data centers",
+      "Additional data transfer charges may apply after you enable it on a bucket",
+      "It is enabled per bucket, and the bucket owner must set the acceleration state"
+    ],
+    "answer": [
+      3,
+      4
+    ],
+    "explain": "Transfer Acceleration is enabled at the bucket level, and the documentation notes possible extra transfer charges. Bucket names must not contain periods, it does not replace VPC endpoints, and it does not use Direct Connect.",
+    "difficulty": "difficile",
+    "tags": [
+      "s3",
+      "transfer-acceleration"
+    ],
+    "source": "AWS docs: Amazon S3 Transfer Acceleration",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S1"
+    ]
+  },
+  {
+    "id": "ch8-q027",
+    "chapter": "ch8-data-advanced",
+    "q": "A team needs scheduled and validated copies of NFS data from on-premises into S3 and EFS, with no custom code. Which service fits?",
+    "options": [
+      "AWS Database Migration Service, which moves relational and NoSQL database contents between engines and into AWS with a custom script on a laptop",
+      "Amazon Data Firehose, which delivers streaming records to S3, Redshift and OpenSearch destinations continuously",
+      "AWS Snowball Edge, a physical device that is shipped to the site to move large volumes of data offline",
+      "AWS DataSync, a managed transfer service that copies data between on-premises NFS and AWS storage with validation"
+    ],
+    "answer": 3,
+    "explain": "DataSync automates file transfers between on-premises NFS or SMB and AWS storage, with encryption and integrity validation. The other services move databases, streams or physical devices.",
+    "difficulty": "media",
+    "tags": [
+      "datasync"
+    ],
+    "source": "AWS docs: What is AWS DataSync",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V47"
+    ]
+  },
+  {
+    "id": "ch8-q028",
+    "chapter": "ch8-data-advanced",
+    "q": "An office needs its on-premises applications to read and write S3 objects through a local file interface with a local cache. Which Storage Gateway type fits?",
+    "options": [
+      "Volume Gateway in stored mode, which presents iSCSI block volumes backed by local disks and cloud snapshots",
+      "S3 File Gateway, which presents S3 objects as NFS or SMB file shares with a local cache",
+      "Tape Gateway, which presents a virtual tape library that archives backups to Amazon S3 and Glacier",
+      "FSx File Gateway, which provides access to Amazon FSx for Windows File Server shares from the office"
+    ],
+    "answer": 1,
+    "explain": "S3 File Gateway presents S3 objects as files with local caching. Volume Gateway presents block volumes, Tape Gateway emulates tape libraries, and FSx File Gateway targets Windows shares.",
+    "difficulty": "media",
+    "tags": [
+      "storage-gateway"
+    ],
+    "source": "AWS docs: AWS Storage Gateway Documentation",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V27"
+    ]
+  },
+  {
+    "id": "ch8-q029",
+    "chapter": "ch8-data-advanced",
+    "q": "A provisioned Kinesis stream has 4 shards. A single hot partition key sends about 5 MB per second, and producers get ProvisionedThroughputExceededException. What is the most appropriate fix?",
+    "options": [
+      "Reduce the retention period of the stream to 24 hours, so that the stored records occupy less capacity in the shards",
+      "Enable server-side encryption with a new customer managed KMS key, which increases the throughput of each shard",
+      "Add shards and use a partition key with higher cardinality so that the writes spread across the shards of the stream",
+      "Switch the producers to read from the stream instead of writing, so that the shards handle fewer records overall"
+    ],
+    "answer": 2,
+    "explain": "Four shards handle about 4 MB per second of writes, and a hot key sends all its records to one shard. More shards and a better partition key distribute the load, while retention or encryption do not affect throughput.",
+    "difficulty": "media",
+    "tags": [
+      "kinesis",
+      "throttling"
+    ],
+    "source": "AWS docs: Quotas and limits for Kinesis Data Streams",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ]
+  },
+  {
+    "id": "ch8-q030",
+    "chapter": "ch8-data-advanced",
+    "q": "A stream in on-demand mode receives a traffic spike of more than double its previous 30-day peak within 15 minutes. Which behavior does the documentation describe?",
+    "options": [
+      "Nothing is throttled, because on-demand capacity has no upper limit and scales instantly to any traffic volume",
+      "The shard count is fixed when the stream is created and cannot change, so the spike is rejected at the producer",
+      "Each shard is capped at 1 MB per second in every capacity mode, so the spike is rejected regardless of mode",
+      "Write throttling can occur, so producers should retry the throttled requests until the stream has scaled up"
+    ],
+    "answer": 3,
+    "explain": "On-demand scales to double the previous peak, and traffic beyond that within 15 minutes can be throttled. The documented response is to retry those requests.",
+    "difficulty": "difficile",
+    "tags": [
+      "kinesis",
+      "on-demand"
+    ],
+    "source": "AWS docs: Choose the right mode to stream in",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ]
+  },
+  {
+    "id": "ch8-q031",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about Kinesis Data Streams provisioned capacity are correct? (Select TWO.)",
+    "options": [
+      "Switching between capacity modes is unlimited, so a stream can change its mode as often as needed in a day",
+      "On-demand streams require the operator to enter a fixed shard count when the stream is created",
+      "Writes per shard are capped at 10 MB per second, which is the same limit for every shard in the stream",
+      "Each shard supports up to 1 MB per second or 1,000 records per second of writes, whichever limit is reached first",
+      "Each shard supports up to 2 MB per second or 2,000 records per second of reads, whichever limit is reached first"
+    ],
+    "answer": [
+      3,
+      4
+    ],
+    "explain": "The quotas page lists 1 MB or 1,000 records per second of writes and 2 MB or 2,000 records per second of reads per shard. Mode switches are limited to two in 24 hours, and on-demand streams do not take a shard count.",
+    "difficulty": "difficile",
+    "tags": [
+      "kinesis",
+      "shards"
+    ],
+    "source": "AWS docs: Quotas and limits for Kinesis Data Streams",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ]
+  },
+  {
+    "id": "ch8-q032",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about Kinesis enhanced fan-out consumers are correct? (Select TWO.)",
+    "options": [
+      "GetRecords calls are unlimited per shard, so a consumer can poll a shard as fast as it needs to",
+      "Shards cannot be split in provisioned mode, so the consumer count is the only way to add throughput",
+      "Standard modes allow up to 20 enhanced fan-out consumers registered on each data stream at the same time",
+      "On-demand Advantage mode allows up to 50 registered enhanced fan-out consumers on each data stream",
+      "All fan-out consumers share a single 2 MB per second read limit on the entire stream for every consumer"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "Enhanced fan-out allows up to 20 consumers per stream in the standard modes and up to 50 in On-demand Advantage, and each consumer has dedicated throughput. GetRecords is limited to five calls per second per shard.",
+    "difficulty": "difficile",
+    "tags": [
+      "kinesis",
+      "fan-out"
+    ],
+    "source": "AWS docs: Quotas and limits for Kinesis Data Streams",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.1S5"
+    ]
+  },
+  {
+    "id": "ch8-q033",
+    "chapter": "ch8-data-advanced",
+    "q": "A team needs stateful, windowed aggregations over a Kinesis stream with low latency, written in Java. Which service fits?",
+    "options": [
+      "Amazon Managed Service for Apache Flink, which runs Flink applications in Java, Scala, Python or SQL with state and windows",
+      "AWS Glue DataBrew, a visual tool that applies batch transformations to datasets stored in Amazon S3 buckets",
+      "Amazon EMR core nodes with HDFS only, which store data for batch jobs without any streaming engine running",
+      "Amazon Kinesis Video Streams, which ingests media streams from devices and stores them for later processing"
+    ],
+    "answer": 0,
+    "explain": "Managed Service for Apache Flink runs Flink applications in Java, Scala, Python or SQL, with state and windowing. DataBrew is visual batch preparation, and Video Streams handles video.",
+    "difficulty": "media",
+    "tags": [
+      "flink",
+      "windows"
+    ],
+    "source": "AWS docs: What is Amazon Managed Service for Apache Flink",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K5",
+      "V41"
+    ]
+  },
+  {
+    "id": "ch8-q034",
+    "chapter": "ch8-data-advanced",
+    "q": "A team wants to deliver streaming records to S3 with an optional transformation and no application to manage. Which service fits?",
+    "options": [
+      "Amazon MSK with self-managed brokers, which runs Apache Kafka clusters that the team operates on its own for the team's own brokers and topics",
+      "Amazon Data Firehose, a fully managed service that delivers streaming records and can transform them before delivery",
+      "Amazon Managed Service for Apache Flink Studio notebooks, used interactively for exploring streams with SQL",
+      "AWS Lambda with a custom polling loop that reads records from a stream and writes each one to S3"
+    ],
+    "answer": 1,
+    "explain": "Data Firehose is fully managed, delivers to S3, Redshift and OpenSearch, and can transform data before delivery. MSK runs Kafka clusters, which the team does not want to manage.",
+    "difficulty": "facile",
+    "tags": [
+      "firehose"
+    ],
+    "source": "AWS docs: What is Amazon Data Firehose",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K5"
+    ]
+  },
+  {
+    "id": "ch8-q035",
+    "chapter": "ch8-data-advanced",
+    "q": "An existing team already runs a Spark Streaming job on EMR and wants to reuse the code. Which approach is most reasonable?",
+    "options": [
+      "Rewrite the whole job as a Firehose SQL transform, so that the existing Spark code is no longer needed at all and then retire the Spark code",
+      "Replace the job with an AWS Glue crawler that scans the stream and updates the catalog table for each batch",
+      "Keep the existing Spark job and run it on the EMR cluster, so the code and its executors are reused as they are",
+      "Move all the processing into a single Kinesis shard, so that the Spark job no longer needs to run in parallel"
+    ],
+    "answer": 2,
+    "explain": "Reusing the Spark code on EMR keeps the investment and fits the Spark executor model on core nodes. A crawler only catalogs metadata, and a single shard cannot carry a large stream.",
+    "difficulty": "media",
+    "tags": [
+      "spark",
+      "emr"
+    ],
+    "source": "AWS docs: Understand node types in Amazon EMR",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K5"
+    ]
+  },
+  {
+    "id": "ch8-q036",
+    "chapter": "ch8-data-advanced",
+    "q": "Thermal and video streams from security cameras must be stored encrypted and indexed by timestamp for later frame-level processing. Which service fits?",
+    "options": [
+      "Amazon Kinesis Data Firehose, which delivers records to S3 and indexes the delivered objects by partition prefix",
+      "Amazon S3 Express One Zone, a single-zone storage class for low-latency object access by applications",
+      "Amazon SQS, a managed message queue that holds encoded messages until a consumer reads and deletes them",
+      "Amazon Kinesis Video Streams, which stores media encrypted at rest and indexes it by producer and ingestion timestamps"
+    ],
+    "answer": 3,
+    "explain": "Kinesis Video Streams ingests live video and other time-serialized data, encrypts stored media at rest and indexes it by timestamp. Firehose delivers records, not video frames, and Express One Zone is storage.",
+    "difficulty": "media",
+    "tags": [
+      "kinesis-video",
+      "multimodal"
+    ],
+    "source": "AWS docs: What is Amazon Kinesis Video Streams",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V25",
+      "G-1.1.8"
+    ]
+  },
+  {
+    "id": "ch8-q037",
+    "chapter": "ch8-data-advanced",
+    "q": "A factory wants to stream thermal and RTSP camera feeds to AWS for frame-level analysis by custom applications. Which service fits?",
+    "options": [
+      "Amazon Kinesis Video Streams, which accepts RTSP and other camera sources and lets applications read frames in real time",
+      "AWS Glue DataBrew, a visual preparation tool for tabular datasets that are stored in Amazon S3 buckets",
+      "Amazon Redshift Spectrum, which queries data stored in S3 from a Redshift cluster with SQL statements",
+      "Amazon Neptune, a graph database that stores entities and relationships for connected data applications"
+    ],
+    "answer": 0,
+    "explain": "Kinesis Video Streams accepts RTSP and other sources, and custom applications on EC2 read frames in real time. The other services do not ingest live video.",
+    "difficulty": "facile",
+    "tags": [
+      "kinesis-video",
+      "rtsp"
+    ],
+    "source": "AWS docs: What is Amazon Kinesis Video Streams",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V25"
+    ]
+  },
+  {
+    "id": "ch8-q038",
+    "chapter": "ch8-data-advanced",
+    "q": "A team runs batch jobs on an EMR cluster and must keep intermediate data in HDFS between steps. Which node type stores that HDFS data?",
+    "options": [
+      "Primary node, which coordinates the cluster and tracks the status of the jobs submitted to it",
+      "Core node, which runs the HDFS DataNode daemon and stores the data blocks of the cluster",
+      "Task node, which adds computation capacity for parallel tasks without storing any data in HDFS",
+      "Spot node group, a purchasing option that can be applied to any node type in the cluster"
+    ],
+    "answer": 1,
+    "explain": "Core nodes run the HDFS DataNode daemon and store data. Task nodes run computation only, and the primary node coordinates the cluster.",
+    "difficulty": "facile",
+    "tags": [
+      "emr",
+      "hdfs"
+    ],
+    "source": "AWS docs: Understand node types in Amazon EMR",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C12"
+    ]
+  },
+  {
+    "id": "ch8-q039",
+    "chapter": "ch8-data-advanced",
+    "q": "A job uses Spot instances to add compute capacity, and the team must avoid losing HDFS data. Which node type is the right place for the Spot instances?",
+    "options": [
+      "Primary node, because it manages the cluster and tracks every job that is submitted to the application",
+      "Core node, because it holds the HDFS data blocks that the job reads and writes during the run",
+      "Task node, because it runs computation without storing HDFS data, so an interruption loses no data",
+      "Any node type, because the purchasing option has no effect on how EMR stores data in the cluster"
+    ],
+    "answer": 2,
+    "explain": "Task nodes do not store HDFS data, so Spot interruptions do not lose data, and they are the usual choice for Spot. Core nodes hold HDFS data, and removing them risks loss.",
+    "difficulty": "media",
+    "tags": [
+      "emr",
+      "spot"
+    ],
+    "source": "AWS docs: Understand node types in Amazon EMR",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C12"
+    ]
+  },
+  {
+    "id": "ch8-q040",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about Amazon EMR node types are correct? (Select TWO.)",
+    "options": [
+      "A cluster can have only one primary node in every EMR release that is available today",
+      "The primary node runs the YARN ResourceManager and the HDFS NameNode for the cluster",
+      "Task nodes run the HDFS DataNode daemon and store the data blocks of the cluster",
+      "Core nodes can run Spark executors together with the HDFS DataNode daemon",
+      "The primary node must always be a Spot instance, because it is the least critical node"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "The primary node runs YARN ResourceManager and the NameNode, and core nodes run executors as well as DataNodes. Task nodes have no DataNode, primary nodes are not Spot by requirement, and EMR 5.23.0 and later allow three primary nodes.",
+    "difficulty": "difficile",
+    "tags": [
+      "emr",
+      "nodes"
+    ],
+    "source": "AWS docs: Understand node types in Amazon EMR",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C12"
+    ]
+  },
+  {
+    "id": "ch8-q041",
+    "chapter": "ch8-data-advanced",
+    "q": "A cluster runs with three primary nodes in EMR 5.23.0 or later, and one primary node fails. What happens?",
+    "options": [
+      "The cluster terminates immediately, because a single failed primary node always ends the whole cluster run",
+      "All HDFS data stored in the cluster is lost and must be reloaded from the source before any job can run again",
+      "Every running job must be resubmitted from the beginning, because the cluster loses all of its job state",
+      "EMR fails over to a standby primary node and replaces the failed one with a new node of the same configuration"
+    ],
+    "answer": 3,
+    "explain": "The documentation describes automatic failover to a standby primary node and replacement of the failed node. Terminating the cluster or losing all HDFS data is not the documented outcome.",
+    "difficulty": "media",
+    "tags": [
+      "emr",
+      "high-availability"
+    ],
+    "source": "AWS docs: Understand node types in Amazon EMR",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C12"
+    ]
+  },
+  {
+    "id": "ch8-q042",
+    "chapter": "ch8-data-advanced",
+    "q": "A linear model uses house prices, which are heavily skewed to the right. Which transform reduces the skew?",
+    "options": [
+      "Log transform, which compresses the long right tail of the values so the distribution is more symmetric",
+      "One-hot encoding of the price column, which creates one binary column for each distinct price value",
+      "Splitting the price string by a delimiter, which creates new columns from the parts of the text value",
+      "Tokenizing the price into words, which creates a term vector from the characters of the price text"
+    ],
+    "answer": 0,
+    "explain": "A log transform compresses long right tails, which helps linear models. The other options apply to categorical or text features.",
+    "difficulty": "facile",
+    "tags": [
+      "log-transform",
+      "skew"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K2"
+    ]
+  },
+  {
+    "id": "ch8-q043",
+    "chapter": "ch8-data-advanced",
+    "q": "A neural network needs input values between 0 and 1, and outliers are rare in the data. Which scaler fits?",
+    "options": [
+      "Standard Scaler, which centers each value on the mean and scales it to unit variance across the column",
+      "Min Max Scaler, which maps the values of the column to a fixed range such as 0 to 1",
+      "Max Absolute Scaler, which divides each value by the largest absolute value and leaves the sign unchanged",
+      "Robust Scaler, which uses the median and quantile ranges so the scale is not driven by extreme values"
+    ],
+    "answer": 1,
+    "explain": "Min-max scaling maps values into a fixed range. Standard Scaler does not bound the output, and Robust Scaler is for data with outliers.",
+    "difficulty": "media",
+    "tags": [
+      "min-max",
+      "scaling"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K2"
+    ]
+  },
+  {
+    "id": "ch8-q044",
+    "chapter": "ch8-data-advanced",
+    "q": "A column named order_date_time must become separate date and time columns. Which Data Wrangler transform does this?",
+    "options": [
+      "Ordinal encode, which replaces each category with an integer that reflects its position in a ranked list",
+      "Vectorize, which converts text into numeric vectors using the token counts or the TF-IDF weights",
+      "Split string by delimiter, which divides a text column into an array of parts using a chosen separator",
+      "Balance data, which resamples the rows so that an underrepresented category gets more examples"
+    ],
+    "answer": 2,
+    "explain": "Data Wrangler splits a string into an array by a delimiter, which gives the date and time parts. The other transforms encode, vectorize text or rebalance rows.",
+    "difficulty": "media",
+    "tags": [
+      "feature-split"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K2",
+      "K-1.2K3"
+    ]
+  },
+  {
+    "id": "ch8-q045",
+    "chapter": "ch8-data-advanced",
+    "q": "A feature engineer bins customer age into four ranges before training a tree model. Which statement is correct?",
+    "options": [
+      "Binning always increases the number of features to hundreds, so it should be avoided for all tree models in production applied before the split on each column",
+      "Binning must be applied only to the test set after the split, because the training data must keep its raw values",
+      "Binning is the same operation as standardization, since both change the scale of the values in the same way",
+      "Binning turns a numeric feature into ranges, which can capture non-linear effects and reduce the influence of noise"
+    ],
+    "answer": 3,
+    "explain": "Binning groups values into ranges, a technique used to capture non-linear effects and reduce noise. It does not inflate features by default, must be fitted on training data, and differs from standardization.",
+    "difficulty": "media",
+    "tags": [
+      "binning"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K2"
+    ]
+  },
+  {
+    "id": "ch8-q046",
+    "chapter": "ch8-data-advanced",
+    "q": "A country column has 150 values with no natural order, and the team wants to avoid creating 150 one-hot columns. Which Data Wrangler encoding fits best?",
+    "options": [
+      "Similarity encode, which embeds each category into a compact representation built from its tokens with min-hash",
+      "One-hot encode, which creates one binary column for each country present in the dataset column and then drop the original column",
+      "Ordinal encode with the alphabetical order of the country names as the ranking that the model will use",
+      "Use the raw country string as a numeric value, since the model will learn the mapping from the text itself"
+    ],
+    "answer": 0,
+    "explain": "Similarity encoding is documented for many categorical variables, turning each category into an embedding. One-hot would create 150 columns, and ordinal encoding would invent an order that does not exist.",
+    "difficulty": "media",
+    "tags": [
+      "similarity-encoding",
+      "high-cardinality"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K3"
+    ]
+  },
+  {
+    "id": "ch8-q047",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about categorical encodings are correct? (Select TWO.)",
+    "options": [
+      "Ordinal encoding assigns integers from 0 to the number of categories minus one, in the order the transform finds them",
+      "One-hot encoding is the right choice when the categories have a meaningful order that the model should learn",
+      "The drop last category option in one-hot encoding removes one output column, which avoids a redundant column",
+      "Label encoding of nominal categories always helps a linear model, because the integers give it a useful scale",
+      "Binary encoding creates exactly one output column for each category that appears in the training data"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "Ordinal encoding produces indices from 0 to N minus 1, and the drop last option removes one column. One-hot is for categories without order, label encoding of nominal values can mislead linear models, and binary encoding is not one column per category.",
+    "difficulty": "difficile",
+    "tags": [
+      "encoding"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K3"
+    ]
+  },
+  {
+    "id": "ch8-q048",
+    "chapter": "ch8-data-advanced",
+    "q": "A text column of product reviews must become numeric features for a linear model. Which Data Wrangler approach fits?",
+    "options": [
+      "One-hot encode every distinct word in the column, creating one binary feature for each word in the reviews",
+      "Tokenize with the standard tokenizer, then vectorize the tokens with TF-IDF weights for the linear model",
+      "Min Max scale the length of each review only, which turns the free text into a single numeric feature",
+      "Balance data on the review text, so that the rare words are oversampled before the features are created"
+    ],
+    "answer": 1,
+    "explain": "The standard tokenizer splits text on white space and lowercases it, and TF-IDF vectorization weights the tokens. The other options do not produce useful text features.",
+    "difficulty": "media",
+    "tags": [
+      "tokenization",
+      "tf-idf"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K3"
+    ]
+  },
+  {
+    "id": "ch8-q049",
+    "chapter": "ch8-data-advanced",
+    "q": "A team must run a nightly copy of an on-premises NFS export into an S3 bucket and verify the copied files against the source. Which service fits?",
+    "options": [
+      "Amazon Data Firehose, which delivers streaming records continuously to S3 and can transform them on the way",
+      "AWS Snowball Edge, a physical device that the team ships to the site to move a large volume of data offline",
+      "AWS Storage Gateway with a Tape Gateway configuration, which archives backups to a virtual tape library",
+      "AWS DataSync, which runs scheduled transfers from NFS to S3 and validates the copied data against the source"
+    ],
+    "answer": 3,
+    "explain": "DataSync transfers files from NFS to S3 on a schedule and validates the data against the source. Firehose handles streaming records, Snowball is a physical shipment, and Tape Gateway archives backups.",
+    "difficulty": "facile",
+    "tags": [
+      "datasync",
+      "validation"
+    ],
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V47"
+    ],
+    "source": "AWS docs: What is AWS DataSync"
+  },
+  {
+    "id": "ch8-q050",
+    "chapter": "ch8-data-advanced",
+    "q": "Which three transforms help a linear model with skewed numeric and categorical features? (Select THREE.)",
+    "options": [
+      "Deleting the only numeric feature, which removes the skew from the data before the model is trained",
+      "Log transform of the skewed numeric feature, which compresses the long tail of its distribution",
+      "Standard Scaler on the numeric features, which centers them and gives them a unit variance",
+      "One-hot encoding of the nominal categories, which turns each category into a separate binary column",
+      "Balance data on the feature column, which resamples the rows of each category to equal counts",
+      "Tokenizing the numeric values into words, which creates a term vector out of each number in the column"
+    ],
+    "answer": [
+      1,
+      2,
+      3
+    ],
+    "explain": "A log transform reduces skew, a standard scaler centers the numeric inputs, and one-hot encodes nominal categories. Balancing rows is not a feature transform, tokenizing numbers is meaningless, and deleting the feature loses information.",
+    "difficulty": "difficile",
+    "tags": [
+      "feature-engineering"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.2K2",
+      "K-1.2K3"
+    ]
+  },
+  {
+    "id": "ch8-q051",
+    "chapter": "ch8-data-advanced",
+    "q": "A Data Wrangler custom PySpark step must remove duplicate rows that have the same values in key columns. Which operation does this?",
+    "options": [
+      "Balance data applied to the key columns, which keeps one row for each distinct combination of their values before any profiling job runs",
+      "Fill missing with a constant value applied to the key columns, which replaces the empty cells in the table",
+      "Standard Scaler applied to the key columns, which centers the values and scales them to unit variance",
+      "dropDuplicates on the key columns, which removes rows whose values match on the listed columns"
+    ],
+    "answer": 3,
+    "explain": "dropDuplicates removes rows that match on the listed columns, which is the documented pattern for duplicates. The other transforms do not remove duplicates.",
+    "difficulty": "facile",
+    "tags": [
+      "deduplication"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-1.3.7"
+    ]
+  },
+  {
+    "id": "ch8-q052",
+    "chapter": "ch8-data-advanced",
+    "q": "A numeric column has values between 10 and 20, except a few sensor errors near 9,000. Which outlier fix keeps every row but limits the effect of the extremes?",
+    "options": [
+      "Clip the values to the upper and lower thresholds, so the extreme readings are capped at the detected bounds",
+      "Drop the whole dataset and collect the measurements again, since a few sensor errors contaminate every row and keep the original values unchanged",
+      "Replace all values in the column with the column mean only, which removes the variation of the real readings",
+      "Add one-hot columns for each distinct sensor value, so that the extreme readings get their own features"
+    ],
+    "answer": 0,
+    "explain": "Clipping keeps the rows and caps values at the detected thresholds, as the outlier transforms describe. Dropping the dataset is not necessary, and the mean replacement hides real variation.",
+    "difficulty": "media",
+    "tags": [
+      "outliers",
+      "clip"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-1.3.7"
+    ]
+  },
+  {
+    "id": "ch8-q053",
+    "chapter": "ch8-data-advanced",
+    "q": "Missing values in a column are not random: missingness itself correlates with the target. Which approach keeps that signal for the model?",
+    "options": [
+      "Drop the rows with missing values silently before the split, so that the model sees only complete records",
+      "Add an indicator column for the missing values, then impute the value so the model keeps both signals",
+      "Replace all missing values with zero and do not add any extra column, because zero is a neutral value",
+      "Scale the column with Standard Scaler, which fills the missing cells with the mean of the column"
+    ],
+    "answer": 1,
+    "explain": "An indicator column records the missingness, which can carry information, and imputation fills the value. Silent drops or zero-filling remove that signal.",
+    "difficulty": "media",
+    "tags": [
+      "missing-values"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-1.3.7"
+    ]
+  },
+  {
+    "id": "ch8-q054",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about cleaning data before training are correct? (Select TWO.)",
+    "options": [
+      "Imputation statistics should be computed on the training split only, to avoid leakage into the test data",
+      "Duplicate rows should be kept, because they preserve the class weights that the training algorithm expects",
+      "Missing-value indicators are useless for tree models, since trees can split only on the observed values",
+      "Deleting every outlier always improves the model, because the model then only learns from typical values",
+      "Clipping keeps the rows but limits the extreme values to the detected thresholds of the column"
+    ],
+    "answer": [
+      0,
+      4
+    ],
+    "explain": "Clipping limits extremes while keeping rows, and computing imputation statistics on the training split avoids leakage. Deleting all outliers can remove real signal, duplicates distort training, and indicators can help tree models.",
+    "difficulty": "difficile",
+    "tags": [
+      "cleaning",
+      "leakage"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-1.3.7"
+    ]
+  },
+  {
+    "id": "ch8-q055",
+    "chapter": "ch8-data-advanced",
+    "q": "A nightly Glue ETL job must check that order_id is never null and always unique. Which DQDL ruleset does this?",
+    "options": [
+      "Rules = [ ColumnCount \"order_id\" ], which counts the columns of the table and compares the number with a threshold",
+      "Rules = [ Mean \"order_id\" ], which computes the average of the column values and returns the result for review",
+      "Rules = [ IsComplete \"order_id\", IsUnique \"order_id\" ], which checks for null values and duplicate values on the column",
+      "Rules = [ DataFreshness \"order_id\" ], which checks how recently the values in the column were last updated"
+    ],
+    "answer": 2,
+    "explain": "IsComplete checks for null values and IsUnique checks uniqueness, both on the same column. The other rules measure counts, averages or freshness.",
+    "difficulty": "media",
+    "tags": [
+      "dqdl",
+      "rules"
+    ],
+    "source": "AWS docs: Data Quality Definition Language (DQDL) reference",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V37",
+      "K-1.3S1"
+    ]
+  },
+  {
+    "id": "ch8-q056",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about Glue Data Quality limits and features are correct? (Select TWO.)",
+    "options": [
+      "Rules are written only in SQL, so the DQDL language is used only for the examples in the documentation",
+      "Rule results cannot be stored, so every evaluation must be reviewed in the console when it completes",
+      "A ruleset can contain up to 2,000 rules, and larger rule sets should be split into several rulesets",
+      "Rule recommendations can be generated from the data, which gives a starting set of rules to review",
+      "A ruleset may be up to 1 MB in size, which leaves room for long rule definitions and comments inside it"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "The documentation sets a limit of 2,000 rules per ruleset and a 65 KB size, and it offers recommendations. Rules are DQDL, and results can be written to tables and S3.",
+    "difficulty": "difficile",
+    "tags": [
+      "ruleset-limits"
+    ],
+    "source": "AWS docs: AWS Glue Data Quality",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V37",
+      "K-1.3S1"
+    ]
+  },
+  {
+    "id": "ch8-q057",
+    "chapter": "ch8-data-advanced",
+    "q": "A startup needs thousands of image labels quickly and accepts work from independent contractors worldwide. Which Ground Truth workforce fits this need?",
+    "options": [
+      "A private workforce made of the company's own employees and contractors, managed through private work teams",
+      "The public workforce through Amazon Mechanical Turk, which draws on independent contractors worldwide",
+      "A vendor workforce chosen from the providers available in AWS Marketplace for data labeling services",
+      "An internal Glue workforce that is managed through the Data Catalog and the Glue crawler configuration"
+    ],
+    "answer": 1,
+    "explain": "Ground Truth can use the Mechanical Turk workforce, which the documentation describes as over 500,000 independent contractors worldwide. Private and vendor workforces are the other options.",
+    "difficulty": "facile",
+    "tags": [
+      "mechanical-turk",
+      "workforce"
+    ],
+    "source": "AWS docs: Training data labeling using humans with SageMaker Ground Truth",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V43",
+      "C21",
+      "K-1.2S3"
+    ]
+  },
+  {
+    "id": "ch8-q058",
+    "chapter": "ch8-data-advanced",
+    "q": "A labeling job has finished, and the data science team must find the labeled results and their manifests. Which statement is correct?",
+    "options": [
+      "The input and output manifests are stored in DynamoDB tables that the labeling job creates for each job run and read back by the workers",
+      "The labels are written to an EFS mount that is attached to the labeling job for the duration of the run",
+      "The output lives in the Glue Data Catalog, where each label is stored as a partition of the labeled table",
+      "The input and output manifests are stored in Amazon S3, which holds the labeled objects and both manifest files"
+    ],
+    "answer": 3,
+    "explain": "Ground Truth reads an input manifest and writes an output manifest in S3. The other storage locations are not part of the labeling output.",
+    "difficulty": "media",
+    "tags": [
+      "manifest"
+    ],
+    "source": "AWS docs: Training data labeling using humans with SageMaker Ground Truth",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.2S3",
+      "C21"
+    ]
+  },
+  {
+    "id": "ch8-q059",
+    "chapter": "ch8-data-advanced",
+    "q": "Ground Truth labeling reports a required label accuracy for automated image classification. Which level does the documentation state?",
+    "options": [
+      "95 percent label accuracy against the labels that human workers would provide for the same examples",
+      "50 percent label accuracy, which the automated labeling model must reach before any object is labeled",
+      "99.9 percent label accuracy, which is the minimum for any automated labeling job in Ground Truth",
+      "70 percent label accuracy, which is the threshold for the active learning loop to stop the job"
+    ],
+    "answer": 0,
+    "explain": "The automated labeling page states that for image and text classification, Ground Truth aims for at least 95 percent accuracy compared with human labels.",
+    "difficulty": "media",
+    "tags": [
+      "automated-labeling",
+      "accuracy"
+    ],
+    "source": "AWS docs: Automate data labeling (Ground Truth)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.2K6",
+      "C21"
+    ]
+  },
+  {
+    "id": "ch8-q060",
+    "chapter": "ch8-data-advanced",
+    "q": "A team has 300 images and wants automated data labeling. What is the main constraint?",
+    "options": [
+      "Automated labeling works for any dataset size, because the active learning model adapts to small datasets",
+      "300 images is below the documented minimum of 1,250 objects for automated labeling, so the job cannot start",
+      "Automated labeling needs a GPU instance that the customer must purchase in advance from a reserved plan",
+      "Automated labeling is available only for plain text files, so image datasets cannot use it at any size"
+    ],
+    "answer": 1,
+    "explain": "The documentation sets a minimum of 1,250 objects for automated data labeling and recommends at least 5,000. A small dataset cannot train the model to the required accuracy.",
+    "difficulty": "media",
+    "tags": [
+      "automated-labeling",
+      "minimum"
+    ],
+    "source": "AWS docs: Automate data labeling (Ground Truth)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.2K6",
+      "C21"
+    ]
+  },
+  {
+    "id": "ch8-q061",
+    "chapter": "ch8-data-advanced",
+    "q": "Which three statements about Ground Truth automated data labeling are correct? (Select THREE.)",
+    "options": [
+      "It is available for every custom task type that the customer defines in the labeling template",
+      "A random sample of objects goes to human workers first, so the model has data to train on",
+      "The training and inference costs of the labeling model are charged to the customer",
+      "Workers are unpaid when automated labeling is enabled, because the model does most of the work",
+      "It supports streaming labeling jobs, so new objects can be labeled while the job stays active",
+      "It uses active learning to choose which items are sent to human workers for labeling"
+    ],
+    "answer": [
+      1,
+      2,
+      5
+    ],
+    "explain": "Active learning selects items for humans, a random sample starts the process, and SageMaker training and inference costs apply. Streaming jobs do not support automated labeling, custom task types are not covered, and workers are paid.",
+    "difficulty": "difficile",
+    "tags": [
+      "active-learning"
+    ],
+    "source": "AWS docs: Automate data labeling (Ground Truth)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.2K6",
+      "C21"
+    ]
+  },
+  {
+    "id": "ch8-q062",
+    "chapter": "ch8-data-advanced",
+    "q": "A bank uses Textract and wants low-confidence key-value extractions checked by a person. Which A2I component defines the work team and the trigger conditions?",
+    "options": [
+      "Worker task template only, which renders the instructions and the interface that the reviewers see on screen",
+      "A human loop created manually for each document, by calling the runtime API with the document contents each time",
+      "Human review workflow, also called the flow definition, which sets the work team, the UI and the activation conditions",
+      "Work team alone, which lists the reviewers who may act on tasks without any condition or workflow attached"
+    ],
+    "answer": 2,
+    "explain": "The human review workflow, or flow definition, specifies the work team, the worker UI and the activation conditions. The template only renders the UI, and a human loop is created from the workflow.",
+    "difficulty": "media",
+    "tags": [
+      "a2i",
+      "textract"
+    ],
+    "source": "AWS docs: Core components of Amazon A2I",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V11",
+      "K-1.2K6"
+    ]
+  },
+  {
+    "id": "ch8-q063",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about Amazon Augmented AI (A2I) are correct? (Select TWO.)",
+    "options": [
+      "Built-in task types cover Textract key-value extraction and Rekognition image moderation",
+      "A human loop is created each time the conditions of the human review workflow are met",
+      "Custom task types must use only Rekognition as the source of the predictions to review",
+      "The workforce for the reviews can only be a private workforce owned by the customer",
+      "A2I replaces every Ground Truth labeling job, because review workflows cover all labeling needs"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "A2I has two built-in task types, and the service creates a human loop when the conditions are met. Custom task types work with any service, the workforce can be private, vendor or Mechanical Turk, and A2I does not replace every labeling job.",
+    "difficulty": "difficile",
+    "tags": [
+      "a2i"
+    ],
+    "source": "AWS docs: Core components of Amazon A2I",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V11",
+      "K-1.2K6"
+    ]
+  },
+  {
+    "id": "ch8-q064",
+    "chapter": "ch8-data-advanced",
+    "q": "A researcher must recruit many people for short human tasks through a marketplace. Amazon Mechanical Turk is best described as which kind of service?",
+    "options": [
+      "An S3 storage class designed for archives that are rarely accessed and can be retrieved in hours, which is billed per object stored",
+      "A Glue transform that removes duplicate rows and standardizes the values in a column of text",
+      "A managed streaming service that delivers video frames from cameras to analytics applications",
+      "A marketplace of crowdsourced workers who complete human intelligence tasks, including data labeling work"
+    ],
+    "answer": 3,
+    "explain": "Mechanical Turk is a crowdsourcing marketplace whose workers do human tasks, including labeling. The other options are unrelated AWS services.",
+    "difficulty": "facile",
+    "tags": [
+      "mechanical-turk"
+    ],
+    "source": "AWS docs: Training data labeling using humans with SageMaker Ground Truth",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V43"
+    ]
+  },
+  {
+    "id": "ch8-q065",
+    "chapter": "ch8-data-advanced",
+    "q": "A loan dataset has 9,000 rows from one age group and 1,000 from another. Which Clarify pre-training metric captures this imbalance in the number of samples?",
+    "options": [
+      "Class Imbalance (CI), which compares the number of samples in the advantaged and the disadvantaged facet",
+      "Difference in Proportions of Labels (DPL), which compares the share of positive labels between the two age groups and keep the same weight for every row",
+      "Kolmogorov-Smirnov (KS), which measures the largest gap between the label distributions of the two age groups",
+      "Total Variation Distance (TVD), which measures half the L1 distance between the label distributions of the groups"
+    ],
+    "answer": 0,
+    "explain": "Class Imbalance compares the number of samples in the two facets, with values from negative one to one. DPL compares label proportions, and KS and TVD compare label distributions.",
+    "difficulty": "facile",
+    "tags": [
+      "clarify",
+      "class-imbalance"
+    ],
+    "source": "AWS docs: Pre-training bias metrics (SageMaker Clarify)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ]
+  },
+  {
+    "id": "ch8-q066",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about Clarify pre-training bias metrics are correct? (Select TWO.)",
+    "options": [
+      "CI ranges from negative one to one, with values near zero meaning the facets are balanced",
+      "Accuracy of a trained model is required before CI can be computed for the dataset",
+      "KS ranges from zero to one, with values near one meaning the labels are concentrated in one facet",
+      "Pre-training metrics need a trained model, because they compare the outputs of the model across facets",
+      "DPL is computed on predicted labels produced by a model that was trained on the same dataset"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "CI ranges from -1 to 1 and KS ranges from 0 to 1, according to the cheat sheet. Pre-training metrics use observed labels and do not need a model, and DPL uses observed labels rather than predictions.",
+    "difficulty": "difficile",
+    "tags": [
+      "clarify",
+      "ranges"
+    ],
+    "source": "AWS docs: Pre-training bias metrics (SageMaker Clarify)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-1.3K1"
+    ]
+  },
+  {
+    "id": "ch8-q067",
+    "chapter": "ch8-data-advanced",
+    "q": "A credit model is trained only on applications from one region and then used nationwide. Which type of bias does this describe?",
+    "options": [
+      "Measurement bias, which appears when the features or labels are recorded differently for each group of customers",
+      "Automation bias, which appears when people trust the output of an automated system without checking its results",
+      "Selection bias, which appears when the training sample does not represent the population the model will serve",
+      "Confirmation bias, which appears when analysts favor the results that agree with their earlier expectations"
+    ],
+    "answer": 2,
+    "explain": "Selection bias occurs when the sample does not represent the population the model will serve. Measurement bias is about how features or labels are measured.",
+    "difficulty": "difficile",
+    "tags": [
+      "selection-bias"
+    ],
+    "source": "AWS docs: Pre-training bias metrics (SageMaker Clarify)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S2"
+    ]
+  },
+  {
+    "id": "ch8-q068",
+    "chapter": "ch8-data-advanced",
+    "q": "After adding image samples to a text classification dataset, which check should run before computing pre-training bias metrics?",
+    "options": [
+      "GPU memory usage during the preprocessing step, which is the main factor that drives the bias of the dataset for the GPU jobs in the pipeline",
+      "Number of AWS Glue crawlers in the account, which shows how many datasets were cataloged in the last month",
+      "Count of Macie findings in other buckets, which indicates how many sensitive objects exist in the whole account",
+      "Label distribution per facet across all modalities, so that the image and text samples are compared on the same facets"
+    ],
+    "answer": 3,
+    "explain": "Bias metrics depend on facet membership and labels, so the label distribution per facet must be checked across all the modalities. The other checks do not measure bias.",
+    "difficulty": "media",
+    "tags": [
+      "multimodal",
+      "bias"
+    ],
+    "source": "AWS docs: Pre-training bias metrics (SageMaker Clarify)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.3.4",
+      "K-1.3S2"
+    ]
+  },
+  {
+    "id": "ch8-q069",
+    "chapter": "ch8-data-advanced",
+    "q": "A dataset mixes text and image samples. Before computing pre-training bias metrics, what must each sample have?",
+    "options": [
+      "A facet value and an observed label, which are the inputs that the pre-training metrics compare across groups",
+      "A GPU instance assigned to it, so that the bias computation can run on the accelerator for each sample and attached to the GPU fleet nightly",
+      "A 768-dimensional embedding vector, which the metrics read to determine how the sample is grouped",
+      "A SageMaker Studio user as its owner, which the metrics use to record who created each sample"
+    ],
+    "answer": 0,
+    "explain": "Pre-training bias metrics need a facet value and an observed label for each sample. Embeddings and compute resources are not required.",
+    "difficulty": "media",
+    "tags": [
+      "multimodal",
+      "facet"
+    ],
+    "source": "AWS docs: Pre-training bias metrics (SageMaker Clarify)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.3.4",
+      "K-1.3S2"
+    ]
+  },
+  {
+    "id": "ch8-q070",
+    "chapter": "ch8-data-advanced",
+    "q": "A dataset must be split so that the class proportions are the same in train and test. Which split type fits?",
+    "options": [
+      "Randomized split, which assigns each row to a split at random without looking at the class of the row",
+      "Stratified split, which keeps the proportion of each value of the input column the same in every split",
+      "Ordered split, which assigns the first rows to training and the last rows to the test set in their order",
+      "Split by key, which keeps all the rows that share the same key value together in the same split"
+    ],
+    "answer": 1,
+    "explain": "A stratified split keeps the proportions of the input column in each split. Randomized splits do not guarantee it, ordered splits follow row order, and split by key groups rows.",
+    "difficulty": "facile",
+    "tags": [
+      "split",
+      "stratified"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S3"
+    ]
+  },
+  {
+    "id": "ch8-q071",
+    "chapter": "ch8-data-advanced",
+    "q": "Hourly sensor readings must be split so that the test set comes after the training set in time. Which split type fits?",
+    "options": [
+      "Stratified split on the sensor label, which keeps the class proportions of the readings in both sets and keep the rows sorted by key",
+      "Randomized split with a fixed seed, which makes the same random assignment of the readings each time it runs",
+      "Ordered split, which places the earliest observations in the training set and the latest ones in the test set",
+      "Split by customer key, which keeps every reading from one sensor in the same split for the whole period"
+    ],
+    "answer": 2,
+    "explain": "An ordered split assigns the first observations to training and the last to test. Randomized splits would mix future and past readings.",
+    "difficulty": "media",
+    "tags": [
+      "split",
+      "time-series"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S3"
+    ]
+  },
+  {
+    "id": "ch8-q072",
+    "chapter": "ch8-data-advanced",
+    "q": "A customer table has several rows per customer. Which split prevents the same customer from appearing in both train and test?",
+    "options": [
+      "Randomized split, which assigns rows to the splits at random and can place one customer in both of them",
+      "Ordered split on the signup date, which keeps the earliest customers in the training set and the rest in test",
+      "Stratified split on the label column, which keeps the label proportions equal across the two splits",
+      "Split by key on the customer identifier, which keeps all rows of one customer together in a single split"
+    ],
+    "answer": 3,
+    "explain": "Split by key keeps all rows for one key in the same split, which avoids leakage. The other splits can place the same customer in both sets.",
+    "difficulty": "media",
+    "tags": [
+      "split",
+      "leakage"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S3"
+    ]
+  },
+  {
+    "id": "ch8-q073",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about splitting and augmentation are correct? (Select TWO.)",
+    "options": [
+      "Resampling the minority class in the test set is recommended, so the metrics reflect a balanced class mix",
+      "A randomized split can use a seed to make the split reproducible across runs of the same pipeline",
+      "Shuffling is never needed before a randomized split, because the split already randomizes the rows of the data",
+      "Augmentation should be applied only to the training split, so the test set stays representative of real data",
+      "Augmenting the test set makes the evaluation more honest, because the model is measured on more varied examples"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "Augmentation belongs to training so that the test set stays representative, and a seed makes randomized splits reproducible, as the Data Wrangler documentation describes. Augmenting or resampling the test set distorts the evaluation.",
+    "difficulty": "difficile",
+    "tags": [
+      "augmentation",
+      "split"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S3"
+    ]
+  },
+  {
+    "id": "ch8-q074",
+    "chapter": "ch8-data-advanced",
+    "q": "A fraud dataset contains about 0.5 percent positive cases. Which Data Wrangler transform adjusts the class balance?",
+    "options": [
+      "Balance data, which resamples the rows of an underrepresented category so the classes are closer in size",
+      "Ordinal encode, which converts each category of the fraud flag into an integer for the model",
+      "Standard Scaler, which centers the amount column and scales it to unit variance across the dataset",
+      "Featurize datetime, which extracts parts of the timestamp into new columns for the model to use"
+    ],
+    "answer": 0,
+    "explain": "Balance data is the documented transform for underrepresented categories. The other transforms encode, scale or extract datetime features.",
+    "difficulty": "facile",
+    "tags": [
+      "balance",
+      "resampling"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S3"
+    ]
+  },
+  {
+    "id": "ch8-q075",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two steps reduce the risk of data leakage when preparing data? (Select TWO.)",
+    "options": [
+      "Oversample the minority class before splitting, so both sets contain the same number of positives",
+      "Use the test set to tune the hyperparameters of the model before the final evaluation takes place",
+      "Split by key so the same entity is not present in both the training and the test set",
+      "Fit imputation statistics on the full dataset before splitting it into training and test sets",
+      "Fit scalers on the training data only, then apply the fitted scalers to the test data"
+    ],
+    "answer": [
+      2,
+      4
+    ],
+    "explain": "Splitting by key keeps entities apart, and fitting scalers on training data only prevents information flowing from the test set. The other steps leak information or bias the evaluation.",
+    "difficulty": "difficile",
+    "tags": [
+      "leakage"
+    ],
+    "source": "AWS docs: Transform data (SageMaker Data Wrangler)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3S3"
+    ]
+  },
+  {
+    "id": "ch8-q076",
+    "chapter": "ch8-data-advanced",
+    "q": "A company wants analysts to join tables on customer IDs that stay consistent, without seeing the real identity. Which technique fits?",
+    "options": [
+      "Anonymization, which removes any link between the record and the person so the link can never be restored",
+      "Pseudonymization, which replaces each identifier with a consistent code while the mapping is stored separately",
+      "Masking with asterisks, which hides the characters of the identifier so they cannot be joined in any query",
+      "Deleting the identifier column entirely, which removes the field from every table in the analytics layer"
+    ],
+    "answer": 1,
+    "explain": "Pseudonymization keeps a consistent code for each person, so joins still work, and the mapping is kept separately. Anonymization removes the link and masking breaks joins.",
+    "difficulty": "media",
+    "tags": [
+      "pseudonymization"
+    ],
+    "source": "AWS docs: What is Amazon Macie",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K4",
+      "G-1.2.8"
+    ]
+  },
+  {
+    "id": "ch8-q077",
+    "chapter": "ch8-data-advanced",
+    "q": "A data team must replace detected card numbers with a one-way SHA-256 value inside an AWS Glue Studio job. Which Detect PII action does this?",
+    "options": [
+      "Redact detected text, which replaces each detected value with a fixed string such as a row of asterisks",
+      "Partially redact detected text, which masks part of each detected value and leaves the rest readable",
+      "Apply cryptographic hash, which passes each detected value to a SHA-256 function and stores the output",
+      "Enrich data with detection results, which adds a new column that lists the entities found in each row"
+    ],
+    "answer": 2,
+    "explain": "The Detect PII transform offers redact, partial redact, SHA-256 hashing and enrichment. Only the cryptographic hash action replaces values with a SHA-256 output.",
+    "difficulty": "difficile",
+    "tags": [
+      "detect-pii",
+      "hash"
+    ],
+    "source": "AWS docs: Detect and process sensitive data (AWS Glue Studio)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K4",
+      "G-1.2.8"
+    ]
+  },
+  {
+    "id": "ch8-q078",
+    "chapter": "ch8-data-advanced",
+    "q": "A compliance team must find personal data across its S3 buckets. Which two statements about Amazon Macie are correct? (Select TWO.)",
+    "options": [
+      "It detects PII in streaming Kinesis records as they are written into the stream by producers",
+      "It discovers sensitive data in S3 using managed and custom data identifiers",
+      "It publishes findings to Amazon EventBridge so that other services can react to them",
+      "It scans relational databases in Amazon RDS for personal data stored in their tables",
+      "It encrypts all S3 objects automatically, so the buckets do not need a separate encryption setting"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "Macie uses managed and custom data identifiers on S3 and publishes findings to EventBridge. It does not scan RDS or Kinesis streams, and it does not encrypt objects.",
+    "difficulty": "difficile",
+    "tags": [
+      "macie",
+      "findings"
+    ],
+    "source": "AWS docs: What is Amazon Macie",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V49",
+      "K-1.3K4"
+    ]
+  },
+  {
+    "id": "ch8-q079",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two services can find PII in data? (Select TWO.)",
+    "options": [
+      "Amazon Comprehend PII detection, which locates PII entities in text documents with offsets for each entity",
+      "Amazon Macie, which discovers sensitive data in objects stored in Amazon S3 buckets across the account",
+      "Amazon Rekognition, which labels the content of images and detects faces and objects in the pictures",
+      "Amazon Forecast, which predicts future demand from historical time series for planning and inventory",
+      "AWS Glue DataBrew, which provides visual transforms for tabular data and can also scan for PII patterns"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Comprehend detects PII entities in text, and Macie finds sensitive data in S3 objects. Rekognition labels images, Forecast predicts demand, and DataBrew transforms rather than scanning for PII.",
+    "difficulty": "difficile",
+    "tags": [
+      "pii",
+      "detection"
+    ],
+    "source": "AWS docs: Detecting PII entities (Amazon Comprehend)",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K4",
+      "G-1.2.8"
+    ]
+  },
+  {
+    "id": "ch8-q080",
+    "chapter": "ch8-data-advanced",
+    "q": "A healthcare startup stores PHI in DynamoDB and S3, both listed as HIPAA eligible. What is still required?",
+    "options": [
+      "Enabling public access for the external auditors so that they can review the stored records without an account and publish the records on the company website",
+      "Moving all the data to Glacier Deep Archive, which removes the PHI from the active storage used by applications",
+      "Turning off encryption at rest to meet the latency targets that the application team has set for its queries",
+      "Signing a business associate agreement and configuring the services in line with HIPAA requirements for the data"
+    ],
+    "answer": 3,
+    "explain": "Eligibility is not enough: the customer must sign a business associate agreement and configure services consistently with HIPAA. The other options weaken the controls.",
+    "difficulty": "media",
+    "tags": [
+      "hipaa",
+      "baa"
+    ],
+    "source": "AWS docs: HIPAA Eligible Services Reference",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-1.3K5"
+    ]
+  },
+  {
+    "id": "ch8-q081",
+    "chapter": "ch8-data-advanced",
+    "q": "Which Lake Formation mechanism lets an analyst see only rows of one country and hide one column?",
+    "options": [
+      "A cell-level data filter with a row filter expression on the country and an excluded column in its definition",
+      "A bucket policy on the S3 bucket that restricts which prefixes the analyst can list and read from the bucket and keep one copy of each row in another bucket",
+      "An IAM role with full access to the table, which the analyst assumes to read every row and every column",
+      "A Glue crawler schedule that runs the analyst's queries on a timer and stores the results in the catalog"
+    ],
+    "answer": 0,
+    "explain": "A cell-level data filter combines row filtering and column exclusion, applied with SELECT permission. Bucket policies and IAM roles cannot filter rows inside a table.",
+    "difficulty": "media",
+    "tags": [
+      "lake-formation",
+      "cell-level"
+    ],
+    "source": "AWS docs: Data filtering and cell-level security in Lake Formation",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C14"
+    ]
+  },
+  {
+    "id": "ch8-q082",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about Lake Formation are correct? (Select TWO.)",
+    "options": [
+      "Data filters apply to read operations and require the SELECT permission to be granted with the filter",
+      "IAM tags and LF-Tags are the same and interchangeable, so either one can grant Lake Formation permissions",
+      "Tags assigned to a database are not inherited by the tables that belong to that database in the catalog",
+      "Cell-level filters are defined in S3 bucket policies that are attached to the bucket that stores the data",
+      "LF-Tags are key-value pairs, such as department equal to sales, that are assigned to catalog resources"
+    ],
+    "answer": [
+      0,
+      4
+    ],
+    "explain": "LF-Tags are key-value pairs assigned to resources, and data filters apply to reads with SELECT. IAM tags are different from LF-Tags, tables inherit database tags, and filters are defined in Lake Formation.",
+    "difficulty": "difficile",
+    "tags": [
+      "lf-tags",
+      "data-filters"
+    ],
+    "source": "AWS docs: Lake Formation tag-based access control",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C14",
+      "K-1.3K5"
+    ]
+  },
+  {
+    "id": "ch8-q083",
+    "chapter": "ch8-data-advanced",
+    "q": "A 2 TB dataset is stored in an S3 prefix, the disk is too small, and the team wants training to start quickly with sequential reads. Which mode fits?",
+    "options": [
+      "File mode on a larger EBS volume, so the whole dataset fits on disk before the training job begins its work and copy the dataset back into S3 afterwards",
+      "Copy the dataset to a local SSD on the instance first, and then run the training job against the local copy",
+      "FastFile mode on the S3 prefix, which starts training without a full download and streams the files as they are read",
+      "Pipe mode with a manifest file, which streams the objects listed in the manifest through the named FIFO pipes"
+    ],
+    "answer": 2,
+    "explain": "FastFile exposes the S3 prefix as a POSIX file system and streams data on demand, so training starts without a full download. Copying the data first or using a larger volume removes the speed benefit.",
+    "difficulty": "media",
+    "tags": [
+      "fastfile",
+      "streaming"
+    ],
+    "source": "AWS docs: Setting up training jobs to access datasets",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C16",
+      "K-1.3S4"
+    ]
+  },
+  {
+    "id": "ch8-q084",
+    "chapter": "ch8-data-advanced",
+    "q": "Which two statements about training input modes are correct? (Select TWO.)",
+    "options": [
+      "File mode streams data while the training runs, so the local disk only needs to hold the model artifacts",
+      "FastFile requires an EFS file system to be mounted on the instance before the training job can start",
+      "Pipe mode needs a full local copy of the dataset on the training instance before the job can begin",
+      "FastFile does not support manifest or augmented manifest inputs, and works only with S3 prefixes",
+      "Pipe mode streams data from S3 through FIFO pipes, so the training code reads each pipe sequentially"
+    ],
+    "answer": [
+      3,
+      4
+    ],
+    "explain": "FastFile works only with S3 prefixes, and Pipe mode streams through FIFO pipes. File mode downloads first, FastFile does not need EFS, and Pipe mode avoids a full local copy.",
+    "difficulty": "difficile",
+    "tags": [
+      "input-modes"
+    ],
+    "source": "AWS docs: Setting up training jobs to access datasets",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C16",
+      "K-1.3S4"
+    ]
+  },
+  {
+    "id": "ch8-q085",
+    "chapter": "ch8-data-advanced",
+    "q": "A branch office wants to back up existing on-premises tape workflows to AWS, with no physical tape hardware and no change to its backup software. Which Storage Gateway type fits?",
+    "options": [
+      "S3 File Gateway, which presents S3 objects as NFS or SMB file shares to local applications and users",
+      "Tape Gateway, which presents a virtual tape library so the existing backup software writes to tapes archived in AWS",
+      "Volume Gateway in cached mode, which presents iSCSI volumes whose primary data is stored in Amazon S3 with a local cache",
+      "FSx File Gateway, which gives on-premises clients access to Amazon FSx for Windows File Server shares over SMB"
+    ],
+    "answer": 1,
+    "explain": "Tape Gateway emulates a virtual tape library that archives to AWS, so backup software stays the same. S3 File Gateway and FSx File Gateway present file shares, and Volume Gateway presents block volumes.",
+    "difficulty": "media",
+    "tags": [
+      "storage-gateway",
+      "tape"
+    ],
+    "source": "AWS docs: AWS Storage Gateway Documentation",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V27"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q086",
+    "chapter": "ch8-data-advanced",
+    "q": "A web application needs a managed in-memory store for session data that uses Valkey, Memcached or Redis OSS, and the team does not want to size nodes or shards. Which option fits?",
+    "options": [
+      "Amazon DynamoDB with on-demand capacity, which stores session items as documents and scales the read and write throughput for the application automatically",
+      "Amazon ElastiCache Serverless, which creates a cache in under a minute without provisioning instances, nodes or clusters for the team",
+      "Amazon RDS for MySQL with read replicas, which serves the session reads from replicas placed in other Availability Zones of the Region",
+      "Amazon S3 Express One Zone, which stores session objects in a directory bucket with single-digit millisecond access latency"
+    ],
+    "answer": 1,
+    "explain": "ElastiCache Serverless creates a cache without node or cluster provisioning and supports Valkey, Memcached and Redis OSS. DynamoDB and RDS are databases, and S3 Express One Zone is object storage.",
+    "difficulty": "facile",
+    "tags": [
+      "elasticache",
+      "serverless"
+    ],
+    "source": "AWS docs: What is Amazon ElastiCache",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V34"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q087",
+    "chapter": "ch8-data-advanced",
+    "q": "A team wants to build a stateful streaming application in Java, test it in its IDE, and deploy it through Git and CI/CD pipelines. Which AWS service runs the deployed application?",
+    "options": [
+      "Amazon Managed Service for Apache Flink, which runs Flink applications built in the IDE of choice and deployed from a pipeline",
+      "Amazon EMR with a Spark Streaming cluster that the team sizes and patches itself for each release of the job",
+      "AWS Glue streaming jobs, which run Spark with a catalog-driven schema on a managed serverless runtime for ETL work",
+      "Amazon Data Firehose, which delivers stream records to S3 and Redshift and can run an optional Lambda transformation"
+    ],
+    "answer": 0,
+    "explain": "Managed Service for Apache Flink runs applications written with the Flink APIs, which fit a software development lifecycle with Git and CI/CD. The other services are batch or delivery services, or they require the team to manage a cluster.",
+    "difficulty": "media",
+    "tags": [
+      "flink",
+      "ci-cd"
+    ],
+    "source": "AWS docs: What is Amazon Managed Service for Apache Flink",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V41"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q088",
+    "chapter": "ch8-data-advanced",
+    "q": "A security team needs a central view of personal data in S3 buckets across all accounts of an AWS Organization, with findings and bucket security posture reports. Which service fits?",
+    "options": [
+      "Amazon Macie, which discovers sensitive data in S3 buckets and reports bucket security posture, with delegated administration for an organization",
+      "AWS Config, which records configuration changes of resources and evaluates them against rules across the accounts of the organization",
+      "Amazon GuardDuty, which analyzes logs and threat intelligence feeds to detect malicious activity inside the accounts of the organization",
+      "AWS Glue DataBrew, which profiles and transforms datasets visually for analytics but does not report any bucket security posture"
+    ],
+    "answer": 0,
+    "explain": "Macie discovers sensitive data in S3 and reports bucket security posture, and it supports administrator accounts for an organization. Config and GuardDuty cover other areas, and DataBrew does not inspect bucket security.",
+    "difficulty": "media",
+    "tags": [
+      "macie",
+      "organizations"
+    ],
+    "source": "AWS docs: What is Amazon Macie",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V49"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q089",
+    "chapter": "ch8-data-advanced",
+    "q": "A SageMaker training job cannot read an FSx for Lustre file system that it mounts through a subnet. Which configuration must match the file system to resolve the access problem?",
+    "options": [
+      "The job's subnet must map to the same Availability Zone as the file system, and the security groups must allow Lustre traffic",
+      "The dataset must be converted to Parquet before the training job can mount the file system through its VPC",
+      "The training instance must be replaced with a Graviton instance type, which is required for Lustre client access",
+      "The S3 bucket must be made public so the file system can download the objects when the training job starts running"
+    ],
+    "answer": 0,
+    "explain": "FSx for Lustre runs in one Availability Zone, so the training subnet must map to that zone, and the security groups must allow the traffic. The other options are not requirements for mounting the file system.",
+    "difficulty": "media",
+    "tags": [
+      "fsx-lustre",
+      "vpc"
+    ],
+    "source": "AWS docs: Configure data input channel to use Amazon FSx for Lustre",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "C09"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  },
+  {
+    "id": "ch8-q090",
+    "chapter": "ch8-data-advanced",
+    "q": "A health team stores CT scan images, clinical notes and consultation audio for a multimodal model. Which storage layout is the most reasonable starting point?",
+    "options": [
+      "One Amazon S3 prefix per modality, with a shared record key that links the image, text and audio objects for each patient",
+      "One large CSV file that holds every modality, with the image and audio bytes encoded as text in each row",
+      "One Amazon EBS volume per modality, attached to a single training instance that reads the files from its disk",
+      "Audio stored as binary attributes inside DynamoDB items, with the images and the notes kept in the same table"
+    ],
+    "answer": 0,
+    "explain": "S3 prefixes separate the modalities, and a shared key keeps the records of one patient linked across them. Encoding binaries in CSV or storing audio in DynamoDB items is inefficient, and a single EBS volume per modality does not scale to a shared dataset.",
+    "difficulty": "difficile",
+    "tags": [
+      "multimodal",
+      "s3-layout"
+    ],
+    "source": "AWS docs: Common data formats for training",
+    "task": "1.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-1.1.8"
+    ],
+    "origin": "ai",
+    "domain": "1"
+  }
+]
