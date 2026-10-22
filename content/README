@@ -1,53 +1,86 @@
-# Contratto contenuti — content/*.json
+# Contratto contenuti v2 — content/chapters/<id>.json
 
-Due file scritti da altri agenti, uniti dal loader (`app.js`):
-- `content/chapters-1.json` → capitoli 1–3
-- `content/chapters-2.json` → capitoli 4–7 (+ eventuali ref)
+Un file per capitolo: `content/chapters/<id>.json` contiene **un solo oggetto**
+(non un array). `app.js` carica il registro dei capitoli (`CHAPTERS`) e, per ogni
+id, il file corrispondente. Un file mancante non rompe nulla: il capitolo risulta
+"in arrivo" in mappa e nella sua pagina.
 
-Il loader funziona anche se uno dei due manca: i capitoli assenti
-mostrano "contenuti in arrivo". Array JSON di oggetti capitolo.
+La scheda di ripasso `quick-ref` sta in `content/chapters/quick-ref.json`. Non è in
+mappa: `app.js` la carica come scheda extra e `chapter.js` la mostra da
+`chapter.html?id=quick-ref`.
 
-## IDs, aree e prerequisiti (OBBLIGATORI, esatti)
+## Registro dei capitoli (id, area, prerequisiti)
 
-| id                   | area         | prereq                          |
-|----------------------|--------------|---------------------------------|
-| ch1-exam-guide       | fondamenti   | []                              |
-| ch2-data-prep        | fondamenti   | ["ch1-exam-guide"]              |
-| ch3-model-dev        | mlops        | ["ch2-data-prep"]               |
-| ch4-deploy           | mlops        | ["ch3-model-dev"]               |
-| ch5-monitor-security | mlops        | ["ch4-deploy"]                  |
-| ch6-genai            | applicazioni | ["ch2-data-prep"]               |
-| ch7-practice         | applicazioni | ["ch1-exam-guide","ch2-data-prep"] |
+| id                      | n  | area         | prereq                              |
+|-------------------------|----|--------------|-------------------------------------|
+| ch1-exam-guide          | 1  | fondamenti   | []                                  |
+| ch2-data-prep           | 2  | fondamenti   | ["ch1-exam-guide"]                  |
+| ch3-model-dev           | 3  | mlops        | ["ch2-data-prep"]                   |
+| ch4-deploy              | 4  | mlops        | ["ch3-model-dev"]                   |
+| ch5-monitor-security    | 5  | mlops        | ["ch4-deploy"]                      |
+| ch6-genai               | 6  | applicazioni | ["ch2-data-prep"]                   |
+| ch7-practice            | 7  | applicazioni | ["ch1-exam-guide","ch2-data-prep"]  |
+| ch8-data-advanced       | 8  | fondamenti   | ["ch2-data-prep"]                   |
+| ch9-training-advanced   | 9  | mlops        | ["ch3-model-dev"]                   |
+| ch10-infra-cicd         | 10 | mlops        | ["ch4-deploy"]                      |
+| ch11-cost-security      | 11 | mlops        | ["ch5-monitor-security"]            |
+| ch12-genai-rag          | 12 | applicazioni | ["ch6-genai"]                       |
+| ch13-genai-agents       | 13 | applicazioni | ["ch12-genai-rag"]                  |
+| ch14-ai-services        | 14 | applicazioni | ["ch6-genai"]                       |
 
-Aree ammesse: `fondamenti` | `mlops` | `applicazioni`.
+Aree ammesse: `fondamenti` | `mlops` | `applicazioni`. Il registro vive in `app.js`
+(`CHAPTERS`): id, area e prerequisiti devono coincidere con questa tabella e con
+`docs/todo.json`. Le frecce della mappa si ricavano dai prerequisiti; le coordinate
+dei nodi stanno in `map.js` (`POS`, `ROUTES`) e vanno aggiornate se si aggiunge un capitolo.
+Capitoli 8-14: approfondimenti dei capitoli 2-6, collocati accanto a quello che approfondiscono.
 
-La scheda `quick-ref` ("Ripasso rapido pre-esame", area `applicazioni`)
-è ricostruita in `chapter.js` dai contenuti esistenti: NON va scritta
-nei chapters-*.json.
-
-## Schema oggetto capitolo
+## Schema dell'oggetto capitolo
 
 ```json
 {
-  "id": "ch1-exam-guide",
+  "id": "ch8-data-advanced",
   "area": "fondamenti",
-  "title": "Guida all'esame MLA-C01",
-  "prereq": [],
-  "summary": "Riassunto in 3-6 frasi...",
-  "keywords": [{ "term": "MLA-C01", "def": "..." }],
-  "slides": [{ "title": "...", "bullets": ["...", "..."] }],
-  "script": "Testo letto dal player audio (coerente con audio/ch1-exam-guide.mp3)...",
-  "quiz": [{ "q": "...", "options": ["...", "...", "...", "..."], "answer": 0, "explain": "..." }]
+  "title": "Titolo in italiano",
+  "prereq": ["ch2-data-prep"],
+  "summary": "Riassunto di 5-8 frasi.",
+  "keywords": [{ "term": "FastFile mode", "def": "Definizione di 1-2 frasi." }],
+  "slides": [
+    {
+      "title": "Titolo della slide",
+      "bullets": ["fatto 1", "fatto 2", "fatto 3"],
+      "narration": "Testo letto dalla voce mentre la slide è visibile.",
+      "todo": ["K-1.3S4"]
+    }
+  ],
+  "script": "Le narrazioni di tutte le slide, unite in ordine con uno spazio.",
+  "quiz": [{ "q": "Domanda in italiano?", "options": ["A", "B", "C", "D"], "answer": 2, "explain": "Perché." }],
+  "sources": [{ "title": "Amazon SageMaker AI Developer Guide: Access training data", "url": "https://docs.aws.amazon.com/..." }],
+  "todo": ["tutti gli id della to-do assegnati a questo capitolo"]
 }
 ```
 
 ## Regole
 
-- `id` e `area` DEVONO rispettare la tabella sopra (il layout mappa li usa).
-- `prereq`: array di id secondo la tabella (può essere vuoto `[]`); solo documentativo.
-- `options`: ESATTAMENTE 4 voci; `answer`: indice 0–3 della corretta.
-- `summary`, `keywords`, `slides`, `script`, `quiz`: almeno 1 slide,
-  almeno 3 keywords, almeno 3 domande quiz per capitolo.
-- Testo in italiano, escaping JSON valido (verificare con `python3 -c json.tool`).
-- Niente HTML nei campi: il frontend fa escape automatico.
-- Audio: file in `audio/<id>.mp3` (o `.wav`) — NON dentro content/.
+- `slides[].narration`: la lezione parlata di quella slide. Il player la legge mentre
+  la slide è visibile. `script` è esattamente l'unione delle narrazioni, nell'ordine
+  delle slide, separate da uno spazio.
+- **Narrazione e timing**: `tools/make_timing.py` spezza il copione in frasi
+  (`split_sentences`) e assegna ogni frase alla slide della sua narrazione. Nessuna
+  tabella a mano per i capitoli con `narration`. La tabella `SLIDE_BREAKS` in
+  `make_timing.py` resta solo come ripiego per i capitoli senza narrazioni.
+- `slides[].todo`: id della to-do spiegati da quella slide (facoltativo; serve al controllo di copertura).
+- `options`: esattamente 4 voci; `answer`: indice 0–3 della risposta corretta.
+- `sources`: `{title, url}` con `url` https. Il Riassunto le mostra in fondo come link
+  che si aprono in una nuova scheda.
+- `todo`: tutti gli id assegnati al capitolo.
+- Testo in italiano. Niente HTML nei campi: il frontend fa l'escape. I termini tecnici restano in inglese.
+- Per la sintesi vocale: frasi brevi, sotto i 260 caratteri, niente abbreviazioni col punto,
+  niente URL e niente simboli come → ≥ ≤ × % (scrivere "per cento"). Vedi `tools/tts_chatterbox_batch.py`.
+- Audio: `audio/<id>.mp3`, generato da `tools/tts_chatterbox_batch.py`. Il manifest
+  `audio/manifest.json` registra l'hash del copione sintetizzato: `--stale` risintetizza solo i capitoli cambiati.
+
+## Strumenti collegati
+
+- `python3 tools/make_timing.py [--chapter <id>]`: rigenera `content/timing.json`.
+- `python3 tools/check_questions.py content/questions/*.json`: schema e bias del banco domande.
+- Il banco domande sta in `content/questions/<id>.json` (vedi `content/questions/README`).

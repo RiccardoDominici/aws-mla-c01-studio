@@ -7,6 +7,11 @@ Uso:
     python3 tools/make_timing.py                  # rigenera tutti i capitoli con audio pronto
     python3 tools/make_timing.py --chapter ch3-model-dev   # rigenera/aggiunge un solo capitolo
 
+Sorgente dei capitoli: content/chapters/<id>.json (un oggetto per file, contratto v2).
+Se ogni slide ha `narration`, i salti di slide si ricavano da solo: le frasi di
+ogni narrazione (split_sentences) sono assegnate alla sua slide. Senza narrazioni
+(ripiego) si usa la tabella SLIDE_BREAKS, da tenere solo per i capitoli vecchi.
+
 Contratto di output (consumato dal player, rispettarlo esattamente):
     {"version": 1, "gap_sec": 0.25,
      "chapters": {"<id>": {"audio": "audio/<id>.mp3",
@@ -21,11 +26,9 @@ Regole di temporizzazione (identiche alla sintesi TTS):
     proporzione ai caratteri; tempi arrotondati a 2 decimali, prima frase
     t0 = 0.0, ultima frase t1 == duration.
 
-Mappatura frasi -> slide: definita a mano in SLIDE_BREAKS come lista di
-coppie (indice_prima_frase, indice_slide); gli indici slide sono monotoni
-non-decrescenti lungo le frasi. Se lo script di un capitolo cambia (e quindi
-il numero di frasi), lo script fallisce con un errore esplicito: aggiornare
-la mappa di quel capitolo.
+Mappatura frasi -> slide: dalla narrazione di ogni slide (campo `narration`).
+Ripiego per i capitoli senza narrazioni: SLIDE_BREAKS, coppie
+(indice_prima_frase, indice_slide) con indici slide monotoni non decrescenti.
 
 Solo stdlib + ffprobe. Capitoli senza audio (es. ch7 prima del TTS)
 vengono saltati con un warning nel run completo.
@@ -33,6 +36,7 @@ vengono saltati con un warning nel run completo.
 
 import argparse
 import json
+import logging
 import re
 import subprocess
 import sys
@@ -41,15 +45,17 @@ from pathlib import Path
 # Directory radice del sito (tools/ si trova subito sotto).
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT_DIR = ROOT / "content"
+CHAPTERS_DIR = CONTENT_DIR / "chapters"
 AUDIO_DIR = ROOT / "audio"
 OUT_PATH = CONTENT_DIR / "timing.json"
+log = logging.getLogger("make-timing")
 
 GAP_SEC = 0.25
 VERSION = 1
 
-# Capitolo -> [(indice_prima_frase, indice_slide), ...].
-# L'ultima coppia copre tutte le frasi fino alla fine del capitolo.
-# Mappa MLA-C01: split proporzionale frasi/slide per capitolo.
+# RIPIEGO per i capitoli senza `narration` nelle slide: capitolo ->
+# [(indice_prima_frase, indice_slide), ...]. L'ultima coppia copre tutte le frasi
+# fino alla fine del capitolo. I capitoli nuovi (ch8-ch14) non la usano.
 # Se lo script di un capitolo cambia (e quindi il numero di frasi),
 # make_timing.py fallisce con errore esplicito: aggiornare la mappa.
 SLIDE_BREAKS = {
@@ -90,6 +96,11 @@ def split_sentences(text):
     return out
 
 
+def norm_ws(text):
+    """Spazi normalizzati: confronto tra copione e narrazioni."""
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def expand_breaks(breaks, n_sentences, n_slides, chapter_id):
     """Espande le coppie (prima_frase, slide) in una slide per frase."""
     slides = []
@@ -115,6 +126,51 @@ def expand_breaks(breaks, n_sentences, n_slides, chapter_id):
     return slides
 
 
+def chapter_units(chapter):
+    """Frasi del capitolo con la slide di appartenenza: [(testo, slide), ...].
+
+    Fonte unica per timing e TTS. Le frasi sono sempre split_sentences(copione),
+    cioè le stesse unità già sintetizzate negli mp3 (inclusi gli spezzoni di
+    frasi lunghe). Con `narration` in ogni slide la slide di ogni frase si
+    ricava da quella narrazione: le frasi devono coprire la narrazione
+    esattamente, altrimenti l'errore è esplicito. Senza narrazioni (ripiego)
+    si usa la tabella SLIDE_BREAKS.
+    """
+    cid = chapter["id"]
+    slides = chapter.get("slides") or []
+    sentences = split_sentences(chapter["script"])
+    has_narr = bool(slides) and all(
+        isinstance(s.get("narration"), str) and s["narration"].strip() for s in slides
+    )
+    if not has_narr:
+        if cid not in SLIDE_BREAKS:
+            raise ValueError(f"[{cid}] niente `narration` e nessuna mappa in SLIDE_BREAKS.")
+        slide_of = expand_breaks(SLIDE_BREAKS[cid], len(sentences), len(slides), cid)
+        return list(zip(sentences, slide_of))
+
+    joined = " ".join(s["narration"] for s in slides)
+    if norm_ws(joined) != norm_ws(chapter["script"]):
+        raise ValueError(f"[{cid}] le narrazioni unite non coincidono col copione `script`")
+
+    # Ogni slide consuma frasi consecutive finché il loro testo eguaglia la narrazione.
+    units = []
+    pos = 0
+    for i, slide in enumerate(slides):
+        target = norm_ws(slide["narration"])
+        acc = ""
+        while norm_ws(acc) != target:
+            if pos >= len(sentences):
+                raise ValueError(f"[{cid}] la narrazione della slide {i} non coincide con le frasi del copione")
+            acc = f"{acc} {sentences[pos]}".strip()
+            if len(norm_ws(acc)) > len(target):
+                raise ValueError(f"[{cid}] la narrazione della slide {i} spezza una frase del copione")
+            units.append((sentences[pos], i))
+            pos += 1
+    if pos != len(sentences):
+        raise ValueError(f"[{cid}] {len(sentences) - pos} frasi del copione restano fuori dalle slide")
+    return units
+
+
 def probe_duration(mp3_path):
     """Durata reale dell'mp3 via ffprobe, in secondi (float)."""
     proc = subprocess.run(
@@ -130,13 +186,14 @@ def build_chapter(chapter):
     cid = chapter["id"]
     mp3 = AUDIO_DIR / f"{cid}.mp3"
     if not mp3.exists():
-        print(f"WARN: audio mancante, salto capitolo: {mp3}", file=sys.stderr)
+        log.warning("audio mancante, salto capitolo: %s", mp3)
         return None
-    sentences = split_sentences(chapter["script"])
+    units = chapter_units(chapter)
+    sentences = [text for text, _ in units]
+    slides = [slide for _, slide in units]
     n = len(sentences)
-    if cid not in SLIDE_BREAKS:
-        raise ValueError(f"[{cid}] nessuna mappa in SLIDE_BREAKS: aggiungerla.")
-    slides = expand_breaks(SLIDE_BREAKS[cid], n, len(chapter["slides"]), cid)
+    if n == 0:
+        raise ValueError(f"[{cid}] nessuna frase da sincronizzare.")
 
     duration = probe_duration(mp3)
     speech = duration - (n - 1) * GAP_SEC
@@ -164,8 +221,8 @@ def build_chapter(chapter):
         })
     out_sentences[-1]["t1"] = round(duration, 2)
 
-    print(f"OK {cid}: {n} frasi, duration={round(duration, 2)}s, "
-          f"speech={round(speech, 2)}s")
+    log.info("%s: %d frasi, duration=%.2fs, speech=%.2fs",
+             cid, n, round(duration, 2), round(speech, 2))
     return {
         "audio": f"audio/{cid}.mp3",
         "duration": round(duration, 2),
@@ -174,10 +231,13 @@ def build_chapter(chapter):
 
 
 def load_chapters():
-    """Tutti i capitoli da content/chapters-*.json, in ordine di file."""
+    """Tutti i capitoli da content/chapters/<id>.json, in ordine di id (un oggetto per file)."""
     chapters = []
-    for path in sorted(CONTENT_DIR.glob("chapters-*.json")):
-        chapters.extend(json.loads(path.read_text(encoding="utf-8")))
+    for path in sorted(CHAPTERS_DIR.glob("*.json")):
+        obj = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(obj, dict) or "id" not in obj:
+            raise ValueError(f"{path}: atteso un oggetto capitolo con campo id")
+        chapters.append(obj)
     return chapters
 
 
@@ -186,13 +246,13 @@ def main():
     parser.add_argument("--chapter", default=None,
                         help="rigenera/aggiunge un solo capitolo (es. ch3-model-dev)")
     args = parser.parse_args()
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
     chapters = load_chapters()
     if args.chapter:
         chapters = [c for c in chapters if c["id"] == args.chapter]
         if not chapters:
-            print(f"ERRORE: capitolo '{args.chapter}' non trovato nei chapters-*.json.",
-                  file=sys.stderr)
+            log.error("capitolo '%s' non trovato in content/chapters/", args.chapter)
             return 2
         try:
             data = json.loads(OUT_PATH.read_text(encoding="utf-8"))
@@ -209,14 +269,13 @@ def main():
         try:
             block = build_chapter(chapter)
         except (ValueError, subprocess.CalledProcessError) as exc:
-            print(f"ERRORE [{chapter['id']}]: {exc}", file=sys.stderr)
+            log.error("[%s] %s", chapter["id"], exc)
             failed = True
             continue
         if block is None:
             if args.chapter:
                 # Richiesta esplicita ma audio assente: fallimento rumoroso.
-                print(f"ERRORE: audio mancante per '{chapter['id']}', "
-                      f"niente da generare.", file=sys.stderr)
+                log.error("audio mancante per '%s', niente da generare", chapter["id"])
                 failed = True
             continue
         data["chapters"][chapter["id"]] = block
@@ -225,7 +284,7 @@ def main():
         return 1
     OUT_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n",
                         encoding="utf-8")
-    print(f"Scritto {OUT_PATH} ({len(data['chapters'])} capitoli).")
+    log.info("Scritto %s (%d capitoli).", OUT_PATH, len(data["chapters"]))
     return 0
 
 

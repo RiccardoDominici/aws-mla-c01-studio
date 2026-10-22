@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "chapters": {
+    "ch1-exam-guide": {
+      "script_sha256": "03ee44370a31dc7234c80d50b110f6546bc545fa23aed445ba1cb61c2d904e2a",
+      "adopted": true
+    },
+    "ch2-data-prep": {
+      "script_sha256": "a16970f3c9a95f6731c8469bc31a99fcb267a58643450b3a39ae3295f5246e78",
+      "adopted": true
+    },
+    "ch3-model-dev": {
+      "script_sha256": "387c837d995afda9a658823fb9f94cc80af0f1336ad4c0ff4b7d7b56e3f5eec9",
+      "adopted": true
+    },
+    "ch4-deploy": {
+      "script_sha256": "ee8718dceb722858c93e7a75adf07b16f2c2046d062bb077070903367fc16b8e",
+      "adopted": true
+    },
+    "ch5-monitor-security": {
+      "script_sha256": "7e3db6053c4438d47020e04f6d39755a7ee19743fa00db75fedcd1115043a57f",
+      "adopted": true
+    },
+    "ch6-genai": {
+      "script_sha256": "7d771957b1d8d14d4a276ec4cf07fc66c65df212340fced2a3fe0b744c5777a0",
+      "adopted": true
+    },
+    "ch7-practice": {
+      "script_sha256": "2aa215658061d00bc5e1963ed082e030ef999a4bdf6cf5913975769a823a9597",
+      "adopted": true
+    },
+    "quick-ref": {
+      "script_sha256": "17cc496d310fc97b39f7d0ce576f70ee615f2cf25e10283e35c220d44caa79e9",
+      "adopted": true
+    }
+  }
+}

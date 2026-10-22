@@ -1,0 +1,195 @@
+{
+  "area": "mlops",
+  "id": "ch5-monitor-security",
+  "keywords": [
+    {
+      "def": "Monitoraggio continuo degli endpoint che confronta i dati di produzione con una baseline. Quattro tipi: Data Quality, Model Quality, Bias Drift ed Explainability.",
+      "term": "SageMaker Model Monitor"
+    },
+    {
+      "def": "Cattura configurabile delle coppie richiesta-risposta dagli endpoint verso S3, con percentuale di campionamento. Alimenta monitoraggio e retraining.",
+      "term": "Data Capture"
+    },
+    {
+      "def": "Insieme di statistiche e vincoli generati dal dataset di training o validazione. Definisce i valori attesi e le soglie di violazione del drift.",
+      "term": "Baseline e vincoli"
+    },
+    {
+      "def": "Metriche, allarmi e dashboard per salute operativa: latenza, errori, tasso di invocazione. Riceve le violazioni di Model Monitor.",
+      "term": "CloudWatch"
+    },
+    {
+      "def": "Traccia ogni chiamata API AWS con identita, tempo ed esito. Essenziale per audit e domande su chi ha fatto cosa.",
+      "term": "CloudTrail"
+    },
+    {
+      "def": "Distribuzione automatica del traffico tra varianti di produzione, con auto scaling su metrica invariante come InvocationsPerInstance. Scala a zero per async.",
+      "term": "Autoscaling endpoint"
+    },
+    {
+      "def": "Deploy con due ambienti: solo uno riceve traffico live. Permette test A/B e shadow confrontando nuova versione senza impatto sugli utenti.",
+      "term": "Blue/Green e shadow test"
+    },
+    {
+      "def": "Controllo degli accessi con ruoli di esecuzione a privilegio minimo, senza mai usare access key nei job. Domini Studio isolati per team con policy mirate.",
+      "term": "IAM e Execution Role"
+    },
+    {
+      "def": "Chiavi gestite dal cliente per cifrare a riposo volumi, artefatti S3 ed endpoint. Con rotazione e audit centralizzato per requisiti di compliance.",
+      "term": "KMS e cifratura"
+    }
+  ],
+  "prereq": [
+    "ch4-deploy"
+  ],
+  "quiz": [
+    {
+      "answer": 1,
+      "explain": "Model Monitor runs on a schedule (e.g. hourly) comparing captured production data against the baseline constraints. A CompletedWithViolations status plus CloudWatch alarm is the standard drift-detection signal.",
+      "options": [
+        "Disable the endpoint immediately",
+        "Check the Model Monitor schedule status and CloudWatch violation metrics",
+        "Delete the baseline files",
+        "Increase the endpoint instance count"
+      ],
+      "q": "A model's accuracy drops weeks after deployment. What is the FIRST diagnostic step?"
+    },
+    {
+      "answer": 2,
+      "explain": "Model-quality monitoring needs ground-truth labels merged with captured predictions to compute metrics like accuracy or RMSE. Without labels, only data-quality drift can be measured.",
+      "options": [
+        "Larger endpoint instances",
+        "More frequent retraining",
+        "Ground-truth labels joined with captured predictions",
+        "A new VPC configuration"
+      ],
+      "q": "To detect a drop in accuracy with SageMaker Model Monitor, what must be provided in addition to captured traffic?"
+    },
+    {
+      "answer": 0,
+      "explain": "DataCaptureConfig with sampling percentage routes request/response pairs to S3 in JSONL. This is the prerequisite for both Model Monitor schedules and retraining datasets.",
+      "options": [
+        "DataCaptureConfig with sampling percentage to S3",
+        "A larger training dataset",
+        "A second endpoint in another region",
+        "Disabling CloudTrail logging"
+      ],
+      "q": "Which configuration enables capturing live inference traffic from a SageMaker endpoint for monitoring?"
+    },
+    {
+      "answer": 3,
+      "explain": "The closed loop is: violation status change event -> EventBridge rule -> retraining pipeline (SageMaker Pipelines). CloudWatch alarms on violation metrics are the alternative trigger path.",
+      "options": [
+        "Manually retrain every hour",
+        "Delete and recreate the endpoint",
+        "Disable Model Monitor",
+        "An EventBridge rule on monitoring status change triggering a retraining pipeline"
+      ],
+      "q": "How do you automate retraining when Model Monitor detects drift?"
+    },
+    {
+      "answer": 1,
+      "explain": "Sensitive data with no internet traversal requires VPC-only mode, private subnets, S3 gateway endpoint, KMS encryption, least-privilege execution role, and CloudTrail auditing. Public endpoints and access keys are always wrong.",
+      "options": [
+        "A public endpoint with IAM user access keys",
+        "VPC-only mode with private subnets, S3 gateway endpoint, KMS encryption and least-privilege role",
+        "Serverless inference without encryption",
+        "Training on a laptop and uploading the model"
+      ],
+      "q": "A model must train on sensitive S3 data with no traffic over the public internet and centrally audited encryption. Which setup is correct?"
+    },
+    {
+      "answer": 2,
+      "explain": "Model Cards document intended use, metrics, limitations and ethical considerations, while lineage tracks datasets, code, and artifacts. Together they answer governance and reproducibility questions.",
+      "options": [
+        "CloudWatch Logs",
+        "Model Cards plus SageMaker lineage tracking",
+        "Serverless inference",
+        "Batch transform"
+      ],
+      "q": "Auditors ask for model purpose, metrics, limitations, and full data-to-model traceability. Which features answer this?"
+    }
+  ],
+  "script": "In questo capitolo studiamo monitoraggio, manutenzione e sicurezza delle soluzioni ML, il quarto dominio dell'esame. Il protagonista e SageMaker Model Monitor, che rileva il drift confrontando i dati di produzione con una baseline. Tutto parte dalla Data Capture: configuriamo sull'endpoint quali richieste e risposte salvare su S3 e con quale percentuale di campionamento, ad esempio il cento per cento per traffico basso o il dieci per cento per traffico alto. Poi generiamo la baseline dal dataset di training o validazione: otteniamo un file di statistiche con medie, deviazioni e completezza, e un file di vincoli con le regole attese. Esistono quattro tipi di monitoraggio: Data Quality rileva drift di schema, valori mancanti e shift distribuzionali; Model Quality misura il calo di accuratezza o l'aumento di errore unendo le predizioni alle label reali; Model Bias rileva derive di equita con le metriche di Clarify; Explainability rileva drift nell'importanza delle feature. Ogni schedule pubblica metriche su CloudWatch, dove creiamo allarmi sullo stato CompletedWithViolations o sul conteggio violazioni. EventBridge intercetta i cambi di stato dello schedule e attiva la pipeline di retraining: il ciclo chiuso e cattura, baseline, monitoraggio, allarme, retraining. Ricorda di non riaddestrare a ogni singola violazione, ma dopo violazioni consecutive o cali significativi. Per il deploy sicuro usiamo autoscaling sulle varianti di produzione, strategie blue green per rilasci senza downtime, test A/B per confrontare versioni e shadow test per valutare il nuovo modello su traffico reale senza impattare gli utenti. La sicurezza copre tre pilastri. IAM impone execution role a privilegio minimo per ogni job, mai access key, con isolamento per team e audit di ogni chiamata via CloudTrail. KMS cifra a riposo volumi, artefatti S3 ed endpoint con chiavi gestite dal cliente, rotazione e controllo centrale. La rete usa modalita VPC-only con subnet private, gateway endpoint per S3 e interface endpoint PrivateLink per API SageMaker, ECR, CloudWatch e KMS, piu Secrets Manager per credenziali ruotate. Model Cards e lineage garantiscono governance e riproducibilita: scopo, metriche, limiti e tracciabilita completa da dati a modello. Approfondiamo ora il retraining guidato dagli eventi. Quando lo schedule termina con violazioni, EventBridge riceve un evento di cambio stato con nome dello schedule ed esito. Una regola filtra questi eventi e avvia la pipeline di retraining in SageMaker Pipelines oppure una macchina a stati Step Functions che unisce i dati catturati con le label reali, rilancia il training, rigenera la baseline e registra il nuovo package. Prima di riaddestrare, una funzione leggera puo verificare il report di violazione su S3 e procedere solo se le violazioni sono consecutive o superano una soglia, evitando retraining costosi su rumore. Per il rilascio, l'autoscaling regola le varianti di produzione su metriche come invocazioni per istanza, mentre le strategie blue green spostano il traffico senza downtime con rollback immediato. I test A/B dividono il traffico per confrontare metriche di business tra versioni, e gli shadow test inviano copia del traffico live al nuovo modello senza esporlo agli utenti. Sul lato sicurezza, ogni job assume un execution role con policy minime su S3, ECR e CloudWatch, mentre Studio isola i team con domini e profili separati. La cifratura usa chiavi gestite dal cliente per volumi di training, artefatti e storage degli endpoint, con rotazione e audit centralizzato. La rete in modalita solo VPC usa subnet private, gateway endpoint per S3 e interface endpoint PrivateLink per API, ECR, log e KMS, con Secrets Manager per le credenziali. Model Cards e lineage chiudono la governance: documentano scopo, metriche e limiti e tracciano ogni artefatto dai dati al modello. Ricorda infine il principio operativo: monitorare sempre, allarmare su soglie, reagire con pipeline automatiche e documentare ogni decisione con Model Cards e lineage.",
+  "slides": [
+    {
+      "bullets": [
+        "Model Monitor confronta produzione con baseline su schedule oraria o giornaliera.",
+        "Prerequisito: Data Capture attiva con sampling verso S3 in formato JSONL.",
+        "Baseline da training o validation: statistics.json piu constraints.json.",
+        "Schedule pubblica report su S3 e metriche su CloudWatch.",
+        "Violazioni consecutive guidano il retraining, mai una singola violazione isolata."
+      ],
+      "title": "Il ciclo del monitoraggio",
+      "narration": "In questo capitolo studiamo monitoraggio, manutenzione e sicurezza delle soluzioni ML, il quarto dominio dell'esame. Il protagonista e SageMaker Model Monitor, che rileva il drift confrontando i dati di produzione con una baseline. Tutto parte dalla Data Capture: configuriamo sull'endpoint quali richieste e risposte salvare su S3 e con quale percentuale di campionamento, ad esempio il cento per cento per traffico basso o il dieci per cento per traffico alto. Poi generiamo la baseline dal dataset di training o validazione: otteniamo un file di statistiche con medie, deviazioni e completezza, e un file di vincoli con le regole attese."
+    },
+    {
+      "bullets": [
+        "Data Quality: schema drift, valori mancanti, mismatch di tipo, shift distribuzionali.",
+        "Model Quality: calo di accuratezza o aumento di errore, richiede label reali unite al traffico.",
+        "Model Bias: derive di equita pre e post training con metriche Clarify.",
+        "Explainability: drift dell importanza delle feature rispetto alla baseline.",
+        "Tranello esame: senza ground truth si misura solo data drift, mai accuracy drop."
+      ],
+      "title": "I quattro tipi di monitoraggio",
+      "narration": "Esistono quattro tipi di monitoraggio: Data Quality rileva drift di schema, valori mancanti e shift distribuzionali; Model Quality misura il calo di accuratezza o l'aumento di errore unendo le predizioni alle label reali; Model Bias rileva derive di equita con le metriche di Clarify;"
+    },
+    {
+      "bullets": [
+        "Namespace CloudWatch dedicato con stato esecuzione e conteggio violazioni.",
+        "Allarme su CompletedWithViolations o soglia di violazioni superata.",
+        "CloudTrail registra ogni chiamata API: chi, cosa, quando per audit.",
+        "Dashboard unificata: latenza, errori, invocazioni piu metriche di drift.",
+        "Notifiche SNS verso i team quando scatta l allarme."
+      ],
+      "title": "CloudWatch e CloudTrail",
+      "narration": "Explainability rileva drift nell'importanza delle feature. Ogni schedule pubblica metriche su CloudWatch, dove creiamo allarmi sullo stato CompletedWithViolations o sul conteggio violazioni. EventBridge intercetta i cambi di stato dello schedule e attiva la pipeline di retraining: il ciclo chiuso e cattura, baseline, monitoraggio, allarme, retraining. Ricorda di non riaddestrare a ogni singola violazione, ma dopo violazioni consecutive o cali significativi."
+    },
+    {
+      "bullets": [
+        "EventBridge intercetta cambi di stato dello schedule di monitoraggio.",
+        "Target tipici: pipeline di retraining, Step Functions, funzione Lambda di verifica.",
+        "Pattern EventBridge Scheduler per retraining periodico anche senza drift.",
+        "Input transformer per filtrare: solo violazioni gravi o ripetute avviano il retraining.",
+        "Ciclo chiuso: endpoint con capture, monitor, report, allarme, pipeline, nuovo endpoint."
+      ],
+      "title": "Retraining automatico",
+      "narration": "Per il deploy sicuro usiamo autoscaling sulle varianti di produzione, strategie blue green per rilasci senza downtime, test A/B per confrontare versioni e shadow test per valutare il nuovo modello su traffico reale senza impattare gli utenti. La sicurezza copre tre pilastri. IAM impone execution role a privilegio minimo per ogni job, mai access key, con isolamento per team e audit di ogni chiamata via CloudTrail. KMS cifra a riposo volumi, artefatti S3 ed endpoint con chiavi gestite dal cliente, rotazione e controllo centrale."
+    },
+    {
+      "bullets": [
+        "Autoscaling su metriche invarianti per assorbire i picchi senza sprechi.",
+        "Blue green: due ambienti, switch del traffico senza downtime e rollback rapido.",
+        "A/B test: split del traffico tra varianti per confrontare metriche di business.",
+        "Shadow test: il nuovo modello riceve copia del traffico live senza rispondere agli utenti.",
+        "Regola esame: validare senza impatto uguale shadow; confrontare versioni uguale A/B."
+      ],
+      "title": "Scaling e strategie di rilascio",
+      "narration": "La rete usa modalita VPC-only con subnet private, gateway endpoint per S3 e interface endpoint PrivateLink per API SageMaker, ECR, CloudWatch e KMS, piu Secrets Manager per credenziali ruotate. Model Cards e lineage garantiscono governance e riproducibilita: scopo, metriche, limiti e tracciabilita completa da dati a modello. Approfondiamo ora il retraining guidato dagli eventi. Quando lo schedule termina con violazioni, EventBridge riceve un evento di cambio stato con nome dello schedule ed esito. Una regola filtra questi eventi e avvia la pipeline di retraining in SageMaker Pipelines oppure una macchina a stati Step Functions che unisce i dati catturati con le label reali, rilancia il training, rigenera la baseline e registra il nuovo package."
+    },
+    {
+      "bullets": [
+        "Execution Role a privilegio minimo per ogni job: mai access key nei job.",
+        "Isolamento team con ruoli separati e policy su bucket e domini Studio.",
+        "KMS con chiavi gestite dal cliente per volumi, artefatti S3 ed endpoint.",
+        "VPC-only con subnet private piu gateway endpoint S3 e interface endpoint PrivateLink.",
+        "Secrets Manager per credenziali ruotate, mai hardcoded o in variabili d ambiente."
+      ],
+      "title": "IAM, KMS e rete",
+      "narration": "Prima di riaddestrare, una funzione leggera puo verificare il report di violazione su S3 e procedere solo se le violazioni sono consecutive o superano una soglia, evitando retraining costosi su rumore. Per il rilascio, l'autoscaling regola le varianti di produzione su metriche come invocazioni per istanza, mentre le strategie blue green spostano il traffico senza downtime con rollback immediato. I test A/B dividono il traffico per confrontare metriche di business tra versioni, e gli shadow test inviano copia del traffico live al nuovo modello senza esporlo agli utenti. Sul lato sicurezza, ogni job assume un execution role con policy minime su S3, ECR e CloudWatch, mentre Studio isola i team con domini e profili separati."
+    },
+    {
+      "bullets": [
+        "Model Cards: scopo, metriche, limiti e considerazioni etiche del modello.",
+        "Lineage: tracciabilita completa da dataset a codice ad artefatti.",
+        "Versionamento nel Model Registry con stati di approvazione come cancello.",
+        "Audit readiness: CloudTrail piu Model Cards piu lineage rispondono a ogni verifica.",
+        "Combo massima sicurezza: VPC-only, endpoint privati, KMS, ruolo minimo, CloudTrail."
+      ],
+      "title": "Governance e compliance",
+      "narration": "La cifratura usa chiavi gestite dal cliente per volumi di training, artefatti e storage degli endpoint, con rotazione e audit centralizzato. La rete in modalita solo VPC usa subnet private, gateway endpoint per S3 e interface endpoint PrivateLink per API, ECR, log e KMS, con Secrets Manager per le credenziali. Model Cards e lineage chiudono la governance: documentano scopo, metriche e limiti e tracciano ogni artefatto dai dati al modello. Ricorda infine il principio operativo: monitorare sempre, allarmare su soglie, reagire con pipeline automatiche e documentare ogni decisione con Model Cards e lineage."
+    }
+  ],
+  "summary": "Model Monitor rileva il drift confrontando traffico catturato con baseline su quattro dimensioni: qualita dati, qualita modello, bias e explainability. CloudWatch ed EventBridge chiudono il ciclo con allarmi e retraining automatico. Autoscaling, blue green, A/B e shadow testing garantiscono rilasci sicuri. IAM, KMS, VPC e Secrets Manager proteggono dati e accessi, mentre Model Cards e lineage assicurano governance.",
+  "title": "Monitoraggio, manutenzione e sicurezza"
+}

@@ -4,6 +4,9 @@
 # Wav intermedi della sintesi TTS: rigenerabili, il player usa solo gli mp3
 audio/*.wav
 
+# Cache per frase della sintesi TTS (tools/tts_chatterbox_batch.py): riprende le sintesi interrotte
+.tts-cache/
+
 # File di sistema
 .DS_Store
 Thumbs.db

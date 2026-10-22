@@ -11,7 +11,7 @@
     <div class="wrap">
       <p class="eyebrow">AWS Certified · Machine Learning Engineer – Associate (MLA-C01)</p>
       <h1>Studio interattivo</h1>
-      <p class="subtitle">👆 Clicca un capitolo sulla mappa per iniziare a studiare.</p>
+      <p class="subtitle">👆 Clicca un capitolo sulla mappa per iniziare a studiare. 14 capitoli in 3 aree: le frecce indicano i prerequisiti.</p>
       <div class="progress-wrap">
         <div class="progress-meta">
           <span id="progress-label">Avanzamento corso</span>
@@ -36,8 +36,9 @@
     <p id="content-warning" class="notice" hidden></p>
     <section class="areas-list">
       <div class="area-cards">
+        <article class="area-card c02-card"><h3>🆕 Esame MLA-C02</h3><p>Dal 29/09/2026 l'esame MLA-C02 è in beta (85 domande, 170 minuti), con GenAI e agenti in tutti i domini. Nei capitoli 12-14 trovi cosa cambia; per il MLA-C01 il contenuto resta valido fino al 28/09/2026.</p></article>
         <article class="area-card ripasso-card"><h3>★ Ripasso last-minute</h3><p>Scheda rapida pre-esame: servizi AWS, trappole e checklist. <a href="chapter.html?id=quick-ref">Apri il ripasso →</a></p></article>
-        <article class="area-card domande-card"><h3>📝 Banco domande</h3><p><strong id="qbank-count">490</strong> domande in stile esame (65 domande / 170 minuti come all'esame vero), filtrabili per capitolo, difficoltà, stato e origine (generate dal sito o adattate da pratica online), con simulazione a tempo. <a href="domande.html">Apri il banco domande →</a></p></article>
+        <article class="area-card domande-card"><h3>📝 Banco domande</h3><p><!-- PROVVISORIO: conteggio da aggiornare a fine lavoro --><strong id="qbank-count">490</strong> domande in stile esame (65 domande / 130 minuti come all'esame MLA-C01), filtrabili per capitolo, difficoltà, stato e origine (generate dal sito o adattate da pratica online), con simulazione a tempo. <a href="domande.html">Apri il banco domande →</a></p></article>
       </div>
     </section>
 
@@ -47,7 +48,7 @@
       <h3>Contenuti di studio</h3>
       <p>Capitoli, slide, riassunti e script audio sono originali, riscritti e ampliati a partire da:</p>
       <ul>
-        <li><a href="https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/">AWS Certified Machine Learning Engineer – Associate (MLA-C01)</a> — pagina ufficiale della certificazione: domini d'esame e relativi pesi, formato (65 domande, 170 minuti) e punteggio minimo 720/1000</li>
+        <li><a href="https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/">AWS Certified Machine Learning Engineer – Associate (MLA-C01)</a> — pagina ufficiale della certificazione: domini d'esame e relativi pesi, formato (65 domande, 130 minuti) e punteggio minimo 720/1000</li>
         <li><a href="https://skillbuilder.aws/learn">AWS Skill Builder</a> — corsi ufficiali di preparazione (Machine Learning Learning Plan, Exam Prep MLA-C01)</li>
         <li><a href="https://docs.aws.amazon.com/sagemaker/">Documentazione Amazon SageMaker</a> — training, deployment, endpoint, Clarify, Model Monitor</li>
         <li><a href="https://docs.aws.amazon.com/bedrock/">Documentazione Amazon Bedrock</a> — foundation model, Knowledge Bases, Agents, Guardrails</li>
@@ -124,10 +125,10 @@
       }
 
       app.loadContent().then(function (res) {
-        if (res.missing.length || Object.keys(res.chapters).length < 7) {
+        if (res.missing.length) {
           var w = document.getElementById('content-warning');
           w.hidden = false;
-          w.textContent = '📦 Alcuni contenuti sono in arrivo: i capitoli senza dati mostrano il titolo provvisorio.';
+          w.textContent = '📦 Alcuni contenuti sono in arrivo: i capitoli senza dati mostrano "in arrivo".';
         }
         window.MLA.map.render(document.getElementById('map-container'), res.chapters);
         drawProgress();

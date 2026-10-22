@@ -578,6 +578,34 @@
     draw();
   }
 
+  /* ---------- fonti online del capitolo (in fondo al Riassunto) ---------- */
+
+  /* Elenco di link da ch.sources = [{title, url}]. Solo URL https; titolo e url
+   * passano da textContent (mai HTML grezzo dai JSON). Ritorna null se non c'è nulla. */
+  function renderSources(list) {
+    var app = window.MLA.app;
+    var items = (Array.isArray(list) ? list : []).filter(function (s) {
+      return s && typeof s.url === 'string' && /^https:\/\//.test(s.url);
+    });
+    if (!items.length) return null;
+
+    var box = app.el('section', 'chapter-sources', '');
+    box.appendChild(app.el('h3', '', 'Fonti online'));
+    var ul = document.createElement('ul');
+    items.forEach(function (s) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = s.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = String(s.title || s.url);
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    return box;
+  }
+
   /* ---------- init ---------- */
 
   function init() {
@@ -638,6 +666,8 @@
       tabs.panels.riassunto.appendChild(app.el('h2', '', 'Riassunto'));
       if (ch.summary) tabs.panels.riassunto.appendChild(app.el('p', '', app.esc(ch.summary)));
       else tabs.panels.riassunto.appendChild(app.el('p', 'muted', 'Riassunto in arrivo per questo capitolo.'));
+      var sourcesBox = renderSources(ch.sources);
+      if (sourcesBox) tabs.panels.riassunto.appendChild(sourcesBox);
 
       /* Tab Parole chiave: contenuto integrale */
       tabs.panels.parole.appendChild(app.el('h2', '', 'Parole chiave'));

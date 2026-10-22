@@ -115,7 +115,31 @@ a:hover { color: var(--inchiostro-blu); }
 .status-doing .map-node-badge { fill: var(--penna-blu); }
 .status-done .map-node-badge { fill: var(--penna-verde); }
 .map-node-cap { fill: #5a5a5a; font-size: 11px; letter-spacing: 0.06em; }
-.map-node-title { fill: var(--inchiostro); font-size: 14px; }
+.map-node-title { fill: var(--inchiostro); font-size: 15px; }
+
+/* Elenco della mappa su telefono (sostituisce l'SVG sotto 640 px) */
+.map-list { display: grid; gap: 18px; }
+.map-list-head { margin: 0 0 6px; font-size: 1.05rem; color: var(--inchiostro-blu); }
+.map-list-items { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.map-item {
+  display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px;
+  border: 2px solid var(--inchiostro); border-radius: 12px; background: #fdf8ea;
+  color: var(--inchiostro); text-decoration: none;
+}
+.map-item.status-doing { background: #fdf3d0; border-color: var(--inchiostro-blu); }
+.map-item.status-done { background: #eef3e4; border-color: var(--penna-verde); }
+.map-item:focus { outline: 2px dashed var(--penna-rossa); outline-offset: 3px; }
+.map-item-badge { min-width: 1.2em; font-weight: 700; }
+.map-item-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.map-item-cap { font-size: 0.75rem; letter-spacing: 0.06em; color: #5a5a5a; }
+.map-item-title { font-weight: 600; overflow-wrap: anywhere; }
+.map-item-req { font-size: 0.85rem; color: #5a5a5a; }
+
+/* Fonti online in fondo al Riassunto */
+.chapter-sources { margin-top: 24px; padding-top: 12px; border-top: 1px dashed var(--inchiostro); }
+.chapter-sources h3 { margin: 0 0 6px; font-size: 1rem; color: var(--inchiostro-blu); }
+.chapter-sources ul { margin: 0; padding-left: 20px; }
+.chapter-sources li { margin: 4px 0; overflow-wrap: anywhere; }
 
 /* ---------- Schede aree ---------- */
 
