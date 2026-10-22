@@ -21,6 +21,11 @@
           <div id="progress-fill" class="progress-fill"></div>
         </div>
       </div>
+      <p class="stats-line" aria-live="polite">
+        <span id="stat-chapters">…</span> capitoli con audio ·
+        <span id="stat-minutes">…</span> minuti di audio ·
+        <span id="stat-questions">…</span> domande di pratica
+      </p>
       <ul class="legend">
         <li><span class="dot status-todo"></span> Non iniziato</li>
         <li><span class="dot status-doing"></span> In corso</li>
@@ -38,7 +43,7 @@
       <div class="area-cards">
         <article class="area-card c02-card"><h3>🆕 Esame MLA-C02</h3><p>Dal 29/09/2026 l'esame MLA-C02 è in beta (85 domande, 170 minuti), con GenAI e agenti in tutti i domini. Nei capitoli 12-14 trovi cosa cambia. Il contenuto del sito resta valido per entrambi gli esami: l'MLA-C01 in inglese è finito il 28/09/2026, mentre in giapponese, coreano e cinese semplificato resta fino alla GA dell'MLA-C02.</p></article>
         <article class="area-card ripasso-card"><h3>★ Ripasso last-minute</h3><p>Scheda rapida pre-esame: servizi AWS, trappole e checklist. <a href="chapter.html?id=quick-ref">Apri il ripasso →</a></p></article>
-        <article class="area-card domande-card"><h3>📝 Banco domande</h3><p><!-- PROVVISORIO: conteggio da aggiornare a fine lavoro --><strong id="qbank-count">490</strong> domande in stile esame (65 domande / 130 minuti come all'esame MLA-C01), filtrabili per capitolo, difficoltà, stato e origine (generate dal sito o adattate da pratica online), con simulazione a tempo. <a href="domande.html">Apri il banco domande →</a></p></article>
+        <article class="area-card domande-card"><h3>📝 Banco domande</h3><p>Domande di pratica a scelta singola e a risposta multipla, in stile esame, filtrabili per capitolo, dominio, esame, difficoltà, stato e origine (generate dal sito o adattate da pratica online). Simulazioni a tempo sul ritmo dell'esame MLA-C01 e MLA-C02. <a href="domande.html">Apri il banco domande →</a></p></article>
       </div>
     </section>
 
@@ -88,8 +93,7 @@
         </li>
       </ul>
       <p>
-        Delle 175 domande "🌐 Da pratica online": 62 adattate da TutorialsDojo,
-        62 da ExamTopics, 27 da Udemy practice test e 24 da Whizlabs.
+        Le domande "🌐 Da pratica online" indicano la fonte sotto la spiegazione; il filtro Origine le separa dalle altre.
       </p>
       <p class="muted small">
         AWS, Amazon SageMaker, Bedrock, Glue, S3, Athena, Lambda, Step Functions, CloudWatch,
@@ -109,6 +113,7 @@
   <script src="tracker.js"></script>
   <script src="app.js"></script>
   <script src="map.js"></script>
+  <script src="stats.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var app = window.MLA.app, tracker = window.MLA.tracker;
@@ -123,6 +128,21 @@
         fill.style.width = p.pct + '%';
         fill.parentElement.setAttribute('aria-valuenow', String(p.pct));
       }
+
+      /* Numeri della home: domande, minuti di audio, capitoli con audio. Un fallimento mostra un testo neutro. */
+      function showStats(st) {
+        var neutral = 'non disponibile';
+        document.getElementById('stat-chapters').textContent =
+          st.audioChapters == null ? neutral : st.audioChapters + ' / ' + st.totalChapters;
+        document.getElementById('stat-minutes').textContent =
+          st.minutes == null ? neutral : String(st.minutes);
+        document.getElementById('stat-questions').textContent =
+          st.questions == null ? neutral : String(st.questions);
+      }
+      window.MLA.stats.load().then(showStats).catch(function (err) {
+        console.warn('[stats] calcolo numeri fallito:', err);
+        showStats({ questions: null, minutes: null, audioChapters: null, totalChapters: 15 });
+      });
 
       app.loadContent().then(function (res) {
         if (res.missing.length) {

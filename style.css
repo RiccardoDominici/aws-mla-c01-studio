@@ -137,6 +137,10 @@ a:hover { color: var(--inchiostro-blu); }
 .map-item-title { font-weight: 600; overflow-wrap: anywhere; }
 .map-item-req { font-size: 0.85rem; color: #5a5a5a; }
 
+/* Numeri della home (stats.js): riga sotto l'avanzamento */
+.stats-line { margin: 10px 0 0; font-size: 0.95rem; color: var(--inchiostro); }
+.stats-line span { font-weight: 700; color: var(--inchiostro-blu); }
+
 /* Fonti online in fondo al Riassunto */
 .chapter-sources { margin-top: 24px; padding-top: 12px; border-top: 1px dashed var(--inchiostro); }
 .chapter-sources h3 { margin: 0 0 6px; font-size: 1rem; color: var(--inchiostro-blu); }
