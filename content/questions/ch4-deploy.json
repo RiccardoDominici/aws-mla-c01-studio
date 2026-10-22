@@ -1098,10 +1098,10 @@
     "answer": 0,
     "chapter": "ch4-deploy",
     "difficulty": "difficile",
-    "explain": "Warm pools keep training clusters ready and provisioned concurrency keeps inference capacity warm, cutting queueing on both sides. Spot instances and scale-to-zero add startup delay at exactly the wrong moment.",
+    "explain": "Warm pools keep training clusters ready and provisioned concurrency on a serverless endpoint keeps inference capacity warm, cutting queueing on both sides. Spot instances and scale-to-zero add startup delay at exactly the wrong moment.",
     "id": "ch4-q41",
     "options": [
-      "Use SageMaker Training warm pools plus provisioned concurrency on the endpoint to cut startup delays",
+      "Use SageMaker Training warm pools plus provisioned concurrency on a serverless endpoint to cut startup delays",
       "Use Spot instances for training and scale-to-zero serverless inference to minimize hourly charges",
       "Run training on single small instances and serve from one shared notebook to reduce idle capacity",
       "Disable all caching and concurrency so every request provisions fresh capacity with full isolation"
@@ -1237,7 +1237,7 @@
   {
     "id": "ch4-ext01",
     "chapter": "ch4-deploy",
-    "q": "A client sends 8 MB JSON payloads to a SageMaker real-time endpoint and gets validation errors. Inference takes 90 seconds per request and callers can wait for a notification. Which option should the team use?",
+    "q": "A client sends 8 MB JSON payloads to a SageMaker real-time endpoint. Inference takes 90 seconds per request and callers can wait for a notification. Which option should the team use?",
     "options": [
       "Split each payload into 1 MB chunks and call the real-time endpoint in a tight retry loop",
       "Move to Serverless Inference with maximum memory and poll the endpoint synchronously",
@@ -1245,7 +1245,7 @@
       "Keep the real-time endpoint and raise the timeout to 15 minutes with larger instances"
     ],
     "answer": 2,
-    "explain": "Real-time endpoints time out after 60 seconds, so 90-second requests fail there. Asynchronous inference accepts up to 1 GB and one hour of processing, with queueing and SNS notifications.",
+    "explain": "The 8 MB payloads fit the real-time limit of 25 MB, but 90-second requests exceed the 60-second real-time timeout. Asynchronous inference accepts up to 1 GB and one hour of processing, with queueing and SNS notifications.",
     "difficulty": "facile",
     "tags": [
       "sagemaker",

@@ -1625,12 +1625,12 @@
     "q": "When and where does a candidate receive the official MLA-C01 result?",
     "options": [
       "By postal mail six months later, with no online record made available",
-      "Through the exam-day printout plus the online certification account records",
+      "In the AWS Certification account, under Exam History, within five business days after the exam",
       "Only verbally from the proctor on site, with nothing recorded in writing anywhere",
       "Through social media announcements published by the local test center"
     ],
     "answer": 1,
-    "explain": "Candidates typically get an immediate pass/fail indication and then the official record, scaled score, and domain feedback in their AWS certification account within a short processing window.",
+    "explain": "Final results are posted to the AWS Certification account within five business days after the close of the exam, in the Exam History table. The exception is a result under review for security or technical reasons.",
     "difficulty": "media",
     "tags": [
       "exam-format",

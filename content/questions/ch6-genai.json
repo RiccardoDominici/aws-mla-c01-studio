@@ -718,13 +718,13 @@
     "answer": 3,
     "chapter": "ch6-genai",
     "difficulty": "media",
-    "explain": "A what-if scenario keeps the history untouched and compares forecasts with and without the planned promotion. The old Forecast what-if feature is no longer open to new customers since 29 July 2024. Accuracy metrics and backtesting measure quality instead.",
+    "explain": "SageMaker Canvas time-series forecasts support what-if analyses when the dataset includes future-value columns such as price or promotions, so you can see how changing those values alters the predictions. The history stays untouched. Accuracy metrics and backtesting measure quality instead.",
     "id": "ch6-q28",
     "options": [
       "Run backtesting exports to simulate the effect of a planned price increase",
       "Retrain the predictor on invented future rows to preview promotion effects",
       "Change historical sales figures directly to model the upcoming promotion",
-      "Run a what-if scenario with the promotion as a separate input"
+      "Run a what-if analysis in SageMaker Canvas with the promotion as a future-value column"
     ],
     "q": "A planner wants to preview how a planned promotion would change the demand forecast without editing history. Which feature fits?",
     "source": "AI-generated for MLA-C01 Studio",
