@@ -703,7 +703,7 @@
     "chapter": "ch10-infra-cicd",
     "q": "After manual changes in the console, a team runs CloudFormation drift detection. Which TWO statements about drift detection are correct? (Select TWO.)",
     "options": [
-      "It reports each resource as DRIFTED, IN_SYNC, or NOT_CHECKED depending on the check",
+      "It reports each resource as IN_SYNC, MODIFIED, DELETED, or NOT_CHECKED depending on the check",
       "It reverts drifted resources to the template values automatically",
       "Running it on a root stack also checks every nested stack child automatically",
       "It reports whether resource properties differ from the template because of changes made outside CloudFormation",
@@ -713,7 +713,7 @@
       0,
       3
     ],
-    "explain": "Drift detection compares actual properties with the template and reports DRIFTED, IN_SYNC, or NOT_CHECKED. It does not preview updates or revert resources, and nested stacks must be checked on their own.",
+    "explain": "Drift detection compares actual properties with the template. Resources report IN_SYNC, MODIFIED, DELETED, or NOT_CHECKED, and stacks report DRIFTED, IN_SYNC, or NOT_CHECKED. It does not preview updates or revert resources, and nested stacks must be checked on their own.",
     "difficulty": "difficile",
     "tags": [
       "drift-detection",
@@ -1709,7 +1709,7 @@
       "testing",
       "end-to-end"
     ],
-    "source": "AWS docs: Build specification reference for CodeBuild - AWS CodeBuild User Guide",
+    "source": "AWS docs: CodePipeline concepts - AWS CodePipeline User Guide",
     "origin": "ai",
     "domain": "3",
     "task": "3.3",
