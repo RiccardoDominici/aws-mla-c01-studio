@@ -1624,7 +1624,7 @@
       "Start a new Kendra Developer Edition index for every new project and keep the Developer Edition for production traffic"
     ],
     "answer": 2,
-    "explain": "AWS documents that Amazon Kendra is no longer open to new customers, and recommends Bedrock Knowledge Bases for similar capabilities. The Developer Edition is not for production.",
+    "explain": "AWS documents that Amazon Kendra has closed to new customers, and recommends Bedrock Knowledge Bases for similar capabilities. The Developer Edition is not for production.",
     "difficulty": "media",
     "tags": [
       "kendra"

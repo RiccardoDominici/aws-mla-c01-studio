@@ -1845,7 +1845,7 @@
       "SageMaker Feature Store for reusing features across teams"
     ],
     "answer": 1,
-    "explain": "Role Manager creates persona-based IAM roles with suggested permissions. It is no longer open to new customers as of 30 July 2026, and existing customers continue to use it.",
+    "explain": "Role Manager creates persona-based IAM roles with suggested permissions. It closed to new customers on 30 July 2026, and existing customers continue to use it.",
     "difficulty": "media",
     "tags": [
       "role-manager"
