@@ -133,6 +133,51 @@
     }).catch(function () { return null; }); // fallback: nessun rumore in console
   }
 
+  /* ---------- timing non aggiornato ---------- */
+
+  function normWs(text) {
+    return String(text || '').replace(/\s+/g, ' ').trim();
+  }
+
+  /* Frasi che il copione attuale produce, con la slide di ciascuna: stessa logica di
+   * make_timing.chapter_units. Ritorna null se le narrazioni non coprono il copione. */
+  function expectedUnits(ch) {
+    var sentences = splitScript(ch.script);
+    var slides = Array.isArray(ch.slides) ? ch.slides : [];
+    var complete = slides.length && slides.every(function (s) {
+      return s && typeof s.narration === 'string' && s.narration.trim();
+    });
+    if (!complete) return sentences.map(function (text) { return { text: text, slide: null }; });
+
+    var out = [];
+    var pos = 0;
+    for (var i = 0; i < slides.length; i++) {
+      var target = normWs(slides[i].narration);
+      var acc = '';
+      while (normWs(acc) !== target) {
+        if (pos >= sentences.length) return null;
+        acc = (acc + ' ' + sentences[pos]).trim();
+        if (normWs(acc).length > target.length) return null;
+        out.push({ text: sentences[pos], slide: i });
+        pos++;
+      }
+    }
+    return pos === sentences.length ? out : null;
+  }
+
+  /* Vero se il timing del capitolo corrisponde al copione attuale (frasi e slide).
+   * Se no, l'mp3 è stato sintetizzato da un testo precedente: non va riprodotto. */
+  function timingMatchesScript(ch, entry) {
+    var expected = expectedUnits(ch);
+    if (!expected || !Array.isArray(entry.sentences)) return false;
+    if (entry.sentences.length !== expected.length) return false;
+    return expected.every(function (u, i) {
+      var got = entry.sentences[i];
+      return normWs(got.text) === normWs(u.text) &&
+        (u.slide === null || parseInt(got.slide, 10) === u.slide);
+    });
+  }
+
   /* ---------- TAB accessibili (role=tablist/tab/tabpanel + frecce) ---------- */
 
   function buildTabs(host, chapterId) {
@@ -213,7 +258,7 @@
     return 0;
   }
 
-  function renderLesson(panel, chapterId, ch, audioUrl, timingEntry) {
+  function renderLesson(panel, chapterId, ch, audioUrl, timingEntry, audioStale) {
     var app = window.MLA.app;
     panel.innerHTML = '';
     var slides = Array.isArray(ch.slides) ? ch.slides : [];
@@ -237,8 +282,10 @@
     /* --- player custom --- */
     var playerWrap = app.el('div', 'player', '');
     if (audioMissing) {
-      playerWrap.appendChild(app.el('p', 'notice audio-missing',
-        '🎧 Audio in preparazione: puoi già studiare slide e trascrizione. La lezione parlata arriverà a breve.'));
+      var note = audioStale
+        ? '🎧 Audio in aggiornamento: il testo è stato corretto e la nuova lezione parlata è in preparazione. Studia slide e trascrizione aggiornate.'
+        : '🎧 Audio in preparazione: puoi già studiare slide e trascrizione. La lezione parlata arriverà a breve.';
+      playerWrap.appendChild(app.el('p', 'notice audio-missing' + (audioStale ? ' audio-stale' : ''), note));
       panel.appendChild(playerWrap);
     } else {
       var row = app.el('div', 'player-row', '');
@@ -654,6 +701,14 @@
       var ch = res[0].chapters[id];
       var timingEntry = res[1];
       var audioUrl = res[2];
+      var audioStale = false;
+      // Timing e mp3 di un copione precedente: il capitolo si studia senza audio.
+      if (ch && timingEntry && !timingMatchesScript(ch, timingEntry)) {
+        console.info('[chapter] timing di ' + id + ' non corrisponde al copione attuale: audio non riprodotto');
+        timingEntry = null;
+        audioUrl = null;
+        audioStale = true;
+      }
       root.innerHTML = '';
       var head = app.el('div', 'chapter-head', '');
       head.appendChild(app.el('a', 'back', '← Mappa'));
@@ -681,7 +736,7 @@
 
       /* Tab Lezione guidata */
       tabs.panels.lezione.appendChild(app.el('h2', '', 'Lezione guidata'));
-      renderLesson(tabs.panels.lezione, id, ch, audioUrl, timingEntry);
+      renderLesson(tabs.panels.lezione, id, ch, audioUrl, timingEntry, audioStale);
 
       /* Tab Riassunto: testo integrale */
       tabs.panels.riassunto.appendChild(app.el('h2', '', 'Riassunto'));
