@@ -17,7 +17,13 @@
       "exam-format",
       "questions"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -37,7 +43,13 @@
       "exam-format",
       "time"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -57,7 +69,13 @@
       "exam-format",
       "passing-score"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -77,7 +95,13 @@
       "exam-format",
       "pearson-vue"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -97,7 +121,13 @@
       "exam-format",
       "pricing"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -117,7 +147,13 @@
       "exam-format",
       "validity"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -137,7 +173,13 @@
       "domains",
       "domain-1"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -157,7 +199,13 @@
       "domains",
       "domain-2"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -177,7 +225,13 @@
       "domains",
       "domain-3"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -197,7 +251,13 @@
       "domains",
       "domain-4"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -217,7 +277,13 @@
       "question-types",
       "multiple-choice"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -237,7 +303,13 @@
       "question-types",
       "multiple-response"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -257,7 +329,13 @@
       "strategy",
       "time-management"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -277,7 +355,13 @@
       "strategy",
       "guessing"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -297,7 +381,13 @@
       "exam-format",
       "unscored-items"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -317,7 +407,13 @@
       "scope",
       "appendix-a"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -337,7 +433,13 @@
       "strategy",
       "flag-review"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -357,7 +459,13 @@
       "domains",
       "weights"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -377,7 +485,13 @@
       "exam-format",
       "online-proctoring"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -397,7 +511,13 @@
       "exam-format",
       "scoring"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -418,7 +538,13 @@
       "weights",
       "strategy"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -438,7 +564,13 @@
       "question-types",
       "data-preparation"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -458,7 +590,13 @@
       "question-types",
       "model-development"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -478,7 +616,13 @@
       "strategy",
       "time-management"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -499,7 +643,13 @@
       "domain-4",
       "bedrock"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -519,7 +669,13 @@
       "strategy",
       "flag-review"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -539,7 +695,13 @@
       "scope",
       "services"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -559,7 +721,13 @@
       "strategy",
       "exam-guide"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -579,7 +747,13 @@
       "strategy",
       "guessing"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -599,7 +773,13 @@
       "question-types",
       "deployment"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -620,7 +800,13 @@
       "domain-3",
       "scoring"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -640,7 +826,13 @@
       "exam-format",
       "unscored-items"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -660,7 +852,13 @@
       "exam-format",
       "pearson-vue"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -680,7 +878,13 @@
       "strategy",
       "time-management"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -700,7 +904,13 @@
       "exam-format",
       "validity"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -721,7 +931,13 @@
       "weights",
       "strategy"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -741,7 +957,13 @@
       "question-types",
       "security"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -761,7 +983,13 @@
       "strategy",
       "time-management"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -782,7 +1010,13 @@
       "strategy",
       "weights"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -803,7 +1037,13 @@
       "multiple-response",
       "scoring"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -823,7 +1063,13 @@
       "question-types",
       "monitoring"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -844,7 +1090,13 @@
       "appendix-a",
       "strategy"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -864,7 +1116,13 @@
       "strategy",
       "flag-review"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -885,7 +1143,13 @@
       "scoring",
       "unscored-items"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -906,7 +1170,13 @@
       "validity",
       "pricing"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext01",
@@ -926,7 +1196,13 @@
       "languages"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext02",
@@ -946,7 +1222,13 @@
       "prerequisites"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext03",
@@ -966,7 +1248,13 @@
       "scoring"
     ],
     "source": "Adattata da Whizlabs (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext04",
@@ -986,7 +1274,13 @@
       "experience"
     ],
     "source": "Adattata da Udemy – practice test MLA-C01",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext05",
@@ -1006,7 +1300,13 @@
       "multiple-response"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext06",
@@ -1026,7 +1326,13 @@
       "question-types"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext07",
@@ -1046,7 +1352,13 @@
       "skill-builder"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext08",
@@ -1066,7 +1378,13 @@
       "registration"
     ],
     "source": "Adattata da Udemy – practice test MLA-C01",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext09",
@@ -1087,7 +1405,13 @@
       "domains"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext10",
@@ -1107,7 +1431,13 @@
       "score-report"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext11",
@@ -1127,7 +1457,13 @@
       "registration"
     ],
     "source": "Adattata da Whizlabs (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext12",
@@ -1148,7 +1484,13 @@
       "id-check"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext13",
@@ -1169,7 +1511,13 @@
       "strategy"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext14",
@@ -1189,7 +1537,13 @@
       "exam-guide"
     ],
     "source": "Adattata da Udemy – practice test MLA-C01",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext15",
@@ -1209,7 +1563,13 @@
       "time"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext16",
@@ -1230,7 +1590,13 @@
       "keywords"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext17",
@@ -1251,7 +1617,13 @@
       "voucher"
     ],
     "source": "Adattata da Whizlabs (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext18",
@@ -1271,7 +1643,13 @@
       "score-report"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext19",
@@ -1292,7 +1670,13 @@
       "recertification"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext20",
@@ -1313,7 +1697,13 @@
       "scoring"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext21",
@@ -1334,7 +1724,13 @@
       "question-types"
     ],
     "source": "Adattata da Udemy – practice test MLA-C01",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext22",
@@ -1355,7 +1751,13 @@
       "scoring"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext23",
@@ -1375,7 +1777,13 @@
       "accommodations"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext24",
@@ -1396,7 +1804,13 @@
       "policy"
     ],
     "source": "Adattata da Udemy – practice test MLA-C01",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch1-ext25",
@@ -1417,6 +1831,12 @@
       "scoring"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "META",
+    "task": "-",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   }
 ]

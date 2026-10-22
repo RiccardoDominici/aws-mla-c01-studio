@@ -4,15 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Banco domande — MLA-C01 Studio</title>
-  <meta name="description" content="Banco domande d'esame MLA-C01 con filtri multipli per capitolo, difficoltà, stato e origine, più simulazione d'esame a tempo (65 domande / 170 minuti).">
+  <meta name="description" content="Banco domande d'esame AWS MLA-C01 e MLA-C02 con filtri per capitolo, dominio, esame, tipo, difficoltà, stato e origine, più simulazione d'esame a tempo (MLA-C01: 65 domande in 130 minuti; MLA-C02: 85 domande in 170 minuti).">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Stili del banco domande non presenti in style.css: risposta multipla,
+       conferma, punteggio per dominio e schermata delle simulazioni. */
+    .qopt-multi { cursor: pointer; }
+    .qopt-multi:has(.qcheck:disabled) { cursor: default; }
+    .qcheck {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      margin: 2px 0 0;
+      accent-color: var(--inchiostro-blu);
+      cursor: inherit;
+    }
+    .qconfirm {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .qconfirm[hidden] { display: none; }
+    .qconfirm .btn { margin-left: auto; }
+    .qhint {
+      margin: 0;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      color: #5a5a5a;
+    }
+    .exam-title {
+      font-family: var(--font-ui);
+      font-weight: 700;
+      color: var(--inchiostro);
+      margin-right: auto;
+    }
+    .exam-sub { margin: 18px 0 6px; font-size: 1.05rem; }
+    .qb-preset { margin: 12px 0 16px; }
+    .qb-preset .btn.big { display: block; width: 100%; text-align: center; }
+    .qb-preset .muted { margin: 6px 0 0; }
+    .qb-preset .notice { margin: 8px 0 0; }
+    .qdomscore {
+      list-style: none;
+      margin: 14px 0 16px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+    }
+    @media (max-width: 640px) {
+      .qconfirm .btn { margin-left: 0; width: 100%; }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
       <p class="eyebrow">AWS Certified · Machine Learning Engineer – Associate (MLA-C01)</p>
       <h1>Banco domande</h1>
-      <p class="subtitle">Domande d'esame con filtri multipli per capitolo, difficoltà, stato e origine — più la simulazione a tempo.</p>
+      <p class="subtitle">Domande d'esame a scelta singola e a risposta multipla, con filtri per capitolo, dominio, esame, tipo, difficoltà, stato e origine — più la simulazione a tempo.</p>
       <p><a class="back" href="index.html">← Torna alla mappa</a></p>
     </div>
   </header>

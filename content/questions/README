@@ -1,97 +1,158 @@
-# Contratto banco domande — content/questions/*.json
+# Contratto banco domande — content/questions/*.json (schema v2)
 
-Un file per capitolo, con lo stesso id usato da `app.js` / `content/README`:
+Un file per capitolo, con lo stesso id usato da `app.js` (`MLA.app.CHAPTERS`) e da
+`content/chapters/`:
 
 ```
-content/questions/ch1-exam-guide.json
-content/questions/ch2-data-prep.json
-content/questions/ch3-model-dev.json
-content/questions/ch4-deploy.json
-content/questions/ch5-monitor-security.json
-content/questions/ch6-genai.json
-content/questions/ch7-practice.json
+content/questions/<id-capitolo>.json   (es. ch1-exam-guide.json, ch8-data-advanced.json)
 ```
 
-Il loader (`qbank.js`) li carica in parallelo ed è tollerante: se un file
-manca o è malformato, quel capitolo risulta semplicemente senza domande e la
-pagina `domande.html` lo segnala, senza rompersi. Le singole domande non
-valide vengono scartate con un warning in console.
+Il loader (`qbank.js`) legge l'elenco dei capitoli da `MLA.app.CHAPTERS` e carica i
+file in parallelo. È tollerante: se un file manca o è malformato, quel capitolo risulta
+semplicemente senza domande e la pagina `domande.html` lo segnala, senza rompersi. Le
+singole domande non valide (schema v2 non rispettato) vengono scartate con un warning
+in console.
 
 ## Schema
 
-Array JSON di oggetti domanda:
+Array JSON di oggetti domanda. Ce ne sono due forme.
+
+Scelta singola (4 opzioni, `answer` intero):
 
 ```json
 {
   "id": "ch1-q01",
   "chapter": "ch1-exam-guide",
-  "q": "Testo della domanda.",
-  "options": ["A", "B", "C", "D"],
+  "q": "How many questions does the AWS MLA-C01 exam contain in total?",
+  "options": ["55 questions", "80 questions", "65 questions", "200 questions"],
   "answer": 2,
   "explain": "Perché la risposta è corretta (1-3 frasi).",
   "difficulty": "media",
-  "tags": ["sagemaker", "bedrock"],
-  "source": "elaborata su exam guide MLA-C01",
-  "origin": "ai"
+  "tags": ["exam-format", "questions"],
+  "source": "AI-generated for MLA-C01 Studio",
+  "origin": "ai",
+  "domain": "META",
+  "task": "-",
+  "exam": ["C01", "C02"]
 }
 ```
 
-## Regole
+Risposta multipla (il formato AWS "Select TWO" o "Select THREE"):
 
-- `id`: univoco su TUTTO il banco (prefisso di capitolo consigliato).
-- `chapter`: deve combaciare con il nome del file, altrimenti i filtri mentono.
-- `options`: ESATTAMENTE 4 stringhe, tutte distinte.
-- `answer`: indice 0-3 dell'opzione corretta.
-- `difficulty`: `facile` | `media` | `difficile` (default `media` se assente).
-- `tags`: array di stringhe minuscole; alimenta la ricerca testuale.
-- `source`: provenienza dello spunto, mostrata sotto la spiegazione.
-- `origin`: `ai` (generate per questo sito, default se assente) oppure
-  `esterna` (adattate da materiale di pratica trovato online, riscritte in
-  inglese con parole proprie — mai copiate alla lettera). Alimenta il filtro "Origine" in
-  `domande.html` (le schede domanda non mostrano badge, per non dare indizi).
-- Niente HTML: il frontend usa `textContent`, i tag resterebbero visibili.
-- Testo delle domande in inglese (l'esame è in inglese); termini tecnici
-  standard (SageMaker, Bedrock, Glue, …).
+```json
+{
+  "id": "ch10-q001",
+  "chapter": "ch10-infra-cicd",
+  "q": "Which TWO actions ... ? (Select TWO.)",
+  "options": ["A", "B", "C", "D", "E"],
+  "answer": [1, 3],
+  "explain": "Perché (1-3 frasi).",
+  "difficulty": "media",
+  "tags": ["cloudformation"],
+  "source": "AWS docs: <titolo della pagina>",
+  "origin": "ai",
+  "domain": "3",
+  "task": "3.2",
+  "exam": ["C01", "C02"],
+  "todo": ["K-3.2K3"]
+}
+```
+
+### Campi
+
+| Campo        | Obbligatorio | Valori                                                                                 |
+|--------------|--------------|----------------------------------------------------------------------------------------|
+| `id`         | sì           | univoco su TUTTO il banco (prefisso di capitolo consigliato)                           |
+| `chapter`    | sì           | deve combaciare con il nome del file, altrimenti i filtri mentono                       |
+| `q`          | sì           | testo in inglese, senza HTML                                                           |
+| `options`    | sì           | stringhe distinte: 4 (singola), 5 (multipla con 2 corrette), 6 (multipla con 3 corrette) |
+| `answer`     | sì           | singola: intero 0-3. Multipla: array ordinato di 2 o 3 indici distinti                 |
+| `explain`    | sì           | perché la risposta è corretta, 1-3 frasi                                               |
+| `difficulty` | no           | `facile` \| `media` \| `difficile` (default `media`)                                    |
+| `tags`       | no           | array di stringhe minuscole; alimenta la ricerca testuale                              |
+| `source`     | no           | provenienza dello spunto, mostrata sotto la spiegazione                                |
+| `origin`     | no           | `ai` (default) oppure `esterna` (adattate da pratica online, riscritte con parole proprie) |
+| `domain`     | sì           | `"1"`, `"2"`, `"3"`, `"4"` oppure `"META"` (formato d'esame, punteggio, tattiche)      |
+| `task`       | sì           | da `"1.1"` a `"4.3"`, coerente col dominio; `"-"` per META                             |
+| `exam`       | sì           | sottoinsieme non vuoto di `["C01", "C02"]`: gli esami a cui la domanda si applica       |
+| `todo`       | no           | id di `docs/todo.json` che la domanda allena                                           |
+
+### Regole di coerenza
+
+- **Scelta singola**: `answer` è un intero 0-3, le opzioni sono esattamente 4, il testo
+  non contiene "Select".
+- **Risposta multipla**: `answer` è un array ordinato di 2 o 3 indici distinti.
+  - 2 risposte giuste: 5 opzioni e il testo finisce con `(Select TWO.)`.
+  - 3 risposte giuste: 6 opzioni e il testo finisce con `(Select THREE.)`.
+  - La correzione è tutto-o-niente, come all'esame: si sbaglia se manca una corretta
+    o se se ne sceglie una sbagliata.
+- `domain` META ha sempre `task` `"-"`. Gli altri domini hanno un task che inizia con
+  il loro numero (`"2"` → `"2.1"`, `"2.2"`, `"2.3"`).
+- `exam` è `["C01", "C02"]` quando la domanda vale per entrambi gli esami. Le domande
+  che valgono solo per uno dei due si segnano con il solo esame. Le META non entrano
+  nelle simulazioni.
+- Le simulazioni d'esame usano il formato reale: MLA-C01 65 domande (pesi 28/26/22/24) e
+  MLA-C02 85 domande (pesi 28/24/24/24), entrambe con 2,0 minuti a domanda.
 
 ## Qualità: il controllo che conta
 
-Un banco generato tende a fare la risposta corretta più lunga e dettagliata
-degli altri distrattori. Chi studia impara a scegliere "la più lunga" invece
-del concetto, e all'esame vero non funziona. Prima di committare nuove
-domande, verifica con `tools/check_questions.py`:
+Un banco generato tende a fare la risposta corretta più lunga e dettagliata degli altri
+distrattori. Chi studia impara a scegliere "la più lunga" invece del concetto, e all'esame
+vero non funziona. Prima di committare nuove domande, verifica con `tools/check_questions.py`:
 
 ```bash
 python3 tools/check_questions.py content/questions/ch1-exam-guide.json
 python3 tools/check_questions.py content/questions/*.json   # tutto il banco
 ```
 
-Soglie: la corretta deve essere l'opzione più lunga in al massimo il 35% delle
-domande, con rapporto medio di lunghezza corretta/distrattori ≤ 1,15.
-Per rientrare, **allunga i distrattori** (rendendoli più specifici e
-plausibili) invece di accorciare la corretta — ma assicurati che restino
-inequivocabilmente sbagliati.
+Lo script controlla lo schema v2 (coerenza tra "Select TWO/THREE", numero di opzioni,
+`answer`, `domain`, `task`, `exam`) e stampa la distribuzione per dominio, per task, per
+esame e la quota di risposte multiple.
+
+Soglie sul bias di lunghezza:
+
+- scelta singola: la corretta deve essere l'opzione più lunga in al massimo il 35% delle
+  domande, con rapporto medio di lunghezza corretta/distrattori ≤ 1,15;
+- risposta multipla: rapporto tra la lunghezza media delle opzioni corrette e quella dei
+  distrattori ≤ 1,15 (non si conta "la più lunga", perché con 2 o 3 corrette la quota
+  attesa è già alta).
+
+Per rientrare, **allunga i distrattori** (rendendoli più specifici e plausibili) invece di
+accorciare la corretta, ma assicurati che restino inequivocabilmente sbagliati.
 
 ## Qualità: il difetto più grave
 
 Peggio di un banco sbilanciato c'è un banco che insegna la risposta sbagliata:
-`answer` che punta all'opzione errata mentre domanda, opzioni e spiegazione
-sono scritte bene. Non lo vede nessun controllo strutturale. Per stanarlo:
+`answer` che punta all'opzione errata mentre domanda, opzioni e spiegazione sono scritte
+bene. Non lo vede nessun controllo strutturale. Per stanarlo:
 
 ```bash
 python3 tools/check_answer_keys.py content/questions/*.json
 ```
 
-Confronta la spiegazione con ogni opzione: se assomiglia più a un'opzione
-diversa da quella indicata da `answer`, la segnala. Produce anche falsi
-positivi (una spiegazione che nomina il distrattore per dire perché è
-sbagliato), quindi ogni segnalazione va **letta**, non corretta al volo.
+Confronta la spiegazione con le opzioni: se assomiglia più a un'opzione diversa da quella
+(o, per le multiple, da una delle corrette) indicata da `answer`, la segnala. Produce anche
+falsi positivi (una spiegazione che nomina il distrattore per dire perché è sbagliato),
+quindi ogni segnalazione va **letta**, non corretta al volo.
 
-Quando correggi una chiave, **scambia i testi delle opzioni** invece di
-spostare `answer`: il contenuto giusto finisce all'indice già indicato e la
-distribuzione degli indici corretti resta bilanciata.
+Quando correggi una chiave, **scambia i testi delle opzioni** invece di spostare `answer`:
+il contenuto giusto finisce all'indice già indicato e la distribuzione degli indici corretti
+resta bilanciata.
+
+## Copertura
+
+`tools/check_coverage.py` legge `docs/todo.json` e, per ogni voce con `regex`, conta le
+occorrenze nella teoria (`content/chapters/*.json`) e nelle domande che la allenano (regex
+su domanda, opzioni e spiegazione, oppure id della voce nel campo `todo`). Una voce è
+coperta se compare nella teoria di un capitolo tra i suoi `targets` e in almeno 2 domande.
+Esce con codice 1 se una voce di teoria (gruppi K, G, V, C) non è coperta.
+
+```bash
+python3 tools/check_coverage.py          # tabella per voce e riepilogo per gruppo
+python3 tools/check_coverage.py --json   # output macchina
+```
 
 ## Nota
 
-Il conteggio totale mostrato nella scheda "Banco domande" della home è scritto
-in `index.html` (`<strong id="qbank-count">`): se aggiungi o togli domande,
-aggiornalo lì.
+Il conteggio totale mostrato nella scheda "Banco domande" della home è scritto in
+`index.html` (`<strong id="qbank-count">`): se aggiungi o togli domande, aggiornalo lì.

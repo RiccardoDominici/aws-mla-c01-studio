@@ -18,7 +18,13 @@
       "model-monitor",
       "data-quality"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -39,7 +45,13 @@
       "model-monitor",
       "model-quality"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -60,7 +72,13 @@
       "model-monitor",
       "bias"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -81,7 +99,13 @@
       "model-monitor",
       "explainability"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -102,7 +126,13 @@
       "model-monitor",
       "data-capture"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -123,7 +153,13 @@
       "model-monitor",
       "baseline"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -144,7 +180,13 @@
       "model-monitor",
       "constraints"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -165,7 +207,13 @@
       "model-monitor",
       "cloudwatch"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -186,7 +234,13 @@
       "model-monitor",
       "schedule"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -207,7 +261,13 @@
       "model-monitor",
       "data-capture"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -228,7 +288,13 @@
       "sagemaker",
       "metrics"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -249,7 +315,13 @@
       "alarms",
       "sagemaker"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -270,7 +342,13 @@
       "logs",
       "sagemaker"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -291,7 +369,13 @@
       "logs",
       "anomaly"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -312,7 +396,13 @@
       "sagemaker",
       "metrics"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -333,7 +423,13 @@
       "observability",
       "sagemaker"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -354,7 +450,13 @@
       "cloudwatch",
       "alarms"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -375,7 +477,13 @@
       "ab-testing",
       "sagemaker"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -396,7 +504,13 @@
       "autoscaling",
       "sagemaker"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -417,7 +531,13 @@
       "alarms",
       "operations"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -438,7 +558,13 @@
       "audit",
       "governance"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -459,7 +585,13 @@
       "audit",
       "sagemaker"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -480,7 +612,13 @@
       "compliance",
       "governance"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -501,7 +639,13 @@
       "config",
       "audit"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -522,7 +666,13 @@
       "monitoring",
       "concepts"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -543,7 +693,13 @@
       "model-monitor",
       "statistics"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -564,7 +720,13 @@
       "concept-drift",
       "model-quality"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -585,7 +747,13 @@
       "retraining",
       "automation"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -606,7 +774,13 @@
       "mlops",
       "monitoring"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -627,7 +801,13 @@
       "pipelines",
       "mlops"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -648,7 +828,13 @@
       "ab-testing",
       "variants"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -669,7 +855,13 @@
       "shadow",
       "deployment"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -690,7 +882,13 @@
       "blue-green",
       "deployment"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -711,7 +909,13 @@
       "canary",
       "variants"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -732,7 +936,13 @@
       "deployment",
       "safety"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -753,7 +963,13 @@
       "evaluation",
       "sagemaker"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -774,7 +990,13 @@
       "security",
       "sagemaker"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -795,7 +1017,13 @@
       "least-privilege",
       "security"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -816,7 +1044,13 @@
       "deployment",
       "governance"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -837,7 +1071,13 @@
       "encryption",
       "security"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -858,7 +1098,13 @@
       "encryption",
       "isolation"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 3,
@@ -879,7 +1125,13 @@
       "networking",
       "security"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 0,
@@ -900,7 +1152,13 @@
       "endpoints",
       "networking"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 1,
@@ -921,7 +1179,13 @@
       "governance",
       "documentation"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "answer": 2,
@@ -942,7 +1206,13 @@
       "governance",
       "tracking"
     ],
-    "origin": "ai"
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext01",
@@ -963,7 +1233,13 @@
       "pre-training"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext02",
@@ -984,7 +1260,13 @@
       "training"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext03",
@@ -1005,7 +1287,13 @@
       "network-isolation"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext04",
@@ -1026,7 +1314,13 @@
       "invokeendpoint"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext05",
@@ -1047,7 +1341,13 @@
       "dpl"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "1",
+    "task": "1.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext06",
@@ -1068,7 +1368,13 @@
       "network-isolation"
     ],
     "source": "Adattata da Udemy – practice test MLA-C01",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext07",
@@ -1089,7 +1395,13 @@
       "ground-truth"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext08",
@@ -1110,7 +1422,13 @@
       "security"
     ],
     "source": "Adattata da Whizlabs (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext09",
@@ -1131,7 +1449,13 @@
       "disparate-impact"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext10",
@@ -1152,7 +1476,13 @@
       "s3"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext11",
@@ -1173,7 +1503,13 @@
       "security-groups"
     ],
     "source": "Adattata da Udemy – practice test MLA-C01",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext12",
@@ -1194,7 +1530,13 @@
       "scheduler"
     ],
     "source": "Adattata da Whizlabs (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext13",
@@ -1215,7 +1557,13 @@
       "dppl"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext14",
@@ -1236,7 +1584,13 @@
       "alarms"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext15",
@@ -1257,7 +1611,13 @@
       "key-policy"
     ],
     "source": "Adattata da Udemy – practice test MLA-C01",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext16",
@@ -1278,7 +1638,13 @@
       "s3"
     ],
     "source": "Adattata da Whizlabs (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext17",
@@ -1299,7 +1665,13 @@
       "canary"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext18",
@@ -1320,7 +1692,13 @@
       "cloudwatch"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext19",
@@ -1341,7 +1719,13 @@
       "rollback"
     ],
     "source": "Adattata da Udemy – practice test MLA-C01",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext20",
@@ -1362,7 +1746,13 @@
       "audit"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext21",
@@ -1383,7 +1773,13 @@
       "baseline"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext22",
@@ -1404,7 +1800,13 @@
       "conditions"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext23",
@@ -1425,7 +1827,13 @@
       "pipelines"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext24",
@@ -1446,7 +1854,13 @@
       "alias"
     ],
     "source": "Adattata da TutorialsDojo (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   },
   {
     "id": "ch5-ext25",
@@ -1467,6 +1881,12 @@
       "retraining"
     ],
     "source": "Adattata da ExamTopics (MLA-C01)",
-    "origin": "esterna"
+    "origin": "esterna",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ]
   }
 ]

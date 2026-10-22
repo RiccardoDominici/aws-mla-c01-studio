@@ -18,6 +18,12 @@
       "sagemaker",
       "xgboost",
       "algorithm-choice"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -39,6 +45,12 @@
       "sagemaker",
       "linear-learner",
       "algorithm-choice"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -60,6 +72,12 @@
       "sagemaker",
       "deepar",
       "forecasting"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -81,6 +99,12 @@
       "sagemaker",
       "blazingtext",
       "nlp"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -102,6 +126,12 @@
       "sagemaker",
       "k-means",
       "clustering"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -123,6 +153,12 @@
       "sagemaker",
       "factorization-machines",
       "recommendation"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -144,6 +180,12 @@
       "sagemaker",
       "object-detection",
       "vision"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -165,6 +207,12 @@
       "sagemaker",
       "semantic-segmentation",
       "vision"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -186,6 +234,12 @@
       "sagemaker",
       "jumpstart",
       "foundation-models"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -207,6 +261,12 @@
       "sagemaker",
       "autopilot",
       "automl"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -228,6 +288,12 @@
       "sagemaker",
       "training-jobs",
       "managed-training"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -249,6 +315,12 @@
       "sagemaker",
       "hyperparameter-tuning",
       "amt"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -270,6 +342,12 @@
       "metrics",
       "precision",
       "classification"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -291,6 +369,12 @@
       "metrics",
       "recall",
       "classification"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -312,6 +396,12 @@
       "overfitting",
       "regularization",
       "generalization"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -333,6 +423,12 @@
       "sagemaker",
       "spot-training",
       "cost-optimization"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -354,6 +450,12 @@
       "sagemaker",
       "distributed-training",
       "data-parallel"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -375,6 +477,12 @@
       "sagemaker",
       "experiments",
       "tracking"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -396,6 +504,12 @@
       "sagemaker",
       "debugger",
       "training"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -417,6 +531,12 @@
       "sagemaker",
       "profiler",
       "performance"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -438,6 +558,12 @@
       "metrics",
       "f1",
       "imbalanced-data"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -459,6 +585,12 @@
       "metrics",
       "rmse",
       "regression"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -480,6 +612,12 @@
       "metrics",
       "auc-roc",
       "classification"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -501,6 +639,12 @@
       "cross-validation",
       "evaluation",
       "generalization"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -522,6 +666,12 @@
       "early-stopping",
       "overfitting",
       "training"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -543,6 +693,12 @@
       "metrics",
       "log-loss",
       "calibration"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -564,6 +720,12 @@
       "underfitting",
       "bias-variance",
       "model-capacity"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -585,6 +747,12 @@
       "sagemaker",
       "autopilot",
       "automl"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -606,6 +774,12 @@
       "sagemaker",
       "hyperparameter-tuning",
       "bayesian"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -627,6 +801,12 @@
       "regularization",
       "overfitting",
       "dropout"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -648,6 +828,12 @@
       "metrics",
       "mae",
       "regression"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -669,6 +855,12 @@
       "sagemaker",
       "jumpstart",
       "solutions"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -690,6 +882,12 @@
       "cross-validation",
       "stratified",
       "imbalanced-data"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -711,6 +909,12 @@
       "sagemaker",
       "hyperparameter-tuning",
       "validation"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -732,6 +936,12 @@
       "sagemaker",
       "xgboost",
       "tabular"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -753,6 +963,12 @@
       "sagemaker",
       "spot-training",
       "checkpointing"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -774,6 +990,12 @@
       "sagemaker",
       "distributed-training",
       "model-parallel"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -795,6 +1017,12 @@
       "sagemaker",
       "jumpstart",
       "fine-tuning"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -816,6 +1044,12 @@
       "sagemaker",
       "deepar",
       "cold-start"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -837,6 +1071,12 @@
       "sagemaker",
       "autopilot",
       "governance"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -858,6 +1098,12 @@
       "cross-validation",
       "time-series",
       "leakage"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -879,6 +1125,12 @@
       "sagemaker",
       "hyperparameter-tuning",
       "optimization"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -900,6 +1152,12 @@
       "sagemaker",
       "profiler",
       "data-pipeline"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -921,6 +1179,12 @@
       "metrics",
       "threshold-tuning",
       "f1"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -942,6 +1206,12 @@
       "sagemaker",
       "k-means",
       "elbow-method"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -964,6 +1234,12 @@
       "xgboost",
       "hyperparameter-tuning",
       "auc"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -986,6 +1262,12 @@
       "hyperparameter-tuning",
       "custom-container",
       "metrics"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1008,6 +1290,12 @@
       "hyperparameter-tuning",
       "hyperband",
       "cost-optimization"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1029,6 +1317,12 @@
       "sagemaker",
       "hyperparameter-tuning",
       "warm-start"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1051,6 +1345,12 @@
       "lightgbm",
       "tabular",
       "algorithm-choice"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1072,6 +1372,12 @@
       "sagemaker",
       "random-cut-forest",
       "anomaly-detection"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1094,6 +1400,12 @@
       "lda",
       "topic-modeling",
       "nlp"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1116,6 +1428,12 @@
       "image-classification",
       "vision",
       "algorithm-choice"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1138,6 +1456,12 @@
       "object2vec",
       "embeddings",
       "recommendation"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1160,6 +1484,12 @@
       "k-means",
       "hyperparameter-tuning",
       "metrics"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1182,6 +1512,12 @@
       "linear-learner",
       "sparse-data",
       "algorithm-choice"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1205,6 +1541,12 @@
       "chronos",
       "forecasting",
       "cold-start"
+    ],
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1227,6 +1569,12 @@
       "training-jobs",
       "pipe-mode",
       "data-pipeline"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1248,6 +1596,12 @@
       "sagemaker",
       "spot-training",
       "checkpointing"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1270,6 +1624,12 @@
       "debugger",
       "training",
       "gradients"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1292,6 +1652,12 @@
       "hyperparameter-tuning",
       "autopilot",
       "automl"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1313,6 +1679,12 @@
       "metrics",
       "r-squared",
       "regression"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1335,6 +1707,12 @@
       "mape",
       "rmse",
       "regression"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1357,6 +1735,12 @@
       "pr-auc",
       "imbalanced-data",
       "classification"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1378,6 +1762,12 @@
       "underfitting",
       "bias-variance",
       "learning-curves"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1400,6 +1790,12 @@
       "regularization",
       "overfitting",
       "hyperparameter-tuning"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1422,6 +1818,12 @@
       "early-stopping",
       "hyperparameter-tuning",
       "validation"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1444,6 +1846,12 @@
       "leakage",
       "preprocessing",
       "evaluation"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1466,6 +1874,12 @@
       "nested-cv",
       "hyperparameter-tuning",
       "evaluation"
+    ],
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01",
+      "C02"
     ]
   },
   {
@@ -1488,6 +1902,12 @@
       "hyperparameter-tuning",
       "bayesian",
       "parallelism"
+    ],
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
     ]
   }
 ]

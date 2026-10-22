@@ -10,6 +10,10 @@ indicata da `answer`, la chiave e' probabilmente sbagliata. E' il difetto piu'
 grave possibile in un banco domande — chi studia memorizza la risposta errata —
 ed e' invisibile ai controlli strutturali di check_questions.py.
 
+Per le risposte multiple (answer come array) il confronto e' tra il gruppo delle
+corrette e il gruppo delle sbagliate: segnala se un'opzione sbagliata somiglia alla
+spiegazione piu' di almeno una corretta.
+
 Lo script SEGNALA, non corregge: ogni segnalazione va letta a mano, perche'
 produce anche falsi positivi (una spiegazione che cita il distrattore per
 spiegare perche' e' sbagliato somiglia a quel distrattore).
@@ -46,11 +50,32 @@ def coverage(explain, option):
     return len(te & to) / len(to)
 
 
+def is_multi(q):
+    """Vero se la domanda e' a risposta multipla (answer e' un array)."""
+    return isinstance(q['answer'], list)
+
+
 def scan(path):
-    """Segnala le domande sospette di un file. Ritorna la lista di segnalazioni."""
+    """Segnala le domande sospette di un file. Ritorna la lista di segnalazioni.
+
+    Ogni segnalazione e' (margine, domanda, indice_sospetto, punteggi). Per la
+    scelta singola il sospetto e' l'opzione sbagliata piu' simile alla spiegazione.
+    Per la multipla il sospetto e' l'opzione sbagliata piu' simile, e il margine
+    e' rispetto alla corretta meno simile: se un'errata supera la corretta piu'
+    debole di MARGIN, va letta.
+    """
     flagged = []
     for q in json.load(open(path, encoding='utf-8')):
         scores = [coverage(q['explain'], o) for o in q['options']]
+        if is_multi(q):
+            correct = set(q['answer'])
+            wrong = [i for i in range(len(scores)) if i not in correct]
+            best = max(wrong, key=lambda i: scores[i])
+            weakest_right = min(scores[i] for i in correct)
+            margin = scores[best] - weakest_right
+            if margin >= MARGIN:
+                flagged.append((margin, q, best, scores))
+            continue
         best = max(range(len(scores)), key=lambda i: scores[i])
         if best != q['answer'] and scores[best] - scores[q['answer']] >= MARGIN:
             flagged.append((scores[best] - scores[q['answer']], q, best, scores))
@@ -74,11 +99,12 @@ def main():
     print(f"domande analizzate : {total}")
     print(f"da rileggere a mano: {len(all_flagged)}\n")
     for margin, q, best, scores in all_flagged:
+        correct = set(q['answer']) if is_multi(q) else {q['answer']}
         print('=' * 74)
         print(f"{q['id']}   margine {margin:.2f}   answer={q['answer']}   sospetta={best}")
         print('Q :', q['q'][:110])
         for i, opt in enumerate(q['options']):
-            mark = '>>' if i == q['answer'] else ('??' if i == best else '  ')
+            mark = '>>' if i in correct else ('??' if i == best else '  ')
             print(f"  {mark} [{scores[i]:.2f}] {opt[:92]}")
         print('EXP:', q['explain'][:170])
     if all_flagged:
