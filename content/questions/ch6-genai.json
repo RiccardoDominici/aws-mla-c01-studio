@@ -1154,7 +1154,7 @@
       "Wait two years for history to accumulate before forecasting new items",
       "Group new products with related series and add metadata for cold start"
     ],
-    "q": "Forecast must predict demand for brand-new products with almost no sales history. Which cold-start strategy is sound?",
+    "q": "SageMaker Canvas must predict demand for brand-new products with almost no sales history. Which cold-start strategy is sound?",
     "source": "AI-generated for MLA-C01 Studio",
     "tags": [
       "forecast",

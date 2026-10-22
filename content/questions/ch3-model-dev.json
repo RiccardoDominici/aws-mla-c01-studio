@@ -1218,7 +1218,7 @@
     "answer": 0,
     "chapter": "ch3-model-dev",
     "difficulty": "facile",
-    "explain": "AUC measures ranking quality across thresholds and stays informative under class imbalance, so maximizing validation:auc guides tuning toward models that separate rare fraud from legitimate cases. Error rate and RMSE hide ranking behavior, and training metrics reward memorization.",
+    "explain": "AUC measures ranking quality across thresholds, so maximizing validation:auc is the best of these four options: it ranks positives above negatives without a fixed cutoff. Under strong class imbalance ROC AUC can look optimistic, so also check PR-AUC and F1 before deciding. Error rate and RMSE hide ranking behavior, and training metrics reward memorization.",
     "id": "ch3-ext01",
     "options": [
       "Maximize validation:auc, which ranks positives above negatives without a fixed cutoff",
