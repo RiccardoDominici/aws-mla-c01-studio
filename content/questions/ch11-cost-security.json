@@ -147,10 +147,10 @@
     "chapter": "ch11-cost-security",
     "q": "A company runs training jobs for three teams. Tags were applied last week, but monthly cost reports in Cost Explorer do not show them. What should the ML engineer check first?",
     "options": [
-      "Whether the training instance type supports network isolation for the job containers",
+      "Whether the instance type supports network isolation",
       "Whether the tag key has been activated as a cost allocation tag in the Billing console",
-      "Whether the S3 bucket where the training data is stored has versioning enabled for objects",
-      "Whether the endpoint has provisioned concurrency configured for its serverless variant"
+      "Whether the S3 bucket has versioning enabled",
+      "Whether the endpoint has provisioned concurrency"
     ],
     "answer": 1,
     "explain": "A user-defined cost allocation tag appears in cost reports only after it is activated in Billing. The other options concern security, storage, or Lambda features that do not affect cost reporting.",
@@ -583,7 +583,7 @@
       "C family, compute optimized for CPU-bound work",
       "R family, memory optimized for large in-memory data sets",
       "M family, general purpose with balanced resources",
-      "G family, accelerated for graphics and floating-point work"
+      "G family, accelerated for graphics work"
     ],
     "answer": 1,
     "explain": "The R family is memory optimized, C is compute optimized, M is general purpose, and G is accelerated for graphics and floating-point work.",
@@ -975,10 +975,10 @@
     "chapter": "ch11-cost-security",
     "q": "A team wants a managed service that uses machine learning to find operational anomalies in application metrics and events and then recommends fixes. Which service fits?",
     "options": [
-      "AWS Trusted Advisor",
+      "Trusted Advisor",
       "Amazon DevOps Guru",
       "AWS Budgets",
-      "AWS Compute Optimizer"
+      "Compute Optimizer"
     ],
     "answer": 1,
     "explain": "DevOps Guru applies machine learning to operational data, detects deviations, and produces insights with recommendations. The other services do not detect operational anomalies.",
@@ -1006,7 +1006,7 @@
       "Reactive insights",
       "Budget alerts",
       "Proactive insights",
-      "Trusted Advisor checks"
+      "Trusted Advisor"
     ],
     "answer": 2,
     "explain": "DevOps Guru creates reactive insights for current issues and proactive insights for likely future issues. Budget alerts and Trusted Advisor checks are different services.",
@@ -1205,10 +1205,10 @@
     "chapter": "ch11-cost-security",
     "q": "A monitoring job reports a constraint violation on a production endpoint. Which action gives the fastest notification to the team?",
     "options": [
-      "Deleting the monitoring schedule and recreating it from the notebook",
+      "Deleting the monitoring schedule",
       "A CloudWatch alarm on the violation metric that notifies an SNS topic",
-      "Increasing the endpoint instance count to absorb more inference traffic",
-      "Disabling Data Capture on the endpoint so that no more data is recorded"
+      "Increasing the endpoint instance count",
+      "Disabling Data Capture on the endpoint"
     ],
     "answer": 1,
     "explain": "A CloudWatch alarm on the violation metric sends a notification when the violation appears. The other options do not notify anyone and some remove the monitoring signal.",
@@ -1989,8 +1989,8 @@
     "options": [
       "AWS Config",
       "Amazon Inspector",
-      "AWS Secrets Manager",
-      "Amazon Quick Sight"
+      "Secrets Manager",
+      "Quick Sight"
     ],
     "answer": 1,
     "explain": "Amazon Inspector scans ECR images for software vulnerabilities, on push or continuously with enhanced scanning. The other services do not scan images for vulnerabilities.",
@@ -2199,7 +2199,7 @@
     "q": "A stakeholder asks how the QuickSight name relates to the current AWS console naming. How is Amazon QuickSight related to Amazon Quick?",
     "options": [
       "QuickSight replaced Amazon Quick and is now a standalone chatbot service for chat channels",
-      "Amazon Quick is the new name of the data pipeline service that moves data between AWS services",
+      "Amazon Quick is the new name of the data pipeline service",
       "QuickSight is now Amazon Quick Sight, a feature within Amazon Quick, and its APIs keep working",
       "QuickSight and Amazon Quick are unrelated services that were launched in different AWS Regions"
     ],
@@ -2227,8 +2227,8 @@
     "chapter": "ch11-cost-security",
     "q": "A company wants monthly cost reports per project for all training jobs and endpoints. Which tagging approach best supports this?",
     "options": [
-      "One catch-all tag named misc applied to every resource in the account for reporting purposes",
-      "Tags applied only to S3 buckets, while training jobs and endpoints are left without any tags",
+      "One catch-all tag named misc applied to every resource",
+      "Tags applied only to S3 buckets, not to training jobs or endpoints",
       "Tag values changed at random every week so that each report shows a different breakdown",
       "Project and CostCenter tags applied consistently to training jobs and endpoints at creation"
     ],
