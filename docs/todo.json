@@ -1,0 +1,4452 @@
+{
+ "chapters": {
+  "ch8-data-advanced": "Dati in profondità: storage, qualità, etichette e bias",
+  "ch9-training-advanced": "Training avanzato, algoritmi built-in e spiegabilità",
+  "ch10-infra-cicd": "Infrastruttura come codice, container e CI/CD",
+  "ch11-cost-security": "Costi, osservabilità e sicurezza avanzata",
+  "ch12-genai-rag": "GenAI: modelli di fondazione, embedding e RAG avanzato",
+  "ch13-genai-agents": "GenAI in produzione: valutazione, agenti e costi",
+  "ch14-ai-services": "Servizi AI pronti e catalogo dei servizi d'esame"
+ },
+ "workstreams": {
+  "fix": "Correzioni ai capitoli 1-7, scheda rapida e banco esistente",
+  "engine": "Motore banco domande e simulazione (qbank.js, qbank-ui.js, tools)",
+  "site": "Struttura del sito (registro capitoli, mappa, home, README, player)",
+  "audio": "Sintesi vocale e timing",
+  "banco": "Domande nuove e riequilibrio del banco"
+ },
+ "items": [
+  {
+   "id": "E01",
+   "group": "Errori del report",
+   "title": "Durata d'esame: 65 domande in 170 minuti",
+   "detail": "ch1 (slide 1, riassunto, copione), ch7 (slide 1), home, domande.html, timer qbank-ui.js; domande ch1-q02, ch1-q13, ch1-ext15, ch7-q01, ch7-ext01. Corretto: MLA-C01 65 domande in 130 minuti; MLA-C02 beta 85 domande in 170 minuti; in entrambi 2,0 minuti a domanda.",
+   "targets": [
+    "fix",
+    "engine"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E02",
+   "group": "Errori del report",
+   "title": "Nessun cenno all'MLA-C02",
+   "detail": "ch1, ch7, home. L'MLA-C01 in inglese è finito il 28/09/2026; dal 29/09/2026 si sostiene la beta MLA-C02 (85 domande, 170 minuti, 75 USD), GA a inizio 2027; MLA-C01 resta in giapponese, coreano, cinese semplificato fino alla GA.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E03",
+   "group": "Errori del report",
+   "title": "Serverless con payload 6 MB",
+   "detail": "ch4 (slide 1), ch7 (slide 4, copione), scheda rapida. Corretto: serverless 4 MB e 60 s; real-time 25 MB oggi (6 MB al lancio dell'esame), 60 s; async 1 GB e 1 ora.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E04",
+   "group": "Errori del report",
+   "title": "Cosa il serverless non supporta",
+   "detail": "ch4: niente GPU, configurazione VPC, network isolation, data capture, Model Monitor, varianti multiple, multi-model endpoint, inference pipeline.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E05",
+   "group": "Errori del report",
+   "title": "Chiave sbagliata ch1-q39",
+   "detail": "Il difetto indicato è studiare prima i domini 1 e 2; la spiegazione descrive l'opzione 0 (trascurare la preparazione dei dati).",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E06",
+   "group": "Errori del report",
+   "title": "Chiave sbagliata ch3-ext04",
+   "detail": "Warm start su dati nuovi: serve TRANSFER_LEARNING, non IDENTICAL_DATA_AND_ALGORITHM.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E07",
+   "group": "Errori del report",
+   "title": "Chiave sbagliata ch4-q40",
+   "detail": "La LambdaStep non può attendere una decisione umana: serve CallbackStep, oppure approvazione nel Model Registry con EventBridge.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E08",
+   "group": "Errori del report",
+   "title": "Lingue d'esame ch1-ext01",
+   "detail": "MLA-C01: inglese (fino al 28/09/2026), giapponese, coreano, cinese semplificato. Francese e spagnolo non esistono.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E09",
+   "group": "Errori del report",
+   "title": "Dominio 4 con la GenAI (ch1-q10, ch1-q25)",
+   "detail": "Nell'MLA-C01 il dominio 4 è ML Solution Monitoring, Maintenance, and Security; Bedrock sta nel 2.1. Nell'MLA-C02 la GenAI è distribuita in tutti i domini.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E10",
+   "group": "Errori del report",
+   "title": "Campionamento data capture 10-100%",
+   "detail": "ch5 (slide 1), ch7 (slide 4), scheda rapida: InitialSamplingPercentage va da 0 a 100.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E11",
+   "group": "Errori del report",
+   "title": "Amazon Forecast come risposta corretta",
+   "detail": "ch6-q07, ch6-q28, ch7-q32, ch7-ext10: Forecast è chiuso ai nuovi clienti dal 29/07/2024 e non è in-scope; usare SageMaker Canvas (o DeepAR, Chronos).",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E12",
+   "group": "Errori del report",
+   "title": "Aritmetica ch7-ext01",
+   "detail": "65 × 2,5 = 162,5 minuti; e il ritmo reale è 2,0 minuti a domanda.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E13",
+   "group": "Errori del report",
+   "title": "Spot fino al 70% (ch3-q16)",
+   "detail": "Managed Spot Training: fino al 90% rispetto all'on-demand.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E14",
+   "group": "Errori del report",
+   "title": "Async 6 MB (ch4-q17, spiegazione)",
+   "detail": "Async fino a 1 GB e 1 ora.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E15",
+   "group": "Errori del report",
+   "title": "EMRFS consistent view (ch2-ext16)",
+   "detail": "Superato: S3 ha consistenza forte da dicembre 2020.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E16",
+   "group": "Errori del report",
+   "title": "Step di Pipelines 'Evaluation'",
+   "detail": "ch4 (slide 5), scheda rapida: Evaluation non è un tipo di step (è una ProcessingStep); aggiungere Callback, Lambda, Tuning, ClarifyCheck, QualityCheck.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E17",
+   "group": "Errori del report",
+   "title": "Stati del Model Registry",
+   "detail": "ch4 (slide 6), ch7, scheda rapida: il valore API è PendingManualApproval (oltre ad Approved, Rejected).",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E18",
+   "group": "Errori del report",
+   "title": "F1 e AUC ideali su dati sbilanciati",
+   "detail": "ch3 (parole chiave, copione): con sbilanciamento forte la ROC-AUC è ottimista; meglio PR-AUC e F1.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E19",
+   "group": "Errori del report",
+   "title": "Range XGBoost presentati come limiti",
+   "detail": "ch3 (slide 2): eta 0,05-0,3 e max_depth 3-10 sono range tipici di tuning; default eta 0,3, max_depth 6.",
+   "targets": [
+    "fix"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "E20",
+   "group": "Errori del report",
+   "title": "Quiz in inglese e scheda rapida nei JSON",
+   "detail": "content/chapters-*.json: il contratto chiede quiz di fine capitolo in italiano; la scheda rapida sta in chapters-2.json mentre il README dice il contrario.",
+   "targets": [
+    "fix",
+    "site"
+   ],
+   "needs": [
+    "fix"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "S01",
+   "group": "Banco domande e simulazione",
+   "title": "Timer a 2,0 minuti a domanda",
+   "detail": "Oggi 2,6 (170/65). MLA-C01 65/130 e MLA-C02 85/170 danno entrambi 2,0.",
+   "targets": [
+    "engine"
+   ],
+   "needs": [
+    "engine"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "S02",
+   "group": "Banco domande e simulazione",
+   "title": "Preset d'esame da 65 e 85 domande",
+   "detail": "Simulazione 'MLA-C01' (65 domande, 130 minuti, pesi 28/26/22/24) e 'MLA-C02' (85 domande, 170 minuti, pesi 28/24/24/24), oltre a 10/25/50.",
+   "targets": [
+    "engine"
+   ],
+   "needs": [
+    "engine"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "S03",
+   "group": "Banco domande e simulazione",
+   "title": "Escludere le domande META dalla simulazione",
+   "detail": "Le 82 domande su formato, punteggio e tattiche non allenano competenze tecniche.",
+   "targets": [
+    "engine"
+   ],
+   "needs": [
+    "engine"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "S04",
+   "group": "Banco domande e simulazione",
+   "title": "Pesca per peso dei domini",
+   "detail": "La simulazione pesca rispettando i pesi del dominio dell'esame scelto.",
+   "targets": [
+    "engine"
+   ],
+   "needs": [
+    "engine"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "S05",
+   "group": "Banco domande e simulazione",
+   "title": "Domande a risposta multipla",
+   "detail": "Schema (answer come array, 5-6 opzioni, 'Select TWO/THREE'), UI con checkbox, punteggio tutto-o-niente, controlli aggiornati; domande multiple in tutti i domini.",
+   "targets": [
+    "engine",
+    "banco"
+   ],
+   "needs": [
+    "engine"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "S06",
+   "group": "Banco domande e simulazione",
+   "title": "Soglia di superamento al 75%",
+   "detail": "Il 720/1000 scalato non equivale al 72% di risposte giuste: margine prudente.",
+   "targets": [
+    "engine"
+   ],
+   "needs": [
+    "engine"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "S07",
+   "group": "Banco domande e simulazione",
+   "title": "Metadati dominio/task/esame su ogni domanda",
+   "detail": "Campi domain, task, exam per tutte le domande (le 490 esistenti dalla classificazione del report), necessari alla pesca per dominio e ai preset.",
+   "targets": [
+    "engine"
+   ],
+   "needs": [
+    "engine"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "S08",
+   "group": "Banco domande e simulazione",
+   "title": "Bilanciamento del banco per dominio e task",
+   "detail": "Dopo l'integrazione la quota per dominio deve avvicinarsi ai pesi (D1 28%) e i task 3.2 e 4.2 non devono più essere i meno allenati.",
+   "targets": [
+    "banco"
+   ],
+   "needs": [
+    "banco"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "S09",
+   "group": "Banco domande e simulazione",
+   "title": "Allenare ECS, EKS e Secrets Manager",
+   "detail": "Spiegati nella teoria ma con 0, 0 e 1 domanda.",
+   "targets": [
+    "banco"
+   ],
+   "needs": [
+    "banco"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.1K1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.1K1 Formati (Parquet, JSON, CSV, ORC, Avro, RecordIO)",
+   "detail": "Parquet, ORC, CSV, JSON spiegati (ch2); Avro e RecordIO-protobuf (formato dei built-in) mai citati",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "parquet",
+    "\\borc\\b",
+    "avro",
+    "recordio",
+    "jsonl"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.1K2",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.1K2 Sorgenti core (S3, EFS, FSx for NetApp ONTAP)",
+   "detail": "S3 spiegato bene; EFS e FSx (Lustre, NetApp ONTAP) assenti da teoria e banco",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\befs\\b",
+    "fsx",
+    "ontap"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.1K4",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.1K4 Opzioni di storage e tradeoff",
+   "detail": "Solo S3 e partizionamento; classi di storage, EBS, EFS, FSx e relativi tradeoff non trattati",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "storage class",
+    "glacier",
+    "\\bebs\\b",
+    "\\befs\\b",
+    "fsx",
+    "lifecycle"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.1S1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.1S1 Estrazione (S3 Transfer Acceleration, EBS Provisioned IOPS, RDS, DynamoDB)",
+   "detail": "DynamoDB e RDS citati come sorgenti; S3 Transfer Acceleration solo in 3 domande; EBS Provisioned IOPS assente",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "transfer acceleration",
+    "provisioned iops",
+    "dynamodb",
+    "\\brds\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.1S5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.1S5 Troubleshooting capacità e scalabilità",
+   "detail": "Shard Kinesis citati; troubleshooting di throughput, throttling e modalità on-demand non spiegati",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "shard",
+    "provisionedthroughput",
+    "throttl",
+    "capacit"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.1S6",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.1S6 Storage per costo, performance, struttura",
+   "detail": "Costo per formato e partizioni sì; scelta tra S3, Redshift, DynamoDB, EFS, FSx no",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "storage class",
+    "glacier",
+    "intelligent-tiering",
+    "redshift",
+    "dynamodb"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.2K2",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.2K2 Feature eng. (scaling, binning, log, splitting)",
+   "detail": "Standardizzazione e min-max sì; binning, log transform e feature splitting assenti dalla teoria",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "standardiz",
+    "normaliz",
+    "binning",
+    "log transform",
+    "logaritm",
+    "feature split",
+    "min-max"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.2K3",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.2K3 Encoding (one-hot, binary, label, tokenizzazione)",
+   "detail": "One-hot e ordinal sì; label encoding, binary encoding e tokenizzazione non spiegati",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "one-hot",
+    "label encoding",
+    "binary encoding",
+    "tokeniz",
+    "ordinal"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.2K5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.2K5 Trasformazione streaming (Lambda, Spark)",
+   "detail": "Trasformazione di stream con Lambda, Spark Streaming o Flink: 0 in teoria, 4 domande",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "stream.{0,80}(lambda|spark|flink)",
+    "(lambda|spark|flink).{0,80}stream"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.2K6",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "1.2K6 Servizi di annotazione e labeling",
+   "detail": "SageMaker Ground Truth, Mechanical Turk, A2I: 0 in teoria, 3 domande in tutto",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "ground truth",
+    "labeling",
+    "etichett",
+    "mechanical turk",
+    "\\ba2i\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.2S3",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "1.2S3 Ground Truth, Mechanical Turk",
+   "detail": "Ground Truth e Mechanical Turk: 2 domande, nessuna spiegazione",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "ground truth",
+    "mechanical turk"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.3K1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.3K1 Metriche bias pre-training (CI, DPL)",
+   "detail": "Clarify citato ma metriche CI e DPL mai nominate nella teoria; 3 domande",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "class imbalance",
+    "\\bdpl\\b",
+    "difference in proportions"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.3K4",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "1.3K4 Classificazione, anonimizzazione, masking",
+   "detail": "Anonimizzazione, masking e classificazione dei dataset non trattati; Macie in 1 domanda",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "anonimiz",
+    "anonymiz",
+    "mask",
+    "mascher",
+    "pseudonym",
+    "macie"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.3K5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.3K5 Compliance (PII, PHI, residency)",
+   "detail": "PII citata (soprattutto Guardrails); PHI, HIPAA e data residency non spiegati",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bpii\\b",
+    "\\bphi\\b",
+    "residency",
+    "hipaa",
+    "gdpr"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.3S1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.3S1 Qualità dati (DataBrew, Glue Data Quality)",
+   "detail": "Profilazione DataBrew e report di Data Wrangler sì; AWS Glue Data Quality (DQDL) solo in 2 domande",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "data quality",
+    "dqdl",
+    "profil"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.3S2",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.3S2 Bias nei dati con Clarify",
+   "detail": "Clarify pre-training in una riga; selection bias e measurement bias non spiegati",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "clarify",
+    "selection bias",
+    "measurement bias"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.3S3",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.3S3 Split, shuffling, augmentation",
+   "detail": "Split train/validation/test sì; shuffling solo nel banco; augmentation appena accennata",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "shuffl",
+    "augment",
+    "stratif",
+    "train.{0,20}test"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-1.3S4",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "1.3S4 Caricamento dati nel training (EFS, FSx)",
+   "detail": "Solo \"modalità Pipe\" per XGBoost; File, FastFile, EFS e FSx for Lustre come input del training assenti",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "fsx",
+    "\\befs\\b",
+    "pipe mode",
+    "fast ?file",
+    "file mode",
+    "modalit. pipe"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.1K2",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.1K2 AI services (Translate, Transcribe, Rekognition, Bedrock)",
+   "detail": "Comprehend, Rekognition, Textract, Bedrock nella teoria; Translate, Transcribe, Polly, Lex, Personalize solo nel banco",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "translate",
+    "transcribe",
+    "rekognition",
+    "bedrock",
+    "comprehend",
+    "textract"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.1K3",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.1K3 Interpretabilità nella scelta",
+   "detail": "Interpretabilità solo come monitor di explainability e Model Cards, non come criterio di scelta del modello",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "interpretab",
+    "explainab",
+    "spiegabil",
+    "\\bshap"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.1K4",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.1K4 Algoritmi built-in",
+   "detail": "5 built-in su circa 17 (XGBoost, Linear Learner, DeepAR, BlazingText, K-Means); RCF, k-NN, FM, IP Insights, Object2Vec, Seq2Seq, algoritmi di visione quasi assenti",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "xgboost",
+    "linear learner",
+    "k-means",
+    "deepar",
+    "blazingtext",
+    "random cut forest",
+    "factorization",
+    "k-nn",
+    "object2vec",
+    "seq2seq",
+    "ip insights"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.1S1",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "2.1S1 Fattibilità di una soluzione ML",
+   "detail": "Valutare la fattibilità di una soluzione ML (dati disponibili, complessità): 0 in teoria, 2 domande",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "feasib",
+    "fattibil"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.1S4",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.1S4 Scelta in base ai costi",
+   "detail": "Costo citato come vincolo generico, senza confronti di costo tra modelli",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "cheapest",
+    "cost-effective",
+    "economic",
+    "costo"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.2K1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.2K1 Elementi del training (epoch, step, batch)",
+   "detail": "Epoch, step, batch size: 0 in teoria, presenti in alcune domande",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "epoch",
+    "batch size",
+    "mini-batch"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.2K2",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.2K2 Ridurre tempo (early stopping, distribuito)",
+   "detail": "Early stopping sì; training distribuito (data/model parallel, librerie SageMaker) assente dalla teoria, 5 domande",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "early stopping",
+    "distribut"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.2K3",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "2.2K3 Fattori della dimensione del modello",
+   "detail": "Fattori che determinano la dimensione del modello: nessuna trattazione",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "model size",
+    "dimensione del modello"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.2K4",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.2K4 Migliorare la performance",
+   "detail": "Tuning e feature engineering sì; strategie generali di miglioramento non sistematizzate",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "feature selection",
+    "ensembl",
+    "more data"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.2K5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.2K5 Regolarizzazione (dropout, weight decay, L1/L2)",
+   "detail": "\"Regolarizzazione\" e lambda/alpha di XGBoost; dropout, weight decay, L1/L2 assenti dalla teoria",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "dropout",
+    "weight decay",
+    "\\bl1\\b",
+    "\\bl2\\b",
+    "regolarizz",
+    "regulariz"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.2K7",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.2K7 Iperparametri ed effetti",
+   "detail": "eta, max_depth, subsample di XGBoost; effetti di n. alberi e n. layer non generalizzati",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "num_round",
+    "max_depth",
+    "n_estimators",
+    "number of trees",
+    "layers",
+    "\\beta\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.2K8",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.2K8 Modelli addestrati fuori SageMaker",
+   "detail": "BYOC via ECR sì; packaging model.tar.gz e import di modelli addestrati altrove no",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "bring your own",
+    "byoc",
+    "model\\.tar\\.gz",
+    "outside sagemaker",
+    "fuori sagemaker"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.2S2",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "2.2S2 Script mode (TensorFlow, PyTorch)",
+   "detail": "Script mode con TensorFlow/PyTorch: 0 teoria, 0 domande",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "script mode",
+    "pytorch",
+    "tensorflow",
+    "entry_point"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.2S7",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "2.2S7 Ensembling, stacking, boosting",
+   "detail": "Ensembling, stacking, bagging: solo \"gradient boosting\" come descrizione di XGBoost",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "ensembl",
+    "stacking",
+    "bagging",
+    "boosting"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.2S8",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.2S8 Ridurre dimensione (data type, pruning, compressione)",
+   "detail": "Distillazione citata per Bedrock; pruning, compressione e cambio di data type non trattati",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "prun",
+    "quantiz",
+    "compress",
+    "distill",
+    "fp16",
+    "int8"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.3K4",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.3K4 Metriche di Clarify",
+   "detail": "Metriche Clarify non elencate (CI, DPL, DPPL, DI, SHAP); qualche domanda nel banco",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "clarify"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.3K5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.3K5 Problemi di convergenza",
+   "detail": "Debugger \"contro gradienti anomali e stalli\" in una riga; vanishing/exploding solo nel banco",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "converg",
+    "vanishing",
+    "exploding"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.3S1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.3S1 Interpretare metriche e bias del modello",
+   "detail": "Bias post-training (DPPL, Disparate Impact) solo in 5 domande",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "post-training",
+    "\\bdppl\\b",
+    "disparate"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.3S2",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.3S2 Tradeoff performance, tempo, costo",
+   "detail": "Tradeoff performance, tempo e costo accennati, mai esercitati come tema",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "tradeoff",
+    "trade-off",
+    "compromesso"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-2.3S5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "2.3S5 Interpretare output con Clarify",
+   "detail": "SHAP e feature attribution solo nel banco (11 domande); la teoria parla solo di drift di explainability",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bshap",
+    "explainab",
+    "feature attribution",
+    "partial dependence"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.1K4",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.1K4 Compute in prod e test (CPU, GPU)",
+   "detail": "CPU/GPU citati per i Training Job; nessuna guida per prod vs test",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bgpu\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.1K7",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "3.1K7 Edge (Neo)",
+   "detail": "SageMaker Neo e deploy su edge: 0 teoria, 0 domande",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bneo\\b",
+    "\\bedge\\b",
+    "greengrass"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.1S2",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "3.1S2 Compute per training e inferenza",
+   "detail": "Famiglie di istanze (Inferentia, Trainium, Graviton, GPU per training), banda di rete: 0 teoria, 3 domande",
+   "targets": [
+    "ch10-infra-cicd",
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "inferentia",
+    "trainium",
+    "graviton",
+    "\\bp3\\b",
+    "\\bg5\\b",
+    "\\bg4dn",
+    "processor"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.1S5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.1S5 Target (endpoint, K8s, ECS, EKS, Lambda)",
+   "detail": "ECS/EKS in una riga (\"controllo totale\"), 0 domande; Lambda come target non discusso",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\becs\\b",
+    "\\beks\\b",
+    "kubernetes"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.2K1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.2K1 On-demand vs provisioned",
+   "detail": "On-demand vs provisioned: 0 in teoria; provisioned concurrency e provisioned throughput solo nel banco",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "on-demand",
+    "provisioned"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.2K2",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "3.2K2 Confronto scaling policy",
+   "detail": "Target tracking, step e scheduled scaling: 0 teoria, 2 domande",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "target tracking",
+    "step scaling",
+    "scheduled scaling",
+    "scaling polic"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.2K3",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "3.2K3 IaC (CloudFormation, CDK)",
+   "detail": "CloudFormation e CDK: 0 teoria, 0 domande",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "cloudformation",
+    "\\bcdk\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.2K4",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.2K4 Container e servizi container",
+   "detail": "ECR, ECS, EKS nominati; concetti di containerizzazione non spiegati",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\becr\\b",
+    "\\becs\\b",
+    "\\beks\\b",
+    "docker"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.2K5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.2K5 Auto scaling per domanda e tempo",
+   "detail": "Autoscaling \"per assorbire i picchi\"; scaling su base temporale (scheduled) assente",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "auto ?scaling",
+    "autoscaling"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.2S1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.2S1 Best practice (scaling, Spot, EC2, Lambda)",
+   "detail": "Autoscaling sì; Spot dinamiche, EC2, Lambda dietro l'endpoint no",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "spot"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.2S2",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "3.2S2 Provisioning automatico, comunicazione tra stack",
+   "detail": "Provisioning automatico e comunicazione tra stack: 0",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "cloudformation",
+    "\\bcdk\\b",
+    "cross-stack"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.2S3",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.2S3 Container (ECR, EKS, ECS, BYOC)",
+   "detail": "BYOC su ECR sì; build e manutenzione su ECS/EKS no (0 domande)",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\becr\\b",
+    "byoc",
+    "bring your own"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.2S5",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "3.2S5 Deploy con SageMaker SDK",
+   "detail": "Deploy con SageMaker Python SDK (Model, deploy(), predictor): 0",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "sagemaker sdk",
+    "python sdk",
+    "\\.deploy\\("
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.2S6",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.2S6 Metriche di auto scaling",
+   "detail": "InvocationsPerInstance in una parola chiave; latenza e CPU come metriche di scaling non confrontate",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "invocationsperinstance",
+    "invocations per instance",
+    "cpuutilization",
+    "cpu utilization"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.3K1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.3K1 CodePipeline, CodeBuild, CodeDeploy",
+   "detail": "CodePipeline e CodeBuild dentro SageMaker Projects; CodeDeploy mai citato; quote e capacità assenti",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "codepipeline",
+    "codebuild",
+    "codedeploy"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.3K3",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.3K3 Version control (Git)",
+   "detail": "\"push Git\" in una frase; nessuna nozione di Git",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bgit\\b",
+    "codecommit",
+    "github"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.3K5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.3K5 Blue/green, canary, linear, rollback",
+   "detail": "Blue/green nella teoria; canary e linear solo nel banco (10 e 4 domande)",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "blue.?green",
+    "canary",
+    "linear"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.3K6",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.3K6 Repository e pipeline insieme",
+   "detail": "Repository → build → pipeline in una frase",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bgit\\b",
+    "repository",
+    "repo\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.3S1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "3.3S1 Configurare Code* e stage",
+   "detail": "Stage e troubleshooting di CodeBuild/CodePipeline non trattati",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "codebuild",
+    "codedeploy",
+    "codepipeline"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.3S2",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "3.3S2 Gitflow, GitHub Flow",
+   "detail": "Gitflow e GitHub Flow: 0",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "gitflow",
+    "git flow",
+    "github flow",
+    "branch"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-3.3S5",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "3.3S5 Test automatici in CI/CD",
+   "detail": "Test unitari, di integrazione, end-to-end nelle pipeline: 0 teoria, 1 domanda",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "unit test",
+    "integration test",
+    "end-to-end",
+    "test unitari",
+    "test di integrazione"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.1K3",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "4.1K3 Principi ML Lens",
+   "detail": "Well-Architected Machine Learning Lens: mai citato",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "well-architected",
+    "ml lens"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.1S2",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.1S2 Anomalie in processing e inferenza",
+   "detail": "Allarmi su violazioni del monitor; errori nei job di processing e nelle pipeline non trattati",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "anomal"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2K1",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.2K1 Metriche infra (utilizzo, throughput…)",
+   "detail": "Latenza, errori, invocazioni; disponibilità e fault tolerance (multi-AZ, più istanze) no",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "utiliz",
+    "throughput",
+    "availability",
+    "disponibilit",
+    "fault"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2K2",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "4.2K2 X-Ray, Lambda Insights, Logs Insights",
+   "detail": "X-Ray, CloudWatch Lambda Insights, Logs Insights: 0 teoria, 1 domanda",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "x-ray",
+    "lambda insights",
+    "logs insights"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2K4",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "4.2K4 Tipi di istanza",
+   "detail": "Famiglie di istanze (memory, compute, general purpose, inference optimized): 0",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "memory.optimized",
+    "compute.optimized",
+    "general purpose",
+    "inference.optimized",
+    "inferentia"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2K5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.2K5 Cost Explorer, Billing, Trusted Advisor",
+   "detail": "Cost Explorer, Billing e Cost Management, Trusted Advisor: 0 in teoria, poche menzioni come distrattori",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "cost explorer",
+    "billing",
+    "trusted advisor"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2K6",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.2K6 Tagging per allocazione costi",
+   "detail": "Tagging per allocazione dei costi: una sola domanda vera",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "cost allocation",
+    "\\btag"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2S2",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.2S2 Creare trail CloudTrail",
+   "detail": "Creazione di un trail CloudTrail (multi-region, su S3) non spiegata",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\btrail\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2S3",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.2S3 Dashboard (QuickSight, CloudWatch)",
+   "detail": "Dashboard CloudWatch in una riga; QuickSight solo nel banco",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "dashboard",
+    "quicksight"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2S5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.2S5 Rightsizing (Inference Recommender, Compute Optimizer)",
+   "detail": "Inference Recommender solo in 3 domande; Compute Optimizer 0",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "inference recommender",
+    "compute optimizer",
+    "rightsiz",
+    "right-siz"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2S7",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.2S7 Tagging per cost monitoring",
+   "detail": "Strategia di tagging assente dalla teoria",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\btag"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2S8",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.2S8 Provisioned concurrency, quote, scaling",
+   "detail": "Provisioned concurrency solo nel banco (7); service quotas mai",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "provisioned concurrency",
+    "quota"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2S9",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "4.2S9 Cost Explorer, Trusted Advisor, Budgets",
+   "detail": "Cost Explorer, Trusted Advisor, AWS Budgets come strumenti: 0 teoria, 3 menzioni come distrattori",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "cost explorer",
+    "trusted advisor",
+    "budgets"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.2S10",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.2S10 Spot, On-Demand, Reserved, Savings Plans",
+   "detail": "Managed Spot Training nel banco (15); Savings Plans e Reserved Instances solo come distrattore",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bspot",
+    "reserved",
+    "savings plan"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.3K2",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.3K2 Sicurezza e compliance di SageMaker",
+   "detail": "VPC-only e KMS sì; network isolation e cifratura del traffico tra container no",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "network isolation",
+    "inter-container"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.3K4",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "4.3K4 Sicurezza delle pipeline CI/CD",
+   "detail": "Sicurezza delle pipeline CI/CD: 0",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "(ci/cd|codepipeline|codebuild).{0,120}(secur|sicurezz|iam|role|kms)"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.3S4",
+   "group": "Voci exam guide MLA-C01 (assente)",
+   "title": "4.3S4 Troubleshooting sicurezza",
+   "detail": "Troubleshooting di AccessDenied, permessi mancanti, KMS key policy: 0",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "accessdenied",
+    "access denied"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "K-4.3S5",
+   "group": "Voci exam guide MLA-C01 (parziale)",
+   "title": "4.3S5 VPC, subnet, security group",
+   "detail": "Subnet private sì; security group solo nel banco (6)",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "subnet",
+    "security group"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.1.7",
+   "group": "Skill nuove MLA-C02",
+   "title": "1.1.7 Configure scalable vector databases for AI applications (for example, OpenSearch Service, Amazon RDS with pgvector, Amazon S3) based on specifications.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "pgvector",
+    "s3 vectors",
+    "vector (database|store)"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.1.8",
+   "group": "Skill nuove MLA-C02",
+   "title": "1.1.8 Ingest and store diverse data types (for example, text, images, audio) for AI and ML applications.",
+   "detail": "",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "multimodal",
+    "immagini.*audio|audio.*immagini"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.2.5",
+   "group": "Skill nuove MLA-C02",
+   "title": "1.2.5 Configure and use embedding models to transform text and image data into numerical representations.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "embedding",
+    "titan (text )?embeddings|cohere embed"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.2.6",
+   "group": "Skill nuove MLA-C02",
+   "title": "1.2.6 Apply advanced text pre-processing techniques (for example, tokenization, domain-specific augmentation).",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "tokeniz",
+    "augmentation"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.2.7",
+   "group": "Skill nuove MLA-C02",
+   "title": "1.2.7 Prepare documents for Retrieval Augmented Generation (RAG) applications (for example, chunking strategies, metadata extraction).",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "chunking",
+    "metadat"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.2.8",
+   "group": "Skill nuove MLA-C02",
+   "title": "1.2.8 Mask, redact, and anonymize data.",
+   "detail": "",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "mask",
+    "redact|redazion",
+    "anonimizz|anonymiz"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.2.9",
+   "group": "Skill nuove MLA-C02",
+   "title": "1.2.9 Prepare data for FM fine-tuning, continuous pre-training, and model distillation.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "jsonl",
+    "continued pre-?training",
+    "distill"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.3.4",
+   "group": "Skill nuove MLA-C02",
+   "title": "1.3.4 Optimize multimodal data distributions by applying bias metrics across numeric, text, and image assets.",
+   "detail": "",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "multimodal",
+    "bias"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.3.6",
+   "group": "Skill nuove MLA-C02",
+   "title": "1.3.6 Validate AI training data integrity (for example, prompt-response pair validation, content safety screening).",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "prompt.?(response|completion)",
+    "content safety|tossic|toxic"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.3.7",
+   "group": "Skill nuove MLA-C02",
+   "title": "1.3.7 Clean data (for example, by detecting outliers, imputing missing data, deduplication).",
+   "detail": "",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "dedup|duplicat"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.1.1",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.1.1 Evaluate and select appropriate FMs from Amazon Bedrock based on task requirements and performance criteria.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "model (card|catalog)|context window|finestra di contesto",
+    "foundation model"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.1.2",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.1.2 Identify fine-tuning strategies for pre-trained FMs to meet business needs.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "lora|peft",
+    "fine-?tuning"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.1.4",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.1.4 Evaluate tradeoffs between custom solutions, managed services, pre-trained models, and FMs to meet business needs.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "managed service|servizi gestiti",
+    "pre-?trained|pre-?addestrat"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.1.5",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.1.5 Select Retrieval Augmented Generation (RAG) architecture patterns based on use case requirements.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "rag",
+    "graphrag|hybrid|ibrid"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.1.7",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.1.7 Assess tradeoffs between AI model performance, latency, and cost.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "latenz",
+    "cost"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.2.8",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.2.8 Apply customization techniques for AI solutions (for example, task-specific prompt engineering, fine-tuning).",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "prompt engineering",
+    "few-?shot|chain.of.thought"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.2.9",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.2.9 Optimize retrieval components and embedding models.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "rerank",
+    "hybrid search|ricerca ibrida"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.3.7",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.3.7 Implement integrated human evaluation frameworks (for example, human-in-the-loop workflows, text generation quality assessment).",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "human.?in.?the.?loop|valutazione umana|human evaluation"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.3.8",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.3.8 Apply natural language processing (NLP) evaluation metrics (for example, bilingual evaluation understudy [BLEU], Recall-Oriented Understudy for Gisting Evaluation [ROUGE], BERTScore, semantic similarity).",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "bleu",
+    "rouge",
+    "bertscore"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.3.9",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.3.9 Perform AI evaluation (for example, model output assessment, content quality validation, bias detection, LLM-as-a-judge frameworks).",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "llm.as.a.judge"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.3.10",
+   "group": "Skill nuove MLA-C02",
+   "title": "2.3.10 Configure RAG system monitoring, including retrieval accuracy assessment.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "retrieval (accuracy|evaluation)|context relevance|accuratezza del retrieval"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.1.4",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.1.4 Evaluate and select appropriate foundation model (FM) deployment options.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "provisioned throughput",
+    "on-?demand"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.1.5",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.1.5 Deploy models that were built outside of AWS into AWS environments (for example, Amazon SageMaker AI, Amazon Bedrock Custom Model Import).",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "custom model import"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.1.6",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.1.6 Deploy and configure agents for specific tasks, integration with other services and tools, and agent communication protocols.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "agentcore",
+    "\\bmcp\\b|model context protocol",
+    "\\ba2a\\b|agent.to.agent"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.1.7",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.1.7 Configure FM deployment, model hosting, and resource allocation.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "provisioned throughput|model units?",
+    "jumpstart"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.1.8",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.1.8 Apply Retrieval Augmented Generation (RAG) system configurations (for example, retrieval strategies, reranking).",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "rerank",
+    "retrieval strateg|strategi[ae] di retrieval|numberofresults|hybrid"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.2.7",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.2.7 Create and manage Amazon Bedrock knowledge bases with vector database configurations, document indexing, and retrieval optimization.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "knowledge base",
+    "sync|sincronizz|ingestion job"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.2.8",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.2.8 Implement retrieval pipelines to meet business needs.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "retrieve(andgenerate)?",
+    "pipeline di retrieval|retrieval pipeline"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.2.9",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.2.9 Implement agent state management systems.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "agentcore memory|memoria",
+    "session|sessione|stato"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.2.10",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.2.10 Implement AI-specific resource scaling for GPU workloads.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "gpu",
+    "hyperpod|inference component"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.2.11",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.2.11 Deploy agentic workflow infrastructure.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "agentcore runtime",
+    "gateway"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.3.7",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.3.7 Manage prompts (for example, Amazon Bedrock Prompt Management).",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "prompt management"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.3.8",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.3.8 Implement automated agent deployment pipelines and agent version management.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "alias",
+    "version"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.3.9",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.3.9 Implement AI model testing frameworks, including prompt testing.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "prompt test|test dei prompt|prompt flows?"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.3.10",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.3.10 Configure FM deployment automation with fine-tuned model versioning.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "custom model",
+    "version"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.3.11",
+   "group": "Skill nuove MLA-C02",
+   "title": "3.3.11 Configure AI-specific pipeline orchestration for RAG system updates and knowledge base refresh cycles.",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "knowledge base",
+    "refresh|aggiorn|ri-?sincron|re-?sync"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.1.5",
+   "group": "Skill nuove MLA-C02",
+   "title": "4.1.5 Monitor and automate the management of agent performance and coordination (for example, coordination failure detection, truncated streaming, tool failures).",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "tool fail|errori? (dei|degli) tool|truncat|troncat",
+    "agent"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.1.6",
+   "group": "Skill nuove MLA-C02",
+   "title": "4.1.6 Configure AI-specific performance monitoring for foundation models (FMs), such as Amazon Bedrock evaluations.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "invocation logging",
+    "model evaluation|evaluations?"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.2.7",
+   "group": "Skill nuove MLA-C02",
+   "title": "4.2.7 Evaluate cost implications of using FMs for inference in production.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "token",
+    "provisioned throughput|batch inference"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.2.8",
+   "group": "Skill nuove MLA-C02",
+   "title": "4.2.8 Monitor agent resource consumption patterns.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "agent",
+    "consum"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.2.9",
+   "group": "Skill nuove MLA-C02",
+   "title": "4.2.9 Manage FM inference costs with usage optimization.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "prompt caching",
+    "intelligent prompt routing|batch inference"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.2.10",
+   "group": "Skill nuove MLA-C02",
+   "title": "4.2.10 Monitor AI-specific cost patterns (for example, token usage optimization, embedding computation costs, vector database storage optimization).",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "token",
+    "embedding",
+    "vector"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.3.1",
+   "group": "Skill nuove MLA-C02",
+   "title": "4.3.1 Secure continuous integration and continuous delivery (CI/CD) pipelines by checking for code and image vulnerabilities (for example, by using Amazon CodeGuru, Amazon Inspector).",
+   "detail": "",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "codeguru",
+    "inspector"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.3.8",
+   "group": "Skill nuove MLA-C02",
+   "title": "4.3.8 Select the appropriate credential type to access FMs (for example, Amazon Bedrock API keys, IAM credentials).",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "api key|chiav[ei] api",
+    "iam"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.3.9",
+   "group": "Skill nuove MLA-C02",
+   "title": "4.3.9 Implement safeguards and sensitive data protection to meet application requirements and responsible AI policies (for example, by using Amazon Bedrock Guardrails).",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "guardrail",
+    "contextual grounding|automated reasoning"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-1.1.1",
+   "group": "Skill MLA-C02 con strumenti nuovi",
+   "title": "1.1.1 Extract data from data sources (for example, Amazon S3, Amazon EBS, Amazon EFS, Amazon RDS, Amazon DynamoDB, Amazon OpenSearch Service).",
+   "detail": "",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "opensearch"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.1.3",
+   "group": "Skill MLA-C02 con strumenti nuovi",
+   "title": "2.1.3 Compare and select appropriate ML models, generative AI (GenAI) models, algorithms, and solution templates to meet business needs (for example, interpretability, domain-specific performance, latency).",
+   "detail": "",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "solution template|template",
+    "genai|generativ"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.3.1",
+   "group": "Skill MLA-C02 con strumenti nuovi",
+   "title": "2.3.1 Perform reproducible experiments (for example, by using MLflow on SageMaker AI, Amazon Bedrock evaluations, Amazon Bedrock Prompt Management).",
+   "detail": "",
+   "targets": [
+    "ch9-training-advanced",
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "mlflow",
+    "bedrock evaluations?|model evaluation",
+    "prompt management"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-2.3.6",
+   "group": "Skill MLA-C02 con strumenti nuovi",
+   "title": "2.3.6 Apply comprehensive model evaluation techniques for traditional ML and GenAI models.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "valutazione|evaluation"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.3.2",
+   "group": "Skill MLA-C02 con strumenti nuovi",
+   "title": "3.3.2 Configure and troubleshoot AWS CodeBuild, AWS CodeCommit, AWS CodeDeploy, AWS CodePipeline, and AWS CodeConnections.",
+   "detail": "",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "codecommit",
+    "codeconnections|codestar connections"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.3.4",
+   "group": "Skill MLA-C02 con strumenti nuovi",
+   "title": "3.3.4 Configure automated testing strategies within CI/CD pipelines for traditional ML and AI workloads.",
+   "detail": "",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "unit test|test unitar",
+    "integrazion|integration",
+    "end.to.end"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-3.3.6",
+   "group": "Skill MLA-C02 con strumenti nuovi",
+   "title": "3.3.6 Manage model versions for repeatability and audits (for example, SageMaker Model Registry, MLflow on SageMaker AI).",
+   "detail": "",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "mlflow",
+    "model registry"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.1.1",
+   "group": "Skill MLA-C02 con strumenti nuovi",
+   "title": "4.1.1 Monitor model performance in production by using Amazon CloudWatch generative AI observability, Amazon Bedrock Model Evaluation, and drift detection pipelines.",
+   "detail": "",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "generative ai observability|osservabilit"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.2.2",
+   "group": "Skill MLA-C02 con strumenti nuovi",
+   "title": "4.2.2 Configure and use tools to troubleshoot and analyze resources (for example, Amazon CloudWatch, Amazon Bedrock AgentCore Observability, AWS X-Ray).",
+   "detail": "",
+   "targets": [
+    "ch11-cost-security",
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "x-?ray",
+    "agentcore observability"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "G-4.3.4",
+   "group": "Skill MLA-C02 con strumenti nuovi",
+   "title": "4.3.4 Configure comprehensive monitoring, auditing, compliance, and logging for ML and AI systems (for example, AWS CloudTrail, AWS Config).",
+   "detail": "",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "aws config|\\bconfig\\b",
+    "cloudtrail"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V01",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS CloudFormation",
+   "detail": "mai citato",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "cloudformation"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V02",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS CDK",
+   "detail": "mai citato",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bcdk\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V03",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS CodeDeploy",
+   "detail": "mai citato",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "codedeploy"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V04",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS X-Ray",
+   "detail": "mai citato",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "x-?ray"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V05",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon EFS",
+   "detail": "mai citato",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\befs\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V06",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon FSx (Lustre, NetApp ONTAP)",
+   "detail": "mai citato",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "fsx"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V07",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Trusted Advisor",
+   "detail": "mai citato",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "trusted advisor"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V08",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Compute Optimizer",
+   "detail": "mai citato",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "compute optimizer"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V09",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon API Gateway",
+   "detail": "mai citato",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "api gateway"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V10",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Batch",
+   "detail": "mai citato",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "aws batch"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V11",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Augmented AI (A2I)",
+   "detail": "mai citato",
+   "targets": [
+    "ch8-data-advanced",
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\ba2i\\b|augmented ai"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V12",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS CodeArtifact",
+   "detail": "mai citato",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "codeartifact"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V13",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon CodeGuru",
+   "detail": "mai citato",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "codeguru"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V14",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Service Catalog",
+   "detail": "mai citato",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "service catalog"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V15",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Serverless Application Repository",
+   "detail": "mai citato",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "serverless application repository"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V16",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon DocumentDB",
+   "detail": "mai citato",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "documentdb"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V17",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Neptune",
+   "detail": "mai citato",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "neptune"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V18",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Comprehend Medical",
+   "detail": "mai citato",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "comprehend medical"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V19",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon DevOps Guru",
+   "detail": "mai citato",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "devops guru"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V20",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Fraud Detector",
+   "detail": "mai citato (MLA-C01)",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "fraud detector"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V21",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS HealthLake",
+   "detail": "mai citato",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "healthlake"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V22",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Lookout for Equipment, Metrics, Vision",
+   "detail": "mai citato (MLA-C01)",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "lookout"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V23",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Q",
+   "detail": "mai citato (MLA-C01)",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "amazon q\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V24",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Chatbot (Amazon Q Developer in chat applications)",
+   "detail": "mai citato",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "chatbot|chat applications"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V25",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Kinesis Video Streams",
+   "detail": "mai citato",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "kinesis video"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V26",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Direct Connect",
+   "detail": "mai citato",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "direct connect"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V27",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Storage Gateway",
+   "detail": "mai citato",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "storage gateway"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V28",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Transcribe",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "transcribe"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V29",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Polly",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "polly"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V30",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Lex",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\blex\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V31",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Personalize",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "personalize"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V32",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Billing and Cost Management",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "billing"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V33",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon EBS",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bebs\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V34",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon ElastiCache",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "elasticache"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V35",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Kendra",
+   "detail": "solo nel banco (MLA-C01)",
+   "targets": [
+    "ch14-ai-services",
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "kendra"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V36",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Translate",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "translate"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V37",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Glue Data Quality",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "glue data quality|dqdl"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V38",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon QuickSight / Amazon Quick",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "quicksight|amazon quick"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V39",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Cost Explorer",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "cost explorer"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V40",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon S3 Glacier",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "glacier"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V41",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Managed Service for Apache Flink",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "flink"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V42",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Budgets",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "budgets?"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V43",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Mechanical Turk",
+   "detail": "solo nel banco (MLA-C01)",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "mechanical turk"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V44",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Config",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "aws config"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V45",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Organizations",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "organizations|\\bscp\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V46",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Systems Manager",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "systems manager|parameter store"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V47",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS DataSync",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "datasync"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V48",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon CloudFront",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "cloudfront"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V49",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Macie",
+   "detail": "solo nel banco",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "macie"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V50",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon ECS",
+   "detail": "spiegato ma 0 domande",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\becs\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V51",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon EKS",
+   "detail": "spiegato ma 0 domande",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\beks\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V52",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS Secrets Manager",
+   "detail": "spiegato ma 1 domanda",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "secrets manager"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V53",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Bedrock AgentCore",
+   "detail": "nuovo in-scope MLA-C02",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "agentcore"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V54",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS CodeCommit",
+   "detail": "nuovo in-scope MLA-C02",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "codecommit"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V55",
+   "group": "Servizi AWS in-scope",
+   "title": "AWS CodeConnections",
+   "detail": "nuovo in-scope MLA-C02",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "codeconnections"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V56",
+   "group": "Servizi AWS in-scope",
+   "title": "Amazon Inspector",
+   "detail": "nuovo in-scope MLA-C02",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "inspector"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "V-CAT",
+   "group": "Servizi AWS in-scope",
+   "title": "Catalogo completo dei servizi in-scope MLA-C01 e MLA-C02",
+   "detail": "Ogni servizio dell'Appendix MLA-C01 e dell'elenco in-scope MLA-C02 con una riga 'a cosa serve / quando sceglierlo', più l'elenco dei servizi fuori ambito da non confondere.",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria"
+   ],
+   "regex": [
+    "catalogo|in-scope"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C01",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Parametri di inferenza dei modelli generativi",
+   "detail": "temperature, top_p, top_k, max tokens, stop sequences: solo nel banco.",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "temperature",
+    "top.?p\\b",
+    "top.?k\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C02",
+   "group": "Temi da community, corsi e dispense",
+   "title": "LoRA e PEFT",
+   "detail": "Fine-tuning efficiente nei parametri: assente.",
+   "targets": [
+    "ch12-genai-rag"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "lora",
+    "peft"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C03",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Network isolation di SageMaker",
+   "detail": "EnableNetworkIsolation: assente.",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "network isolation|isolamento di rete"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C04",
+   "group": "Temi da community, corsi e dispense",
+   "title": "MAPE e PR-AUC",
+   "detail": "MAPE solo nel banco; PR-AUC assente.",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bmape\\b",
+    "pr.?auc|precision.recall"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C05",
+   "group": "Temi da community, corsi e dispense",
+   "title": "SageMaker Canvas",
+   "detail": "No-code ML, anche per il forecasting al posto di Forecast.",
+   "targets": [
+    "ch9-training-advanced",
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "canvas"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C06",
+   "group": "Temi da community, corsi e dispense",
+   "title": "SageMaker Inference Recommender",
+   "detail": "Solo in 3 domande.",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "inference recommender"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C07",
+   "group": "Temi da community, corsi e dispense",
+   "title": "SageMaker Managed Warm Pools",
+   "detail": "Assente.",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "warm pool"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C08",
+   "group": "Temi da community, corsi e dispense",
+   "title": "TensorBoard in SageMaker",
+   "detail": "Assente.",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "tensorboard"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C09",
+   "group": "Temi da community, corsi e dispense",
+   "title": "FSx for Lustre come input del training",
+   "detail": "Assente.",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "fsx for lustre|lustre"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C10",
+   "group": "Temi da community, corsi e dispense",
+   "title": "SHAP e partial dependence plot",
+   "detail": "Solo nel banco (8 domande).",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "shap",
+    "partial dependence|\\bpdp\\b"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C11",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Managed Spot Training e checkpointing",
+   "detail": "Solo nel banco; risparmio fino al 90%.",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "spot",
+    "checkpoint"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C12",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Nodi EMR primary, core, task",
+   "detail": "In 2 domande.",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "(primary|master|core|task) node|nodi? (primary|core|task)"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C13",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Tutti gli algoritmi built-in di SageMaker",
+   "detail": "Oggi 5 su circa 17: aggiungere RCF, k-NN, Factorization Machines, IP Insights, Object2Vec, Seq2Seq, LDA, NTM, PCA, image classification, object detection, semantic segmentation, LightGBM, CatBoost, TabTransformer, AutoGluon.",
+   "targets": [
+    "ch9-training-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "random cut forest",
+    "factorization machines",
+    "ip insights",
+    "object2vec",
+    "seq2seq|sequence-to-sequence"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C14",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Lake Formation LF-Tags e permessi granulari",
+   "detail": "Assente.",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "lf-?tag",
+    "(column|row|cell).level|a livello di (colonna|riga|cella)"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C15",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Famiglie di istanze",
+   "detail": "M, C, R, P, G, Inf, Trn, Graviton: assenti.",
+   "targets": [
+    "ch11-cost-security",
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "inferentia|\\binf[12]\\b",
+    "trainium|\\btrn[12]\\b",
+    "graviton"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C16",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Modalità di input File, Pipe, FastFile",
+   "detail": "Solo Pipe per XGBoost.",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "fastfile|fast file",
+    "pipe mode|modalità pipe"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C17",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Step di SageMaker Pipelines",
+   "detail": "Processing, Training, Tuning, Model, Transform, Condition, Callback, Lambda, ClarifyCheck, QualityCheck, Fail, EMR.",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "callbackstep|callback step",
+    "clarifycheck",
+    "qualitycheck"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C18",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Cifratura del traffico tra container",
+   "detail": "Assente.",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "inter.?container|tra container"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C19",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Savings Plans e Reserved Instances",
+   "detail": "Solo come distrattori.",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "savings plans?",
+    "reserved"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C20",
+   "group": "Temi da community, corsi e dispense",
+   "title": "SageMaker Neo e deploy su edge",
+   "detail": "Assente.",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "\\bneo\\b",
+    "edge"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C21",
+   "group": "Temi da community, corsi e dispense",
+   "title": "SageMaker Ground Truth e Ground Truth Plus",
+   "detail": "Assente dalla teoria.",
+   "targets": [
+    "ch8-data-advanced"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "ground truth"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C22",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Alternative ad Amazon Forecast",
+   "detail": "Forecast chiuso ai nuovi clienti: Canvas, DeepAR, Chronos.",
+   "targets": [
+    "ch14-ai-services"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "forecast",
+    "chronos|deepar"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C23",
+   "group": "Temi da community, corsi e dispense",
+   "title": "SageMaker Role Manager",
+   "detail": "Assente.",
+   "targets": [
+    "ch11-cost-security"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "role manager"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C24",
+   "group": "Temi da community, corsi e dispense",
+   "title": "SageMaker HyperPod e cluster GPU",
+   "detail": "Assente.",
+   "targets": [
+    "ch13-genai-agents"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "hyperpod"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "C25",
+   "group": "Temi da community, corsi e dispense",
+   "title": "Provisioned concurrency del serverless e scale-to-zero dell'async",
+   "detail": "Solo nel banco.",
+   "targets": [
+    "ch10-infra-cicd"
+   ],
+   "needs": [
+    "teoria",
+    "banco"
+   ],
+   "regex": [
+    "provisioned concurrency",
+    "scale.to.zero|scala a zero|minimo (di )?zero"
+   ],
+   "status": "todo"
+  },
+  {
+   "id": "X01",
+   "group": "Struttura del sito",
+   "title": "Registro capitoli e mappa da 7 a 14 capitoli",
+   "detail": "app.js, map.js, qbank.js, domande.html, tracker: i 7 capitoli nuovi caricati, navigabili e con banco domande.",
+   "targets": [
+    "site"
+   ],
+   "needs": [
+    "site"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "X02",
+   "group": "Struttura del sito",
+   "title": "Un file JSON per capitolo",
+   "detail": "content/chapters/<id>.json (proprietà chiara per ogni capitolo), loader, tools TTS e timing aggiornati.",
+   "targets": [
+    "site"
+   ],
+   "needs": [
+    "site"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "X03",
+   "group": "Struttura del sito",
+   "title": "Narrazione per slide e timing automatico",
+   "detail": "slides[].narration; script = narrazioni unite; make_timing ricava i salti di slide senza tabelle a mano.",
+   "targets": [
+    "site"
+   ],
+   "needs": [
+    "site"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "X04",
+   "group": "Struttura del sito",
+   "title": "Fonti online visibili per capitolo",
+   "detail": "Campo sources[] mostrato nella pagina capitolo.",
+   "targets": [
+    "site"
+   ],
+   "needs": [
+    "site"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "X05",
+   "group": "Struttura del sito",
+   "title": "Home e README aggiornati",
+   "detail": "Conteggi (capitoli, minuti audio, domande), MLA-C02, fonti, nome progetto Pages mla-c01-studio.",
+   "targets": [
+    "site",
+    "fix"
+   ],
+   "needs": [
+    "site"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "X06",
+   "group": "Struttura del sito",
+   "title": "Audio dei 7 capitoli nuovi",
+   "detail": "Sintesi Chatterbox (voce Persona4) e timing.",
+   "targets": [
+    "audio"
+   ],
+   "needs": [
+    "site"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "X07",
+   "group": "Struttura del sito",
+   "title": "Ri-sintesi dei capitoli corretti",
+   "detail": "Ogni capitolo 1-7 o scheda rapida il cui copione cambia va risintetizzato.",
+   "targets": [
+    "audio"
+   ],
+   "needs": [
+    "site"
+   ],
+   "regex": [],
+   "status": "todo"
+  },
+  {
+   "id": "X08",
+   "group": "Struttura del sito",
+   "title": "Controllo di copertura automatico",
+   "detail": "tools/check_coverage.py: per ogni voce di questa lista, presenza nella teoria e nel banco.",
+   "targets": [
+    "engine"
+   ],
+   "needs": [
+    "site"
+   ],
+   "regex": [],
+   "status": "todo"
+  }
+ ]
+}
