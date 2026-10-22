@@ -1935,5 +1935,86 @@
     "todo": [
       "G-1.2.5"
     ]
+  },
+  {
+    "id": "ch12-q068",
+    "chapter": "ch12-genai-rag",
+    "q": "A team wants a model that writes SQL queries which must run correctly. It can check each generated query automatically against a test database, but it has no labelled answer key. Which customization fits best?",
+    "options": [
+      "Reinforcement fine-tuning with a reward function that runs the query and grades the result",
+      "Continued pre-training on the company schema documents only",
+      "Supervised fine-tuning on question and SQL pairs that the team must write by hand first",
+      "Few-shot prompting with three example queries and no evaluation"
+    ],
+    "answer": 0,
+    "explain": "Reinforcement fine-tuning learns from a reward function, so it needs no labelled answers. Here the automatic test is the reward. Supervised fine-tuning requires labelled pairs, which the team does not have.",
+    "difficulty": "media",
+    "tags": [
+      "reinforcement-fine-tuning"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Customize a model with reinforcement fine-tuning in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.2"
+    ]
+  },
+  {
+    "id": "ch12-q069",
+    "chapter": "ch12-genai-rag",
+    "q": "A team needs an open model that is not offered as a serverless model in Amazon Bedrock, but it still wants to call it through the Bedrock APIs and use it with Knowledge Bases. Which option fits?",
+    "options": [
+      "Deploy the model from Amazon Bedrock Marketplace to a managed endpoint and call it through the Bedrock APIs",
+      "Export the weights to Amazon S3 and load them in Lambda for each request",
+      "Train from scratch on SageMaker so Bedrock lists the model automatically",
+      "Request a Bedrock quota increase, since the model is available by default in every Region"
+    ],
+    "answer": 0,
+    "explain": "Bedrock Marketplace offers over 100 models that you subscribe to and deploy on an endpoint managed by SageMaker AI. Once deployed, they are reachable through the Bedrock APIs and work with Knowledge Bases.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock-marketplace"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Amazon Bedrock Marketplace",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.1"
+    ]
+  },
+  {
+    "id": "ch12-q070",
+    "chapter": "ch12-genai-rag",
+    "q": "A chatbot must answer faster on one of its Bedrock models, and the team cannot retrain it. Which Bedrock option lowers latency for a supported model?",
+    "options": [
+      "Latency-optimized inference, set with performanceConfig latency optimized on a supported model",
+      "Full fine-tuning of the model on the chat logs to shorten its answers",
+      "Raising the temperature so the model replies sooner",
+      "A larger model with a bigger context window to reduce round trips"
+    ],
+    "answer": 0,
+    "explain": "Latency-optimized inference is set in the request, without training, and works only for supported models through cross-region inference. It is in preview. Temperature and model size do not reduce latency.",
+    "difficulty": "media",
+    "tags": [
+      "latency-optimized-inference"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide — Optimize model inference for latency",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.1.7"
+    ]
   }
 ]
