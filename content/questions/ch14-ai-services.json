@@ -1,0 +1,2368 @@
+[
+  {
+    "id": "ch14-q001",
+    "chapter": "ch14-ai-services",
+    "q": "A retail company wants sentiment scores for English product reviews. It has no labeled data and no ML team, and it wants the LEAST operational overhead. Which solution meets these requirements?",
+    "options": [
+      "Use Amazon Comprehend sentiment analysis through its API, which needs no training data",
+      "Deploy an open-source NLP model on a GPU fleet of EC2 instances behind an Auto Scaling group that the team operates",
+      "Build a sentiment classifier in SageMaker Canvas from a manually labeled dataset of about ten thousand reviews",
+      "Train a custom BERT classifier with SageMaker training jobs on the company's own reviews after labeling them internally"
+    ],
+    "answer": 0,
+    "explain": "Comprehend provides pre-trained sentiment analysis through an API, so no labeled data or infrastructure is needed. The strongest distractor, Canvas, needs a labeled dataset that the company does not have.",
+    "difficulty": "facile",
+    "tags": [
+      "comprehend",
+      "sentiment",
+      "managed-ai"
+    ],
+    "source": "AWS docs: Amazon Comprehend Developer Guide: What is Amazon Comprehend?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q002",
+    "chapter": "ch14-ai-services",
+    "q": "A company has millions of scanned invoices and wants vendor names and totals extracted into a database. The team has no ML expertise and wants a managed service. Which service should it choose?",
+    "options": [
+      "Amazon Rekognition Custom Labels trained on images of invoices with bounding boxes around each field",
+      "Amazon Textract with the AnalyzeExpense operation",
+      "Amazon Kendra with a GenAI index built over the invoice archive so it can answer questions",
+      "Amazon Transcribe with a custom vocabulary listing all vendor names in the archive"
+    ],
+    "answer": 1,
+    "explain": "AnalyzeExpense is the Textract operation for invoices and receipts and needs no custom training. Rekognition Custom Labels would require training, and Kendra retrieves documents rather than extracting fields.",
+    "difficulty": "media",
+    "tags": [
+      "textract",
+      "invoices"
+    ],
+    "source": "AWS docs: Amazon Textract Developer Guide: What is Amazon Textract?",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q003",
+    "chapter": "ch14-ai-services",
+    "q": "A support team has 5,000 labeled emails in 40 custom categories and wants new emails routed automatically, without writing ML code. Which service fits best?",
+    "options": [
+      "Amazon Translate with custom terminology containing the 40 category names for each language pair",
+      "Amazon Lex with one intent per support category and a Lambda function that routes the email to a queue",
+      "Amazon Comprehend custom classification trained on the labeled emails",
+      "Amazon Personalize with the USER_SEGMENTATION recipe, grouping emails by the affinity of past readers"
+    ],
+    "answer": 2,
+    "explain": "Comprehend custom classification trains a classifier on labeled documents for the company's own categories. Lex is for conversations with users, and the Lex distractor would need a conversational flow that the scenario does not describe.",
+    "difficulty": "media",
+    "tags": [
+      "comprehend",
+      "custom-classification"
+    ],
+    "source": "AWS docs: Amazon Comprehend Developer Guide: Amazon Comprehend Custom",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q004",
+    "chapter": "ch14-ai-services",
+    "q": "A company wants a chatbot that answers HR questions from its internal policy documents. Which THREE components together fit this design with the least custom code? (Select THREE.)",
+    "options": [
+      "Amazon Transcribe to convert the policy PDFs to text before indexing them",
+      "Amazon Bedrock Knowledge Bases built over the policy documents for retrieval and answer generation",
+      "Amazon Rekognition Custom Labels to read the policy documents as images",
+      "An AWS Lambda fulfillment function that calls the knowledge base and returns the answer to Lex",
+      "Amazon Personalize to recommend HR policies based on the employee's past questions",
+      "Amazon Lex as the conversational interface that collects the employee's question"
+    ],
+    "answer": [
+      1,
+      3,
+      5
+    ],
+    "explain": "Lex handles the conversation, Bedrock Knowledge Bases provide retrieval-augmented answers over the documents, and Lambda connects the two. Transcribe and Rekognition are for audio and images, and Personalize is for recommendations, not Q and A.",
+    "difficulty": "difficile",
+    "tags": [
+      "bedrock",
+      "lex",
+      "rag"
+    ],
+    "source": "AWS docs: Amazon Lex V2 Developer Guide: What is Amazon Lex V2?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q005",
+    "chapter": "ch14-ai-services",
+    "q": "A company wants to convert recorded customer calls to text and then measure sentiment, using managed services only. Which combination fits?",
+    "options": [
+      "Amazon Polly to produce transcripts, followed by Amazon Kendra to measure sentiment in the text",
+      "Amazon Rekognition to produce transcripts, followed by Amazon Personalize to measure sentiment",
+      "Amazon Translate to produce transcripts, followed by a SageMaker training job that builds a custom sentiment model from scratch on labeled call data",
+      "Amazon Transcribe to produce transcripts, followed by Amazon Comprehend sentiment analysis on the text"
+    ],
+    "answer": 3,
+    "explain": "Transcribe converts audio to text and Comprehend analyzes the text for sentiment. Polly generates speech, not transcripts, so it is the strongest distractor.",
+    "difficulty": "media",
+    "tags": [
+      "transcribe",
+      "comprehend"
+    ],
+    "source": "AWS docs: Amazon Comprehend Developer Guide: What is Amazon Comprehend?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2",
+      "V28"
+    ]
+  },
+  {
+    "id": "ch14-q006",
+    "chapter": "ch14-ai-services",
+    "q": "Which Amazon Textract operation is designed to return the fields of an invoice or receipt without custom training?",
+    "options": [
+      "AnalyzeExpense",
+      "AnalyzeID",
+      "Analyze Lending",
+      "Queries"
+    ],
+    "answer": 0,
+    "explain": "AnalyzeExpense is the operation for invoices and receipts. AnalyzeID is for identity documents, and Analyze Lending routes mortgage package pages.",
+    "difficulty": "facile",
+    "tags": [
+      "textract"
+    ],
+    "source": "AWS docs: Amazon Textract Developer Guide: What is Amazon Textract?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q007",
+    "chapter": "ch14-ai-services",
+    "q": "A hospital wants medications and dosages extracted from unstructured physician notes, with each medication linked to RxNorm codes for billing. Which service and operation should it use?",
+    "options": [
+      "Amazon Comprehend standard entity detection with a custom entity recognizer trained on drug names",
+      "Amazon Comprehend Medical with the InferRxNorm operation on the notes",
+      "Amazon Translate with custom terminology containing drug names in each language",
+      "Amazon Kendra with a GenAI index over the notes, queried for each drug name"
+    ],
+    "answer": 1,
+    "explain": "InferRxNorm links medications detected in clinical text to RxNorm concepts. A custom Comprehend recognizer would detect the names but not link them to a clinical ontology.",
+    "difficulty": "media",
+    "tags": [
+      "comprehend-medical",
+      "rxnorm"
+    ],
+    "source": "AWS docs: Amazon Comprehend Medical Developer Guide: What is Amazon Comprehend Medical?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V18"
+    ]
+  },
+  {
+    "id": "ch14-q008",
+    "chapter": "ch14-ai-services",
+    "q": "Which Comprehend Medical operation links detected medical conditions to ICD-10-CM codes?",
+    "options": [
+      "Custom entity recognition training",
+      "InferSNOMEDCT",
+      "InferICD10CM",
+      "InferRxNorm"
+    ],
+    "answer": 2,
+    "explain": "InferICD10CM links detected conditions to ICD-10-CM codes. InferSNOMEDCT uses SNOMED CT and InferRxNorm uses RxNorm, so they are the closest distractors.",
+    "difficulty": "media",
+    "tags": [
+      "comprehend-medical",
+      "icd-10"
+    ],
+    "source": "AWS docs: Amazon Comprehend Medical Developer Guide: What is Amazon Comprehend Medical?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V18"
+    ]
+  },
+  {
+    "id": "ch14-q009",
+    "chapter": "ch14-ai-services",
+    "q": "A health-tech team processes clinical notes written in English and Spanish and wants to use Comprehend Medical for both. What is the most accurate statement about the service?",
+    "options": [
+      "Comprehend Medical translates clinical text to English automatically before it detects the medical entities",
+      "Comprehend Medical supports English and Spanish clinical text through the same detection operations without configuration",
+      "Comprehend Medical detects medical entities in any language once a custom entity recognizer is trained for it",
+      "Comprehend Medical detects medical entities only in English (US) text, so Spanish notes need a different approach"
+    ],
+    "answer": 3,
+    "explain": "The documentation says Comprehend Medical detects medical entities only in English (US) texts. The Spanish option is plausible because standard Comprehend supports more languages, so it is the strongest distractor.",
+    "difficulty": "media",
+    "tags": [
+      "comprehend-medical",
+      "languages"
+    ],
+    "source": "AWS docs: Amazon Comprehend Medical Developer Guide: What is Amazon Comprehend Medical?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V18"
+    ]
+  },
+  {
+    "id": "ch14-q010",
+    "chapter": "ch14-ai-services",
+    "q": "A healthcare data team must keep protected health information out of persistent storage in the NLP service. Which fact about Comprehend Medical applies?",
+    "options": [
+      "Comprehend Medical does not persistently store customer content, and connections use HTTPS over TLS by default",
+      "Comprehend Medical writes every analyzed note to a customer S3 bucket that cannot be deleted by the customer, even after the processing job has finished and the account is closed",
+      "Comprehend Medical is not HIPAA eligible, so PHI must be de-identified before it is sent to the API",
+      "Comprehend Medical requires the customer to enable KMS encryption at rest manually before the first request"
+    ],
+    "answer": 0,
+    "explain": "Comprehend Medical does not persistently store customer content and uses HTTPS over TLS by default. The HIPAA distractor is wrong because the service is HIPAA eligible.",
+    "difficulty": "media",
+    "tags": [
+      "comprehend-medical",
+      "phi",
+      "security"
+    ],
+    "source": "AWS docs: Amazon Comprehend Medical Developer Guide: What is Amazon Comprehend Medical?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V18"
+    ]
+  },
+  {
+    "id": "ch14-q011",
+    "chapter": "ch14-ai-services",
+    "q": "A company must detect personal data such as names and bank account numbers in plain-text customer messages. Which AWS service provides this as a managed feature?",
+    "options": [
+      "Amazon Rekognition moderation labels",
+      "Amazon Comprehend PII detection",
+      "Amazon Personalize item affinity",
+      "Amazon Polly with SSML speech marks"
+    ],
+    "answer": 1,
+    "explain": "Comprehend detects personally identifiable information as one of its insights. The other services work on images, speech, or recommendations.",
+    "difficulty": "facile",
+    "tags": [
+      "comprehend",
+      "pii"
+    ],
+    "source": "AWS docs: Amazon Comprehend Developer Guide: What is Amazon Comprehend?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q012",
+    "chapter": "ch14-ai-services",
+    "q": "A company wants to tag customer emails with the sentiment for each product mentioned, and also to find personal data in them. Which TWO features address these needs? (Select TWO.)",
+    "options": [
+      "Parallel data in Amazon Translate, which adapts translation style to samples",
+      "Targeted sentiment in Amazon Comprehend, which scores sentiment for each entity occurrence",
+      "Queries in Amazon Textract, which answer questions about a document",
+      "PII detection in Amazon Comprehend, which identifies personal data in text",
+      "InferRxNorm in Amazon Comprehend Medical, which links medications to RxNorm"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "Targeted sentiment gives sentiment per entity, and PII detection finds personal data. The Comprehend Medical and Translate options are real features that do not match the emails scenario.",
+    "difficulty": "difficile",
+    "tags": [
+      "comprehend",
+      "targeted-sentiment",
+      "pii"
+    ],
+    "source": "AWS docs: Amazon Comprehend Developer Guide: What is Amazon Comprehend?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q013",
+    "chapter": "ch14-ai-services",
+    "q": "A company needs its product name Amazon Photos to stay untranslated in the French version of its catalog. Which Amazon Translate feature should it use?",
+    "options": [
+      "Brevity setting, which shortens the translation output",
+      "Formality setting",
+      "Custom terminology, which defines the target term for a source term",
+      "Profanity masking, which hides offensive words in the output"
+    ],
+    "answer": 2,
+    "explain": "Custom terminology defines how a term such as a product name is translated. Formality only changes tone, so it is the strongest distractor.",
+    "difficulty": "facile",
+    "tags": [
+      "translate",
+      "custom-terminology"
+    ],
+    "source": "AWS docs: Amazon Translate Developer Guide: Customizing your translations with custom terminology",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V36"
+    ]
+  },
+  {
+    "id": "ch14-q014",
+    "chapter": "ch14-ai-services",
+    "q": "A translation request must use a custom terminology file. How many terminology files can a single TranslateText request use?",
+    "options": [
+      "One hundred",
+      "Ten",
+      "Five",
+      "One"
+    ],
+    "answer": 3,
+    "explain": "The quota is one terminology file per TranslateText or StartTextTranslationJob request. The account-level limit of 100 files is a different quota.",
+    "difficulty": "media",
+    "tags": [
+      "translate",
+      "quotas"
+    ],
+    "source": "AWS docs: Amazon Translate Developer Guide: Guidelines and quotas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V36"
+    ]
+  },
+  {
+    "id": "ch14-q015",
+    "chapter": "ch14-ai-services",
+    "q": "A company writes custom terminology entries for Amazon Translate. What is the maximum length allowed for the source and target text of one term?",
+    "options": [
+      "200 bytes",
+      "10,000 bytes",
+      "20 MB",
+      "2,000 bytes"
+    ],
+    "answer": 0,
+    "explain": "Each custom terminology term is limited to 200 bytes of source and target text. The 10,000 bytes limit applies to synchronous input text, and 20 MB is the file size.",
+    "difficulty": "media",
+    "tags": [
+      "translate",
+      "quotas"
+    ],
+    "source": "AWS docs: Amazon Translate Developer Guide: Guidelines and quotas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V36"
+    ]
+  },
+  {
+    "id": "ch14-q016",
+    "chapter": "ch14-ai-services",
+    "q": "A marketing team has 500 approved sample translations and wants new translations to adopt the same tone and word choices. Which Amazon Translate feature fits?",
+    "options": [
+      "Brevity setting",
+      "Parallel data, also called active custom translation, built from the approved samples",
+      "Custom terminology with a 20 MB file that lists brand names",
+      "Do-not-translate tags, which keep marked content unchanged in HTML"
+    ],
+    "answer": 1,
+    "explain": "Parallel data adapts the output to the style of example translations. Custom terminology fixes individual terms, not tone, so it is the strongest distractor.",
+    "difficulty": "difficile",
+    "tags": [
+      "translate",
+      "parallel-data"
+    ],
+    "source": "AWS docs: Amazon Translate Developer Guide: Customizing your translations with Amazon Translate",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V36"
+    ]
+  },
+  {
+    "id": "ch14-q017",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO statements about Amazon Translate customization are correct? (Select TWO.)",
+    "options": [
+      "A single term entry can contain up to 2,000 bytes of text in source and target combined",
+      "A TranslateText request can apply up to five terminology files at the same time",
+      "A custom terminology file is limited to 20 MB",
+      "Do-not-translate tags only work with plain text and are ignored in HTML content",
+      "An AWS account can have up to 100 custom terminology files per AWS Region"
+    ],
+    "answer": [
+      2,
+      4
+    ],
+    "explain": "The file size limit is 20 MB and the account limit is 100 files per Region, both from the quotas page. The other statements contradict the one-file-per-request rule and the 200-byte term limit.",
+    "difficulty": "media",
+    "tags": [
+      "translate",
+      "quotas"
+    ],
+    "source": "AWS docs: Amazon Translate Developer Guide: Guidelines and quotas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V36"
+    ]
+  },
+  {
+    "id": "ch14-q018",
+    "chapter": "ch14-ai-services",
+    "q": "A call center wants to measure a customer's sentiment across a whole phone call from a two-channel recording. Which Transcribe feature fits?",
+    "options": [
+      "Amazon Transcribe PII redaction only",
+      "Amazon Polly speech marks",
+      "Amazon Transcribe Call Analytics",
+      "Amazon Transcribe custom vocabulary"
+    ],
+    "answer": 2,
+    "explain": "Call Analytics is built for customer-agent calls on two-channel audio and produces sentiment across the call. PII redaction masks data but does not analyze the call.",
+    "difficulty": "facile",
+    "tags": [
+      "transcribe",
+      "call-analytics"
+    ],
+    "source": "AWS docs: Amazon Transcribe Developer Guide: Analyzing call center audio with Call Analytics",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V28"
+    ]
+  },
+  {
+    "id": "ch14-q019",
+    "chapter": "ch14-ai-services",
+    "q": "A company turns on PII redaction in Transcribe and wants no unredacted personal data kept by the service. Which output option meets this?",
+    "options": [
+      "Use Polly speech marks as the transcript, which masks personal data automatically",
+      "Store the PII entities in a separate bucket that the operator exports manually after each job, then deletes the unredacted copies on a fixed weekly schedule",
+      "Keep the unredacted transcript in the output and rely on the custom vocabulary to hide names",
+      "Generate only the redacted transcript, while knowing the original conversation then exists only in the media file"
+    ],
+    "answer": 3,
+    "explain": "When only the redacted transcript is generated, the unredacted content survives only in the media, so deleting the media loses the record. The custom vocabulary option is the strongest distractor, since vocabularies do not mask data.",
+    "difficulty": "media",
+    "tags": [
+      "transcribe",
+      "pii"
+    ],
+    "source": "AWS docs: Amazon Transcribe Developer Guide: Redacting or identifying PII",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V28"
+    ]
+  },
+  {
+    "id": "ch14-q020",
+    "chapter": "ch14-ai-services",
+    "q": "A team enables PII redaction in Transcribe for medical recordings and states that the output is de-identified under HIPAA. What is the most accurate correction?",
+    "options": [
+      "The redaction feature does not meet the requirements for de-identification under medical privacy laws, so the output still needs review",
+      "Redaction only applies to streaming transcription, so batch recordings are de-identified automatically",
+      "Redaction is HIPAA compliant when the custom vocabulary lists every patient name in the recording set and the output is stored in an encrypted bucket",
+      "Redaction is de-identification by default, and only the unredacted transcript needs to be reviewed by staff"
+    ],
+    "answer": 0,
+    "explain": "The documentation says the redaction feature does not meet de-identification requirements under laws such as HIPAA and recommends reviewing the output. The custom vocabulary option is the strongest distractor because it sounds like a compliance control.",
+    "difficulty": "difficile",
+    "tags": [
+      "transcribe",
+      "pii",
+      "hipaa"
+    ],
+    "source": "AWS docs: Amazon Transcribe Developer Guide: Redacting or identifying PII",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V28"
+    ]
+  },
+  {
+    "id": "ch14-q021",
+    "chapter": "ch14-ai-services",
+    "q": "A product team needs transcripts to render the brand name Veridian correctly, which speakers pronounce in an unusual way. Which Transcribe feature fits?",
+    "options": [
+      "Polly lexicon in PLS format",
+      "Custom vocabulary with the term and its display form",
+      "Polly SSML speech marks",
+      "Translate custom terminology for the brand name"
+    ],
+    "answer": 1,
+    "explain": "A custom vocabulary improves recognition of specific words and can set their display form. The Polly lexicon controls speech output, not transcription.",
+    "difficulty": "media",
+    "tags": [
+      "transcribe",
+      "custom-vocabulary"
+    ],
+    "source": "AWS docs: Amazon Transcribe Developer Guide: Custom vocabularies",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V28"
+    ]
+  },
+  {
+    "id": "ch14-q022",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO constraints apply to Amazon Transcribe custom vocabularies? (Select TWO.)",
+    "options": [
+      "Each entry can be up to 256 characters long",
+      "The vocabulary file must be stored in a bucket in a different AWS Region from the transcription",
+      "A custom vocabulary must contain at least 1,000 words before it can be used",
+      "Each custom vocabulary file is limited to 50 KB",
+      "An AWS account can store up to 10 custom vocabulary files"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "The limits are 50 KB per file and 256 characters per entry, and an account can have up to 100 files. The 10-file and 1,000-word figures and the cross-Region rule are not from the documentation.",
+    "difficulty": "media",
+    "tags": [
+      "transcribe",
+      "custom-vocabulary",
+      "limits"
+    ],
+    "source": "AWS docs: Amazon Transcribe Developer Guide: Custom vocabularies",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V28"
+    ]
+  },
+  {
+    "id": "ch14-q023",
+    "chapter": "ch14-ai-services",
+    "q": "A post-call analytics pipeline receives a 3 GB audio file that must be analyzed with Call Analytics. Which statement is correct?",
+    "options": [
+      "Post-call Call Analytics accepts files of any size once the file is stored in Amazon S3 in a bucket in the same Region as the Call Analytics job",
+      "The 3 GB file can be analyzed in real time by sending it through a streaming connection",
+      "Post-call Call Analytics input files are limited to 500 MB, so the file must be split or reduced",
+      "Post-call Call Analytics limits only the number of files per account, not the file size"
+    ],
+    "answer": 2,
+    "explain": "Post-call input files cannot exceed 500 MB and must be under 4 hours. Streaming is for live audio, so it is the strongest distractor.",
+    "difficulty": "media",
+    "tags": [
+      "transcribe",
+      "call-analytics",
+      "limits"
+    ],
+    "source": "AWS docs: Amazon Transcribe Developer Guide: Analyzing call center audio with Call Analytics",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V28"
+    ]
+  },
+  {
+    "id": "ch14-q024",
+    "chapter": "ch14-ai-services",
+    "q": "A captioning service must show words on screen while a caller is still speaking. Which Transcribe mode fits?",
+    "options": [
+      "Post-call Call Analytics job",
+      "Batch transcription job from an S3 object",
+      "Offline PII audit of stored transcripts",
+      "Streaming transcription"
+    ],
+    "answer": 3,
+    "explain": "Streaming transcription processes audio as it arrives, which is what live captions need. The batch and post-call options process stored files after the fact.",
+    "difficulty": "facile",
+    "tags": [
+      "transcribe",
+      "streaming"
+    ],
+    "source": "AWS docs: Amazon Transcribe Developer Guide: Analyzing call center audio with Call Analytics",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V28"
+    ]
+  },
+  {
+    "id": "ch14-q025",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO features of Amazon Transcribe help a contact center react during a live call? (Select TWO.)",
+    "options": [
+      "Real-time alerts on key phrases, such as a customer asking to speak to a manager",
+      "Custom categories applied to a completed call only",
+      "Custom terminology that changes brand names in translated text",
+      "Lexicons that change how the agent's voice is pronounced",
+      "Textract Queries that answer questions about a contract PDF"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Real-time alerts flag key phrases while the call is in progress, and the real-time mode also supports custom categories. The other options describe Translate, Polly, or Textract features.",
+    "difficulty": "media",
+    "tags": [
+      "transcribe",
+      "call-analytics",
+      "real-time"
+    ],
+    "source": "AWS docs: Amazon Transcribe Developer Guide: Analyzing call center audio with Call Analytics",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V28"
+    ]
+  },
+  {
+    "id": "ch14-q026",
+    "chapter": "ch14-ai-services",
+    "q": "A developer calls SynthesizeSpeech without setting the Engine parameter. Which engine does Amazon Polly use?",
+    "options": [
+      "standard",
+      "long-form",
+      "neural",
+      "generative"
+    ],
+    "answer": 0,
+    "explain": "When no engine is specified, Polly uses the standard engine. Neural gives higher quality voices than standard, so it is the strongest distractor.",
+    "difficulty": "facile",
+    "tags": [
+      "polly",
+      "engine"
+    ],
+    "source": "AWS docs: Amazon Polly API Reference: SynthesizeSpeech",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V29"
+    ]
+  },
+  {
+    "id": "ch14-q027",
+    "chapter": "ch14-ai-services",
+    "q": "A voice that exists only for the neural engine is requested with Engine set to standard. What does Polly return?",
+    "options": [
+      "Audio generated silently with the neural engine, because Polly switches engines automatically",
+      "An EngineNotSupportedException error, because the voice is not compatible with the selected engine",
+      "Speech marks in JSON instead of audio, because the standard engine cannot read the text",
+      "Audio generated with the lexicon applied and a standard voice"
+    ],
+    "answer": 1,
+    "explain": "Polly returns an error when the chosen voice is not supported by the engine. The automatic-switch option is the strongest distractor, but Polly does not change engines on its own.",
+    "difficulty": "media",
+    "tags": [
+      "polly",
+      "engine",
+      "errors"
+    ],
+    "source": "AWS docs: Amazon Polly API Reference: SynthesizeSpeech",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V29"
+    ]
+  },
+  {
+    "id": "ch14-q028",
+    "chapter": "ch14-ai-services",
+    "q": "Which SSML element must wrap the whole document so that Polly treats the input as SSML?",
+    "options": [
+      "A lexicon element at the top of the document",
+      "A break element with a time of zero",
+      "A speak element around the document",
+      "A prosody element around each sentence"
+    ],
+    "answer": 2,
+    "explain": "The speak tag tells Polly that the text is SSML, and the other SSML tags work inside it. The prosody distractor controls only speech rate and pitch of the text it wraps.",
+    "difficulty": "facile",
+    "tags": [
+      "polly",
+      "ssml"
+    ],
+    "source": "AWS docs: Amazon Polly Developer Guide: Generating speech from SSML documents",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V29"
+    ]
+  },
+  {
+    "id": "ch14-q029",
+    "chapter": "ch14-ai-services",
+    "q": "A product name must be read as 'get smart' in every Polly request, both in us-east-1 and in eu-west-1. What is the correct approach?",
+    "options": [
+      "Store the lexicon once in an S3 bucket, and Polly reads it automatically in every Region",
+      "Add SSML phoneme tags only in the us-east-1 requests, because phoneme tags work in one Region",
+      "Use Amazon Translate custom terminology",
+      "Upload a PLS lexicon in each Region where synthesis runs, and pass its name in the LexiconNames parameter"
+    ],
+    "answer": 3,
+    "explain": "Lexicons are stored per Region and applied when their name is passed in LexiconNames. SSML phoneme tags work per request, so they are the strongest distractor because they do change pronunciation.",
+    "difficulty": "difficile",
+    "tags": [
+      "polly",
+      "lexicon",
+      "region"
+    ],
+    "source": "AWS docs: Amazon Polly Developer Guide: Managing lexicons",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V29"
+    ]
+  },
+  {
+    "id": "ch14-q030",
+    "chapter": "ch14-ai-services",
+    "q": "Which THREE statements about Amazon Polly lexicons are correct? (Select THREE.)",
+    "options": [
+      "A lexicon is applied only when its language matches the language of the voice",
+      "Lexicons must be written in SSML format",
+      "Lexicons are replicated automatically to all AWS Regions",
+      "Lexicons replace the need for SSML in every request",
+      "One SynthesizeSpeech request can reference up to five lexicons",
+      "Lexicons follow the Pronunciation Lexicon Specification (PLS) from the W3C"
+    ],
+    "answer": [
+      0,
+      4,
+      5
+    ],
+    "explain": "Lexicons follow the PLS specification, apply only when the language matches, and up to five can be named in one request. Lexicons are stored per Region, and they do not replace SSML.",
+    "difficulty": "difficile",
+    "tags": [
+      "polly",
+      "lexicon",
+      "pls"
+    ],
+    "source": "AWS docs: Amazon Polly Developer Guide: Managing lexicons",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V29"
+    ]
+  },
+  {
+    "id": "ch14-q031",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO requests are valid for Amazon Polly? (Select TWO.)",
+    "options": [
+      "SynthesizeSpeech with 10,000 billable characters in one request",
+      "A lexicon uploaded in one Region applied automatically in another Region",
+      "SynthesizeSpeech with TextType set to ssml and a well-formed SSML document as input",
+      "Speech marks returned with mp3 as the output format",
+      "StartSpeechSynthesisTask for a document of up to 200,000 characters"
+    ],
+    "answer": [
+      2,
+      4
+    ],
+    "explain": "SSML input is valid with TextType ssml, and asynchronous tasks accept up to 200,000 characters. Synchronous requests are limited to 3,000 billable characters, and speech marks need JSON output.",
+    "difficulty": "media",
+    "tags": [
+      "polly",
+      "limits",
+      "ssml"
+    ],
+    "source": "AWS docs: Amazon Polly API Reference: SynthesizeSpeech",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V29"
+    ]
+  },
+  {
+    "id": "ch14-q032",
+    "chapter": "ch14-ai-services",
+    "q": "In Amazon Lex, what does an intent represent?",
+    "options": [
+      "The action the user wants to perform, such as ordering a pizza",
+      "A reusable Lambda function that the bot calls for every turn",
+      "A parameter the bot collects from the user, such as the pizza size",
+      "A pronunciation rule applied to the spoken output"
+    ],
+    "answer": 0,
+    "explain": "An intent is the user's goal. Slots are the parameters collected to fulfill it, which makes the slot option the closest distractor.",
+    "difficulty": "facile",
+    "tags": [
+      "lex",
+      "intent"
+    ],
+    "source": "AWS docs: Amazon Lex V2 Developer Guide: Amazon Lex V2 core concepts",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V30"
+    ]
+  },
+  {
+    "id": "ch14-q033",
+    "chapter": "ch14-ai-services",
+    "q": "A bot must collect the pizza size and the number of pizzas before it places an order. What are these inputs in Lex terms?",
+    "options": [
+      "Utterances of the bot that the user says",
+      "Slots of the OrderPizza intent",
+      "Aliases that point to the bot",
+      "Versions published from the bot"
+    ],
+    "answer": 1,
+    "explain": "Slots are the parameters an intent requires, and the bot prompts for any missing values. Utterances are sample phrases that trigger an intent, so they are the strongest distractor.",
+    "difficulty": "media",
+    "tags": [
+      "lex",
+      "slots"
+    ],
+    "source": "AWS docs: Amazon Lex V2 Developer Guide: Amazon Lex V2 core concepts",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V30"
+    ]
+  },
+  {
+    "id": "ch14-q034",
+    "chapter": "ch14-ai-services",
+    "q": "A team needs a stable production endpoint for a bot while it publishes new versions for testing. Which Lex concept provides this?",
+    "options": [
+      "An intent fulfillment prompt",
+      "A slot type with enumeration values that the bot uses to validate each parameter that the user provides during the conversation",
+      "An alias that points to a published bot version",
+      "A lexicon with PLS rules"
+    ],
+    "answer": 2,
+    "explain": "An alias is a pointer to a version, so clients keep using the alias while the version changes. A slot type defines the values of one parameter, not deployment.",
+    "difficulty": "facile",
+    "tags": [
+      "lex",
+      "versions",
+      "alias"
+    ],
+    "source": "AWS docs: Amazon Lex V2 Developer Guide: Amazon Lex V2 core concepts",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V30"
+    ]
+  },
+  {
+    "id": "ch14-q035",
+    "chapter": "ch14-ai-services",
+    "q": "A bot misunderstands paraphrased requests even after many sample utterances. Which Lex V2 feature uses large language models to improve intent and slot resolution with less training data?",
+    "options": [
+      "Conditional branching, which routes the conversation based on slot values",
+      "Multi-Region replication",
+      "Custom vocabulary files, which list the words the bot should recognize",
+      "Assisted NLU, which works within the configured intents and slots of the bot"
+    ],
+    "answer": 3,
+    "explain": "Assisted NLU uses LLMs to improve intent classification and slot resolution while staying within the configured intents and slots. Conditional branching controls the flow but does not improve understanding.",
+    "difficulty": "difficile",
+    "tags": [
+      "lex",
+      "assisted-nlu"
+    ],
+    "source": "AWS docs: Amazon Lex V2 Developer Guide: What is Amazon Lex V2?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V30"
+    ]
+  },
+  {
+    "id": "ch14-q036",
+    "chapter": "ch14-ai-services",
+    "q": "A chatbot is deployed to a web application and to a messaging platform. Which TWO statements about Amazon Lex are correct? (Select TWO.)",
+    "options": [
+      "Lex can only be accessed from the AWS Management Console",
+      "Lex V2 supports both text and voice bots",
+      "Lex requires customers to manage GPU instances for the NLU model",
+      "Fulfillment is commonly implemented with an AWS Lambda function",
+      "Lex bots are deployed to Polly endpoints for speech output"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "Lex recommends Lambda for fulfillment and supports text and voice bots. The other options describe infrastructure or services that Lex does not require.",
+    "difficulty": "difficile",
+    "tags": [
+      "lex",
+      "fulfillment",
+      "channels"
+    ],
+    "source": "AWS docs: Amazon Lex V2 Developer Guide: What is Amazon Lex V2?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V30"
+    ]
+  },
+  {
+    "id": "ch14-q037",
+    "chapter": "ch14-ai-services",
+    "q": "A manufacturer needs to recognize its own machine parts in images from a conveyor belt and locate each part with a bounding box. Which service fits?",
+    "options": [
+      "Amazon Rekognition Custom Labels",
+      "Amazon Rekognition DetectLabels with the default label set",
+      "Amazon Textract AnalyzeDocument",
+      "Amazon Comprehend custom classification"
+    ],
+    "answer": 0,
+    "explain": "Custom Labels trains a model on the company's own parts and returns bounding boxes for object locations. The default DetectLabels set does not know company-specific parts.",
+    "difficulty": "facile",
+    "tags": [
+      "rekognition",
+      "custom-labels"
+    ],
+    "source": "AWS docs: Amazon Rekognition Custom Labels Developer Guide: What is Amazon Rekognition Custom Labels?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q038",
+    "chapter": "ch14-ai-services",
+    "q": "A social platform must find images that contain inappropriate or unsafe content before they are published. Which Rekognition operation fits?",
+    "options": [
+      "Textract Queries",
+      "DetectModerationLabels",
+      "Face comparison between two photos",
+      "Custom Labels with bounding boxes"
+    ],
+    "answer": 1,
+    "explain": "DetectModerationLabels detects unsafe or inappropriate content. Custom Labels is for company-specific objects, and the documentation says it is not designed for finding unsafe image content.",
+    "difficulty": "media",
+    "tags": [
+      "rekognition",
+      "moderation"
+    ],
+    "source": "AWS docs: Amazon Rekognition Developer Guide: Moderating content",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q039",
+    "chapter": "ch14-ai-services",
+    "q": "A company must extract key-value pairs and tables from scanned forms. Which Textract capability fits?",
+    "options": [
+      "The AnalyzeID operation for identity documents",
+      "The AnalyzeExpense operation for invoices",
+      "The Document Analysis operation with the forms and tables features",
+      "The text detection operation that returns words and lines only, without any relationships between the detected fields or the table structure"
+    ],
+    "answer": 2,
+    "explain": "Document analysis extracts text, forms and tables from structured documents. Text detection returns words and lines without the relationships between fields, so it is the strongest distractor.",
+    "difficulty": "media",
+    "tags": [
+      "textract",
+      "forms",
+      "tables"
+    ],
+    "source": "AWS docs: Amazon Textract Developer Guide: What is Amazon Textract?",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q040",
+    "chapter": "ch14-ai-services",
+    "q": "A team wants to ask 'What is the total amount due?' against a single contract PDF without writing extraction rules. Which Textract feature fits?",
+    "options": [
+      "Text detection with a regular expression applied to the output",
+      "AnalyzeID, which reads identity documents",
+      "Custom Labels, which classify document images",
+      "Queries, which answer natural-language questions about the document"
+    ],
+    "answer": 3,
+    "explain": "Queries lets you ask questions in natural language and returns the answers from the document. The regular expression option works but needs rules the question excludes.",
+    "difficulty": "media",
+    "tags": [
+      "textract",
+      "queries"
+    ],
+    "source": "AWS docs: Amazon Textract Developer Guide: What is Amazon Textract?",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q041",
+    "chapter": "ch14-ai-services",
+    "q": "A 30-page loan package must be analyzed with Textract. Which API mode fits, and why?",
+    "options": [
+      "Asynchronous operations, because synchronous operations are intended for single-page documents where latency is critical",
+      "Custom Labels, one model per page, because each page is a separate image",
+      "Streaming transcription, because the package is processed like a live audio feed",
+      "Synchronous operations for all 30 pages in one call"
+    ],
+    "answer": 0,
+    "explain": "Synchronous operations analyze single-page documents with low latency, while asynchronous operations handle multipage documents. The synchronous distractor is tempting because the latency goal sounds similar.",
+    "difficulty": "difficile",
+    "tags": [
+      "textract",
+      "async",
+      "sync"
+    ],
+    "source": "AWS docs: Amazon Textract Developer Guide: What is Amazon Textract?",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q042",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO use cases fit Amazon Rekognition moderation combined with human review? (Select TWO.)",
+    "options": [
+      "Identifying the brand of cars in dashcam video for an inventory report",
+      "Flagging inappropriate user uploads and sending a random sample to human reviewers through A2I",
+      "Sending moderation labels below a confidence threshold to an A2I human loop",
+      "Extracting the total amount from paper receipts for an expense system",
+      "Reading the handwriting on a patient intake form to create a record"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "A2I can review a random sample of moderation results and labels below a confidence threshold, both integrated with Rekognition. The brand and receipt options describe other tasks, and the handwriting option is a Textract use case.",
+    "difficulty": "difficile",
+    "tags": [
+      "rekognition",
+      "a2i",
+      "moderation"
+    ],
+    "source": "AWS docs: Amazon Rekognition Developer Guide: Moderating content",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-2.1K2",
+      "V11"
+    ]
+  },
+  {
+    "id": "ch14-q043",
+    "chapter": "ch14-ai-services",
+    "q": "Which Textract operation is designed to return the fields of an invoice or receipt without custom training?",
+    "options": [
+      "AnalyzeID",
+      "AnalyzeExpense",
+      "Queries",
+      "Analyze Lending"
+    ],
+    "answer": 1,
+    "explain": "AnalyzeExpense is the operation for invoices and receipts. AnalyzeID is for identity documents, and Analyze Lending routes mortgage package pages.",
+    "difficulty": "facile",
+    "tags": [
+      "textract",
+      "invoices"
+    ],
+    "source": "AWS docs: Amazon Textract Developer Guide: What is Amazon Textract?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q044",
+    "chapter": "ch14-ai-services",
+    "q": "Which three resources are required to create a human review workflow in Amazon A2I?",
+    "options": [
+      "A model, an endpoint, and a data store",
+      "A Lambda function and an API Gateway",
+      "A worker task template, a flow definition, and a human loop",
+      "A lexicon, an SSML document, and speech marks"
+    ],
+    "answer": 2,
+    "explain": "A2I needs a worker task template for the reviewer interface, a flow definition for the workflow, and human loops for each review. The model and endpoint option is the strongest distractor, since A2I works with a model's output.",
+    "difficulty": "media",
+    "tags": [
+      "a2i",
+      "flow-definition"
+    ],
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide: Use Amazon Augmented AI with Amazon Textract",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V11"
+    ]
+  },
+  {
+    "id": "ch14-q045",
+    "chapter": "ch14-ai-services",
+    "q": "A human review must start when the confidence of a Textract key falls within a range that you specify. Which A2I concept defines this condition?",
+    "options": [
+      "Speech marks in the output",
+      "A custom vocabulary entry",
+      "A PLS lexicon entry",
+      "Activation conditions in the flow definition"
+    ],
+    "answer": 3,
+    "explain": "Activation conditions define when Textract sends a task to a human, including confidence ranges for form keys. Speech marks and lexicons belong to Polly.",
+    "difficulty": "media",
+    "tags": [
+      "a2i",
+      "activation"
+    ],
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide: Use Amazon Augmented AI with Amazon Textract",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V11"
+    ]
+  },
+  {
+    "id": "ch14-q046",
+    "chapter": "ch14-ai-services",
+    "q": "Which A2I activation option sends a random sample of documents to human reviewers regardless of the model's confidence?",
+    "options": [
+      "A random sampling condition in the flow definition",
+      "A Kendra index with a GenAI Enterprise Edition that retrieves passages for question answering over the company's documents",
+      "A Polly engine set to neural",
+      "A Personalize recipe of type POPULAR_ITEMS"
+    ],
+    "answer": 0,
+    "explain": "A flow definition can include random sampling so that some documents are always reviewed. A Kendra index is a retrieval service, which makes it the strongest distractor for a review question.",
+    "difficulty": "difficile",
+    "tags": [
+      "a2i",
+      "sampling"
+    ],
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide: Use Amazon Augmented AI with Amazon Textract",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V11"
+    ]
+  },
+  {
+    "id": "ch14-q047",
+    "chapter": "ch14-ai-services",
+    "q": "Which THREE statements about Amazon A2I are correct? (Select THREE.)",
+    "options": [
+      "A human loop is created when the activation conditions of the flow definition are met",
+      "A2I trains the underlying Textract model automatically from the reviewers' answers",
+      "The worker task template defines the interface that reviewers see",
+      "A2I requires Amazon Kendra to store the output of each reviewed task",
+      "Reviews are possible only through Amazon Mechanical Turk",
+      "A2I integrates with the AnalyzeDocument operation of Amazon Textract"
+    ],
+    "answer": [
+      0,
+      2,
+      5
+    ],
+    "explain": "A human loop starts when the activation conditions are met, the worker task template defines the reviewer interface, and A2I integrates with Textract AnalyzeDocument. A2I does not retrain models, and Mechanical Turk is only one possible workforce.",
+    "difficulty": "media",
+    "tags": [
+      "a2i",
+      "human-loop"
+    ],
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide: Use Amazon Augmented AI with Amazon Textract",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V11"
+    ]
+  },
+  {
+    "id": "ch14-q048",
+    "chapter": "ch14-ai-services",
+    "q": "A company wants its own staff to review low-confidence Rekognition moderation labels. Which TWO actions are required? (Select TWO.)",
+    "options": [
+      "Enable PII redaction in Transcribe on the uploaded images",
+      "Create a flow definition whose activation conditions use the label confidence",
+      "Export the labels to Amazon Comprehend Medical for review",
+      "Set the Polly engine to neural so reviewers hear the labels",
+      "Create a private work team and assign it to the flow definition"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "The flow definition holds the confidence-based activation and the work team that performs the reviews. Transcribe, Comprehend Medical, and Polly do not take part in an image review workflow.",
+    "difficulty": "difficile",
+    "tags": [
+      "a2i",
+      "work-team",
+      "moderation"
+    ],
+    "source": "AWS docs: Amazon SageMaker AI Developer Guide: Use Amazon Augmented AI with Amazon Textract",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V11"
+    ]
+  },
+  {
+    "id": "ch14-q049",
+    "chapter": "ch14-ai-services",
+    "q": "A company wants search that matches the meaning of a question rather than only its keywords. Which Kendra capability provides this?",
+    "options": [
+      "Keyword-only Boolean search over file names",
+      "Semantic search over the indexed documents",
+      "Video transcoding of indexed media",
+      "Text-to-speech output of the results"
+    ],
+    "answer": 1,
+    "explain": "Kendra uses semantic and contextual similarity to decide whether a passage is relevant. Keyword-only search is the strongest distractor because it is the traditional approach Kendra replaces.",
+    "difficulty": "facile",
+    "tags": [
+      "kendra",
+      "semantic-search"
+    ],
+    "source": "AWS docs: Amazon Kendra Developer Guide: What is Amazon Kendra?",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V35"
+    ]
+  },
+  {
+    "id": "ch14-q050",
+    "chapter": "ch14-ai-services",
+    "q": "A team builds a RAG assistant over enterprise documents and wants the most accurate Kendra index for retrieval. Which index type does AWS recommend?",
+    "options": [
+      "The Developer Edition index",
+      "An Enterprise Edition index with no connectors configured",
+      "The GenAI Enterprise Edition index",
+      "A basic keyword index without semantic search"
+    ],
+    "answer": 2,
+    "explain": "The GenAI Enterprise Edition index offers the highest accuracy for RAG and is recommended for the best experience. The Developer Edition is only for testing, so it is the strongest distractor.",
+    "difficulty": "media",
+    "tags": [
+      "kendra",
+      "genai-index",
+      "rag"
+    ],
+    "source": "AWS docs: Amazon Kendra Developer Guide: Index types in Amazon Kendra",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V35"
+    ]
+  },
+  {
+    "id": "ch14-q051",
+    "chapter": "ch14-ai-services",
+    "q": "Which statement about the Amazon Kendra Developer Edition index is correct?",
+    "options": [
+      "It is the production index with the highest availability and the full set of GenAI features",
+      "It is required for every Kendra connector and cannot be replaced by another edition",
+      "It supports only keyword search over file names and metadata fields",
+      "It provides semantic search for proof-of-concept work and is not recommended for production use"
+    ],
+    "answer": 3,
+    "explain": "The Developer Edition offers semantic search for testing and is not recommended for production. The high-availability statement describes the Enterprise and GenAI editions, which is why it is the strongest distractor.",
+    "difficulty": "media",
+    "tags": [
+      "kendra",
+      "developer-edition"
+    ],
+    "source": "AWS docs: Amazon Kendra Developer Guide: Index types in Amazon Kendra",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V35"
+    ]
+  },
+  {
+    "id": "ch14-q052",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO features help a Kendra search experience? (Select TWO.)",
+    "options": [
+      "Connectors to data sources such as Microsoft SharePoint",
+      "Automatic selection of GPU instance types by the end user",
+      "Text-to-speech playback of the results for each user",
+      "Filtering results on document attributes and custom metadata",
+      "Video transcoding of the indexed files into multiple formats"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Kendra has connectors to sources such as SharePoint and supports filtering on document metadata. The other options are unrelated to search retrieval.",
+    "difficulty": "media",
+    "tags": [
+      "kendra",
+      "connectors",
+      "filtering"
+    ],
+    "source": "AWS docs: Amazon Kendra Developer Guide: What is Amazon Kendra?",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V35"
+    ]
+  },
+  {
+    "id": "ch14-q053",
+    "chapter": "ch14-ai-services",
+    "q": "Which Personalize recipe type recommends items for a user based on the user's interaction history?",
+    "options": [
+      "USER_PERSONALIZATION",
+      "PERSONALIZED_RANKING",
+      "USER_SEGMENTATION",
+      "POPULAR_ITEMS"
+    ],
+    "answer": 0,
+    "explain": "USER_PERSONALIZATION recommends items to a user from interaction data. PERSONALIZED_RANKING re-orders a list the application already has, so it is the strongest distractor.",
+    "difficulty": "facile",
+    "tags": [
+      "personalize",
+      "recipes"
+    ],
+    "source": "AWS docs: Amazon Personalize Developer Guide: Choosing a recipe",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V31"
+    ]
+  },
+  {
+    "id": "ch14-q054",
+    "chapter": "ch14-ai-services",
+    "q": "A news site wants to show trending articles to readers who have little interaction history. Which recipe type fits?",
+    "options": [
+      "RELATED_ITEMS",
+      "POPULAR_ITEMS, with the Trending-Now or Popularity-Count recipe",
+      "PERSONALIZED_RANKING, to re-order the articles for each reader",
+      "USER_SEGMENTATION, to group readers into segments"
+    ],
+    "answer": 1,
+    "explain": "POPULAR_ITEMS recipes recommend trending or popular items, which suits readers with little history. RELATED_ITEMS would suggest similar articles rather than trending ones.",
+    "difficulty": "media",
+    "tags": [
+      "personalize",
+      "popular-items"
+    ],
+    "source": "AWS docs: Amazon Personalize Developer Guide: Choosing a recipe",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V31"
+    ]
+  },
+  {
+    "id": "ch14-q055",
+    "chapter": "ch14-ai-services",
+    "q": "A retailer wants to re-rank the results of a search page for each user. Which recipe type and API fit?",
+    "options": [
+      "USER_PERSONALIZATION",
+      "POPULAR_ITEMS, called through CreateBatchSegmentJob for the search results",
+      "PERSONALIZED_RANKING, called through GetPersonalizedRanking with the list of item IDs",
+      "RELATED_ITEMS, called through GetRecommendations with an item ID"
+    ],
+    "answer": 2,
+    "explain": "PERSONALIZED_RANKING re-orders a supplied list of items for a user through GetPersonalizedRanking. USER_PERSONALIZATION is the closest distractor, but it returns its own recommendations, not a re-ranked list.",
+    "difficulty": "media",
+    "tags": [
+      "personalize",
+      "ranking"
+    ],
+    "source": "AWS docs: Amazon Personalize Developer Guide: Choosing a recipe",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V31"
+    ]
+  },
+  {
+    "id": "ch14-q056",
+    "chapter": "ch14-ai-services",
+    "q": "A marketing team wants to segment users by their likelihood to interact with item categories, and to export the segments in a batch job. Which option fits?",
+    "options": [
+      "The USER_PERSONALIZATION recipe with real-time GetRecommendations calls per user",
+      "The PERSONALIZED_ACTIONS recipe with GetActionRecommendations for each user",
+      "The POPULAR_ITEMS recipe with GetRecommendations for the whole catalog",
+      "The USER_SEGMENTATION recipe with a batch segment job (CreateBatchSegmentJob)"
+    ],
+    "answer": 3,
+    "explain": "USER_SEGMENTATION recipes create user segments through batch segment jobs. PERSONALIZED_ACTIONS recommends the next best action in real time, so it is the strongest distractor.",
+    "difficulty": "difficile",
+    "tags": [
+      "personalize",
+      "segmentation",
+      "batch"
+    ],
+    "source": "AWS docs: Amazon Personalize Developer Guide: Choosing a recipe",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V31"
+    ]
+  },
+  {
+    "id": "ch14-q057",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO statements about Amazon Personalize are correct? (Select TWO.)",
+    "options": [
+      "Personalize requires a Kendra index for every recommendation request",
+      "Personalize trains only Textract models for document extraction",
+      "A recipe is a predefined algorithm prepared for a specific use case",
+      "Personalize generates recommendations mainly from item interaction data",
+      "Personalize generates speech output with SSML tags"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "Recipes are predefined algorithms for use cases, and interaction data drives most recommendations. The Kendra and Textract statements invent dependencies, and SSML belongs to Polly.",
+    "difficulty": "media",
+    "tags": [
+      "personalize",
+      "recipes",
+      "interactions"
+    ],
+    "source": "AWS docs: Amazon Personalize Developer Guide: What is Amazon Personalize?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V31"
+    ]
+  },
+  {
+    "id": "ch14-q058",
+    "chapter": "ch14-ai-services",
+    "q": "A health system must store clinical records in the FHIR R4 standard as a fully managed, HIPAA eligible service. Which AWS service fits?",
+    "options": [
+      "AWS HealthLake",
+      "Amazon Comprehend Medical",
+      "Amazon HealthImaging",
+      "Amazon DynamoDB with JSON documents"
+    ],
+    "answer": 0,
+    "explain": "HealthLake is a managed, HIPAA eligible FHIR R4 persistence layer. Comprehend Medical extracts information from text but does not store FHIR resources, and HealthImaging is for medical images.",
+    "difficulty": "media",
+    "tags": [
+      "healthlake",
+      "fhir"
+    ],
+    "source": "AWS HealthLake product page: aws.amazon.com/healthlake",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V21"
+    ]
+  },
+  {
+    "id": "ch14-q059",
+    "chapter": "ch14-ai-services",
+    "q": "A data team needs FHIR search queries on patient resources and wants the results exported to Amazon S3. Which service fits?",
+    "options": [
+      "Amazon Textract with Queries on the exported JSON files",
+      "AWS HealthLake, which supports FHIR REST search and import and export jobs",
+      "Amazon Lex with one intent per FHIR resource type",
+      "Amazon Kendra with a GenAI index over the FHIR bundles"
+    ],
+    "answer": 1,
+    "explain": "HealthLake is the FHIR R4 server, with search and import and export jobs. Kendra is a document search service, which makes it the strongest distractor because it also searches large data sets.",
+    "difficulty": "media",
+    "tags": [
+      "healthlake",
+      "fhir-search"
+    ],
+    "source": "AWS HealthLake product page: aws.amazon.com/healthlake",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V21"
+    ]
+  },
+  {
+    "id": "ch14-q060",
+    "chapter": "ch14-ai-services",
+    "q": "A payments company wants to score new account sign-ups for fraud risk, train on its own labeled history, and return pass or send-for-review outcomes. Which service was designed for this?",
+    "options": [
+      "Amazon Lookout for Metrics, which detects anomalies in business metrics such as revenue and traffic and sends alerts to the operations team",
+      "Amazon Forecast, which predicts time series values",
+      "Amazon Fraud Detector, which trains fraud models and assigns outcomes from decision logic",
+      "Amazon Personalize, which recommends items from interaction data"
+    ],
+    "answer": 2,
+    "explain": "Fraud Detector trains models on the company's fraud data and assigns outcomes through decision logic. Lookout for Metrics is the strongest distractor because it also detects unusual patterns, but it works on metrics rather than account events.",
+    "difficulty": "difficile",
+    "tags": [
+      "fraud-detector",
+      "decision-logic"
+    ],
+    "source": "AWS docs: Amazon Fraud Detector User Guide: What is Amazon Fraud Detector?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V20"
+    ]
+  },
+  {
+    "id": "ch14-q061",
+    "chapter": "ch14-ai-services",
+    "q": "A factory wants to predict failures of pumps and compressors from up to 300 sensors, using its historical sensor data in Amazon S3. Which service fits?",
+    "options": [
+      "Amazon Lookout for Vision, which detects visual defects in product images captured on the production line and reports each defect with a confidence score",
+      "Amazon Lookout for Metrics, which detects anomalies in business metrics",
+      "Amazon Rekognition Custom Labels, which classifies images of the equipment",
+      "Amazon Lookout for Equipment, which trains one model on sensor data from fixed industrial equipment"
+    ],
+    "answer": 3,
+    "explain": "Lookout for Equipment trains a model from historical sensor data, with up to 300 sensors in one model, for fixed industrial equipment such as pumps and compressors. Lookout for Vision would fit images, not sensor streams.",
+    "difficulty": "difficile",
+    "tags": [
+      "lookout-equipment",
+      "predictive-maintenance"
+    ],
+    "source": "AWS docs: Amazon Lookout for Equipment Developer Guide: What is Amazon Lookout for Equipment?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V22"
+    ]
+  },
+  {
+    "id": "ch14-q062",
+    "chapter": "ch14-ai-services",
+    "q": "A production line needs to detect visual defects on products from camera images. Which Lookout service fits?",
+    "options": [
+      "Amazon Lookout for Vision",
+      "Amazon Rekognition DetectModerationLabels",
+      "Amazon Lookout for Metrics",
+      "Amazon Lookout for Equipment"
+    ],
+    "answer": 0,
+    "explain": "Lookout for Vision is designed to detect defects in product images. Rekognition moderation finds unsafe content, not manufacturing defects, which is why it is the strongest distractor.",
+    "difficulty": "media",
+    "tags": [
+      "lookout-vision",
+      "defects"
+    ],
+    "source": "AWS Machine Learning Blog: Exploring alternatives and seamlessly migrating data from Amazon Lookout for Vision",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V22"
+    ]
+  },
+  {
+    "id": "ch14-q063",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO statements about the Amazon Lookout services are correct? (Select TWO.)",
+    "options": [
+      "Lookout for Metrics requires a manually labeled set of product images",
+      "Lookout for Equipment is designed for fixed industrial equipment that is monitored with historical sensor data",
+      "Lookout for Equipment is a front-end dashboard that reads CloudWatch graphs",
+      "Lookout for Vision is a time series forecasting service for sales data",
+      "Lookout for Metrics detects anomalies in business metrics"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "Lookout for Metrics finds anomalies in metrics, and Lookout for Equipment fits fixed industrial equipment with historical sensor data. The other statements attribute the wrong data type or purpose to each service.",
+    "difficulty": "difficile",
+    "tags": [
+      "lookout",
+      "anomaly-detection"
+    ],
+    "source": "AWS Machine Learning Blog: Transitioning off Amazon Lookout for Metrics",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V22"
+    ]
+  },
+  {
+    "id": "ch14-q064",
+    "chapter": "ch14-ai-services",
+    "q": "A business analyst with no coding skills wants to build a numeric prediction model from spreadsheets. Which service fits?",
+    "options": [
+      "Amazon Personalize",
+      "Amazon SageMaker Canvas",
+      "Amazon Lex, which builds a conversational chatbot that asks the analyst questions and collects the spreadsheet values one by one from the user",
+      "Amazon Kendra"
+    ],
+    "answer": 1,
+    "explain": "Canvas is the no-code interface of SageMaker for building custom models. Lex and Personalize have other purposes, and Kendra is a search service.",
+    "difficulty": "facile",
+    "tags": [
+      "canvas",
+      "no-code"
+    ],
+    "source": "AWS docs: Amazon SageMaker Developer Guide: Amazon SageMaker Canvas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C05"
+    ]
+  },
+  {
+    "id": "ch14-q065",
+    "chapter": "ch14-ai-services",
+    "q": "Which of the following is a custom model type that SageMaker Canvas supports?",
+    "options": [
+      "Reinforcement learning agents trained in a simulator",
+      "Construction of a vector index for search",
+      "Time series forecasting",
+      "Voice cloning from a single recording"
+    ],
+    "answer": 2,
+    "explain": "Canvas supports numeric prediction, classification, time series forecasting, and image and text classification. Voice cloning and vector indexes are outside the Canvas model types, which makes the agents option the strongest distractor.",
+    "difficulty": "media",
+    "tags": [
+      "canvas",
+      "time-series"
+    ],
+    "source": "AWS docs: Amazon SageMaker Developer Guide: Amazon SageMaker Canvas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C05"
+    ]
+  },
+  {
+    "id": "ch14-q066",
+    "chapter": "ch14-ai-services",
+    "q": "A team that used time series forecasting in Amazon Forecast wants to build the same kind of predictions programmatically in SageMaker. Which option does AWS point to?",
+    "options": [
+      "A Lex bot that answers forecast questions in chat, trained on the historical sales data and returning a forecast for each product line",
+      "A Textract Queries call over the sales PDFs",
+      "A Personalize USER_SEGMENTATION batch job",
+      "An AutoML API (Autopilot) for time series forecasting in SageMaker"
+    ],
+    "answer": 3,
+    "explain": "AWS points Forecast users to SageMaker Canvas, and the AutoML API (Autopilot) supports time series forecasting for programmatic use. The Personalize segmentation option is the strongest distractor because it also uses batch jobs.",
+    "difficulty": "media",
+    "tags": [
+      "forecast",
+      "autopilot",
+      "time-series"
+    ],
+    "source": "AWS Machine Learning Blog: Transition your Amazon Forecast usage to Amazon SageMaker Canvas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C22"
+    ]
+  },
+  {
+    "id": "ch14-q067",
+    "chapter": "ch14-ai-services",
+    "q": "A data team needs a time series forecasting workflow for demand planning, but the analysts cannot write code. Which path fits, and what is the correct way to describe it?",
+    "options": [
+      "Use SageMaker Canvas, which lets analysts build a forecasting model without writing code",
+      "Use Amazon Lookout for Metrics, which forecasts demand from business metric history",
+      "Use Amazon Lex with one intent per forecast period, because intents hold the numeric predictions",
+      "Use a Personalize recipe, because recipes forecast demand for each product"
+    ],
+    "answer": 0,
+    "explain": "Canvas provides no-code model building, including time series forecasting, for analysts. Lookout for Metrics detects anomalies rather than forecasting, which makes it the strongest distractor.",
+    "difficulty": "difficile",
+    "tags": [
+      "canvas",
+      "forecast",
+      "no-code"
+    ],
+    "source": "AWS docs: Amazon SageMaker Developer Guide: Amazon SageMaker Canvas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C05",
+      "C22"
+    ]
+  },
+  {
+    "id": "ch14-q068",
+    "chapter": "ch14-ai-services",
+    "q": "A company wants a no-code model on SageMaker that can also summarize and categorize documents with a chat interface. Which TWO statements about SageMaker Canvas are correct? (Select TWO.)",
+    "options": [
+      "Canvas supports building a time series forecasting model without writing code",
+      "Canvas chat lets users prompt foundation models to summarize or categorize documents",
+      "Canvas is intended for engineers who write SSML documents",
+      "Canvas requires users to write PLS lexicons before they can train a model",
+      "Canvas trains models only on the output of Amazon Textract"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Canvas builds forecasting models without code and offers a chat with foundation models for summarizing and categorizing documents. Lexicons, Textract-only training, and SSML are unrelated to Canvas.",
+    "difficulty": "difficile",
+    "tags": [
+      "canvas",
+      "chat",
+      "foundation-models"
+    ],
+    "source": "AWS docs: Amazon SageMaker Developer Guide: Amazon SageMaker Canvas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C05"
+    ]
+  },
+  {
+    "id": "ch14-q069",
+    "chapter": "ch14-ai-services",
+    "q": "A company wants ready-to-use models that extract insights from images, documents and text in Canvas without training a model. Which AWS AI services power these ready-to-use models?",
+    "options": [
+      "Amazon Personalize, Amazon Forecast and Amazon Fraud Detector",
+      "Amazon Rekognition, Amazon Textract and Amazon Comprehend",
+      "Amazon Kendra, Amazon Lex and Amazon Polly",
+      "Amazon Transcribe, Amazon Translate and Amazon Polly"
+    ],
+    "answer": 1,
+    "explain": "The Canvas documentation says ready-to-use models are powered by Rekognition, Textract and Comprehend. The Kendra, Lex and Polly set is the strongest distractor because it lists AWS AI services that users might confuse with them.",
+    "difficulty": "difficile",
+    "tags": [
+      "canvas",
+      "ready-to-use"
+    ],
+    "source": "AWS docs: Amazon SageMaker Developer Guide: Amazon SageMaker Canvas",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C05"
+    ]
+  },
+  {
+    "id": "ch14-q070",
+    "chapter": "ch14-ai-services",
+    "q": "Which Amazon Q variant answers questions about company documents with citations, and respects each user's permissions?",
+    "options": [
+      "Amazon Kendra Developer Edition",
+      "Amazon Bedrock Knowledge Bases",
+      "Amazon Q Business",
+      "Amazon Q Developer"
+    ],
+    "answer": 2,
+    "explain": "Amazon Q Business is the configurable assistant over enterprise data that gives citations and permission-aware answers. Q Developer is for software development, and Kendra is a search index.",
+    "difficulty": "facile",
+    "tags": [
+      "amazon-q",
+      "q-business"
+    ],
+    "source": "AWS docs: Amazon Q Business User Guide: What is Amazon Q Business?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V23"
+    ]
+  },
+  {
+    "id": "ch14-q071",
+    "chapter": "ch14-ai-services",
+    "q": "A development team wants code suggestions and vulnerability scans inside its IDE, and questions about AWS architecture. Which Amazon Q variant fits?",
+    "options": [
+      "Amazon Kendra with a connector to the code host",
+      "Amazon Q Business, connected to the team's repositories",
+      "Amazon Bedrock Knowledge Bases over the repositories",
+      "Amazon Q Developer"
+    ],
+    "answer": 3,
+    "explain": "Amazon Q Developer generates code, suggests completions, and scans code for vulnerabilities inside the IDE. Q Business is for enterprise assistants, so it is the strongest distractor.",
+    "difficulty": "media",
+    "tags": [
+      "amazon-q",
+      "q-developer",
+      "ide"
+    ],
+    "source": "AWS docs: Amazon Q Developer User Guide: What is Amazon Q Developer?",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V23"
+    ]
+  },
+  {
+    "id": "ch14-q072",
+    "chapter": "ch14-ai-services",
+    "q": "Which Amazon Bedrock API sends a request to a foundation model with a message format that is shared across models?",
+    "options": [
+      "Converse API",
+      "Lex fulfillment hook",
+      "Polly SynthesizeSpeech",
+      "Textract AnalyzeDocument"
+    ],
+    "answer": 0,
+    "explain": "The Converse API takes one message format for all models, while InvokeModel uses the native format of each model. Polly SynthesizeSpeech and Textract AnalyzeDocument are unrelated APIs.",
+    "difficulty": "media",
+    "tags": [
+      "bedrock",
+      "converse"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide: What is Amazon Bedrock?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q073",
+    "chapter": "ch14-ai-services",
+    "q": "A company wants a RAG chatbot over its own documents, a choice of foundation models, and no infrastructure to manage. Which combination fits?",
+    "options": [
+      "Amazon EC2 GPU instances with a self-hosted vector database that the team installs, patches, scales, and secures by itself",
+      "Amazon Bedrock with Knowledge Bases over the company's documents",
+      "Amazon Polly with SSML and a custom lexicon for answers",
+      "Amazon SageMaker Canvas with Textract for the chat interface"
+    ],
+    "answer": 1,
+    "explain": "Bedrock is a managed service for foundation models, and Knowledge Bases connect the company's data for retrieval-augmented answers. The EC2 option is the strongest distractor because it can also run a RAG stack, but it needs infrastructure the scenario excludes.",
+    "difficulty": "difficile",
+    "tags": [
+      "bedrock",
+      "rag",
+      "knowledge-bases"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide: What is Amazon Bedrock?",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q074",
+    "chapter": "ch14-ai-services",
+    "q": "A company wants to customize a foundation model on Amazon Bedrock. Which THREE options are customization methods that Bedrock documents? (Select THREE.)",
+    "options": [
+      "Lexicon editing for pronunciation",
+      "Custom vocabulary upload for speech recognition",
+      "Continued pre-training on domain documents",
+      "Distillation of a larger model into a smaller one",
+      "Speech marks configuration",
+      "Fine-tuning on the company's labeled examples"
+    ],
+    "answer": [
+      2,
+      3,
+      5
+    ],
+    "explain": "Bedrock documents fine-tuning, continued pre-training and distillation as customization methods. Lexicons, custom vocabularies, and speech marks belong to Polly and Transcribe.",
+    "difficulty": "difficile",
+    "tags": [
+      "bedrock",
+      "fine-tuning",
+      "distillation"
+    ],
+    "source": "AWS docs: Amazon Bedrock User Guide: What is Amazon Bedrock?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q075",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO AWS AI services can perform a common task without any training data from the customer? (Select TWO.)",
+    "options": [
+      "Amazon Rekognition DetectLabels, which detects common objects in images",
+      "Amazon Personalize, which needs the customer's interaction history",
+      "Amazon Comprehend sentiment analysis, which scores the sentiment of text",
+      "A SageMaker built-in algorithm, which needs a labeled training dataset",
+      "Amazon Rekognition Custom Labels, trained on the customer's own images"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "DetectLabels and Comprehend sentiment are pre-trained services that work without customer data. Custom Labels, Personalize, and built-in SageMaker algorithms all need customer data to train.",
+    "difficulty": "media",
+    "tags": [
+      "pre-trained",
+      "managed-ai"
+    ],
+    "source": "AWS docs: Amazon Rekognition Custom Labels Developer Guide: What is Amazon Rekognition Custom Labels?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q076",
+    "chapter": "ch14-ai-services",
+    "q": "Which THREE statements about Amazon Textract are correct? (Select THREE.)",
+    "options": [
+      "Textract outputs speech marks for each extracted word",
+      "Textract trains a custom model automatically on every document it processes",
+      "AnalyzeExpense is designed for invoices and receipts",
+      "Textract requires an Amazon Kendra index to return the extracted text",
+      "Queries answers natural-language questions about a document",
+      "Synchronous operations suit single-page documents where latency is critical"
+    ],
+    "answer": [
+      2,
+      4,
+      5
+    ],
+    "explain": "AnalyzeExpense targets invoices and receipts, Queries answers questions in natural language, and synchronous operations suit single-page documents. Textract does not need Kendra, does not output speech marks, and does not train on each document.",
+    "difficulty": "difficile",
+    "tags": [
+      "textract",
+      "multi-select"
+    ],
+    "source": "AWS docs: Amazon Textract Developer Guide: What is Amazon Textract?",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q077",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO statements about using Amazon Kendra with Amazon Bedrock are correct? (Select TWO.)",
+    "options": [
+      "Kendra must be called through the Bedrock Converse API to return passages",
+      "Kendra supports custom metadata and filtering on indexed documents",
+      "Kendra GenAI indexes support every connector version without any limits",
+      "Kendra GenAI Enterprise Edition indexes work only with Amazon Q Developer",
+      "A Kendra GenAI Enterprise Edition index can be used as a managed retriever in a Bedrock knowledge base"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "The Kendra documentation describes a GenAI Enterprise Edition index as a managed retriever in a Bedrock knowledge base, and it supports custom metadata and filtering. The connector-limits and Q Developer statements are false.",
+    "difficulty": "difficile",
+    "tags": [
+      "kendra",
+      "bedrock",
+      "rag"
+    ],
+    "source": "AWS docs: Amazon Kendra Developer Guide: Index types in Amazon Kendra",
+    "origin": "ai",
+    "domain": "1",
+    "task": "1.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V35",
+      "K-2.1K2"
+    ]
+  },
+  {
+    "id": "ch14-q078",
+    "chapter": "ch14-ai-services",
+    "q": "Which TWO statements about Amazon Fraud Detector are correct? (Select TWO.)",
+    "options": [
+      "It requires an Amazon Kendra index for every fraud model it trains",
+      "It trains fraud models on the customer's own labeled fraud data",
+      "It is a Textract-based service that detects fraud in scanned documents",
+      "It classifies the sentiment of customer reviews as a built-in feature",
+      "It assigns outcomes such as pass or send for review through decision logic"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "Fraud Detector trains models on the customer's labeled data and maps model scores to outcomes with decision logic. The Kendra, Textract, and sentiment statements describe other services.",
+    "difficulty": "media",
+    "tags": [
+      "fraud-detector",
+      "multi-select"
+    ],
+    "source": "AWS docs: Amazon Fraud Detector User Guide: What is Amazon Fraud Detector?",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "V20"
+    ]
+  }
+]
