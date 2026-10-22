@@ -27,6 +27,9 @@ from collections import Counter
 MIN_QUESTIONS = 40          # obiettivo minimo di domande per capitolo
 MAX_LONGEST_SHARE = 0.35    # quota max di scelte singole corrette che sono l'opzione piu' lunga
 MAX_MEAN_RATIO = 1.15       # rapporto medio lunghezza corrette / distrattori (singole e multiple)
+MIN_INDEX_SHARE = 0.15      # quota minima di ogni indice corretto (scelta singola)
+MAX_INDEX_SHARE = 0.35      # quota massima di ogni indice corretto (scelta singola)
+MIN_SINGLES_FOR_INDEX_CHECK = 20  # sotto questa soglia la distribuzione e' troppo rumorosa
 DIFFICULTIES = ('facile', 'media', 'difficile')
 DOMAINS = ('1', '2', '3', '4', 'META')
 TASKS = ('1.1', '1.2', '1.3', '2.1', '2.2', '2.3', '3.1', '3.2', '3.3', '4.1', '4.2', '4.3')
@@ -136,6 +139,47 @@ def check_schema(questions, expected_chapter):
     return errs
 
 
+def index_share_errors(singles):
+    """Errore se un indice corretto delle scelte singole e' sotto il 15% o sopra il 35%.
+
+    Vale solo per file con almeno MIN_SINGLES_FOR_INDEX_CHECK domande singole: chi studia
+    impara a scartare un indice poco usato (per esempio la D) se non compare mai come
+    risposta. Ritorna (errori, quote per indice).
+    """
+    counts = Counter(q['answer'] for q in singles)
+    shares = {i: counts.get(i, 0) / len(singles) for i in range(4)} if singles else {}
+    if len(singles) < MIN_SINGLES_FOR_INDEX_CHECK:
+        return [], shares
+    errs = []
+    for i in range(4):
+        share = shares[i]
+        if share < MIN_INDEX_SHARE or share > MAX_INDEX_SHARE:
+            letter = 'ABCD'[i]
+            errs.append(f"indice {letter} corretto nel {share * 100:.0f} per cento delle singole "
+                        f"(atteso tra {MIN_INDEX_SHARE * 100:.0f} e {MAX_INDEX_SHARE * 100:.0f} per cento)")
+    return errs, shares
+
+
+def multi_index_warnings(multis):
+    """Avvisi informativi sulla distribuzione delle posizioni corrette nelle multiple.
+
+    Conta le posizioni corrette su tutte le multiple (ogni risposta giusta e' uno slot).
+    Non blocca il controllo: segnala quando un indice domina o non compare mai.
+    """
+    slots = Counter(i for q in multis for i in q['answer'])
+    total = sum(slots.values())
+    if not total:
+        return []
+    warns = []
+    for i in range(4):
+        share = slots.get(i, 0) / total
+        if share > MAX_INDEX_SHARE:
+            warns.append(f"multipla: indice {'ABCD'[i]} e' corretto nel {share * 100:.0f} per cento delle posizioni corrette")
+        elif share < MIN_INDEX_SHARE:
+            warns.append(f"multipla: indice {'ABCD'[i]} e' corretto solo nel {share * 100:.0f} per cento delle posizioni corrette")
+    return warns
+
+
 def length_stats(questions):
     """Statistiche sul bias di lunghezza.
 
@@ -223,7 +267,14 @@ def check_file(path):
         print(f"multiple: la piu' lunga e' corretta in {stats['multi_longest_in_answer']}/{len(multis)}"
               f" (solo informativo)")
 
-    fail = list(errs)
+    index_errs, _ = index_share_errors(singles)
+    warns = multi_index_warnings(multis)
+    if warns:
+        print("AVVISI (informativi, non bloccano):")
+        for w in warns:
+            print("  -", w)
+
+    fail = list(errs) + index_errs
     if stats['single_longest'] > max_longest:
         fail.append(f"troppe corrette sono l'opzione piu' lunga ({stats['single_longest']}/{len(singles)})")
     if stats['single_mean_ratio'] is not None and stats['single_mean_ratio'] > MAX_MEAN_RATIO:
