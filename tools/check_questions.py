@@ -30,6 +30,8 @@ MAX_MEAN_RATIO = 1.15       # rapporto medio lunghezza corrette / distrattori (s
 MIN_INDEX_SHARE = 0.15      # quota minima di ogni indice corretto (scelta singola)
 MAX_INDEX_SHARE = 0.35      # quota massima di ogni indice corretto (scelta singola)
 MIN_SINGLES_FOR_INDEX_CHECK = 20  # sotto questa soglia la distribuzione e' troppo rumorosa
+MIN_MEAN_RATIO = 0.90             # sotto questo valore la corretta e' sistematicamente la piu' corta
+MIN_LONGEST_SHARE = 0.15          # sotto questa quota "corretta = piu' lunga" il banco insegna a scegliere la piu' corta
 DIFFICULTIES = ('facile', 'media', 'difficile')
 DOMAINS = ('1', '2', '3', '4', 'META')
 TASKS = ('1.1', '1.2', '1.3', '2.1', '2.2', '2.3', '3.1', '3.2', '3.3', '4.1', '4.2', '4.3')
@@ -180,6 +182,29 @@ def multi_index_warnings(multis):
     return warns
 
 
+def reverse_bias_errors(stats, n_singles):
+    """Errori sul bias di lunghezza "al contrario": la corretta troppo corta.
+
+    Vale solo con almeno MIN_SINGLES_FOR_INDEX_CHECK domande singole, come il controllo
+    sugli indici. Chi studia impara a scegliere la risposta piu' corta se la corretta lo
+    e' quasi sempre. Ritorna una lista di errori.
+    """
+    if n_singles < MIN_SINGLES_FOR_INDEX_CHECK:
+        return []
+    errs = []
+    if stats['single_mean_ratio'] is not None and stats['single_mean_ratio'] < MIN_MEAN_RATIO:
+        errs.append(f"rapporto medio singole troppo basso ({stats['single_mean_ratio']:.2f}): "
+                    f"la corretta e' tipicamente la piu' corta (minimo {MIN_MEAN_RATIO:.2f})")
+    if stats['multi_mean_ratio'] is not None and stats['multi_mean_ratio'] < MIN_MEAN_RATIO:
+        errs.append(f"rapporto medio multiple troppo basso ({stats['multi_mean_ratio']:.2f}): "
+                    f"le corrette sono tipicamente le piu' corte (minimo {MIN_MEAN_RATIO:.2f})")
+    longest_share = stats['single_longest'] / n_singles
+    if longest_share < MIN_LONGEST_SHARE:
+        errs.append(f"corretta = opzione piu' lunga solo nel {longest_share * 100:.0f} per cento delle singole "
+                    f"(minimo {MIN_LONGEST_SHARE * 100:.0f} per cento, atteso per caso circa 25)")
+    return errs
+
+
 def length_stats(questions):
     """Statistiche sul bias di lunghezza.
 
@@ -268,6 +293,7 @@ def check_file(path):
               f" (solo informativo)")
 
     index_errs, _ = index_share_errors(singles)
+    index_errs += reverse_bias_errors(stats, len(singles))
     warns = multi_index_warnings(multis)
     if warns:
         print("AVVISI (informativi, non bloccano):")
