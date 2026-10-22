@@ -214,5 +214,31 @@
       "answer": 1,
       "explain": "L'ottimizzazione bayesiana trova buoni iperparametri in modo efficiente, l'early stopping in stile Hyperband ferma i tentativi deboli, e i limiti di job controllano il costo."
     }
+  ],
+  "sources": [
+    {
+      "title": "XGBoost Parameters",
+      "url": "https://xgboost.readthedocs.io/en/stable/parameter.html"
+    },
+    {
+      "title": "Managed Spot Training in Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html"
+    },
+    {
+      "title": "Automatic model tuning with SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html"
+    },
+    {
+      "title": "BlazingText algorithm - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/blazingtext.html"
+    },
+    {
+      "title": "Use the SageMaker AI DeepAR forecasting algorithm",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/deepar.html"
+    },
+    {
+      "title": "scikit-learn: Precision-Recall example",
+      "url": "https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html"
+    }
   ]
 }

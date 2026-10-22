@@ -196,5 +196,43 @@
     }
   ],
   "summary": "Il capitolo finale allena il metodo d esame: circa due minuti e mezzo per domanda, eliminazione dei distrattori, mapping rapido scenario-servizio e memoria dei numeri chiave. Evita i tranelli ricorrenti su IAM, KMS, retraining e scelta dell endpoint. I practice exam in modalita review poi timed preparano al punteggio target.",
-  "title": "Tattiche e ripasso finale"
+  "title": "Tattiche e ripasso finale",
+  "sources": [
+    {
+      "title": "Services in Full Shutdown - AWS General Reference",
+      "url": "https://docs.aws.amazon.com/general/latest/gr/full_shutdown_services.html"
+    },
+    {
+      "title": "AWS service availability updates (30 June 2026)",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2026/06/aws-service-availability/"
+    },
+    {
+      "title": "AWS service availability updates (13 October 2025)",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2025/10/aws-service-availability/"
+    },
+    {
+      "title": "Amazon DevOps Guru User Guide",
+      "url": "https://docs.aws.amazon.com/devops-guru/latest/userguide/welcome.html"
+    },
+    {
+      "title": "AWS CLI Reference: codeguru-security",
+      "url": "https://docs.aws.amazon.com/cli/latest/reference/codeguru-security/"
+    },
+    {
+      "title": "Amazon SageMaker AI features",
+      "url": "https://aws.amazon.com/sagemaker/ai/features/"
+    },
+    {
+      "title": "Transition your Amazon Forecast usage to Amazon SageMaker Canvas",
+      "url": "https://aws.amazon.com/blogs/machine-learning/transition-your-amazon-forecast-usage-to-amazon-sagemaker-canvas/"
+    },
+    {
+      "title": "Amazon Bedrock Agents Classic maintenance mode",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-classic-maintenance-mode.html"
+    },
+    {
+      "title": "Amazon SageMaker Model Monitor availability change",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-availability-change.html"
+    }
+  ]
 }

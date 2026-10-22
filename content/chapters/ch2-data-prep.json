@@ -225,5 +225,31 @@
       "answer": 1,
       "explain": "L'ETL serverless con Spark pianificato su terabyte e il caso tipico di Glue. Data Wrangler e adatto all'esplorazione interattiva di volumi piu piccoli."
     }
+  ],
+  "sources": [
+    {
+      "title": "Amazon S3 FAQs",
+      "url": "https://aws.amazon.com/s3/faqs/"
+    },
+    {
+      "title": "Pre-training Bias Metrics - Amazon SageMaker Clarify",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-measure-data-bias.html"
+    },
+    {
+      "title": "Create, store, and share features with Feature Store",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store.html"
+    },
+    {
+      "title": "Using crawlers to populate the AWS Glue Data Catalog",
+      "url": "https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html"
+    },
+    {
+      "title": "Prepare ML Data with Amazon SageMaker Data Wrangler",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/data-wrangler.html"
+    },
+    {
+      "title": "Clarify availability change",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-availability-change.html"
+    }
   ]
 }

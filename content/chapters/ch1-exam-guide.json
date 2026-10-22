@@ -201,5 +201,31 @@
       "answer": 0,
       "explain": "AWS consiglia circa un anno di esperienza pratica con SageMaker e i carichi di lavoro ML su AWS, oltre alla familiarita con i servizi elencati nell'Appendix A della guida."
     }
+  ],
+  "sources": [
+    {
+      "title": "AWS Certified Machine Learning Engineer - Associate",
+      "url": "https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/"
+    },
+    {
+      "title": "AWS Certified Machine Learning Engineer - Associate (MLA-C02) exam guide",
+      "url": "https://docs.aws.amazon.com/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.html"
+    },
+    {
+      "title": "AWS Certification - After Testing policies",
+      "url": "https://aws.amazon.com/certification/policies/after-testing/"
+    },
+    {
+      "title": "Updates to AWS Certified Machine Learning Engineer - Associate (MLA-C02), AWS Training and Certification blog",
+      "url": "https://aws.amazon.com/blogs/training-and-certification/updates-to-aws-certified-machine-learning-engineer-associate-mla-c02/"
+    },
+    {
+      "title": "AWS Certification - Before Testing (beta exams)",
+      "url": "https://aws.amazon.com/certification/policies/before-testing/"
+    },
+    {
+      "title": "AWS Certification FAQs",
+      "url": "https://aws.amazon.com/certification/faqs/"
+    }
   ]
 }

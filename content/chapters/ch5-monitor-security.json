@@ -193,5 +193,31 @@
     }
   ],
   "summary": "Model Monitor rileva il drift confrontando traffico catturato con baseline su quattro dimensioni: qualita dati, qualita modello, bias e explainability. CloudWatch ed EventBridge chiudono il ciclo con allarmi e retraining automatico. Autoscaling, blue green, A/B e shadow testing garantiscono rilasci sicuri. IAM, KMS, VPC e Secrets Manager proteggono dati e accessi, mentre Model Cards e lineage assicurano governance.",
-  "title": "Monitoraggio, manutenzione e sicurezza"
+  "title": "Monitoraggio, manutenzione e sicurezza",
+  "sources": [
+    {
+      "title": "DataCaptureConfig - Amazon SageMaker AI API Reference",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DataCaptureConfig.html"
+    },
+    {
+      "title": "Data and model quality monitoring with Amazon SageMaker Model Monitor",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html"
+    },
+    {
+      "title": "Amazon SageMaker Model Monitor availability change",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-availability-change.html"
+    },
+    {
+      "title": "Clarify availability change",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-availability-change.html"
+    },
+    {
+      "title": "Amazon SageMaker AI features",
+      "url": "https://aws.amazon.com/sagemaker/ai/features/"
+    },
+    {
+      "title": "Amazon SageMaker Model Cards",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards.html"
+    }
+  ]
 }

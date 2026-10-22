@@ -192,5 +192,31 @@
     }
   ],
   "summary": "SageMaker offre cinque opzioni di inference con tradeoff precisi tra latenza, costo e volume. Gli endpoint real-time servono traffico costante a bassa latenza, quelli serverless il traffico intermittente, quelli asincroni i workload pesanti con payload fino a 1 GB, mentre batch transform elabora offline grandi dataset S3. SageMaker Pipelines automatizza il ciclo di vita ML con step, parametri e caching, integrato con Model Registry e CI/CD. Step Functions, EventBridge, Lambda e MWAA completano l'orchestrazione tra servizi.",
-  "title": "Deploy e orchestrazione dei workflow ML"
+  "title": "Deploy e orchestrazione dei workflow ML",
+  "sources": [
+    {
+      "title": "Inference options in Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model-options.html"
+    },
+    {
+      "title": "Deploy models with Amazon SageMaker Serverless Inference",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/serverless-endpoints.html"
+    },
+    {
+      "title": "Asynchronous inference - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/async-inference.html"
+    },
+    {
+      "title": "Update the Approval Status of a Model - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry-approve.html"
+    },
+    {
+      "title": "Pipelines steps - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html"
+    },
+    {
+      "title": "Add a step - Amazon SageMaker Pipelines",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps-types.html"
+    }
+  ]
 }

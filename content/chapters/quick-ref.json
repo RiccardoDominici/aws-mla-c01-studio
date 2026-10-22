@@ -102,5 +102,39 @@
     }
   ],
   "summary": "Cheat-sheet MLA-C01: endpoint, pipeline, monitoraggio, Bedrock e sicurezza in forma ultra-compatta. Una riga per decisione, con numeri chiave e mapping scenario-servizio per ripasso last-minute.",
-  "title": "Scheda ripasso rapido"
+  "title": "Scheda ripasso rapido",
+  "sources": [
+    {
+      "title": "Inference options in Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model-options.html"
+    },
+    {
+      "title": "Deploy models with Amazon SageMaker Serverless Inference",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/serverless-endpoints.html"
+    },
+    {
+      "title": "DataCaptureConfig - Amazon SageMaker AI API Reference",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DataCaptureConfig.html"
+    },
+    {
+      "title": "Update the Approval Status of a Model - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry-approve.html"
+    },
+    {
+      "title": "Add a step - Amazon SageMaker Pipelines",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps-types.html"
+    },
+    {
+      "title": "Amazon SageMaker Model Monitor availability change",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-availability-change.html"
+    },
+    {
+      "title": "Clarify availability change",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-availability-change.html"
+    },
+    {
+      "title": "Asynchronous inference - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/async-inference.html"
+    }
+  ]
 }

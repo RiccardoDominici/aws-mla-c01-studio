@@ -182,5 +182,35 @@
     }
   ],
   "summary": "Bedrock espone foundation model via API con Knowledge Bases per la RAG, Agents per task multi-step e Guardrails per AI responsabile. La RAG fornisce conoscenza esterna senza cambiare i pesi, il fine-tuning adatta stile e dominio. Comprehend, Rekognition e Textract coprono NLP, visione e OCR gestiti.",
-  "title": "AI generativa con Bedrock"
+  "title": "AI generativa con Bedrock",
+  "sources": [
+    {
+      "title": "Amazon Bedrock Agents Classic maintenance mode",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-classic-maintenance-mode.html"
+    },
+    {
+      "title": "Time Series Forecasts in Amazon SageMaker Canvas",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-time-series.html"
+    },
+    {
+      "title": "Transition your Amazon Forecast usage to Amazon SageMaker Canvas",
+      "url": "https://aws.amazon.com/blogs/machine-learning/transition-your-amazon-forecast-usage-to-amazon-sagemaker-canvas/"
+    },
+    {
+      "title": "Retrieve data and generate AI responses with Amazon Bedrock Knowledge Bases",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html"
+    },
+    {
+      "title": "Detect and filter harmful content by using Amazon Bedrock Guardrails",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html"
+    },
+    {
+      "title": "What is Amazon Comprehend?",
+      "url": "https://docs.aws.amazon.com/comprehend/latest/dg/what-is.html"
+    },
+    {
+      "title": "What is Amazon Textract?",
+      "url": "https://docs.aws.amazon.com/textract/latest/dg/what-is.html"
+    }
+  ]
 }
