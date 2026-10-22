@@ -1927,5 +1927,1402 @@
       "C01",
       "C02"
     ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "Serverless Inference does not support GPUs. Asynchronous and batch options return results later instead of in the same HTTP call, while a real-time endpoint on a GPU instance serves synchronous calls.",
+    "id": "ch4-b01",
+    "options": [
+      "A real-time endpoint on a GPU instance type, with auto scaling enabled",
+      "A serverless endpoint, which scales to zero when no requests arrive and bills only for the seconds each request runs",
+      "An asynchronous endpoint, which queues each request in SageMaker and writes every prediction to an Amazon S3 location",
+      "A batch transform job that runs nightly over an S3 prefix and writes all predictions back to an S3 output location"
+    ],
+    "q": "An application calls the model synchronously, and each HTTP request must return the prediction in that same call. The model needs an NVIDIA GPU, and traffic stays steady during business hours. Which SageMaker option fits best?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models with Amazon SageMaker Serverless Inference",
+    "tags": [
+      "sagemaker",
+      "gpu",
+      "real-time"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Asynchronous inference accepts payloads up to 1 GB, processing up to one hour, scales to zero, and can notify through SNS. A real-time variant keeps at least one instance, Provisioned Concurrency is billed while it is provisioned, and batch transform is built for offline datasets.",
+    "id": "ch4-b02",
+    "options": [
+      "A real-time endpoint with a minimum of one instance kept running around the clock, which the client polls for each result",
+      "An asynchronous endpoint that reads inputs from S3 and sends an SNS notification",
+      "A serverless endpoint with Provisioned Concurrency kept warm for every request, so that calls start without any delay",
+      "A batch transform job scheduled every five minutes over a new S3 prefix, which writes its output files to a separate location"
+    ],
+    "q": "A media company sends video files of up to 800 MB. Each job takes about 20 minutes, the client does not keep the connection open, and the team wants no instances running while the queue is empty. Which option fits best?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Asynchronous inference",
+    "tags": [
+      "sagemaker",
+      "async",
+      "payload"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S5"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Direct invocation on a multi-container endpoint lets the caller address one container. An inference pipeline runs containers in sequence for every request, so it cannot send each call to a single container.",
+    "id": "ch4-b03",
+    "options": [
+      "A multi-model endpoint that loads both model artifacts from S3 on demand into one shared serving container",
+      "An inference pipeline that runs the two containers in sequence for every request and returns the final output",
+      "A multi-container endpoint that uses direct invocation with the target container hostname",
+      "Two serverless endpoints behind a single API Gateway route that forwards each request to the matching endpoint"
+    ],
+    "q": "A fraud platform runs a PyTorch model and a TensorFlow model that must share one endpoint. Each model runs in its own container image, and the caller chooses which container receives each request. Which configuration fits?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Multi-container endpoints",
+    "tags": [
+      "sagemaker",
+      "multi-container",
+      "direct-invocation"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S5"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Batch Transform assigns input objects to instances by S3 key, so one object keeps only one instance busy. MaxPayloadInMB cannot exceed 100 MB, and MaxConcurrentTransforms should match the number of workers.",
+    "id": "ch4-b04",
+    "options": [
+      "Move the dataset into a real-time endpoint and call it record by record from a Lambda function, which keeps the job in one place",
+      "Keep the single object and raise MaxPayloadInMB to 500 so that each instance reads more records in every request",
+      "Switch to one larger instance with more memory and more vCPUs, which removes the need to partition the input into objects",
+      "Split the dataset into many S3 objects and set MaxConcurrentTransforms to the number of compute workers"
+    ],
+    "q": "A genomics team runs a batch transform job over 3 TB stored in one large CSV object. The job uses four instances, but only one instance is busy. The model stays unchanged. Which change most improves completion time?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Batch transform for inference with Amazon SageMaker AI",
+    "tags": [
+      "batch-transform",
+      "parallelism",
+      "s3"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Serverless Inference scales to zero and bills per use, and its cold start is acceptable here. Real-time variants keep at least one instance when auto scaling is set, and asynchronous inference does not return the prediction in the same call.",
+    "id": "ch4-b05",
+    "options": [
+      "A serverless endpoint, which scales to zero and bills per use",
+      "A real-time endpoint on the smallest CPU instance, kept running at all times",
+      "A real-time endpoint with auto scaling and a minimum of one instance",
+      "An asynchronous endpoint, with the tool collecting results from S3 later"
+    ],
+    "q": "An internal tool calls a CPU-only model a few times a day. Idle hours are long, the team accepts a slow first request after a pause, and the endpoint must not use a VPC. Which option is cheapest while still supporting synchronous calls?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models with Amazon SageMaker Serverless Inference",
+    "tags": [
+      "serverless",
+      "cold-start",
+      "cost"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Serverless Inference does not support VPC configuration, and an endpoint can be converted from serverless to real-time but not back. The endpoint therefore moves to real-time, where the VPC settings apply.",
+    "id": "ch4-b06",
+    "options": [
+      "Enable VpcConfig on the serverless endpoint, since it supports private subnets",
+      "Convert the endpoint to real-time with a VPC configuration; the conversion is one-way",
+      "Route the serverless endpoint through a NAT gateway in a public subnet",
+      "Convert the endpoint to real-time, then roll back to serverless once the VPC change is done"
+    ],
+    "q": "A serverless endpoint must now reach an internal feature store inside a private VPC. The team needs a VPC configuration on the endpoint. What should it do?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models with Amazon SageMaker Serverless Inference",
+    "tags": [
+      "serverless",
+      "vpc",
+      "conversion"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S5"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "A customized Bedrock model requires Provisioned Throughput, which is billed hourly and sized in model units. On-demand inference cannot serve a customized model, and SageMaker endpoints and batch jobs run outside Bedrock.",
+    "id": "ch4-b07",
+    "options": [
+      "On-demand inference, billed per token with no hourly commitment and no capacity reserved for the customized model",
+      "A SageMaker serverless endpoint that loads the customized weights from S3 and scales with request traffic",
+      "Provisioned throughput, purchased for the customized model in model units",
+      "A batch inference job that writes predictions to an S3 output location after each nightly run finishes"
+    ],
+    "q": "A company customized a foundation model in Amazon Bedrock and expects steady traffic during business hours. Which purchasing option must it use for the customized model?",
+    "source": "AWS docs: Amazon Bedrock User Guide — Increase model invocation capacity with Provisioned Throughput",
+    "tags": [
+      "bedrock",
+      "provisioned-throughput",
+      "custom-model"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.4"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      1,
+      3
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Asynchronous inference uses S3 for input and output, optional SNS notifications, and scaling to zero. It does not return the prediction in the same response, SageMaker manages the request queue, and Provisioned Concurrency is a serverless feature.",
+    "id": "ch4-b08",
+    "options": [
+      "The input payload is placed in S3 and referenced in the InvokeEndpointAsync request",
+      "Success or error notifications can be sent through Amazon SNS",
+      "The endpoint returns the prediction in the same HTTP response as the request",
+      "The endpoint can scale its instance count to zero when there are no requests",
+      "The team must create and manage its own SQS queue for pending requests",
+      "The endpoint must be configured with Provisioned Concurrency to avoid cold starts"
+    ],
+    "q": "Which THREE statements about SageMaker asynchronous inference are correct? (Select THREE.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Asynchronous inference",
+    "tags": [
+      "async",
+      "s3",
+      "sns"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S5"
+    ]
+  },
+  {
+    "answer": [
+      1,
+      4
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Serverless memory ranges from 1024 MB to 6144 MB, with compute allocated in proportion, and Provisioned Concurrency reduces cold starts. GPUs, VPC configuration, and Model Monitor are excluded from serverless endpoints.",
+    "id": "ch4-b09",
+    "options": [
+      "Endpoints can use GPU instance types for large language models",
+      "Memory can be set from 1024 MB to 6144 MB, and compute scales with the memory chosen",
+      "Endpoints can join a VPC by setting VpcConfig when the model is created",
+      "Endpoints can enable Model Monitor for data quality checks",
+      "Provisioned Concurrency keeps capacity initialized, which reduces cold starts"
+    ],
+    "q": "Which TWO statements about Serverless Inference are correct? (Select TWO.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models with Amazon SageMaker Serverless Inference",
+    "tags": [
+      "serverless",
+      "memory",
+      "concurrency"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "answer": [
+      1,
+      3
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Batch transform is an offline job that reads from and writes to S3 without a persistent endpoint, and it runs in parallel across instances. It is not a request-response API and does not lower latency per record.",
+    "id": "ch4-b10",
+    "options": [
+      "It returns each prediction to the caller in the same HTTP request",
+      "It needs no persistent endpoint, so no instance runs between jobs",
+      "It gives lower latency per record than a real-time endpoint",
+      "It spreads a large S3 dataset across several instances in parallel",
+      "It captures every request automatically for Model Monitor"
+    ],
+    "q": "Which TWO statements about batch transform compared with a real-time endpoint are correct? (Select TWO.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Batch transform for inference with Amazon SageMaker AI",
+    "tags": [
+      "batch-transform",
+      "real-time",
+      "comparison"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "For direct invocation on a multi-container endpoint, the sagemaker:TargetModel condition key matches the target container hostname. Inference component names and model names are not the keys for that check, and the region key does not select a container.",
+    "id": "ch4-b11",
+    "options": [
+      "sagemaker:InferenceComponentName, matched with StringEquals against one component",
+      "sagemaker:ModelName, matched with StringEquals against one model name",
+      "aws:RequestedRegion, restricted to the region of the endpoint",
+      "sagemaker:TargetModel, matched with StringLike against the container pattern"
+    ],
+    "q": "A team wants an IAM policy that lets a caller invoke only the containers of one multi-container endpoint whose hostname matches a pattern. Which condition key applies?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Multi-container endpoints",
+    "tags": [
+      "multi-container",
+      "iam",
+      "security"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S5"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      1
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "An inference pipeline chains containers in sequence, and a single request runs the whole chain. Calling containers one by one with TargetContainerHostname is direct invocation, which is a different mode.",
+    "id": "ch4-b12",
+    "options": [
+      "The containers run in sequence, and each output becomes the next container's input",
+      "One request to the endpoint triggers the full chain of containers",
+      "Each container must be called separately with its own TargetContainerHostname",
+      "The containers run in parallel on separate endpoints",
+      "A pipeline is the only way to attach two containers to one endpoint"
+    ],
+    "q": "Which TWO statements about SageMaker inference pipelines are correct? (Select TWO.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Multi-container endpoints",
+    "tags": [
+      "inference-pipeline",
+      "serial",
+      "containers"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S5"
+    ]
+  },
+  {
+    "answer": [
+      2,
+      3
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Serverless Inference removes the idle cost for a model without GPU or VPC needs, and a right-sized CPU instance avoids paying for unused capacity. GPUs, Provisioned Concurrency, and extra instances all add cost to a staging endpoint with light traffic.",
+    "id": "ch4-b13",
+    "options": [
+      "Keep a GPU instance running so that staging matches production exactly",
+      "Enable Provisioned Concurrency so that every test call starts warm",
+      "Use a serverless endpoint, if the model needs no GPU and no VPC configuration",
+      "Choose the smallest CPU instance type whose memory fits the model",
+      "Add a second instance for redundancy in the staging environment"
+    ],
+    "q": "A team tests a CPU-only model on a staging endpoint that receives a few synchronous calls a day. Which TWO changes reduce cost without changing the application? (Select TWO.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models with Amazon SageMaker Serverless Inference",
+    "tags": [
+      "staging",
+      "cost",
+      "compute"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1K4"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "On-demand Bedrock inference needs no endpoint or instance management and bills per token. Real-time endpoints need instances, provisioned throughput bills hourly, and batch transform is an offline job.",
+    "id": "ch4-b14",
+    "options": [
+      "On-demand inference in Amazon Bedrock, billed per token processed",
+      "A SageMaker real-time endpoint on a GPU instance type, with the team managing the instance count and the model",
+      "Provisioned throughput with a six-month commitment, so that capacity is reserved and billed every hour",
+      "A SageMaker batch transform job started for each user request, with results read from S3 when the job finishes"
+    ],
+    "q": "A startup wants a managed API for a foundation model in Amazon Bedrock. It does not want to manage endpoints or instances and pays for what it uses. Which option fits?",
+    "source": "AWS docs: Amazon Bedrock User Guide — Increase model invocation capacity with Provisioned Throughput",
+    "tags": [
+      "bedrock",
+      "on-demand",
+      "managed-api"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.4"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Batch Transform does not support CSV input with embedded newline characters, so the input must be cleaned or re-encoded first. SplitType None sends a whole file in one request, and a larger MaxPayloadInMB does not change the record format.",
+    "id": "ch4-b15",
+    "options": [
+      "Raise MaxPayloadInMB to 100 MB so that each record stays whole in one request, even when fields span lines",
+      "Re-encode or clean the files so no record contains embedded newlines before the job runs",
+      "Set SplitType to None, which splits each file at record boundaries automatically during the transform job",
+      "Add more instances to the job, so that each mini-batch carries fewer records and the newlines no longer matter"
+    ],
+    "q": "A batch transform job reads CSV files where some quoted fields contain embedded newline characters. The team sets SplitType to Line, and records are broken across mini-batches. What should it do?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Batch transform for inference with Amazon SageMaker AI",
+    "tags": [
+      "batch-transform",
+      "csv",
+      "split-type"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "MaxPayloadInMB must not be greater than 100 MB, and MaxConcurrentTransforms multiplied by MaxPayloadInMB must also stay within that limit. Smaller mini-batches keep each request under the cap.",
+    "id": "ch4-b16",
+    "options": [
+      "250 MB is allowed when the job runs on a single instance, because the cap applies only to multi-instance jobs",
+      "The limit is 6 MB for every batch transform job, regardless of the value set, so the job must split input to fit",
+      "The value cannot exceed 100 MB, so the team must split the input into smaller mini-batches",
+      "The limit applies only in the console, and the API accepts any value because the service checks it later at runtime"
+    ],
+    "q": "A team sets MaxPayloadInMB to 250 for a batch transform job over large JSON files. Which statement is correct?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Batch transform for inference with Amazon SageMaker AI",
+    "tags": [
+      "batch-transform",
+      "payload",
+      "limits"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Serverless memory is capped at 6144 MB, so an 8 GB model does not fit. A real-time endpoint on a larger instance type keeps synchronous calls and the memory the model needs.",
+    "id": "ch4-b17",
+    "options": [
+      "A serverless endpoint configured with the largest memory size it offers",
+      "A serverless endpoint with Provisioned Concurrency enabled for warm starts",
+      "An asynchronous endpoint, with the caller polling S3 for the output",
+      "A real-time endpoint on an instance type with at least 8 GB of memory"
+    ],
+    "q": "A team serves a CPU model that needs 8 GB of memory for each request. Calls are synchronous and infrequent. Which option fits?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models with Amazon SageMaker Serverless Inference",
+    "tags": [
+      "serverless",
+      "memory",
+      "real-time"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "The presence of AsyncInferenceConfig in the endpoint configuration means the endpoint accepts only asynchronous invocations. A synchronous path needs its own real-time endpoint.",
+    "id": "ch4-b18",
+    "options": [
+      "An endpoint created with AsyncInferenceConfig accepts only asynchronous invocations, so synchronous calls need a separate endpoint",
+      "AsyncInferenceConfig only sets the S3 output bucket for results, and synchronous calls still work on the same endpoint without any change to its configuration",
+      "Synchronous calls work once Provisioned Concurrency is enabled on the async endpoint, because the warm capacity accepts both invocation types from the same route",
+      "The web app can call InvokeEndpoint if it sets an SNS topic in the request, which routes the reply back synchronously to the caller over the same connection"
+    ],
+    "q": "A team has an asynchronous endpoint and wants its web app to call it synchronously with InvokeEndpoint. Which statement is correct?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Asynchronous inference",
+    "tags": [
+      "async",
+      "endpoint-config",
+      "invocation"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S5"
+    ]
+  },
+  {
+    "answer": [
+      2,
+      3
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Serverless endpoints accept SageMaker-provided or custom containers up to 10 GB, and the documentation recommends one worker and one model copy per container. The ephemeral disk is 5 GB, and private Docker registries are excluded.",
+    "id": "ch4-b19",
+    "options": [
+      "Each vCPU gets its own worker that loads the model, as on real-time endpoints",
+      "The ephemeral disk is 500 MB for every memory size",
+      "Both SageMaker-provided containers and bring-your-own containers can be used",
+      "The container image can be up to 10 GB",
+      "Private Docker registries are supported for the container image"
+    ],
+    "q": "Which TWO statements about containers on Serverless Inference are correct? (Select TWO.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models with Amazon SageMaker Serverless Inference",
+    "tags": [
+      "serverless",
+      "container",
+      "limits"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "The maximum concurrency for one serverless endpoint can be set up to 200, and invocations beyond that maximum are throttled. Provisioned Concurrency must stay at or below that maximum, so a burst of 300 needs more than one endpoint or a different option.",
+    "id": "ch4-b20",
+    "options": [
+      "Concurrency is unlimited per endpoint, because the capacity of each endpoint grows with the memory size chosen by the team",
+      "One serverless endpoint can be set up to 200 concurrent invocations, and requests beyond its maximum are throttled",
+      "One endpoint serves up to 1000 concurrent invocations once Provisioned Concurrency is enabled, so bursts of 300 never queue",
+      "Concurrency is capped at the number of vCPUs that the selected memory size provides, and it cannot be raised by the team"
+    ],
+    "q": "A serverless endpoint must absorb bursts of 300 concurrent invocations. Which statement about the concurrency of one serverless endpoint is correct?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models with Amazon SageMaker Serverless Inference",
+    "tags": [
+      "serverless",
+      "concurrency",
+      "limits"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "answer": [
+      1,
+      2
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Target tracking is the recommended policy, and Auto scaling creates and manages its CloudWatch alarms. A variant's minimum capacity must be at least one, so target tracking cannot scale it to zero.",
+    "id": "ch4-b21",
+    "options": [
+      "You must create and manage the CloudWatch alarms yourself for each target tracking policy",
+      "You choose a CloudWatch metric and a target value, and Application Auto Scaling adjusts instances to keep the metric near the target",
+      "InvocationsPerInstance is a predefined metric that can be used with a target value such as 70",
+      "Step scaling is the recommended default, and target tracking is used only for scale-out",
+      "Target tracking can scale a variant down to zero instances"
+    ],
+    "q": "Which TWO statements about target tracking scaling policies for SageMaker endpoint variants are correct? (Select TWO.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Auto scaling policy overview",
+    "tags": [
+      "target-tracking",
+      "scaling",
+      "cloudwatch"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K2",
+      "K-3.2S6"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "The documentation states that scheduled scaling can be managed only from the AWS CLI or the Application Auto Scaling API. Target tracking reacts to a metric value, not to the time of day.",
+    "id": "ch4-b22",
+    "options": [
+      "Use the SageMaker console scheduler, which creates scheduled actions for each endpoint variant and keeps them updated automatically whenever the endpoint configuration changes over time",
+      "Use a target tracking policy with a metric target set to 08:00, so that the metric reaches its target at the same time each day without any scheduled action",
+      "Create the scheduled actions with the AWS CLI or the Application Auto Scaling API, because scheduled scaling is not managed from the console",
+      "Keep the endpoint at its maximum capacity every day, since scheduled scaling is not supported for variants and must be avoided for this kind of traffic pattern"
+    ],
+    "q": "A team wants instance counts to rise every weekday at 08:00, without waiting for traffic to arrive. It plans to set this up in the SageMaker console. What is the correct answer?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Auto scaling policy overview",
+    "tags": [
+      "scheduled-scaling",
+      "cli",
+      "auto-scaling"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K5"
+    ]
+  },
+  {
+    "answer": [
+      2,
+      4
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "The instance count of a variant and the copy count of an inference component are the documented scalable dimensions. The other names are not valid dimensions, so a scalable target registered with them would be rejected.",
+    "id": "ch4-b23",
+    "options": [
+      "sagemaker:endpoint:InstanceCount",
+      "sagemaker:variant:DesiredCPUUtilization",
+      "sagemaker:variant:DesiredInstanceCount",
+      "sagemaker:endpoint:DesiredConcurrency",
+      "sagemaker:inference-component:DesiredCopyCount"
+    ],
+    "q": "Which TWO values are valid ScalableDimension values for SageMaker resources with Application Auto Scaling? (Select TWO.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Amazon SageMaker AI and Application Auto Scaling",
+    "tags": [
+      "scalable-dimension",
+      "application-auto-scaling"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S6"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "The scaling limits for a variant require a minimum of at least one instance. Serverless endpoints, asynchronous endpoints, and inference component copies can scale to zero instead.",
+    "id": "ch4-b24",
+    "options": [
+      "Set MinCapacity to 0 on the variant's scalable target, and SageMaker stops every instance in the variant until new requests arrive, with no further charges for the endpoint",
+      "Use target tracking with MinCapacity 0 on the variant, since target tracking supports scale-to-zero and creates the alarms that bring instances back when traffic resumes",
+      "Schedule a scaling action to zero instances each night, which SageMaker supports for every variant and which restores the previous capacity automatically each morning without further configuration",
+      "A variant's minimum capacity must be at least one, so scale-to-zero needs another option such as serverless, asynchronous inference, or inference components"
+    ],
+    "q": "A team wants a real-time endpoint variant to scale to zero instances overnight. Which statement is correct?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Auto scaling policy overview",
+    "tags": [
+      "scale-to-zero",
+      "minimum-capacity"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K2"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Provisioned Concurrency keeps capacity warm, and its scaling can run on a schedule through Application Auto Scaling. Running it all day adds cost, and a conversion to real-time is one-way and keeps instances running around the clock.",
+    "id": "ch4-b25",
+    "options": [
+      "Enable Provisioned Concurrency and schedule its scaling with Application Auto Scaling for the 09:00 window",
+      "Keep Provisioned Concurrency at the maximum all day, so the warm capacity is always ready for the 09:00 burst without any scheduling work",
+      "Convert the endpoint to real-time with a minimum of one instance and no scheduling, which keeps the instance warm around the clock",
+      "Add a second serverless endpoint that receives all traffic from 09:00 onward, so that the first endpoint can stay idle the rest of the day"
+    ],
+    "q": "A serverless endpoint gets a traffic burst every weekday at 09:00. Cold starts are unacceptable during that window only, and the team wants no extra cost for the rest of the day. What should it do?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models with Amazon SageMaker Serverless Inference",
+    "tags": [
+      "provisioned-concurrency",
+      "serverless",
+      "schedule"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K1",
+      "K-3.2K5"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      2,
+      4
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "The endpoint requires EndpointConfigName, Ref returns the ARN, and EndpointName is optional. Instance settings live in the endpoint configuration, and changing EndpointName forces a replacement.",
+    "id": "ch4-b26",
+    "options": [
+      "EndpointConfigName is required and references an AWS::SageMaker::EndpointConfig resource",
+      "ProductionVariants is a property of the endpoint resource, so the endpoint defines its own instance type",
+      "Ref on the endpoint returns its ARN, not its name",
+      "EndpointName is required, and its case is ignored everywhere in the API",
+      "EndpointName is optional and can be left out of the template",
+      "Changing EndpointName never causes the endpoint to be replaced"
+    ],
+    "q": "Which THREE statements about the AWS::SageMaker::Endpoint resource in CloudFormation are correct? (Select THREE.)",
+    "source": "AWS docs: AWS CloudFormation User Guide — AWS::SageMaker::Endpoint",
+    "tags": [
+      "cloudformation",
+      "endpoint",
+      "update"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K3"
+    ]
+  },
+  {
+    "answer": [
+      2,
+      3
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "The endpoint configuration holds ProductionVariants with the model name and instance settings, and the endpoint points to it through EndpointConfigName. The endpoint name and the endpoint ARN belong to the endpoint resource, not the configuration.",
+    "id": "ch4-b27",
+    "options": [
+      "EndpointName must be set on the configuration resource",
+      "ProductionVariants is a property of the AWS::SageMaker::Endpoint resource",
+      "ProductionVariants lists the model name, instance type, and initial instance count for each variant",
+      "The Endpoint resource refers to the configuration through EndpointConfigName",
+      "Ref on the configuration returns the endpoint ARN"
+    ],
+    "q": "Which TWO statements about the AWS::SageMaker::EndpointConfig resource are correct? (Select TWO.)",
+    "source": "AWS docs: AWS CloudFormation User Guide — AWS::SageMaker::Endpoint",
+    "tags": [
+      "cloudformation",
+      "endpoint-config",
+      "production-variants"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K3"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "The model resource defines the container image and the execution role. The endpoint configuration refers to the model in ProductionVariants, and the endpoint refers to the configuration.",
+    "id": "ch4-b28",
+    "options": [
+      "AWS::SageMaker::Endpoint",
+      "AWS::SageMaker::Model",
+      "AWS::SageMaker::EndpointConfig",
+      "AWS::IAM::Role"
+    ],
+    "q": "In a CloudFormation template for a SageMaker endpoint, which resource type holds the container image in PrimaryContainer and the ExecutionRoleArn?",
+    "source": "AWS docs: AWS CloudFormation User Guide — AWS::SageMaker::Endpoint",
+    "tags": [
+      "cloudformation",
+      "model",
+      "execution-role"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K3"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "The model must exist before the configuration names it in ProductionVariants, and the endpoint is created last from that configuration. Inference components are a separate path that needs an endpoint already in place.",
+    "id": "ch4-b29",
+    "options": [
+      "create_endpoint, then create_model, then invoke_endpoint, so that the first call creates the model and the endpoint at once",
+      "create_inference_component alone, since it creates the endpoint, the model, and the configuration in a single request",
+      "create_model, then create_endpoint_config with a ProductionVariants entry that names the model, then create_endpoint",
+      "create_endpoint_config, then create_endpoint, then create_model, with the model attached to the endpoint after it is in service"
+    ],
+    "q": "A deployment script uses boto3 to host a model on a real-time endpoint. Which sequence of calls creates the resources correctly?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models for real-time inference",
+    "tags": [
+      "boto3",
+      "deploy",
+      "sequence"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S5"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "ModelBuilder.deploy() is the method that creates the endpoint from the builder's configuration. The other choices either send requests to an endpoint that already exists or do not create one.",
+    "id": "ch4-b30",
+    "options": [
+      "model_builder.invoke(), which creates the endpoint from the builder's configuration and then sends a test request to it",
+      "model_builder.package(), which only writes the configuration files to a local folder for later use by the team",
+      "model_builder.train(), which launches a training job on the configured instance type and writes the model artifacts to S3",
+      "model_builder.deploy(), passing endpoint_name, instance_type, and initial_instance_count"
+    ],
+    "q": "A data scientist wants to deploy a ModelBuilder object to a real-time endpoint in one call with the SageMaker Python SDK. Which method does this?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models for real-time inference",
+    "tags": [
+      "sagemaker-sdk",
+      "modelbuilder",
+      "deploy"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S5"
+    ]
+  },
+  {
+    "answer": [
+      1,
+      2
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "The CLI offers invoke-endpoint and invoke-endpoint-async, but it does not support streaming. invoke_endpoint_with_response_stream is for models that stream, and Studio's endpoint testing covers real-time endpoints only.",
+    "id": "ch4-b31",
+    "options": [
+      "The AWS CLI supports streaming inference through invoke-endpoint with a stream flag",
+      "The AWS CLI invoke-endpoint-async command sends an asynchronous request",
+      "invoke_endpoint_with_response_stream works only with models that support inference streaming",
+      "invoke_endpoint returns streamed PayloadPart events by default",
+      "SageMaker Studio can test asynchronous endpoints from the Test inference tab"
+    ],
+    "q": "Which TWO statements about invoking SageMaker endpoints are correct? (Select TWO.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Invoke models for real-time inference",
+    "tags": [
+      "invoke",
+      "cli",
+      "streaming"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S5"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "invoke_endpoint_with_response_stream returns PayloadPart events as the model generates them, but only for a model that supports streaming. A plain invoke_endpoint call returns the complete response after generation.",
+    "id": "ch4-b32",
+    "options": [
+      "invoke_endpoint_with_response_stream, used only when the deployed model supports inference streaming",
+      "invoke_endpoint, which streams tokens back as they are generated when the response is large enough to need it",
+      "invoke_endpoint_async, which streams the output from S3 chunk by chunk as the model writes the result to the bucket",
+      "invoke_endpoint_with_response_stream, which works for every model without changes once the endpoint is in service"
+    ],
+    "q": "A developer wants to stream tokens from a model to a chatbot front end. Which Boto3 call and condition apply?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Invoke models for real-time inference",
+    "tags": [
+      "invoke",
+      "streaming",
+      "boto3"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S5"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "VpcConfig is set on the model through CreateModel, with subnet and security group IDs. The documentation requires at least two subnets in different Availability Zones, even when only one instance is used.",
+    "id": "ch4-b33",
+    "options": [
+      "VpcConfig on the endpoint configuration, with a single subnet in one Availability Zone and the default security group",
+      "VpcConfig with subnet IDs and security group IDs, set on the model when it is created",
+      "A NAT gateway ID passed in the ProductionVariants list, which tells SageMaker to attach the model to a private subnet",
+      "A route table ID sent in the InvokeEndpoint request, so that each call is routed inside the VPC by the endpoint itself"
+    ],
+    "q": "A team wants SageMaker to attach network interfaces so that model containers run inside its private subnets. Which setting provides this?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Give SageMaker AI Hosted Endpoints Access to Resources in Your Amazon VPC",
+    "tags": [
+      "vpc",
+      "vpcconfig",
+      "subnets"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Containers in a VPC without internet access cannot reach S3 unless a VPC endpoint exists. Network isolation blocks outbound access rather than opening a path, and a NAT gateway is needed only for resources that have no VPC endpoint.",
+    "id": "ch4-b34",
+    "options": [
+      "A public IP address on each instance, with an internet gateway route",
+      "Network isolation on the model, which opens a path to S3 for the container",
+      "An Amazon S3 VPC endpoint attached to the route tables used by the subnets",
+      "A NAT gateway in a public subnet, since S3 access always needs internet access"
+    ],
+    "q": "A model runs in private subnets with no internet route. Its container must read model artifacts from S3 at startup, and the team wants that traffic to stay inside AWS. What should it add?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Give SageMaker AI Hosted Endpoints Access to Resources in Your Amazon VPC",
+    "tags": [
+      "vpc",
+      "s3",
+      "gateway-endpoint"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Interface VPC endpoints reach AWS services that support them, not third-party internet hosts. For a resource outside AWS, the documentation points to a NAT gateway with outbound security group rules.",
+    "id": "ch4-b35",
+    "options": [
+      "An interface VPC endpoint for the external weather API, which keeps the traffic inside AWS for the outbound call",
+      "An S3 gateway endpoint, which routes outbound traffic to any HTTPS domain once the route tables point to it",
+      "Network isolation enabled on the model, which permits outbound HTTPS calls to allowlisted domains set in the endpoint",
+      "A NAT gateway in a public subnet, with security group rules that allow the outbound connection"
+    ],
+    "q": "A model in an isolated VPC must call an external weather API on the public internet. Which addition fits?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Give SageMaker AI Hosted Endpoints Access to Resources in Your Amazon VPC",
+    "tags": [
+      "vpc",
+      "nat",
+      "interface-endpoint"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": [
+      3,
+      4
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "The S3 gateway endpoint and its route table entries provide the path, and an endpoint or bucket policy can restrict it to the VPC. A NAT gateway is not needed for S3 when the gateway endpoint exists, and network isolation blocks outside access.",
+    "id": "ch4-b36",
+    "options": [
+      "A public IP address on each container's network interface",
+      "A NAT gateway, which is required for S3 even when a gateway endpoint exists",
+      "Network isolation turned on, so that S3 becomes reachable through a private link",
+      "An S3 VPC endpoint, with default DNS settings and route table entries so standard S3 URLs resolve",
+      "An endpoint policy or bucket policy that limits S3 access to requests from the VPC"
+    ],
+    "q": "Which TWO elements are needed for a VPC-configured model that reads its artifacts from S3 without internet access? (Select TWO.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Give SageMaker AI Hosted Endpoints Access to Resources in Your Amazon VPC",
+    "tags": [
+      "vpc",
+      "s3",
+      "bucket-policy"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "CreateModel takes the container image in PrimaryContainer, and the image is an Amazon ECR URI. The endpoint configuration refers to the model by name, and invocation requests never carry an image.",
+    "id": "ch4-b37",
+    "options": [
+      "The PrimaryContainer Image field of CreateModel, set to the image URI in Amazon ECR",
+      "The ProductionVariants list in the endpoint configuration, set to the image digest of the container in the registry",
+      "The InvokeEndpoint request, using a ContainerName header that points to the image URI stored in the registry",
+      "An S3 bucket policy that lists the registry path of the image, so that SageMaker can pull it from the registry"
+    ],
+    "q": "A team packages its own inference code in a Docker image and wants SageMaker to host it on a real-time endpoint. Where does the model definition point to the image?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models for real-time inference",
+    "tags": [
+      "byoc",
+      "ecr",
+      "primary-container"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S3",
+      "K-3.2K4"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Inference components let several models share the instances of one endpoint, each reserving its own CPU, accelerator, and memory per copy. Production variants allocate whole instances to a variant rather than slicing one instance.",
+    "id": "ch4-b38",
+    "options": [
+      "Create one production variant per model in the endpoint configuration, each with its own instance type and its own copy count",
+      "Create one inference component per model, each with ComputeResourceRequirements and its own copy count",
+      "Create three endpoints that share one instance through a multi-container configuration, each with its own container and scaling",
+      "Create one model that contains all three weights, and scale the whole endpoint so that each model gets capacity when needed"
+    ],
+    "q": "A company hosts three fine-tuned models on one endpoint with a GPU instance type. Each model needs a fixed slice of CPU and memory and its own copy count. Which design fits?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models for real-time inference",
+    "tags": [
+      "inference-component",
+      "shared-instance",
+      "gpu"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.10"
+    ]
+  },
+  {
+    "answer": [
+      0,
+      1,
+      5
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "The endpoint configuration carries only infrastructure, and each inference component names its model and scales its copies independently. Invocation selects the component with InferenceComponentName, and components are how models share an endpoint's instances.",
+    "id": "ch4-b39",
+    "options": [
+      "The endpoint configuration names no model, and each inference component names its own model",
+      "Each inference component's copies scale independently through DesiredCopyCount",
+      "Each inference component needs its own dedicated instance, so models cannot share hardware",
+      "Inference components are an Amazon Bedrock feature for on-demand inference",
+      "The endpoint configuration must list a ModelName for every inference component",
+      "InvokeEndpoint selects a model by passing InferenceComponentName"
+    ],
+    "q": "Which THREE statements about inference components are correct? (Select THREE.)",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models for real-time inference",
+    "tags": [
+      "inference-component",
+      "copy-count",
+      "invoke"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.10"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "InferenceComponentName selects the inference component, and therefore the model, for that request. TargetContainerHostname addresses a container on a multi-container endpoint, and VariantName identifies a production variant.",
+    "id": "ch4-b40",
+    "options": [
+      "VariantName",
+      "TargetContainerHostname",
+      "InferenceComponentName",
+      "ModelName"
+    ],
+    "q": "A client calls InvokeEndpoint on a shared endpoint that hosts several inference components. Which parameter routes the call to one model?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Deploy models for real-time inference",
+    "tags": [
+      "inference-component",
+      "invoke",
+      "routing"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.10"
+    ]
+  },
+  {
+    "answer": 3,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "The DesiredCopyCount dimension can scale an inference component to zero copies, which frees room for other copies. Endpoint configurations do not carry copy counts, and Provisioned Concurrency applies to serverless endpoints.",
+    "id": "ch4-b41",
+    "options": [
+      "Setting CopyCount to zero in the endpoint configuration, which is required for the scale-down to take effect at night",
+      "Deleting the endpoint each night and recreating it from the same configuration when traffic starts again each morning",
+      "Enabling Provisioned Concurrency on the inference component, which keeps copies warm and ready for the next morning",
+      "An Application Auto Scaling scalable target on DesiredCopyCount with a minimum capacity of zero copies"
+    ],
+    "q": "An inference component should cost nothing overnight, when no requests arrive. Which setting allows its copies to drop to zero?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Amazon SageMaker AI and Application Auto Scaling",
+    "tags": [
+      "inference-component",
+      "scale-to-zero",
+      "copy-count"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.10"
+    ]
+  },
+  {
+    "answer": 0,
+    "chapter": "ch4-deploy",
+    "difficulty": "difficile",
+    "explain": "Provisioned Throughput cannot be deleted until its commitment term ends, and billing continues until it is deleted. Only the no-commitment option allows deletion at any time.",
+    "id": "ch4-b42",
+    "options": [
+      "It must wait for the six-month term to end before deleting the throughput, because billing continues until it is deleted",
+      "It can delete the throughput at any time, and billing stops at the end of the day when the throughput is removed from the account",
+      "It can switch the commitment to on-demand billing, which takes effect immediately without any charge for the switch itself",
+      "It can cancel the commitment by deleting the custom model, which removes the throughput and stops the billing for the term"
+    ],
+    "q": "A team bought Provisioned Throughput for a Bedrock custom model with a six-month commitment. Now it wants to stop paying. What is the correct statement?",
+    "source": "AWS docs: Amazon Bedrock User Guide — Increase model invocation capacity with Provisioned Throughput",
+    "tags": [
+      "bedrock",
+      "provisioned-throughput",
+      "commitment"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K1",
+      "G-3.1.7"
+    ]
+  },
+  {
+    "answer": [
+      1,
+      2
+    ],
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "Provisioned Throughput is billed hourly by model units, and commitment terms are none, one month, or six months. Customized models must use it, and a committed term cannot be cancelled early.",
+    "id": "ch4-b43",
+    "options": [
+      "It is billed per token processed, with no hourly charge",
+      "It is billed hourly for the model units purchased, with a commitment of none, one month, or six months",
+      "A model unit defines how many input and output tokens can be processed per minute",
+      "A six-month commitment can be cancelled at any time without charge",
+      "Customized models can use on-demand inference instead of it"
+    ],
+    "q": "Which TWO statements about Amazon Bedrock Provisioned Throughput are correct? (Select TWO.)",
+    "source": "AWS docs: Amazon Bedrock User Guide — Increase model invocation capacity with Provisioned Throughput",
+    "tags": [
+      "bedrock",
+      "provisioned-throughput",
+      "model-units"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K1",
+      "G-3.1.7"
+    ]
+  },
+  {
+    "answer": 1,
+    "chapter": "ch4-deploy",
+    "difficulty": "media",
+    "explain": "The ResourceId for a variant's instance count follows the endpoint/<name>/variant/<name> form, as in the register-scalable-target example. Inference components use the inference-component/<name> form.",
+    "id": "ch4-b44",
+    "options": [
+      "variant/<variant-name>/endpoint/<endpoint-name>",
+      "endpoint/<endpoint-name>/variant/<variant-name>",
+      "inference-component/<endpoint-name>",
+      "arn:aws:sagemaker:<region>:<account-id>:endpoint/<endpoint-name>"
+    ],
+    "q": "A team registers a scalable target for the instance count of one variant, with minimum 1 and maximum 8. Which ResourceId format is correct?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Amazon SageMaker AI and Application Auto Scaling",
+    "tags": [
+      "register-scalable-target",
+      "resource-id",
+      "variant"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S6"
+    ]
+  },
+  {
+    "answer": 2,
+    "chapter": "ch4-deploy",
+    "difficulty": "facile",
+    "explain": "The documentation states that endpoint testing in Studio is supported only for real-time endpoints. Asynchronous endpoints need an SDK call or the AWS CLI.",
+    "id": "ch4-b45",
+    "options": [
+      "Studio tests asynchronous endpoints once the payload is under 1 MB and the endpoint has been in service for a few minutes, as long as the request uses JSON",
+      "Studio can test any endpoint once it is in service, including asynchronous ones, through the same Test inference tab and it returns the result inline",
+      "Studio supports endpoint testing for real-time endpoints only, so the asynchronous endpoint must be invoked from code or the CLI",
+      "Studio tests asynchronous endpoints only after an SNS topic is configured for the endpoint in the console, which then delivers the results to the browser"
+    ],
+    "q": "A data scientist wants to test an asynchronous endpoint from the Test inference tab in SageMaker Studio. What is the correct answer?",
+    "source": "AWS docs: SageMaker AI Developer Guide — Invoke models for real-time inference",
+    "tags": [
+      "studio",
+      "endpoint-testing",
+      "real-time"
+    ],
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S5"
+    ]
   }
 ]
