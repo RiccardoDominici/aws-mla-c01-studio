@@ -10,7 +10,7 @@
       "AWS Config rules"
     ],
     "answer": 0,
-    "explain": "Cost Explorer shows up to 13 months of history, filters by tag, and forecasts spend for the next 18 months. Budgets alerts on thresholds, Trusted Advisor recommends, and Config tracks configuration.",
+    "explain": "Cost Explorer shows up to 13 months of history and forecasts spend for the next 18 months. Budgets alerts on thresholds, Trusted Advisor recommends, and Config tracks configuration.",
     "difficulty": "facile",
     "tags": [
       "cost-explorer",
@@ -175,7 +175,7 @@
     "chapter": "ch11-cost-security",
     "q": "Which TWO statements about cost allocation tags are correct? (Select TWO.)",
     "options": [
-      "After a tag is applied to resources, the tag key can take up to 24 hours to appear on the cost allocation tags page",
+      "A backfill request can be submitted only once every 24 hours",
       "Backfill can cover up to 12 months of history, but only for resources that already carried the tag in that period",
       "Activating a user-defined tag in Billing applies it retroactively to every previous month automatically",
       "AWS-generated tags are created and applied by the customer through resource configuration templates",
@@ -185,7 +185,7 @@
       0,
       1
     ],
-    "explain": "Tag keys can take up to 24 hours to appear, and backfill covers at most 12 months but only where the tag existed. Activation is not retroactive by default, and AWS-generated tags are applied by AWS.",
+    "explain": "Backfill can be requested once every 24 hours and covers at most 12 months, but only for resources that already carried the tag. Activation is not retroactive by default, and AWS-generated tags are applied by AWS.",
     "difficulty": "difficile",
     "tags": [
       "cost-allocation-tags",
@@ -542,21 +542,19 @@
   {
     "id": "ch11-q019",
     "chapter": "ch11-cost-security",
-    "q": "Which THREE actions improve the availability of a SageMaker real-time endpoint? (Select THREE.)",
+    "q": "Which TWO actions improve the availability of a SageMaker real-time endpoint? (Select TWO.)",
     "options": [
       "Increase MaxRuntimeInSeconds on the endpoint configuration",
       "Set the production variant initial instance count to at least 2 so SageMaker can spread instances across Availability Zones",
-      "Enable Managed Spot Training on the endpoint",
       "Increase CloudWatch log retention for the endpoint",
       "Turn on Inter-container traffic encryption for the endpoint",
       "Configure auto scaling with a minimum instance count above 1"
     ],
     "answer": [
       1,
-      2,
-      5
+      4
     ],
-    "explain": "More than one instance lets SageMaker provide multi-AZ redundancy, and a minimum above 1 keeps that capacity under auto scaling. Runtime limits, Spot training, logging, and traffic encryption do not improve availability.",
+    "explain": "Two or more instances let SageMaker provide multi-AZ redundancy, and a minimum above 1 keeps that capacity under auto scaling. Runtime limits, logging, and traffic encryption do not improve availability.",
     "difficulty": "difficile",
     "tags": [
       "availability",
@@ -608,7 +606,7 @@
     "chapter": "ch11-cost-security",
     "q": "An agent built on Amazon Bedrock AgentCore must be monitored in production for session count, latency, token usage, and error rates. Which capability provides these built-in metrics and dashboards?",
     "options": [
-      "Amazon Inspector Code Security",
+      "Amazon Inspector vulnerability findings",
       "AWS Trusted Advisor",
       "AgentCore Observability",
       "AWS CloudTrail trail"
@@ -915,7 +913,7 @@
     "options": [
       "AWS Compute Optimizer, which suggests rightsizing from utilization metrics",
       "AWS CloudTrail event history",
-      "Amazon Inspector Code Security",
+      "Amazon Inspector vulnerability findings",
       "AWS Config conformance packs"
     ],
     "answer": 0,
@@ -1066,7 +1064,7 @@
       "R family memory optimized instances"
     ],
     "answer": 0,
-    "explain": "Inferentia is an AWS chip designed for inference, and Inf2 offers higher throughput and lower latency than Inf1. The other families are not designed for this inference pattern.",
+    "explain": "Inferentia is an AWS chip designed for inference, and Inferentia2 offers higher throughput and lower latency than the first generation. The other families are not designed for this inference pattern.",
     "difficulty": "media",
     "tags": [
       "inferentia",
@@ -2403,6 +2401,36 @@
     ],
     "todo": [
       "K-4.2S10"
+    ]
+  },
+  {
+    "id": "ch11-q081",
+    "chapter": "ch11-cost-security",
+    "q": "A data science team must ensure that every training job it creates runs inside a VPC. Which IAM approach enforces this at job creation?",
+    "options": [
+      "A deny policy on sagemaker:CreateTrainingJob with a Null condition on sagemaker:VpcSubnets",
+      "An allow policy on sagemaker:CreateTrainingJob with no conditions, plus a Budgets alert",
+      "A Trusted Advisor check that blocks training jobs started outside a VPC",
+      "A bucket policy on the training data bucket, with no condition on job creation"
+    ],
+    "answer": 0,
+    "explain": "A deny statement with a Null condition on sagemaker:VpcSubnets blocks CreateTrainingJob when no subnet is supplied, so the job cannot start outside a VPC. Budgets and Trusted Advisor do not block job creation, and a bucket policy does not control where the job runs.",
+    "difficulty": "media",
+    "tags": [
+      "iam",
+      "condition-keys",
+      "vpc"
+    ],
+    "source": "AWS docs: SageMaker AI Developer Guide - Identity-based policy examples (condition keys)",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-4.3K2"
     ]
   }
 ]
