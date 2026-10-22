@@ -1,0 +1,1917 @@
+[
+  {
+    "id": "ch13-q001",
+    "chapter": "ch13-genai-agents",
+    "q": "A retail company generates 40,000 product descriptions each week with a foundation model. It needs a quality score for each description without labeling them by hand. Which approach meets this requirement with the LEAST operational overhead?",
+    "options": [
+      "Run a Bedrock model evaluation job with a judge model and built-in quality metrics on a sample dataset",
+      "Compute BLEU scores against a fixed set of reference descriptions for every single output, and review the low scorers manually",
+      "Assign a team of reviewers to read and score every generated description each week, with a second reviewer checking each score",
+      "Train a binary classifier in SageMaker on labeled descriptions to flag low-quality outputs, then retrain it every month with new labels"
+    ],
+    "answer": 0,
+    "explain": "A judge-model evaluation scores outputs automatically with built-in metrics and explanations, so no per-item labeling is needed. BLEU needs reference texts for every product, and manual or trained classifiers add labeling overhead.",
+    "difficulty": "media",
+    "tags": [
+      "llm-as-a-judge",
+      "bedrock-evaluations"
+    ],
+    "source": "AWS docs: Evaluate model performance using another LLM as a judge",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.9"
+    ]
+  },
+  {
+    "id": "ch13-q002",
+    "chapter": "ch13-genai-agents",
+    "q": "A localization team compares machine-translated sentences with human reference translations, and it needs an automatic metric based on n-gram overlap. Which metric fits this need?",
+    "options": [
+      "BERTScore, which compares contextual token embeddings with the reference sentence",
+      "BLEU, which measures n-gram overlap between the machine output and reference translations",
+      "Semantic similarity, which compares the meaning of two texts through their embeddings",
+      "Perplexity, which measures how well a language model predicts the next token in a sequence"
+    ],
+    "answer": 1,
+    "explain": "BLEU was proposed for automatic evaluation of machine translation and compares n-gram overlap with reference translations. BERTScore and semantic similarity compare contextual meaning, and perplexity measures how well a model predicts text.",
+    "difficulty": "facile",
+    "tags": [
+      "bleu",
+      "nlp-metrics"
+    ],
+    "source": "BLEU: a Method for Automatic Evaluation of Machine Translation (Papineni et al., 2002)",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.8"
+    ]
+  },
+  {
+    "id": "ch13-q003",
+    "chapter": "ch13-genai-agents",
+    "q": "A reviewer compares summarization and translation evaluations. Which TWO statements about NLP evaluation metrics are correct? (Select TWO.)",
+    "options": [
+      "ROUGE focuses on how much of the reference text appears in the generated output, which suits summarization",
+      "BLEU was designed mainly to score long-form summaries rather than translations",
+      "BERTScore compares contextual token embeddings, so it can credit paraphrases that lexical metrics miss",
+      "Lexical overlap metrics always rate a correct paraphrase as a perfect match",
+      "Accuracy is the standard metric for scoring free-form generated text"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "ROUGE measures recall of reference content and is used for summaries. BERTScore uses contextual embeddings, so paraphrases are not penalized. BLEU targets translation, and lexical metrics penalize paraphrases.",
+    "difficulty": "media",
+    "tags": [
+      "rouge",
+      "bertscore"
+    ],
+    "source": "ROUGE: A Package for Automatic Evaluation of Summaries (Lin, 2004)",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.8"
+    ]
+  },
+  {
+    "id": "ch13-q004",
+    "chapter": "ch13-genai-agents",
+    "q": "A support team compares generated answers with reference answers written in different words. Lexical metrics rate correct answers as poor. Which change gives the best tolerance for rewording?",
+    "options": [
+      "Raise the BLEU n-gram order to four and average the scores across several reference answers for each question",
+      "Use exact string matching on the final sentence of each answer, after normalizing case and punctuation only",
+      "Score answers with BERTScore or embedding-based semantic similarity against the references",
+      "Increase the weight of single-word matches in ROUGE-1 so that words count more than phrases"
+    ],
+    "answer": 2,
+    "explain": "BERTScore and embedding similarity compare meaning through contextual vectors, so paraphrases are not penalized. Higher BLEU order, exact matching, and ROUGE-1 weighting stay lexical and keep penalizing rewording.",
+    "difficulty": "difficile",
+    "tags": [
+      "bertscore",
+      "semantic-similarity"
+    ],
+    "source": "BERTScore: Evaluating Text Generation with BERT (Zhang et al.)",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.8"
+    ]
+  },
+  {
+    "id": "ch13-q005",
+    "chapter": "ch13-genai-agents",
+    "q": "A health-information app must check that chatbot answers are clear, safe, and useful. The team wants human reviewers in the loop with a repeatable process. Which setup best fits?",
+    "options": [
+      "A single engineer reviews the first ten answers before each release, then approves the model for all users on the platform",
+      "Reviewers score every production answer after the fact with no written rubric, so the scores can be compared freely across teams and periods",
+      "Only automated BLEU and ROUGE scores decide whether a release is safe to publish, and no person reviews the answers at all",
+      "A review team scores a random weekly sample with a written rubric, checks inter-rater agreement, and feeds corrections back into the test set"
+    ],
+    "answer": 3,
+    "explain": "A sampled, rubric-based review with agreement checks gives a repeatable human signal, and corrections improve the test set. A single reviewer, lexical metrics alone, or unstructured scoring do not give a reliable process.",
+    "difficulty": "media",
+    "tags": [
+      "human-in-the-loop",
+      "human-evaluation"
+    ],
+    "source": "AWS docs: Manage a work team for human evaluations of models in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.7"
+    ]
+  },
+  {
+    "id": "ch13-q006",
+    "chapter": "ch13-genai-agents",
+    "q": "A RAG assistant answers questions from internal manuals, and users complain about wrong answers. Evaluation shows that retrieved chunks often do not address the question, although the answers stay faithful to those chunks. Which metric should the team monitor first?",
+    "options": [
+      "Context relevance, because it measures whether the retrieved chunks match the question",
+      "Faithfulness, because it measures how many hallucinations appear relative to the retrieved chunks",
+      "Helpfulness of the final answer, because it scores the overall user experience",
+      "Logical coherence of the generated response, because it detects contradictions in the answer"
+    ],
+    "answer": 0,
+    "explain": "Faithfulness is high because the answers stay within the chunks, so the problem sits in retrieval. Context relevance is the retrieval metric that checks whether the chunks match the question.",
+    "difficulty": "difficile",
+    "tags": [
+      "rag",
+      "retrieval-accuracy"
+    ],
+    "source": "AWS docs: Review metrics for RAG evaluations that use LLMs (console)",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.10"
+    ]
+  },
+  {
+    "id": "ch13-q007",
+    "chapter": "ch13-genai-agents",
+    "q": "A team evaluates only the retrieval step of its knowledge base and has no reference answers. Which metric measures whether each retrieved text chunk is on topic for the question?",
+    "options": [
+      "Context coverage",
+      "Context relevance",
+      "Correctness",
+      "Citation precision"
+    ],
+    "answer": 1,
+    "explain": "Context relevance is a retrieval-only metric that does not need a reference. Context coverage needs ground truth, and correctness and citation precision apply to generated responses.",
+    "difficulty": "facile",
+    "tags": [
+      "rag",
+      "context-relevance"
+    ],
+    "source": "AWS docs: Review metrics for RAG evaluations that use LLMs (console)",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.10"
+    ]
+  },
+  {
+    "id": "ch13-q008",
+    "chapter": "ch13-genai-agents",
+    "q": "A RAG team evaluates only the retrieval step and wants a metric that needs a reference text from its gold dataset. Which metric requires that ground truth?",
+    "options": [
+      "Context relevance, which checks whether each retrieved chunk matches the question without a reference",
+      "Faithfulness, which checks whether the generated answer stays within the retrieved chunks",
+      "Context coverage, which checks whether the retrieved chunks cover the reference text",
+      "Harmfulness, which scores the generated text for hateful, insulting, or violent content"
+    ],
+    "answer": 2,
+    "explain": "Context coverage checks whether the retrieved chunks cover the information in the ground truth, so it needs a reference. The other options are either retrieval metrics without ground truth or generation metrics.",
+    "difficulty": "difficile",
+    "tags": [
+      "rag",
+      "context-coverage"
+    ],
+    "source": "AWS docs: Review metrics for RAG evaluations that use LLMs (console)",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.10"
+    ]
+  },
+  {
+    "id": "ch13-q009",
+    "chapter": "ch13-genai-agents",
+    "q": "A data scientist must make model comparisons reproducible across two evaluation rounds. Which TWO practices help most? (Select TWO.)",
+    "options": [
+      "Re-run the evaluation on a new random sample each time to avoid overfitting to one dataset",
+      "Log each run's parameters and metrics in a tracking server such as MLflow on SageMaker AI so runs can be compared",
+      "Overwrite the previous evaluation report so that only the latest result remains",
+      "Change the judge model between rounds to obtain more diverse scores",
+      "Pin the evaluation dataset version and record the prompt version and inference parameters for each run"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "Reproducible comparisons need a fixed dataset and recorded configuration, and experiment tracking keeps each run comparable. Changing samples, judges, or overwriting reports breaks the comparison.",
+    "difficulty": "media",
+    "tags": [
+      "reproducibility",
+      "mlflow"
+    ],
+    "source": "AWS docs: Accelerate generative AI development using managed MLflow on Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.1",
+      "G-2.3.6"
+    ]
+  },
+  {
+    "id": "ch13-q010",
+    "chapter": "ch13-genai-agents",
+    "q": "A company runs a fraud classifier on tabular data and a summarization model built on a foundation model. Which evaluation approach is correct for each?",
+    "options": [
+      "Use one accuracy number for both models, since every output is a label or a short text that can be scored the same way",
+      "Use BLEU for the classifier and accuracy for the summarizer, since both metrics are standard and easy to compare across teams",
+      "Use perplexity for both models because they share a training framework and their outputs can be compared on the same scale",
+      "Use AUC and a confusion matrix for the classifier, and LLM-based or human quality metrics for the summarizer"
+    ],
+    "answer": 3,
+    "explain": "Classifiers are evaluated with classification metrics such as AUC and the confusion matrix. Generated text needs quality metrics such as judge-based scores or human review, so the two families should not be mixed.",
+    "difficulty": "media",
+    "tags": [
+      "model-evaluation",
+      "classic-ml"
+    ],
+    "source": "AWS docs: Use metrics to understand model performance",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.6"
+    ]
+  },
+  {
+    "id": "ch13-q011",
+    "chapter": "ch13-genai-agents",
+    "q": "A data science team runs many evaluation experiments and wants to compare runs and register the best model. What does MLflow on Amazon SageMaker AI provide for this work?",
+    "options": [
+      "Tracking and comparison of experiments and runs, plus model registration",
+      "Real-time endpoint autoscaling based on KEDA triggers that watch CloudWatch metrics",
+      "A managed vector database for RAG embeddings, with built-in indexing and similarity search",
+      "Prebuilt guardrails that block harmful content in responses, with filters for hate and violence"
+    ],
+    "answer": 0,
+    "explain": "Managed MLflow tracks experiments, compares runs, and registers models. Autoscaling, vector storage, and guardrails are provided by other services.",
+    "difficulty": "facile",
+    "tags": [
+      "mlflow",
+      "experiment-tracking"
+    ],
+    "source": "AWS docs: Accelerate generative AI development using managed MLflow on Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.1"
+    ]
+  },
+  {
+    "id": "ch13-q012",
+    "chapter": "ch13-genai-agents",
+    "q": "A team must evaluate a new chat model. It needs a fast weekly quality signal and a periodic sign-off on tone by people. Which evaluation plan best fits?",
+    "options": [
+      "Use only human reviewers every week, which gives the most reliable and the cheapest signal available to the team today",
+      "Run a judge-based evaluation each week for a fast signal, and schedule a periodic human review of tone",
+      "Use only automatic lexical metrics, which give a stable weekly signal without any review of tone or safety by people",
+      "Skip offline evaluation and rely on user ratings collected after deployment, which reflects real traffic and real users"
+    ],
+    "answer": 1,
+    "explain": "A judge-based run gives a fast and scalable weekly signal, and periodic human review covers subjective qualities such as tone. Human-only review is slow, and lexical or user-rating-only plans miss the quality dimensions the team needs.",
+    "difficulty": "difficile",
+    "tags": [
+      "model-evaluation",
+      "llm-as-a-judge"
+    ],
+    "source": "AWS docs: Evaluate model performance using another LLM as a judge",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.6"
+    ]
+  },
+  {
+    "id": "ch13-q013",
+    "chapter": "ch13-genai-agents",
+    "q": "A payments API needs predictable latency for a foundation model at a steady 24/7 request rate that is known in advance. Which deployment option best matches this need?",
+    "options": [
+      "On-demand inference with no reserved capacity, paying per token used, and accepting variable latency during traffic peaks",
+      "Batch inference with results written to Amazon S3 every night, which is designed for asynchronous jobs and bulk processing",
+      "Provisioned Throughput with model units sized for the steady rate and a commitment term",
+      "Cross-region inference, which reserves capacity in every Region of the geography to keep latency low for all users"
+    ],
+    "answer": 2,
+    "explain": "Provisioned Throughput reserves model units for predictable throughput and suits steady traffic. Cross-region inference routes requests but does not reserve capacity, and batch is asynchronous.",
+    "difficulty": "media",
+    "tags": [
+      "provisioned-throughput",
+      "deployment"
+    ],
+    "source": "AWS docs: Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.4"
+    ]
+  },
+  {
+    "id": "ch13-q014",
+    "chapter": "ch13-genai-agents",
+    "q": "A team must process two million documents overnight, with results needed by morning. Which TWO statements about Amazon Bedrock batch inference are correct? (Select TWO.)",
+    "options": [
+      "The list prices of the supported models are about half of their on-demand list prices",
+      "Prompt caching is always applied to every request in a batch job",
+      "Each batch job returns the result for every record within a few seconds",
+      "Input requests are provided as files in Amazon S3, and the outputs are written back to Amazon S3",
+      "Batch inference can be used with models that have been purchased through Provisioned Throughput"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Batch inference reads and writes files in S3 and is priced lower than on-demand for the listed models. It is not supported for provisioned models, prompt caching does not apply to batch, and results come asynchronously.",
+    "difficulty": "media",
+    "tags": [
+      "batch-inference",
+      "cost"
+    ],
+    "source": "AWS docs: Process multiple prompts with batch inference",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.4",
+      "G-4.2.7"
+    ]
+  },
+  {
+    "id": "ch13-q015",
+    "chapter": "ch13-genai-agents",
+    "q": "A team fine-tuned an open-source Llama model outside AWS and stored its weights in Hugging Face format on Amazon S3. It wants to call the model through the Amazon Bedrock InvokeModel API without managing servers. Which service should it use?",
+    "options": [
+      "Amazon SageMaker Feature Store",
+      "AWS Lambda with a container that loads the weights at startup",
+      "Amazon Bedrock Prompt management",
+      "Amazon Bedrock Custom Model Import"
+    ],
+    "answer": 3,
+    "explain": "Custom Model Import brings externally built models into Bedrock and lets you call them with InvokeModel on demand. The other options either do not host models or do not provide the managed Bedrock inference path.",
+    "difficulty": "facile",
+    "tags": [
+      "custom-model-import",
+      "deployment"
+    ],
+    "source": "AWS docs: Use Custom model import to import a customized open-source model into Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.5"
+    ]
+  },
+  {
+    "id": "ch13-q016",
+    "chapter": "ch13-genai-agents",
+    "q": "A company built an embedding model in SageMaker AI and wants to serve it inside AWS. A colleague proposes Amazon Bedrock Custom Model Import. Which statement is correct?",
+    "options": [
+      "Custom Model Import does not support embedding models, so the model should be deployed on a SageMaker AI endpoint",
+      "Custom Model Import supports embedding models, so the import works with the same Hugging Face files and no change to the serving setup",
+      "Custom Model Import works only after the embedding model is converted into a Bedrock Knowledge Base, which then exposes it as an endpoint",
+      "Custom Model Import requires the model to be shipped as a TensorFlow SavedModel directory that includes the serving signature file"
+    ],
+    "answer": 0,
+    "explain": "The documentation states that Custom Model Import does not support embedding models, so such a model belongs on a SageMaker AI endpoint. The other statements invent requirements that the service does not have.",
+    "difficulty": "difficile",
+    "tags": [
+      "custom-model-import",
+      "embeddings"
+    ],
+    "source": "AWS docs: Use Custom model import to import a customized open-source model into Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.5"
+    ]
+  },
+  {
+    "id": "ch13-q017",
+    "chapter": "ch13-genai-agents",
+    "q": "An agent must call existing Lambda functions and an internal REST API as tools through the Model Context Protocol. The company wants one managed endpoint that also handles inbound and outbound authentication. Which AgentCore component fits?",
+    "options": [
+      "AgentCore Memory, which stores tool results across sessions so that later calls can reuse them without any extra configuration",
+      "AgentCore Gateway, which converts APIs and Lambda functions into MCP tools with authentication",
+      "AgentCore Browser, which lets the agent navigate web applications, fill forms, and extract information from pages on its own",
+      "AgentCore Code Interpreter, which runs Python and other code in an isolated sandbox for calculations and data processing tasks"
+    ],
+    "answer": 1,
+    "explain": "Gateway converts APIs, Lambda functions, and MCP servers into MCP-compatible tools and handles inbound and outbound authentication. The other components cover memory, browsing, and code execution.",
+    "difficulty": "media",
+    "tags": [
+      "agentcore",
+      "mcp"
+    ],
+    "source": "AWS docs: Amazon Bedrock AgentCore Gateway",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.6"
+    ]
+  },
+  {
+    "id": "ch13-q018",
+    "chapter": "ch13-genai-agents",
+    "q": "A team designs an agent platform on AWS. Which THREE components belong to Amazon Bedrock AgentCore? (Select THREE.)",
+    "options": [
+      "Amazon SageMaker HyperPod",
+      "AWS Glue DataBrew",
+      "Amazon Kendra",
+      "AgentCore Runtime",
+      "AgentCore Memory",
+      "AgentCore Gateway"
+    ],
+    "answer": [
+      3,
+      4,
+      5
+    ],
+    "explain": "Runtime, Memory, and Gateway are AgentCore components. HyperPod, Glue DataBrew, and Kendra are AWS services outside AgentCore.",
+    "difficulty": "media",
+    "tags": [
+      "agentcore",
+      "components"
+    ],
+    "source": "AWS docs: Amazon Bedrock AgentCore - Overview",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "V53",
+      "G-3.1.6"
+    ]
+  },
+  {
+    "id": "ch13-q019",
+    "chapter": "ch13-genai-agents",
+    "q": "An orchestrator agent must hand a research task to a separate specialist agent hosted by another team. Which protocol lets one agent send tasks to another agent in a standard way?",
+    "options": [
+      "MCP, which connects agents to tools and data sources",
+      "SMTP, which is used to send email notifications",
+      "A2A, the agent-to-agent communication protocol",
+      "OAuth, which is used only for user sign-in flows"
+    ],
+    "answer": 2,
+    "explain": "A2A is the agent-to-agent protocol. MCP connects agents to tools, while SMTP and OAuth serve other purposes.",
+    "difficulty": "facile",
+    "tags": [
+      "a2a",
+      "mcp",
+      "protocols"
+    ],
+    "source": "AWS docs: Amazon Bedrock AgentCore - Overview",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "V53",
+      "G-3.1.6"
+    ]
+  },
+  {
+    "id": "ch13-q020",
+    "chapter": "ch13-genai-agents",
+    "q": "A team needs a managed platform for an agent that runs long tasks in isolated sessions and calls company tools over MCP. Which combination of AgentCore components covers both needs?",
+    "options": [
+      "Observability and Payments",
+      "Browser and Code Interpreter",
+      "Memory and Identity",
+      "Runtime and Gateway"
+    ],
+    "answer": 3,
+    "explain": "AgentCore Runtime runs agents with session isolation and supports long-running asynchronous work, and Gateway exposes company tools as MCP tools. The other pairs cover browsing, code execution, memory, observability, or payments, which are not the core of this need.",
+    "difficulty": "difficile",
+    "tags": [
+      "agentcore",
+      "bedrock-agents-classic"
+    ],
+    "source": "AWS docs: Amazon Bedrock AgentCore - Overview",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "V53"
+    ]
+  },
+  {
+    "id": "ch13-q021",
+    "chapter": "ch13-genai-agents",
+    "q": "A team wants to host a public open-source LLM from the SageMaker JumpStart catalog on HyperPod with minimal configuration, and wants the Kubernetes operator to handle the deployment. Which resource type fits?",
+    "options": [
+      "A JumpStartModel custom resource, which deploys a JumpStart model through the HyperPod inference operator",
+      "A raw EC2 Auto Scaling group with a hand-built container image that the team maintains and patches on its own schedule",
+      "An Amazon EMR cluster with a Spark job that loads the model weights and serves predictions through a custom HTTP handler",
+      "A SageMaker Processing job that runs once for each incoming request and writes the prediction to an Amazon S3 output path"
+    ],
+    "answer": 0,
+    "explain": "JumpStartModel is the custom resource that deploys JumpStart models through the HyperPod inference operator. The other options add manual infrastructure or use services that do not serve models.",
+    "difficulty": "media",
+    "tags": [
+      "jumpstart",
+      "hyperpod"
+    ],
+    "source": "AWS docs: Deploying models on Amazon SageMaker HyperPod - Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.7"
+    ]
+  },
+  {
+    "id": "ch13-q022",
+    "chapter": "ch13-genai-agents",
+    "q": "A fine-tuned model in Amazon Bedrock is served through Provisioned Throughput. The team wants to delete the throughput next week to save money, but it was purchased with a six-month commitment. Which statement is true?",
+    "options": [
+      "It can be deleted at any time, because all Provisioned Throughput has no commitment and can be removed from the console at once",
+      "It cannot be deleted until the six-month commitment term ends, and billing continues until it is deleted",
+      "It is deleted automatically after the first week, and the commitment is refunded to the account in full by AWS support",
+      "It can be shortened to a one-month term at no cost, which lets the team stop paying sooner than the original contract allows"
+    ],
+    "answer": 1,
+    "explain": "A committed Provisioned Throughput cannot be deleted before the term ends, and billing continues until deletion. Custom models need Provisioned Throughput, so this is the case the team faces.",
+    "difficulty": "difficile",
+    "tags": [
+      "provisioned-throughput",
+      "commitment"
+    ],
+    "source": "AWS docs: Purchase a Provisioned Throughput for an Amazon Bedrock model",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.7"
+    ]
+  },
+  {
+    "id": "ch13-q023",
+    "chapter": "ch13-genai-agents",
+    "q": "A travel assistant must remember a traveler's seat preference in future bookings weeks later, while keeping the current conversation coherent within one session. Which AgentCore feature covers both needs?",
+    "options": [
+      "AgentCore Gateway, which caches tool responses for 30 days so that repeated lookups never reach the underlying systems",
+      "A prompt variant that stores the preference inside its text, so that every later call includes it in the instructions",
+      "AgentCore Memory with short-term memory for the session and long-term memory for preferences",
+      "AgentCore Observability, which records every session trace for later reuse as training examples for the next model"
+    ],
+    "answer": 2,
+    "explain": "AgentCore Memory provides short-term memory for turns inside a session and long-term memory that persists across sessions. The other options do not manage conversational state.",
+    "difficulty": "media",
+    "tags": [
+      "agentcore-memory",
+      "state"
+    ],
+    "source": "AWS docs: Add memory to your Amazon Bedrock AgentCore agent",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.9"
+    ]
+  },
+  {
+    "id": "ch13-q024",
+    "chapter": "ch13-genai-agents",
+    "q": "A support agent must keep context across a conversation and across sessions. Which TWO statements about AgentCore Memory are correct? (Select TWO.)",
+    "options": [
+      "Memory replaces the need for a database to store order status and account balances",
+      "Short-term memory keeps the turns of a single session so the agent can resolve follow-up references",
+      "Long-term memory stores insights that persist across sessions, such as user preferences",
+      "Short-term memory is kept permanently after each session ends so that it can be queried later",
+      "Long-term memory is deleted automatically when the session that created it closes"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "Short-term memory covers a session and long-term memory persists across sessions. Memory is for context and personalization, not a replacement for systems of record such as order or account databases.",
+    "difficulty": "media",
+    "tags": [
+      "agentcore-memory",
+      "short-term",
+      "long-term"
+    ],
+    "source": "AWS docs: Add memory to your Amazon Bedrock AgentCore agent",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.9"
+    ]
+  },
+  {
+    "id": "ch13-q025",
+    "chapter": "ch13-genai-agents",
+    "q": "A HyperPod inference deployment for a GPU model is idle at night. The team wants it to scale to zero pods and configured triggers on CPU and memory only. Why will this not work?",
+    "options": [
+      "HyperPod requires minReplicaCount to be at least five for stability reasons, and every deployment keeps five pods running at all times",
+      "Scale to zero is not supported on GPU instances under any configuration, so the deployment must always keep one pod running for the model",
+      "KEDA only supports CloudWatch triggers, so CPU and memory metrics are never read by the autoscaler when it decides how many pods to run",
+      "CPU and memory triggers alone cannot scale to zero, so at least one additional trigger such as an SQS queue or Prometheus query is required"
+    ],
+    "answer": 3,
+    "explain": "The autoscaling documentation says CPU and memory triggers can scale to zero only when at least one additional scaler is defined. The other options are not supported by the documentation.",
+    "difficulty": "difficile",
+    "tags": [
+      "keda",
+      "gpu-scaling"
+    ],
+    "source": "AWS docs: Autoscaling policies for your HyperPod inference model deployment - Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.10"
+    ]
+  },
+  {
+    "id": "ch13-q026",
+    "chapter": "ch13-genai-agents",
+    "q": "A team wants to scale a GPU inference deployment on SageMaker HyperPod based on the number of invocations of its SageMaker endpoint. Which trigger configuration matches this need?",
+    "options": [
+      "A KEDA CloudWatch trigger that reads the Invocations metric from the AWS/SageMaker namespace",
+      "A CPU utilization trigger set to 60 percent on the same pods, so replicas are added when CPUs are busy",
+      "A Prometheus trigger that queries only the GPU temperature of the node",
+      "An SQS queue-length trigger on a queue that no application writes to"
+    ],
+    "answer": 0,
+    "explain": "The documentation shows the Invocations metric from the AWS/SageMaker namespace as a CloudWatch trigger. The other triggers either measure something else or depend on a queue nothing writes to.",
+    "difficulty": "media",
+    "tags": [
+      "keda",
+      "hyperpod",
+      "gpu"
+    ],
+    "source": "AWS docs: Autoscaling policies for your HyperPod inference model deployment - Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.10",
+      "C24"
+    ]
+  },
+  {
+    "id": "ch13-q027",
+    "chapter": "ch13-genai-agents",
+    "q": "A team hosts an agent that runs for hours and must keep each user's session isolated, with no servers to manage. Which AgentCore component should run it?",
+    "options": [
+      "AgentCore Memory",
+      "AgentCore Runtime",
+      "AgentCore Identity",
+      "AgentCore Browser"
+    ],
+    "answer": 1,
+    "explain": "AgentCore Runtime hosts agents serverlessly, with session isolation and support for asynchronous agents. The other components handle memory, identity, and browsing.",
+    "difficulty": "facile",
+    "tags": [
+      "agentcore-runtime"
+    ],
+    "source": "AWS docs: Amazon Bedrock AgentCore - Overview",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.11"
+    ]
+  },
+  {
+    "id": "ch13-q028",
+    "chapter": "ch13-genai-agents",
+    "q": "A company wants its agents to reach a payroll REST API and a Lambda function as tools. Users must be authenticated at the gateway, and the payroll API must be called with its own credentials. Which design meets this with the LEAST custom code?",
+    "options": [
+      "Run a self-managed MCP proxy on EC2 that each agent must configure by hand, with its own TLS certificates and a custom authentication layer",
+      "Embed the payroll API key in each agent prompt so that the agent can call the API directly, which keeps the design simple for the team",
+      "Expose both through AgentCore Gateway as MCP tools, with inbound authentication for users and outbound authentication for the payroll API",
+      "Store the tool definitions in an S3 bucket and let the agents read them at runtime, then parse each schema before calling the target API"
+    ],
+    "answer": 2,
+    "explain": "Gateway converts the API and the Lambda into MCP tools and manages inbound and outbound authentication, so no custom proxy is needed. Putting keys in prompts or building proxies adds risk and code.",
+    "difficulty": "difficile",
+    "tags": [
+      "agentcore-gateway",
+      "authentication"
+    ],
+    "source": "AWS docs: Amazon Bedrock AgentCore Gateway",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.2.11"
+    ]
+  },
+  {
+    "id": "ch13-q029",
+    "chapter": "ch13-genai-agents",
+    "q": "A product team wants to change a support prompt's wording without redeploying application code, and it must keep past versions. Which Amazon Bedrock feature should it use?",
+    "options": [
+      "Provisioned Throughput",
+      "Guardrails",
+      "Model invocation logging",
+      "Prompt management"
+    ],
+    "answer": 3,
+    "explain": "Prompt management stores prompts with variables, variants, and versions. The other features cover safety, logs, and capacity.",
+    "difficulty": "facile",
+    "tags": [
+      "prompt-management"
+    ],
+    "source": "AWS docs: Construct and store reusable prompts with Prompt management in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.7"
+    ]
+  },
+  {
+    "id": "ch13-q030",
+    "chapter": "ch13-genai-agents",
+    "q": "A team has two prompt variants for a support assistant. It must choose the one with better answers on the same test dataset, and deploy it without changing application code. Which approach fits?",
+    "options": [
+      "Compare the variants in Prompt management on the same dataset, then deploy the chosen version by its version identifier",
+      "Hard-code both prompts in two Lambda functions, run each one for a day, and pick whichever finishes its requests faster overall",
+      "Keep the prompt in the application source code and change it in every release, so that each prompt edit goes through a full deployment",
+      "Compare the variants on production traffic only, without a test dataset, and promote the one users seem to prefer after a few weeks"
+    ],
+    "answer": 0,
+    "explain": "Prompt management lets you compare variants on a shared dataset and deploy a saved version, which keeps application code unchanged. The other options skip testing or tie the prompt to code.",
+    "difficulty": "media",
+    "tags": [
+      "prompt-testing",
+      "variants"
+    ],
+    "source": "AWS docs: Construct and store reusable prompts with Prompt management in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.7",
+      "G-3.3.9"
+    ]
+  },
+  {
+    "id": "ch13-q031",
+    "chapter": "ch13-genai-agents",
+    "q": "A team updates an agent with a new action group. Production clients must keep calling the same identifier, and the team wants to roll back quickly if answers degrade. Which mechanism fits?",
+    "options": [
+      "Create a new agent name for each release and update every client application to point to the new name before the release date",
+      "Repoint an alias from the old agent version to the new one, and point it back to roll back",
+      "Edit the draft in place and redeploy the client with a new code path, so that the release is visible to all users at once",
+      "Duplicate the Lambda function for each release, rename the client that calls it, and delete the old function after one week"
+    ],
+    "answer": 1,
+    "explain": "Applications call an alias, so moving the alias between versions changes the agent without changing clients, and moving it back rolls back. The other options force client changes or lose version history.",
+    "difficulty": "media",
+    "tags": [
+      "alias",
+      "version"
+    ],
+    "source": "AWS docs: Deploy and use an Amazon Bedrock agent in your application",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.8"
+    ]
+  },
+  {
+    "id": "ch13-q032",
+    "chapter": "ch13-genai-agents",
+    "q": "A team builds a multi-agent assistant with a supervisor. Which TWO statements about multi-agent collaboration in Amazon Bedrock Agents are correct? (Select TWO.)",
+    "options": [
+      "The supervisor agent must be saved before collaborator agents can be associated with it",
+      "A supervisor agent routes each request to the specialized collaborator agents",
+      "Collaborator agents are invoked directly by clients, bypassing the supervisor",
+      "Each collaborator must use exactly the same instruction text as the supervisor",
+      "Multi-agent collaboration is available only through the AWS CLI and has no console support"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "The supervisor must be saved before collaborators are associated, and it routes work to collaborators based on their roles. Clients do not bypass the supervisor, and instructions describe each agent's own role.",
+    "difficulty": "media",
+    "tags": [
+      "multi-agent",
+      "supervisor"
+    ],
+    "source": "AWS docs: Use multi-agent collaboration with Amazon Bedrock Agents",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.8"
+    ]
+  },
+  {
+    "id": "ch13-q033",
+    "chapter": "ch13-genai-agents",
+    "q": "A pipeline promotes an agent alias only after tests pass. The tests include prompt tests for tone and grounding. Which step belongs in the pipeline before the alias update?",
+    "options": [
+      "Skip prompt tests for agents, because prompts are not treated as code and the unit tests already cover the agent behavior",
+      "Delete the previous version so that only one version exists to be tested, which keeps the test matrix simple for the team",
+      "Run the prompt test suite against the new version and block promotion when any test fails",
+      "Promote the alias first and run the tests against production traffic afterwards, so that real users confirm the agent behavior"
+    ],
+    "answer": 2,
+    "explain": "Prompt tests belong before promotion, and a failing suite must block the alias update. The other options either remove the rollback path or test after users are already exposed.",
+    "difficulty": "difficile",
+    "tags": [
+      "prompt-testing",
+      "pipeline"
+    ],
+    "source": "AWS docs: Construct and store reusable prompts with Prompt management in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.9"
+    ]
+  },
+  {
+    "id": "ch13-q034",
+    "chapter": "ch13-genai-agents",
+    "q": "A team fine-tunes a model every week, and management wants each release to be traceable and reversible. Which pipeline design fits best?",
+    "options": [
+      "Store only the latest model and keep no evaluation history, because the newest model always replaces the previous one automatically",
+      "Overwrite the production model artifact in place so the endpoint always has the latest weights, without keeping an older copy of the model",
+      "Deploy every training checkpoint to production so the team can pick one later, using the production traffic to decide which one to keep",
+      "Register each fine-tuned model as a new version, evaluate it, and promote it only if metrics do not regress, keeping the old version for rollback"
+    ],
+    "answer": 3,
+    "explain": "Versioned registration, evaluation before promotion, and a retained previous version give traceability and rollback. The other options remove version history or expose unvalidated models.",
+    "difficulty": "media",
+    "tags": [
+      "fine-tuning",
+      "model-versioning"
+    ],
+    "source": "AWS docs: Increase model invocation capacity with Provisioned Throughput in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.10"
+    ]
+  },
+  {
+    "id": "ch13-q035",
+    "chapter": "ch13-genai-agents",
+    "q": "A team prepares a model trained outside AWS for import. Which THREE requirements apply to Amazon Bedrock Custom Model Import? (Select THREE.)",
+    "options": [
+      "The model is a TensorFlow SavedModel exported from another cloud platform",
+      "Embedding model architectures are supported for on-demand inference",
+      "Batch inference is the only way to call the imported model",
+      "The weights are in Hugging Face format, stored as safetensors files",
+      "The model uses a supported architecture such as Llama, Mistral, or Qwen",
+      "A config.json file and the tokenizer files are included with the weights"
+    ],
+    "answer": [
+      3,
+      4,
+      5
+    ],
+    "explain": "Custom Model Import requires Hugging Face weights in safetensors, a supported architecture, and the config and tokenizer files. Embedding models are not supported, and the imported model is called on demand with InvokeModel, not only in batch.",
+    "difficulty": "media",
+    "tags": [
+      "custom-model-import",
+      "requirements"
+    ],
+    "source": "AWS docs: Use Custom model import to import a customized open-source model into Amazon Bedrock",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.1.5"
+    ]
+  },
+  {
+    "id": "ch13-q036",
+    "chapter": "ch13-genai-agents",
+    "q": "A platform team wants one view of invocations, token counts, and latency for its foundation model apps. Which CloudWatch dashboard should it open?",
+    "options": [
+      "The Model invocations dashboard in CloudWatch generative AI observability",
+      "The Amazon EC2 instance health dashboard, which shows CPU and memory for each instance",
+      "The AWS Billing and Cost Management home page, which summarizes monthly spend by service",
+      "The Amazon S3 Storage Lens dashboard, which reports storage usage and request activity"
+    ],
+    "answer": 0,
+    "explain": "The Model invocations dashboard in CloudWatch generative AI observability shows invocations, token counts, latency, and errors. The other dashboards cover compute, billing, and storage.",
+    "difficulty": "facile",
+    "tags": [
+      "cloudwatch",
+      "observability"
+    ],
+    "source": "AWS docs: Generative AI observability - Amazon CloudWatch",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.1"
+    ]
+  },
+  {
+    "id": "ch13-q037",
+    "chapter": "ch13-genai-agents",
+    "q": "A chatbot's quality score drops two weeks after a prompt change, and the team has no alert for it. Which combination best detects this kind of drop in production?",
+    "options": [
+      "A one-time offline BLEU test before launch, reviewed once per quarter by the same team that built the chatbot and its prompts",
+      "Model invocation logs with a periodic evaluation job on sampled traffic, plus CloudWatch alarms on the quality trend",
+      "Increasing the endpoint instance count so that the quality issue disappears, since more capacity usually fixes response quality",
+      "Turning off logging to reduce storage cost while the prompt is investigated, and restoring the logs later from a backup copy"
+    ],
+    "answer": 1,
+    "explain": "Logs plus periodic evaluation on sampled traffic reveal quality changes, and alarms turn the trend into an alert. The other options are one-time checks, capacity changes, or removing the evidence.",
+    "difficulty": "difficile",
+    "tags": [
+      "monitoring",
+      "drift"
+    ],
+    "source": "AWS docs: Generative AI observability - Amazon CloudWatch",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.1",
+      "G-4.1.6"
+    ]
+  },
+  {
+    "id": "ch13-q038",
+    "chapter": "ch13-genai-agents",
+    "q": "An auditor asks for the exact prompts and responses that one application sent to Amazon Bedrock last month. What must the team have enabled?",
+    "options": [
+      "A CloudWatch alarm on the invocation latency metric, which notifies the team of slow responses",
+      "AgentCore Observability with the default metrics only, which shows session counts and latency",
+      "Model invocation logging, with Amazon S3 or CloudWatch Logs as the destination",
+      "A Guardrail with content filters, which stores every prompt and response for later audit"
+    ],
+    "answer": 2,
+    "explain": "Model invocation logging records request and response bodies to S3 or CloudWatch Logs when it is turned on. Metrics, alarms, and guardrails do not keep the full prompt and response record.",
+    "difficulty": "media",
+    "tags": [
+      "invocation-logging",
+      "audit"
+    ],
+    "source": "AWS docs: Monitor model invocation using CloudWatch Logs and Amazon S3",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.6"
+    ]
+  },
+  {
+    "id": "ch13-q039",
+    "chapter": "ch13-genai-agents",
+    "q": "A compliance team needs prompt and response records for an audit. Which TWO statements about Amazon Bedrock model invocation logging are correct? (Select TWO.)",
+    "options": [
+      "It is enabled automatically for every new account in every Region",
+      "It stores only token counts and never the request or response bodies",
+      "It is disabled by default and must be turned on in the Bedrock settings",
+      "It records calls made through the bedrock-runtime endpoint, including the Converse and InvokeModel operations",
+      "It records calls made through the bedrock-mantle endpoint as well"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "Logging is off by default and is configured in the Bedrock settings. It captures bedrock-runtime calls, and the documentation says calls on other endpoints are not captured. Bodies are logged too, up to a size limit.",
+    "difficulty": "difficile",
+    "tags": [
+      "invocation-logging"
+    ],
+    "source": "AWS docs: Monitor model invocation using CloudWatch Logs and Amazon S3",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.6"
+    ]
+  },
+  {
+    "id": "ch13-q040",
+    "chapter": "ch13-genai-agents",
+    "q": "An agent's answers suddenly stop in the middle of a sentence for some users, while the tool calls in the logs succeed. What should the team check first?",
+    "options": [
+      "Whether the S3 bucket for logs has versioning enabled on every object, since versioned objects can truncate the stream during write operations",
+      "Whether the embedding model has more dimensions than the vector index supports, because a mismatch can silently cut off the response stream",
+      "Whether the prompt contains more than three variables in the template, because too many variables can truncate the final streamed output",
+      "Whether streamed responses are being truncated, by tracing the stream end to end and checking for interrupted connections"
+    ],
+    "answer": 3,
+    "explain": "Truncated streams are a known agent failure mode, and tracing the stream end to end shows whether responses are cut off. The other options are unrelated to streamed output.",
+    "difficulty": "media",
+    "tags": [
+      "truncated-streaming",
+      "agent-failures"
+    ],
+    "source": "AWS docs: Observe your agent applications on Amazon Bedrock AgentCore Observability",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.5"
+    ]
+  },
+  {
+    "id": "ch13-q041",
+    "chapter": "ch13-genai-agents",
+    "q": "In a multi-agent flow, a supervisor agent sends the same task to two collaborators, and both complete it. Which telemetry view shows where the coordination failed?",
+    "options": [
+      "AgentCore Observability traces, with spans for each supervisor decision and each collaborator call",
+      "A CloudWatch billing alarm on total monthly spend, which notifies the finance team when the account passes a configured budget threshold",
+      "The S3 access log of the model artifacts bucket, which records each request made to the stored model files during the day",
+      "A Guardrails word-filter report of blocked terms, which lists every word that the guardrail removed from the answers that day"
+    ],
+    "answer": 0,
+    "explain": "Traces with spans for supervisor decisions and collaborator calls show the coordination path. The other views report spend, storage access, or blocked words, not agent coordination.",
+    "difficulty": "difficile",
+    "tags": [
+      "agent-coordination",
+      "traces"
+    ],
+    "source": "AWS docs: Observe your agent applications on Amazon Bedrock AgentCore Observability",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.5",
+      "G-4.2.2"
+    ]
+  },
+  {
+    "id": "ch13-q042",
+    "chapter": "ch13-genai-agents",
+    "q": "An on-call engineer reviews an agent that stalls. Which TWO are typical agent failure modes to monitor? (Select TWO.)",
+    "options": [
+      "A tool call fails or times out during an agent step",
+      "A streamed response is truncated before the agent finishes",
+      "The embedding dimension of the vector index was changed last quarter",
+      "The S3 lifecycle rule moved old logs to a colder storage class",
+      "The pricing page was updated for a model in another Region"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Tool failures and truncated streams are agent failure modes the documentation and the chapter describe. The other options are configuration or pricing events, not agent failures.",
+    "difficulty": "media",
+    "tags": [
+      "agent-failures",
+      "tool-failures"
+    ],
+    "source": "AWS docs: Observe your agent applications on Amazon Bedrock AgentCore Observability",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.1",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.1.5"
+    ]
+  },
+  {
+    "id": "ch13-q043",
+    "chapter": "ch13-genai-agents",
+    "q": "A team sees slow requests across several microservices and needs to find which downstream call adds the delay. Which AWS service provides the trace map for this?",
+    "options": [
+      "AWS Config",
+      "AWS X-Ray",
+      "Amazon Macie",
+      "AWS Budgets"
+    ],
+    "answer": 1,
+    "explain": "AWS X-Ray collects trace data and builds a service map. The other services handle configuration tracking, data discovery, and budgets.",
+    "difficulty": "facile",
+    "tags": [
+      "xray",
+      "tracing"
+    ],
+    "source": "AWS docs: What is AWS X-Ray?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.2"
+    ]
+  },
+  {
+    "id": "ch13-q044",
+    "chapter": "ch13-genai-agents",
+    "q": "An operations team investigates slow agent runs. Which THREE tools help troubleshoot and analyze generative AI resources? (Select THREE.)",
+    "options": [
+      "AWS X-Ray trace maps",
+      "AWS Cost Explorer cost forecasts",
+      "Amazon Macie sensitive data discovery",
+      "AWS Trusted Advisor checks",
+      "Amazon CloudWatch metrics and logs",
+      "Amazon Bedrock AgentCore Observability traces"
+    ],
+    "answer": [
+      0,
+      4,
+      5
+    ],
+    "explain": "CloudWatch, AgentCore Observability, and X-Ray all provide telemetry for troubleshooting. Cost Explorer, Macie, and Trusted Advisor serve cost, data, and best-practice purposes.",
+    "difficulty": "media",
+    "tags": [
+      "troubleshooting",
+      "observability"
+    ],
+    "source": "AWS docs: What is AWS X-Ray?",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.2"
+    ]
+  },
+  {
+    "id": "ch13-q045",
+    "chapter": "ch13-genai-agents",
+    "q": "A team wants to know how many tokens each agent session consumes, broken down by user cohort, to spot expensive sessions. Which source gives this view?",
+    "options": [
+      "The number of EC2 instances used by the agent frontend",
+      "The Bedrock monthly invoice, read once a quarter and divided by the number of users",
+      "AgentCore Observability token usage metrics, grouped by session and metadata tags",
+      "The S3 storage class of the agent's knowledge base"
+    ],
+    "answer": 2,
+    "explain": "AgentCore Observability reports token usage by session, and metadata tags let you group by cohort. The other sources are too coarse, or measure unrelated resources.",
+    "difficulty": "media",
+    "tags": [
+      "agent-consumption",
+      "tokens"
+    ],
+    "source": "AWS docs: Observe your agent applications on Amazon Bedrock AgentCore Observability",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.8"
+    ]
+  },
+  {
+    "id": "ch13-q046",
+    "chapter": "ch13-genai-agents",
+    "q": "After a release, one agent's token usage spikes, and the same session makes dozens of tool calls without answering. Which control limits the damage and gives evidence?",
+    "options": [
+      "Move the agent to a larger GPU instance type to shorten each step",
+      "Raise the maximum response length so that the agent can finish its loop",
+      "Disable tracing so that the loop does not produce logs",
+      "Cap the tool-call loop and alert on token and tool-call metrics per session, with traces to find the loop"
+    ],
+    "answer": 3,
+    "explain": "A cap on tool calls stops runaway loops, per-session metrics surface the spike, and traces show where the loop starts. The other options hide evidence or add cost without fixing the loop.",
+    "difficulty": "difficile",
+    "tags": [
+      "agent-loops",
+      "consumption"
+    ],
+    "source": "AWS docs: Observe your agent applications on Amazon Bedrock AgentCore Observability",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.8",
+      "G-4.1.5"
+    ]
+  },
+  {
+    "id": "ch13-q047",
+    "chapter": "ch13-genai-agents",
+    "q": "A customer-support bot runs 24/7 at high, steady volume. Which statement about the cost of on-demand compared with Provisioned Throughput is best?",
+    "options": [
+      "Provisioned Throughput can be cheaper at high steady volume, because its hourly rate is fixed and falls with a longer commitment",
+      "On-demand is always cheaper, because you pay only for the tokens that you use and never for capacity that sits idle at night",
+      "Provisioned Throughput is free for the first million tokens each month, so the first part of the workload costs nothing extra",
+      "The costs are identical, so only latency needs to be compared between the two options when choosing a deployment for the bot"
+    ],
+    "answer": 0,
+    "explain": "At high steady volume, a fixed hourly rate can cost less than per-token pricing, and longer commitments lower the rate. The other options assume on-demand is always cheapest, invent a free tier, or ignore cost.",
+    "difficulty": "media",
+    "tags": [
+      "cost",
+      "provisioned-throughput"
+    ],
+    "source": "AWS docs: Amazon Bedrock Pricing",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.7"
+    ]
+  },
+  {
+    "id": "ch13-q048",
+    "chapter": "ch13-genai-agents",
+    "q": "A finance analyst reviews the bill of a chatbot that writes long answers. Which statement about foundation model token pricing is generally true?",
+    "options": [
+      "Output tokens are free, and only input tokens are billed, so long answers cost nothing extra",
+      "Input and output tokens are priced separately, and output tokens usually cost more",
+      "Only input tokens are billed, and the output is included in the fee for each model call",
+      "Pricing is per request regardless of prompt or answer length, so message size does not matter"
+    ],
+    "answer": 1,
+    "explain": "Foundation model prices are charged per input token and per output token, and output tokens usually cost more for the listed models. The other options describe billing models that do not match this.",
+    "difficulty": "facile",
+    "tags": [
+      "cost",
+      "tokens"
+    ],
+    "source": "AWS docs: Amazon Bedrock Pricing",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.7"
+    ]
+  },
+  {
+    "id": "ch13-q049",
+    "chapter": "ch13-genai-agents",
+    "q": "Every request starts with the same 20-page policy document, and the job runs in on-demand mode. How can the team reduce input cost?",
+    "options": [
+      "Split the document into one-word chunks and send each chunk as a separate request so that every call stays small and fast",
+      "Add the document to every batch job, since batch is cheaper for repeated prefixes and avoids the caching step altogether for large files",
+      "Enable prompt caching for the stable prefix, placing the document before the variable question",
+      "Switch to a larger model, which reads long prompts at no extra cost and returns shorter answers for the same request"
+    ],
+    "answer": 2,
+    "explain": "Prompt caching reuses a stable prefix that comes before the variable part, and it applies to on-demand calls. Batch does not support caching, and splitting the document or switching models does not lower the input cost.",
+    "difficulty": "media",
+    "tags": [
+      "prompt-caching",
+      "cost"
+    ],
+    "source": "AWS docs: Prompt caching for faster model inference - Amazon Bedrock",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.9"
+    ]
+  },
+  {
+    "id": "ch13-q050",
+    "chapter": "ch13-genai-agents",
+    "q": "A team routes requests between two models of the same family with intelligent prompt routing. Which statement is correct?",
+    "options": [
+      "Routing is guaranteed to cut cost, because it always selects the cheapest model for every request, regardless of its quality",
+      "Routing applies only to batch jobs and never to real-time requests, so the interactive chatbot must call one model directly instead",
+      "Routing works across providers, such as Anthropic and OpenAI, inside one router that picks the model for every request automatically",
+      "Routing chooses between two models of the same family based on predicted response quality, and the cost saving depends on the chosen criteria"
+    ],
+    "answer": 3,
+    "explain": "Intelligent prompt routing picks between models of the same family based on predicted quality, using criteria the team sets, so savings depend on configuration. The other options claim guarantees or providers the router does not support.",
+    "difficulty": "difficile",
+    "tags": [
+      "intelligent-prompt-routing",
+      "cost"
+    ],
+    "source": "AWS docs: Understanding intelligent prompt routing in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.9"
+    ]
+  },
+  {
+    "id": "ch13-q051",
+    "chapter": "ch13-genai-agents",
+    "q": "A chat application repeats the same long system prompt in every on-demand call. Which TWO statements about prompt caching in Amazon Bedrock are correct? (Select TWO.)",
+    "options": [
+      "Caching removes the charge for input tokens completely, so once a prefix is cached the team pays nothing for those input tokens later",
+      "Caching works only for embedding models, and chat or completion requests never benefit from the cache regardless of how often they repeat",
+      "The default cache TTL is five minutes, and some Claude models also accept a one-hour TTL",
+      "Cached tokens are read at a lower rate than standard input tokens",
+      "Prompt caching is supported in batch inference jobs, so repeated prefixes in large batch files are billed at the cached rate automatically"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "The default TTL is five minutes, with a one-hour option for supported models, and cache reads are billed at a lower rate. Caching is not supported for batch, does not remove input charges, and is not limited to embeddings.",
+    "difficulty": "media",
+    "tags": [
+      "prompt-caching",
+      "ttl"
+    ],
+    "source": "AWS docs: Prompt caching for faster model inference - Amazon Bedrock",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.9",
+      "G-4.2.7"
+    ]
+  },
+  {
+    "id": "ch13-q052",
+    "chapter": "ch13-genai-agents",
+    "q": "A RAG team re-embeds the whole corpus every night, even though only 2 percent of documents change. Which change reduces embedding cost the most?",
+    "options": [
+      "Ingest and embed only the changed or new documents, using incremental data source sync",
+      "Use a bigger embedding model so that fewer documents need to be re-embedded",
+      "Re-embed the corpus twice each night to catch possible errors earlier",
+      "Store the raw documents on a shared drive and skip the vector index altogether"
+    ],
+    "answer": 0,
+    "explain": "Knowledge Base sync checks which documents are already indexed, so incremental sync re-embeds only what changed. The other options raise cost or remove the index.",
+    "difficulty": "media",
+    "tags": [
+      "embeddings",
+      "incremental-sync"
+    ],
+    "source": "AWS docs: Using S3 Vectors with Amazon Bedrock Knowledge Bases",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.10"
+    ]
+  },
+  {
+    "id": "ch13-q053",
+    "chapter": "ch13-genai-agents",
+    "q": "A company stores 50 million vectors for a RAG assistant that can tolerate about a second of latency on cold queries. Storage cost is the main concern. Which vector store fits best?",
+    "options": [
+      "A dedicated in-memory cache cluster that holds all vectors in RAM for fast queries",
+      "Amazon S3 Vectors as the vector store of a Bedrock Knowledge Base",
+      "A local SQLite file on a laptop that is copied to a backup disk each night",
+      "A hybrid index that combines keyword and vector search in one query"
+    ],
+    "answer": 1,
+    "explain": "S3 Vectors is designed to lower vector storage cost, with sub-second cold queries that suit this use case. The other options cost more or do not match the stated requirements.",
+    "difficulty": "difficile",
+    "tags": [
+      "s3-vectors",
+      "vector-storage"
+    ],
+    "source": "AWS docs: Using S3 Vectors with Amazon Bedrock Knowledge Bases",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.10"
+    ]
+  },
+  {
+    "id": "ch13-q054",
+    "chapter": "ch13-genai-agents",
+    "q": "A RAG team evaluates S3 Vectors for its vector store. Which TWO statements about S3 Vectors as a Bedrock Knowledge Base vector store are correct? (Select TWO.)",
+    "options": [
+      "The index must be provisioned as a cluster before any data is ingested",
+      "Retrieval is semantic search only, so hybrid keyword search is not available",
+      "Each vector can carry up to 1 KB of custom metadata and up to 35 metadata keys",
+      "Binary vector embeddings are fully supported",
+      "Each vector can carry up to 10 MB of custom metadata"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "The integration supports semantic search only, with limits of 1 KB of custom metadata and 35 keys per vector. Binary embeddings are not supported, and no cluster provisioning is required.",
+    "difficulty": "media",
+    "tags": [
+      "s3-vectors",
+      "limits"
+    ],
+    "source": "AWS docs: Using S3 Vectors with Amazon Bedrock Knowledge Bases",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.2",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.2.10"
+    ]
+  },
+  {
+    "id": "ch13-q055",
+    "chapter": "ch13-genai-agents",
+    "q": "A production backend in a company VPC calls Amazon Bedrock. The security team wants no long-lived credentials. Which credential type should the team use?",
+    "options": [
+      "The root user access key of the AWS account",
+      "A long-term Bedrock API key stored in the application configuration",
+      "Temporary credentials from an IAM role, or a short-term Bedrock API key",
+      "A shared IAM user access key that never expires"
+    ],
+    "answer": 2,
+    "explain": "Short-term keys and temporary IAM credentials avoid long-lived secrets, which is what the security requirement asks for. The other options keep long-lived or overly powerful credentials.",
+    "difficulty": "media",
+    "tags": [
+      "api-keys",
+      "iam"
+    ],
+    "source": "AWS docs: How Amazon Bedrock API keys work - Amazon Bedrock",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.8"
+    ]
+  },
+  {
+    "id": "ch13-q056",
+    "chapter": "ch13-genai-agents",
+    "q": "A developer creates a short-term Bedrock API key for a test script. How long can this key remain valid?",
+    "options": [
+      "Up to one year, which matches the default lifetime of an IAM access key",
+      "Up to 90 days, with automatic renewal by Bedrock while the application runs",
+      "Until the user deletes it, with no time limit set by the service",
+      "Up to 12 hours, or the remaining session length if that is shorter"
+    ],
+    "answer": 3,
+    "explain": "Short-term Bedrock API keys last up to 12 hours or the session length, whichever is shorter. The other options describe lifetimes that apply to long-term keys or to no key type.",
+    "difficulty": "facile",
+    "tags": [
+      "api-keys",
+      "short-term"
+    ],
+    "source": "AWS docs: How Amazon Bedrock API keys work - Amazon Bedrock",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.8"
+    ]
+  },
+  {
+    "id": "ch13-q057",
+    "chapter": "ch13-genai-agents",
+    "q": "A customer-support chatbot must hide customers' names and phone numbers in responses and logs, without blocking the conversation. Which Guardrails filter fits?",
+    "options": [
+      "Sensitive information filter configured to anonymize (mask) the detected entities",
+      "Denied topics that block any mention of customers in the conversation, including delivery status",
+      "A word filter that lists every customer name in the account, updated by hand for each new signup",
+      "A content filter on the Misconduct category, which masks personal data before the user sees it"
+    ],
+    "answer": 0,
+    "explain": "The sensitive information filter detects personal data and can mask it instead of blocking the whole conversation. Denied topics, word lists, and content filters do not mask personal entities.",
+    "difficulty": "media",
+    "tags": [
+      "guardrails",
+      "pii"
+    ],
+    "source": "AWS docs: Detect and filter harmful content by using Amazon Bedrock Guardrails",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.9"
+    ]
+  },
+  {
+    "id": "ch13-q058",
+    "chapter": "ch13-genai-agents",
+    "q": "A RAG assistant sometimes answers with facts that are not in the retrieved passages. The team wants Guardrails to block such responses. Which check applies?",
+    "options": [
+      "Automated Reasoning with no policy, which checks any text against general knowledge and reports every unsupported claim as an error",
+      "Contextual grounding check, which blocks responses that are not grounded in the source or irrelevant to the query",
+      "Content filters on the Hate category only, which block harmful text in both the questions and the answers of the chatbot",
+      "A denied topic that lists every factual question as forbidden, so the assistant declines any question that asks for a fact"
+    ],
+    "answer": 1,
+    "explain": "Contextual grounding checks detect responses that are not grounded in the source or do not answer the query, which is the RAG hallucination case. The other options either check unrelated categories or are not configured for grounding.",
+    "difficulty": "difficile",
+    "tags": [
+      "guardrails",
+      "contextual-grounding"
+    ],
+    "source": "AWS docs: Detect and filter harmful content by using Amazon Bedrock Guardrails",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.9"
+    ]
+  },
+  {
+    "id": "ch13-q059",
+    "chapter": "ch13-genai-agents",
+    "q": "A bank deploys a chatbot and must choose its safeguards. Which THREE are safeguards offered by Amazon Bedrock Guardrails? (Select THREE.)",
+    "options": [
+      "Sensitive information filters",
+      "Amazon Macie data discovery jobs",
+      "SageMaker Model Monitor data quality baselines",
+      "AWS WAF rate-based rules",
+      "Content filters",
+      "Denied topics"
+    ],
+    "answer": [
+      0,
+      4,
+      5
+    ],
+    "explain": "Content filters, denied topics, and sensitive information filters are Guardrails safeguards. Macie, Model Monitor, and WAF are separate AWS services.",
+    "difficulty": "media",
+    "tags": [
+      "guardrails",
+      "safeguards"
+    ],
+    "source": "AWS docs: Detect and filter harmful content by using Amazon Bedrock Guardrails",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.9"
+    ]
+  },
+  {
+    "id": "ch13-q060",
+    "chapter": "ch13-genai-agents",
+    "q": "A platform team checks text from several model providers with one policy. Which TWO statements about the ApplyGuardrail API are correct? (Select TWO.)",
+    "options": [
+      "It stores every checked text in a separate Guardrails audit table",
+      "It works only with the Converse API and cannot be used with other calls",
+      "It returns a hallucination score calibrated to 99 percent accuracy",
+      "It applies guardrail policies to text without invoking a foundation model",
+      "It can check text produced by models that are not hosted on Amazon Bedrock"
+    ],
+    "answer": [
+      3,
+      4
+    ],
+    "explain": "ApplyGuardrail evaluates text directly, so it works without invoking a model and with models outside Bedrock. It does not store a separate audit table or return a fixed accuracy score.",
+    "difficulty": "difficile",
+    "tags": [
+      "guardrails",
+      "applyguardrail"
+    ],
+    "source": "AWS docs: Detect and filter harmful content by using Amazon Bedrock Guardrails",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.9",
+      "G-4.3.8"
+    ]
+  },
+  {
+    "id": "ch13-q061",
+    "chapter": "ch13-genai-agents",
+    "q": "A research group needs managed GPU clusters to run Kubernetes-based model deployments. Which Amazon SageMaker AI capability fits?",
+    "options": [
+      "AWS Batch, a managed service that schedules batch computing jobs on containers and EC2 capacity",
+      "Amazon EMR, a managed cluster service that runs Spark and Hadoop jobs on EC2 instances",
+      "SageMaker HyperPod, a managed GPU cluster service for Kubernetes-based deployments",
+      "Amazon Lightsail, a simple virtual server service for small websites and fixed monthly plans"
+    ],
+    "answer": 2,
+    "explain": "SageMaker HyperPod provides managed GPU clusters that run Kubernetes-based deployments of models. The other services are not designed for managed GPU model serving on Kubernetes.",
+    "difficulty": "media",
+    "tags": [
+      "hyperpod",
+      "gpu"
+    ],
+    "source": "AWS docs: Deploying models on Amazon SageMaker HyperPod - Amazon SageMaker AI",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C24"
+    ]
+  },
+  {
+    "id": "ch13-q062",
+    "chapter": "ch13-genai-agents",
+    "q": "A product team sets up human reviews of generated text. Which THREE practices make human evaluation reliable? (Select THREE.)",
+    "options": [
+      "Have several raters score the same sample and measure their agreement",
+      "Include reference answers or clear criteria so raters judge against the same standard",
+      "Let one annotator score everything to keep the process cheap",
+      "Hide the evaluation criteria from raters to avoid bias",
+      "Count only the first response per prompt in the final score",
+      "Give raters a written rubric with a defined scale and examples"
+    ],
+    "answer": [
+      0,
+      1,
+      5
+    ],
+    "explain": "A rubric, multiple raters with agreement, and shared criteria make human scores consistent. The other practices reduce reliability, hide criteria, or bias the sample.",
+    "difficulty": "media",
+    "tags": [
+      "human-evaluation",
+      "rubric"
+    ],
+    "source": "AWS docs: Manage a work team for human evaluations of models in Amazon Bedrock",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.7"
+    ]
+  },
+  {
+    "id": "ch13-q063",
+    "chapter": "ch13-genai-agents",
+    "q": "A team introduces an automatic judge for its weekly evaluations. Which TWO statements about LLM-as-a-judge evaluation are correct? (Select TWO.)",
+    "options": [
+      "Judge metrics are always identical to BLEU scores",
+      "Judge models can be used only with custom metrics",
+      "The generator and the judge are configured as two different models",
+      "The judge can return an explanation for each score, which helps with debugging",
+      "Judge scores make periodic human spot checks unnecessary"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "The generator and the evaluator are distinct models, and the judge returns explanations. Judge scores still need human spot checks, and judge metrics are not BLEU.",
+    "difficulty": "media",
+    "tags": [
+      "llm-as-a-judge",
+      "bedrock-evaluations"
+    ],
+    "source": "AWS docs: Evaluate model performance using another LLM as a judge",
+    "origin": "ai",
+    "domain": "2",
+    "task": "2.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-2.3.9"
+    ]
+  },
+  {
+    "id": "ch13-q064",
+    "chapter": "ch13-genai-agents",
+    "q": "A team automates releases of a fine-tuned model. Which TWO actions belong in an automated deployment pipeline? (Select TWO.)",
+    "options": [
+      "Deploy every checkpoint to production automatically",
+      "Register the new model version and run evaluation before promoting it to production",
+      "Keep the previous version available so the team can roll back quickly",
+      "Overwrite the production model artifact so that no version history is kept",
+      "Skip evaluation when the training loss decreased"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "A pipeline registers versions, evaluates them before promotion, and keeps the previous version for rollback. The other options remove history or skip validation.",
+    "difficulty": "difficile",
+    "tags": [
+      "fine-tuning",
+      "pipeline"
+    ],
+    "source": "AWS docs: Purchase a Provisioned Throughput for an Amazon Bedrock model",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.10"
+    ]
+  },
+  {
+    "id": "ch13-q065",
+    "chapter": "ch13-genai-agents",
+    "q": "A security review of a Bedrock integration looks at key types. Which TWO statements about Amazon Bedrock API keys are correct? (Select TWO.)",
+    "options": [
+      "Long-term keys are recommended mainly for exploring Bedrock, not for production",
+      "Short-term keys work in any AWS Region after they are generated",
+      "Long-term keys are not tied to any IAM identity",
+      "Both key types are valid for 365 days by default",
+      "Short-term keys inherit the permissions of the principal that generated them"
+    ],
+    "answer": [
+      0,
+      4
+    ],
+    "explain": "Short-term keys inherit the generating principal's permissions and are for production-grade use with temporary access, while long-term keys are for exploration. Short-term keys are Region-bound, and long-term keys are tied to an IAM user.",
+    "difficulty": "media",
+    "tags": [
+      "api-keys",
+      "iam"
+    ],
+    "source": "AWS docs: How Amazon Bedrock API keys work - Amazon Bedrock",
+    "origin": "ai",
+    "domain": "4",
+    "task": "4.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-4.3.8"
+    ]
+  }
+]
