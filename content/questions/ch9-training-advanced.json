@@ -1344,14 +1344,14 @@
       "Tuning jobs created before October 1, 2018 can be used as parents without any restriction, because they are always compatible",
       "The new tuning job must use the same objective metric as the parent jobs, so the results can be compared on one scale",
       "Warm start is recursive, so the results of every earlier ancestor of a parent job are always reused in the new tuning job",
-      "Parent jobs may still be running, because the warm start reads their results as they arrive and launches new training jobs in parallel"
+      "The total number of static plus tunable hyperparameters must stay the same in every parent job and in the new tuning job, although a tunable hyperparameter can be made static"
     ],
     "answer": [
       1,
       3,
       5
     ],
-    "explain": "Five parents, the same objective metric and terminal parent states are the documented limits. Warm start is not recursive, and old jobs are not compatible.",
+    "explain": "Five parents, the same objective metric, terminal parent states and a fixed total of static plus tunable hyperparameters are the documented limits. Warm start is not recursive, and old jobs are not compatible.",
     "difficulty": "difficile",
     "tags": [
       "warm-start",

@@ -89,7 +89,7 @@
   {
     "id": "ch11-q004",
     "chapter": "ch11-cost-security",
-    "q": "A team runs a SageMaker real-time endpoint whose instances show low CPU and memory use for weeks. It wants AWS to suggest a smaller instance type from 14 days of metrics, without running a load test. Which service should it use?",
+    "q": "A team runs a model on EC2 instances whose CPU and memory use stays low for weeks. It wants AWS to suggest a smaller instance type from 14 days of metrics, without running a load test. Which service should it use?",
     "options": [
       "SageMaker Inference Recommender Advanced job",
       "Amazon CloudWatch Logs Insights queries",
@@ -97,7 +97,7 @@
       "AWS Compute Optimizer recommendations"
     ],
     "answer": 3,
-    "explain": "Compute Optimizer analyzes utilization metrics from existing resources and suggests rightsizing. An Inference Recommender job runs load tests rather than analyzing existing usage.",
+    "explain": "Compute Optimizer analyzes utilization metrics from existing EC2 resources and suggests rightsizing. An Inference Recommender job runs load tests rather than analyzing existing usage, and for SageMaker endpoints Compute Optimizer gives only idle recommendations.",
     "difficulty": "facile",
     "tags": [
       "rightsizing",
@@ -909,7 +909,7 @@
   {
     "id": "ch11-q031",
     "chapter": "ch11-cost-security",
-    "q": "The FinOps lead wants a smaller SageMaker instance type for an under-used endpoint, based on existing utilization and with no load test. Which service can make rightsizing recommendations from 14 days of metrics?",
+    "q": "The FinOps lead wants smaller instance types for under-used EC2 instances, based on existing utilization and with no load test. Which service can make rightsizing recommendations from 14 days of metrics?",
     "options": [
       "AWS Compute Optimizer, which suggests rightsizing from utilization metrics",
       "AWS CloudTrail event history",
@@ -917,7 +917,7 @@
       "AWS Config conformance packs"
     ],
     "answer": 0,
-    "explain": "Compute Optimizer supports SageMaker among its resource types and analyzes utilization metrics, using 14 days by default.",
+    "explain": "Compute Optimizer analyzes utilization metrics of existing EC2 instances, using 14 days by default. For SageMaker endpoints it gives only idle recommendations.",
     "difficulty": "media",
     "tags": [
       "compute-optimizer"
@@ -944,14 +944,14 @@
       "Its default analysis uses 14 days of utilization metrics",
       "It replaces Inference Recommender load tests for new models",
       "It analyzes data only from the management account of an organization",
-      "It supports Amazon SageMaker resources among its resource types"
+      "It gives idle-resource recommendations for SageMaker endpoints"
     ],
     "answer": [
       1,
       2,
       5
     ],
-    "explain": "Compute Optimizer requires opt-in, uses 14 days by default, and supports SageMaker. It does not create endpoints, replace load tests, or limit analysis to the management account.",
+    "explain": "Compute Optimizer requires opt-in, uses 14 days by default, and gives idle recommendations for SageMaker endpoints. It does not create endpoints, replace load tests, or limit analysis to the management account.",
     "difficulty": "difficile",
     "tags": [
       "compute-optimizer"
@@ -1621,7 +1621,7 @@
   {
     "id": "ch11-q055",
     "chapter": "ch11-cost-security",
-    "q": "Which TWO are needed for a private-subnet training job to reach S3 without internet access? (Select TWO.)",
+    "q": "Which TWO should the team configure so the job reaches S3 privately and access is restricted to the VPC? (Select TWO.)",
     "options": [
       "A public IP address on each training instance",
       "An internet gateway attached to the subnet",
@@ -2016,7 +2016,7 @@
       "Enhanced scanning of ECR images covers operating system and programming language packages",
       "Inspector does not scan Lambda functions encrypted with customer managed keys",
       "Basic ECR scanning is billed through Amazon Inspector",
-      "Archived ECR images are scanned continuously",
+      "Archived ECR images keep being scanned continuously while they stay archived",
       "Lambda code scanning can be enabled without standard scanning"
     ],
     "answer": [
@@ -2282,7 +2282,7 @@
     "q": "Which THREE statements about SageMaker instance right-sizing are correct? (Select THREE.)",
     "options": [
       "Inference Recommender Default jobs need only a model package ARN",
-      "Compute Optimizer analyzes utilization of resources already in use",
+      "Compute Optimizer gives rightsizing recommendations for SageMaker endpoints from their CPU metrics",
       "Compute Optimizer creates new endpoints after each recommendation",
       "Inference Recommender analyzes existing CloudTrail logs to size endpoints",
       "Inference Recommender Advanced jobs run a custom load test with a traffic pattern",
@@ -2293,7 +2293,7 @@
       4,
       5
     ],
-    "explain": "Default jobs need only the model package, Advanced jobs run custom load tests, and both return an initial instance count for autoscaling. Compute Optimizer analyzes running resources, while Inference Recommender does not analyze CloudTrail or create endpoints.",
+    "explain": "Default jobs need only the model package, Advanced jobs run custom load tests, and both return an initial instance count for autoscaling. Compute Optimizer gives only idle recommendations for SageMaker endpoints, while Inference Recommender does not analyze CloudTrail or create endpoints.",
     "difficulty": "difficile",
     "tags": [
       "rightsizing",
