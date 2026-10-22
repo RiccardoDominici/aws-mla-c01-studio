@@ -1,0 +1,2242 @@
+[
+  {
+    "id": "ch10-q001",
+    "chapter": "ch10-infra-cicd",
+    "q": "A company exposes a SageMaker real-time endpoint to a public web application. It needs per-client API keys, usage plans, and request throttling with the least operational overhead. Which service should front the endpoint?",
+    "options": [
+      "Amazon API Gateway with API keys, usage plans, and throttling settings",
+      "Application Load Balancer with a custom Lambda authorizer that the team writes and maintains",
+      "AWS Batch job queue that receives each incoming request as a separate job",
+      "Amazon CloudFront distribution that forwards every request directly to the endpoint with no access control"
+    ],
+    "answer": 0,
+    "explain": "API Gateway provides API keys, usage plans, and throttling as managed features, so no custom code is needed. CloudFront caches content but does not enforce per-client quotas, and Batch is for offline jobs.",
+    "difficulty": "facile",
+    "tags": [
+      "api-gateway",
+      "throttling"
+    ],
+    "source": "AWS docs: What is Amazon API Gateway? - Amazon API Gateway Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S5",
+      "V09"
+    ]
+  },
+  {
+    "id": "ch10-q002",
+    "chapter": "ch10-infra-cicd",
+    "q": "A manufacturer runs an image classifier on an ARM-based gateway at each plant. The gateway has limited memory and a specific processor. The team wants the trained model optimized for that exact hardware without rewriting it by hand. Which SageMaker capability should it use?",
+    "options": [
+      "SageMaker Model Monitor with data capture enabled on the gateway endpoint",
+      "SageMaker Neo, which compiles the trained model for the target hardware",
+      "SageMaker Clarify",
+      "SageMaker Feature Store online store"
+    ],
+    "answer": 1,
+    "explain": "Neo compiles and optimizes a trained model for the target hardware, including edge devices. Model Monitor, Clarify, and Feature Store do not change the compiled code that runs on the gateway.",
+    "difficulty": "media",
+    "tags": [
+      "neo",
+      "edge"
+    ],
+    "source": "AWS docs: Model performance optimization with SageMaker Neo",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-3.1K7",
+      "C20"
+    ]
+  },
+  {
+    "id": "ch10-q003",
+    "chapter": "ch10-infra-cicd",
+    "q": "A product team evaluates Neo for an edge deployment. Which TWO statements about SageMaker Neo are correct? (Select TWO.)",
+    "options": [
+      "Neo compiles a trained model for specific target hardware, including edge devices",
+      "Neo can only compile models for real-time endpoints hosted in the cloud",
+      "Neo can deploy a compiled model to edge devices through AWS IoT Greengrass",
+      "Neo removes the need to export the model from its training framework first",
+      "Neo supports only models created with SageMaker built-in algorithms"
+    ],
+    "answer": [
+      0,
+      2
+    ],
+    "explain": "Neo compiles models for target hardware and can deploy them to edge devices with Greengrass. It needs a model exported from a supported framework, and it is not limited to built-in algorithms.",
+    "difficulty": "media",
+    "tags": [
+      "neo",
+      "edge"
+    ],
+    "source": "AWS docs: Edge Devices - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-3.1K7",
+      "C20"
+    ]
+  },
+  {
+    "id": "ch10-q004",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team trains a PyTorch model whose code uses CUDA kernels without changes. Which instance family is the most direct fit for this training job?",
+    "options": [
+      "ml.m5 general purpose CPU instances",
+      "ml.inf2 instances with AWS Inferentia2 chips",
+      "ml.trn1 instances with AWS Trainium chips",
+      "ml.p3 instances with NVIDIA GPUs"
+    ],
+    "answer": 3,
+    "explain": "CUDA runs on NVIDIA GPUs, so an NVIDIA GPU family fits without code changes. Inferentia is aimed at inference, and Trainium needs code adapted to the AWS Neuron SDK.",
+    "difficulty": "facile",
+    "tags": [
+      "gpu",
+      "cuda"
+    ],
+    "source": "AWS docs: Supported Instance Types and Frameworks - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2",
+      "C15"
+    ]
+  },
+  {
+    "id": "ch10-q005",
+    "chapter": "ch10-infra-cicd",
+    "q": "A data scientist wants to check a new GPU training script before a full production training job. The goal is to catch errors while keeping the cost of the check low. Which approach is best?",
+    "options": [
+      "Run a short test on a small instance with the same container image, then scale the instance type up for production",
+      "Skip the check entirely and debug only after the production training job fails in the production environment on expensive GPU instances",
+      "Run the check on the production endpoint with real customer traffic and live data",
+      "Run the full production job on the largest GPU instance available"
+    ],
+    "answer": 0,
+    "explain": "A small test instance with the same container image catches code and environment errors cheaply, and the instance type can grow for production. The largest GPU adds cost, and skipping the test or using live traffic adds risk.",
+    "difficulty": "media",
+    "tags": [
+      "gpu",
+      "test"
+    ],
+    "source": "AWS docs: Supported Instance Types and Frameworks - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1K4"
+    ]
+  },
+  {
+    "id": "ch10-q006",
+    "chapter": "ch10-infra-cicd",
+    "q": "A company already runs Kubernetes with custom operators on premises and in AWS. It wants to host the model container on a managed Kubernetes control plane that stays compatible with its existing tooling. Which AWS service fits best?",
+    "options": [
+      "A SageMaker real-time endpoint",
+      "Amazon EKS, a managed Kubernetes service that is conformant with upstream Kubernetes",
+      "Amazon ECS on AWS Fargate",
+      "AWS Batch, which runs containerized jobs from managed queues"
+    ],
+    "answer": 1,
+    "explain": "EKS runs upstream-conformant Kubernetes, so existing operators and tooling keep working. ECS uses its own scheduler, and Batch is built for queued jobs rather than for a Kubernetes control plane.",
+    "difficulty": "media",
+    "tags": [
+      "eks",
+      "kubernetes"
+    ],
+    "source": "AWS docs: What is Amazon EKS? - Amazon EKS User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S5",
+      "V50",
+      "V51"
+    ]
+  },
+  {
+    "id": "ch10-q007",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which TWO statements about running model workloads on AWS Batch and Amazon ECS are correct? (Select TWO.)",
+    "options": [
+      "AWS Batch is the right target for a low-latency, always-on inference API",
+      "AWS Batch runs containerized batch jobs from job queues on EC2 or Fargate capacity",
+      "Amazon ECS can run containers on EC2 instances or on AWS Fargate",
+      "AWS Batch exposes a permanently running HTTPS endpoint with autoscaling",
+      "Amazon ECS requires an EKS cluster before any service can start"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "Batch schedules queued container jobs on EC2 or Fargate, and ECS runs containers on EC2 or Fargate. Batch does not provide an always-on endpoint, and ECS does not depend on EKS.",
+    "difficulty": "media",
+    "tags": [
+      "batch",
+      "ecs"
+    ],
+    "source": "AWS docs: What is AWS Batch? - AWS Batch User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V10",
+      "V50"
+    ]
+  },
+  {
+    "id": "ch10-q008",
+    "chapter": "ch10-infra-cicd",
+    "q": "A model's public inference API receives identical requests from many countries and returns the same cacheable response each time. Which service reduces latency by serving repeated responses from edge locations?",
+    "options": [
+      "Amazon Route 53 weighted routing",
+      "Amazon EFS with provisioned throughput",
+      "AWS Batch compute environments",
+      "Amazon CloudFront"
+    ],
+    "answer": 3,
+    "explain": "CloudFront serves cached content from edge locations close to users and fetches from the origin only on a miss. Route 53 routes DNS queries, and EFS and Batch do not cache web responses.",
+    "difficulty": "facile",
+    "tags": [
+      "cloudfront"
+    ],
+    "source": "AWS docs: What is Amazon CloudFront? - Amazon CloudFront Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V48"
+    ]
+  },
+  {
+    "id": "ch10-q009",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team exposes a model to a web application. Which TWO services should sit in front of the endpoint to provide per-client API keys with usage plans and caching of identical responses? (Select TWO.)",
+    "options": [
+      "Amazon API Gateway usage plans with API keys",
+      "Amazon CloudFront with caching enabled for cacheable responses",
+      "AWS Batch compute environment that runs inference for each request",
+      "Amazon EMR cluster used as a request router",
+      "AWS Glue crawler that indexes the request logs"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "API Gateway enforces API keys and usage plans, and CloudFront caches cacheable responses. Batch, EMR, and Glue are not request-facing gateways for an endpoint.",
+    "difficulty": "difficile",
+    "tags": [
+      "api-gateway",
+      "cloudfront"
+    ],
+    "source": "AWS docs: What is Amazon API Gateway? - Amazon API Gateway Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V09",
+      "V48"
+    ]
+  },
+  {
+    "id": "ch10-q010",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which TWO practices keep test and production training consistent while controlling cost? (Select TWO.)",
+    "options": [
+      "Test only against the production endpoint with real customer traffic",
+      "Use the same training container image in test and production",
+      "Run all test jobs on the largest production GPU instance",
+      "Parameterize the instance type so that tests run on a small instance",
+      "Hard-code the production data bucket path inside the test code"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "The same image and a parameterized instance type keep environments consistent while tests stay cheap. Hard-coded production paths, the largest GPU for tests, and testing only in production all raise cost or risk.",
+    "difficulty": "difficile",
+    "tags": [
+      "gpu",
+      "test"
+    ],
+    "source": "AWS docs: Supported Instance Types and Frameworks - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1K4"
+    ]
+  },
+  {
+    "id": "ch10-q011",
+    "chapter": "ch10-infra-cicd",
+    "q": "An NLP team runs distributed training on several nodes. The GPUs are fast, but throughput is low and the GPUs wait between steps. Which factor should the team examine first?",
+    "options": [
+      "The TTL of a CloudFront cache behavior",
+      "The name of the Service Catalog portfolio that holds the template",
+      "Network bandwidth between the training nodes",
+      "The cooldown period of an endpoint scaling policy"
+    ],
+    "answer": 2,
+    "explain": "Distributed training exchanges gradients between nodes, so network bandwidth can limit throughput even with fast GPUs. The other options do not affect training speed.",
+    "difficulty": "media",
+    "tags": [
+      "network",
+      "distributed-training"
+    ],
+    "source": "AWS docs: Supported Instance Types and Frameworks - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.1S2"
+    ]
+  },
+  {
+    "id": "ch10-q012",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team serves a large language model for inference and wants the lowest cost per request on a chip designed by AWS for inference. Which instance family should it evaluate first?",
+    "options": [
+      "ml.trn1, with AWS Trainium accelerators designed for large-scale training",
+      "ml.p3, with NVIDIA V100 GPUs designed for training workloads",
+      "ml.c5, with CPU-only compute and no dedicated accelerator",
+      "ml.inf2, with AWS Inferentia2 accelerators"
+    ],
+    "answer": 3,
+    "explain": "Inferentia2 is an AWS chip for inference, and the Neuron SDK compiles models for it. Trainium targets training, and P3 and C5 are not AWS inference chips.",
+    "difficulty": "media",
+    "tags": [
+      "inferentia",
+      "inference"
+    ],
+    "source": "AWS docs: Amazon SageMaker AI announces ml.inf2 and ml.trn1 instances for model deployment - AWS What's New",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C15"
+    ]
+  },
+  {
+    "id": "ch10-q013",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team hosts a serverless endpoint. Traffic arrives in a predictable burst every weekday at 9 AM. Users see slow first responses in that window, and the team wants to pay for warm capacity only during the burst. Which configuration meets this with the least operational overhead?",
+    "options": [
+      "Enable provisioned concurrency and schedule it with Application Auto Scaling for the burst window",
+      "Move the model to a real-time endpoint that keeps ten instances running all day and all night long",
+      "Switch the workload to Batch Transform on a daily schedule that reuses the same container image",
+      "Raise MaxConcurrency to 200 and keep the default memory size"
+    ],
+    "answer": 0,
+    "explain": "Provisioned concurrency keeps capacity initialized for millisecond responses, and scheduled Application Auto Scaling limits it to the burst window. Raising MaxConcurrency does not remove cold starts, and the other options pay for idle capacity or are not interactive.",
+    "difficulty": "media",
+    "tags": [
+      "serverless",
+      "provisioned-concurrency"
+    ],
+    "source": "AWS docs: Deploy models with Amazon SageMaker Serverless Inference - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K1",
+      "C25"
+    ]
+  },
+  {
+    "id": "ch10-q014",
+    "chapter": "ch10-infra-cicd",
+    "q": "A model takes up to 40 minutes to process each request, and inputs can reach 500 MB. Clients should not keep a connection open while waiting, and the endpoint should cost nothing when there are no requests. Which option fits?",
+    "options": [
+      "Serverless Inference with provisioned concurrency that keeps one warm worker running at all times for every incoming request during the day",
+      "An asynchronous inference endpoint that queues requests in Amazon S3 and scales to zero when idle",
+      "A Batch Transform job that runs nightly on a fixed schedule over stored files",
+      "A real-time endpoint with a 60-second client timeout and two instances that run continuously, billed by the hour even without requests"
+    ],
+    "answer": 1,
+    "explain": "Asynchronous inference accepts payloads up to 1 GB and processing up to one hour, and it scales to zero when no requests are queued. Real-time and provisioned serverless options keep capacity running, and a nightly Batch job cannot answer user requests.",
+    "difficulty": "difficile",
+    "tags": [
+      "asynchronous-inference",
+      "scale-to-zero"
+    ],
+    "source": "AWS docs: Asynchronous inference - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K1",
+      "C25"
+    ]
+  },
+  {
+    "id": "ch10-q015",
+    "chapter": "ch10-infra-cicd",
+    "q": "An endpoint hosts inference components that receive traffic only during business hours. The team wants the endpoint to scale to zero instances overnight and to start again when the first request arrives. Which configuration does this?",
+    "options": [
+      "A maximum instance count of zero that the endpoint uses as a sleep state between business hours",
+      "A target tracking policy with a target of 70 invocations per instance and a minimum capacity of one instance, kept running during business hours",
+      "Minimum capacity zero, a step scaling policy for scale-out, and an alarm on NoCapacityInvocationFailures",
+      "A scheduled action that scales to zero each night with no alarm"
+    ],
+    "answer": 2,
+    "explain": "Scaling from zero needs minimum capacity of zero for inference components, a step scaling policy for scale-out, and an alarm on NoCapacityInvocationFailures to trigger it. Target tracking alone cannot start from zero, and a maximum of zero creates no sleep state.",
+    "difficulty": "difficile",
+    "tags": [
+      "scale-to-zero",
+      "step-scaling"
+    ],
+    "source": "AWS docs: Scale an endpoint to zero instances - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C25",
+      "K-3.2K5"
+    ]
+  },
+  {
+    "id": "ch10-q016",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team wants to keep InvocationsPerInstance close to 70 without defining thresholds for each capacity band. Which scaling policy type should it choose?",
+    "options": [
+      "Scheduled scaling with hourly actions that set the instance count",
+      "Manual scaling by editing the instance count in the console each morning",
+      "Step scaling with hand-written CloudWatch thresholds for every capacity band the endpoint might reach",
+      "Target tracking scaling policy"
+    ],
+    "answer": 3,
+    "explain": "Target tracking chooses the metric and target and manages the adjustments and alarms, which matches the requirement. Step scaling needs explicit bands, scheduled scaling acts at fixed times, and manual scaling is not automatic.",
+    "difficulty": "media",
+    "tags": [
+      "target-tracking",
+      "auto-scaling"
+    ],
+    "source": "AWS docs: Automatic scaling policy overview - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K2"
+    ]
+  },
+  {
+    "id": "ch10-q017",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which TWO statements about SageMaker endpoint auto scaling are correct? (Select TWO.)",
+    "options": [
+      "Step scaling is required to scale an endpoint out from zero instances",
+      "The default cooldown for scale-in and scale-out is 60 seconds",
+      "Scheduled scaling is available only from the SageMaker console",
+      "Scheduled scaling actions can be created with the AWS CLI or the Application Auto Scaling API",
+      "Target tracking policies require you to create the CloudWatch alarms yourself"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Scheduled actions are managed through the CLI or the API, and step scaling is needed for scale-out from zero. SageMaker creates the target tracking alarms, and the default cooldown is 300 seconds, not 60.",
+    "difficulty": "difficile",
+    "tags": [
+      "scaling-policy",
+      "scheduled-scaling"
+    ],
+    "source": "AWS docs: Automatic scaling policy overview - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K2",
+      "K-3.2K5"
+    ]
+  },
+  {
+    "id": "ch10-q018",
+    "chapter": "ch10-infra-cicd",
+    "q": "A retailer knows that traffic peaks every Monday at 8 AM. It wants capacity ready before the peak, without waiting for metrics to rise. Which approach handles the known peak while dynamic scaling stays active?",
+    "options": [
+      "A serverless endpoint with MaxConcurrency of one so that requests queue during the peak, while the rest of the week runs with default settings",
+      "A scheduled action that raises the minimum capacity before 8 AM, while the dynamic scaling policy stays active",
+      "A cooldown of zero seconds so that scale-out reacts immediately to the first request, without waiting for any metric window to fill up",
+      "A target tracking policy with a target value of one invocation per instance"
+    ],
+    "answer": 1,
+    "explain": "A scheduled action changes capacity at a fixed time, and the dynamic policy keeps adjusting to real traffic afterwards. A zero cooldown causes oscillation, a target of one forces many instances, and a concurrency of one throttles requests.",
+    "difficulty": "media",
+    "tags": [
+      "scheduled-scaling"
+    ],
+    "source": "AWS docs: Automatic scaling policy overview - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K5"
+    ]
+  },
+  {
+    "id": "ch10-q019",
+    "chapter": "ch10-infra-cicd",
+    "q": "A GPU endpoint scales on CPU utilization, but users see latency spikes while the CPU stays low because the GPU is saturated. Which change is most appropriate?",
+    "options": [
+      "Scale on DiskUtilization",
+      "Keep CPUUtilization as the only signal and raise the target value until the policy reacts to the GPU saturation on its own",
+      "Scale on an invocation-based metric such as InvocationsPerInstance, and consider GPU utilization metrics as well",
+      "Remove auto scaling entirely and rely on a larger instance type that is always running, even during quiet hours with almost no traffic at all"
+    ],
+    "answer": 2,
+    "explain": "CPU stays low when the GPU is the bottleneck, so a CPU-only policy reacts too late. Invocation-based metrics track load per instance, and GPU metrics show the saturated resource.",
+    "difficulty": "media",
+    "tags": [
+      "metrics",
+      "gpu"
+    ],
+    "source": "AWS docs: Amazon SageMaker AI metrics in Amazon CloudWatch - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S6"
+    ]
+  },
+  {
+    "id": "ch10-q020",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team wants an alarm based on the load per instance behind a production variant. Which SageMaker endpoint metric counts invocations normalized by the number of active instances, and is the usual target for target tracking scaling?",
+    "options": [
+      "ModelLatency",
+      "OverheadLatency",
+      "CPUUtilization",
+      "InvocationsPerInstance"
+    ],
+    "answer": 3,
+    "explain": "InvocationsPerInstance is the predefined metric that target tracking uses. CPUUtilization measures CPU, while ModelLatency and OverheadLatency measure time rather than load per instance.",
+    "difficulty": "facile",
+    "tags": [
+      "invocationsperinstance"
+    ],
+    "source": "AWS docs: Amazon SageMaker AI metrics in Amazon CloudWatch - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S6"
+    ]
+  },
+  {
+    "id": "ch10-q021",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team trains a model that can run for 12 hours, and training cost is the main concern. The job can tolerate interruptions if it resumes from saved state. Which configuration fits?",
+    "options": [
+      "Managed Spot Training with checkpoints saved to Amazon S3 and a stopping condition",
+      "On-demand instances with no checkpoints, to avoid any risk of interruption",
+      "Managed Spot Training without checkpoints, which restarts the 12-hour job from the first epoch after each interruption",
+      "Spot instances started by hand"
+    ],
+    "answer": 0,
+    "explain": "Managed Spot Training lowers the cost, and S3 checkpoints let an interrupted job resume. Managed Spot does not fall back to on-demand, and on-demand costs more.",
+    "difficulty": "media",
+    "tags": [
+      "spot",
+      "checkpoints"
+    ],
+    "source": "AWS docs: Managed Spot Training in Amazon SageMaker AI - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S1"
+    ]
+  },
+  {
+    "id": "ch10-q022",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which TWO statements about cost optimization for SageMaker training and serving are correct? (Select TWO.)",
+    "options": [
+      "Managed Spot Training falls back to on-demand instances automatically when Spot capacity is unavailable during the training window",
+      "Lambda behind API Gateway suits intermittent, lightweight inference traffic",
+      "Lambda is the best choice for always-on inference on large GPU models that must answer every request within a few milliseconds",
+      "EC2 instances remove the need to patch the operating system",
+      "Managed Spot Training can save up to 90 percent compared with on-demand pricing, according to AWS documentation"
+    ],
+    "answer": [
+      1,
+      4
+    ],
+    "explain": "AWS documents up to 90 percent savings for managed spot training, and Lambda fits light, intermittent traffic. Managed Spot does not fall back to on-demand, and EC2 leaves operating system patching to the customer.",
+    "difficulty": "media",
+    "tags": [
+      "spot",
+      "lambda"
+    ],
+    "source": "AWS docs: Managed Spot Training in Amazon SageMaker AI - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S1"
+    ]
+  },
+  {
+    "id": "ch10-q023",
+    "chapter": "ch10-infra-cicd",
+    "q": "A platform team must see exactly which CloudFormation resources would be replaced before it applies a stack update to a production database stack. Which feature should it use?",
+    "options": [
+      "A nested stack for the database",
+      "Drift detection",
+      "A change set",
+      "A stack export with Fn::ImportValue"
+    ],
+    "answer": 2,
+    "explain": "A change set previews adds, modifications, and replacements, and it executes only when approved. Drift detection finds manual changes, exports share values, and nested stacks organize templates.",
+    "difficulty": "media",
+    "tags": [
+      "change-set",
+      "cloudformation"
+    ],
+    "source": "AWS docs: Update CloudFormation stacks using change sets - AWS CloudFormation User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K3",
+      "V01"
+    ]
+  },
+  {
+    "id": "ch10-q024",
+    "chapter": "ch10-infra-cicd",
+    "q": "After manual changes in the console, a team runs CloudFormation drift detection. Which TWO statements about drift detection are correct? (Select TWO.)",
+    "options": [
+      "It reports each resource as DRIFTED, IN_SYNC, or NOT_CHECKED depending on the check",
+      "It reverts drifted resources to the template values automatically",
+      "Running it on a root stack also checks every nested stack child automatically",
+      "It reports whether resource properties differ from the template because of changes made outside CloudFormation",
+      "It previews the changes a stack update would make before the update runs"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Drift detection compares actual properties with the template and reports DRIFTED, IN_SYNC, or NOT_CHECKED. It does not preview updates or revert resources, and nested stacks must be checked on their own.",
+    "difficulty": "difficile",
+    "tags": [
+      "drift-detection",
+      "cloudformation"
+    ],
+    "source": "AWS docs: Detect unmanaged configuration changes to stacks and resources with drift detection - AWS CloudFormation User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K3",
+      "V01"
+    ]
+  },
+  {
+    "id": "ch10-q025",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team writes its infrastructure in Python with AWS CDK constructs. It wants to see the CloudFormation template that CDK generates for a stack, without deploying anything. Which CDK CLI command should it run?",
+    "options": [
+      "cdk synth",
+      "cdk bootstrap",
+      "cdk watch",
+      "cdk deploy with a dry-run flag that skips the stack"
+    ],
+    "answer": 0,
+    "explain": "cdk synth generates the CloudFormation template from the app and prints it, without changing the account. Bootstrap prepares the environment, and watch redeploys on file changes.",
+    "difficulty": "facile",
+    "tags": [
+      "cdk",
+      "synth"
+    ],
+    "source": "AWS docs: AWS CDK CLI reference - AWS CDK v2 Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V02"
+    ]
+  },
+  {
+    "id": "ch10-q026",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team deploys a CDK app to an account and Region for the first time, and the deployment fails because the environment is not prepared. What must it run before cdk deploy for that account and Region?",
+    "options": [
+      "A drift detection run on every resource in the account",
+      "cdk bootstrap for that account and Region",
+      "A nested stack that creates the deployment bucket",
+      "cdk diff against the previously deployed stack"
+    ],
+    "answer": 1,
+    "explain": "Each account and Region must be bootstrapped before stacks that need CDK assets or roles are deployed. The other options compare or inspect existing stacks and do not create the environment.",
+    "difficulty": "media",
+    "tags": [
+      "cdk",
+      "bootstrap"
+    ],
+    "source": "AWS docs: AWS CDK CLI reference - AWS CDK v2 Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V02",
+      "K-3.2S2"
+    ]
+  },
+  {
+    "id": "ch10-q027",
+    "chapter": "ch10-infra-cicd",
+    "q": "Stack A exports a VPC ID that Stack B imports with Fn::ImportValue. An engineer tries to delete Stack A. What happens?",
+    "options": [
+      "The deletion waits in a queue until Stack B is deleted by someone else",
+      "The deletion succeeds",
+      "The deletion fails because another stack still imports the export",
+      "CloudFormation converts the import into a parameter and then deletes Stack A"
+    ],
+    "answer": 2,
+    "explain": "An export cannot be deleted or changed while an importing stack uses it, so the imports must be removed first. CloudFormation does not convert imports or queue deletions.",
+    "difficulty": "difficile",
+    "tags": [
+      "cross-stack",
+      "export"
+    ],
+    "source": "AWS docs: Cross-stack references in CloudFormation - AWS CloudFormation User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S2"
+    ]
+  },
+  {
+    "id": "ch10-q028",
+    "chapter": "ch10-infra-cicd",
+    "q": "A platform team shares a VPC ID between two stacks through exports. Which TWO statements about exporting values are correct? (Select TWO.)",
+    "options": [
+      "Export names must be unique within an account and Region",
+      "Fn::ImportValue can import a value exported in another Region",
+      "The exported value is shared through SSM Parameter Store automatically",
+      "An exported output cannot be modified while another stack imports it",
+      "Exports are created by using Fn::ImportValue in the exporting stack"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "Export names are unique per account and Region, and a value stays locked while it is imported. Imports work only within a Region, and exports are declared in the Outputs section, not with Fn::ImportValue.",
+    "difficulty": "media",
+    "tags": [
+      "export",
+      "cross-stack"
+    ],
+    "source": "AWS docs: Cross-stack references in CloudFormation - AWS CloudFormation User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S2"
+    ]
+  },
+  {
+    "id": "ch10-q029",
+    "chapter": "ch10-infra-cicd",
+    "q": "A data scientist writes a Dockerfile that packages an inference server with its libraries. Which artifact does the docker build command produce, ready to be pushed to a registry?",
+    "options": [
+      "A Docker image",
+      "A CloudFormation template",
+      "A SageMaker Model Registry entry",
+      "A CodeBuild buildspec"
+    ],
+    "answer": 0,
+    "explain": "docker build reads the Dockerfile and produces an image, which is then tagged and pushed to a registry such as ECR. The other items are configuration or governance records, not container artifacts.",
+    "difficulty": "facile",
+    "tags": [
+      "docker",
+      "dockerfile"
+    ],
+    "source": "AWS docs: What is Amazon Elastic Container Registry? - Amazon ECR User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K4"
+    ]
+  },
+  {
+    "id": "ch10-q030",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team needs a private registry for the container images used by SageMaker, ECS, and EKS. Access must follow IAM policies, and images must be scanned for vulnerabilities on push. Which service fits?",
+    "options": [
+      "An Amazon S3 bucket with versioning and a bucket policy",
+      "Amazon ECR, with private repositories and scan on push",
+      "Amazon EFS with a shared file system mounted on each node",
+      "AWS Service Catalog portfolio with product versions"
+    ],
+    "answer": 1,
+    "explain": "ECR stores private images with IAM-based permissions and can scan on push. S3 and EFS store files but are not container registries, and Service Catalog distributes products rather than images.",
+    "difficulty": "facile",
+    "tags": [
+      "ecr",
+      "container-registry"
+    ],
+    "source": "AWS docs: What is Amazon Elastic Container Registry? - Amazon ECR User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K4",
+      "K-3.2S3"
+    ]
+  },
+  {
+    "id": "ch10-q031",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which TWO statements about Amazon ECR are correct? (Select TWO.)",
+    "options": [
+      "Each ECR repository requires a dedicated EC2 instance that hosts the registry service, billed separately for every repository created",
+      "ECR stores CloudFormation templates alongside the container images",
+      "ECR private repositories use IAM permissions to control who can push and pull images",
+      "Amazon ECS and Amazon EKS can pull images stored in ECR",
+      "ECR is a public-only service with no private repositories"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "ECR supports private repositories with IAM permissions, and ECS and EKS pull images from it. ECR does not require dedicated instances, and it stores images rather than templates.",
+    "difficulty": "difficile",
+    "tags": [
+      "ecr"
+    ],
+    "source": "AWS docs: What is Amazon Elastic Container Registry? - Amazon ECR User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K4"
+    ]
+  },
+  {
+    "id": "ch10-q032",
+    "chapter": "ch10-infra-cicd",
+    "q": "A custom inference container starts, but SageMaker never routes traffic to the instance. Logs show the server listening on port 8000, and GET /ping returns 404 even though the model is loaded. What must the container change?",
+    "options": [
+      "Write the model to /tmp at startup so that /ping can find it",
+      "Run the server as a non-root user to pass the health checks",
+      "Rename /invocations to /predict so that the health checks match the route",
+      "Listen on port 8080 and return HTTP 200 from /ping when the model is ready"
+    ],
+    "answer": 3,
+    "explain": "SageMaker expects the server on port 8080, with /ping returning 200 when ready and /invocations for requests. Running as non-root or renaming routes does not fix the port and health check, and SageMaker expects root.",
+    "difficulty": "difficile",
+    "tags": [
+      "byoc",
+      "ping"
+    ],
+    "source": "AWS docs: Custom Inference Code with Hosting Services - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S3"
+    ]
+  },
+  {
+    "id": "ch10-q033",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which TWO requirements apply to a bring-your-own inference container that SageMaker hosts? (Select TWO.)",
+    "options": [
+      "The web server listens on port 8080",
+      "The container accepts POST requests on /invocations",
+      "The container exposes SSH on port 22 for inference calls",
+      "The container writes the model artifacts into /opt/ml/model at runtime",
+      "The container uses tini as its entry point"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "SageMaker calls port 8080 with /invocations for inference and /ping for health checks. The model directory is read-only for the container, and tini cannot be the entry point.",
+    "difficulty": "media",
+    "tags": [
+      "byoc",
+      "invocations"
+    ],
+    "source": "AWS docs: Custom Inference Code with Hosting Services - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S3"
+    ]
+  },
+  {
+    "id": "ch10-q034",
+    "chapter": "ch10-infra-cicd",
+    "q": "A pipeline must deploy an already built model with the SageMaker Python SDK version 3. It should create the model, the endpoint configuration, and the endpoint, and return an object to call. Which flow fits?",
+    "options": [
+      "Execute a CloudFormation change set that contains only the bucket",
+      "ModelBuilder build, then deploy, which returns an Endpoint object",
+      "Delete the endpoint in the console and recreate it by hand",
+      "boto3 invoke_endpoint alone, without creating a model or an endpoint"
+    ],
+    "answer": 1,
+    "explain": "In SDK version 3, ModelBuilder builds the model and deploy creates the model, configuration, and endpoint, returning an Endpoint object. Invoking an endpoint needs it to exist first, and the other options do not create it.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker-sdk",
+      "modelbuilder"
+    ],
+    "source": "AWS docs: Deploy Models for Inference - SageMaker Python SDK V3 documentation",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S5"
+    ]
+  },
+  {
+    "id": "ch10-q035",
+    "chapter": "ch10-infra-cicd",
+    "q": "An engineer creates an endpoint with boto3 right after creating its endpoint configuration, and the call sometimes fails with a validation error. Which practice does the API guidance recommend?",
+    "options": [
+      "Recreate the model before every endpoint call to refresh its cache",
+      "Skip the describe calls and use shorter endpoint names",
+      "Retry on validation errors and call describe_endpoint_config before create_endpoint",
+      "Use UpdateEndpoint with an empty endpoint name instead of CreateEndpoint"
+    ],
+    "answer": 2,
+    "explain": "The endpoint configuration lookup can be eventually consistent, so the guidance is retry logic and a describe call first. The other options remove checks or misuse the API.",
+    "difficulty": "difficile",
+    "tags": [
+      "boto3",
+      "create-endpoint"
+    ],
+    "source": "AWS docs: CreateEndpoint - Amazon SageMaker API Reference",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S5"
+    ]
+  },
+  {
+    "id": "ch10-q036",
+    "chapter": "ch10-infra-cicd",
+    "q": "A developer writes a boto3 script that creates an endpoint configuration. Which TWO parameters are required in that call? (Select TWO.)",
+    "options": [
+      "EndpointArn, which is returned by create_endpoint as the identifier of the running endpoint and is not an input of this call",
+      "InstanceProfile",
+      "Subnets, which place the endpoint instances inside a VPC",
+      "EndpointConfigName",
+      "ProductionVariants"
+    ],
+    "answer": [
+      3,
+      4
+    ],
+    "explain": "EndpointConfigName names the configuration, and ProductionVariants lists the models and resources. EndpointArn is returned by create_endpoint, and the other two are not parameters of this call.",
+    "difficulty": "media",
+    "tags": [
+      "boto3",
+      "endpoint-config"
+    ],
+    "source": "AWS docs: SageMaker.Client.create_endpoint_config - Boto3 documentation",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2S5"
+    ]
+  },
+  {
+    "id": "ch10-q037",
+    "chapter": "ch10-infra-cicd",
+    "q": "A central platform team wants data scientists to launch only approved SageMaker project templates, in a self-service catalog with governance constraints. Which AWS service provides this?",
+    "options": [
+      "AWS Service Catalog",
+      "AWS Serverless Application Repository",
+      "AWS CodeArtifact",
+      "AWS CloudFormation StackSets"
+    ],
+    "answer": 0,
+    "explain": "Service Catalog publishes approved products in portfolios with constraints and lets users launch them self-service. The other services share applications, hold packages, or deploy across accounts, but not as a governed product catalog.",
+    "difficulty": "facile",
+    "tags": [
+      "service-catalog"
+    ],
+    "source": "AWS docs: What Is Service Catalog? - AWS Service Catalog Administrator Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V14"
+    ]
+  },
+  {
+    "id": "ch10-q038",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which statement about SageMaker Projects is correct?",
+    "options": [
+      "SageMaker Projects replace CloudFormation for every AWS resource in an account",
+      "SageMaker Projects templates are Service Catalog products that provision MLOps CI/CD resources",
+      "SageMaker Projects can only be created from the AWS CLI and never from Studio",
+      "SageMaker Projects store the training data in a Service Catalog portfolio that is shared with every account in the organization"
+    ],
+    "answer": 1,
+    "explain": "SageMaker project templates are Service Catalog products, and they set up CI/CD for MLOps, including image builds pushed to ECR. The other statements contradict this.",
+    "difficulty": "media",
+    "tags": [
+      "sagemaker-projects",
+      "service-catalog"
+    ],
+    "source": "AWS docs: MLOps Project Templates - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V14"
+    ]
+  },
+  {
+    "id": "ch10-q039",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team wants to find a published serverless application, install it with a few clicks, and deploy it through CloudFormation for reuse. Which AWS service provides this catalog?",
+    "options": [
+      "AWS Marketplace for container listings only",
+      "AWS Service Catalog portfolios that the team builds itself",
+      "AWS Serverless Application Repository",
+      "Amazon ECR Public Gallery"
+    ],
+    "answer": 2,
+    "explain": "The Serverless Application Repository lets you find, deploy, and publish serverless applications. ECR Public stores images, and Marketplace and team-built portfolios are not the public serverless application catalog.",
+    "difficulty": "facile",
+    "tags": [
+      "serverless-application-repository"
+    ],
+    "source": "AWS docs: What Is the AWS Serverless Application Repository? - AWS Serverless Application Repository Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V15"
+    ]
+  },
+  {
+    "id": "ch10-q040",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team considers the AWS Serverless Application Repository for reusable components. Which TWO statements about it are correct? (Select TWO.)",
+    "options": [
+      "It hosts private npm packages for CI builds",
+      "It stores Docker images with IAM-based access for pipelines",
+      "It manages production traffic shifting for endpoints",
+      "Publishers upload code with an AWS SAM template so that others can deploy the application",
+      "Users browse and install applications from the catalog with a few clicks"
+    ],
+    "answer": [
+      3,
+      4
+    ],
+    "explain": "Applications are published with a SAM template and installed from the catalog. Packages, images, and traffic shifting are handled by CodeArtifact, ECR, and SageMaker deployment guardrails.",
+    "difficulty": "difficile",
+    "tags": [
+      "serverless-application-repository"
+    ],
+    "source": "AWS docs: What Is the AWS Serverless Application Repository? - AWS Serverless Application Repository Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V15"
+    ]
+  },
+  {
+    "id": "ch10-q041",
+    "chapter": "ch10-infra-cicd",
+    "q": "A build needs npm and PyPI packages that are fetched on demand from public registries, cached in a private repository, and protected by IAM. Which AWS service fits?",
+    "options": [
+      "AWS CodeArtifact",
+      "An Amazon S3 bucket with public read access",
+      "AWS CodeCommit",
+      "Amazon ECR"
+    ],
+    "answer": 0,
+    "explain": "CodeArtifact is a managed package repository that connects to public registries and stores packages privately with IAM. CodeCommit hosts Git code, ECR stores container images, and a public S3 bucket has no package-level access control.",
+    "difficulty": "media",
+    "tags": [
+      "codeartifact",
+      "packages"
+    ],
+    "source": "AWS docs: What is AWS CodeArtifact? - AWS CodeArtifact User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V12"
+    ]
+  },
+  {
+    "id": "ch10-q042",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which statement about AWS CodeArtifact is correct?",
+    "options": [
+      "Packages are publicly visible by default",
+      "Repositories can use an upstream repository or an external connection to a public registry such as npmjs or PyPI",
+      "Repositories are Git hosts that provide pull requests for code review",
+      "Repositories store only Docker images for container builds"
+    ],
+    "answer": 1,
+    "explain": "CodeArtifact links repositories to upstream repositories and external connections, so packages are fetched on demand. It is not a Git host, does not store only images, and packages cannot be made public.",
+    "difficulty": "difficile",
+    "tags": [
+      "codeartifact",
+      "upstream"
+    ],
+    "source": "AWS docs: What is AWS CodeArtifact? - AWS CodeArtifact User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V12"
+    ]
+  },
+  {
+    "id": "ch10-q043",
+    "chapter": "ch10-infra-cicd",
+    "q": "A release pipeline must run source, build, a manual approval, and deployment, in that order. In CodePipeline terms, where does the approval action belong?",
+    "options": [
+      "In a CloudFormation change set",
+      "In a CodeDeploy deployment configuration",
+      "In a stage, as an action between the build and deploy stages",
+      "In the buildspec, as a phase named approval"
+    ],
+    "answer": 2,
+    "explain": "CodePipeline models work as stages that contain actions, and an approval action sits between stages. A buildspec phase cannot be an approval, and change sets and deployment configurations belong to other services.",
+    "difficulty": "media",
+    "tags": [
+      "codepipeline",
+      "approval"
+    ],
+    "source": "AWS docs: CodePipeline concepts - AWS CodePipeline User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3K1",
+      "K-3.3S1"
+    ]
+  },
+  {
+    "id": "ch10-q044",
+    "chapter": "ch10-infra-cicd",
+    "q": "Before a release, a developer reviews the CodeBuild project. Which TWO statements about the buildspec are correct? (Select TWO.)",
+    "options": [
+      "Commands in a finally block run even when a command in the commands block fails",
+      "The buildspec file must be named build.json",
+      "CodeBuild reads the buildspec only from an S3 bucket",
+      "The install phase is meant for installing packages in the build environment",
+      "The post_build phase runs before the install phase"
+    ],
+    "answer": [
+      0,
+      3
+    ],
+    "explain": "install prepares the environment, and finally blocks run regardless of earlier failures. Phases run in order, the default file name is buildspec.yml, and the buildspec can live in the source directory.",
+    "difficulty": "difficile",
+    "tags": [
+      "buildspec",
+      "codebuild"
+    ],
+    "source": "AWS docs: Build specification reference for CodeBuild - AWS CodeBuild User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3S1"
+    ]
+  },
+  {
+    "id": "ch10-q045",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team deploys a Lambda function. It wants 10 percent of traffic shifted first, then the rest five minutes later. Which CodeDeploy predefined deployment configuration fits?",
+    "options": [
+      "CodeDeployDefault.LambdaCanary10Percent5Minutes",
+      "CodeDeployDefault.OneAtATime",
+      "CodeDeployDefault.LambdaLinear10PercentEvery1Minute",
+      "CodeDeployDefault.LambdaAllAtOnce"
+    ],
+    "answer": 0,
+    "explain": "LambdaCanary10Percent5Minutes shifts 10 percent first and the rest five minutes later. All at once shifts everything, OneAtATime is an EC2 setting, and the linear option moves 10 percent every minute.",
+    "difficulty": "media",
+    "tags": [
+      "codedeploy",
+      "lambda",
+      "canary"
+    ],
+    "source": "AWS docs: Working with deployment configurations in CodeDeploy - AWS CodeDeploy User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V03",
+      "K-3.3K5"
+    ]
+  },
+  {
+    "id": "ch10-q046",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team deploys an Amazon ECS service with CodeDeploy and wants traffic moved in steps of 10 percent every three minutes until everything has shifted. Which configuration name matches?",
+    "options": [
+      "CodeDeployDefault.LambdaCanary10Percent30Minutes",
+      "CodeDeployDefault.ECSLinear10PercentEvery3Minutes",
+      "CodeDeployDefault.OneAtATime",
+      "CodeDeployDefault.HalfAtATime"
+    ],
+    "answer": 1,
+    "explain": "ECSLinear10PercentEvery3Minutes is the predefined ECS linear configuration. OneAtATime and HalfAtATime are EC2 settings, and the Lambda canary applies to Lambda functions.",
+    "difficulty": "media",
+    "tags": [
+      "codedeploy",
+      "ecs",
+      "linear"
+    ],
+    "source": "AWS docs: Working with deployment configurations in CodeDeploy - AWS CodeDeploy User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V03"
+    ]
+  },
+  {
+    "id": "ch10-q047",
+    "chapter": "ch10-infra-cicd",
+    "q": "A CodeBuild project fails in the pre_build phase with an authentication error while logging in to Amazon ECR. The buildspec command is correct, and the image tag is valid. Which fix addresses the root cause?",
+    "options": [
+      "Set the on-failure value of pre_build to CONTINUE so that the build ignores the login error and continues to the build phase anyway",
+      "Switch the project to Lambda compute",
+      "Grant the CodeBuild service role permission to request an ECR authorization token, then run the login command again",
+      "Move the login into the post_build phase so that it runs after the image is built"
+    ],
+    "answer": 2,
+    "explain": "The build role needs permission to request an ECR authorization token before docker login can succeed. Moving or ignoring the step hides the failure, and changing compute does not grant registry access.",
+    "difficulty": "difficile",
+    "tags": [
+      "codebuild",
+      "troubleshooting",
+      "ecr"
+    ],
+    "source": "AWS docs: Build specification reference for CodeBuild - AWS CodeBuild User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3S1"
+    ]
+  },
+  {
+    "id": "ch10-q048",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team keeps model code in a Git repository and wants each commit to start the pipeline with the exact revision that triggered it. Which setup connects the repository to the release pipeline?",
+    "options": [
+      "A cron job on a laptop that runs cdk deploy each morning, using whatever code is checked out locally at the time it runs",
+      "A Service Catalog portfolio share that copies the code by hand into a bucket and then starts the build process manually each time",
+      "A buildspec file with no source stage at all",
+      "A CodePipeline source action that points at the repository, with a trigger on commit"
+    ],
+    "answer": 3,
+    "explain": "A source action links the repository to the pipeline and passes the triggering revision to later actions. The other options bypass the pipeline or remove the source entirely.",
+    "difficulty": "media",
+    "tags": [
+      "git",
+      "codepipeline"
+    ],
+    "source": "AWS docs: CodePipeline concepts - AWS CodePipeline User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3K6",
+      "K-3.3K3"
+    ]
+  },
+  {
+    "id": "ch10-q049",
+    "chapter": "ch10-infra-cicd",
+    "q": "A developer needs a feature branch isolated from main until the review is complete. Which Git concept provides that isolation?",
+    "options": [
+      "A branch",
+      "A tag",
+      "A remote URL",
+      "A buildspec file"
+    ],
+    "answer": 0,
+    "explain": "A branch is a movable line of commits, so work on it stays separate until it is merged. A tag marks a fixed point, a remote URL points to a repository, and a buildspec describes a build.",
+    "difficulty": "facile",
+    "tags": [
+      "git",
+      "branch"
+    ],
+    "source": "AWS docs: What is AWS CodeCommit? - AWS CodeCommit User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3K3"
+    ]
+  },
+  {
+    "id": "ch10-q050",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team's pipeline must use the same Git revision for the build and deploy stages. Which pipeline property guarantees this?",
+    "options": [
+      "A branch name typed in the console at each run",
+      "The source revision carried in the pipeline execution, passed to later actions",
+      "A manually copied zip of the code uploaded to a bucket by a developer",
+      "A Service Catalog product version chosen at deploy time by an operator, who selects it from a list in the console each time"
+    ],
+    "answer": 1,
+    "explain": "The source revision of an execution is passed as an artifact to later actions, so build and deploy use the same commit. Manual copies and typed branch names can drift, and product versions are not source revisions.",
+    "difficulty": "media",
+    "tags": [
+      "codepipeline",
+      "source-revision"
+    ],
+    "source": "AWS docs: CodePipeline concepts - AWS CodePipeline User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3K6"
+    ]
+  },
+  {
+    "id": "ch10-q051",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team releases on a fixed monthly schedule and bundles several features into each release. It integrates approved features in a develop branch and cuts release branches for upper environments. Which branching strategy fits?",
+    "options": [
+      "Trunk-based development",
+      "One branch with feature flags and no release branches",
+      "Gitflow",
+      "GitHub Flow"
+    ],
+    "answer": 2,
+    "explain": "Gitflow uses develop for integration and release branches for scheduled releases, which matches. GitHub Flow and trunk-based development aim at frequent releases, and feature flags alone provide no release branches.",
+    "difficulty": "media",
+    "tags": [
+      "gitflow",
+      "branching"
+    ],
+    "source": "AWS docs: Gitflow branching strategy - AWS Prescriptive Guidance",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-3.3S2"
+    ]
+  },
+  {
+    "id": "ch10-q052",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team deploys several times a day. Each change is a short-lived feature branch that is merged into main after review, and main must always be deployable. Which strategy describes this?",
+    "options": [
+      "Monthly release branches cut from a tag",
+      "Hotfix branches as the only integration path",
+      "Gitflow with a long-lived develop branch and monthly releases",
+      "GitHub Flow"
+    ],
+    "answer": 3,
+    "explain": "GitHub Flow uses short-lived feature branches merged into main, which stays deployable. Gitflow relies on a long-lived develop branch, and the other options describe release-driven models.",
+    "difficulty": "difficile",
+    "tags": [
+      "github-flow",
+      "branching"
+    ],
+    "source": "AWS docs: Git branching strategies - AWS Prescriptive Guidance",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-3.3S2"
+    ]
+  },
+  {
+    "id": "ch10-q053",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team evaluates Gitflow for its release process. Which TWO statements about Gitflow are correct? (Select TWO.)",
+    "options": [
+      "Feature branches are merged into develop after approval",
+      "A release branch is created from develop when the planned features have accumulated",
+      "Every commit must deploy straight to production",
+      "The main branch receives a commit for every feature branch merge",
+      "Gitflow is the best fit for daily releases of each small change"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explain": "Gitflow integrates approved features in develop and cuts release branches from it. It does not deploy every commit, and daily releases of small changes favour GitHub Flow.",
+    "difficulty": "difficile",
+    "tags": [
+      "gitflow"
+    ],
+    "source": "AWS docs: Gitflow branching strategy - AWS Prescriptive Guidance",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "K-3.3S2"
+    ]
+  },
+  {
+    "id": "ch10-q054",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which TWO AWS services can serve as the source stage of a pipeline that reads code from a Git repository hosted on AWS or from a third-party provider through a connection? (Select TWO.)",
+    "options": [
+      "AWS Batch, which runs containerized batch jobs from managed job queues on EC2 or Fargate capacity without any source control",
+      "AWS CodeCommit",
+      "AWS CodeConnections",
+      "AWS CodeArtifact",
+      "AWS Service Catalog"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "CodeCommit hosts Git repositories on AWS, and CodeConnections links third-party providers. CodeArtifact stores packages, Service Catalog distributes products, and Batch runs jobs.",
+    "difficulty": "media",
+    "tags": [
+      "codecommit",
+      "codeconnections"
+    ],
+    "source": "AWS docs: What is AWS CodeCommit? - AWS CodeCommit User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.2",
+      "V54",
+      "V55"
+    ]
+  },
+  {
+    "id": "ch10-q055",
+    "chapter": "ch10-infra-cicd",
+    "q": "A pipeline must read code from Bitbucket. The team wants the provider connection managed as its own resource and referenced by ARN in templates, so that no secrets are stored in the buildspec. Which service provides this?",
+    "options": [
+      "Amazon Cognito user pools",
+      "AWS Config rules",
+      "AWS CodeConnections",
+      "AWS Secrets Manager rotation schedule only"
+    ],
+    "answer": 2,
+    "explain": "CodeConnections manages the provider connection as a resource that templates reference by ARN. Secrets Manager stores secrets but does not create the provider link, and Cognito and Config serve other purposes.",
+    "difficulty": "media",
+    "tags": [
+      "codeconnections",
+      "bitbucket"
+    ],
+    "source": "AWS docs: What are connections? - AWS Developer Tools Console User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "V55",
+      "G-3.3.2"
+    ]
+  },
+  {
+    "id": "ch10-q056",
+    "chapter": "ch10-infra-cicd",
+    "q": "A company moves Git repositories to AWS CodeCommit. Developers need code review with pull requests and notifications when someone comments. Which CodeCommit capability provides this?",
+    "options": [
+      "Blue/green traffic shifting between two fleets",
+      "Automatic model retraining on each commit",
+      "Spot training checkpoints in Amazon S3",
+      "Pull requests with comments and notifications"
+    ],
+    "answer": 3,
+    "explain": "CodeCommit supports pull requests for review and notifications for comments. The other options are deployment or training features unrelated to code review.",
+    "difficulty": "facile",
+    "tags": [
+      "codecommit",
+      "pull-requests"
+    ],
+    "source": "AWS docs: What is AWS CodeCommit? - AWS CodeCommit User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "V54"
+    ]
+  },
+  {
+    "id": "ch10-q057",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team automates the pipeline for a traditional ML model. It wants a test that runs the whole flow, from input to the deployed endpoint's response. Which test level fits?",
+    "options": [
+      "End-to-end test",
+      "Drift detection",
+      "Unit test",
+      "Integration test"
+    ],
+    "answer": 0,
+    "explain": "An end-to-end test runs the complete flow, including the endpoint. Unit tests check single functions, integration tests check component pairs, and drift detection compares data over time.",
+    "difficulty": "facile",
+    "tags": [
+      "testing",
+      "end-to-end"
+    ],
+    "source": "AWS docs: Build specification reference for CodeBuild - AWS CodeBuild User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.4",
+      "K-3.3S5"
+    ]
+  },
+  {
+    "id": "ch10-q058",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which test type should run on every commit because it is fast and checks a single function, such as a feature calculation?",
+    "options": [
+      "Shadow test on live traffic",
+      "Unit test",
+      "End-to-end test on the production endpoint",
+      "Load test that invokes the endpoint at peak volume"
+    ],
+    "answer": 1,
+    "explain": "Unit tests are fast, isolated, and run on every commit. The other options are slow, depend on the environment, or belong later in the pipeline.",
+    "difficulty": "facile",
+    "tags": [
+      "testing",
+      "unit-test"
+    ],
+    "source": "AWS docs: Build specification reference for CodeBuild - AWS CodeBuild User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3S5"
+    ]
+  },
+  {
+    "id": "ch10-q059",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which TWO checks belong in an automated pipeline for an AI workload, in addition to classic unit tests? (Select TWO.)",
+    "options": [
+      "A step that resizes the instance family to the next larger size",
+      "A step that deletes the previous model version after each commit",
+      "A model quality check that compares metrics on a validation dataset against a threshold",
+      "A check that the endpoint response has the expected format and latency on a test request",
+      "A check that the Git branch name follows a naming convention, enforced on every push so that branches stay uniform across all the teams involved"
+    ],
+    "answer": [
+      2,
+      3
+    ],
+    "explain": "Quality and response checks test model behaviour and the served contract, which unit tests miss. Branch naming, resizing, and deleting versions do not test the AI workload.",
+    "difficulty": "difficile",
+    "tags": [
+      "testing",
+      "ai-workload"
+    ],
+    "source": "AWS docs: Pipelines step types - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C02"
+    ],
+    "todo": [
+      "G-3.3.4",
+      "K-3.3S5"
+    ]
+  },
+  {
+    "id": "ch10-q060",
+    "chapter": "ch10-infra-cicd",
+    "q": "A pipeline must register a model only when its evaluation metric passes a threshold, and stop with a clear message otherwise. Which combination of steps does this?",
+    "options": [
+      "A Callback step that waits forever for the metric to arrive",
+      "A Transform step followed by a Notebook job that runs the evaluation",
+      "A Lambda step that deletes the endpoint whenever the metric is low",
+      "A Condition step that routes to a Register model step on the passing branch and to a Fail step otherwise"
+    ],
+    "answer": 3,
+    "explain": "A Condition step checks the metric and routes the pipeline, Register model records the version, and Fail stops with a message. The other combinations do not gate registration on the metric.",
+    "difficulty": "media",
+    "tags": [
+      "pipelines",
+      "condition",
+      "fail"
+    ],
+    "source": "AWS docs: Pipelines step types - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C17"
+    ]
+  },
+  {
+    "id": "ch10-q061",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which SageMaker Pipelines step lets the pipeline wait for an external process to report back before it continues?",
+    "options": [
+      "Callback step",
+      "Transform step",
+      "Tuning step",
+      "Model step"
+    ],
+    "answer": 0,
+    "explain": "A Callback step sends a message to an external process and waits for its answer before the pipeline continues or fails. Transform runs batch inference, Tuning searches hyperparameters, and Model prepares a model.",
+    "difficulty": "difficile",
+    "tags": [
+      "pipelines",
+      "callback"
+    ],
+    "source": "AWS docs: Pipelines step types - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C17"
+    ]
+  },
+  {
+    "id": "ch10-q062",
+    "chapter": "ch10-infra-cicd",
+    "q": "A pipeline must run a step on an Amazon EMR cluster that is already running. Which pipeline step fits?",
+    "options": [
+      "Processing step that launches a new SageMaker container",
+      "EMR step",
+      "QualityCheck step",
+      "Fail step"
+    ],
+    "answer": 1,
+    "explain": "The EMR step processes Amazon EMR steps on a running cluster. QualityCheck compares baselines, Fail stops a pipeline, and Processing runs a SageMaker processing job rather than an EMR step.",
+    "difficulty": "facile",
+    "tags": [
+      "pipelines",
+      "emr"
+    ],
+    "source": "AWS docs: Pipelines step types - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C17"
+    ]
+  },
+  {
+    "id": "ch10-q063",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team wants a new model to receive a copy of live requests and be evaluated for latency and errors, while callers still get only the production model's responses. Which deployment approach fits?",
+    "options": [
+      "Linear traffic shifting in 20 percent steps",
+      "Canary at 30 percent of traffic",
+      "Shadow test",
+      "All at once traffic shifting"
+    ],
+    "answer": 2,
+    "explain": "A shadow test duplicates requests to the new variant without returning its responses. Traffic shifting moves real responses to the new fleet, so it exposes users to the new version.",
+    "difficulty": "media",
+    "tags": [
+      "shadow-test",
+      "deployment"
+    ],
+    "source": "AWS docs: Shadow tests - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3K5"
+    ]
+  },
+  {
+    "id": "ch10-q064",
+    "chapter": "ch10-infra-cicd",
+    "q": "An endpoint update must shift traffic in steps of about 20 percent, wait 300 seconds between steps, and roll back automatically if a CloudWatch alarm trips. Which configuration does this?",
+    "options": [
+      "All at once traffic shifting with TerminationWaitInSeconds of 300 and no alarms",
+      "Canary traffic shifting at 5 percent with no alarms and no baking period",
+      "Shadow test with a 300-second baking period and automatic rollback of users",
+      "Linear traffic shifting in 20 percent steps with a 300-second wait and the alarms listed for auto rollback"
+    ],
+    "answer": 3,
+    "explain": "Linear shifting uses LinearStepSize and WaitIntervalInSeconds, and auto rollback reads the alarms. All at once has no steps, canary here has no alarms, and a shadow test does not move user traffic.",
+    "difficulty": "difficile",
+    "tags": [
+      "linear",
+      "rollback",
+      "guardrails"
+    ],
+    "source": "AWS docs: Use linear traffic shifting - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3K5"
+    ]
+  },
+  {
+    "id": "ch10-q065",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which THREE statements about SageMaker blue/green deployment guardrails are correct? (Select THREE.)",
+    "options": [
+      "All at once moves all traffic to the green fleet, then the baking period watches it before the blue fleet is terminated",
+      "The canary size should be less than or equal to 50 percent of the green fleet capacity",
+      "Linear step sizes between 10 and 50 percent of the green fleet capacity are the documented range",
+      "Rollback works only for all at once shifts",
+      "Rollback requires redeploying the previous model from scratch before any traffic can return to the blue fleet",
+      "Shadow tests shift all traffic to the new fleet before the baking period starts"
+    ],
+    "answer": [
+      0,
+      1,
+      2
+    ],
+    "explain": "All at once, the canary size limit, and the linear step range are documented. Rollback to the blue fleet also works for linear and canary shifts, and shadow tests do not shift user traffic.",
+    "difficulty": "difficile",
+    "tags": [
+      "guardrails",
+      "blue-green"
+    ],
+    "source": "AWS docs: Deployment guardrails for updating models in production - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3K5"
+    ]
+  },
+  {
+    "id": "ch10-q066",
+    "chapter": "ch10-infra-cicd",
+    "q": "An endpoint's instance count flaps up and down during normal traffic. Which TWO reasons justify configuring a cooldown period in the scaling policy? (Select TWO.)",
+    "options": [
+      "To run scheduled actions in parallel with dynamic scaling",
+      "To avoid repeated scale-in and scale-out when traffic oscillates around the target",
+      "To stop instances from being removed too quickly right after a traffic spike",
+      "To change the unit of the metric from count to percent",
+      "To encrypt the traffic between the client and the endpoint"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "Cooldowns slow consecutive scaling actions, which prevents oscillation and premature scale-in. They do not change metric units, encrypt traffic, or control the concurrency of scheduled actions.",
+    "difficulty": "media",
+    "tags": [
+      "cooldown",
+      "scaling-policy"
+    ],
+    "source": "AWS docs: Automatic scaling policy overview - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K2"
+    ]
+  },
+  {
+    "id": "ch10-q067",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team splits a large CloudFormation template into nested stacks. Which TWO statements about nested stacks are correct? (Select TWO.)",
+    "options": [
+      "Nested stacks remove the need for parameters in the child templates",
+      "A parent stack references child templates with the AWS::CloudFormation::Stack resource",
+      "Updates to a nested hierarchy should usually start from the root stack",
+      "Nested stacks are created in a different AWS account by default",
+      "Drift detection on the root stack also checks the resources of every nested stack"
+    ],
+    "answer": [
+      1,
+      2
+    ],
+    "explain": "A parent uses AWS::CloudFormation::Stack to reference child templates, and root-level operations keep the hierarchy consistent. Nested stacks live in the same account, drift detection on the root does not cover children, and parameters are still needed.",
+    "difficulty": "media",
+    "tags": [
+      "nested-stacks",
+      "cloudformation"
+    ],
+    "source": "AWS docs: Split a template into reusable pieces using nested stacks - AWS CloudFormation User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.2K3",
+      "V01"
+    ]
+  },
+  {
+    "id": "ch10-q068",
+    "chapter": "ch10-infra-cicd",
+    "q": "Which TWO statements about CodeDeploy predefined deployment configurations are correct? (Select TWO.)",
+    "options": [
+      "CodeDeployDefault.AllAtOnce shifts 50 percent of traffic first and the rest in a second step",
+      "CodeDeployDefault.ECSCanary10Percent5Minutes shifts 10 percent first and the rest five minutes later",
+      "CodeDeployDefault.OneAtATime is a predefined configuration for Lambda functions",
+      "CodeDeployDefault.LambdaLinear10PercentEvery1Minute shifts 10 percent every minute until all traffic is shifted",
+      "CodeDeployDefault.HalfAtATime is a predefined configuration for ECS services"
+    ],
+    "answer": [
+      1,
+      3
+    ],
+    "explain": "ECSCanary10Percent5Minutes and LambdaLinear10PercentEvery1Minute match the documented behaviour. OneAtATime and HalfAtATime are EC2 settings, and AllAtOnce shifts all traffic at once.",
+    "difficulty": "difficile",
+    "tags": [
+      "codedeploy",
+      "deployment-configurations"
+    ],
+    "source": "AWS docs: Working with deployment configurations in CodeDeploy - AWS CodeDeploy User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V03",
+      "K-3.3K5"
+    ]
+  },
+  {
+    "id": "ch10-q069",
+    "chapter": "ch10-infra-cicd",
+    "q": "A company needs Kubernetes conformance so that existing Helm charts run unchanged, with AWS managing the control plane. Which service fits?",
+    "options": [
+      "Amazon EKS",
+      "Amazon ECS with the EC2 launch type",
+      "AWS Lambda container images",
+      "AWS Batch with a managed compute environment"
+    ],
+    "answer": 0,
+    "explain": "EKS runs conformant Kubernetes with a managed control plane, so Helm charts keep working. ECS uses its own scheduler, Lambda runs short functions, and Batch schedules jobs.",
+    "difficulty": "facile",
+    "tags": [
+      "eks",
+      "kubernetes"
+    ],
+    "source": "AWS docs: What is Amazon EKS? - Amazon EKS User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.1",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V51",
+      "K-3.1S5"
+    ]
+  },
+  {
+    "id": "ch10-q070",
+    "chapter": "ch10-infra-cicd",
+    "q": "A data science team must queue hundreds of SageMaker training jobs with priorities and run them as capacity frees up, without writing its own scheduler. Which AWS service provides job queuing for this?",
+    "options": [
+      "Amazon SQS standard queues with a Lambda consumer",
+      "AWS Batch",
+      "Amazon EventBridge scheduled rules",
+      "AWS Step Functions Express Workflows"
+    ],
+    "answer": 1,
+    "explain": "AWS Batch can queue SageMaker training jobs with priorities and start them when resources are available. EventBridge triggers on schedules or events, Step Functions orchestrates steps, and SQS only buffers messages.",
+    "difficulty": "media",
+    "tags": [
+      "batch",
+      "training-queue"
+    ],
+    "source": "AWS docs: What is AWS Batch? - AWS Batch User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "V10"
+    ]
+  },
+  {
+    "id": "ch10-q071",
+    "chapter": "ch10-infra-cicd",
+    "q": "A pipeline must run batch inference over an entire stored dataset as one managed step, inside the same SageMaker Pipelines workflow. Which step type should it use?",
+    "options": [
+      "Fail step, which stops the pipeline execution with a custom error message when a condition is not met",
+      "Callback step",
+      "Transform step",
+      "Condition step"
+    ],
+    "answer": 2,
+    "explain": "A Transform step runs batch inference on an entire dataset inside the pipeline. Condition chooses branches, Fail stops with a message, and Callback waits for an external process.",
+    "difficulty": "facile",
+    "tags": [
+      "pipelines",
+      "transform"
+    ],
+    "source": "AWS docs: Pipelines step types - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "C17"
+    ]
+  },
+  {
+    "id": "ch10-q072",
+    "chapter": "ch10-infra-cicd",
+    "q": "A team must choose among several instance types for a new real-time endpoint and wants measured latency and cost per option before production. Which SageMaker tool automates load tests across instance types?",
+    "options": [
+      "SageMaker Clarify",
+      "SageMaker Debugger",
+      "SageMaker Feature Store",
+      "SageMaker Inference Recommender, which runs benchmark jobs across candidate instance types and reports the measured results"
+    ],
+    "answer": 3,
+    "explain": "Inference Recommender runs load tests across instance types and configurations and reports performance, utilization, and cost for each one. Clarify, Debugger, and Feature Store serve different purposes.",
+    "difficulty": "facile",
+    "tags": [
+      "inference-recommender",
+      "instance-selection"
+    ],
+    "source": "AWS docs: Amazon SageMaker Inference Recommender - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "C06"
+    ]
+  },
+  {
+    "id": "ch10-q073",
+    "chapter": "ch10-infra-cicd",
+    "q": "An engineer needs to compare endpoint configurations under simulated concurrent users before choosing an instance type, with the least manual load-testing work. Which option is best?",
+    "options": [
+      "Run an Inference Recommender job that load-tests each candidate instance type and reports the metrics",
+      "Write a custom load-testing script on EC2 for each instance type, then collect the results by hand from each run and compare them in a spreadsheet",
+      "Check CloudWatch dashboards only after the production launch, when real customer traffic is available for the comparison",
+      "Deploy each candidate to production behind a 50-50 canary and compare error rates once real customers have been routed to it"
+    ],
+    "answer": 0,
+    "explain": "Inference Recommender automates the load tests across candidate instance types and reports their metrics. Custom scripts add manual work, while production canaries and late dashboards expose users or come too late.",
+    "difficulty": "difficile",
+    "tags": [
+      "inference-recommender",
+      "load-test"
+    ],
+    "source": "AWS docs: Amazon SageMaker Inference Recommender - Amazon SageMaker AI Developer Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.2",
+    "exam": [
+      "C01"
+    ],
+    "todo": [
+      "C06"
+    ]
+  },
+  {
+    "id": "ch10-q074",
+    "chapter": "ch10-infra-cicd",
+    "q": "A release pipeline has a build action in CodeBuild and a deploy action in CodeDeploy in the next stage. What carries the build output from one action to the other?",
+    "options": [
+      "A manual copy of the build output into the deploy action's source code",
+      "Output artifacts stored in the pipeline artifact store and passed as input artifacts to the next action",
+      "A Service Catalog product version pinned in the deploy stage so that it reads the build output from the portfolio directly",
+      "A CloudFormation change set exported from the build project so that the deploy action can import the artifact reference"
+    ],
+    "answer": 1,
+    "explain": "CodePipeline passes output artifacts from one action to the next through its artifact store. The other options add manual steps or use services that do not carry build output.",
+    "difficulty": "media",
+    "tags": [
+      "codepipeline",
+      "artifacts"
+    ],
+    "source": "AWS docs: CodePipeline concepts - AWS CodePipeline User Guide",
+    "origin": "ai",
+    "domain": "3",
+    "task": "3.3",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "todo": [
+      "K-3.3K1"
+    ]
+  }
+]
