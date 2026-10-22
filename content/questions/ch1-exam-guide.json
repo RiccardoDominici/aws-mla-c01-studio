@@ -599,7 +599,7 @@
     "answer": 2,
     "chapter": "ch1-exam-guide",
     "difficulty": "media",
-    "explain": "At roughly 2.6 minutes per question, 30 minutes remain for about 10 questions plus review. Steady pacing with a buffer is the intent of the guideline.",
+    "explain": "At 2.0 minutes per question, 60 minutes covers 30 questions, so 30 answered is exactly on pace. The remaining 70 minutes cover 35 questions at the same rate, which leaves room for review. Steady pacing with a buffer is the intent of the guideline.",
     "id": "ch1-q24",
     "options": [
       "They are far behind schedule and should guess randomly on all remaining items",
@@ -607,7 +607,7 @@
       "They are roughly on pace, with time left for remaining items plus review",
       "They must request extended time, since the pace guideline was clearly missed"
     ],
-    "q": "After one hour, a candidate has answered 25 of 65 questions. How should they interpret their pace?",
+    "q": "After one hour of the 130-minute exam, a candidate has answered 30 of 65 questions. How should they interpret their pace?",
     "source": "AI-generated for MLA-C01 Studio",
     "tags": [
       "strategy",
@@ -617,8 +617,7 @@
     "domain": "META",
     "task": "-",
     "exam": [
-      "C01",
-      "C02"
+      "C01"
     ]
   },
   {
