@@ -3,40 +3,84 @@
   "id": "ch7-practice",
   "keywords": [
     {
-      "def": "Budget di circa due minuti per domanda: 65 quesiti in 130 minuti per la MLA-C01, 85 in 170 per la MLA-C02. Segna i casi lunghi e vai avanti, torna dopo.",
-      "term": "Gestione del tempo"
+      "term": "Gestione del tempo",
+      "def": "Budget di circa 2,0 minuti per domanda: 65 quesiti in 130 minuti per la MLA-C01, 85 in 170 per la MLA-C02. Segna i casi lunghi e vai avanti, torna dopo."
     },
     {
-      "def": "Tecnica regina: scarta prima le opzioni palesemente fuori scenario, poi scegli tra le due rimaste. Spesso SageMaker contro non SageMaker.",
-      "term": "Eliminazione distrattori"
+      "term": "Eliminazione distrattori",
+      "def": "Tecnica principale: scarta prima le opzioni fuori scenario e le opzioni che violano una regola fissa, poi scegli tra le due rimaste."
     },
     {
-      "def": "Parole come always-on, spiky, 1 GB, offline o no-internet mappano direttamente a un servizio. Impara le tabelle di mapping.",
-      "term": "Parole-chiave scenario"
+      "term": "Parole-chiave scenario",
+      "def": "Espressioni come always-on, traffico intermittente, 1 GB, offline o nessuna rotta verso internet, che mappano direttamente a un servizio."
     },
     {
-      "def": "Errori ricorrenti dei quesiti: access key nei job, Lambda per training, SSE-C al posto di SSE-KMS, retraining a ogni violazione.",
-      "term": "Tranelli frequenti"
+      "term": "Tranelli frequenti",
+      "def": "Errori ricorrenti nelle domande: access key nei job, Lambda per il training pesante, endpoint pubblico per dati sensibili, retraining a ogni violazione."
     },
     {
-      "def": "Flusso in quattro mosse per ogni quesito: vincoli, mappatura, eliminazione, verifica della risposta contro i vincoli.",
-      "term": "Metodo di risposta"
+      "term": "Metodo di risposta",
+      "def": "Flusso in quattro mosse per ogni domanda: vincoli, mappatura, eliminazione e verifica della risposta contro tutti i vincoli."
     },
     {
-      "def": "Tabella mentale che collega ogni scenario al servizio: latenza, payload, traffico, sicurezza e monitoraggio.",
-      "term": "Mapping scenario-servizio"
+      "term": "Mapping scenario-servizio",
+      "def": "Tabella mentale che collega ogni scenario al servizio o alla funzione: latenza, payload, traffico, sicurezza e monitoraggio."
     },
     {
-      "def": "Lista di controlli la sera prima e la mattina: documenti, formule chiave, limiti numerici e strategia di review.",
-      "term": "Checklist ultimo giorno"
+      "term": "Checklist ultimo giorno",
+      "def": "Elenco di controlli per la sera prima e la mattina: documenti, tabelle di mapping, numeri chiave e strategia di revisione già decisa."
     },
     {
-      "def": "Insieme minimo di numeri da ricordare: payload, timeout, sampling, stati di approvazione e tipi di monitoraggio.",
-      "term": "Numeri da memorizzare"
+      "term": "Numeri da memorizzare",
+      "def": "Insieme minimo di valori da ricordare: payload e timeout di serverless, asynchronous e real-time, sampling del data capture, stati del Model Registry."
     },
     {
-      "def": "Simulazioni in modalita review poi timed, puntando a oltre 80 per cento costante prima di prenotare l esame reale.",
-      "term": "Practice exam"
+      "term": "Practice exam",
+      "def": "Simulazione d'esame del sito, con 85 domande per MLA-C02 o 65 per MLA-C01, senza filtri e con punteggio per dominio. Usa prima la modalità Studio, poi la simulazione."
+    },
+    {
+      "term": "Risposta multipla",
+      "def": "Domanda con cinque o più opzioni e due o più risposte giuste. Per ricevere il punto bisogna selezionare tutte le risposte giuste."
+    },
+    {
+      "term": "Punteggio scalato",
+      "def": "Punteggio AWS da 100 a 1000. La guida MLA-C01 indica 720 come minimo per superare l'esame; AWS non pubblica le soglie complete."
+    },
+    {
+      "term": "Serverless inference",
+      "def": "Endpoint che scala a zero quando non riceve traffico, con payload di 4 MB e cold start dopo i periodi di inattività."
+    },
+    {
+      "term": "Asynchronous inference",
+      "def": "Inferenza in coda per payload fino a 1 GB ed elaborazioni fino a un'ora: l'input sta su S3, il risultato torna su S3, e SNS può notificare."
+    },
+    {
+      "term": "Real-time endpoint",
+      "def": "Endpoint persistente e sincrono per risposte immediate. Payload fino a 25 MB; il container deve rispondere entro 60 secondi per le risposte regolari. Il servizio supporta l'autoscaling."
+    },
+    {
+      "term": "Batch transform",
+      "def": "Inferenza offline su dataset presenti in S3, senza endpoint persistente. Non risponde alle richieste interattive di un utente."
+    },
+    {
+      "term": "Multi-model endpoint",
+      "def": "Endpoint che ospita molti modelli sullo stesso parco risorse, caricandoli da S3 quando servono. I modelli poco usati possono avere cold start."
+    },
+    {
+      "term": "Feature Store",
+      "def": "Servizio per creare, salvare e riusare feature. L'online store serve letture a bassa latenza, l'offline store conserva lo storico su S3 per training e predizioni batch."
+    },
+    {
+      "term": "Execution role",
+      "def": "Ruolo IAM con cui SageMaker AI accede per tuo conto a S3, ECR e agli altri servizi. Un job non usa access key incorporate."
+    },
+    {
+      "term": "Maintenance mode e sunset",
+      "def": "Maintenance mode: servizio chiuso ai nuovi clienti, ma usabile da chi lo usava già. Sunset: servizio in dismissione, con una data o senza data sulla pagina AWS."
+    },
+    {
+      "term": "Pearson VUE",
+      "def": "Fornitore dei centri d'esame AWS, anche per la sorveglianza online. Vanno rispettate le sue regole su documenti, prenotazione e annullamento."
     }
   ],
   "prereq": [
@@ -45,37 +89,37 @@
   ],
   "quiz": [
     {
-      "q": "Qual e la strategia di tempo consigliata per l'esame MLA-C01?",
+      "q": "Qual è la strategia di tempo consigliata per l'esame MLA-C01?",
       "options": [
         "Dedicare 10 minuti a ogni domanda difficile, anche se il tempo finisce prima",
         "Segnare le domande lunghe per la revisione e tenere circa 2,0 minuti a domanda",
         "Rispondere alle domande in ordine casuale, senza mai tornare su quelle segnate",
-        "Saltare tutte le domande di monitoraggio, perche sembrano troppo tecniche"
+        "Saltare tutte le domande di monitoraggio, perché sembrano troppo tecniche"
       ],
       "answer": 1,
-      "explain": "Con 65 domande in 130 minuti il ritmo e di circa 2,0 minuti per domanda. Segnare i casi lunghi evita di perdere punti facili altrove."
+      "explain": "Con 65 domande in 130 minuti il ritmo è di circa 2,0 minuti per domanda. Segnare i casi lunghi evita di perdere punti facili altrove."
     },
     {
-      "q": "Quale opzione puoi di solito eliminare PER PRIMA in uno scenario di sicurezza?",
+      "q": "Quale opzione puoi di solito eliminare per prima in uno scenario di sicurezza?",
       "options": [
         "Un'opzione che usa chiavi di accesso IAM dentro un job SageMaker",
         "Un'opzione che usa un ruolo di esecuzione a privilegio minimo, assegnato al singolo job e revisionato",
         "Un'opzione che usa la cifratura SSE-KMS per i dati a riposo, con chiavi gestite dal cliente",
-        "Un'opzione che usa la modalita VPC-only per isolare il traffico dalla rete pubblica"
+        "Un'opzione che usa la modalità VPC-only per isolare il traffico dalla rete pubblica"
       ],
       "answer": 0,
-      "explain": "Le chiavi di accesso IAM nei job sono un distrattore classico: i job SageMaker devono usare execution role. Individuare subito l'opzione sempre sbagliata e la tecnica di eliminazione."
+      "explain": "Le chiavi di accesso IAM nei job sono un distrattore classico: un job SageMaker usa un execution role, non chiavi incorporate."
     },
     {
-      "q": "Un modello elabora file da 500 MB in 8 minuti e avvisa gli utenti. Quale servizio?",
+      "q": "Un modello elabora file da 500 MB in circa 8 minuti e avvisa l'utente quando il risultato è pronto. Quale servizio?",
       "options": [
         "Real-time endpoint, con istanze sempre attive e risposta immediata",
         "Serverless inference, che scala a zero e fattura solo le richieste",
         "Asynchronous inference, con S3 e notifica SNS",
-        "Batch transform, con job offline pensato per dataset gia presenti in S3"
+        "Batch transform, con job offline pensato per dataset già presenti in S3"
       ],
       "answer": 2,
-      "explain": "Payload grande, elaborazione di minuti e notifica sono la firma dell'async: 1 GB via S3, fino a un'ora, notifica SNS. Il payload e la parola chiave che esclude real-time e serverless, con 25 MB e 4 MB."
+      "explain": "Payload grande, elaborazione di minuti e notifica sono la firma dell'asynchronous inference, che accetta fino a 1 GB e un'ora di elaborazione. Il serverless ha un limite di 4 MB, e il real-time deve rispondere entro 60 secondi."
     },
     {
       "q": "I dati sensibili non devono mai passare da internet pubblica e la cifratura deve essere auditabile. Quale setup?",
@@ -83,121 +127,420 @@
         "Endpoint pubblico, raggiungibile da qualunque rete, con accesso aperto per i team",
         "Serverless senza alcuna cifratura, con il traffico lasciato libero sulla rete pubblica",
         "Training sul portatile del data scientist, con upload finale dei modelli su S3",
-        "VPC-only con subnet private, gateway endpoint, KMS e ruolo minimo"
+        "VPC-only con subnet private, endpoint privati, KMS e ruolo minimo"
       ],
       "answer": 3,
-      "explain": "Il vincolo di non passare da internet pubblica e la cifratura centralizzata e auditabile portano a VPC-only, subnet private, gateway endpoint S3, KMS, ruolo minimo e CloudTrail. Gli endpoint pubblici violano i vincoli."
+      "explain": "Il vincolo di non passare da internet pubblica e la cifratura centralizzata e auditabile portano a VPC-only, subnet private, endpoint privati, KMS, ruolo minimo e CloudTrail. Gli endpoint pubblici violano i vincoli."
     },
     {
       "q": "Rispondere con documenti aziendali aggiornati ogni giorno, senza riaddestramento: quale soluzione?",
       "options": [
         "Fare fine-tuning del modello",
-        "Bedrock Knowledge Bases, cioe RAG",
+        "Bedrock Knowledge Bases, cioè RAG",
         "Solo Bedrock Guardrails",
-        "Un modello di fondazione piu grande"
+        "Un modello di fondazione più grande"
       ],
       "answer": 1,
-      "explain": "Documenti aziendali che cambiano ogni giorno senza riaddestramento sono il caso della RAG. Il fine-tuning adatta stile e richiede dati etichettati, Guardrails filtra i contenuti ma non aggiunge conoscenza."
+      "explain": "Documenti che cambiano ogni giorno senza riaddestramento sono il caso della RAG. Il fine-tuning adatta lo stile, e Guardrails filtra i contenuti ma non aggiunge conoscenza."
     },
     {
-      "q": "Model Monitor segnala una sola violazione isolata. Qual e il passo migliore prima di riaddestrare?",
+      "q": "Model Monitor segnala una sola violazione isolata. Qual è il passo migliore prima di riaddestrare?",
       "options": [
-        "Riaddestrare solo dopo violazioni consecutive o significative",
+        "Riaddestrare solo dopo violazioni consecutive o un calo significativo",
         "Riaddestrare a ogni singola violazione, per essere sicuri di non perdere nulla",
-        "Disattivare Model Monitor, cosi il rumore non arriva piu al team di sviluppo",
-        "Eliminare l'endpoint alla prima allerta, senza aspettare altre verifiche"
+        "Disattivare Model Monitor, così il rumore non arriva più al team",
+        "Eliminare l'endpoint alla prima allerta, senza altre verifiche"
       ],
       "answer": 0,
-      "explain": "Una violazione isolata puo essere rumore: la buona pratica e attendere violazioni consecutive o un calo significativo di qualita prima di avviare un retraining costoso."
+      "explain": "Una violazione isolata può essere rumore: la buona pratica è attendere violazioni consecutive o un calo significativo di qualità prima di avviare un retraining costoso."
+    },
+    {
+      "q": "Un endpoint serverless deve ricevere richieste di 3 MB, con traffico intermittente. Va bene?",
+      "options": [
+        "No, il serverless accetta solo richieste di 1 KB",
+        "No, serve un endpoint real-time con payload di 1 GB",
+        "Sì, ma solo con batch transform e con una finestra di elaborazione notturna",
+        "Sì, il serverless accetta payload fino a 4 MB"
+      ],
+      "answer": 3,
+      "explain": "Il serverless inference accetta payload fino a 4 MB, quindi 3 MB rientrano. Il payload da 1 GB è quello dell'asynchronous inference, non del real-time, che arriva a 25 MB."
+    },
+    {
+      "q": "Una domanda a risposta multipla con cinque opzioni prevede due risposte giuste. Se selezioni solo una risposta giusta, quanto vale?",
+      "options": [
+        "Metà punto, perché la risposta è parzialmente corretta",
+        "Un punto pieno, perché una risposta giusta basta per il punteggio finale della domanda",
+        "Nessun punto, perché bisogna selezionare tutte le risposte giuste",
+        "Un punto, se la seconda opzione è almeno plausibile"
+      ],
+      "answer": 2,
+      "explain": "La guida MLA-C01 richiede di selezionare tutte le risposte giuste per ricevere il punto. Per questo ogni opzione va valutata da sola contro lo scenario."
+    },
+    {
+      "q": "Una domanda descrive un agente che chiama funzioni Lambda e cita Bedrock Agents Classic, chiuso ai nuovi clienti. Come rispondi?",
+      "options": [
+        "Scarti la domanda, perché il servizio non è più disponibile",
+        "Rispondi in base alla funzione dell'agente, citando AgentCore",
+        "Scegli l'opzione più economica, qualunque funzione abbia",
+        "Rispondi con il servizio chiuso solo se la domanda parla di prezzi, contratti e supporto"
+      ],
+      "answer": 1,
+      "explain": "L'esame valuta la competenza descritta nella guida. La risposta descrive il comportamento dell'agente, e AWS indica AgentCore per i nuovi progetti."
+    },
+    {
+      "q": "Quali sono i valori di stato di approvazione di un modello nel Model Registry?",
+      "options": [
+        "Pending, Ok, Refused",
+        "Approved e Pending, senza Rejected, per gli stati già pubblicati",
+        "PendingReview, Accepted, Declined",
+        "PendingManualApproval, Approved, Rejected"
+      ],
+      "answer": 3,
+      "explain": "Il valore API ModelApprovalStatus è PendingManualApproval, oltre ad Approved e Rejected. Gli altri nomi sono sbagliati anche se sembrano plausibili."
     }
   ],
-  "script": "In questo capitolo finale trasformiamo la teoria in punti d esame. L esame MLA-C01 ha 65 domande in 130 minuti: circa due minuti per domanda. La MLA-C02 in beta, con 85 domande in 170 minuti, chiede lo stesso ritmo di circa due minuti per domanda. La strategia e semplice: leggi prima vincoli e numeri, mappa lo scenario al servizio, elimina i distrattori e verifica la risposta contro i vincoli. Non incagliarti sui casi lunghi di VPC o KMS: segnali per review e vai avanti, tornerai dopo. La tecnica regina e l eliminazione: scarta prima le opzioni palesemente sbagliate, poi scegli tra le due rimaste. Spesso basta separare SageMaker da non SageMaker, o managed da custom. Impara le opzioni sempre sbagliate: access key nei job al posto degli execution role, Lambda o EC2 per il training pesante, SSE-C al posto di SSE-KMS quando serve audit, retraining a ogni singola violazione. Le parole-chiave scenario mappano quasi meccanicamente. Always-on e millisecondi uguale real-time. Intermittente e scale-to-zero uguale serverless. 1 GB e notifica uguale async. Offline e S3 in S3 out uguale batch. Centinaia di modelli uguale multi-model. Dati aggiornati senza retraining uguale RAG. Operare in autonomia uguale Agents. bloccare topic o PII uguale Guardrails, no internet uguale VPC-only, audit uguale CloudTrail, chiavi centralizzate uguale KMS. Memorizza i numeri chiave: 25 MB e 60 secondi per real-time, 4 MB e 60 secondi per serverless, 1 GB e un ora per async, sampling capture da zero a 100 per cento, stati PendingManualApproval Approved Rejected nel Model Registry, quattro tipi di Model Monitor. Per i practice exam usa prima la modalita review leggendo anche le spiegazioni delle risposte giuste, poi la modalita timed puntando a oltre l 80 per cento costante. La sera prima ripassa solo mapping e numeri, dormi e presentati con un metodo fisso per ogni quesito: vincoli, mappatura, eliminazione, verifica. Vediamo ora il metodo di risposta in quattro mosse applicato a esempi reali. Prima mossa: sottolinea vincoli e numeri nello stem, come latenza, payload, traffico e requisiti di sicurezza. Seconda mossa: mappa le parole-chiave al servizio prima di leggere le opzioni, cosi arrivi alle risposte con un'ipotesi gia formata. Terza mossa: elimina i distrattori con le regole fisse, come access key nei job, training pesante su Lambda, endpoint pubblici per dati sensibili o fine-tuning per conoscenza dinamica. Quarta mossa: verifica l'opzione rimasta contro ogni vincolo dello stem, senza aggiungere ipotesi tue. Applichiamo il metodo a tre scenari frequenti. Scenario uno: modello per transazioni con traffico costante e risposta sotto i 100 millisecondi. Vincoli dicono real-time, quindi scarti serverless per i cold start e async o batch perche non sono interattivi. Scenario due: documenti da 500 MB con elaborazione di minuti e notifica. Il payload uccide real-time e serverless, e la notifica punta ad async con S3 e SNS. Scenario tre: dati sensibili mai su internet pubblica con cifratura verificabile. Solo la combinazione VPC-only, subnet private, gateway S3, KMS e ruolo minimo soddisfa tutti i vincoli. Per la checklist dell'ultimo giorno, ripassa solo tabelle di mapping e numeri chiave, prepara documenti e percorso, dormi a sufficienza e decidi in anticipo la strategia di review. Questa slide fotografa lo stato dei servizi al 22 ottobre 2026, perche AWS li cambia spesso. Il 30 luglio 2026 hanno chiuso ai nuovi clienti Bedrock Agents Classic, Kendra e Amazon Q Business, insieme a diverse funzioni di SageMaker come Model Monitor, Clarify, Debugger, Profiler e Ground Truth. La notifica AWS del 30 giugno 2026 descrive il Profiler come in dismissione. Chi le usava prima continua a usarle. Il 29 ottobre 2026 DevOps Guru chiudera ai nuovi clienti e terminera il 30 settembre 2027, mentre il plugin IDE di Amazon Q Developer ha supporto fino al 30 aprile 2027. Prima ancora avevano chiuso Forecast, il 29 luglio 2024, e Fraud Detector e CodeGuru Reviewer, il 7 novembre 2025. Alcuni servizi hanno terminato il supporto: Lookout for Metrics, Lookout for Vision e CodeGuru Security. Il 29 settembre 2026 Amazon Mechanical Turk ha chiuso del tutto, anche se la guida MLA-C01 lo cita ancora. Ground Truth Plus, il servizio gestito di etichettatura, ha terminato il supporto il 30 giugno 2026. Ora la tattica d'esame. L'esame verifica le competenze descritte nella guida, non la disponibilita commerciale di un servizio. Se una domanda nomina un servizio della guida, rispondi in base a cio che quel servizio fa. Per esempio, se una domanda chiede come far operare un agente che chiama funzioni Lambda, la risposta descrive il comportamento dell'agente, anche se oggi AWS indica AgentCore per i nuovi progetti. prima giro veloce con risposte sicure, secondo giro per i casi segnati, mai cambiare una risposta senza una ragione tecnica precisa. In chiusura, tre pattern di risposta da memorizzare parola per parola. Pattern sicurezza massima: VPC-only con subnet private, gateway endpoint per S3, interface endpoint PrivateLink per API, ECR, log e KMS, cifratura KMS con chiavi gestite dal cliente, execution role a privilegio minimo e CloudTrail attivo. Pattern retraining automatico: Data Capture verso S3, schedule di Model Monitor, allarme CloudWatch su violazioni, regola EventBridge che avvia la pipeline di retraining con rigenerazione della baseline. Pattern GenAI: documenti dinamici uguale Knowledge Bases, azioni autonome uguale Agents con Action Groups, contenuti da filtrare uguale Guardrails, stile di dominio uguale fine-tuning, con valutazione automatica piu review umana. Con questi tre pattern, il metodo in quattro mosse e i numeri chiave, arrivi al giorno dell esame con una strategia solida e ripetibile per ogni quesito.",
+  "script": "Il primo passo è conoscere il formato, perché le regole orientano ogni scelta. L'esame MLA-C01 ha 65 domande in 130 minuti: il ritmo medio è di circa 2,0 minuti per domanda. La beta MLA-C02 ha 85 domande in 170 minuti, lo stesso ritmo, e costa 75 dollari durante la beta. Per la MLA-C02 le domande sono di due tipi. La scelta singola ha quattro opzioni e una sola risposta giusta. La risposta multipla ha cinque o più opzioni e due o più risposte giuste. Quindi, se vedi cinque opzioni, leggi subito quante risposte devi scegliere. La guida MLA-C01 elenca in più l'ordinamento, l'abbinamento e i casi di studio, da leggere con la stessa attenzione. Il punteggio non è una percentuale. È un punteggio scalato da 100 a 1000, e la guida MLA-C01 indica 720 come minimo per superare l'esame. La pagina delle FAQ AWS aggiunge che AWS non pubblica i punteggi di superamento e che possono cambiare nel tempo. Tratta quindi 720 come riferimento, non come un calcolo da fare durante la prova. Due regole pratiche. La guida dice che una domanda senza risposta è contata come sbagliata, e che non c'è penalità per il tiro a indovinare: non lasciare nulla vuoto. Il tempo va gestito a blocchi. Se una domanda ti blocca più di tre minuti senza un'ipotesi, segnala il caso e vai avanti. Alla fine, con il tempo residuo, torni sui casi segnati. A metà prova dovresti essere intorno alla trentesima domanda: è un ritmo di riferimento, non un timer per ogni domanda. Prendi per prime le domande che sai fare, perché ogni punto perso per fretta vale quanto un punto perso per difficoltà. Il metodo in quattro mosse serve a non farti trascinare dalle opzioni. Prima mossa: vincoli. Leggi lo scenario e individua i numeri e le condizioni: latenza, dimensione dei dati, traffico, sicurezza, budget, tempo di elaborazione. Sono questi che decidono la risposta. Seconda mossa: mappatura. Prima di leggere le opzioni, associa le parole chiave a un servizio o a una funzione. Traffico intermittente fa pensare al serverless, documenti da centinaia di megabyte con notifica fanno pensare all'asynchronous, dati aggiornati senza retraining fanno pensare a RAG. Così arrivi alle opzioni con un'ipotesi già formata, e le riconosci più in fretta. Terza mossa: eliminazione. Scarta le opzioni che violano una regola fissa, come usare access key nei job o un endpoint pubblico per dati sensibili. Di solito restano due opzioni. Quarta mossa: verifica. Prendi la risposta rimasta e controllala contro ogni vincolo dello scenario, uno per uno. Non aggiungere ipotesi tue: se la risposta richiede un requisito che la domanda non dice, probabilmente è sbagliata. Il metodo è lo stesso per ogni domanda, anche quando il servizio ti è poco familiare. Ripeterlo sempre ti fa risparmiare tempo nei casi difficili, perché non devi reinventare la strategia ogni volta. L'eliminazione è la tecnica che ti fa guadagnare più punti. Non serve sapere tutto, serve riconoscere le opzioni impossibili. Parti dallo scenario: scarta le opzioni palesemente fuori contesto, per esempio un servizio che non fa quella cosa, e tieni le due che restano. Poi applica le regole fisse che l'esame ripete. La prima: in un job SageMaker si usa un execution role, non access key incorporate. Il ruolo di esecuzione è il modo in cui SageMaker AI accede per tuo conto a S3, a ECR e agli altri servizi, e la documentazione lo descrive così. La seconda: Lambda non serve per il training pesante, perché una singola invocazione può durare al massimo 15 minuti. La terza: un endpoint pubblico non va bene per dati sensibili, e per il traffico privato esiste l'interface endpoint, che usa AWS PrivateLink. La quarta: il fine-tuning cambia lo stile o il comportamento di un modello, ma non aggiorna la conoscenza ogni giorno. Quello è il compito della RAG. La quinta riguarda la cifratura. Con SSE-KMS la chiave è gestita in modo centralizzato in KMS, e il suo uso si può controllare. Con SSE-C la chiave la fornisci tu con ogni richiesta, quindi resta fuori dal controllo centralizzato. Se lo scenario chiede audit e chiavi centrali, scegli SSE-KMS. Attenzione anche a una novità: da aprile 2026 Amazon S3 disattiva SSE-C di default sui nuovi bucket, e per usarlo va abilitato esplicitamente. Queste regole non coprono tutto, ma eliminano molte opzioni sbagliate in pochi secondi. Le domande a risposta multipla fanno perdere più punti di quanto sembri, perché sembrano facili. La guida MLA-C01 le definisce così: due o più risposte giuste su cinque o più opzioni. Il primo segnale è quindi il numero di opzioni. Il secondo è il testo, che di solito indica quante risposte scegliere. La regola di valutazione è severa: per avere il punto devi selezionare tutte le risposte giuste. La guida non parla di punteggio parziale. Il metodo è valutare ogni opzione separatamente, come vera o falsa rispetto allo scenario, senza confrontarle tra loro. Un'opzione può essere una buona pratica AWS in generale, e risultare sbagliata per lo scenario perché non rispetta un vincolo. Per questo la regola è verificare ogni opzione contro lo scenario, non contro la memoria. Un errore comune è prendere le due opzioni più familiari, anche quando una delle due non risponde alla domanda. Un altro è fermarsi alla prima risposta giusta, dimenticando di cercare la seconda. Procedi in due passaggi: prima individua tutte le opzioni che rispettano i vincoli, poi scegli il numero richiesto. Se ne trovi più del numero indicato, rileggi il vincolo più stretto. Se ne trovi meno, controlla di non aver scartato per errore un'opzione che usa un servizio che non ricordavi bene. La lettura delle parole chiave è la scorciatoia più utile. Ogni espressione ricorrente in una domanda porta quasi sempre a una famiglia di servizi. Always-on e latenza in millisecondi portano al real-time endpoint: il container è sempre attivo e risponde in modo sincrono. Traffico intermittente, con periodi di inattività, porta al serverless inference, che scala a zero, ma con cold start e un payload massimo di 4 MB. Payload grande, elaborazione di minuti e notifica portano all'asynchronous inference: l'input va su S3, la richiesta viene accodata, il risultato torna su S3 e SNS avvisa. Dataset già in S3, elaborati offline senza un endpoint persistente, portano al batch transform. Molti modelli poco usati dietro lo stesso endpoint portano al multi-model endpoint, che carica i modelli quando servono, con possibili cold start per quelli meno usati. Dati aggiornati senza retraining portano alla RAG, cioè a Bedrock Knowledge Bases, che recuperano documenti al momento della domanda. Dati da leggere in tempo reale e storico per il training portano a SageMaker Feature Store, con online e offline store. Nessuna rotta verso internet porta a VPC-only, con endpoint privati. Audit porta a CloudTrail, chiavi centralizzate portano a KMS. Impara questi legami a memoria: sono la base di ogni mapping, e li userai in quasi tutte le domande. Pochi numeri ricorrono in molte domande, quindi conviene fissarli. Il serverless inference accetta payload fino a 4 MB, e il container deve rispondere entro 60 secondi. L'asynchronous inference accetta payload fino a 1 GB e può elaborare fino a un'ora, con il numero di istanze che scende a zero quando non ci sono richieste. Il real-time accetta payload fino a 25 MB. La pagina AWS sulle opzioni di inferenza indica 25 MB, con 60 secondi per le risposte regolari e 8 minuti per lo streaming, e anche le Model Hosting FAQ danno 25 MB. Attenzione però al valore vecchio. Il materiale più vecchio riporta 6 MB, cioè il limite in vigore quando è nato l'esame, e la reference dell'API InvokeEndpoint riporta ancora un corpo massimo di 6291456 byte, cioè circa 6 MB. Se una domanda più vecchia propone solo 6 MB tra le opzioni, leggila con quel limite. Per confrontare i payload, usa i valori attuali: 4 MB per il serverless, 25 MB per il real-time, 1 GB per l'asincrono. Per il data capture, il parametro InitialSamplingPercentage va da 0 a 100 per cento, e AWS consiglia valori più bassi per gli endpoint con traffico alto. Nel Model Registry lo stato di approvazione è PendingManualApproval, Approved o Rejected. Model Monitor ha quattro tipi di monitoraggio: qualità dei dati, qualità del modello, bias drift e drift dell'attribuzione delle feature, che corrisponde all'explainability. Model Monitor oggi non è aperto ai nuovi clienti, ma il concetto resta nell'esame, come vedremo più avanti. I tranelli sono errori che la domanda induce con un dettaglio plausibile. Il primo: il serverless per traffico costante. Sembra economico, ma quando il traffico è continuo e la latenza è stretta, i cold start diventano il problema, e il real-time è più adatto. Il secondo: il batch transform per una risposta immediata all'utente. Il batch lavora su dataset, in modo offline, e non risponde a una singola richiesta interattiva. Il terzo: i Guardrails per dare conoscenza al modello. I Guardrails filtrano contenuti, argomenti vietati e dati personali, sia in input sia in output, ma non aggiungono documenti o fatti. Per quello serve RAG. Il quarto: Lambda per un job lungo. Una singola invocazione non può superare 15 minuti, quindi per elaborazioni di ore non è la scelta giusta. Il quinto: il retraining a ogni violazione isolata. Una violazione singola può essere rumore, e un retraining è costoso: è meglio attendere violazioni consecutive o un calo significativo della qualità. Il sesto: confondere la disponibilità con la funzione. Un servizio chiuso ai nuovi clienti può comunque essere la risposta a una domanda che descrive la sua funzione, come vedremo nelle slide sui servizi chiusi. Questa domanda chiede una cosa precisa: le stesse feature devono servire al training e all'inferenza, senza differenze. Le parole chiave sono tre: stesse feature, storico per il training e millisecondi per la predizione. Ragioniamo sulle opzioni. La A salva le feature in CSV su S3 e le legge dall'applicazione. È un deposito di file, non uno store: non offre letture a bassa latenza, e non gestisce lo storico per istanti precisi. Scartata. La C copia le feature in un database una volta al giorno. Il problema è la freschezza: i valori sono vecchi di un giorno, e la copia è un processo in più da mantenere. Scartata. La D ricalcola le feature con Lambda a ogni richiesta. Qui il training e l'inferenza usano codice diverso, e questo è proprio il training-serving skew che l'esame vuole farti riconoscere. Scartata. Resta la B, un feature group di SageMaker Feature Store con online store e offline store. L'online store conserva l'ultimo valore per ogni record e serve letture a bassa latenza, nell'ordine dei millisecondi, per l'inferenza. L'offline store conserva tutto lo storico in S3, in formato Parquet, ed è pensato per l'addestramento e le previsioni batch. Ogni record è identificato da un record identifier, e l'event time indica quando il valore è valido. Un'estrazione point-in-time prende il valore che era valido a un istante preciso, e così evita il leakage, cioè informazioni future che entrano nel training. Regola d'esame: se la domanda chiede inferenza in tempo reale con latenza di millisecondi, pensa all'online store. Questa domanda riguarda la preparazione dei dati, non l'inferenza. Le parole chiave sono 2 TB, trasformazioni con join e aggregazioni, una volta a notte e nessun cluster sempre acceso. La A, una funzione Lambda che legge tutto in sequenza, è scartata: una singola invocazione Lambda dura al massimo 15 minuti, e 2 TB di dati non stanno in quella finestra. La C, un'istanza EC2 sempre accesa con cron, viola il vincolo di nessun cluster sempre attivo: pagheresti tempo di calcolo anche quando non lavora. La D, un endpoint real-time che trasforma i dati a ogni richiesta, confonde i ruoli: un endpoint serve predizioni a richiesta, non prepara dataset notturni. Resta la B, un job AWS Glue programmato. La guida elenca AWS Glue tra gli strumenti per trasformare i dati, insieme ad altri servizi come Spark su Amazon EMR. Il criterio dell'esame è semplice: il servizio deve trasformare dataset grandi, in modo gestito e programmato. La parola nessun cluster sempre acceso è quella che elimina la C, mentre la parola sequenza elimina la A. Nelle domande di preparazione dei dati, cerca sempre la scala del dataset e la frequenza del job, perché sono loro a decidere la risposta. Questa domanda riguarda l'ottimizzazione di un modello. Le parole chiave sono quattro iperparametri, massimizzare l'AUC e ridurre le prove manuali. La A, dieci training con valori casuali e confronto dei log, sembra semplice, ma è manuale, non segue una metrica in modo sistematico e non scala. Scartata. La C, il training in Lambda, è sbagliata per una ragione fissa: una funzione Lambda può girare al massimo 15 minuti per invocazione, e il training di un modello può durare molto di più. Scartata. La D, più spazio nel bucket S3, confonde l'archiviazione con il calcolo: non migliora nessuna metrica. Scartata. Resta la B: SageMaker Automatic Model Tuning, cioè il tuning degli iperparametri. Il servizio esegue molti training job sui tuoi dati, cerca negli intervalli di valori che definisci e sceglie la combinazione che produce il modello migliore secondo la metrica indicata, in questo caso AUC. La B risponde a tutti i vincoli. Se la domanda chiede anche di ridurre i costi, ricorda che il tuning può usare istanze Spot per i training job. Attenzione alla parola manuale: l'esame preferisce soluzioni automatiche e ripetibili quando lo scenario chiede di sperimentare molte combinazioni. Le parole chiave sono frodi rare e confrontare i modelli. Il dataset è sbilanciato: un modello che dice sempre legittimo ottiene già un'accuratezza altissima, perché quasi tutte le transazioni sono legittime. Quindi la A è la trappola classica. Scartata. La C, RMSE, è una metrica per problemi di regressione, cioè per valori numerici continui, non per riconoscere una frode. Scartata. La D, il numero di epoche, non misura la qualità: è un parametro di training, e sapere quante epoche hai fatto non dice quanto il modello sia buono. Scartata. La B è la risposta. La precision misura quante delle segnalazioni sono vere frodi. La recall misura quante frodi reali il modello riesce a trovare. F1 riassume le due in un unico numero. Con classi sbilanciate è proprio questa combinazione a rivelare un modello che fallisce sulle frodi, anche con un'accuratezza alta. La guida MLA-C01 elenca F1, accuracy, precision, recall e RMSE tra le metriche da conoscere, quindi queste sono competenze esplicite dell'esame. Il tranello è vedere un'accuratezza alta e fermarsi lì. Ogni volta che la domanda parla di classi rare, chiediti quale metrica misura gli errori sulla classe rara. Questa domanda è sull'inferenza. Le parole chiave sono una richiesta per transazione, traffico costante e risposta immediata. Il traffico costante toglie il vantaggio principale del serverless, che è scalare a zero nei periodi di inattività. La A, batch transform su file giornalieri, è offline: produce risultati su S3 per un dataset, non risponde a una singola transazione. Scartata. La C, asynchronous inference, è pensata per payload grandi ed elaborazioni di minuti: qui il pagamento deve ricevere la risposta subito. Scartata. La D, serverless inference, sembra valida per la parola scala, ma il problema è il cold start. La documentazione dice che un endpoint serverless può avere un cold start quando riceve traffico dopo un periodo di inattività, o quando le richieste superano la concorrenza disponibile. Con traffico costante e risposta immediata, questo rischio è inaccettabile. Scartata. Resta la B: un real-time endpoint con istanze sempre attive. È persistente, supporta l'autoscaling e risponde in modo sincrono, con il container che deve rispondere entro 60 secondi. Per una domanda con risposta di minuti, il real-time non va bene: serve un'altra opzione. Il caso è un documento da 500 MB che richiede circa 8 minuti e deve avvisare l'utente quando il risultato è pronto. Le parole chiave sono 500 MB, minuti e avviso. Il payload da 500 MB supera sia il limite di 25 MB del real-time sia quello di 4 MB del serverless, e 8 minuti superano i 60 secondi della risposta regolare del real-time. Due vincoli escludono già due opzioni. La A, real-time con timeout di 60 secondi, fallisce sul tempo. Scartata. La B, serverless con payload di 4 MB, fallisce sul payload. Scartata. La D, batch transform lanciato a ogni richiesta, confonde il modello d'uso: il batch è pensato per dataset e non per il ciclo richiesta e risposta di un utente. Scartata. La C risponde a tutto. L'asynchronous inference accetta payload fino a 1 GB ed elaborazioni fino a un'ora. L'input viene messo su S3, la richiesta viene accodata, il risultato va su S3, e una notifica SNS avvisa quando è pronto. È l'unica opzione che rispetta payload, durata e notifica insieme. Regola d'esame: quando trovi S3 e SNS nella stessa domanda, con elaborazioni lunghe, pensa quasi sempre all'asynchronous inference. Il caso è un endpoint real-time in produzione. Il team vuole sapere quando i dati in ingresso cambiano, ricevere un allarme e avviare il retraining. Le parole chiave sono cambiano nel tempo, allarme e retraining. La B, controllare i log a mano ogni settimana, non è automatica e arriva tardi. Scartata. La C, disattivare la cattura dei dati per risparmiare, elimina proprio ciò che serve al monitoraggio. Scartata. La D, riaddestrare ogni notte senza confronti, consuma risorse e non dice nulla sul drift. Scartata. La A descrive il pattern completo: la cattura dei dati su S3, un monitoraggio pianificato che confronta i dati con una baseline ricavata dal training, un allarme su CloudWatch e una regola EventBridge che avvia la pipeline di retraining. Qui sta il tranello di chiusura. Model Monitor non è più aperto ai nuovi clienti dal 30 luglio 2026. La pagina AWS indica come sostituzione soluzioni di monitoraggio open source costruite su SageMaker AI, con QuickSight per i dashboard e CloudWatch per le metriche. Per l'esame, però, la funzione non cambia: la domanda chiede di confrontare la distribuzione con una baseline, avvisare e riaddestrare. Rispondi quindi sulla funzione, e per un progetto nuovo ricorda l'alternativa indicata da AWS. Questo caso è in risposta multipla: cinque opzioni e due risposte giuste. Le parole chiave sono dati sensibili, niente traffico su internet pubblica e log verificabili. Ogni vincolo va letto come un filtro. La A, endpoint pubblico con chiavi IAM nel codice, viola il primo vincolo e il principio dell'execution role. Scartata. La C, access key salvate nel bucket dei dati, è una pratica da evitare, perché espone credenziali e contraddice il controllo degli accessi. Scartata. La E, un firewall applicativo davanti a un endpoint pubblico, lascia il traffico su internet, e il vincolo lo vieta. Scartata. La B è corretta. Una VPC con subnet private e un interface endpoint per SageMaker Runtime fa sì che la comunicazione tra la VPC e l'API resti dentro la rete AWS, senza passare da un internet gateway o da un NAT. La D è corretta. La cifratura con AWS KMS protegge i dati e gestisce le chiavi in modo centralizzato, e il logging con CloudTrail fornisce la traccia verificabile richiesta dall'audit. Attenzione alla regola della risposta multipla: se ne selezioni una sola, o una sbagliata, non ottieni il punto. Seleziona entrambe, e solo quelle giuste. Questa slide fotografa lo stato dei servizi al 23 ottobre 2026, perché AWS li cambia spesso. Il 30 luglio 2026 hanno smesso di accettare nuovi clienti Bedrock Agents Classic, Kendra e Amazon Q Business. Nello stesso giorno hanno chiuso ai nuovi clienti diverse funzioni di SageMaker AI: A2I, Clarify, Debugger, Ground Truth, Model Monitor, Role Manager, Studio Lab, GeoSpatial, Mechanical Turk e Profiler. Chi già li usava può continuare. Per Bedrock Agents Classic la pagina AWS indica la modalità di manutenzione, e per i nuovi progetti suggerisce AgentCore. Prima di queste date erano già chiusi altri servizi. Forecast ha chiuso ai nuovi clienti il 29 luglio 2024, e AWS indica SageMaker Canvas come alternativa. Fraud Detector e CodeGuru Reviewer sono passati in manutenzione il 7 novembre 2025. DevOps Guru chiuderà ai nuovi clienti il 29 ottobre 2026, con la fine del servizio il 30 settembre 2027. La guida MLA-C01 continua a citare molti di questi nomi. L'esame valuta la competenza che ciascun servizio rappresenta, quindi questa slide ti serve a sapere che cosa fa ciascuno, più che a memorizzare le date. Ecco i servizi già in fine supporto o chiusi del tutto. Lookout for Metrics ha terminato il supporto il 10 ottobre 2025, Lookout for Vision il 31 ottobre 2025, e CodeGuru Security il 20 novembre 2025. Lookout for Equipment ha terminato il supporto il 7 ottobre 2026: dopo quella data console e risorse non sono più accessibili. Alla chiusura totale appartengono Kinesis Data Analytics for SQL, dal 27 gennaio 2026, Panorama, dal 20 maggio 2026, Ground Truth Plus, dal 30 giugno 2026, Mechanical Turk, dal 29 settembre 2026, e FinSpace, dal 7 ottobre 2026. La pagina AWS elenca anche servizi in sunset senza una data precisa, come SageMaker Profiler, WorkSpaces PCoIP e Pool, e AWS re:Post Private. Ora la tattica. L'esame valuta le competenze descritte nella guida, non la disponibilità commerciale di un servizio. Se una domanda nomina un servizio della guida, rispondi in base a ciò che il servizio fa. Per esempio, se una domanda chiede come far operare un agente che chiama funzioni, la risposta descrive il comportamento dell'agente, anche se AWS oggi indica AgentCore per i nuovi progetti. Non scartare un'opzione solo perché il servizio è chiuso: valuta la funzione che descrive. Se la domanda descrive un progetto nuovo, puoi citare l'alternativa indicata da AWS, perché è l'indicazione attuale di AWS per i nuovi progetti. Il sito è costruito per allenare il metodo in ordine. Parti dai capitoli base seguendo la mappa: fondamenti e preparazione dei dati, poi sviluppo, deploy e monitoraggio, poi GenAI. Gli approfondimenti li leggi quando un argomento base ti sembra corto. Dopo ogni capitolo fai le domande di quel tema in modalità Studio. Il feedback arriva al click per la scelta singola, e per la risposta multipla dopo il pulsante Conferma. La spiegazione resta visibile e puoi segnare la domanda con la stellina da rivedere. Quando hai coperto una parte dei capitoli, passa alla simulazione d'esame. Per MLA-C02 le domande sono 85, per MLA-C01 sono 65. La simulazione pesca dal banco senza filtri, con una ripartizione per dominio secondo i pesi della guida, e alla fine mostra il punteggio totale, quello per dominio e la correzione completa. Puoi anche usare la simulazione libera, con 10, 25 o 50 domande dal filtro attivo, per lavorare su un capitolo o un dominio debole. Dopo ogni simulazione ripassa gli errori: leggi la spiegazione anche delle risposte giuste, poi rifai le domande sbagliate dopo qualche giorno. Il sito considera superata una simulazione dal 75 per cento. Sei pronto quando le simulazioni restano stabilmente sopra questa soglia, per esempio con più prove di seguito sopra l'80 per cento. Attenzione: è un criterio di studio, non una conversione del punteggio AWS da 100 a 1000. Il giorno dell'esame ha regole semplici, ma vanno lette con attenzione. Puoi sostenere la prova in un centro Pearson VUE oppure online, con sorveglianza remota da casa. La scelta si fa in fase di prenotazione. Per il centro serve un documento d'identità valido rilasciato dal governo, più un secondo documento, e il nome sull'account va allineato a quello del documento. Per l'online i requisiti del documento sono diversi, e la comunicazione con il proctor è obbligatoria per completare l'appuntamento. Controlla in anticipo i requisiti tecnici indicati nella conferma di Pearson VUE. Se hai bisogno di accomodamenti, chiedili prima di prenotare, perché vanno richiesti prima di ogni prenotazione. Non puoi annullare o spostare l'appuntamento nelle 24 ore precedenti, e puoi spostarlo al massimo due volte. Se annulli troppo tardi o non ti presenti, la quota può essere persa. I risultati arrivano di solito entro cinque giorni lavorativi. Il punteggio è scalato da 100 a 1000, con 720 come riferimento della guida MLA-C01. La certificazione vale tre anni. Per le regole precise su documenti e oggetti consentiti leggi la pagina Pearson VUE collegata dalla pagina AWS, perché AWS non riporta qui tutti i dettagli. L'ultimo giorno serve a fissare, non a studiare argomenti nuovi. Ripassa solo le tabelle di mapping, i numeri chiave e questa checklist. Prepara il documento d'identità, controlla orario e percorso, oppure la configurazione per l'online, e dormi a sufficienza. Decidi prima la strategia di revisione: un primo giro veloce con le risposte sicure, un secondo giro per i casi segnati, e nessun cambio di risposta senza una ragione tecnica precisa. Per chiudere, tre pattern da memorizzare come forma di risposta. Il pattern di sicurezza: VPC-only con subnet private, endpoint privati per SageMaker Runtime, cifratura con KMS, execution role a privilegio minimo e CloudTrail attivo. Il pattern di retraining automatico: cattura dei dati su S3, monitoraggio pianificato con baseline, allarme CloudWatch sulle violazioni, e una regola EventBridge che avvia la pipeline di retraining. Il pattern GenAI: documenti dinamici uguale Knowledge Bases, perché la RAG recupera le fonti al momento della domanda; azioni autonome uguale agenti, dove per i progetti nuovi AWS indica AgentCore; contenuti da filtrare uguale Guardrails; stile di dominio uguale fine-tuning, con valutazione automatica più revisione umana. Con questi pattern, il metodo in quattro mosse e i numeri chiave, affronti ogni domanda con una strategia ripetibile.",
   "slides": [
     {
+      "title": "Formato e tempo: i numeri da conoscere",
       "bullets": [
-        "65 domande in 130 minuti: circa 2,0 minuti per domanda. Stesso ritmo per la MLA-C02: 85 domande in 170 minuti.",
-        "Leggi prima vincoli e numeri, poi scenario e opzioni.",
-        "Segna i casi lunghi per review e vai avanti.",
-        "Torna indietro solo con tempo residuo e risposte facili gia salve.",
-        "Obiettivo: nessun punto facile perso per mancanza di tempo."
+        "MLA-C01: 65 domande in 130 minuti, circa 2,0 minuti per domanda.",
+        "MLA-C02 in beta: 85 domande in 170 minuti, stesso ritmo, solo inglese.",
+        "Scelta singola: una risposta giusta su quattro opzioni.",
+        "Risposta multipla: due o più risposte giuste su cinque o più opzioni.",
+        "Punteggio scalato da 100 a 1000; la guida MLA-C01 indica 720 come minimo.",
+        "Domanda senza risposta: conta come sbagliata; nessuna penalità per tirare a indovinare.",
+        "Segna i casi lunghi, vai avanti, torna con il tempo residuo."
       ],
-      "title": "Gestione del tempo",
-      "narration": "In questo capitolo finale trasformiamo la teoria in punti d esame. L esame MLA-C01 ha 65 domande in 130 minuti: circa due minuti per domanda. La MLA-C02 in beta, con 85 domande in 170 minuti, chiede lo stesso ritmo di circa due minuti per domanda. La strategia e semplice: leggi prima vincoli e numeri, mappa lo scenario al servizio, elimina i distrattori e verifica la risposta contro i vincoli. Non incagliarti sui casi lunghi di VPC o KMS: segnali per review e vai avanti, tornerai dopo. La tecnica regina e l eliminazione: scarta prima le opzioni palesemente sbagliate, poi scegli tra le due rimaste. Spesso basta separare SageMaker da non SageMaker, o managed da custom. Impara le opzioni sempre sbagliate: access key nei job al posto degli execution role, Lambda o EC2 per il training pesante, SSE-C al posto di SSE-KMS quando serve audit, retraining a ogni singola violazione. Le parole-chiave scenario mappano quasi meccanicamente."
+      "narration": "Il primo passo è conoscere il formato, perché le regole orientano ogni scelta. L'esame MLA-C01 ha 65 domande in 130 minuti: il ritmo medio è di circa 2,0 minuti per domanda. La beta MLA-C02 ha 85 domande in 170 minuti, lo stesso ritmo, e costa 75 dollari durante la beta. Per la MLA-C02 le domande sono di due tipi. La scelta singola ha quattro opzioni e una sola risposta giusta. La risposta multipla ha cinque o più opzioni e due o più risposte giuste. Quindi, se vedi cinque opzioni, leggi subito quante risposte devi scegliere. La guida MLA-C01 elenca in più l'ordinamento, l'abbinamento e i casi di studio, da leggere con la stessa attenzione. Il punteggio non è una percentuale. È un punteggio scalato da 100 a 1000, e la guida MLA-C01 indica 720 come minimo per superare l'esame. La pagina delle FAQ AWS aggiunge che AWS non pubblica i punteggi di superamento e che possono cambiare nel tempo. Tratta quindi 720 come riferimento, non come un calcolo da fare durante la prova. Due regole pratiche. La guida dice che una domanda senza risposta è contata come sbagliata, e che non c'è penalità per il tiro a indovinare: non lasciare nulla vuoto. Il tempo va gestito a blocchi. Se una domanda ti blocca più di tre minuti senza un'ipotesi, segnala il caso e vai avanti. Alla fine, con il tempo residuo, torni sui casi segnati. A metà prova dovresti essere intorno alla trentesima domanda: è un ritmo di riferimento, non un timer per ogni domanda. Prendi per prime le domande che sai fare, perché ogni punto perso per fretta vale quanto un punto perso per difficoltà.",
+      "todo": []
     },
     {
+      "title": "Il metodo in quattro mosse",
       "bullets": [
-        "Elimina prima le opzioni palesemente fuori scenario.",
-        "Separa SageMaker contro non SageMaker, managed contro custom.",
-        "Access key nei job e sempre sbagliato: servono execution role.",
-        "Lambda per training pesante e quasi sempre sbagliato.",
-        "Tra due opzioni rimaste, vince quella che soddisfa tutti i vincoli."
+        "1. Vincoli: sottolinea latenza, payload, traffico, sicurezza e costo nello scenario.",
+        "2. Mappatura: collega le parole chiave a un servizio prima di guardare le opzioni.",
+        "3. Eliminazione: scarta le opzioni che violano una regola fissa.",
+        "4. Verifica: controlla la risposta rimasta contro ogni vincolo, senza ipotesi tue.",
+        "Cambia una risposta solo con una ragione tecnica precisa."
       ],
+      "narration": "Il metodo in quattro mosse serve a non farti trascinare dalle opzioni. Prima mossa: vincoli. Leggi lo scenario e individua i numeri e le condizioni: latenza, dimensione dei dati, traffico, sicurezza, budget, tempo di elaborazione. Sono questi che decidono la risposta. Seconda mossa: mappatura. Prima di leggere le opzioni, associa le parole chiave a un servizio o a una funzione. Traffico intermittente fa pensare al serverless, documenti da centinaia di megabyte con notifica fanno pensare all'asynchronous, dati aggiornati senza retraining fanno pensare a RAG. Così arrivi alle opzioni con un'ipotesi già formata, e le riconosci più in fretta. Terza mossa: eliminazione. Scarta le opzioni che violano una regola fissa, come usare access key nei job o un endpoint pubblico per dati sensibili. Di solito restano due opzioni. Quarta mossa: verifica. Prendi la risposta rimasta e controllala contro ogni vincolo dello scenario, uno per uno. Non aggiungere ipotesi tue: se la risposta richiede un requisito che la domanda non dice, probabilmente è sbagliata. Il metodo è lo stesso per ogni domanda, anche quando il servizio ti è poco familiare. Ripeterlo sempre ti fa risparmiare tempo nei casi difficili, perché non devi reinventare la strategia ogni volta.",
+      "todo": []
+    },
+    {
       "title": "Eliminazione dei distrattori",
-      "narration": "Always-on e millisecondi uguale real-time. Intermittente e scale-to-zero uguale serverless. 1 GB e notifica uguale async. Offline e S3 in S3 out uguale batch. Centinaia di modelli uguale multi-model. Dati aggiornati senza retraining uguale RAG. Operare in autonomia uguale Agents."
+      "bullets": [
+        "Elimina prima le opzioni fuori scenario, poi scegli tra le due rimaste.",
+        "Access key nei job: sbagliato, il job usa un execution role.",
+        "Lambda per il training pesante: sbagliato, una invocazione dura al massimo 15 minuti.",
+        "Endpoint pubblico per dati sensibili: sbagliato, serve VPC-only.",
+        "Fine-tuning per dati che cambiano ogni giorno: sbagliato, serve RAG.",
+        "SSE-C al posto di SSE-KMS quando serve controllo centrale: quasi sempre sbagliato."
+      ],
+      "narration": "L'eliminazione è la tecnica che ti fa guadagnare più punti. Non serve sapere tutto, serve riconoscere le opzioni impossibili. Parti dallo scenario: scarta le opzioni palesemente fuori contesto, per esempio un servizio che non fa quella cosa, e tieni le due che restano. Poi applica le regole fisse che l'esame ripete. La prima: in un job SageMaker si usa un execution role, non access key incorporate. Il ruolo di esecuzione è il modo in cui SageMaker AI accede per tuo conto a S3, a ECR e agli altri servizi, e la documentazione lo descrive così. La seconda: Lambda non serve per il training pesante, perché una singola invocazione può durare al massimo 15 minuti. La terza: un endpoint pubblico non va bene per dati sensibili, e per il traffico privato esiste l'interface endpoint, che usa AWS PrivateLink. La quarta: il fine-tuning cambia lo stile o il comportamento di un modello, ma non aggiorna la conoscenza ogni giorno. Quello è il compito della RAG. La quinta riguarda la cifratura. Con SSE-KMS la chiave è gestita in modo centralizzato in KMS, e il suo uso si può controllare. Con SSE-C la chiave la fornisci tu con ogni richiesta, quindi resta fuori dal controllo centralizzato. Se lo scenario chiede audit e chiavi centrali, scegli SSE-KMS. Attenzione anche a una novità: da aprile 2026 Amazon S3 disattiva SSE-C di default sui nuovi bucket, e per usarlo va abilitato esplicitamente. Queste regole non coprono tutto, ma eliminano molte opzioni sbagliate in pochi secondi.",
+      "todo": []
     },
     {
+      "title": "Risposte multiple: come si affrontano",
       "bullets": [
-        "Always-on e millisecondi uguale real-time; spiky uguale serverless.",
-        "1 GB piu notifica uguale async; offline uguale batch transform.",
-        "Tanti modelli poco usati uguale multi-model endpoint.",
-        "Dati aggiornati senza retraining uguale RAG; operare uguale Agents.",
-        "No internet uguale VPC-only; audit uguale CloudTrail; chiavi centrali uguale KMS."
+        "Riconosci la risposta multipla: cinque o più opzioni e l'indicazione di quante scegliere.",
+        "Il punto arriva solo se selezioni tutte le risposte giuste.",
+        "Valuta ogni opzione da sola: vera o falsa rispetto allo scenario.",
+        "Un'opzione vera in generale, ma che non rispetta un vincolo, va scartata.",
+        "Prima di selezionare la seconda risposta, rileggi lo scenario."
       ],
+      "narration": "Le domande a risposta multipla fanno perdere più punti di quanto sembri, perché sembrano facili. La guida MLA-C01 le definisce così: due o più risposte giuste su cinque o più opzioni. Il primo segnale è quindi il numero di opzioni. Il secondo è il testo, che di solito indica quante risposte scegliere. La regola di valutazione è severa: per avere il punto devi selezionare tutte le risposte giuste. La guida non parla di punteggio parziale. Il metodo è valutare ogni opzione separatamente, come vera o falsa rispetto allo scenario, senza confrontarle tra loro. Un'opzione può essere una buona pratica AWS in generale, e risultare sbagliata per lo scenario perché non rispetta un vincolo. Per questo la regola è verificare ogni opzione contro lo scenario, non contro la memoria. Un errore comune è prendere le due opzioni più familiari, anche quando una delle due non risponde alla domanda. Un altro è fermarsi alla prima risposta giusta, dimenticando di cercare la seconda. Procedi in due passaggi: prima individua tutte le opzioni che rispettano i vincoli, poi scegli il numero richiesto. Se ne trovi più del numero indicato, rileggi il vincolo più stretto. Se ne trovi meno, controlla di non aver scartato per errore un'opzione che usa un servizio che non ricordavi bene.",
+      "todo": []
+    },
+    {
       "title": "Parole-chiave e mapping",
-      "narration": "bloccare topic o PII uguale Guardrails, no internet uguale VPC-only, audit uguale CloudTrail, chiavi centralizzate uguale KMS. Memorizza i numeri chiave: 25 MB e 60 secondi per real-time, 4 MB e 60 secondi per serverless, 1 GB e un ora per async, sampling capture da zero a 100 per cento, stati PendingManualApproval Approved Rejected nel Model Registry, quattro tipi di Model Monitor. Per i practice exam usa prima la modalita review leggendo anche le spiegazioni delle risposte giuste, poi la modalita timed puntando a oltre l 80 per cento costante. La sera prima ripassa solo mapping e numeri, dormi e presentati con un metodo fisso per ogni quesito: vincoli, mappatura, eliminazione, verifica. Vediamo ora il metodo di risposta in quattro mosse applicato a esempi reali."
+      "bullets": [
+        "Always-on e latenza in millisecondi: real-time endpoint.",
+        "Traffico intermittente con periodi di inattività: serverless inference, con 4 MB e 60 secondi.",
+        "Payload grande, minuti di elaborazione e notifica: asynchronous inference, con S3 e SNS.",
+        "Dataset già in S3, nessun endpoint persistente: batch transform.",
+        "Molti modelli poco usati dietro lo stesso endpoint: multi-model endpoint.",
+        "Dati aggiornati senza retraining: RAG con Bedrock Knowledge Bases.",
+        "Nessuna rotta verso internet: VPC-only; chiavi centrali: KMS; audit: CloudTrail."
+      ],
+      "narration": "La lettura delle parole chiave è la scorciatoia più utile. Ogni espressione ricorrente in una domanda porta quasi sempre a una famiglia di servizi. Always-on e latenza in millisecondi portano al real-time endpoint: il container è sempre attivo e risponde in modo sincrono. Traffico intermittente, con periodi di inattività, porta al serverless inference, che scala a zero, ma con cold start e un payload massimo di 4 MB. Payload grande, elaborazione di minuti e notifica portano all'asynchronous inference: l'input va su S3, la richiesta viene accodata, il risultato torna su S3 e SNS avvisa. Dataset già in S3, elaborati offline senza un endpoint persistente, portano al batch transform. Molti modelli poco usati dietro lo stesso endpoint portano al multi-model endpoint, che carica i modelli quando servono, con possibili cold start per quelli meno usati. Dati aggiornati senza retraining portano alla RAG, cioè a Bedrock Knowledge Bases, che recuperano documenti al momento della domanda. Dati da leggere in tempo reale e storico per il training portano a SageMaker Feature Store, con online e offline store. Nessuna rotta verso internet porta a VPC-only, con endpoint privati. Audit porta a CloudTrail, chiavi centralizzate portano a KMS. Impara questi legami a memoria: sono la base di ogni mapping, e li userai in quasi tutte le domande.",
+      "todo": []
     },
     {
-      "bullets": [
-        "25 MB e 60 secondi per real-time, 4 MB e 60 secondi per serverless.",
-        "1 GB e un ora per async; batch senza endpoint.",
-        "Sampling capture da zero a 100 per cento; schedule oraria o giornaliera.",
-        "Stati Model Registry: PendingManualApproval, Approved, Rejected.",
-        "Quattro monitor: Data, Model, Bias, Explainability."
-      ],
       "title": "Numeri da memorizzare",
-      "narration": "Prima mossa: sottolinea vincoli e numeri nello stem, come latenza, payload, traffico e requisiti di sicurezza. Seconda mossa: mappa le parole-chiave al servizio prima di leggere le opzioni, cosi arrivi alle risposte con un'ipotesi gia formata. Terza mossa: elimina i distrattori con le regole fisse, come access key nei job, training pesante su Lambda, endpoint pubblici per dati sensibili o fine-tuning per conoscenza dinamica. Quarta mossa: verifica l'opzione rimasta contro ogni vincolo dello stem, senza aggiungere ipotesi tue. Applichiamo il metodo a tre scenari frequenti. Scenario uno: modello per transazioni con traffico costante e risposta sotto i 100 millisecondi. Vincoli dicono real-time, quindi scarti serverless per i cold start e async o batch perche non sono interattivi. Scenario due: documenti da 500 MB con elaborazione di minuti e notifica."
+      "bullets": [
+        "Serverless inference: payload fino a 4 MB, elaborazione fino a 60 secondi.",
+        "Asynchronous inference: payload fino a 1 GB, elaborazione fino a un'ora.",
+        "Real-time: payload fino a 25 MB, 60 secondi per le risposte regolari e 8 minuti per lo streaming.",
+        "Data capture: InitialSamplingPercentage tra 0 e 100 per cento.",
+        "Model Registry: PendingManualApproval, Approved, Rejected.",
+        "Model Monitor: quattro tipi, qualità dei dati, qualità del modello, bias drift, drift dell'attribuzione."
+      ],
+      "narration": "Pochi numeri ricorrono in molte domande, quindi conviene fissarli. Il serverless inference accetta payload fino a 4 MB, e il container deve rispondere entro 60 secondi. L'asynchronous inference accetta payload fino a 1 GB e può elaborare fino a un'ora, con il numero di istanze che scende a zero quando non ci sono richieste. Il real-time accetta payload fino a 25 MB. La pagina AWS sulle opzioni di inferenza indica 25 MB, con 60 secondi per le risposte regolari e 8 minuti per lo streaming, e anche le Model Hosting FAQ danno 25 MB. Attenzione però al valore vecchio. Il materiale più vecchio riporta 6 MB, cioè il limite in vigore quando è nato l'esame, e la reference dell'API InvokeEndpoint riporta ancora un corpo massimo di 6291456 byte, cioè circa 6 MB. Se una domanda più vecchia propone solo 6 MB tra le opzioni, leggila con quel limite. Per confrontare i payload, usa i valori attuali: 4 MB per il serverless, 25 MB per il real-time, 1 GB per l'asincrono. Per il data capture, il parametro InitialSamplingPercentage va da 0 a 100 per cento, e AWS consiglia valori più bassi per gli endpoint con traffico alto. Nel Model Registry lo stato di approvazione è PendingManualApproval, Approved o Rejected. Model Monitor ha quattro tipi di monitoraggio: qualità dei dati, qualità del modello, bias drift e drift dell'attribuzione delle feature, che corrisponde all'explainability. Model Monitor oggi non è aperto ai nuovi clienti, ma il concetto resta nell'esame, come vedremo più avanti.",
+      "todo": []
     },
     {
-      "bullets": [
-        "Mai retraining a ogni singola violazione isolata.",
-        "SSE-C quando serve audit: quasi sempre vince SSE-KMS.",
-        "Public endpoint per dati sensibili: sempre sbagliato.",
-        "Fine-tuning per dati dinamici: sbagliato, serve RAG.",
-        "Guardrails aggiungono filtri, non conoscenza: non confondere con RAG.",
-        "Model Monitor e Clarify hanno chiuso ai nuovi clienti dal 30/07/2026: la domanda si risponde sulla funzione."
-      ],
       "title": "Tranelli frequenti",
-      "narration": "Il payload uccide real-time e serverless, e la notifica punta ad async con S3 e SNS. Scenario tre: dati sensibili mai su internet pubblica con cifratura verificabile. Solo la combinazione VPC-only, subnet private, gateway S3, KMS e ruolo minimo soddisfa tutti i vincoli. Per la checklist dell'ultimo giorno, ripassa solo tabelle di mapping e numeri chiave, prepara documenti e percorso, dormi a sufficienza e decidi in anticipo la strategia di review."
-    },
-    {
-      "title": "Servizi chiusi o ritirati: tattica d'esame",
       "bullets": [
-        "Chiusi ai nuovi clienti dal 30/07/2026: Bedrock Agents Classic, Kendra, Q Business, Model Monitor, Clarify, Debugger, Profiler, Ground Truth, Mechanical Turk",
-        "Chiusi ai nuovi clienti prima: Forecast dal 29/07/2024, Fraud Detector e CodeGuru Reviewer dal 07/11/2025",
-        "Supporto terminato: Lookout for Metrics il 10/10/2025, Lookout for Vision il 31/10/2025, CodeGuru Security il 20/11/2025, Lookout for Equipment il 07/10/2026",
-        "Chiusi del tutto: Mechanical Turk il 29/09/2026, FinSpace il 07/10/2026, Kinesis Data Analytics for SQL il 27/01/2026, Panorama il 20/05/2026, Ground Truth Plus il 30/06/2026",
-        "In chiusura: DevOps Guru non accettera nuovi clienti dal 29/10/2026 e termina il 30/09/2027",
-        "Plugin IDE di Q Developer: supporto fino al 30/04/2027",
-        "Sunset senza data sulla pagina AWS: WorkSpaces PCoIP e Pool, AWS re:Post Private",
-        "Tattica: se una domanda nomina un servizio della guida, rispondi in base alla sua funzione, non alla disponibilita per i nuovi clienti"
+        "Serverless per traffico costante e latenza stretta: sbagliato, arrivano i cold start.",
+        "Batch transform per una risposta immediata all'utente: sbagliato, è offline.",
+        "Guardrails per dare conoscenza al modello: sbagliato, filtrano soltanto.",
+        "Lambda per un job di ore: sbagliato, il limite è 15 minuti per invocazione.",
+        "Retraining a ogni violazione isolata: sbagliato, meglio violazioni consecutive o un calo significativo.",
+        "Servizio chiuso: rispondi sulla funzione, non sulla disponibilità commerciale."
       ],
-      "narration": "Questa slide fotografa lo stato dei servizi al 22 ottobre 2026, perche AWS li cambia spesso. Il 30 luglio 2026 hanno chiuso ai nuovi clienti Bedrock Agents Classic, Kendra e Amazon Q Business, insieme a diverse funzioni di SageMaker come Model Monitor, Clarify, Debugger, Profiler e Ground Truth. La notifica AWS del 30 giugno 2026 descrive il Profiler come in dismissione. Chi le usava prima continua a usarle. Il 29 ottobre 2026 DevOps Guru chiudera ai nuovi clienti e terminera il 30 settembre 2027, mentre il plugin IDE di Amazon Q Developer ha supporto fino al 30 aprile 2027. Prima ancora avevano chiuso Forecast, il 29 luglio 2024, e Fraud Detector e CodeGuru Reviewer, il 7 novembre 2025. Alcuni servizi hanno terminato il supporto: Lookout for Metrics, Lookout for Vision e CodeGuru Security. Il 29 settembre 2026 Amazon Mechanical Turk ha chiuso del tutto, anche se la guida MLA-C01 lo cita ancora. Ground Truth Plus, il servizio gestito di etichettatura, ha terminato il supporto il 30 giugno 2026. Ora la tattica d'esame. L'esame verifica le competenze descritte nella guida, non la disponibilita commerciale di un servizio. Se una domanda nomina un servizio della guida, rispondi in base a cio che quel servizio fa. Per esempio, se una domanda chiede come far operare un agente che chiama funzioni Lambda, la risposta descrive il comportamento dell'agente, anche se oggi AWS indica AgentCore per i nuovi progetti."
+      "narration": "I tranelli sono errori che la domanda induce con un dettaglio plausibile. Il primo: il serverless per traffico costante. Sembra economico, ma quando il traffico è continuo e la latenza è stretta, i cold start diventano il problema, e il real-time è più adatto. Il secondo: il batch transform per una risposta immediata all'utente. Il batch lavora su dataset, in modo offline, e non risponde a una singola richiesta interattiva. Il terzo: i Guardrails per dare conoscenza al modello. I Guardrails filtrano contenuti, argomenti vietati e dati personali, sia in input sia in output, ma non aggiungono documenti o fatti. Per quello serve RAG. Il quarto: Lambda per un job lungo. Una singola invocazione non può superare 15 minuti, quindi per elaborazioni di ore non è la scelta giusta. Il quinto: il retraining a ogni violazione isolata. Una violazione singola può essere rumore, e un retraining è costoso: è meglio attendere violazioni consecutive o un calo significativo della qualità. Il sesto: confondere la disponibilità con la funzione. Un servizio chiuso ai nuovi clienti può comunque essere la risposta a una domanda che descrive la sua funzione, come vedremo nelle slide sui servizi chiusi.",
+      "todo": []
     },
     {
+      "title": "Domanda svolta, dominio 1: scegliere lo store delle feature",
       "bullets": [
-        "Review mode: leggi anche le spiegazioni delle risposte giuste.",
-        "Timed mode: punta a oltre 80 per cento costante prima dell esame.",
+        "Scenario: le stesse feature servono al training storico e a predizioni con latenza di millisecondi.",
+        "A) File CSV su S3, letti direttamente dall'applicazione.",
+        "B) Feature group in SageMaker Feature Store, con online store e offline store.",
+        "C) Copia giornaliera in un database, aggiornata una volta al giorno.",
+        "D) Ricalcolo con Lambda a ogni richiesta, con codice diverso dal training."
+      ],
+      "narration": "Questa domanda chiede una cosa precisa: le stesse feature devono servire al training e all'inferenza, senza differenze. Le parole chiave sono tre: stesse feature, storico per il training e millisecondi per la predizione. Ragioniamo sulle opzioni. La A salva le feature in CSV su S3 e le legge dall'applicazione. È un deposito di file, non uno store: non offre letture a bassa latenza, e non gestisce lo storico per istanti precisi. Scartata. La C copia le feature in un database una volta al giorno. Il problema è la freschezza: i valori sono vecchi di un giorno, e la copia è un processo in più da mantenere. Scartata. La D ricalcola le feature con Lambda a ogni richiesta. Qui il training e l'inferenza usano codice diverso, e questo è proprio il training-serving skew che l'esame vuole farti riconoscere. Scartata. Resta la B, un feature group di SageMaker Feature Store con online store e offline store. L'online store conserva l'ultimo valore per ogni record e serve letture a bassa latenza, nell'ordine dei millisecondi, per l'inferenza. L'offline store conserva tutto lo storico in S3, in formato Parquet, ed è pensato per l'addestramento e le previsioni batch. Ogni record è identificato da un record identifier, e l'event time indica quando il valore è valido. Un'estrazione point-in-time prende il valore che era valido a un istante preciso, e così evita il leakage, cioè informazioni future che entrano nel training. Regola d'esame: se la domanda chiede inferenza in tempo reale con latenza di millisecondi, pensa all'online store.",
+      "todo": []
+    },
+    {
+      "title": "Domanda svolta, dominio 1: scegliere il servizio di trasformazione",
+      "bullets": [
+        "Scenario: 2 TB di log in S3, trasformazioni con join e aggregazioni, una volta a notte, nessun cluster sempre acceso.",
+        "A) Funzione Lambda che legge tutti i file in sequenza.",
+        "B) Job AWS Glue programmato.",
+        "C) Istanza EC2 sempre accesa con cron.",
+        "D) Endpoint real-time che trasforma i dati a ogni richiesta."
+      ],
+      "narration": "Questa domanda riguarda la preparazione dei dati, non l'inferenza. Le parole chiave sono 2 TB, trasformazioni con join e aggregazioni, una volta a notte e nessun cluster sempre acceso. La A, una funzione Lambda che legge tutto in sequenza, è scartata: una singola invocazione Lambda dura al massimo 15 minuti, e 2 TB di dati non stanno in quella finestra. La C, un'istanza EC2 sempre accesa con cron, viola il vincolo di nessun cluster sempre attivo: pagheresti tempo di calcolo anche quando non lavora. La D, un endpoint real-time che trasforma i dati a ogni richiesta, confonde i ruoli: un endpoint serve predizioni a richiesta, non prepara dataset notturni. Resta la B, un job AWS Glue programmato. La guida elenca AWS Glue tra gli strumenti per trasformare i dati, insieme ad altri servizi come Spark su Amazon EMR. Il criterio dell'esame è semplice: il servizio deve trasformare dataset grandi, in modo gestito e programmato. La parola nessun cluster sempre acceso è quella che elimina la C, mentre la parola sequenza elimina la A. Nelle domande di preparazione dei dati, cerca sempre la scala del dataset e la frequenza del job, perché sono loro a decidere la risposta.",
+      "todo": []
+    },
+    {
+      "title": "Domanda svolta, dominio 2: cercare gli iperparametri",
+      "bullets": [
+        "Scenario: XGBoost con quattro iperparametri da ottimizzare, obiettivo AUC, meno prove manuali.",
+        "A) Dieci training a mano con valori casuali e confronto dei log.",
+        "B) SageMaker Automatic Model Tuning con metrica AUC e intervalli di valori.",
+        "C) Training in una funzione Lambda.",
+        "D) Più spazio nel bucket S3 dei dati."
+      ],
+      "narration": "Questa domanda riguarda l'ottimizzazione di un modello. Le parole chiave sono quattro iperparametri, massimizzare l'AUC e ridurre le prove manuali. La A, dieci training con valori casuali e confronto dei log, sembra semplice, ma è manuale, non segue una metrica in modo sistematico e non scala. Scartata. La C, il training in Lambda, è sbagliata per una ragione fissa: una funzione Lambda può girare al massimo 15 minuti per invocazione, e il training di un modello può durare molto di più. Scartata. La D, più spazio nel bucket S3, confonde l'archiviazione con il calcolo: non migliora nessuna metrica. Scartata. Resta la B: SageMaker Automatic Model Tuning, cioè il tuning degli iperparametri. Il servizio esegue molti training job sui tuoi dati, cerca negli intervalli di valori che definisci e sceglie la combinazione che produce il modello migliore secondo la metrica indicata, in questo caso AUC. La B risponde a tutti i vincoli. Se la domanda chiede anche di ridurre i costi, ricorda che il tuning può usare istanze Spot per i training job. Attenzione alla parola manuale: l'esame preferisce soluzioni automatiche e ripetibili quando lo scenario chiede di sperimentare molte combinazioni.",
+      "todo": []
+    },
+    {
+      "title": "Domanda svolta, dominio 2: scegliere la metrica con classi sbilanciate",
+      "bullets": [
+        "Scenario: frodi rare, circa lo 0,5 per cento delle transazioni, da usare per confrontare due modelli.",
+        "A) Accuratezza.",
+        "B) Precision e recall, riassunte con F1.",
+        "C) RMSE.",
+        "D) Numero di epoche di training."
+      ],
+      "narration": "Le parole chiave sono frodi rare e confrontare i modelli. Il dataset è sbilanciato: un modello che dice sempre legittimo ottiene già un'accuratezza altissima, perché quasi tutte le transazioni sono legittime. Quindi la A è la trappola classica. Scartata. La C, RMSE, è una metrica per problemi di regressione, cioè per valori numerici continui, non per riconoscere una frode. Scartata. La D, il numero di epoche, non misura la qualità: è un parametro di training, e sapere quante epoche hai fatto non dice quanto il modello sia buono. Scartata. La B è la risposta. La precision misura quante delle segnalazioni sono vere frodi. La recall misura quante frodi reali il modello riesce a trovare. F1 riassume le due in un unico numero. Con classi sbilanciate è proprio questa combinazione a rivelare un modello che fallisce sulle frodi, anche con un'accuratezza alta. La guida MLA-C01 elenca F1, accuracy, precision, recall e RMSE tra le metriche da conoscere, quindi queste sono competenze esplicite dell'esame. Il tranello è vedere un'accuratezza alta e fermarsi lì. Ogni volta che la domanda parla di classi rare, chiediti quale metrica misura gli errori sulla classe rara.",
+      "todo": []
+    },
+    {
+      "title": "Domanda svolta, dominio 3: scegliere l'inferenza",
+      "bullets": [
+        "Scenario: un'app di pagamenti, una richiesta per transazione, traffico costante, risposta immediata.",
+        "A) Batch transform su file giornalieri.",
+        "B) Real-time endpoint con istanze sempre attive.",
+        "C) Asynchronous inference con notifica SNS.",
+        "D) Serverless inference, perché scala a zero."
+      ],
+      "narration": "Questa domanda è sull'inferenza. Le parole chiave sono una richiesta per transazione, traffico costante e risposta immediata. Il traffico costante toglie il vantaggio principale del serverless, che è scalare a zero nei periodi di inattività. La A, batch transform su file giornalieri, è offline: produce risultati su S3 per un dataset, non risponde a una singola transazione. Scartata. La C, asynchronous inference, è pensata per payload grandi ed elaborazioni di minuti: qui il pagamento deve ricevere la risposta subito. Scartata. La D, serverless inference, sembra valida per la parola scala, ma il problema è il cold start. La documentazione dice che un endpoint serverless può avere un cold start quando riceve traffico dopo un periodo di inattività, o quando le richieste superano la concorrenza disponibile. Con traffico costante e risposta immediata, questo rischio è inaccettabile. Scartata. Resta la B: un real-time endpoint con istanze sempre attive. È persistente, supporta l'autoscaling e risponde in modo sincrono, con il container che deve rispondere entro 60 secondi. Per una domanda con risposta di minuti, il real-time non va bene: serve un'altra opzione.",
+      "todo": []
+    },
+    {
+      "title": "Domanda svolta, dominio 3: documenti grandi e risposta in minuti",
+      "bullets": [
+        "Scenario: documenti da 500 MB, circa 8 minuti di elaborazione, avviso all'utente quando il risultato è pronto.",
+        "A) Real-time endpoint con timeout di 60 secondi.",
+        "B) Serverless inference con payload massimo di 4 MB.",
+        "C) Asynchronous inference: input e output su S3, notifica SNS.",
+        "D) Batch transform lanciato a ogni richiesta dell'utente."
+      ],
+      "narration": "Il caso è un documento da 500 MB che richiede circa 8 minuti e deve avvisare l'utente quando il risultato è pronto. Le parole chiave sono 500 MB, minuti e avviso. Il payload da 500 MB supera sia il limite di 25 MB del real-time sia quello di 4 MB del serverless, e 8 minuti superano i 60 secondi della risposta regolare del real-time. Due vincoli escludono già due opzioni. La A, real-time con timeout di 60 secondi, fallisce sul tempo. Scartata. La B, serverless con payload di 4 MB, fallisce sul payload. Scartata. La D, batch transform lanciato a ogni richiesta, confonde il modello d'uso: il batch è pensato per dataset e non per il ciclo richiesta e risposta di un utente. Scartata. La C risponde a tutto. L'asynchronous inference accetta payload fino a 1 GB ed elaborazioni fino a un'ora. L'input viene messo su S3, la richiesta viene accodata, il risultato va su S3, e una notifica SNS avvisa quando è pronto. È l'unica opzione che rispetta payload, durata e notifica insieme. Regola d'esame: quando trovi S3 e SNS nella stessa domanda, con elaborazioni lunghe, pensa quasi sempre all'asynchronous inference.",
+      "todo": []
+    },
+    {
+      "title": "Domanda svolta, dominio 4: rilevare il drift",
+      "bullets": [
+        "Scenario: endpoint in produzione, serve rilevare il cambio dei dati in ingresso, un allarme e il retraining.",
+        "A) Data capture su S3, monitoraggio con baseline, allarme CloudWatch, regola EventBridge per il retraining.",
+        "B) Controllo manuale dei log ogni settimana.",
+        "C) Disattivare la cattura dei dati per ridurre i costi.",
+        "D) Riaddestrare ogni notte senza confronti."
+      ],
+      "narration": "Il caso è un endpoint real-time in produzione. Il team vuole sapere quando i dati in ingresso cambiano, ricevere un allarme e avviare il retraining. Le parole chiave sono cambiano nel tempo, allarme e retraining. La B, controllare i log a mano ogni settimana, non è automatica e arriva tardi. Scartata. La C, disattivare la cattura dei dati per risparmiare, elimina proprio ciò che serve al monitoraggio. Scartata. La D, riaddestrare ogni notte senza confronti, consuma risorse e non dice nulla sul drift. Scartata. La A descrive il pattern completo: la cattura dei dati su S3, un monitoraggio pianificato che confronta i dati con una baseline ricavata dal training, un allarme su CloudWatch e una regola EventBridge che avvia la pipeline di retraining. Qui sta il tranello di chiusura. Model Monitor non è più aperto ai nuovi clienti dal 30 luglio 2026. La pagina AWS indica come sostituzione soluzioni di monitoraggio open source costruite su SageMaker AI, con QuickSight per i dashboard e CloudWatch per le metriche. Per l'esame, però, la funzione non cambia: la domanda chiede di confrontare la distribuzione con una baseline, avvisare e riaddestrare. Rispondi quindi sulla funzione, e per un progetto nuovo ricorda l'alternativa indicata da AWS.",
+      "todo": []
+    },
+    {
+      "title": "Domanda svolta, dominio 4: sicurezza, risposta multipla",
+      "bullets": [
+        "Scenario: dati sensibili, niente traffico su internet pubblica, log verificabili. Scegli DUE risposte.",
+        "A) Endpoint pubblico con chiavi IAM nel codice del container.",
+        "B) VPC con subnet private e interface endpoint per SageMaker Runtime.",
+        "C) Access key salvate nel bucket dei dati.",
+        "D) Cifratura con KMS e logging verificabile con CloudTrail.",
+        "E) Firewall applicativo davanti a un endpoint pubblico."
+      ],
+      "narration": "Questo caso è in risposta multipla: cinque opzioni e due risposte giuste. Le parole chiave sono dati sensibili, niente traffico su internet pubblica e log verificabili. Ogni vincolo va letto come un filtro. La A, endpoint pubblico con chiavi IAM nel codice, viola il primo vincolo e il principio dell'execution role. Scartata. La C, access key salvate nel bucket dei dati, è una pratica da evitare, perché espone credenziali e contraddice il controllo degli accessi. Scartata. La E, un firewall applicativo davanti a un endpoint pubblico, lascia il traffico su internet, e il vincolo lo vieta. Scartata. La B è corretta. Una VPC con subnet private e un interface endpoint per SageMaker Runtime fa sì che la comunicazione tra la VPC e l'API resti dentro la rete AWS, senza passare da un internet gateway o da un NAT. La D è corretta. La cifratura con AWS KMS protegge i dati e gestisce le chiavi in modo centralizzato, e il logging con CloudTrail fornisce la traccia verificabile richiesta dall'audit. Attenzione alla regola della risposta multipla: se ne selezioni una sola, o una sbagliata, non ottieni il punto. Seleziona entrambe, e solo quelle giuste.",
+      "todo": []
+    },
+    {
+      "title": "Servizi chiusi ai nuovi clienti",
+      "bullets": [
+        "Dal 30 luglio 2026, chiusi ai nuovi clienti: Bedrock Agents Classic, Kendra, Amazon Q Business.",
+        "Funzioni SageMaker chiuse dal 30 luglio 2026: A2I, Clarify, Debugger, Ground Truth, Model Monitor, Role Manager, Studio Lab, GeoSpatial, Mechanical Turk e Profiler.",
+        "Già chiusi prima: Forecast dal 29 luglio 2024; Fraud Detector e CodeGuru Reviewer in manutenzione dal 7 novembre 2025.",
+        "DevOps Guru: nuovi clienti non ammessi dal 29 ottobre 2026, fine il 30 settembre 2027.",
+        "Chi li usava già può continuare a usarli.",
+        "Alternative indicate da AWS: AgentCore per Bedrock Agents Classic, SageMaker Canvas per Forecast, soluzioni open source con CloudWatch e QuickSight per Model Monitor."
+      ],
+      "narration": "Questa slide fotografa lo stato dei servizi al 23 ottobre 2026, perché AWS li cambia spesso. Il 30 luglio 2026 hanno smesso di accettare nuovi clienti Bedrock Agents Classic, Kendra e Amazon Q Business. Nello stesso giorno hanno chiuso ai nuovi clienti diverse funzioni di SageMaker AI: A2I, Clarify, Debugger, Ground Truth, Model Monitor, Role Manager, Studio Lab, GeoSpatial, Mechanical Turk e Profiler. Chi già li usava può continuare. Per Bedrock Agents Classic la pagina AWS indica la modalità di manutenzione, e per i nuovi progetti suggerisce AgentCore. Prima di queste date erano già chiusi altri servizi. Forecast ha chiuso ai nuovi clienti il 29 luglio 2024, e AWS indica SageMaker Canvas come alternativa. Fraud Detector e CodeGuru Reviewer sono passati in manutenzione il 7 novembre 2025. DevOps Guru chiuderà ai nuovi clienti il 29 ottobre 2026, con la fine del servizio il 30 settembre 2027. La guida MLA-C01 continua a citare molti di questi nomi. L'esame valuta la competenza che ciascun servizio rappresenta, quindi questa slide ti serve a sapere che cosa fa ciascuno, più che a memorizzare le date.",
+      "todo": [
+        "N03"
+      ]
+    },
+    {
+      "title": "Servizi in fine supporto e tattica d'esame",
+      "bullets": [
+        "Fine supporto già avvenuto: Lookout for Metrics, Lookout for Vision, CodeGuru Security.",
+        "Chiusi del tutto: Kinesis Data Analytics for SQL, Panorama, Ground Truth Plus, Mechanical Turk, FinSpace.",
+        "Lookout for Equipment: fine supporto il 7 ottobre 2026.",
+        "Sunset senza data sulla pagina AWS: SageMaker Profiler, WorkSpaces PCoIP e Pool, AWS re:Post Private.",
+        "Tattica: se la domanda nomina un servizio della guida, rispondi in base a cosa fa.",
+        "Se il servizio è chiuso, cerca la funzione descritta e l'alternativa indicata da AWS."
+      ],
+      "narration": "Ecco i servizi già in fine supporto o chiusi del tutto. Lookout for Metrics ha terminato il supporto il 10 ottobre 2025, Lookout for Vision il 31 ottobre 2025, e CodeGuru Security il 20 novembre 2025. Lookout for Equipment ha terminato il supporto il 7 ottobre 2026: dopo quella data console e risorse non sono più accessibili. Alla chiusura totale appartengono Kinesis Data Analytics for SQL, dal 27 gennaio 2026, Panorama, dal 20 maggio 2026, Ground Truth Plus, dal 30 giugno 2026, Mechanical Turk, dal 29 settembre 2026, e FinSpace, dal 7 ottobre 2026. La pagina AWS elenca anche servizi in sunset senza una data precisa, come SageMaker Profiler, WorkSpaces PCoIP e Pool, e AWS re:Post Private. Ora la tattica. L'esame valuta le competenze descritte nella guida, non la disponibilità commerciale di un servizio. Se una domanda nomina un servizio della guida, rispondi in base a ciò che il servizio fa. Per esempio, se una domanda chiede come far operare un agente che chiama funzioni, la risposta descrive il comportamento dell'agente, anche se AWS oggi indica AgentCore per i nuovi progetti. Non scartare un'opzione solo perché il servizio è chiuso: valuta la funzione che descrive. Se la domanda descrive un progetto nuovo, puoi citare l'alternativa indicata da AWS, perché è l'indicazione attuale di AWS per i nuovi progetti.",
+      "todo": []
+    },
+    {
+      "title": "Piano di studio con il sito",
+      "bullets": [
+        "Ordine della mappa: prima i capitoli base, poi gli approfondimenti dove servono, questo capitolo per ultimo.",
+        "Studio: domande con spiegazione dopo ogni risposta, con la stellina da rivedere.",
+        "Simulazione d'esame: 85 domande per MLA-C02, 65 per MLA-C01, senza filtri.",
+        "Simulazione libera: 10, 25 o 50 domande, dal filtro attivo.",
+        "Filtri per capitolo, dominio, esame, tipo, difficoltà e stato: lavora sul dominio più debole.",
+        "Ripasso errori: leggi la spiegazione, poi rifai le domande sbagliate dopo qualche giorno.",
+        "Pronto quando le simulazioni restano sopra la soglia del sito, 75 per cento, con margine."
+      ],
+      "narration": "Il sito è costruito per allenare il metodo in ordine. Parti dai capitoli base seguendo la mappa: fondamenti e preparazione dei dati, poi sviluppo, deploy e monitoraggio, poi GenAI. Gli approfondimenti li leggi quando un argomento base ti sembra corto. Dopo ogni capitolo fai le domande di quel tema in modalità Studio. Il feedback arriva al click per la scelta singola, e per la risposta multipla dopo il pulsante Conferma. La spiegazione resta visibile e puoi segnare la domanda con la stellina da rivedere. Quando hai coperto una parte dei capitoli, passa alla simulazione d'esame. Per MLA-C02 le domande sono 85, per MLA-C01 sono 65. La simulazione pesca dal banco senza filtri, con una ripartizione per dominio secondo i pesi della guida, e alla fine mostra il punteggio totale, quello per dominio e la correzione completa. Puoi anche usare la simulazione libera, con 10, 25 o 50 domande dal filtro attivo, per lavorare su un capitolo o un dominio debole. Dopo ogni simulazione ripassa gli errori: leggi la spiegazione anche delle risposte giuste, poi rifai le domande sbagliate dopo qualche giorno. Il sito considera superata una simulazione dal 75 per cento. Sei pronto quando le simulazioni restano stabilmente sopra questa soglia, per esempio con più prove di seguito sopra l'80 per cento. Attenzione: è un criterio di studio, non una conversione del punteggio AWS da 100 a 1000.",
+      "todo": []
+    },
+    {
+      "title": "Il giorno dell'esame",
+      "bullets": [
+        "Centro Pearson VUE oppure online con sorveglianza remota: scegli in fase di prenotazione.",
+        "Documento d'identità valido: il nome deve corrispondere a quello dell'account.",
+        "Online: la comunicazione con il proctor è obbligatoria per completare l'appuntamento.",
+        "Annullare o spostare entro 24 ore dall'appuntamento non è possibile; lo spostamento è consentito due volte.",
+        "Accomodamenti: vanno richiesti prima di prenotare.",
+        "Risultati di solito entro 5 giorni lavorativi; certificazione valida 3 anni.",
+        "Punteggio scalato da 100 a 1000, con 720 come riferimento della guida MLA-C01."
+      ],
+      "narration": "Il giorno dell'esame ha regole semplici, ma vanno lette con attenzione. Puoi sostenere la prova in un centro Pearson VUE oppure online, con sorveglianza remota da casa. La scelta si fa in fase di prenotazione. Per il centro serve un documento d'identità valido rilasciato dal governo, più un secondo documento, e il nome sull'account va allineato a quello del documento. Per l'online i requisiti del documento sono diversi, e la comunicazione con il proctor è obbligatoria per completare l'appuntamento. Controlla in anticipo i requisiti tecnici indicati nella conferma di Pearson VUE. Se hai bisogno di accomodamenti, chiedili prima di prenotare, perché vanno richiesti prima di ogni prenotazione. Non puoi annullare o spostare l'appuntamento nelle 24 ore precedenti, e puoi spostarlo al massimo due volte. Se annulli troppo tardi o non ti presenti, la quota può essere persa. I risultati arrivano di solito entro cinque giorni lavorativi. Il punteggio è scalato da 100 a 1000, con 720 come riferimento della guida MLA-C01. La certificazione vale tre anni. Per le regole precise su documenti e oggetti consentiti leggi la pagina Pearson VUE collegata dalla pagina AWS, perché AWS non riporta qui tutti i dettagli.",
+      "todo": []
+    },
+    {
+      "title": "Checklist finale e tre pattern di risposta",
+      "bullets": [
         "Ultimo giorno: solo mapping, numeri e checklist, niente nuovi argomenti.",
-        "In aula: vincoli, mappatura, eliminazione, verifica per ogni quesito.",
-        "Checklist: documenti, riposo, strategia di review gia decisa."
+        "Pattern sicurezza: VPC-only, subnet private, endpoint privati per SageMaker Runtime, KMS, ruolo minimo, CloudTrail.",
+        "Pattern retraining: cattura dei dati su S3, monitoraggio con baseline, allarme CloudWatch, EventBridge verso la pipeline.",
+        "Pattern GenAI: documenti dinamici uguale Knowledge Bases; azioni uguale Agents, per i nuovi progetti AgentCore; filtri uguale Guardrails.",
+        "Stile di dominio uguale fine-tuning, con valutazione automatica e revisione umana.",
+        "In aula: vincoli, mappatura, eliminazione, verifica per ogni domanda.",
+        "Dormi, prepara i documenti e decidi prima la strategia di revisione."
       ],
-      "title": "Checklist e metodo finale",
-      "narration": "prima giro veloce con risposte sicure, secondo giro per i casi segnati, mai cambiare una risposta senza una ragione tecnica precisa. In chiusura, tre pattern di risposta da memorizzare parola per parola. Pattern sicurezza massima: VPC-only con subnet private, gateway endpoint per S3, interface endpoint PrivateLink per API, ECR, log e KMS, cifratura KMS con chiavi gestite dal cliente, execution role a privilegio minimo e CloudTrail attivo. Pattern retraining automatico: Data Capture verso S3, schedule di Model Monitor, allarme CloudWatch su violazioni, regola EventBridge che avvia la pipeline di retraining con rigenerazione della baseline. Pattern GenAI: documenti dinamici uguale Knowledge Bases, azioni autonome uguale Agents con Action Groups, contenuti da filtrare uguale Guardrails, stile di dominio uguale fine-tuning, con valutazione automatica piu review umana. Con questi tre pattern, il metodo in quattro mosse e i numeri chiave, arrivi al giorno dell esame con una strategia solida e ripetibile per ogni quesito."
+      "narration": "L'ultimo giorno serve a fissare, non a studiare argomenti nuovi. Ripassa solo le tabelle di mapping, i numeri chiave e questa checklist. Prepara il documento d'identità, controlla orario e percorso, oppure la configurazione per l'online, e dormi a sufficienza. Decidi prima la strategia di revisione: un primo giro veloce con le risposte sicure, un secondo giro per i casi segnati, e nessun cambio di risposta senza una ragione tecnica precisa. Per chiudere, tre pattern da memorizzare come forma di risposta. Il pattern di sicurezza: VPC-only con subnet private, endpoint privati per SageMaker Runtime, cifratura con KMS, execution role a privilegio minimo e CloudTrail attivo. Il pattern di retraining automatico: cattura dei dati su S3, monitoraggio pianificato con baseline, allarme CloudWatch sulle violazioni, e una regola EventBridge che avvia la pipeline di retraining. Il pattern GenAI: documenti dinamici uguale Knowledge Bases, perché la RAG recupera le fonti al momento della domanda; azioni autonome uguale agenti, dove per i progetti nuovi AWS indica AgentCore; contenuti da filtrare uguale Guardrails; stile di dominio uguale fine-tuning, con valutazione automatica più revisione umana. Con questi pattern, il metodo in quattro mosse e i numeri chiave, affronti ogni domanda con una strategia ripetibile.",
+      "todo": []
     }
   ],
-  "summary": "Il capitolo finale allena il metodo d esame: circa due minuti e mezzo per domanda, eliminazione dei distrattori, mapping rapido scenario-servizio e memoria dei numeri chiave. Evita i tranelli ricorrenti su IAM, KMS, retraining e scelta dell endpoint. I practice exam in modalita review poi timed preparano al punteggio target.",
-  "title": "Tattiche e ripasso finale",
   "sources": [
+    {
+      "title": "AWS Certified Machine Learning Engineer - Associate: pagina ufficiale",
+      "url": "https://aws.amazon.com/certification/certified-machine-learning-engineer-associate/"
+    },
+    {
+      "title": "AWS Certification FAQs",
+      "url": "https://aws.amazon.com/certification/faqs/"
+    },
+    {
+      "title": "AWS Certification: before testing (policies)",
+      "url": "https://aws.amazon.com/certification/policies/before-testing/"
+    },
+    {
+      "title": "Deploy models with Amazon SageMaker Serverless Inference: invoke a serverless endpoint",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/serverless-endpoints-invoke.html"
+    },
+    {
+      "title": "Amazon SageMaker InvokeEndpoint API reference",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html"
+    },
+    {
+      "title": "Asynchronous inference - Amazon SageMaker AI Developer Guide",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/async-inference.html"
+    },
+    {
+      "title": "Real-time inference - Amazon SageMaker AI Developer Guide",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints.html"
+    },
+    {
+      "title": "Data capture - Amazon SageMaker Model Monitor",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-data-capture.html"
+    },
+    {
+      "title": "DataCaptureConfig API reference",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_DataCaptureConfig.html"
+    },
+    {
+      "title": "ModelPackage API reference (ModelApprovalStatus)",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ModelPackage.html"
+    },
+    {
+      "title": "Amazon SageMaker Model Monitor availability change",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-availability-change.html"
+    },
+    {
+      "title": "Create, store, and share features with Feature Store",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store.html"
+    },
+    {
+      "title": "Automatic model tuning with SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning.html"
+    },
+    {
+      "title": "Batch transform for inference with Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform.html"
+    },
+    {
+      "title": "Multi-model endpoints - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/multi-model-endpoints.html"
+    },
+    {
+      "title": "Connect to SageMaker AI within your VPC",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/interface-vpc-endpoint.html"
+    },
+    {
+      "title": "How to use SageMaker AI execution roles",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html"
+    },
+    {
+      "title": "Retrieve data and generate AI responses with Amazon Bedrock Knowledge Bases",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html"
+    },
+    {
+      "title": "Detect and filter harmful content by using Amazon Bedrock Guardrails",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html"
+    },
+    {
+      "title": "Amazon Bedrock Agents Classic maintenance mode",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-classic-maintenance-mode.html"
+    },
     {
       "title": "Services in Full Shutdown - AWS General Reference",
       "url": "https://docs.aws.amazon.com/general/latest/gr/full_shutdown_services.html"
@@ -211,28 +554,45 @@
       "url": "https://aws.amazon.com/about-aws/whats-new/2025/10/aws-service-availability/"
     },
     {
-      "title": "Amazon DevOps Guru User Guide",
+      "title": "Amazon DevOps Guru User Guide: end of support",
       "url": "https://docs.aws.amazon.com/devops-guru/latest/userguide/welcome.html"
-    },
-    {
-      "title": "AWS CLI Reference: codeguru-security",
-      "url": "https://docs.aws.amazon.com/cli/latest/reference/codeguru-security/"
-    },
-    {
-      "title": "Amazon SageMaker AI features",
-      "url": "https://aws.amazon.com/sagemaker/ai/features/"
     },
     {
       "title": "Transition your Amazon Forecast usage to Amazon SageMaker Canvas",
       "url": "https://aws.amazon.com/blogs/machine-learning/transition-your-amazon-forecast-usage-to-amazon-sagemaker-canvas/"
     },
     {
-      "title": "Amazon Bedrock Agents Classic maintenance mode",
-      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-classic-maintenance-mode.html"
+      "title": "Amazon Lookout for Equipment: what is (end of support)",
+      "url": "https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/what-is.html"
     },
     {
-      "title": "Amazon SageMaker Model Monitor availability change",
-      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-availability-change.html"
+      "title": "AWS CLI Reference: codeguru-security (end of support notice)",
+      "url": "https://docs.aws.amazon.com/cli/latest/reference/codeguru-security/"
+    },
+    {
+      "title": "Lambda quotas",
+      "url": "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html"
+    },
+    {
+      "title": "Inference options in Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/deploy-model-options.html"
+    },
+    {
+      "title": "Model Hosting FAQs - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/hosting-faqs.html"
+    },
+    {
+      "title": "Using server-side encryption with customer-provided keys (SSE-C)",
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerSideEncryptionCustomerKeys.html"
+    },
+    {
+      "title": "Amazon SageMaker AI features (avvisi di disponibilità)",
+      "url": "https://aws.amazon.com/sagemaker/ai/features/"
     }
+  ],
+  "summary": "Questo capitolo insegna a ragionare sulle domande d'esame, non a imparare un servizio. Spiega il formato di MLA-C01 e della beta MLA-C02: 65 domande in 130 minuti e 85 in 170, con circa 2,0 minuti per domanda. Mostra il metodo in quattro mosse, l'eliminazione dei distrattori, la lettura delle parole chiave e le regole sulle risposte multiple. Svolge otto domande, due per dominio, ragionando ad alta voce su ogni opzione. Include lo stato dei servizi chiusi ai nuovi clienti al 23 ottobre 2026 e la tattica per rispondere in base alla funzione. Chiude con il piano di studio sul sito, le regole del giorno dell'esame e una checklist finale.",
+  "title": "Tattiche e ripasso finale",
+  "todo": [
+    "N03"
   ]
 }
