@@ -121,7 +121,7 @@ Ogni slide ha il suo testo parlato (`narration`). Da lì:
   registra il copione di ogni capitolo sintetizzato; `--stale` sintetizza solo quelli cambiati:
 
   ```bash
-  PY=/Users/riccardo/Developer/VibeCoding/persona4/.venv/bin/python
+  PY=<cartella di persona4>/.venv/bin/python   # la cartella si imposta con la variabile PERSONA4_SRC
   $PY tools/tts_chatterbox_batch.py --stale --dry-run   # quali capitoli cambierebbero
   $PY tools/tts_chatterbox_batch.py --stale             # sintetizza quelli cambiati
   $PY tools/tts_chatterbox_batch.py --chapter quick-ref  # un capitolo
@@ -133,6 +133,9 @@ Ogni slide ha il suo testo parlato (`narration`). Da lì:
 
   Il Python è quello del progetto persona4 (mlx-audio e soundfile). Dopo ogni capitolo
   lo script rigenera anche `timing.json`.
+
+  La cartella `src` di persona4 si imposta con la variabile d'ambiente `PERSONA4_SRC`.
+  Il default è `../VibeCoding/persona4/src`, rispetto alla cartella del repo.
 
 > Nota: i file `.wav` intermedi della sintesi vocale **non** sono nel repo (vedi `.gitignore`):
 > il player usa solo gli `.mp3`.

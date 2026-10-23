@@ -23,7 +23,8 @@ con il copione cambiato rispetto al manifest. `--adopt` registra nel manifest il
 copione attuale dei capitoli che hanno già un mp3, senza sintetizzare.
 
 Uso (con il Python di persona4, che ha mlx-audio + soundfile):
-    PY=/Users/riccardo/Developer/VibeCoding/persona4/.venv/bin/python
+    PY=<cartella di persona4>/.venv/bin/python   # cartella di persona4: variabile d'ambiente PERSONA4_SRC
+                                                 # (default: ../VibeCoding/persona4/src rispetto al repo)
     $PY tools/tts_chatterbox_batch.py --chapter quick-ref
     $PY tools/tts_chatterbox_batch.py --chapter ch1-exam-guide,ch8-data-advanced
     $PY tools/tts_chatterbox_batch.py --all
@@ -59,7 +60,8 @@ sys.path.insert(0, str(TOOLS_DIR))  # per riusare chapter_units di make_timing
 from make_timing import chapter_units  # noqa: E402
 
 # Repo Persona4: riuso la classe ChatterboxTTS (stessa voce del progetto persona4).
-PERSONA4_SRC = Path("/Users/riccardo/Developer/VibeCoding/persona4/src")
+# Cartella src di persona4: si imposta con la variabile d'ambiente PERSONA4_SRC (default: ../VibeCoding/persona4/src rispetto al repo).
+PERSONA4_SRC = Path(os.environ.get("PERSONA4_SRC", ROOT.parent / "VibeCoding" / "persona4" / "src"))
 sys.path.insert(0, str(PERSONA4_SRC))
 
 CHAPTERS_DIR = ROOT / "content" / "chapters"
