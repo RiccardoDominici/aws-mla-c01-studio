@@ -5,225 +5,473 @@
   "prereq": [
     "ch1-exam-guide"
   ],
-  "summary": "Questo capitolo copre il primo dominio d'esame da 28 punti percentuali: ingestione e storage su S3 data lake con Lake Formation, catalogo Glue con Crawler, query Athena e streaming Kinesis. Presenta gli strumenti di trasformazione come Glue ETL, EMR, Data Wrangler e DataBrew, con il Feature Store online e offline. Spiega feature engineering, gestione di valori mancanti e sbilanciamento delle classi, con il controllo del bias tramite Clarify.",
+  "summary": "Questo capitolo copre il primo dominio dell'esame MLA-C01, che vale 28 per cento del punteggio. Spiega come i dati arrivano in AWS, perché S3 fa da data lake e come scegliere il formato giusto per ridurre i costi. Mostra il catalogo di Glue e i crawler, le query serverless di Athena, l'ETL con Glue ed EMR e gli strumenti visuali Data Wrangler e DataBrew. Dedica uno spazio ampio al Feature Store, con online store, offline store e query point-in-time contro il leakage. Chiude con il feature engineering di base, gli split e il bias misurato con Clarify, che ha chiuso ai nuovi clienti dal 30 luglio 2026.",
   "keywords": [
     {
-      "term": "S3 data lake",
-      "def": "Archivio centrale su S3 con prefissi partizionati e formati colonnari come Parquet per analitica economica."
+      "term": "Ciclo di vita dei dati",
+      "def": "Percorso dei dati nel machine learning: raccolta, archiviazione, ingestione, trasformazione, creazione delle feature e split in training, validation e test."
     },
     {
-      "term": "Lake Formation",
-      "def": "Servizio di governance che applica permessi granulari su database, tabelle e colonne del data lake."
+      "term": "Data lake",
+      "def": "Archivio centrale che conserva dati grezzi e trasformati in formati diversi, di solito su Amazon S3, letto da più motori di calcolo."
     },
     {
-      "term": "Glue Crawler e Data Catalog",
-      "def": "Il crawler scopre lo schema dei dati in S3 e registra le tabelle nel catalogo centrale interrogabile."
+      "term": "Partizione in stile Hive",
+      "def": "Organizzazione dei prefissi S3 in coppie chiave e valore, come anno 2026 e mese 10, che Athena e Glue riconoscono per leggere solo i dati necessari."
     },
     {
-      "term": "Athena",
-      "def": "Motore SQL serverless che interroga i file in S3 pagando solo per i dati scansionati."
+      "term": "Consistenza forte di S3",
+      "def": "Dal 1 dicembre 2020 S3 restituisce subito l'ultima versione di un oggetto dopo una scrittura, e le liste riflettono subito le modifiche."
     },
     {
-      "term": "Kinesis",
-      "def": "Famiglia di servizi per dati streaming: Data Streams per real-time e Firehose per consegna quasi real-time a S3."
+      "term": "Parquet",
+      "def": "Formato colonnare compresso, molto usato per l'analisi con Athena, Glue e Spark, perché una query legge solo le colonne richieste."
     },
     {
-      "term": "Data Wrangler",
-      "def": "Strumento visuale in SageMaker Studio per esplorare e trasformare dati con oltre trecento trasformazioni pronte."
+      "term": "RecordIO-protobuf",
+      "def": "Formato binario di SageMaker, usato da molti algoritmi built-in come K-Means, PCA e Linear Learner."
     },
     {
-      "term": "Glue ETL ed EMR",
-      "def": "Glue ETL con job Spark serverless ed EMR con cluster gestiti per trasformazioni distribuite su larga scala."
+      "term": "AWS Lake Formation",
+      "def": "Servizio di governance che applica permessi su database, tabelle, colonne e righe del data lake."
     },
     {
-      "term": "DataBrew",
-      "def": "Strumento no-code fuori da SageMaker per profiling e preparazione dati con ricette visuali."
+      "term": "AWS Glue Data Catalog",
+      "def": "Registro centrale di database e tabelle, con schema e posizione dei dati, condiviso da Athena, Glue ed EMR."
     },
     {
-      "term": "Feature Store online e offline",
-      "def": "Online Store a bassa latenza per inferenza real-time e Offline Store su S3 in Parquet per training e batch."
+      "term": "Crawler",
+      "def": "Processo di AWS Glue che legge i file, deduce lo schema e crea o aggiorna tabelle e partizioni nel catalogo."
+    },
+    {
+      "term": "Amazon Athena",
+      "def": "Servizio SQL serverless che interroga i file su S3 e paga per i dati scansionati da ogni query."
+    },
+    {
+      "term": "CTAS",
+      "def": "Comando Athena Create Table As Select, che crea una nuova tabella da una query, utile per convertire CSV in Parquet partizionato."
+    },
+    {
+      "term": "Amazon Kinesis Data Streams",
+      "def": "Servizio di streaming in cui i producer scrivono record in shard e più consumer li leggono entro il periodo di retention."
+    },
+    {
+      "term": "Shard",
+      "def": "Unità di capacità di un flusso Kinesis, con limiti di scrittura e lettura che determinano il throughput."
+    },
+    {
+      "term": "Amazon Data Firehose",
+      "def": "Servizio gestito che consegna dati streaming a destinazioni come S3, con buffer e conversione facoltativa da JSON a Parquet o ORC."
+    },
+    {
+      "term": "AWS Glue ETL",
+      "def": "Servizio ETL serverless basato su Apache Spark, con job scritti in codice o costruiti in modo visuale con Glue Studio."
+    },
+    {
+      "term": "DynamicFrame",
+      "def": "Struttura di AWS Glue simile a un DataFrame di Spark, che tollera colonne con tipi diversi tra i record."
+    },
+    {
+      "term": "Job bookmark",
+      "def": "Stato salvato da AWS Glue per ricordare quali dati un job ha già elaborato, così da non rielaborarli."
+    },
+    {
+      "term": "Amazon EMR",
+      "def": "Piattaforma di cluster gestiti per Spark, Hadoop e altri framework open source, con più controllo sull'infrastruttura."
+    },
+    {
+      "term": "SageMaker Data Wrangler",
+      "def": "Strumento visuale per preparare dati per il machine learning, oggi integrato in SageMaker Canvas, con export verso S3, Pipelines, Feature Store o Python."
+    },
+    {
+      "term": "AWS Glue DataBrew",
+      "def": "Strumento visuale senza codice, serverless, con più di 250 trasformazioni e ricette riutilizzabili."
+    },
+    {
+      "term": "Feature group",
+      "def": "Insieme di feature del Feature Store con nome e tipo, che descrive i record usati per addestrare o prevedere."
+    },
+    {
+      "term": "Record identifier",
+      "def": "Feature che identifica in modo univoco un'entità, per esempio il codice cliente."
+    },
+    {
+      "term": "Event time",
+      "def": "Momento in cui è avvenuto l'evento descritto dal record, obbligatorio per ogni record di un feature group."
+    },
+    {
+      "term": "Online store",
+      "def": "Store del Feature Store a bassa latenza che conserva solo il record più recente per identificatore, per l'inferenza in tempo reale."
+    },
+    {
+      "term": "Offline store",
+      "def": "Store su S3 in formato Parquet che conserva tutta la storia dei record, per training e inferenza in batch."
+    },
+    {
+      "term": "Query point-in-time",
+      "def": "Query che, per ogni etichetta, prende solo le feature con event time non successivo al momento dell'etichetta."
+    },
+    {
+      "term": "Target leakage",
+      "def": "Errore in cui una feature contiene informazioni disponibili solo dopo l'evento che il modello deve prevedere."
+    },
+    {
+      "term": "Split stratificato",
+      "def": "Divisione dei dati che mantiene le stesse proporzioni di classi in training, validation e test."
     },
     {
       "term": "One-hot encoding",
-      "def": "Tecnica che trasforma una categoria in colonne binarie, una per ogni valore possibile."
+      "def": "Trasformazione che crea una colonna binaria per ogni valore di una variabile categorica nominale."
     },
     {
-      "term": "SMOTE e sbilanciamento",
-      "def": "SMOTE genera esempi sintetici della classe minoritaria per riequilibrare dataset sbilanciati come le frodi."
-    },
-    {
-      "term": "Clarify bias pre-training",
-      "def": "SageMaker Clarify misura il bias nei dati prima del training confrontando le distribuzioni tra gruppi. Ha chiuso ai nuovi clienti dal 30 luglio 2026: chi lo usava continua."
+      "term": "Class imbalance",
+      "def": "Situazione in cui una classe è molto più rara delle altre, per esempio le frodi tra le transazioni."
     }
   ],
   "slides": [
     {
-      "title": "S3 data lake e formati",
+      "title": "Il ciclo di vita dei dati e perché pesano all'esame",
       "bullets": [
-        "Bucket S3 con prefissi anno mese giorno per il partizionamento",
-        "Parquet e ORC colonnari per query veloci ed economiche",
-        "CSV e JSON per interscambio e ingestione iniziale",
-        "Versionamento per riproducibilita e cifratura KMS",
-        "Partizionare bene riduce i dati scansionati da Athena"
+        "Raccolta, archiviazione, ingestione, trasformazione, feature e split",
+        "Dominio 1 della guida MLA-C01: 28 per cento del punteggio",
+        "Nella guida MLA-C02 il dominio dei dati pesa ancora 28 per cento",
+        "Dati sbagliati producono modelli sbagliati anche con l'algoritmo migliore",
+        "Negli scenari d'esame la risposta giusta è spesso un servizio di dati"
       ],
-      "narration": "Benvenuto al capitolo sulla preparazione dei dati per il machine learning. Questo e il primo dominio dell'esame e pesa il 28 percento. E il dominio piu importante di tutto il test. Senza dati puliti e ben organizzati nessun modello funziona bene. Iniziamo dall'ingestione e dallo storage dei dati. Amazon S3 e il data lake centrale di ogni architettura. I dati si organizzano in bucket con prefissi per anno mese e giorno. Il partizionamento rende le query piu veloci ed economiche. I formati colonnari come Parquet e ORC sono i migliori per l'analitica. Comprimono i dati e leggono solo le colonne necessarie. I file CSV e JSON restano utili per l'interscambio."
+      "narration": "Benvenuti nel primo capitolo tecnico del sito. Qui si parte da zero, quindi non serve conoscere già il machine learning o AWS. Il punto di partenza è una domanda semplice: da dove vengono i dati di un modello, e come arrivano pronti per l'addestramento? Immaginiamo una banca che vuole riconoscere le transazioni fraudolente. Il ciclo di vita dei dati ha sei passaggi. Prima c'è la raccolta: le transazioni nascono nelle app, nei terminali di pagamento e nei sistemi contabili. Poi c'è l'archiviazione, che in AWS vuol dire quasi sempre Amazon S3. Segue l'ingestione, cioè il trasferimento continuo o periodico dei dati dentro il data lake. La trasformazione pulisce, unisce e tipizza le tabelle. Le feature sono le colonne che il modello userà davvero, per esempio il numero di transazioni dell'ultima ora. Infine lo split divide i dati in training, validation e test. Perché questo conta all'esame? Il dominio 1 della guida MLA-C01 vale 28 per cento del punteggio, il peso più alto tra i quattro domini. Anche nella MLA-C02 il dominio dei dati resta al 28 per cento. Nelle domande a scenario la trappola più frequente è cercare la soluzione nell'algoritmo, quando il problema sta nei dati. Se il testo parla di ritardi di arrivo, duplicati, schemi che cambiano o dati che entrano in ritardo, la risposta riguarda il servizio di dati. Un modello sbagliato con dati puliti si corregge con un nuovo addestramento. Un modello addestrato su dati sbagliati sembra funzionare in laboratorio e fallisce in produzione. Nelle prossime slide vedremo ogni passaggio, con i servizi AWS che lo eseguono e con le scelte che l'esame vi chiede di fare.",
+      "todo": []
     },
     {
-      "title": "Governance e streaming",
+      "title": "S3 come data lake: bucket, prefissi e partizioni",
       "bullets": [
-        "Lake Formation con permessi su database tabelle e colonne",
-        "Kinesis Data Streams per flussi real-time con shard",
-        "Kinesis Data Firehose per consegna quasi real-time a S3",
-        "MSK con Kafka per throughput elevato e DMS per replica continua",
-        "Integrazione tra Lake Formation, catalogo Glue e Athena"
+        "Bucket: contenitore con nome globale unico, dove vivono gli oggetti",
+        "Oggetto: un file più i suoi metadati, identificato da una chiave completa",
+        "Partizioni in stile Hive: coppie chiave e valore nei prefissi, come anno=2026",
+        "Consistenza forte dal 1 dicembre 2020: letture subito aggiornate",
+        "Classi di storage, lifecycle e Glacier: capitolo 8"
       ],
-      "narration": "Abilita il versionamento del bucket per la riproducibilita. Usa la cifratura con chiavi KMS per i dati sensibili. AWS Lake Formation governa l'accesso ai dati nel lake. Definisce permessi granulari su database tabelle e colonne. Si integra con il catalogo di Glue e con Athena. Per i dati in streaming si usa Amazon Kinesis. Kinesis Data Streams gestisce flussi real-time con shard dedicati. Kinesis Data Firehose consegna i dati a S3 in modo quasi real-time. AWS DMS replica i database esistenti verso S3 in modo continuo. Passiamo al catalogo e alle query interattive."
+      "narration": "Amazon S3 è lo storage a oggetti di AWS, e in quasi ogni architettura di machine learning fa da data lake. È il luogo dove i dati grezzi e trasformati vivono a lungo, in formati diversi. Un bucket è il contenitore. Ogni file si chiama oggetto e ha una chiave, cioè il suo nome completo, per esempio clicks, anno uguale 2026, mese uguale 10, e il nome del file. S3 non ha vere cartelle. Il prefisso, cioè la parte iniziale della chiave, sembra una cartella nella console, ma l'archivio è piatto. Qui entra il partizionamento. Se i prefissi seguono la forma chiave e valore, come anno uguale 2026 e mese uguale 10, si parla di partizioni in stile Hive. Athena e Glue riconoscono questa forma e possono leggere solo la cartella del giorno richiesto. È il primo modo per ridurre il costo delle query, e lo vedremo meglio con Athena. Un punto che l'esame richiede: dal 1 dicembre 2020 S3 offre consistenza forte. Dopo la scrittura di un nuovo oggetto o la sovrascrittura di uno esistente, una lettura immediata riceve l'ultima versione. Anche le liste dei prefissi riflettono subito i cambiamenti, senza costi aggiuntivi. Prima esistevano soluzioni di compensazione, che usavano un indice esterno per coprire l'attesa di consistenza. Oggi una domanda che presenta quell'attesa come problema da risolvere contiene una premessa superata, ed è una trappola. Perché S3 e non un database? Un database relazionale come RDS è pensato per le transazioni, con uno schema imposto alla scrittura e una capacità limitata. Un data lake conserva file di qualunque formato a costi bassi, separa lo storage dal calcolo e permette a più motori di leggere gli stessi dati. Athena, Glue, EMR e i job di training di SageMaker possono usare gli stessi file. Le classi di storage, il lifecycle che sposta i dati freddi in Glacier e l'Intelligent-Tiering li vediamo nel capitolo 8.",
+      "todo": []
     },
     {
-      "title": "Catalogo e query con Glue e Athena",
+      "title": "Formati dei dati: righe, colonne e i formati dei built-in",
       "bullets": [
-        "Glue Crawler scopre lo schema e aggiorna le partizioni",
-        "Glue Data Catalog come metadati centrali interrogabili",
-        "Athena con motore Trino esegue SQL diretto su S3",
-        "Costo legato ai dati scansionati: conta il formato",
-        "Pianificare il crawler sui nuovi arrivi giornalieri"
+        "CSV e JSON: testo leggibile, senza colonne separate né compressione colonnare",
+        "JSON Lines: un oggetto JSON per riga, adatto alla lettura in streaming",
+        "Parquet e ORC: colonnari e compressi, letture economiche",
+        "Avro: formato che conserva lo schema insieme ai dati, comune nei flussi",
+        "RecordIO-protobuf: formato binario di molti algoritmi built-in",
+        "Athena: 3 TB di CSV costano 15 dollari a 5 dollari per TB"
       ],
-      "narration": "AWS Glue Crawler esplora i dati in S3 e scopre lo schema. Registra le tabelle nel Glue Data Catalog centrale. Pianifica il crawler per aggiornare le partizioni ogni giorno. Amazon Athena esegue query SQL direttamente sui file in S3. Usa il motore Trino o Presto sotto il cofano. Paghi solo per i dati scansionati dalla query. Il partizionamento e i formati colonnari riducono molto i costi. Per l'ETL su larga scala si usa AWS Glue. Glue ETL esegue job Spark serverless senza server da gestire. Glue Studio offre un editor visuale per i job. I bookmark di Glue evitano di riprocessare i dati gia elaborati."
+      "narration": "Un formato è il modo in cui i valori sono scritti su disco, e la scelta cambia sia le prestazioni sia la fattura. La differenza principale è tra formati a righe e formati colonnari. In un formato a righe, come CSV o JSON, ogni record è una riga intera: per leggere una sola colonna bisogna leggere tutto. In un formato colonnare, come Parquet o ORC, i valori sono raggruppati per colonna. Una query che somma il campo importo legge solo quella colonna, e la compressione funziona meglio, perché valori simili stanno vicini. CSV è semplice e universale, ma non ha tipi né schema, e ogni colonna va scansionata. JSON è flessibile per i dati annidati. JSON Lines mette un oggetto per riga e si legge in streaming. Avro conserva lo schema insieme ai dati ed è comune nei flussi. Parquet è il formato di riferimento per l'analisi su S3. Ora il collegamento con i costi. Athena fattura per dati scansionati. La pagina prezzi di AWS usa come esempio 3 TB scansionati a 5 dollari per TB, cioè 15 dollari. Se lo stesso dato è compresso in GZIP con un rapporto di tre a uno, la scansione scende a 1 TB e il costo a 5 dollari. Se è in Parquet e la query legge una sola colonna, l'esempio ufficiale mostra un risparmio di quattro volte, cioè una scansione di 0,25 TB e un costo di 1,25 dollari. Il formato, dunque, decide quanto si paga. Per gli algoritmi built-in di SageMaker, la documentazione elenca i content type più comuni. CSV funziona per molti algoritmi, come XGBoost e Linear Learner: niente intestazione, e la colonna del target deve essere la prima. RecordIO-protobuf è il formato binario di algoritmi come K-Means, PCA e Factorization Machines. JSON Lines serve BlazingText e DeepAR. Nelle domande d'esame che chiedono quale formato accetta un algoritmo, rispondete guardando quella tabella, non ricordando che Parquet va bene ovunque. La modalità Pipe, che legge in streaming da S3 durante il training, la vediamo nel capitolo 8.",
+      "todo": []
     },
     {
-      "title": "ETL su larga scala: Glue ed EMR",
+      "title": "Governance con Lake Formation: tabelle, colonne e righe",
       "bullets": [
-        "Glue ETL con job Spark serverless e Glue Studio visuale",
-        "Bookmark di Glue contro la rielaborazione dei dati",
-        "EMR con cluster Spark Hadoop e Hive per volumi enormi",
-        "Scelta produttiva programmata su TB e petabyte",
-        "Data Wrangler per esplorazione interattiva su scala minore"
+        "Permessi su database, tabella, vista e colonne, con SELECT",
+        "Data filter: limita le righe e le colonne visibili",
+        "Lista di colonne incluse o escluse nella concessione SELECT",
+        "Servono sia permessi Lake Formation sia permessi IAM",
+        "IAMAllowedPrincipals: va revocato perché Lake Formation controlli davvero l'accesso",
+        "PII, cifratura, LF-Tags e permessi per cella: capitolo 8"
       ],
-      "narration": "Per volumi enormi e trasformazioni distribuite si usa Amazon EMR. EMR esegue cluster Spark Hadoop e Hive gestiti. E la scelta giusta per workload petabyte e pipeline programmate. SageMaker Data Wrangler e lo strumento visuale dentro SageMaker Studio. Permette di importare dati da S3 Athena Redshift e Snowflake. Offre oltre trecento trasformazioni pronte all'uso. Gestisce encoding normalizzazione e valori mancanti. Genera report su bias leakage e anomalie. Esporta i flussi verso pipeline e Feature Store. AWS Glue DataBrew e l'alternativa no-code fuori da SageMaker."
+      "narration": "Quando il data lake contiene dati personali, non basta proteggere il bucket. Lake Formation è il servizio che governa l'accesso ai dati nel catalogo di Glue e nei file su S3. Concede permessi su database, tabelle, viste e colonne. Il permesso più usato è SELECT, cioè la lettura. Su una tabella si può concedere SELECT su tutte le colonne, oppure con una lista di colonne incluse, oppure con una lista di colonne escluse. Athena e Redshift rispettano queste liste. Se un analista deve vedere l'ordine e l'importo ma non il codice fiscale, la soluzione è una concessione SELECT limitata alle colonne utili. Il secondo strumento è il data filter, che limita anche le righe, per esempio solo i clienti di una regione. Ci sono regole da ricordare. Non si possono limitare le colonne che sono chiavi di partizione. Chi ha SELECT su un sottoinsieme di colonne non può ricevere ALTER, DROP, DELETE o INSERT sulla stessa tabella. Il secondo punto d'esame riguarda due famiglie di permessi. Le politiche IAM autorizzano le chiamate alle API del catalogo di Glue. I permessi Lake Formation autorizzano l'accesso ai dati. Per leggere una tabella servono entrambi. Il terzo punto è il gruppo IAMAllowedPrincipals. Lake Formation lo usa per compatibilità con le vecchie politiche IAM. Chi ne fa parte ottiene l'accesso attraverso IAM, quindi per far contare davvero Lake Formation bisogna revocare quel permesso sulle risorse, oppure passare alla modalità di accesso ibrida. È una trappola frequente nelle domande sulla sicurezza. La classificazione delle PII, il rilevamento con Macie e la conformità con HIPAA li trattiamo nel capitolo 8, insieme a LF-Tags e ai permessi per cella.",
+      "todo": []
     },
     {
-      "title": "Data Wrangler e DataBrew",
+      "title": "Batch e streaming: Kinesis Data Streams, Firehose e MSK",
       "bullets": [
-        "Data Wrangler dentro SageMaker Studio con oltre 300 trasformazioni",
-        "Import da S3 Athena Redshift Snowflake ed export verso pipeline",
-        "Report integrati su bias leakage anomalie e valori mancanti",
-        "DataBrew no-code fuori SageMaker per analisti con ricette",
-        "Regola esame: interattivo uguale Wrangler, batch enorme uguale Glue o EMR"
+        "Batch: file caricati a intervalli, adatti al training periodico",
+        "Streaming: eventi continui, adatti a feature aggiornate in pochi secondi",
+        "Kinesis Data Streams: record in shard, letti da più consumer",
+        "Retention minima di 24 ore, massima di 365 giorni",
+        "Firehose: consegna gestita verso S3, con buffer e conversione in Parquet o ORC",
+        "MSK: Apache Kafka gestito, per chi usa già Kafka"
       ],
-      "narration": "Pensato per analisti che preparano dati con ricette visuali. Offre profiling automatico e oltre duecentocinquanta trasformazioni. Regola pratica per l'esame importante. Esplorazione interattiva piccola scala uguale Data Wrangler. ETL produttivo programmato grande scala uguale Glue o EMR. Analisti senza codice uguale DataBrew. Ora parliamo del Feature Store di SageMaker. Un Feature Group contiene feature con nome e tipo definiti. I tipi principali sono stringa intero e frazionario. Ogni record ha un identificatore e un timestamp di evento. L'Online Store serve l'inferenza real-time a bassa latenza."
+      "narration": "Non tutti i dati arrivano a blocchi. Il batch carica file o tabelle a intervalli, per esempio ogni notte, ed è adatto al training periodico. Lo streaming porta gli eventi appena accadono, per esempio un click o una transazione, ed è necessario quando una feature deve essere aggiornata in pochi secondi. AWS offre tre strumenti principali. Amazon Kinesis Data Streams è un flusso di record organizzato in shard. I producer scrivono, più consumer leggono in modo indipendente, e i dati restano disponibili per il periodo di retention. Il minimo è 24 ore, il massimo 365 giorni. Scegliete Data Streams quando serve elaborare in tempo reale con consumer propri, o quando più applicazioni devono rileggere gli stessi eventi. Amazon Data Firehose è gestito: non scrivete applicazioni di consegna, configurate il flusso e i dati arrivano a S3, Redshift, OpenSearch o ad altri endpoint. Firehose accumula i dati in un buffer, per dimensione o per tempo, e poi scrive i file. Può convertire il JSON in Parquet o ORC, ma richiede uno schema nel catalogo di Glue che corrisponda ai dati. Se i dati non sono JSON, si usa una funzione Lambda per trasformarli prima. Amazon MSK gestisce cluster Apache Kafka: lo scegliete quando il team usa già Kafka o ha bisogno del suo ecosistema. Le trappole d'esame sono chiare. Se la domanda chiede di consegnare eventi su S3 in Parquet con poca gestione, la risposta è Firehose con conversione del formato. Se più applicazioni devono leggere gli stessi eventi entro una finestra di tempo, la risposta è Kinesis Data Streams. Shard, throughput e throttling, con i loro limiti numerici, sono nel capitolo 8.",
+      "todo": []
     },
     {
-      "title": "Feature Store online e offline",
+      "title": "Glue Data Catalog e crawler: lo schema registrato una volta",
       "bullets": [
-        "Feature Group con nomi tipi identificatore ed EventTime",
-        "Online Store a bassa latenza per inferenza real-time",
-        "Offline Store in Parquet su S3 per training e batch",
-        "Time travel con query point-in-time contro lo skew",
-        "Ingestione streaming con record singoli o batch da Glue ed EMR"
+        "Il catalogo è il registro di database e tabelle per Athena, Glue ed EMR",
+        "Una tabella è metadati: colonne, tipi, formato e prefisso S3",
+        "Il crawler legge i file, deduce lo schema e scrive nel catalogo",
+        "Le cartelle con chiave e valore diventano partizioni",
+        "Uno schedule trova nuovi file, tabelle e partizioni",
+        "Regola: un prefisso con uno schema, altrimenti Athena può restituire zero righe"
       ],
-      "narration": "E basato su tecnologia simile a DynamoDB. Supporta lettura scrittura e cancellazione di singoli record. L'Offline Store conserva lo storico per training e batch. Salva in Parquet su S3 con catalogo Glue. Si interroga con Athena e Spark SQL. Il timestamp di evento abilita il time travel. Le query point-in-time evitano lo skew tra training e serving. L'ingestione puo essere streaming con record singoli. Oppure batch da Data Wrangler EMR e Glue. Passiamo al feature engineering tabellare."
+      "narration": "Un data lake senza catalogo è una raccolta di file senza descrizione. Il Glue Data Catalog è il registro che dice quali database e tabelle esistono, quali colonne hanno, di che tipo sono, in quale formato sono e dove stanno su S3. Una tabella nel catalogo non contiene dati: contiene metadati che puntano a un prefisso. Athena, Glue ed EMR leggono lo stesso catalogo, quindi una tabella definita una volta è disponibile a tutti. Scrivere lo schema a mano porta spesso a errori. Per questo esiste il crawler. Un crawler di AWS Glue lavora in tre passi. Prima classifica i file: i classificatori personalizzati vanno per primi, poi quelli integrati, che riconoscono JSON, CSV e Avro. Poi deduce lo schema dal contenuto. Infine scrive o aggiorna tabelle e partizioni nel catalogo. Il crawler ragiona sulle cartelle. Se sotto un prefisso le cartelle hanno nomi come anno uguale 2026, e lo schema è simile, crea una sola tabella con una partizione per ogni livello. Se due cartelle di primo livello hanno schemi diversi, il crawler può creare tabelle distinte, e la regola va impostata con un percorso di inclusione per ciascuna tabella. Il crawler si può pianificare: a ogni esecuzione trova i file e le partizioni nuove e le registra. Attenzione a un comportamento di Athena: più tabelle con schemi diversi nello stesso prefisso possono produrre risultati vuoti. Anche MSCK REPAIR TABLE scansiona le sottocartelle, quindi i dati di tabelle diverse vanno tenuti in cartelle separate. Una domanda d'esame tipica dice che ogni giorno arrivano partizioni nuove e Athena non le vede. La soluzione è un crawler pianificato, oppure il comando MSCK REPAIR TABLE per le partizioni in stile Hive. Per tabelle molto partizionate con struttura nota c'è la partition projection, che calcola le partizioni senza leggerle dal catalogo.",
+      "todo": []
     },
     {
-      "title": "Feature engineering tabellare",
+      "title": "Athena: SQL serverless su S3 e costo per dato scansionato",
       "bullets": [
-        "One-hot encoding per categorie e ordinal per ranghi",
-        "Standardizzazione a media zero e min-max tra zero e uno",
-        "Imputazione con media mediana moda, mai dal test set",
-        "Oversampling undersampling pesi di classe e SMOTE",
-        "Metriche per sbilanciati: precision recall e F1"
+        "Nessun cluster: si paga per i dati scansionati dalla query",
+        "Esempio ufficiale: 3 TB scansionati a 5 dollari per TB, cioè 15 dollari",
+        "Filtro sulla partizione: Athena legge solo quel prefisso",
+        "Parquet e compressione riducono la scansione",
+        "CTAS: converte CSV in Parquet partizionato, una volta sola",
+        "Non più di 1 milione di partizioni in una singola scansione"
       ],
-      "narration": "Le variabili categoriche richiedono encoding numerico. Il one-hot encoding crea una colonna binaria per categoria. L'ordinal encoding assegna numeri ordinati alle categorie. Le variabili numeriche richiedono normalizzazione. La standardizzazione centra i dati a media zero. La normalizzazione min-max scala i valori tra zero e uno. I valori mancanti si gestiscono con imputazione. Media mediana o moda per i numerici. Categoria dedicata oppure riga scartata per i categorici. Mai imputare usando statistiche del test set. Lo sbilanciamento delle classi e tipico nelle frodi."
+      "narration": "Amazon Athena esegue SQL direttamente sui file in S3, usando le tabelle del catalogo di Glue. Non ci sono server da gestire né cluster da accendere. Il modello di costo è diverso da quello di un database: si paga per i dati scansionati dalla query, non per il tempo di calcolo. Quindi il costo dipende dal volume e dal formato dei dati. Riprendiamo l'esempio ufficiale della pagina prezzi di AWS: 3 TB scansionati a 5 dollari per TB fanno 15 dollari. Le tariffe cambiano nel tempo, quindi per un progetto reale controllate la pagina prezzi aggiornata. Le leve per ridurlo sono tre. La prima sono le partizioni. Se la query contiene un filtro sulla colonna di partizione, per esempio anno e mese, Athena legge solo i prefissi corrispondenti. Senza quel filtro, la query scansiona tutto. Le partizioni in stile Hive si caricano con MSCK REPAIR TABLE. Quelle in un altro formato, come i percorsi per data che Firehose scrive, si aggiungono una per una con ALTER TABLE ADD PARTITION. La seconda leva è il formato. Parquet legge solo le colonne richieste, e nell'esempio ufficiale il risparmio è di quattro volte. La terza è la compressione: GZIP con un rapporto di tre a uno riduce di tre volte il dato scansionato, sempre nell'esempio. Il flusso tipico è questo. I dati arrivano in CSV nella zona grezza. Un'operazione CTAS li converte in Parquet partizionato in una zona curata. Da quel momento le query ripetute costano molto meno. Attenzione a un limite: Athena non può leggere più di un milione di partizioni in una singola scansione. Per tabelle con moltissime partizioni si usano la partition projection oppure gli indici di partizione del catalogo. Per l'esame ricordate tre tranelli. Se la domanda parla di costi alti su query ripetute, la risposta è Parquet con partizioni e CTAS. Se una query non filtra la data, la trappola è la scansione completa dei dati. Se servono analisi interattive prima di costruire la pipeline, Athena è lo strumento giusto per l'esplorazione.",
+      "todo": []
     },
     {
-      "title": "Bias, leakage e split",
+      "title": "Glue ETL: job Spark serverless, DynamicFrame e job bookmark",
       "bullets": [
-        "Clarify misura il bias pre-training tra gruppi, chiuso ai nuovi clienti dal 30/07/2026",
-        "Separare sempre training validation e test",
-        "Escludere feature future per evitare il leakage",
-        "Time travel dell Offline Store per point-in-time corretti",
-        "Report di Data Wrangler per controllo rapido"
+        "Job Spark serverless: nessun cluster da creare e gestire",
+        "DynamicFrame: record con schema proprio, utile con colonne miste",
+        "resolveChoice: risolve una colonna che arriva con tipi diversi",
+        "Job bookmark: ricorda i file già elaborati",
+        "Opzioni: enable, disable (predefinita) e pause",
+        "EMR: cluster gestiti, più controllo su Hadoop, Spark e altri framework"
       ],
-      "narration": "Si usano oversampling undersampling o pesi di classe. La tecnica SMOTE genera esempi sintetici della minoranza. Le metriche giuste sono precision recall e F1. SageMaker Clarify misura il bias prima del training. Confronta distribuzioni tra gruppi con metriche dedicate. Attenzione alla data: dal 30 luglio 2026 Clarify ha chiuso ai nuovi clienti, mentre chi lo usava prima continua. Per i nuovi progetti AWS indica di calcolare le stesse metriche con pandas e scikit-learn, e le spiegazioni con la libreria SHAP. Si integra con Data Wrangler per i report visivi. Ricorda sempre di separare training validation e test. Evita il leakage escludendo feature future dal training. Ora sai preparare i dati per l'esame. Nel prossimo capitolo si allenano i modelli."
+      "narration": "AWS Glue ETL esegue job Apache Spark senza server. Scrivete lo script in Python o in Scala, oppure costruite il flusso in modo visuale con Glue Studio. Spark lavora con i DataFrame, mentre Glue offre anche il DynamicFrame. La differenza pratica è questa: un DataFrame richiede uno schema fisso, un DynamicFrame porta lo schema con ogni record. Se un campo arriva come numero in alcuni file e come stringa in altri, il DynamicFrame lo rappresenta come una scelta di tipi, senza far fallire il job. Poi lo risolvete con resolveChoice, per esempio convertendo tutto in un numero decimale. Il punto più importante per l'elaborazione incrementale è il job bookmark. Un job che gira ogni notte su una cartella S3 rischia di rielaborare tutto. Con il bookmark abilitato, Glue salva lo stato di ciò che ha letto. Per gli oggetti S3 il controllo si basa sulla data di ultima modifica, quindi alla run successiva vengono elaborati solo i file nuovi. Le opzioni sono tre. Enable abilita il tracciamento. Disable è il valore predefinito e rielabora sempre tutto. Pause elabora un intervallo senza aggiornare lo stato. Se volete rielaborare tutto, azzerate il bookmark. Il bookmark però non cancella i file di output: il target va gestito a parte. Il bookmark è associato al job, quindi se il job viene eliminato lo stato sparisce. Quando scegliere Glue e quando EMR? Glue è serverless: definite il job e pagate durante l'esecuzione. È la scelta per le pipeline ETL programmate, con poca gestione. Amazon EMR è una piattaforma di cluster gestiti per Spark, Hadoop e altri strumenti open source. Dà più controllo su istanze, configurazione e strumenti, al prezzo di gestire il cluster. Nell'esame, rielaborazione dei file già visti significa bookmark. Controllo completo e strumenti Hadoop significano EMR. La struttura dei nodi EMR e l'uso delle istanze Spot sono nel capitolo 8.",
+      "todo": []
+    },
+    {
+      "title": "Data Wrangler e DataBrew: preparazione senza codice",
+      "bullets": [
+        "Data Wrangler: flow visuale, oggi integrato in SageMaker Canvas",
+        "Import da S3, Athena, Redshift, Snowflake e Databricks",
+        "Insight, report di qualità e analisi di target leakage",
+        "Export verso S3, SageMaker Pipelines, Feature Store o script Python",
+        "DataBrew: fuori da SageMaker, serverless, con più di 250 trasformazioni",
+        "Scelta: Data Wrangler per il flusso di machine learning, DataBrew per gli analisti"
+      ],
+      "narration": "Non tutti gli operatori scrivono codice Spark. SageMaker Data Wrangler è lo strumento visuale per preparare i dati per il machine learning. Nasce come funzione di SageMaker Studio Classic, e oggi AWS lo ha integrato in SageMaker Canvas. Nella nuova esperienza di Canvas si possono esplorare e trasformare i dati anche con un'interfaccia in linguaggio naturale. Questo è un punto che cambia spesso, quindi verificate sempre la documentazione più recente. Un flusso di Data Wrangler si compone di passi. Importate dati da S3, Athena, Redshift, Snowflake o Databricks, unite le tabelle, e applicate trasformazioni come la codifica delle categorie, la normalizzazione e la gestione dei valori mancanti. Lo strumento genera insight automatici e un rapporto di qualità, e include un'analisi di target leakage che segnala le feature troppo legate alla variabile da prevedere. Quando il flusso è pronto, lo esportate. Le destinazioni sono un bucket S3, una pipeline di SageMaker Pipelines, il Feature Store oppure uno script Python. Glue DataBrew è un altro strumento visuale, ma fuori da SageMaker. È serverless, offre la profilatura dei dati e più di 250 trasformazioni pronte. Ogni sequenza di passi si salva in una ricetta, che si riusa su altri dataset e si può pianificare. L'output va su S3. La regola per l'esame è questa. Se lo scenario parla di preparazione visuale dentro il flusso di machine learning, con esportazione verso una pipeline o il Feature Store, la risposta è Data Wrangler. Se parla di analisti o di data engineer che vogliono ricette senza codice, la risposta è DataBrew. Le regole DQDL e Glue Data Quality appartengono al capitolo 8.",
+      "todo": []
+    },
+    {
+      "title": "Feature Store: feature group, record identifier ed event time",
+      "bullets": [
+        "Feature Store: archivio unico delle feature, con condivisione e controllo di accesso",
+        "Feature group: feature con nome e tipo, più il record identifier",
+        "Tipi ammessi: integral, string e fractional",
+        "Record identifier: la chiave che identifica l'entità, per esempio il cliente",
+        "Event time: il momento dell'evento, obbligatorio per ogni record",
+        "Online store e offline store ricevono la stessa ingestione"
+      ],
+      "narration": "Il Feature Store di SageMaker risolve un problema concreto. Un'organizzazione ha più modelli, e più team calcolano le stesse feature in modi diversi. Il risultato sono valori incoerenti tra training e produzione, il cosiddetto training serving skew. Il Feature Store è lo strato unico in cui le feature sono definite, salvate, condivise e controllate. Un feature group è il contenitore. Ha un elenco di feature, ognuna con un nome e un tipo. I tipi ammessi sono integral, string e fractional. Ogni feature group ha un record identifier, cioè la feature che identifica in modo univoco l'entità, per esempio il codice cliente. Ha anche un event time, cioè il timestamp dell'evento che il record descrive. Un record è una riga, identificata dalla coppia formata da record identifier ed event time. Il concetto più importante per l'esame riguarda i due store. L'online store conserva solo il record più recente per ogni identificatore: è pensato per le letture veloci durante la previsione. L'offline store conserva tutta la storia: serve per costruire dataset di training e per le previsioni in batch. Quando scrivete con la chiamata PutRecord, il sistema aggiorna entrambi. AWS documenta che il servizio mantiene automaticamente la coerenza tra online e offline, senza codice aggiuntivo da parte vostra. Perché serve la storia nel training? Perché un modello deve imparare da ciò che si sapeva al momento di ogni esempio, non da ciò che si sa oggi. Lo vediamo nel dettaglio nelle prossime slide, con la latenza e con la query point-in-time. Per ora fissate il principio: online per leggere l'ultimo valore in fretta, offline per il passato completo.",
+      "todo": []
+    },
+    {
+      "title": "Feature Store: latenza, offline store su S3 e query point-in-time",
+      "bullets": [
+        "Online store: letture a latenza di pochi millisecondi, per l'inferenza in tempo reale",
+        "Offline store: Parquet su S3 con catalogo Glue, per training e batch",
+        "Scrittura nell'offline store entro 15 minuti dal PutRecord",
+        "Point-in-time: solo feature con event time non successivo all'etichetta",
+        "SDK: create_dataset e point_in_time_accurate_join",
+        "Condivisione: le feature sono leggibili da Athena tramite il catalogo"
+      ],
+      "narration": "Ora la latenza, il luogo dove stanno i dati e la prevenzione del leakage. L'online store è costruito per l'inferenza in tempo reale. AWS, nella pagina FAQ di SageMaker, lo descrive come uno store ad alto throughput con latenza a cifra singola in millisecondi per le applicazioni client. Un esempio: un'app antifrode deve rispondere mentre il cliente sta pagando, quindi le feature vanno lette in millisecondi. Per questo si usa la chiamata GetRecord, che restituisce l'ultimo record dell'identificatore. L'offline store non è pensato per quella velocità. È un archivio su S3 in formato Parquet, registrato nel catalogo di Glue come tabella nel formato predefinito. AWS offre anche il formato Apache Iceberg. Serve per il training, per la preparazione dei dataset e per le previsioni in batch, dove la latenza di pochi millisecondi non serve. Quanto è fresco? La documentazione dice che i dati vengono bufferizzati e scritti su S3 entro 15 minuti dalla chiamata PutRecord. Veniamo al punto centrale: la query point-in-time. Supponete di addestrare un modello sulle frodi. Ogni etichetta ha un momento preciso, cioè quello della transazione. Una feature come il numero di transazioni nelle ultime 24 ore va calcolata con i dati disponibili a quel momento. Se la join prende il valore più recente della feature, può contenere eventi successivi alla transazione. Il modello impara con informazioni che in produzione non avrebbe, e le metriche offline sembrano migliori del reale. Questo è il target leakage. La query point-in-time prende, per ogni etichetta, solo i record con event time minore o uguale al suo momento. Nell'SDK di SageMaker si usa FeatureStore, con create_dataset, l'entity dataframe come base, with_feature_group e point_in_time_accurate_join. In Athena si ottiene con una finestra row number, partizionata per identificatore e ordinata per event time decrescente, filtrando i record non successivi all'etichetta. Infine la condivisione. Poiché il catalogo registra le tabelle, un altro team con i permessi giusti interroga le stesse feature con Athena, senza ricalcolarle.",
+      "todo": []
+    },
+    {
+      "title": "Feature engineering: scaling, normalizzazione e standardizzazione",
+      "bullets": [
+        "Standardizzazione: media zero e deviazione standard uno",
+        "Normalizzazione min-max: valori tra zero e uno",
+        "Servono a k-NN, SVM, reti neurali e regressione addestrata con gradiente",
+        "Gli alberi decisionali non ne hanno bisogno",
+        "Lo scaler si adatta solo sul training e si applica a validation e test",
+        "Scalare l'intero dataset prima dello split è leakage"
+      ],
+      "narration": "La feature engineering è l'arte di trasformare le colonne grezze in input che il modello può usare bene. Iniziamo dalla scala. Immaginate due feature: il reddito, con valori nell'ordine delle migliaia, e l'età, con valori tra venti e settanta. Molti algoritmi misurano la distanza tra punti oppure usano i gradienti. In quel caso il reddito domina il calcolo, e l'età conta poco, non per la sua importanza ma per la sua unità di misura. La standardizzazione trasforma ogni colonna in modo che abbia media zero e deviazione standard uno. La normalizzazione min-max la porta nell'intervallo tra zero e uno. Non c'è una scelta unica. La standardizzazione è la scelta più comune quando la distribuzione è approssimativamente normale. La min-max è comoda quando servono limiti fissi, ma un outlier la schiaccia. Con outlier forti conviene una scala robusta, che usa mediana e quartili. Quali algoritmi la richiedono? Quelli basati su distanze, come k-NN e SVM, e quelli addestrati con discesa del gradiente, come le reti neurali e la regressione lineare regolarizzata. Gli alberi decisionali e le foreste casuali dividono le feature con soglie, quindi non sono sensibili alla scala. Un errore frequente, e anche una trappola d'esame, riguarda il momento in cui si calcola la trasformazione. Le statistiche di media, deviazione standard, minimo e massimo devono venire solo dal training. Lo scaler si adatta sul training e poi si applica a validation e test. Se calcolate la media sull'intero dataset prima dello split, il test ha contribuito alle statistiche del training. È contaminazione, e le metriche finali risultano ottimistiche. La stessa regola vale per ogni trasformazione che impara dai dati, dall'imputazione agli encoder.",
+      "todo": []
+    },
+    {
+      "title": "Encoding delle categorie: one-hot, label, ordinal e target",
+      "bullets": [
+        "One-hot: una colonna binaria per ogni categoria nominale",
+        "Label encoding: un numero per categoria, senza ordine reale",
+        "Ordinal encoding: numeri che rispettano un ordine vero, per esempio basso, medio, alto",
+        "Target encoding: media del target per categoria, con rischio di leakage",
+        "Alta cardinalità: one-hot diventa enorme, si usano hashing o embedding",
+        "Le categorie nuove in inferenza vanno gestite con una regola"
+      ],
+      "narration": "I modelli lavorano con numeri, quindi le categorie vanno codificate. Il primo caso è la categoria nominale, senza ordine: colore, città, tipo di pagamento. La scelta standard è il one-hot encoding, che crea una colonna binaria per ogni valore. Se la città è Milano, la colonna Milano vale uno e le altre valgono zero. Non introduce un ordine falso e funziona con quasi ogni modello, ma con migliaia di valori le colonne esplodono. Il label encoding assegna un numero intero a ogni categoria: Milano uguale a uno, Roma uguale a due. Con gli alberi va bene, perché le soglie non presuppongono una distanza. Con modelli lineari o basati su distanze diventa un errore, perché il modello crede che Roma valga il doppio di Milano. L'ordinal encoding è diverso. Si usa quando l'ordine esiste davvero, come basso, medio e alto, e i numeri lo rispettano. Il target encoding sostituisce la categoria con la media del target per quella categoria. È potente con alta cardinalità, per esempio con i codici postali, ma è pericoloso. Se la media include anche l'etichetta della riga stessa, il modello vede già la risposta. Va calcolata fuori fold, cioè usando solo i dati degli altri fold o del training. Per categorie con milioni di valori, come gli identificativi di prodotto, il one-hot non è praticabile. Si usano l'hashing, che riduce le colonne a un numero fisso, oppure gli embedding, che imparano una rappresentazione densa. Infine una domanda pratica: cosa succede a una categoria mai vista in training? La pipeline deve avere una regola, per esempio una categoria sconosciuta che produce tutti zeri, oppure un valore dedicato. Se la domanda d'esame parla di identificativi molto numerosi, non rispondete one-hot.",
+      "todo": []
+    },
+    {
+      "title": "Binning, trasformazione logaritmica e valori mancanti",
+      "bullets": [
+        "Binning: intervalli di valori continui, per esempio fasce d'età",
+        "Log transform: comprime le code lunghe, come importi e conteggi",
+        "Valori mancanti: media, mediana o moda per le colonne numeriche",
+        "Categoria dedicata o indicatore di mancanza per le colonne categoriche",
+        "Imputazione calcolata solo sul training",
+        "Eliminare righe è accettabile solo se sono poche"
+      ],
+      "narration": "Altre trasformazioni servono a rendere le distribuzioni più utili. Il binning raggruppa un valore continuo in intervalli. L'età diventa fasce, da diciotto a venticinque anni, da venticinque a trentacinque, e così via. Il vantaggio è la leggibilità e la robustezza al rumore. Lo svantaggio è la perdita di precisione dentro ogni fascia. La trasformazione logaritmica serve quando la distribuzione ha una coda lunga, come gli importi delle transazioni o i conteggi delle visite. Pochi valori enormi schiacciano tutto il resto. Il logaritmo comprime la coda e rende la relazione più regolare. Quando ci sono zeri, si usa il logaritmo di uno più il valore. Veniamo ai valori mancanti. Le colonne numeriche si riempiono con la media, che è sensibile agli outlier, oppure con la mediana, più robusta. Per le variabili discrete si usa la moda. Per le categorie si può creare una categoria dedicata, per esempio sconosciuto. Spesso la mancanza stessa è informativa: un reddito non dichiarato può essere un segnale. In quel caso si aggiunge una colonna indicatrice che vale uno quando il valore manca, e si imputa la colonna originale. Eliminare le righe è accettabile solo se sono poche e se la mancanza è casuale. In caso contrario si perde un pezzo del campione e si introduce bias. Come per la scala, l'imputazione è una statistica e va calcolata solo sul training. Usare la media dell'intero dataset, test compreso, è leakage. La domanda d'esame tipica è questa: qual è l'imputazione corretta in una pipeline? La risposta è sempre quella che calcola le statistiche sul training e le riusa sugli altri insiemi.",
+      "todo": []
+    },
+    {
+      "title": "Testo: tokenizzazione, bag of words e TF-IDF",
+      "bullets": [
+        "Tokenizzazione: divide il testo in parole o sottoparole",
+        "Normalizzazione: minuscole, punteggiatura e stopword rimosse",
+        "Bag of words: conta le parole e ignora l'ordine",
+        "TF-IDF: pesa di più le parole frequenti nel documento e rare nel corpus",
+        "Gli embedding per i modelli moderni sono trattati nel capitolo 6 e nel capitolo 12"
+      ],
+      "narration": "Anche il testo diventa numerico solo dopo alcuni passi. Il primo è la tokenizzazione: il testo viene spezzato in token, di solito parole, a volte sottoparole. Una frase come non mi piace il servizio diventa una sequenza di token. Poi si normalizza. Si portano le lettere in minuscolo, si tolgono la punteggiatura e le stopword, cioè parole come il, di e che, che non portano molto significato in un'analisi semplice. La bag of words è il modello più semplice. Per ogni documento si conta quante volte compare ogni parola del vocabolario. L'ordine si perde, ma per molti problemi di classificazione di recensioni o email funziona bene. Il problema è che le parole molto comuni, come questo o servizio, dominano i conteggi. TF-IDF corregge questo difetto. Il termine frequency misura quanto una parola compare nel documento. L'inverse document frequency abbassa il peso delle parole che compaiono in quasi tutti i documenti del corpus. Il risultato è alto per le parole che caratterizzano un documento. In un corpus di recensioni di un ristorante, la parola pizza pesa poco, mentre una parola come scottato, rara ma specifica, pesa molto. All'esame TF-IDF compare come scelta classica per il testo con modelli lineari. La tokenizzazione avanzata, le sottoparole e il preprocessing per il fine-tuning dei modelli di linguaggio sono nei capitoli successivi. Gli embedding, che trasformano il testo in vettori densi di significato, si usano con i modelli moderni. Per il quiz ricordate la differenza. La bag of words ignora l'ordine, TF-IDF pesa la rarità, gli embedding catturano il significato.",
+      "todo": []
+    },
+    {
+      "title": "Leakage, split e cross-validation",
+      "bullets": [
+        "Target leakage: una feature contiene informazioni dal futuro o dal risultato",
+        "Contaminazione: duplicati o record correlati tra training e test",
+        "Split tipico: per esempio 80 per cento training, 10 per cento validation, 10 per cento test",
+        "Split temporale per le serie storiche: il test viene dopo il training",
+        "Split stratificato per classi sbilanciate",
+        "Cross-validation: k fold, media delle metriche"
+      ],
+      "narration": "Il leakage è l'errore più pericoloso del machine learning, perché produce metriche molto buone che non reggono in produzione. Ci sono tre forme. La prima è il target leakage: una feature contiene informazioni che si conoscono solo dopo l'evento da prevedere. Per esempio, in un modello che prevede l'abbandono di un cliente, la feature numero di chiamate al servizio clienti nel mese successivo rivela già la risposta. La seconda è la contaminazione tra training e test: lo stesso cliente appare in entrambi con righe quasi identiche, e il modello ricorda invece di generalizzare. La terza è l'uso delle statistiche del test, come abbiamo visto con scala e imputazione. Per evitarlo si divide prima, poi si trasforma. Lo split classico separa i dati in training, validation e test. Il training serve ad addestrare. La validation serve a scegliere iperparametri e modelli. Il test dà una stima finale, da usare una sola volta. Le proporzioni tipiche sono per esempio 80, 10 e 10 per cento, ma dipendono dalla quantità di dati: con milioni di righe bastano pochi punti percentuali per la validation. Per le serie storiche lo split casuale è sbagliato, perché il modello vedrebbe il futuro durante il training. Si usa uno split temporale, in cui il test è cronologicamente successivo al training. Per le classi sbilanciate, come le frodi, uno split casuale può lasciare pochissimi casi positivi nel test. Lo split stratificato mantiene le stesse proporzioni in ogni insieme. Quando i dati sono pochi, la cross-validation divide il training in k fold, allena k volte lasciando fuori un fold alla volta e media le metriche. Dà una stima più stabile, ma costa k addestramenti. Le trasformazioni vanno comunque calcolate dentro ogni fold. Il dataset di test resta intoccato fino alla fine.",
+      "todo": []
+    },
+    {
+      "title": "Bias nei dati e Clarify: misurarlo prima del training",
+      "bullets": [
+        "Class imbalance: una classe è molto più rara, per esempio le frodi all'1% delle transazioni",
+        "Bias di selezione: il campione non rappresenta la popolazione reale",
+        "Bias di misura: un'etichetta o una feature è raccolta in modo diverso tra gruppi",
+        "Clarify CI: sbilanciamento dei campioni tra gruppi, con valori tra meno 1 e più 1",
+        "Clarify DPL: differenza di esiti positivi tra gruppi, con valori tra meno 1 e più 1",
+        "Stato: Clarify non accetta nuovi clienti dal 30 luglio 2026"
+      ],
+      "narration": "Il bias nei dati è una distorsione che entra prima del modello. Se il dataset dei prestiti ha pochissimi esempi di un gruppo, il modello imparerà poco su quel gruppo. Tre concetti vanno distinti. Il class imbalance riguarda la frequenza delle classi. Se le frodi sono l'uno per cento delle transazioni, un modello che risponde sempre non frode ha un'accuratezza del novantanove per cento e non trova nulla. Il bias di selezione nasce quando il campione non rappresenta la popolazione reale, per esempio quando si raccolgono dati solo dai clienti che hanno completato un acquisto. Il bias di misura nasce quando un'etichetta o una feature viene rilevata in modo diverso tra gruppi, per esempio da strumenti o operatori diversi. Perché misurarlo prima del training? Perché correggerlo dopo è più costoso e meno chiaro. SageMaker Clarify calcola metriche di bias pre-training sui dati grezzi, senza bisogno di un modello. Le due metriche da ricordare sono CI e DPL. CI misura lo sbilanciamento dei campioni tra un gruppo favorito e uno sfavorito. DPL misura la differenza nelle proporzioni di esiti positivi tra i gruppi. Entrambe hanno un intervallo tra meno 1 e più 1. Ora lo stato, che è materia d'esame. AWS ha chiuso Clarify ai nuovi clienti dal 30 luglio 2026. Chi lo usava prima continua a farlo, e AWS non prevede nuove funzioni. Per i nuovi progetti, AWS indica di calcolare le stesse metriche standard con pandas e scikit-learn, e di calcolare le spiegazioni delle feature con la libreria SHAP, su cui Clarify si basa. I risultati si possono tracciare con SageMaker AI MLflow, CloudWatch e QuickSight. Bedrock Evaluations sostituisce Clarify solo per la valutazione dei modelli di fondazione, non per il bias nei dati tabellari. Questo punto è nella guida MLA-C01, che nomina Clarify per il bias e per l'interpretabilità. La guida MLA-C02 non lo nomina più, ma il concetto di bias nei dati e le sue metriche restano. Alle domande su questo tema rispondete con il concetto e con l'alternativa indicata da AWS.",
+      "todo": []
+    },
+    {
+      "title": "Tranelli d'esame: scegliere il servizio dallo scenario",
+      "bullets": [
+        "Inferenza in tempo reale con latenza di millisecondi: online store",
+        "Storico per training e batch: offline store su S3",
+        "Leakage con dati temporali: query point-in-time",
+        "Costi di Athena su query ripetute: Parquet, partizioni, CTAS",
+        "Eventi da consegnare su S3 con poca gestione: Firehose",
+        "Più consumer che rileggono gli eventi: Kinesis Data Streams"
+      ],
+      "narration": "Chiudiamo con un metodo per le domande a scenario. Il testo contiene quasi sempre una parola chiave che decide la risposta. Se la domanda parla di latenza di millisecondi per l'inferenza, la risposta è l'online store del Feature Store. Se parla di storico per il training o per le previsioni in batch, è l'offline store su S3 in Parquet. Se parla di evitare il leakage con dati che cambiano nel tempo, è la query point-in-time, con event time minore o uguale al momento dell'etichetta. Se parla di costo alto di query Athena ripetute su CSV, la risposta è convertire in Parquet, partizionare e usare CTAS, con la compressione. Se parla di eventi da consegnare a S3 con poca gestione, è Amazon Data Firehose. Se più applicazioni devono rileggere gli stessi eventi, è Kinesis Data Streams. Se un job Glue rielabora ogni notte file già visti, serve il job bookmark. Se un team di analisti vuole preparare dati senza codice e salvare le ricette, è DataBrew. Se il flusso è di machine learning e deve finire in una pipeline o nel Feature Store, è Data Wrangler. Se la domanda chiede di proteggere colonne personali, la risposta è Lake Formation con permessi di colonna, non una policy sul bucket. Se chiede di misurare il bias prima del training, ricordate che Clarify è chiuso ai nuovi clienti dal 30 luglio 2026, e che AWS indica pandas, scikit-learn e SHAP come alternativa. Due regole valgono ovunque. Le trasformazioni si calcolano sul training. E nessuna scelta deve usare il test set per decidere. Nel capitolo 8 trovate i dettagli che qui sono solo accennati.",
+      "todo": []
     }
   ],
-  "script": "Benvenuto al capitolo sulla preparazione dei dati per il machine learning. Questo e il primo dominio dell'esame e pesa il 28 percento. E il dominio piu importante di tutto il test. Senza dati puliti e ben organizzati nessun modello funziona bene. Iniziamo dall'ingestione e dallo storage dei dati. Amazon S3 e il data lake centrale di ogni architettura. I dati si organizzano in bucket con prefissi per anno mese e giorno. Il partizionamento rende le query piu veloci ed economiche. I formati colonnari come Parquet e ORC sono i migliori per l'analitica. Comprimono i dati e leggono solo le colonne necessarie. I file CSV e JSON restano utili per l'interscambio. Abilita il versionamento del bucket per la riproducibilita. Usa la cifratura con chiavi KMS per i dati sensibili. AWS Lake Formation governa l'accesso ai dati nel lake. Definisce permessi granulari su database tabelle e colonne. Si integra con il catalogo di Glue e con Athena. Per i dati in streaming si usa Amazon Kinesis. Kinesis Data Streams gestisce flussi real-time con shard dedicati. Kinesis Data Firehose consegna i dati a S3 in modo quasi real-time. AWS DMS replica i database esistenti verso S3 in modo continuo. Passiamo al catalogo e alle query interattive. AWS Glue Crawler esplora i dati in S3 e scopre lo schema. Registra le tabelle nel Glue Data Catalog centrale. Pianifica il crawler per aggiornare le partizioni ogni giorno. Amazon Athena esegue query SQL direttamente sui file in S3. Usa il motore Trino o Presto sotto il cofano. Paghi solo per i dati scansionati dalla query. Il partizionamento e i formati colonnari riducono molto i costi. Per l'ETL su larga scala si usa AWS Glue. Glue ETL esegue job Spark serverless senza server da gestire. Glue Studio offre un editor visuale per i job. I bookmark di Glue evitano di riprocessare i dati gia elaborati. Per volumi enormi e trasformazioni distribuite si usa Amazon EMR. EMR esegue cluster Spark Hadoop e Hive gestiti. E la scelta giusta per workload petabyte e pipeline programmate. SageMaker Data Wrangler e lo strumento visuale dentro SageMaker Studio. Permette di importare dati da S3 Athena Redshift e Snowflake. Offre oltre trecento trasformazioni pronte all'uso. Gestisce encoding normalizzazione e valori mancanti. Genera report su bias leakage e anomalie. Esporta i flussi verso pipeline e Feature Store. AWS Glue DataBrew e l'alternativa no-code fuori da SageMaker. Pensato per analisti che preparano dati con ricette visuali. Offre profiling automatico e oltre duecentocinquanta trasformazioni. Regola pratica per l'esame importante. Esplorazione interattiva piccola scala uguale Data Wrangler. ETL produttivo programmato grande scala uguale Glue o EMR. Analisti senza codice uguale DataBrew. Ora parliamo del Feature Store di SageMaker. Un Feature Group contiene feature con nome e tipo definiti. I tipi principali sono stringa intero e frazionario. Ogni record ha un identificatore e un timestamp di evento. L'Online Store serve l'inferenza real-time a bassa latenza. E basato su tecnologia simile a DynamoDB. Supporta lettura scrittura e cancellazione di singoli record. L'Offline Store conserva lo storico per training e batch. Salva in Parquet su S3 con catalogo Glue. Si interroga con Athena e Spark SQL. Il timestamp di evento abilita il time travel. Le query point-in-time evitano lo skew tra training e serving. L'ingestione puo essere streaming con record singoli. Oppure batch da Data Wrangler EMR e Glue. Passiamo al feature engineering tabellare. Le variabili categoriche richiedono encoding numerico. Il one-hot encoding crea una colonna binaria per categoria. L'ordinal encoding assegna numeri ordinati alle categorie. Le variabili numeriche richiedono normalizzazione. La standardizzazione centra i dati a media zero. La normalizzazione min-max scala i valori tra zero e uno. I valori mancanti si gestiscono con imputazione. Media mediana o moda per i numerici. Categoria dedicata oppure riga scartata per i categorici. Mai imputare usando statistiche del test set. Lo sbilanciamento delle classi e tipico nelle frodi. Si usano oversampling undersampling o pesi di classe. La tecnica SMOTE genera esempi sintetici della minoranza. Le metriche giuste sono precision recall e F1. SageMaker Clarify misura il bias prima del training. Confronta distribuzioni tra gruppi con metriche dedicate. Attenzione alla data: dal 30 luglio 2026 Clarify ha chiuso ai nuovi clienti, mentre chi lo usava prima continua. Per i nuovi progetti AWS indica di calcolare le stesse metriche con pandas e scikit-learn, e le spiegazioni con la libreria SHAP. Si integra con Data Wrangler per i report visivi. Ricorda sempre di separare training validation e test. Evita il leakage escludendo feature future dal training. Ora sai preparare i dati per l'esame. Nel prossimo capitolo si allenano i modelli.",
+  "script": "Benvenuti nel primo capitolo tecnico del sito. Qui si parte da zero, quindi non serve conoscere già il machine learning o AWS. Il punto di partenza è una domanda semplice: da dove vengono i dati di un modello, e come arrivano pronti per l'addestramento? Immaginiamo una banca che vuole riconoscere le transazioni fraudolente. Il ciclo di vita dei dati ha sei passaggi. Prima c'è la raccolta: le transazioni nascono nelle app, nei terminali di pagamento e nei sistemi contabili. Poi c'è l'archiviazione, che in AWS vuol dire quasi sempre Amazon S3. Segue l'ingestione, cioè il trasferimento continuo o periodico dei dati dentro il data lake. La trasformazione pulisce, unisce e tipizza le tabelle. Le feature sono le colonne che il modello userà davvero, per esempio il numero di transazioni dell'ultima ora. Infine lo split divide i dati in training, validation e test. Perché questo conta all'esame? Il dominio 1 della guida MLA-C01 vale 28 per cento del punteggio, il peso più alto tra i quattro domini. Anche nella MLA-C02 il dominio dei dati resta al 28 per cento. Nelle domande a scenario la trappola più frequente è cercare la soluzione nell'algoritmo, quando il problema sta nei dati. Se il testo parla di ritardi di arrivo, duplicati, schemi che cambiano o dati che entrano in ritardo, la risposta riguarda il servizio di dati. Un modello sbagliato con dati puliti si corregge con un nuovo addestramento. Un modello addestrato su dati sbagliati sembra funzionare in laboratorio e fallisce in produzione. Nelle prossime slide vedremo ogni passaggio, con i servizi AWS che lo eseguono e con le scelte che l'esame vi chiede di fare. Amazon S3 è lo storage a oggetti di AWS, e in quasi ogni architettura di machine learning fa da data lake. È il luogo dove i dati grezzi e trasformati vivono a lungo, in formati diversi. Un bucket è il contenitore. Ogni file si chiama oggetto e ha una chiave, cioè il suo nome completo, per esempio clicks, anno uguale 2026, mese uguale 10, e il nome del file. S3 non ha vere cartelle. Il prefisso, cioè la parte iniziale della chiave, sembra una cartella nella console, ma l'archivio è piatto. Qui entra il partizionamento. Se i prefissi seguono la forma chiave e valore, come anno uguale 2026 e mese uguale 10, si parla di partizioni in stile Hive. Athena e Glue riconoscono questa forma e possono leggere solo la cartella del giorno richiesto. È il primo modo per ridurre il costo delle query, e lo vedremo meglio con Athena. Un punto che l'esame richiede: dal 1 dicembre 2020 S3 offre consistenza forte. Dopo la scrittura di un nuovo oggetto o la sovrascrittura di uno esistente, una lettura immediata riceve l'ultima versione. Anche le liste dei prefissi riflettono subito i cambiamenti, senza costi aggiuntivi. Prima esistevano soluzioni di compensazione, che usavano un indice esterno per coprire l'attesa di consistenza. Oggi una domanda che presenta quell'attesa come problema da risolvere contiene una premessa superata, ed è una trappola. Perché S3 e non un database? Un database relazionale come RDS è pensato per le transazioni, con uno schema imposto alla scrittura e una capacità limitata. Un data lake conserva file di qualunque formato a costi bassi, separa lo storage dal calcolo e permette a più motori di leggere gli stessi dati. Athena, Glue, EMR e i job di training di SageMaker possono usare gli stessi file. Le classi di storage, il lifecycle che sposta i dati freddi in Glacier e l'Intelligent-Tiering li vediamo nel capitolo 8. Un formato è il modo in cui i valori sono scritti su disco, e la scelta cambia sia le prestazioni sia la fattura. La differenza principale è tra formati a righe e formati colonnari. In un formato a righe, come CSV o JSON, ogni record è una riga intera: per leggere una sola colonna bisogna leggere tutto. In un formato colonnare, come Parquet o ORC, i valori sono raggruppati per colonna. Una query che somma il campo importo legge solo quella colonna, e la compressione funziona meglio, perché valori simili stanno vicini. CSV è semplice e universale, ma non ha tipi né schema, e ogni colonna va scansionata. JSON è flessibile per i dati annidati. JSON Lines mette un oggetto per riga e si legge in streaming. Avro conserva lo schema insieme ai dati ed è comune nei flussi. Parquet è il formato di riferimento per l'analisi su S3. Ora il collegamento con i costi. Athena fattura per dati scansionati. La pagina prezzi di AWS usa come esempio 3 TB scansionati a 5 dollari per TB, cioè 15 dollari. Se lo stesso dato è compresso in GZIP con un rapporto di tre a uno, la scansione scende a 1 TB e il costo a 5 dollari. Se è in Parquet e la query legge una sola colonna, l'esempio ufficiale mostra un risparmio di quattro volte, cioè una scansione di 0,25 TB e un costo di 1,25 dollari. Il formato, dunque, decide quanto si paga. Per gli algoritmi built-in di SageMaker, la documentazione elenca i content type più comuni. CSV funziona per molti algoritmi, come XGBoost e Linear Learner: niente intestazione, e la colonna del target deve essere la prima. RecordIO-protobuf è il formato binario di algoritmi come K-Means, PCA e Factorization Machines. JSON Lines serve BlazingText e DeepAR. Nelle domande d'esame che chiedono quale formato accetta un algoritmo, rispondete guardando quella tabella, non ricordando che Parquet va bene ovunque. La modalità Pipe, che legge in streaming da S3 durante il training, la vediamo nel capitolo 8. Quando il data lake contiene dati personali, non basta proteggere il bucket. Lake Formation è il servizio che governa l'accesso ai dati nel catalogo di Glue e nei file su S3. Concede permessi su database, tabelle, viste e colonne. Il permesso più usato è SELECT, cioè la lettura. Su una tabella si può concedere SELECT su tutte le colonne, oppure con una lista di colonne incluse, oppure con una lista di colonne escluse. Athena e Redshift rispettano queste liste. Se un analista deve vedere l'ordine e l'importo ma non il codice fiscale, la soluzione è una concessione SELECT limitata alle colonne utili. Il secondo strumento è il data filter, che limita anche le righe, per esempio solo i clienti di una regione. Ci sono regole da ricordare. Non si possono limitare le colonne che sono chiavi di partizione. Chi ha SELECT su un sottoinsieme di colonne non può ricevere ALTER, DROP, DELETE o INSERT sulla stessa tabella. Il secondo punto d'esame riguarda due famiglie di permessi. Le politiche IAM autorizzano le chiamate alle API del catalogo di Glue. I permessi Lake Formation autorizzano l'accesso ai dati. Per leggere una tabella servono entrambi. Il terzo punto è il gruppo IAMAllowedPrincipals. Lake Formation lo usa per compatibilità con le vecchie politiche IAM. Chi ne fa parte ottiene l'accesso attraverso IAM, quindi per far contare davvero Lake Formation bisogna revocare quel permesso sulle risorse, oppure passare alla modalità di accesso ibrida. È una trappola frequente nelle domande sulla sicurezza. La classificazione delle PII, il rilevamento con Macie e la conformità con HIPAA li trattiamo nel capitolo 8, insieme a LF-Tags e ai permessi per cella. Non tutti i dati arrivano a blocchi. Il batch carica file o tabelle a intervalli, per esempio ogni notte, ed è adatto al training periodico. Lo streaming porta gli eventi appena accadono, per esempio un click o una transazione, ed è necessario quando una feature deve essere aggiornata in pochi secondi. AWS offre tre strumenti principali. Amazon Kinesis Data Streams è un flusso di record organizzato in shard. I producer scrivono, più consumer leggono in modo indipendente, e i dati restano disponibili per il periodo di retention. Il minimo è 24 ore, il massimo 365 giorni. Scegliete Data Streams quando serve elaborare in tempo reale con consumer propri, o quando più applicazioni devono rileggere gli stessi eventi. Amazon Data Firehose è gestito: non scrivete applicazioni di consegna, configurate il flusso e i dati arrivano a S3, Redshift, OpenSearch o ad altri endpoint. Firehose accumula i dati in un buffer, per dimensione o per tempo, e poi scrive i file. Può convertire il JSON in Parquet o ORC, ma richiede uno schema nel catalogo di Glue che corrisponda ai dati. Se i dati non sono JSON, si usa una funzione Lambda per trasformarli prima. Amazon MSK gestisce cluster Apache Kafka: lo scegliete quando il team usa già Kafka o ha bisogno del suo ecosistema. Le trappole d'esame sono chiare. Se la domanda chiede di consegnare eventi su S3 in Parquet con poca gestione, la risposta è Firehose con conversione del formato. Se più applicazioni devono leggere gli stessi eventi entro una finestra di tempo, la risposta è Kinesis Data Streams. Shard, throughput e throttling, con i loro limiti numerici, sono nel capitolo 8. Un data lake senza catalogo è una raccolta di file senza descrizione. Il Glue Data Catalog è il registro che dice quali database e tabelle esistono, quali colonne hanno, di che tipo sono, in quale formato sono e dove stanno su S3. Una tabella nel catalogo non contiene dati: contiene metadati che puntano a un prefisso. Athena, Glue ed EMR leggono lo stesso catalogo, quindi una tabella definita una volta è disponibile a tutti. Scrivere lo schema a mano porta spesso a errori. Per questo esiste il crawler. Un crawler di AWS Glue lavora in tre passi. Prima classifica i file: i classificatori personalizzati vanno per primi, poi quelli integrati, che riconoscono JSON, CSV e Avro. Poi deduce lo schema dal contenuto. Infine scrive o aggiorna tabelle e partizioni nel catalogo. Il crawler ragiona sulle cartelle. Se sotto un prefisso le cartelle hanno nomi come anno uguale 2026, e lo schema è simile, crea una sola tabella con una partizione per ogni livello. Se due cartelle di primo livello hanno schemi diversi, il crawler può creare tabelle distinte, e la regola va impostata con un percorso di inclusione per ciascuna tabella. Il crawler si può pianificare: a ogni esecuzione trova i file e le partizioni nuove e le registra. Attenzione a un comportamento di Athena: più tabelle con schemi diversi nello stesso prefisso possono produrre risultati vuoti. Anche MSCK REPAIR TABLE scansiona le sottocartelle, quindi i dati di tabelle diverse vanno tenuti in cartelle separate. Una domanda d'esame tipica dice che ogni giorno arrivano partizioni nuove e Athena non le vede. La soluzione è un crawler pianificato, oppure il comando MSCK REPAIR TABLE per le partizioni in stile Hive. Per tabelle molto partizionate con struttura nota c'è la partition projection, che calcola le partizioni senza leggerle dal catalogo. Amazon Athena esegue SQL direttamente sui file in S3, usando le tabelle del catalogo di Glue. Non ci sono server da gestire né cluster da accendere. Il modello di costo è diverso da quello di un database: si paga per i dati scansionati dalla query, non per il tempo di calcolo. Quindi il costo dipende dal volume e dal formato dei dati. Riprendiamo l'esempio ufficiale della pagina prezzi di AWS: 3 TB scansionati a 5 dollari per TB fanno 15 dollari. Le tariffe cambiano nel tempo, quindi per un progetto reale controllate la pagina prezzi aggiornata. Le leve per ridurlo sono tre. La prima sono le partizioni. Se la query contiene un filtro sulla colonna di partizione, per esempio anno e mese, Athena legge solo i prefissi corrispondenti. Senza quel filtro, la query scansiona tutto. Le partizioni in stile Hive si caricano con MSCK REPAIR TABLE. Quelle in un altro formato, come i percorsi per data che Firehose scrive, si aggiungono una per una con ALTER TABLE ADD PARTITION. La seconda leva è il formato. Parquet legge solo le colonne richieste, e nell'esempio ufficiale il risparmio è di quattro volte. La terza è la compressione: GZIP con un rapporto di tre a uno riduce di tre volte il dato scansionato, sempre nell'esempio. Il flusso tipico è questo. I dati arrivano in CSV nella zona grezza. Un'operazione CTAS li converte in Parquet partizionato in una zona curata. Da quel momento le query ripetute costano molto meno. Attenzione a un limite: Athena non può leggere più di un milione di partizioni in una singola scansione. Per tabelle con moltissime partizioni si usano la partition projection oppure gli indici di partizione del catalogo. Per l'esame ricordate tre tranelli. Se la domanda parla di costi alti su query ripetute, la risposta è Parquet con partizioni e CTAS. Se una query non filtra la data, la trappola è la scansione completa dei dati. Se servono analisi interattive prima di costruire la pipeline, Athena è lo strumento giusto per l'esplorazione. AWS Glue ETL esegue job Apache Spark senza server. Scrivete lo script in Python o in Scala, oppure costruite il flusso in modo visuale con Glue Studio. Spark lavora con i DataFrame, mentre Glue offre anche il DynamicFrame. La differenza pratica è questa: un DataFrame richiede uno schema fisso, un DynamicFrame porta lo schema con ogni record. Se un campo arriva come numero in alcuni file e come stringa in altri, il DynamicFrame lo rappresenta come una scelta di tipi, senza far fallire il job. Poi lo risolvete con resolveChoice, per esempio convertendo tutto in un numero decimale. Il punto più importante per l'elaborazione incrementale è il job bookmark. Un job che gira ogni notte su una cartella S3 rischia di rielaborare tutto. Con il bookmark abilitato, Glue salva lo stato di ciò che ha letto. Per gli oggetti S3 il controllo si basa sulla data di ultima modifica, quindi alla run successiva vengono elaborati solo i file nuovi. Le opzioni sono tre. Enable abilita il tracciamento. Disable è il valore predefinito e rielabora sempre tutto. Pause elabora un intervallo senza aggiornare lo stato. Se volete rielaborare tutto, azzerate il bookmark. Il bookmark però non cancella i file di output: il target va gestito a parte. Il bookmark è associato al job, quindi se il job viene eliminato lo stato sparisce. Quando scegliere Glue e quando EMR? Glue è serverless: definite il job e pagate durante l'esecuzione. È la scelta per le pipeline ETL programmate, con poca gestione. Amazon EMR è una piattaforma di cluster gestiti per Spark, Hadoop e altri strumenti open source. Dà più controllo su istanze, configurazione e strumenti, al prezzo di gestire il cluster. Nell'esame, rielaborazione dei file già visti significa bookmark. Controllo completo e strumenti Hadoop significano EMR. La struttura dei nodi EMR e l'uso delle istanze Spot sono nel capitolo 8. Non tutti gli operatori scrivono codice Spark. SageMaker Data Wrangler è lo strumento visuale per preparare i dati per il machine learning. Nasce come funzione di SageMaker Studio Classic, e oggi AWS lo ha integrato in SageMaker Canvas. Nella nuova esperienza di Canvas si possono esplorare e trasformare i dati anche con un'interfaccia in linguaggio naturale. Questo è un punto che cambia spesso, quindi verificate sempre la documentazione più recente. Un flusso di Data Wrangler si compone di passi. Importate dati da S3, Athena, Redshift, Snowflake o Databricks, unite le tabelle, e applicate trasformazioni come la codifica delle categorie, la normalizzazione e la gestione dei valori mancanti. Lo strumento genera insight automatici e un rapporto di qualità, e include un'analisi di target leakage che segnala le feature troppo legate alla variabile da prevedere. Quando il flusso è pronto, lo esportate. Le destinazioni sono un bucket S3, una pipeline di SageMaker Pipelines, il Feature Store oppure uno script Python. Glue DataBrew è un altro strumento visuale, ma fuori da SageMaker. È serverless, offre la profilatura dei dati e più di 250 trasformazioni pronte. Ogni sequenza di passi si salva in una ricetta, che si riusa su altri dataset e si può pianificare. L'output va su S3. La regola per l'esame è questa. Se lo scenario parla di preparazione visuale dentro il flusso di machine learning, con esportazione verso una pipeline o il Feature Store, la risposta è Data Wrangler. Se parla di analisti o di data engineer che vogliono ricette senza codice, la risposta è DataBrew. Le regole DQDL e Glue Data Quality appartengono al capitolo 8. Il Feature Store di SageMaker risolve un problema concreto. Un'organizzazione ha più modelli, e più team calcolano le stesse feature in modi diversi. Il risultato sono valori incoerenti tra training e produzione, il cosiddetto training serving skew. Il Feature Store è lo strato unico in cui le feature sono definite, salvate, condivise e controllate. Un feature group è il contenitore. Ha un elenco di feature, ognuna con un nome e un tipo. I tipi ammessi sono integral, string e fractional. Ogni feature group ha un record identifier, cioè la feature che identifica in modo univoco l'entità, per esempio il codice cliente. Ha anche un event time, cioè il timestamp dell'evento che il record descrive. Un record è una riga, identificata dalla coppia formata da record identifier ed event time. Il concetto più importante per l'esame riguarda i due store. L'online store conserva solo il record più recente per ogni identificatore: è pensato per le letture veloci durante la previsione. L'offline store conserva tutta la storia: serve per costruire dataset di training e per le previsioni in batch. Quando scrivete con la chiamata PutRecord, il sistema aggiorna entrambi. AWS documenta che il servizio mantiene automaticamente la coerenza tra online e offline, senza codice aggiuntivo da parte vostra. Perché serve la storia nel training? Perché un modello deve imparare da ciò che si sapeva al momento di ogni esempio, non da ciò che si sa oggi. Lo vediamo nel dettaglio nelle prossime slide, con la latenza e con la query point-in-time. Per ora fissate il principio: online per leggere l'ultimo valore in fretta, offline per il passato completo. Ora la latenza, il luogo dove stanno i dati e la prevenzione del leakage. L'online store è costruito per l'inferenza in tempo reale. AWS, nella pagina FAQ di SageMaker, lo descrive come uno store ad alto throughput con latenza a cifra singola in millisecondi per le applicazioni client. Un esempio: un'app antifrode deve rispondere mentre il cliente sta pagando, quindi le feature vanno lette in millisecondi. Per questo si usa la chiamata GetRecord, che restituisce l'ultimo record dell'identificatore. L'offline store non è pensato per quella velocità. È un archivio su S3 in formato Parquet, registrato nel catalogo di Glue come tabella nel formato predefinito. AWS offre anche il formato Apache Iceberg. Serve per il training, per la preparazione dei dataset e per le previsioni in batch, dove la latenza di pochi millisecondi non serve. Quanto è fresco? La documentazione dice che i dati vengono bufferizzati e scritti su S3 entro 15 minuti dalla chiamata PutRecord. Veniamo al punto centrale: la query point-in-time. Supponete di addestrare un modello sulle frodi. Ogni etichetta ha un momento preciso, cioè quello della transazione. Una feature come il numero di transazioni nelle ultime 24 ore va calcolata con i dati disponibili a quel momento. Se la join prende il valore più recente della feature, può contenere eventi successivi alla transazione. Il modello impara con informazioni che in produzione non avrebbe, e le metriche offline sembrano migliori del reale. Questo è il target leakage. La query point-in-time prende, per ogni etichetta, solo i record con event time minore o uguale al suo momento. Nell'SDK di SageMaker si usa FeatureStore, con create_dataset, l'entity dataframe come base, with_feature_group e point_in_time_accurate_join. In Athena si ottiene con una finestra row number, partizionata per identificatore e ordinata per event time decrescente, filtrando i record non successivi all'etichetta. Infine la condivisione. Poiché il catalogo registra le tabelle, un altro team con i permessi giusti interroga le stesse feature con Athena, senza ricalcolarle. La feature engineering è l'arte di trasformare le colonne grezze in input che il modello può usare bene. Iniziamo dalla scala. Immaginate due feature: il reddito, con valori nell'ordine delle migliaia, e l'età, con valori tra venti e settanta. Molti algoritmi misurano la distanza tra punti oppure usano i gradienti. In quel caso il reddito domina il calcolo, e l'età conta poco, non per la sua importanza ma per la sua unità di misura. La standardizzazione trasforma ogni colonna in modo che abbia media zero e deviazione standard uno. La normalizzazione min-max la porta nell'intervallo tra zero e uno. Non c'è una scelta unica. La standardizzazione è la scelta più comune quando la distribuzione è approssimativamente normale. La min-max è comoda quando servono limiti fissi, ma un outlier la schiaccia. Con outlier forti conviene una scala robusta, che usa mediana e quartili. Quali algoritmi la richiedono? Quelli basati su distanze, come k-NN e SVM, e quelli addestrati con discesa del gradiente, come le reti neurali e la regressione lineare regolarizzata. Gli alberi decisionali e le foreste casuali dividono le feature con soglie, quindi non sono sensibili alla scala. Un errore frequente, e anche una trappola d'esame, riguarda il momento in cui si calcola la trasformazione. Le statistiche di media, deviazione standard, minimo e massimo devono venire solo dal training. Lo scaler si adatta sul training e poi si applica a validation e test. Se calcolate la media sull'intero dataset prima dello split, il test ha contribuito alle statistiche del training. È contaminazione, e le metriche finali risultano ottimistiche. La stessa regola vale per ogni trasformazione che impara dai dati, dall'imputazione agli encoder. I modelli lavorano con numeri, quindi le categorie vanno codificate. Il primo caso è la categoria nominale, senza ordine: colore, città, tipo di pagamento. La scelta standard è il one-hot encoding, che crea una colonna binaria per ogni valore. Se la città è Milano, la colonna Milano vale uno e le altre valgono zero. Non introduce un ordine falso e funziona con quasi ogni modello, ma con migliaia di valori le colonne esplodono. Il label encoding assegna un numero intero a ogni categoria: Milano uguale a uno, Roma uguale a due. Con gli alberi va bene, perché le soglie non presuppongono una distanza. Con modelli lineari o basati su distanze diventa un errore, perché il modello crede che Roma valga il doppio di Milano. L'ordinal encoding è diverso. Si usa quando l'ordine esiste davvero, come basso, medio e alto, e i numeri lo rispettano. Il target encoding sostituisce la categoria con la media del target per quella categoria. È potente con alta cardinalità, per esempio con i codici postali, ma è pericoloso. Se la media include anche l'etichetta della riga stessa, il modello vede già la risposta. Va calcolata fuori fold, cioè usando solo i dati degli altri fold o del training. Per categorie con milioni di valori, come gli identificativi di prodotto, il one-hot non è praticabile. Si usano l'hashing, che riduce le colonne a un numero fisso, oppure gli embedding, che imparano una rappresentazione densa. Infine una domanda pratica: cosa succede a una categoria mai vista in training? La pipeline deve avere una regola, per esempio una categoria sconosciuta che produce tutti zeri, oppure un valore dedicato. Se la domanda d'esame parla di identificativi molto numerosi, non rispondete one-hot. Altre trasformazioni servono a rendere le distribuzioni più utili. Il binning raggruppa un valore continuo in intervalli. L'età diventa fasce, da diciotto a venticinque anni, da venticinque a trentacinque, e così via. Il vantaggio è la leggibilità e la robustezza al rumore. Lo svantaggio è la perdita di precisione dentro ogni fascia. La trasformazione logaritmica serve quando la distribuzione ha una coda lunga, come gli importi delle transazioni o i conteggi delle visite. Pochi valori enormi schiacciano tutto il resto. Il logaritmo comprime la coda e rende la relazione più regolare. Quando ci sono zeri, si usa il logaritmo di uno più il valore. Veniamo ai valori mancanti. Le colonne numeriche si riempiono con la media, che è sensibile agli outlier, oppure con la mediana, più robusta. Per le variabili discrete si usa la moda. Per le categorie si può creare una categoria dedicata, per esempio sconosciuto. Spesso la mancanza stessa è informativa: un reddito non dichiarato può essere un segnale. In quel caso si aggiunge una colonna indicatrice che vale uno quando il valore manca, e si imputa la colonna originale. Eliminare le righe è accettabile solo se sono poche e se la mancanza è casuale. In caso contrario si perde un pezzo del campione e si introduce bias. Come per la scala, l'imputazione è una statistica e va calcolata solo sul training. Usare la media dell'intero dataset, test compreso, è leakage. La domanda d'esame tipica è questa: qual è l'imputazione corretta in una pipeline? La risposta è sempre quella che calcola le statistiche sul training e le riusa sugli altri insiemi. Anche il testo diventa numerico solo dopo alcuni passi. Il primo è la tokenizzazione: il testo viene spezzato in token, di solito parole, a volte sottoparole. Una frase come non mi piace il servizio diventa una sequenza di token. Poi si normalizza. Si portano le lettere in minuscolo, si tolgono la punteggiatura e le stopword, cioè parole come il, di e che, che non portano molto significato in un'analisi semplice. La bag of words è il modello più semplice. Per ogni documento si conta quante volte compare ogni parola del vocabolario. L'ordine si perde, ma per molti problemi di classificazione di recensioni o email funziona bene. Il problema è che le parole molto comuni, come questo o servizio, dominano i conteggi. TF-IDF corregge questo difetto. Il termine frequency misura quanto una parola compare nel documento. L'inverse document frequency abbassa il peso delle parole che compaiono in quasi tutti i documenti del corpus. Il risultato è alto per le parole che caratterizzano un documento. In un corpus di recensioni di un ristorante, la parola pizza pesa poco, mentre una parola come scottato, rara ma specifica, pesa molto. All'esame TF-IDF compare come scelta classica per il testo con modelli lineari. La tokenizzazione avanzata, le sottoparole e il preprocessing per il fine-tuning dei modelli di linguaggio sono nei capitoli successivi. Gli embedding, che trasformano il testo in vettori densi di significato, si usano con i modelli moderni. Per il quiz ricordate la differenza. La bag of words ignora l'ordine, TF-IDF pesa la rarità, gli embedding catturano il significato. Il leakage è l'errore più pericoloso del machine learning, perché produce metriche molto buone che non reggono in produzione. Ci sono tre forme. La prima è il target leakage: una feature contiene informazioni che si conoscono solo dopo l'evento da prevedere. Per esempio, in un modello che prevede l'abbandono di un cliente, la feature numero di chiamate al servizio clienti nel mese successivo rivela già la risposta. La seconda è la contaminazione tra training e test: lo stesso cliente appare in entrambi con righe quasi identiche, e il modello ricorda invece di generalizzare. La terza è l'uso delle statistiche del test, come abbiamo visto con scala e imputazione. Per evitarlo si divide prima, poi si trasforma. Lo split classico separa i dati in training, validation e test. Il training serve ad addestrare. La validation serve a scegliere iperparametri e modelli. Il test dà una stima finale, da usare una sola volta. Le proporzioni tipiche sono per esempio 80, 10 e 10 per cento, ma dipendono dalla quantità di dati: con milioni di righe bastano pochi punti percentuali per la validation. Per le serie storiche lo split casuale è sbagliato, perché il modello vedrebbe il futuro durante il training. Si usa uno split temporale, in cui il test è cronologicamente successivo al training. Per le classi sbilanciate, come le frodi, uno split casuale può lasciare pochissimi casi positivi nel test. Lo split stratificato mantiene le stesse proporzioni in ogni insieme. Quando i dati sono pochi, la cross-validation divide il training in k fold, allena k volte lasciando fuori un fold alla volta e media le metriche. Dà una stima più stabile, ma costa k addestramenti. Le trasformazioni vanno comunque calcolate dentro ogni fold. Il dataset di test resta intoccato fino alla fine. Il bias nei dati è una distorsione che entra prima del modello. Se il dataset dei prestiti ha pochissimi esempi di un gruppo, il modello imparerà poco su quel gruppo. Tre concetti vanno distinti. Il class imbalance riguarda la frequenza delle classi. Se le frodi sono l'uno per cento delle transazioni, un modello che risponde sempre non frode ha un'accuratezza del novantanove per cento e non trova nulla. Il bias di selezione nasce quando il campione non rappresenta la popolazione reale, per esempio quando si raccolgono dati solo dai clienti che hanno completato un acquisto. Il bias di misura nasce quando un'etichetta o una feature viene rilevata in modo diverso tra gruppi, per esempio da strumenti o operatori diversi. Perché misurarlo prima del training? Perché correggerlo dopo è più costoso e meno chiaro. SageMaker Clarify calcola metriche di bias pre-training sui dati grezzi, senza bisogno di un modello. Le due metriche da ricordare sono CI e DPL. CI misura lo sbilanciamento dei campioni tra un gruppo favorito e uno sfavorito. DPL misura la differenza nelle proporzioni di esiti positivi tra i gruppi. Entrambe hanno un intervallo tra meno 1 e più 1. Ora lo stato, che è materia d'esame. AWS ha chiuso Clarify ai nuovi clienti dal 30 luglio 2026. Chi lo usava prima continua a farlo, e AWS non prevede nuove funzioni. Per i nuovi progetti, AWS indica di calcolare le stesse metriche standard con pandas e scikit-learn, e di calcolare le spiegazioni delle feature con la libreria SHAP, su cui Clarify si basa. I risultati si possono tracciare con SageMaker AI MLflow, CloudWatch e QuickSight. Bedrock Evaluations sostituisce Clarify solo per la valutazione dei modelli di fondazione, non per il bias nei dati tabellari. Questo punto è nella guida MLA-C01, che nomina Clarify per il bias e per l'interpretabilità. La guida MLA-C02 non lo nomina più, ma il concetto di bias nei dati e le sue metriche restano. Alle domande su questo tema rispondete con il concetto e con l'alternativa indicata da AWS. Chiudiamo con un metodo per le domande a scenario. Il testo contiene quasi sempre una parola chiave che decide la risposta. Se la domanda parla di latenza di millisecondi per l'inferenza, la risposta è l'online store del Feature Store. Se parla di storico per il training o per le previsioni in batch, è l'offline store su S3 in Parquet. Se parla di evitare il leakage con dati che cambiano nel tempo, è la query point-in-time, con event time minore o uguale al momento dell'etichetta. Se parla di costo alto di query Athena ripetute su CSV, la risposta è convertire in Parquet, partizionare e usare CTAS, con la compressione. Se parla di eventi da consegnare a S3 con poca gestione, è Amazon Data Firehose. Se più applicazioni devono rileggere gli stessi eventi, è Kinesis Data Streams. Se un job Glue rielabora ogni notte file già visti, serve il job bookmark. Se un team di analisti vuole preparare dati senza codice e salvare le ricette, è DataBrew. Se il flusso è di machine learning e deve finire in una pipeline o nel Feature Store, è Data Wrangler. Se la domanda chiede di proteggere colonne personali, la risposta è Lake Formation con permessi di colonna, non una policy sul bucket. Se chiede di misurare il bias prima del training, ricordate che Clarify è chiuso ai nuovi clienti dal 30 luglio 2026, e che AWS indica pandas, scikit-learn e SHAP come alternativa. Due regole valgono ovunque. Le trasformazioni si calcolano sul training. E nessuna scelta deve usare il test set per decidere. Nel capitolo 8 trovate i dettagli che qui sono solo accennati.",
   "quiz": [
     {
-      "q": "Un'azienda salva i dati di clickstream come file CSV giornalieri su S3, e gli analisti eseguono query SQL ad hoc. I costi sono troppo alti. Cosa consigli?",
+      "q": "Un team vuole fare inferenza in tempo reale con latenza di millisecondi e conservare anche lo storico per il retraining. Quale configurazione del Feature Store usa?",
       "options": [
-        "Convertire in Parquet con partizionamento per data e interrogare con Athena",
-        "Caricare tutto in una singola istanza RDS, con backup giornaliero e query dirette",
-        "Copiare i file su volumi EBS collegati a un'istanza di calcolo sempre accesa e dedicata",
-        "Disattivare il versionamento di S3 per risparmiare sul costo dello storage di ogni file"
+        "Solo l'offline store su S3, interrogato con Athena a ogni richiesta",
+        "Online store per l'inferenza e offline store per lo storico",
+        "Un file CSV sul notebook, aggiornato a mano ogni settimana",
+        "Solo Kinesis Data Streams, senza alcuno storage persistente"
+      ],
+      "answer": 1,
+      "explain": "L'online store restituisce l'ultimo record a bassa latenza. L'offline store conserva la storia su S3 in Parquet, per training e batch."
+    },
+    {
+      "q": "Ogni giorno arrivano nuove partizioni in stile Hive su S3 e Athena non le vede. Qual è la soluzione più semplice e automatica?",
+      "options": [
+        "Pianificare un crawler AWS Glue che aggiorni il Data Catalog",
+        "Ricreare la tabella a mano ogni mattina, dopo aver controllato i file",
+        "Eliminare e ricaricare il bucket S3 ogni settimana",
+        "Eseguire un comando di pulizia sul bucket per aggiornarne l'indice"
       ],
       "answer": 0,
-      "explain": "Parquet e colonnare, quindi Athena scansiona molti meno dati, e il partizionamento per data esclude i file non pertinenti. Entrambi riducono direttamente il costo delle query."
+      "explain": "Il crawler pianificato scopre le partizioni nuove e le registra nel catalogo. In alternativa, per partizioni Hive, si usa MSCK REPAIR TABLE."
     },
     {
-      "q": "Ogni giorno arrivano nuove partizioni in S3 e Athena deve vedere automaticamente lo schema aggiornato. Qual e la soluzione migliore?",
+      "q": "Un dataset CSV di 3 TB costa 5 dollari per TB scansionato in Athena. Convertito in Parquet, una query legge una sola colonna, cioè 0,25 TB. Quanto costa la query?",
       "options": [
-        "Ricreare le tabelle a mano ogni mattina, dopo aver controllato i file",
-        "Pianificare un Glue Crawler che aggiorni il Data Catalog",
-        "Eliminare e ricaricare il bucket ogni settimana",
-        "Eseguire VACUUM sul bucket S3 per aggiornarne l'indice"
+        "15 dollari, come il CSV completo",
+        "5 dollari, come con la compressione GZIP",
+        "1,25 dollari",
+        "0,25 dollari, perché il prezzo è per gigabyte"
       ],
-      "answer": 1,
-      "explain": "Un Glue Crawler pianificato scopre le nuove partizioni e le modifiche allo schema, poi le registra nel Glue Data Catalog che Athena interroga."
+      "answer": 2,
+      "explain": "Con 0,25 TB a 5 dollari per TB la query costa 1,25 dollari. Athena fattura i dati scansionati."
     },
     {
-      "q": "Un modello antifrode deve leggere le feature in pochi millisecondi durante l'inferenza, e avere anche lo storico per il retraining. Quale progetto e adatto?",
+      "q": "In un data lake gli analisti devono vedere importi e date, ma non i codici fiscali presenti nella stessa tabella. Quale meccanismo applica la regola?",
       "options": [
-        "SageMaker Feature Store con Online Store e Offline Store abilitati",
-        "Solo un bucket S3 con file JSON, senza un servizio dedicato alle feature",
-        "Solo Kinesis Data Streams senza alcuno storage, da leggere a ogni inferenza",
-        "Un file CSV locale sul notebook di training, copiato a mano prima di ogni run"
+        "Una policy sul bucket S3 che blocca la lettura dei file",
+        "Crittografia del bucket con una chiave KMS condivisa",
+        "Una copia della tabella con il nome della colonna cambiato",
+        "SELECT in Lake Formation solo sulle colonne consentite"
       ],
-      "answer": 0,
-      "explain": "L'Online Store offre letture a bassa latenza per l'inferenza in tempo reale, mentre l'Offline Store conserva lo storico in Parquet su S3 per training e inferenza batch."
+      "answer": 3,
+      "explain": "Lake Formation concede SELECT con lista di colonne incluse. Una policy sul bucket non distingue le colonne di una tabella."
     },
     {
-      "q": "Un ingegnere deve esplorare visivamente dati tabellari, gestire valori mancanti e one-hot encoding, poi esportare verso un Feature Store, tutto dentro SageMaker Studio. Quale strumento va bene?",
+      "q": "Un flusso di eventi JSON deve arrivare su S3 in Parquet con poca gestione operativa. Quale servizio usi?",
       "options": [
-        "Amazon EMR con un cluster Hadoop personalizzato, gestito a mano e sempre acceso",
-        "Un flow di SageMaker Data Wrangler con esportazione verso Feature Store",
-        "Un task di replica AWS DMS con verifica dei dati, pensato per database relazionali",
-        "Un indice Amazon Kendra costruito sui dataset, con ricerca in linguaggio naturale"
-      ],
-      "answer": 1,
-      "explain": "Data Wrangler e lo strumento visuale a basso codice di SageMaker Studio, con oltre 300 trasformazioni ed esportazione diretta verso Feature Store e Pipelines."
-    },
-    {
-      "q": "Un dataset ha il 99% di transazioni legittime e l'1% di frodi. L'accuratezza e 99%, ma il recall sulle frodi e basso. Cosa fai?",
-      "options": [
-        "Tenere l'accuratezza come unica metrica di valutazione, perche e facile da leggere",
-        "Applicare SMOTE o pesi di classe e valutare con precision, recall e F1",
-        "Eliminare tutti gli esempi di frode dal dataset di training, cosi il modello non si confonde",
-        "Duplicare il test set dentro il training per aumentare i dati, senza nuove etichette"
-      ],
-      "answer": 1,
-      "explain": "L'accuratezza inganna sui dati sbilanciati. Riequilibra con SMOTE, undersampling o pesi di classe, e giudica con precision, recall e F1."
-    },
-    {
-      "q": "Prima del training, un team deve verificare se il dataset e sbilanciato contro un gruppo protetto. Quale servizio usa?",
-      "options": [
-        "SageMaker Clarify, con le metriche di bias pre-training",
-        "Il calcolatore dei prezzi di Amazon Athena, usato per stimare i costi delle query",
-        "La consegna di Kinesis Data Firehose verso un bucket S3 in tempo quasi reale",
-        "EC2 Spot Fleet con istanze interrompibili, per ridurre il costo del calcolo"
+        "Amazon Data Firehose con conversione da JSON a Parquet",
+        "Un cluster EMR sempre acceso con un job Spark personalizzato",
+        "Un database RDS con esportazione manuale dei record",
+        "Amazon MSK con un consumer scritto in proprio"
       ],
       "answer": 0,
-      "explain": "SageMaker Clarify calcola le metriche di bias pre-training confrontando le distribuzioni tra gruppi. Dal 30 luglio 2026 ha chiuso ai nuovi clienti: chi lo usa gia puo continuare, mentre per i nuovi progetti le stesse metriche si calcolano con pandas e scikit-learn."
+      "explain": "Firehose è gestito e può convertire il JSON in Parquet o ORC, usando uno schema nel Glue Data Catalog."
     },
     {
-      "q": "Una pipeline notturna deve unire terabyte di log S3 con tabelle RDS, ogni notte e con Spark. Quale servizio e la scelta migliore?",
+      "q": "Un job AWS Glue gira ogni notte su nuovi file S3 e non deve rielaborare i file già elaborati. Quale impostazione serve?",
       "options": [
-        "Una sessione interattiva di Data Wrangler sul portatile",
-        "Job ETL di AWS Glue pianificati e basati su Spark",
-        "Esecuzioni manuali di notebook sul portatile del team",
-        "Solo un consumer di Kinesis Data Streams, senza trasformazioni"
+        "Il job bookmark abilitato",
+        "Il job bookmark disabilitato, cioè il valore predefinito",
+        "Un crawler eseguito dopo ogni esecuzione del job",
+        "Un formato CSV con intestazione"
+      ],
+      "answer": 0,
+      "explain": "Con il bookmark abilitato Glue ricorda cosa ha già letto. Disable è il valore predefinito e rielabora sempre tutto."
+    },
+    {
+      "q": "Per costruire un dataset di training senza leakage, quale proprietà deve avere ogni record del feature group?",
+      "options": [
+        "Un nome univoco per ogni feature",
+        "Un event time che indica quando l'evento è accaduto",
+        "Un tipo string per tutte le feature",
+        "Una copia nell'online store prima di ogni singola query di training"
       ],
       "answer": 1,
-      "explain": "L'ETL serverless con Spark pianificato su terabyte e il caso tipico di Glue. Data Wrangler e adatto all'esplorazione interattiva di volumi piu piccoli."
+      "explain": "L'event time permette la query point-in-time, che prende solo i valori noti al momento dell'etichetta."
+    },
+    {
+      "q": "Lo scaler per la standardizzazione di una feature deve essere adattato su quale insieme di dati?",
+      "options": [
+        "Sull'intero dataset, prima dello split, per coerenza",
+        "Solo sul test set, che rappresenta i dati reali",
+        "Solo sul training, poi applicato a validation e test",
+        "Su ogni batch di inferenza separatamente"
+      ],
+      "answer": 2,
+      "explain": "Le statistiche vanno calcolate sul training. Usare il test per adattare lo scaler è leakage."
+    },
+    {
+      "q": "Un dataset ha l'1 per cento di frodi. Quale strategia di split mantiene la stessa proporzione di frodi in training e test?",
+      "options": [
+        "Split casuale senza seme fisso",
+        "Split stratificato sulla classe",
+        "Split temporale con il test più vecchio",
+        "Split che toglie tutti i casi positivi dal test"
+      ],
+      "answer": 1,
+      "explain": "Lo split stratificato mantiene le proporzioni tra le classi in ogni insieme."
+    },
+    {
+      "q": "Un team nuovo vuole misurare il bias pre-training dei dati, ma Clarify è chiuso ai nuovi clienti. Quale approccio indica AWS come alternativa?",
+      "options": [
+        "Nessun controllo, il bias si misura solo dopo il deployment",
+        "Metriche con pandas e scikit-learn, spiegazioni con SHAP",
+        "Usare Bedrock Evaluations anche per i dati tabellari",
+        "Spostare i dati su EBS per filtrare gli outlier"
+      ],
+      "answer": 1,
+      "explain": "AWS indica di riprodurre le metriche standard con pandas e scikit-learn e di usare la libreria SHAP. Bedrock Evaluations riguarda i modelli di fondazione."
     }
   ],
   "sources": [
@@ -232,24 +480,97 @@
       "url": "https://aws.amazon.com/s3/faqs/"
     },
     {
-      "title": "Pre-training Bias Metrics - Amazon SageMaker Clarify",
-      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-measure-data-bias.html"
+      "title": "Amazon S3 now delivers strong read-after-write consistency automatically for all applications (AWS What's New, 1 dicembre 2020)",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2020/12/amazon-s3-now-delivers-strong-read-after-write-consistency-automatically-for-all-applications"
     },
     {
-      "title": "Create, store, and share features with Feature Store",
-      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store.html"
+      "title": "Amazon Athena pricing",
+      "url": "https://aws.amazon.com/athena/pricing/"
+    },
+    {
+      "title": "Partition your data - Amazon Athena User Guide",
+      "url": "https://docs.aws.amazon.com/athena/latest/ug/partitions.html"
+    },
+    {
+      "title": "Common Data Formats for Training - Amazon SageMaker AI Developer Guide",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-training.html"
+    },
+    {
+      "title": "Quotas and limits - Amazon Kinesis Data Streams Developer Guide",
+      "url": "https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html"
+    },
+    {
+      "title": "What is Amazon Data Firehose? - Developer Guide",
+      "url": "https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html"
+    },
+    {
+      "title": "Convert input data format in Amazon Data Firehose",
+      "url": "https://docs.aws.amazon.com/firehose/latest/dev/record-format-conversion.html"
     },
     {
       "title": "Using crawlers to populate the AWS Glue Data Catalog",
       "url": "https://docs.aws.amazon.com/glue/latest/dg/add-crawler.html"
     },
     {
+      "title": "Tracking processed data using job bookmarks - AWS Glue",
+      "url": "https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html"
+    },
+    {
+      "title": "AWS Glue FAQs",
+      "url": "https://aws.amazon.com/glue/faqs/"
+    },
+    {
+      "title": "What is Amazon EMR? - Amazon EMR Management Guide",
+      "url": "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html"
+    },
+    {
+      "title": "AWS Lake Formation permissions reference",
+      "url": "https://docs.aws.amazon.com/lake-formation/latest/dg/lf-permissions-reference.html"
+    },
+    {
       "title": "Prepare ML Data with Amazon SageMaker Data Wrangler",
       "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/data-wrangler.html"
     },
     {
-      "title": "Clarify availability change",
+      "title": "What is AWS Glue DataBrew?",
+      "url": "https://docs.aws.amazon.com/databrew/latest/dg/what-is.html"
+    },
+    {
+      "title": "Amazon SageMaker AI Feature Store concepts",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-concepts.html"
+    },
+    {
+      "title": "Feature Store offline store data format",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-offline.html"
+    },
+    {
+      "title": "Create a dataset from your feature groups - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/feature-store-create-a-dataset.html"
+    },
+    {
+      "title": "Amazon SageMaker AI FAQs",
+      "url": "https://aws.amazon.com/sagemaker/ai/faqs/"
+    },
+    {
+      "title": "Clarify availability change - Amazon SageMaker AI Developer Guide",
       "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-availability-change.html"
+    },
+    {
+      "title": "Pre-training Bias Metrics - Amazon SageMaker Clarify",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-measure-data-bias.html"
+    },
+    {
+      "title": "Amazon Managed Streaming for Apache Kafka (MSK)",
+      "url": "https://aws.amazon.com/msk/"
+    },
+    {
+      "title": "AWS Glue DynamicFrame e resolveChoice",
+      "url": "https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-crawler-pyspark-extensions-dynamic-frame.html"
+    },
+    {
+      "title": "Create a table from query results (CTAS) - Amazon Athena User Guide",
+      "url": "https://docs.aws.amazon.com/athena/latest/ug/ctas.html"
     }
-  ]
+  ],
+  "todo": []
 }
