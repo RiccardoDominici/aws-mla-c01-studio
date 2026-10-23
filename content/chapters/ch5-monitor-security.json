@@ -1,199 +1,457 @@
 {
-  "area": "mlops",
   "id": "ch5-monitor-security",
-  "keywords": [
-    {
-      "def": "Monitoraggio continuo degli endpoint che confronta i dati di produzione con una baseline. Quattro tipi: Data Quality, Model Quality, Bias Drift ed Explainability. Ha chiuso ai nuovi clienti dal 30 luglio 2026: chi lo usava continua. AWS indica come alternative il monitoraggio open source su SageMaker AI MLflow, con CloudWatch e QuickSight.",
-      "term": "SageMaker Model Monitor"
-    },
-    {
-      "def": "Cattura configurabile delle coppie richiesta-risposta dagli endpoint verso S3, con percentuale di campionamento. Alimenta monitoraggio e retraining.",
-      "term": "Data Capture"
-    },
-    {
-      "def": "Insieme di statistiche e vincoli generati dal dataset di training o validazione. Definisce i valori attesi e le soglie di violazione del drift.",
-      "term": "Baseline e vincoli"
-    },
-    {
-      "def": "Metriche, allarmi e dashboard per salute operativa: latenza, errori, tasso di invocazione. Riceve le violazioni di Model Monitor.",
-      "term": "CloudWatch"
-    },
-    {
-      "def": "Traccia ogni chiamata API AWS con identita, tempo ed esito. Essenziale per audit e domande su chi ha fatto cosa.",
-      "term": "CloudTrail"
-    },
-    {
-      "def": "Distribuzione automatica del traffico tra varianti di produzione, con auto scaling su metrica invariante come InvocationsPerInstance. Scala a zero per async.",
-      "term": "Autoscaling endpoint"
-    },
-    {
-      "def": "Deploy con due ambienti: solo uno riceve traffico live. Permette test A/B e shadow confrontando nuova versione senza impatto sugli utenti.",
-      "term": "Blue/Green e shadow test"
-    },
-    {
-      "def": "Controllo degli accessi con ruoli di esecuzione a privilegio minimo, senza mai usare access key nei job. Domini Studio isolati per team con policy mirate.",
-      "term": "IAM e Execution Role"
-    },
-    {
-      "def": "Chiavi gestite dal cliente per cifrare a riposo volumi, artefatti S3 ed endpoint. Con rotazione e audit centralizzato per requisiti di compliance.",
-      "term": "KMS e cifratura"
-    }
-  ],
+  "area": "mlops",
+  "title": "Monitoraggio, manutenzione e sicurezza",
   "prereq": [
     "ch4-deploy"
   ],
-  "quiz": [
-    {
-      "q": "L'accuratezza di un modello cala settimane dopo il deploy. Qual e il PRIMO controllo diagnostico?",
-      "options": [
-        "Spegnere subito l'endpoint in produzione, senza prima capire la causa del problema",
-        "Controllare lo stato dello schedule e le violazioni su CloudWatch",
-        "Eliminare i file di baseline, cosi il monitor si rigenera da zero",
-        "Aumentare il numero di istanze dell'endpoint, per ridurre il carico sul modello"
-      ],
-      "answer": 1,
-      "explain": "Model Monitor esegue l'analisi su schedule, confrontando i dati catturati con i vincoli della baseline. Lo stato CompletedWithViolations piu un allarme CloudWatch e il segnale standard di drift. Dal 30 luglio 2026 Model Monitor ha chiuso ai nuovi clienti, ma chi lo usava prima puo continuare."
-    },
-    {
-      "q": "Per rilevare un calo di accuratezza con Model Monitor, cosa serve oltre al traffico catturato?",
-      "options": [
-        "Istanze dell'endpoint piu grandi, con piu memoria per ogni richiesta",
-        "Un retraining piu frequente, anche senza alcun segnale di degrado",
-        "Label reali unite alle predizioni catturate",
-        "Una nuova configurazione VPC, con subnet private e gateway verso S3"
-      ],
-      "answer": 2,
-      "explain": "Il monitoraggio della qualita del modello richiede le label reali unite alle predizioni catturate, per calcolare metriche come accuratezza o RMSE. Senza label si puo misurare solo il drift dei dati."
-    },
-    {
-      "q": "Quale configurazione abilita la cattura del traffico di inferenza live da un endpoint per il monitoraggio?",
-      "options": [
-        "DataCaptureConfig con percentuale di campionamento verso S3",
-        "Un dataset di training piu grande, con piu esempi per ogni classe",
-        "Un secondo endpoint in un'altra regione, identico al primo e sempre acceso",
-        "Disattivare il logging di CloudTrail, per ridurre il rumore nei log di audit"
-      ],
-      "answer": 0,
-      "explain": "DataCaptureConfig con percentuale di campionamento invia le coppie richiesta-risposta su S3 in formato JSONL. E il prerequisito sia per gli schedule di Model Monitor sia per il dataset di retraining."
-    },
-    {
-      "q": "Come automatizzi il retraining quando Model Monitor rileva un drift?",
-      "options": [
-        "Riaddestrare manualmente ogni ora, anche se il modello non mostra alcun degrado",
-        "Eliminare e ricreare l'endpoint ogni volta che compare una violazione",
-        "Disattivare Model Monitor, cosi non compaiono piu violazioni da gestire",
-        "Una regola EventBridge che avvia una pipeline di retraining"
-      ],
-      "answer": 3,
-      "explain": "Il ciclo chiuso e: cambio di stato della violazione, regola EventBridge, pipeline di retraining in SageMaker Pipelines. Gli allarmi CloudWatch sulle metriche di violazione sono il percorso alternativo."
-    },
-    {
-      "q": "Un modello deve addestrarsi su dati S3 sensibili, senza traffico sulla rete pubblica e con cifratura controllata e auditata. Quale setup e corretto?",
-      "options": [
-        "Un endpoint pubblico con chiavi di accesso IAM dell'utente, senza altre restrizioni",
-        "VPC-only con subnet private, gateway S3, KMS e ruolo minimo",
-        "Inferenza serverless senza cifratura, con il traffico lasciato libero sulla rete",
-        "Training in locale sul portatile e upload del modello su S3 a fine lavoro, senza controlli"
-      ],
-      "answer": 1,
-      "explain": "Dati sensibili senza passaggio su internet richiedono la modalita VPC-only, subnet private, gateway endpoint S3, cifratura KMS e un ruolo a privilegio minimo, con CloudTrail per l'audit. Endpoint pubblici e chiavi di accesso sono sempre sbagliati."
-    },
-    {
-      "q": "Gli auditor chiedono scopo, metriche, limiti e tracciabilita completa dai dati al modello. Quali funzioni rispondono?",
-      "options": [
-        "CloudWatch Logs, che raccolgono i log di esecuzione ma non descrivono il modello",
-        "Model Cards piu lineage di SageMaker",
-        "Inferenza serverless, che scala a zero e fattura a consumo per ogni richiesta",
-        "Batch transform, che elabora dataset offline e salva le predizioni su S3"
-      ],
-      "answer": 1,
-      "explain": "Le Model Cards documentano uso previsto, metriche, limiti e considerazioni etiche, mentre il lineage traccia dataset, codice e artefatti. Insieme rispondono alle domande di governance e riproducibilita."
-    }
-  ],
-  "script": "In questo capitolo studiamo monitoraggio, manutenzione e sicurezza delle soluzioni ML, il quarto dominio dell'esame. Il protagonista e SageMaker Model Monitor, che rileva il drift confrontando i dati di produzione con una baseline. Tutto parte dalla Data Capture: configuriamo sull'endpoint quali richieste e risposte salvare su S3 e con quale percentuale di campionamento. La percentuale va da zero a cento per cento: ad esempio cento per cento per traffico basso o dieci per cento per traffico alto. Poi generiamo la baseline dal dataset di training o validazione: otteniamo un file di statistiche con medie, deviazioni e completezza, e un file di vincoli con le regole attese. Attenzione alla data: dal 30 luglio 2026 SageMaker Model Monitor ha chiuso ai nuovi clienti, mentre chi lo usava prima continua a usarlo. AWS indica come sostituto soluzioni di monitoraggio open source costruite su SageMaker AI MLflow e Evidently, con CloudWatch per le metriche di sistema e QuickSight per le dashboard. Per l'esame conta questo: la guida MLA-C01 chiede ancora di rilevare il drift con Model Monitor, mentre la guida MLA-C02 descrive il monitoraggio con CloudWatch, Bedrock Model Evaluation e pipeline di rilevamento del drift, senza nominare Model Monitor. Esistono quattro tipi di monitoraggio: Data Quality rileva drift di schema, valori mancanti e shift distribuzionali. Model Quality misura il calo di accuratezza o l'aumento di errore unendo le predizioni alle label reali. Model Bias rileva derive di equita con metriche di bias, calcolate in origine con Clarify, che dal 30 luglio 2026 ha chiuso ai nuovi clienti. Explainability controlla lo spostamento dell'importanza delle feature rispetto alla baseline. Explainability rileva drift nell'importanza delle feature. Ogni schedule pubblica metriche su CloudWatch, dove creiamo allarmi sullo stato CompletedWithViolations o sul conteggio violazioni. EventBridge intercetta i cambi di stato dello schedule e attiva la pipeline di retraining: il ciclo chiuso e cattura, baseline, monitoraggio, allarme, retraining. Ricorda di non riaddestrare a ogni singola violazione, ma dopo violazioni consecutive o cali significativi. Per il deploy sicuro usiamo autoscaling sulle varianti di produzione, strategie blue green per rilasci senza downtime, test A/B per confrontare versioni e shadow test per valutare il nuovo modello su traffico reale senza impattare gli utenti. La sicurezza copre tre pilastri. IAM impone execution role a privilegio minimo per ogni job, mai access key, con isolamento per team e audit di ogni chiamata via CloudTrail. KMS cifra a riposo volumi, artefatti S3 ed endpoint con chiavi gestite dal cliente, rotazione e controllo centrale. La rete usa modalita VPC-only con subnet private, gateway endpoint per S3 e interface endpoint PrivateLink per API SageMaker, ECR, CloudWatch e KMS, piu Secrets Manager per credenziali ruotate. Model Cards e lineage garantiscono governance e riproducibilita: scopo, metriche, limiti e tracciabilita completa da dati a modello. Approfondiamo ora il retraining guidato dagli eventi. Quando lo schedule termina con violazioni, EventBridge riceve un evento di cambio stato con nome dello schedule ed esito. Una regola filtra questi eventi e avvia la pipeline di retraining in SageMaker Pipelines oppure una macchina a stati Step Functions che unisce i dati catturati con le label reali, rilancia il training, rigenera la baseline e registra il nuovo package. Prima di riaddestrare, una funzione leggera puo verificare il report di violazione su S3 e procedere solo se le violazioni sono consecutive o superano una soglia, evitando retraining costosi su rumore. Per il rilascio, l'autoscaling regola le varianti di produzione su metriche come invocazioni per istanza, mentre le strategie blue green spostano il traffico senza downtime con rollback immediato. I test A/B dividono il traffico per confrontare metriche di business tra versioni, e gli shadow test inviano copia del traffico live al nuovo modello senza esporlo agli utenti. Sul lato sicurezza, ogni job assume un execution role con policy minime su S3, ECR e CloudWatch, mentre Studio isola i team con domini e profili separati. La cifratura usa chiavi gestite dal cliente per volumi di training, artefatti e storage degli endpoint, con rotazione e audit centralizzato. La rete in modalita solo VPC usa subnet private, gateway endpoint per S3 e interface endpoint PrivateLink per API, ECR, log e KMS, con Secrets Manager per le credenziali. Model Cards e lineage chiudono la governance: documentano scopo, metriche e limiti e tracciano ogni artefatto dai dati al modello. Ricorda infine il principio operativo: monitorare sempre, allarmare su soglie, reagire con pipeline automatiche e documentare ogni decisione con Model Cards e lineage.",
+  "summary": "Un modello peggiora per data drift, concept drift o training-serving skew, e il monitoraggio serve a vederlo presto. Il ciclo parte da una baseline, passa dalla data capture, confronta, allarma e poi agisce solo dopo aver escluso il rumore. Model Monitor offre data quality, model quality, bias drift e feature attribution drift, ma dal 30 luglio 2026 non accetta nuovi clienti: l'alternativa indicata da AWS è CloudWatch, QuickSight e soluzioni open source su SageMaker AI MLflow. CloudWatch misura latenze ed errori dell'endpoint, CloudTrail registra le chiamate API, EventBridge reagisce agli eventi. Il retraining può essere guidato da eventi o pianificato, e i rilasci sicuri usano canary, linear, shadow e rollback automatico. Sicurezza e governance completano il quadro: IAM con privilegio minimo, KMS, VPC e PrivateLink, Model Cards e lineage.",
   "slides": [
     {
+      "title": "Perché un modello in produzione peggiora",
       "bullets": [
-        "Model Monitor confronta produzione con baseline su schedule oraria o giornaliera.",
-        "Prerequisito: Data Capture attiva con sampling verso S3 in formato JSONL.",
-        "Baseline da training o validation: statistics.json piu constraints.json.",
-        "Schedule pubblica report su S3 e metriche su CloudWatch.",
-        "Violazioni consecutive guidano il retraining, mai una singola violazione isolata.",
-        "Dal 30/07/2026 Model Monitor ha chiuso ai nuovi clienti; chi lo usava continua",
-        "Alternative AWS: CloudWatch, QuickSight e monitoraggio open source su SageMaker AI MLflow"
+        "Data drift: cambia la distribuzione delle feature in ingresso, mentre la regola tra input e output resta uguale.",
+        "Concept drift: cambia la relazione tra input e output, cioè la regola che il modello ha imparato.",
+        "Training-serving skew: la stessa feature viene calcolata in modo diverso in training e in produzione.",
+        "Riconoscimento: statistiche degli input, label reali, confronto dello stesso record nelle due pipeline.",
+        "Tranello d'esame: un calo di accuratezza non significa sempre data drift."
       ],
+      "narration": "Un modello di machine learning non si rompe come un programma. Il codice resta identico, ma il mondo cambia, e il modello continua a rispondere con la regola che ha imparato mesi o anni prima. Per questo serve monitorarlo. L'esame distingue tre cause principali di peggioramento, e conviene saperle riconoscere. Il primo caso è il data drift: cambia la distribuzione delle feature in ingresso. Immaginiamo un modello di scoring del credito addestrato su redditi raccolti nel 2024. Se nel 2026 l'inflazione sposta i valori tipici dei redditi richiesti, le feature arrivano con statistiche diverse, anche se la relazione tra reddito e rischio resta la stessa. Il secondo caso è il concept drift: cambia la relazione tra input e output. Un filtro antifrode impara i trucchi usati dai truffatori un anno fa. Quando cambiano tecnica, le stesse feature possono significare un'altra cosa, e la regola appresa non vale più. Il terzo caso è il training-serving skew: il modello riceve in produzione dati calcolati in modo diverso da quelli visti in training. Succede, per esempio, quando una feature viene calcolata in batch con una logica e in tempo reale con un'altra, oppure quando un importo arriva in euro in un caso e in centesimi nell'altro. Come si riconoscono? Il data drift si vede confrontando le statistiche degli input con una baseline. Il concept drift richiede le label reali: si vede quando l'accuratezza cala mentre gli input restano stabili. Lo skew si vede confrontando lo stesso record nelle due pipeline, e spesso compare fin dal primo giorno, perché il problema è nel codice e non nel mondo. Attenzione al tranello d'esame: un calo di accuratezza non significa automaticamente data drift. Prima di scegliere la soluzione bisogna capire quale dei tre casi si sta verificando, perché ciascuno richiede una risposta diversa.",
+      "todo": []
+    },
+    {
       "title": "Il ciclo del monitoraggio",
-      "narration": "In questo capitolo studiamo monitoraggio, manutenzione e sicurezza delle soluzioni ML, il quarto dominio dell'esame. Il protagonista e SageMaker Model Monitor, che rileva il drift confrontando i dati di produzione con una baseline. Tutto parte dalla Data Capture: configuriamo sull'endpoint quali richieste e risposte salvare su S3 e con quale percentuale di campionamento. La percentuale va da zero a cento per cento: ad esempio cento per cento per traffico basso o dieci per cento per traffico alto. Poi generiamo la baseline dal dataset di training o validazione: otteniamo un file di statistiche con medie, deviazioni e completezza, e un file di vincoli con le regole attese. Attenzione alla data: dal 30 luglio 2026 SageMaker Model Monitor ha chiuso ai nuovi clienti, mentre chi lo usava prima continua a usarlo. AWS indica come sostituto soluzioni di monitoraggio open source costruite su SageMaker AI MLflow e Evidently, con CloudWatch per le metriche di sistema e QuickSight per le dashboard. Per l'esame conta questo: la guida MLA-C01 chiede ancora di rilevare il drift con Model Monitor, mentre la guida MLA-C02 descrive il monitoraggio con CloudWatch, Bedrock Model Evaluation e pipeline di rilevamento del drift, senza nominare Model Monitor."
+      "bullets": [
+        "Baseline: statistiche e vincoli calcolati sul dataset di training o di validazione.",
+        "Cattura: richieste e risposte reali salvate su Amazon S3 dall'endpoint.",
+        "Confronto: un job periodico misura la distanza tra dati catturati e baseline.",
+        "Allarme: una violazione o una metrica sopra soglia notifica il team.",
+        "Azione: indagine, rollback, nuove label o retraining, solo dopo aver escluso il rumore."
+      ],
+      "narration": "Il monitoraggio è un ciclo di cinque passi, e l'ordine conta. Il primo passo è la baseline. Si prende il dataset di training o di validazione e si calcolano statistiche come medie, valori minimi e massimi, percentuali di valori mancanti, e si ricavano regole attese. Queste regole definiscono che cosa è normale per il modello. Il secondo passo è la cattura. L'endpoint salva su Amazon S3 le richieste e le risposte reali, con una percentuale di campionamento. Senza cattura non c'è niente da confrontare, quindi la cattura è il prerequisito di tutto il resto. Il terzo passo è il confronto. Un job periodico, chiamato schedule di monitoraggio, legge i dati catturati in una finestra di tempo e li confronta con la baseline. Il risultato è un report con le violazioni. Il quarto passo è l'allarme. Una violazione, o una metrica che supera una soglia, diventa un segnale che CloudWatch può monitorare e notificare. Il quinto passo è l'azione, ed è quella che fa la differenza. Non ogni violazione merita un retraining. Una violazione singola può essere rumore, perché una finestra con pochi campioni produce statistiche instabili. Per questo la regola pratica è reagire a violazioni consecutive o a cali significativi. Prima di riaddestrare conviene indagare la causa. L'azione può essere un rollback del modello, una correzione della pipeline dei dati, la richiesta di nuove label o un retraining. Ricordiamo infine che la baseline va ricalcolata quando cambia il modello o la pipeline. Altrimenti il confronto avviene con una versione vecchia del mondo, e le violazioni diventano falsi allarmi. Questo ciclo vale per ogni strumento di monitoraggio, anche quando al posto di Model Monitor si usano CloudWatch e soluzioni open source.",
+      "todo": []
     },
     {
+      "title": "Data capture: cosa salvare e dove",
       "bullets": [
-        "Data Quality: schema drift, valori mancanti, mismatch di tipo, shift distribuzionali.",
-        "Model Quality: calo di accuratezza o aumento di errore, richiede label reali unite al traffico.",
-        "Model Bias: derive di equita con metriche di bias, prima calcolate con Clarify.",
-        "Explainability: drift dell importanza delle feature rispetto alla baseline.",
-        "Tranello esame: senza ground truth si misura solo data drift, mai accuracy drop."
+        "DataCaptureConfig si configura sull'endpoint, con EnableCapture attivo di default.",
+        "InitialSamplingPercentage è un intero da 0 a 100: la quota di richieste salvate.",
+        "DestinationS3Uri indica il bucket di destinazione, con schema https o s3.",
+        "CaptureOptions sceglie Input, Output o entrambi.",
+        "KmsKeyId cifra i dati catturati su S3 con una chiave KMS.",
+        "Con traffico alto conviene un campionamento basso, ma sufficiente per statistiche affidabili."
       ],
+      "narration": "La cattura dei dati è il prerequisito di tutto il monitoraggio. Sull'endpoint si configura una DataCaptureConfig. Il campo più importante per l'esame è InitialSamplingPercentage, un intero che va da 0 a 100 e indica la percentuale di richieste che SageMaker AI salva. Zero significa nessuna cattura, cento significa tutte le richieste. La documentazione raccomanda un valore più basso per endpoint con traffico alto, perché salvare tutto costa in storage e in elaborazione. Ecco un calcolo concreto. Un endpoint che riceve un milione di richieste al giorno, con campionamento al dieci per cento, salva centomila record al giorno, più che sufficienti per una baseline e per stimare il drift. Un endpoint che riceve cinquecento richieste al giorno può invece salvare tutto, al cento per cento, senza costi rilevanti. Il campo DestinationS3Uri indica dove scrivere, e accetta un URI con schema https o s3. Ogni richiesta catturata diventa una riga in un file JSON Lines, con un blocco captureData che contiene endpointInput ed endpointOutput, e un blocco eventMetadata con eventId e inferenceTime. I file sono organizzati per endpoint, variante, anno, mese, giorno e ora. Con CaptureOptions si decide che cosa salvare: solo l'input, solo l'output o entrambi. Per il data quality serve l'input. Per la qualità del modello serve anche l'output, perché le predizioni vanno confrontate con le label reali. Il campo KmsKeyId indica una chiave KMS con cui cifrare i dati catturati su S3. C'è anche un limite operativo. La documentazione di Model Monitor avverte che, con il disco quasi pieno, la cattura smette di salvare le richieste per non rallentare l'inferenza, e consiglia di tenere l'uso del disco sotto il 75 per cento. Per l'esame ricordate due cose: la cattura si configura sull'endpoint e non sul modello, e il campionamento non cambia le risposte date agli utenti.",
+      "todo": []
+    },
+    {
       "title": "I quattro tipi di monitoraggio",
-      "narration": "Esistono quattro tipi di monitoraggio: Data Quality rileva drift di schema, valori mancanti e shift distribuzionali. Model Quality misura il calo di accuratezza o l'aumento di errore unendo le predizioni alle label reali. Model Bias rileva derive di equita con metriche di bias, calcolate in origine con Clarify, che dal 30 luglio 2026 ha chiuso ai nuovi clienti. Explainability controlla lo spostamento dell'importanza delle feature rispetto alla baseline."
+      "bullets": [
+        "Data quality: statistiche per feature e vincoli dalla baseline, con motore basato su Deequ.",
+        "Model quality: accuratezza, precisione, recall, F1, AUC o errori come RMSE, con predizioni unite alle label reali.",
+        "Bias drift: metriche di bias per gruppi, con intervalli di confidenza per evitare falsi allarmi.",
+        "Feature attribution drift: NDCG tra la classifica delle feature in training e in produzione, allarme sotto 0,90.",
+        "Data quality non richiede label. Model quality sì."
+      ],
+      "narration": "Model Monitor offre quattro tipi di monitoraggio, e distinguerli è materia d'esame. Il primo è la data quality. Il job calcola per ogni feature statistiche come media, somma, deviazione standard, minimo e massimo. Per le feature testuali conta invece i valori distinti. Poi confronta i dati con i vincoli prodotti dalla baseline. Il motore è basato su Deequ, una libreria open source costruita su Apache Spark. Il secondo è la model quality, che richiede più lavoro. Le predizioni catturate vengono unite alle label reali, cioè alle risposte corrette. Le label devono arrivare in un bucket S3 con la stessa struttura di percorso dei dati catturati, in formato JSON Lines. Il join avviene tramite un identificatore. Se il chiamante fornisce un inferenceId, quello viene usato. Altrimenti si usa l'eventId generato da SageMaker AI. Le metriche dipendono dal tipo di problema. Per la classificazione si calcolano accuratezza, precisione, recall, F1 e AUC. Per la regressione si calcolano errori come RMSE. Il terzo è il bias drift. Il monitor controlla che le metriche di equità, per esempio la differenza proporzionale di predizioni positive tra gruppi, restino nell'intervallo atteso. La documentazione usa l'esempio di DPPL, con un intervallo ammesso tra meno 0,1 e 0,1. Il calcolo non fa scattare l'allarme su una finestra piccola e rumorosa. Usa un intervallo di confidenza, costruito con il metodo Normal Bootstrap, e l'allarme scatta solo quando quell'intervallo è completamente fuori dall'intervallo ammesso. Il quarto è il feature attribution drift. Si confronta l'importanza delle feature in training con quella in produzione. La metrica NDCG misura quanto è cambiata la classifica, pesando di più le feature che contavano di più. Se NDCG scende sotto 0,90, l'allarme scatta. L'importanza viene calcolata con i valori di Shapley, il metodo SHAP, lo stesso motore su cui si basa Clarify. Il tranello d'esame è questo: senza ground truth si misura il data drift, ma non si può dire che l'accuratezza è calata. Per dirlo servono le label reali, e solo la model quality le confronta con le predizioni.",
+      "todo": []
     },
     {
+      "title": "Baseline, schedule e violazioni",
       "bullets": [
-        "Namespace CloudWatch dedicato con stato esecuzione e conteggio violazioni.",
-        "Allarme su CompletedWithViolations o soglia di violazioni superata.",
-        "CloudTrail registra ogni chiamata API: chi, cosa, quando per audit.",
-        "Dashboard unificata: latenza, errori, invocazioni piu metriche di drift.",
-        "Notifiche SNS verso i team quando scatta l allarme."
+        "Il job di baseline produce statistics.json e constraints.json dal dataset di riferimento.",
+        "CreateMonitoringSchedule avvia i job a intervalli, per esempio ogni ora con CronExpressionGenerator.hourly.",
+        "Un'esecuzione singola usa data_analysis_start_time e data_analysis_end_time in formato ISO 8601.",
+        "Stati terminali: Completed, CompletedWithViolations e Failed.",
+        "Le violazioni finiscono in constraint_violations.json su S3, con le metriche per feature su CloudWatch."
       ],
-      "title": "CloudWatch e CloudTrail",
-      "narration": "Explainability rileva drift nell'importanza delle feature. Ogni schedule pubblica metriche su CloudWatch, dove creiamo allarmi sullo stato CompletedWithViolations o sul conteggio violazioni. EventBridge intercetta i cambi di stato dello schedule e attiva la pipeline di retraining: il ciclo chiuso e cattura, baseline, monitoraggio, allarme, retraining. Ricorda di non riaddestrare a ogni singola violazione, ma dopo violazioni consecutive o cali significativi."
+      "narration": "Il lavoro concreto si svolge in tre oggetti: la baseline, la schedule e il report delle violazioni. La baseline è un job che analizza il dataset usato per il training. Produce due file. Il primo è statistics.json, con le statistiche di ogni feature. Il secondo è constraints.json, con i vincoli che i dati futuri dovranno rispettare. Le statistiche descrivono com'era il mondo durante il training, e i vincoli dicono che cosa è accettabile. La schedule è il meccanismo che ripete il confronto. Con l'API CreateMonitoringSchedule si indicano il dato da leggere, la frequenza, la baseline, il percorso di output e la cron expression. Nel codice di esempio della documentazione, CronExpressionGenerator.hourly produce una esecuzione ogni ora. Per un controllo una tantum si usa CronExpressionGenerator.now, e la finestra da analizzare si definisce con data_analysis_start_time e data_analysis_end_time, in formato ISO 8601. Il valore -PT1H indica un'ora fa. Ogni esecuzione produce uno stato finale. Completed significa che non ci sono violazioni. CompletedWithViolations significa che l'esecuzione è finita ma ha trovato violazioni. Failed significa che il job è fallito, per esempio per un ruolo senza permessi o per un problema infrastrutturale, e la causa sta in FailureReason. Le violazioni vanno in constraint_violations.json, nella cartella di output su S3. Se la baseline ha attiva l'opzione emit_metrics, il container pubblica anche una metrica per ogni feature su CloudWatch. Due limiti da ricordare: Model Monitor analizza solo dati tabellari. Per l'esame basta questo: la schedule confronta, la baseline definisce il normale e il report elenca le violazioni.",
+      "todo": []
     },
     {
+      "title": "Model Monitor chiude ai nuovi clienti: cosa cambia",
       "bullets": [
-        "EventBridge intercetta cambi di stato dello schedule di monitoraggio.",
-        "Target tipici: pipeline di retraining, Step Functions, funzione Lambda di verifica.",
-        "Pattern EventBridge Scheduler per retraining periodico anche senza drift.",
-        "Input transformer per filtrare: solo violazioni gravi o ripetute avviano il retraining.",
-        "Ciclo chiuso: endpoint con capture, monitor, report, allarme, pipeline, nuovo endpoint."
+        "Dal 30/07/2026 Model Monitor non accetta nuovi clienti. Chi lo usa già può continuare.",
+        "AWS non introduce nuove funzionalità, ma continua a investire in sicurezza e disponibilità.",
+        "Alternative indicate da AWS: soluzioni open source su SageMaker AI MLflow Apps con Evidently AI, QuickSight e CloudWatch.",
+        "Per il bias: metriche per segmento con Evidently AI, registrate in MLflow e QuickSight.",
+        "MLA-C01 cita ancora Model Monitor. MLA-C02 descrive CloudWatch, Bedrock Model Evaluation e pipeline di drift."
       ],
-      "title": "Retraining automatico",
-      "narration": "Per il deploy sicuro usiamo autoscaling sulle varianti di produzione, strategie blue green per rilasci senza downtime, test A/B per confrontare versioni e shadow test per valutare il nuovo modello su traffico reale senza impattare gli utenti. La sicurezza copre tre pilastri. IAM impone execution role a privilegio minimo per ogni job, mai access key, con isolamento per team e audit di ogni chiamata via CloudTrail. KMS cifra a riposo volumi, artefatti S3 ed endpoint con chiavi gestite dal cliente, rotazione e controllo centrale."
+      "narration": "Model Monitor ha una data che conta per l'esame. Dal 30 luglio 2026, come indica la pagina delle funzionalità di SageMaker AI sul sito AWS, il servizio non accetta più nuovi clienti. Chi lo usava prima può continuare a usarlo normalmente. AWS dichiara che continuerà a investire in sicurezza e disponibilità, ma non prevede nuove funzionalità. Nella stessa data chiudono ai nuovi clienti anche Clarify e Role Manager, insieme a Ground Truth, Augmented AI e Studio Lab. Quali sono le alternative? La pagina di disponibilità di Model Monitor indica una combinazione di soluzioni. La prima sono le soluzioni di monitoraggio open source pubblicate nell'organizzazione aws-samples. Sono costruite su SageMaker AI MLflow Apps e su Evidently AI, calcolano il drift su dati e modello e registrano i risultati nello stesso ambiente di tracciamento del training. La seconda è QuickSight, per le dashboard di governance. La terza è CloudWatch, per le metriche di sistema e di inferenza, con allarmi basati su anomalie. Per il bias, AWS indica metriche calcolate per segmento con Evidently AI, registrate in MLflow e mostrate in QuickSight. Per l'esame la distinzione è importante. La guida MLA-C01 chiede ancora di monitorare i modelli con SageMaker Model Monitor. La guida MLA-C02 nel compito 4.1 non nomina più Model Monitor: parla di CloudWatch, di Bedrock Model Evaluation e di pipeline di rilevamento del drift. Il concetto di drift, però, resta materia d'esame in entrambe le guide. Quando una domanda nomina Model Monitor, si risponde sulla funzione: confrontare la produzione con una baseline e segnalare il drift. Le alternative sono quelle indicate da AWS, cioè CloudWatch, QuickSight e le soluzioni open source su SageMaker AI MLflow.",
+      "todo": []
     },
     {
+      "title": "CloudWatch per gli endpoint: le metriche chiave",
       "bullets": [
-        "Autoscaling su metriche invarianti per assorbire i picchi senza sprechi.",
-        "Blue green: due ambienti, switch del traffico senza downtime e rollback rapido.",
-        "A/B test: split del traffico tra varianti per confrontare metriche di business.",
-        "Shadow test: il nuovo modello riceve copia del traffico live senza rispondere agli utenti.",
-        "Regola esame: validare senza impatto uguale shadow; confrontare versioni uguale A/B."
+        "Invocations: numero di richieste. Si usa la statistica Sum.",
+        "ModelLatency: tempo del modello nel container, in microsecondi.",
+        "OverheadLatency: tempo aggiunto da SageMaker AI, cioè il totale meno ModelLatency.",
+        "Invocation4XXErrors e Invocation5XXErrors: 1 per ogni risposta di errore, quindi la media è il tasso di errore.",
+        "CPUUtilization: somma sui core, quindi con quattro CPU arriva fino a 400 per cento.",
+        "MemoryUtilization, GPUUtilization, DiskUtilization: utilizzo per istanza."
       ],
-      "title": "Scaling e strategie di rilascio",
-      "narration": "La rete usa modalita VPC-only con subnet private, gateway endpoint per S3 e interface endpoint PrivateLink per API SageMaker, ECR, CloudWatch e KMS, piu Secrets Manager per credenziali ruotate. Model Cards e lineage garantiscono governance e riproducibilita: scopo, metriche, limiti e tracciabilita completa da dati a modello. Approfondiamo ora il retraining guidato dagli eventi. Quando lo schedule termina con violazioni, EventBridge riceve un evento di cambio stato con nome dello schedule ed esito. Una regola filtra questi eventi e avvia la pipeline di retraining in SageMaker Pipelines oppure una macchina a stati Step Functions che unisce i dati catturati con le label reali, rilancia il training, rigenera la baseline e registra il nuovo package."
+      "narration": "Per un endpoint, CloudWatch pubblica due famiglie di metriche. Le metriche di invocazione stanno nel namespace AWS/SageMaker, e misurano le chiamate ricevute. Le metriche di istanza stanno nel namespace dedicato agli endpoint, e misurano le risorse usate dai container. Cominciamo dalle invocazioni. Invocations conta le richieste inviate all'endpoint, e per il totale si usa la statistica Sum. Le latenze sono due, e la distinzione è un classico dell'esame. ModelLatency è il tempo che il modello impiega per rispondere, incluso il passaggio dei dati verso il container. OverheadLatency è il tempo aggiunto da SageMaker AI: si misura dal momento in cui il servizio riceve la richiesta fino alla risposta al client, meno ModelLatency. Entrambe sono in microsecondi. Se la latenza totale sale ma ModelLatency resta stabile, il problema è nella piattaforma o nella dimensione del payload, non nel modello. Se invece sale ModelLatency, il modello è lento: serve un'istanza più grande, un batch più piccolo o un modello più leggero. Gli errori sono due metriche distinte. Invocation4XXErrors conta le risposte con codice 4xx, di solito richieste malformate. Invocation5XXErrors conta le risposte con codice 5xx, cioè errori lato server. Ogni richiesta vale 1 oppure 0, quindi la media della metrica è il tasso di errore. Per le risorse, CPUUtilization somma l'utilizzo di ogni core. Con quattro CPU il valore massimo è quattrocento per cento, e non cento. MemoryUtilization, GPUUtilization e DiskUtilization misurano memoria, GPU e disco usati dai container, come percentuale. Le metriche sono pubblicate ogni minuto. Con MetricsConfig si può cambiare la frequenza di pubblicazione tra 10, 30, 60, 120, 180, 240 e 300 secondi, e per le metriche di invocazione serve anche EnableEnhancedMetrics. Le metriche restano disponibili per quindici mesi. Per l'esame basta ricordare il significato di ogni metrica e la distinzione tra latenza del modello e overhead.",
+      "todo": []
     },
     {
+      "title": "Allarmi e log per il monitoraggio",
       "bullets": [
-        "Execution Role a privilegio minimo per ogni job: mai access key nei job.",
-        "Isolamento team con ruoli separati e policy su bucket e domini Studio.",
-        "KMS con chiavi gestite dal cliente per volumi, artefatti S3 ed endpoint.",
-        "VPC-only con subnet private piu gateway endpoint S3 e interface endpoint PrivateLink.",
-        "Secrets Manager per credenziali ruotate, mai hardcoded o in variabili d ambiente."
+        "Metriche di Model Monitor nel namespace /aws/sagemaker/Endpoints/data-metric, con dimensioni EndpointName e ScheduleName.",
+        "feature_non_null_{feature} misura la completezza. feature_baseline_drift_{feature} misura lo scostamento dalla baseline.",
+        "Un allarme ha una soglia e un numero di periodi di valutazione: un solo punto anomalo non basta.",
+        "I log del container vanno in CloudWatch Logs e spiegano la causa di un errore 5xx.",
+        "Dashboard e Logs Insights sono trattati nel capitolo 11."
       ],
-      "title": "IAM, KMS e rete",
-      "narration": "Prima di riaddestrare, una funzione leggera puo verificare il report di violazione su S3 e procedere solo se le violazioni sono consecutive o superano una soglia, evitando retraining costosi su rumore. Per il rilascio, l'autoscaling regola le varianti di produzione su metriche come invocazioni per istanza, mentre le strategie blue green spostano il traffico senza downtime con rollback immediato. I test A/B dividono il traffico per confrontare metriche di business tra versioni, e gli shadow test inviano copia del traffico live al nuovo modello senza esporlo agli utenti. Sul lato sicurezza, ogni job assume un execution role con policy minime su S3, ECR e CloudWatch, mentre Studio isola i team con domini e profili separati."
+      "narration": "Un allarme CloudWatch collega una metrica a una decisione. Le metriche di Model Monitor per dati reali si trovano nel namespace /aws/sagemaker/Endpoints/data-metric per gli endpoint in tempo reale, con le dimensioni EndpointName e ScheduleName. Se nella baseline è attiva l'opzione emit_metrics, per ogni feature il container pubblica due tipi di metrica. La prima è feature_non_null con il nome della feature, che misura la completezza: quanti valori non sono nulli. La seconda è feature_baseline_drift con il nome della feature, che misura lo scostamento rispetto alla baseline. Per la feature di reddito, quindi, si può creare un allarme su feature_baseline_drift_reddito. Un allarme ha due parametri da scegliere con cura: la soglia e il numero di periodi di valutazione. Se la soglia è troppo bassa e il numero di periodi è uno, un'unica finestra rumorosa fa scattare l'allarme e il team smette di fidarsi. Se i periodi sono molti, la reazione arriva tardi. Il compromesso è richiedere più periodi consecutivi sopra soglia, esattamente come raccomanda la regola di reagire a violazioni consecutive. I log dei container sono l'altra metà del quadro. Quando un endpoint produce errori 5xx, la metrica dice quante volte succede, e il log dice perché. Il log del container finisce in CloudWatch Logs, e per leggerlo si usano i filtri e le query. Le dashboard, le query con Logs Insights e le anomalie operative sono trattate nel capitolo 11, che approfondisce l'osservabilità. Qui conta il principio: ogni metrica importante deve avere un allarme, ogni allarme una persona o un'azione collegata, e ogni allarme deve essere verificato con un evento reale, non solo con un test simulato.",
+      "todo": []
     },
     {
+      "title": "CloudTrail, CloudWatch ed EventBridge: chi fa cosa",
       "bullets": [
-        "Model Cards: scopo, metriche, limiti e considerazioni etiche del modello.",
-        "Lineage: tracciabilita completa da dataset a codice ad artefatti.",
-        "Versionamento nel Model Registry con stati di approvazione come cancello.",
-        "Audit readiness: CloudTrail piu Model Cards piu lineage rispondono a ogni verifica.",
-        "Combo massima sicurezza: VPC-only, endpoint privati, KMS, ruolo minimo, CloudTrail."
+        "CloudTrail registra chi ha chiamato quale API, quando e con quale esito.",
+        "Per default CloudTrail registra i management event. I data event, per esempio oggetti S3 o invocazioni Lambda, sono disattivati e costano.",
+        "CloudWatch conserva valori di metriche, log e allarmi: risponde alla domanda come sta il sistema.",
+        "EventBridge riceve gli eventi di stato di SageMaker AI e li instrada verso target come Lambda o Step Functions.",
+        "Eventi utili: SageMaker Training Job State Change, SageMaker Endpoint Deployment State Change, SageMaker Model Building Pipeline Execution Status Change, SageMaker Processing Job State Change."
       ],
-      "title": "Governance e compliance",
-      "narration": "La cifratura usa chiavi gestite dal cliente per volumi di training, artefatti e storage degli endpoint, con rotazione e audit centralizzato. La rete in modalita solo VPC usa subnet private, gateway endpoint per S3 e interface endpoint PrivateLink per API, ECR, log e KMS, con Secrets Manager per le credenziali. Model Cards e lineage chiudono la governance: documentano scopo, metriche e limiti e tracciano ogni artefatto dai dati al modello. Ricorda infine il principio operativo: monitorare sempre, allarmare su soglie, reagire con pipeline automatiche e documentare ogni decisione con Model Cards e lineage."
+      "narration": "Tre servizi sembrano simili e l'esame li confonde spesso. Il criterio è la domanda a cui rispondono. CloudTrail registra le chiamate API: chi ha fatto che cosa, quando e con quale esito. Per default registra i management event, cioè le operazioni di gestione, come la creazione o la cancellazione di un endpoint. I data event, cioè le operazioni sui dati, come la lettura di un oggetto S3 o l'invocazione di una funzione Lambda, sono disattivati di default, perché sono ad alto volume, e hanno un costo aggiuntivo. CloudTrail non è lo strumento per le performance: i valori delle metriche e i log applicativi stanno in CloudWatch. CloudWatch risponde alla domanda come sta il sistema. Conserva metriche per quindici mesi, log, allarmi e dashboard. EventBridge risponde alla domanda che cosa succede e che cosa facciamo quando succede. Riceve eventi di stato di SageMaker AI con source aws.sagemaker, e una regola filtra quegli eventi e li manda a un target. Nella documentazione compaiono, tra gli altri, questi eventi. SageMaker Training Job State Change riguarda i job di training. SageMaker Endpoint State Change riguarda lo stato degli endpoint. SageMaker Endpoint Deployment State Change riguarda i rilasci, e mostra lo stato Baking durante il periodo di osservazione. SageMaker Model Building Pipeline Execution Status Change riguarda le esecuzioni delle pipeline, con stati come Executing, Succeeded, Failed, Stopping e Stopped. Attenzione: nella pagina degli eventi non compare un evento dedicato al monitoring schedule, né uno stato CompletedWithViolations. Le esecuzioni di monitoraggio sono processing job, e per i processing job esiste l'evento SageMaker Processing Job State Change, che segnala il cambio di stato del job ma non il numero di violazioni trovate. Per reagire alle violazioni si usano quindi le metriche e gli allarmi CloudWatch, mentre EventBridge reagisce agli esiti dei job, delle pipeline e dei rilasci. Per l'esame: chi ha cancellato l'endpoint è CloudTrail, quanti errori 5xx ci sono è CloudWatch, e il fallimento di una pipeline si intercetta con EventBridge.",
+      "todo": []
+    },
+    {
+      "title": "Retraining automatico: un esempio passo per passo",
+      "bullets": [
+        "1. Lo schedule confronta la cattura con la baseline e scrive il report delle violazioni.",
+        "2. L'allarme sulla metrica feature_baseline_drift scatta dopo più periodi consecutivi sopra soglia.",
+        "3. Una funzione Lambda legge constraint_violations.json e decide se procedere.",
+        "4. La pipeline unisce cattura e label, riaddestra, valuta e registra il modello.",
+        "5. Il modello entra nel Model Registry con PendingManualApproval e un umano approva.",
+        "6. Il deploy è un rilascio sicuro, con rollback se un allarme scatta durante il baking."
+      ],
+      "narration": "Ora costruiamo il ciclo chiuso, un passo per volta. Il punto di partenza è uno schedule di monitoraggio che gira ogni ora sull'endpoint di credito, e confronta la cattura della giornata con la baseline. Il report finisce su S3 con le eventuali violazioni. Il secondo passo è l'allarme. Su una metrica di drift per feature, per esempio feature_baseline_drift sul reddito, si imposta una soglia e si richiede che la violazione duri per più periodi consecutivi. Questo evita di riaddestrare su un rumore di una sola finestra. Il terzo passo è la decisione. Un'azione dell'allarme, per esempio un topic SNS collegato a una funzione Lambda, legge constraint_violations.json dal bucket, conta le violazioni consecutive e confronta il risultato con una soglia. Se la condizione non è soddisfatta, la funzione termina senza fare nulla e lo registra nel log. In alternativa si potrebbe usare una regola EventBridge sull'evento SageMaker Processing Job State Change, perché ogni esecuzione è un processing job, ma quell'evento segnala il cambio di stato del job e non il numero di violazioni. Per questo la scelta più semplice resta l'allarme CloudWatch. Il quarto passo è la pipeline di retraining, eseguita con SageMaker Pipelines. Unisce i dati catturati alle label reali tramite l'identificatore, riaddestra il modello, lo valuta con una condition step e, se supera il controllo, registra un nuovo model package. Il quinto passo è l'approvazione. Il package entra nel Model Registry con ModelApprovalStatus uguale a PendingManualApproval. Un umano valuta le metriche e cambia lo stato in Approved. Quando il progetto usa i template di SageMaker AI, il passaggio ad Approved avvia il deploy tramite CI/CD. Il sesto passo è il rilascio. Il nuovo endpoint non sostituisce di colpo il vecchio: si usa una strategia blue green con canary o linear, e gli allarmi di rollback proteggono la produzione. Durante questo periodo, EventBridge riceve eventi di stato del rilascio. Accanto al retraining guidato da eventi, c'è il retraining pianificato. Una regola con una pianificazione lo lancia a intervalli fissi, anche senza drift. È utile per dati stagionali, dove il modello va aggiornato comunque, e costa di più perché riaddestra anche quando non serve. Il retraining a evento è più efficiente, ma dipende dalla qualità del monitoraggio: se il monitor non scatta, il modello non si aggiorna. Per l'esame, la risposta giusta dipende dalla domanda. Se il testo parla di drift, la soluzione è a evento. Se parla di stagionalità, è pianificata.",
+      "todo": []
+    },
+    {
+      "title": "Rilasci sicuri: canary, linear, shadow",
+      "bullets": [
+        "All at once: tutto il traffico passa al nuovo gruppo, con allarmi durante il baking.",
+        "Canary: una quota di capacità riceve traffico, con CAPACITY_PERCENT fino al 50 per cento del nuovo gruppo.",
+        "Linear: passi tra il 10 e il 50 per cento della capacità del nuovo gruppo, con WaitIntervalInSeconds.",
+        "Auto rollback: se un allarme scatta durante un baking, tutto il traffico torna al gruppo blu.",
+        "Shadow test: una copia del traffico va al nuovo modello, ma risponde solo la variante di produzione.",
+        "Lo shadow test non è compatibile con serverless, asincrono, multi-model e multi-container."
+      ],
+      "narration": "Un modello nuovo non va messo di colpo davanti a tutti gli utenti. SageMaker AI offre rilasci sicuri che riducono il rischio. Il primo tipo è il blue green con traffico all at once: tutto il traffico passa al gruppo nuovo, il green, e per un periodo di baking gli allarmi CloudWatch controllano il comportamento. Se nessun allarme scatta, il gruppo vecchio viene terminato. Il secondo è il canary. Una quota del gruppo nuovo, definita con CAPACITY_PERCENT, riceve traffico per un intervallo. La quota non può superare il 50 per cento della capacità del nuovo gruppo. Nell'esempio della documentazione il canary è al 30 per cento, con dieci minuti di attesa tra i passi, dieci minuti di attesa prima di terminare il gruppo blu e un tempo massimo di trenta minuti. Il terzo è il linear, che fa più passi. Ogni passo sposta tra il 10 e il 50 per cento della capacità del nuovo gruppo. Nell'esempio il passo è del 20 per cento, con cinque minuti tra i passi e un tempo massimo di un'ora. In tutti i casi, se un allarme scatta durante un periodo di baking, il traffico torna interamente al gruppo blu. È l'auto rollback. Le strategie di guardrail usano gli allarmi CloudWatch come condizione di rollback automatico. Lo shadow test è diverso. SageMaker AI deploya la variante nuova in modalità shadow e copia le richieste reali verso di lei. Solo la risposta della variante di produzione torna al chiamante. Le risposte della variante shadow si possono scartare o salvare per un confronto offline. Serve per valutare latenza ed errori con traffico reale, prima di promuovere il modello. Non serve per confrontare due versioni dal punto di vista del business: per quello si usano i test A/B, che dividono il traffico tra varianti di produzione con pesi diversi. Lo shadow test non è disponibile con endpoint serverless, asincroni, multi-model, multi-container o con istanze Inf1. Per l'esame la regola pratica è questa: validare senza impatto sugli utenti significa shadow; confrontare due versioni sugli utenti significa A/B. Il dettaglio operativo dei rilasci e dell'autoscaling sta nel capitolo 10, dove si usano anche i comandi di deploy.",
+      "todo": []
+    },
+    {
+      "title": "Sicurezza: responsabilità condivisa e IAM",
+      "bullets": [
+        "AWS protegge l'infrastruttura: hardware, rete, sistemi e strutture.",
+        "Il cliente protegge i propri dati, la configurazione e gli accessi, in base ai servizi scelti.",
+        "Identità: utenti e ruoli. Policy basate su identità o basate su risorse, come bucket policy e key policy KMS.",
+        "Execution role: ruolo che SageMaker AI assume per conto dei job, con trust policy verso sagemaker.amazonaws.com.",
+        "Least privilege: ogni job ottiene solo le azioni su S3, ECR, CloudWatch e chiavi KMS che servono.",
+        "iam:PassRole: chi crea un job deve poter passare il ruolo, e si limita con iam:PassedToService."
+      ],
+      "narration": "La sicurezza in cloud si divide tra AWS e cliente. Il modello di responsabilità condivisa stabilisce che AWS protegge l'infrastruttura che fa girare tutti i servizi: hardware, software, rete e strutture fisiche. Il cliente è responsabile della sicurezza nel cloud, cioè dei propri dati, della configurazione e degli accessi. Quanta configurazione tocca al cliente dipende dal servizio scelto: su un'istanza EC2 il cliente gestisce il sistema operativo e i security group, mentre con un servizio gestito come S3 gestisce soprattutto dati, opzioni di cifratura e permessi. Per SageMaker AI la responsabilità del cliente riguarda dati, cifratura, rete e IAM. Ora la parte IAM. Un utente o un ruolo è un'identità. Una policy è un documento JSON che concede o nega azioni su risorse. Le policy si dividono in due famiglie. Le policy basate su identità si allegano a utenti, gruppi o ruoli. Le policy basate su risorse si allegano alla risorsa stessa, per esempio una bucket policy su S3, o una key policy su una chiave KMS. Per i job di SageMaker AI serve l'execution role. È un ruolo che il servizio assume per conto del job, e la sua trust policy indica il principal sagemaker.amazonaws.com. Dentro ci sono le azioni per leggere i dati da S3, scaricare l'immagine da ECR, scrivere i log su CloudWatch e usare una chiave KMS. Il principio è il least privilege, cioè il privilegio minimo. Ogni job deve avere solo ciò che serve. Un ruolo con AmazonSageMakerFullAccess è un buon punto di partenza, ma per la produzione conviene restringerlo a bucket e prefissi precisi. Mai access key statiche dentro il codice dei job. C'è un punto frequente di errore: iam:PassRole. Per creare un job, chi lo lancia deve poter passare l'execution role al servizio. La condition key iam:PassedToService permette di limitare questa azione al solo servizio sagemaker.amazonaws.com. Per l'esame, la domanda tipica chiede quale ruolo usare. La risposta è un ruolo dedicato al job, con il minimo di permessi necessari.",
+      "todo": []
+    },
+    {
+      "title": "Condition key e controllo fine",
+      "bullets": [
+        "sagemaker:VpcSubnets e sagemaker:VpcSecurityGroupIds limitano la rete con cui si creano training e processing.",
+        "sagemaker:NetworkIsolation, con Bool, impone l'isolamento di rete.",
+        "sagemaker:VolumeKmsKey e sagemaker:OutputKmsKey controllano le chiavi KMS del volume e dell'output.",
+        "Con ForAllValues serve un controllo Null, altrimenti una richiesta senza subnet può passare.",
+        "Operatori tipici: StringEquals, Bool, ArnEquals e Null."
+      ],
+      "narration": "Le condition key permettono di decidere caso per caso. Una policy non si limita a dire se un utente può creare un training job: può dire che lo può fare solo a certe condizioni. Le chiavi più utili per la sicurezza del training sono nel namespace sagemaker. La prima coppia è sagemaker:VpcSubnets e sagemaker:VpcSecurityGroupIds, entrambe liste di valori: con queste chiavi si impone che il job parta solo nelle subnet e con i security group indicati. La seconda è sagemaker:NetworkIsolation, di tipo booleano, che si usa con l'operatore Bool: una policy può imporre che il training job sia creato con network isolation attiva. La terza è sagemaker:VolumeKmsKey, di tipo ARN, che controlla la chiave KMS del volume di storage. La quarta è sagemaker:OutputKmsKey, che riguarda la chiave con cui si cifra l'output su S3. Una quinta chiave utile è sagemaker:InterContainerTrafficEncryption, di tipo Bool, che permette di imporre la cifratura del traffico tra i nodi nel training distribuito. Ora un tranello tecnico. Quando una chiave è multivalore, come le subnet, si usa ForAllValues. Il problema è che, se la chiave è assente dalla richiesta, la condizione può risultare vera. Per questo gli esempi della documentazione aggiungono un controllo Null sulle subnet, che rende obbligatoria la presenza della configurazione VPC. È un dettaglio che l'esame può usare: una policy che sembra restrittiva, ma lascia passare una richiesta senza subnet. Gli operatori più comuni sono StringEquals per le stringhe, Bool per i valori booleani, ArnEquals per gli ARN come le chiavi KMS, e Null per verificare la presenza di una chiave. Un esempio sensato: una policy permette CreateTrainingJob solo se le subnet sono quelle private del team, il security group è quello approvato, la network isolation è attiva e il volume usa la chiave KMS del progetto. Se una di queste condizioni manca, la chiamata viene negata con AccessDenied. Il troubleshooting di AccessDenied e le SCP sono nel capitolo 11.",
+      "todo": []
+    },
+    {
+      "title": "Cifratura a riposo e in transito",
+      "bullets": [
+        "A riposo di default: SSE-S3 per notebook, model artifact e output di training, processing e batch transform.",
+        "Chiave gestita dal cliente con KMS: necessaria per l'accesso tra account, perché la chiave di default di S3 non è condivisibile.",
+        "VolumeKmsKeyId cifra il volume di storage dell'istanza di training o di processing.",
+        "KmsKeyId cifra l'output su S3 e i dati catturati dall'endpoint.",
+        "In transito: TLS 1.2 minimo, consigliato TLS 1.3. API e console usano SSL.",
+        "EnableInterContainerTrafficEncryption cifra il traffico tra i nodi del training distribuito, con più tempo di training.",
+        "Feature Store e EndpointConfig: KmsKeyId per online store, offline store e volume dell'endpoint."
+      ],
+      "narration": "La cifratura protegge i dati in due momenti: a riposo, cioè quando sono salvati, e in transito, cioè quando viaggiano in rete. A riposo SageMaker AI usa di default la cifratura lato server di S3, con una chiave gestita da AWS, SSE-S3. Vale per i notebook di Studio, per i notebook instance, per i model artifact e per l'output di training, batch transform e processing. Per usare una chiave KMS gestita dal cliente bisogna indicarla in fase di creazione della risorsa. È obbligatoria quando i dati devono essere letti da un altro account, perché la chiave di default di S3 non può essere condivisa. Sui singoli job i campi sono precisi. VolumeKmsKeyId cifra il volume di storage collegato all'istanza, sia per il training sia per il processing. KmsKeyId, dentro l'output configuration, cifra quello che il job scrive su S3. Nella DataCaptureConfig, il campo KmsKeyId cifra i dati catturati dall'endpoint. Nella EndpointConfig, il campo KmsKeyId cifra il volume di storage collegato alle istanze che ospitano l'endpoint. Il Feature Store ha due campi separati: KmsKeyId nella configurazione dell'online store, e KmsKeyId nella configurazione S3 dell'offline store. Se per l'offline store non si indica una chiave, la cifratura usa comunque una chiave KMS. Ora il transito. Tutto il traffico su internet passa per TLS. La documentazione dice che si supporta TLS 1.2, e che si raccomanda TLS 1.3. Le richieste all'API e alla console usano SSL. Tuttavia, il traffico interno alla piattaforma non è sempre cifrato. Due esempi: i comandi del control plane verso le istanze di training, e la comunicazione tra i nodi di un job distribuito. Per cifrare i nodi del training distribuito si imposta EnableInterContainerTrafficEncryption a true, nella configurazione di rete del job. Il costo è il tempo: la cifratura può allungare il training, soprattutto con algoritmi distribuiti di deep learning. Gli algoritmi built-in più comuni, come XGBoost, DeepAR e linear learner, di solito non risentono molto del costo. Per l'esame, lo schema da ricordare è semplice. A riposo: SSE-S3 di default, KMS gestito dal cliente per il controllo e per l'accesso tra account. In transito: TLS per le API, e cifratura tra nodi se il training è distribuito e i dati sono sensibili.",
+      "todo": []
+    },
+    {
+      "title": "Rete: VPC, isolamento ed endpoint privati",
+      "bullets": [
+        "VpcConfig con subnet private e security group per training, processing e endpoint.",
+        "Gateway endpoint per S3 per i training job in subnet senza accesso a internet.",
+        "Regola self-referencing nel security group per il training distribuito.",
+        "Interface endpoint PrivateLink per l'API SageMaker e per SageMaker Runtime, con private DNS.",
+        "Network isolation: il container non effettua chiamate di rete in uscita né in ingresso.",
+        "Con VPC e isolamento, download e upload fatti da SageMaker AI passano dalla VPC."
+      ],
+      "narration": "La rete è il terzo pilastro della sicurezza. Il principio è semplice: il traffico dei dati sensibili non deve passare su internet. Per farlo, un job si configura con VpcConfig, dove si indicano le subnet e i security group. SageMaker AI crea le interfacce di rete nelle subnet indicate, e il container le usa per comunicare dentro la VPC. Per il training conviene usare subnet private senza accesso a internet. In queste subnet il container non raggiunge S3 da solo, quindi serve un gateway endpoint per S3. Il gateway endpoint si associa alle route table delle subnet. Con una policy sul gateway si può limitare l'accesso ai soli bucket del progetto. Se il training distribuito usa più istanze, i nodi devono parlarsi. Il security group deve quindi avere una regola self-referencing, che permette il traffico tra membri dello stesso gruppo. Per i servizi AWS che non sono raggiungibili con un gateway endpoint, la documentazione indica interface endpoint basati su PrivateLink. Per SageMaker AI esistono endpoint per l'API SageMaker e per SageMaker Runtime, che invoca gli endpoint. Con il private DNS abilitato, gli URL standard risolvono verso l'endpoint nella VPC. Per il Feature Store esiste un endpoint VPC dedicato al runtime, featurestore-runtime. Un endpoint di interfaccia può avere una policy che permette sagemaker:InvokeEndpoint solo su un endpoint preciso. Poi c'è la network isolation. Quando è attiva, il container non può fare chiamate di rete, né verso la tua VPC né verso internet. SageMaker AI però può ancora scaricare gli input e caricare gli artefatti per conto del container. Se si indica anche una VPC, questi trasferimenti passano dalla tua VPC. Con VPC e isolamento insieme, il passaggio dei dati resta dentro la VPC, grazie al gateway S3. Il dettaglio di subnet, security group e tabelle di routing è nel capitolo 11, dove si affronta anche il troubleshooting. Per l'esame, il segnale da riconoscere è questo: dati sensibili, nessun passaggio su internet, endpoint privati, network isolation.",
+      "todo": []
+    },
+    {
+      "title": "Governance: Model Cards, dashboard, lineage e registry",
+      "bullets": [
+        "Model Cards: uso previsto, business details, training, valutazione e informazioni aggiuntive.",
+        "Risk rating: High, Medium, Low oppure Unknown.",
+        "Ogni modifica crea una nuova versione della model card, così il registro è immutabile.",
+        "Model Dashboard: stato dei monitor per modello, con None, Inactive, OK o data e ora dell'allarme.",
+        "Lineage tracking: traccia dataset, job, pipeline, endpoint e modelli.",
+        "Model Registry: PendingManualApproval, Approved, Rejected. Approved può avviare il deploy."
+      ],
+      "narration": "La governance risponde alle domande di chi deve verificare il modello: perché esiste, da dove viene, come si comporta e chi l'ha approvato. Il primo strumento sono le SageMaker Model Cards. Una model card raccoglie in un posto solo le informazioni di governo del modello. Ci sono sezioni per l'uso previsto, con gli scenari in cui il modello è appropriato e quelli in cui non lo è. Altre sezioni coprono i dettagli di business, il training con job e iperparametri, la valutazione con metriche e osservazioni, e informazioni aggiuntive come considerazioni etiche. Il rischio si classifica con risk rating: High, Medium, Low oppure Unknown. Ogni modifica, tranne l'aggiornamento dello stato di approvazione, crea una nuova versione. Il registro è quindi immutabile e l'auditor può vedere com'era la card in ogni momento. La card si può esportare in PDF. Il secondo è il Model Dashboard. È una vista centralizzata da cui si vedono tutti i modelli dell'account, quali sono in produzione e lo stato dei loro monitor. Per ogni monitor lo stato è None se non è configurato, Inactive se è disattivato, OK se è attivo senza allarmi, oppure la data e l'ora dell'ultimo allarme. Il terzo è il lineage tracking. SageMaker AI registra automaticamente i job di training, i dataset, le pipeline, gli endpoint e i modelli, e costruisce un grafo. Con il grafo si risponde alla domanda da quali dati viene questo modello, e con quali parametri è stato addestrato. Il quarto è il Model Registry, dove il modello passa dagli stati di approvazione. Un package si registra con PendingManualApproval. Approved lo rende idoneo al deploy, e in un progetto con i template SageMaker AI il passaggio ad Approved può avviare il deploy tramite CI/CD. Rejected segnala un modello non approvato. Le transizioni tra stati sono un punto d'esame: il passaggio da Approved a Rejected può far deployare l'ultima versione approvata. Per l'esame, ricordate i quattro strumenti e la domanda a cui ciascuno risponde: la card spiega il modello, la dashboard mostra lo stato, il lineage ricostruisce l'origine, il registry governa il passaggio in produzione.",
+      "todo": []
+    },
+    {
+      "title": "Role Manager, tag e audit in sintesi",
+      "bullets": [
+        "Role Manager offre tre persona predefinite ed è chiuso ai nuovi clienti. I ruoli già creati restano validi.",
+        "Alternative indicate da AWS: IAM console, IAM Identity Center, IAM Access Analyzer, CloudFormation o CDK.",
+        "Tag: usati per progetto e centro di costo, e visibili nei dati degli eventi di SageMaker AI.",
+        "Audit: CloudTrail dice chi ha fatto cosa, la model card dice perché, il lineage dice da dove viene.",
+        "AWS Config e i data event di CloudTrail sono nel capitolo 11."
+      ],
+      "narration": "Role Manager merita una nota a parte, perché dal 30 luglio 2026 è uno dei servizi chiusi ai nuovi clienti. Il servizio permetteva di creare ruoli IAM per tre persona predefinite: data scientist, MLOps e compute. AWS dichiara che Role Manager non accetta più nuovi clienti, ma i clienti esistenti possono continuare a usarlo. I ruoli già creati sono ruoli IAM standard: restano validi, si vedono nella console IAM e si modificano lì. Non serve migrarli. Per creare nuovi ruoli, AWS indica alternative precise. La console IAM e le API consentono di creare un ruolo con trust policy verso sagemaker.amazonaws.com e di allegare le policy gestite. IAM Identity Center gestisce l'accesso dei lavoratori con permission set, anche da provider esterni. IAM Access Analyzer genera policy di privilegio minimo a partire dall'attività reale registrata in CloudTrail, che è più precisa dei template statici. CloudFormation e CDK rendono i ruoli versionati e ripetibili, adatti ai processi di revisione. Il tag è l'altro strumento di governance. Un tag per progetto o per centro di costo permette di attribuire la spesa e di filtrare le risorse. I tag compaiono anche nei dati degli eventi di SageMaker AI, per esempio nei dettagli dei job e degli endpoint, quindi sono utili per collegare un evento al progetto. L'audit combina i tre strumenti visti finora. CloudTrail risponde a chi ha fatto cosa, e a quando. La model card risponde a perché il modello esiste e quali limiti ha. Il lineage risponde a da quali dati e da quale codice è nato. Un auditor che chiede di dimostrare la riproducibilità di un modello chiede proprio questi tre elementi. AWS Config, la storia della configurazione e le regole di conformità, insieme ai data event di CloudTrail, sono trattati nel capitolo 11.",
+      "todo": []
+    },
+    {
+      "title": "Riepilogo: scelte rapide per l'esame",
+      "bullets": [
+        "Drift con label reali: model quality. Senza label: data quality.",
+        "Errori e latenze dell'endpoint: CloudWatch. Chi ha fatto una chiamata: CloudTrail.",
+        "Retraining a evento per il drift, pianificato per la stagionalità.",
+        "Validare senza impatto sugli utenti: shadow. Confrontare due versioni: A/B.",
+        "Dati sensibili: VPC, endpoint privati, network isolation, KMS e ruolo di esecuzione con privilegio minimo.",
+        "Model Monitor è chiuso ai nuovi clienti: sull'esame conta il concetto e l'alternativa AWS."
+      ],
+      "narration": "Chiudiamo con le scelte rapide, che servono quando la domanda è breve e le opzioni sembrano tutte plausibili. Primo criterio: il drift si misura con le label. Se la domanda parla di calo di accuratezza e fornisce label reali, la risposta è la model quality. Se non ci sono label e si chiede di rilevare cambiamenti negli input, la risposta è la data quality. Secondo criterio: la domanda chiede una metrica o una traccia? Un errore 5xx ricorrente, una latenza che sale o un tasso di invocazioni si trovano in CloudWatch. Chi ha creato, modificato o cancellato una risorsa si trova in CloudTrail, perché è un registro delle chiamate API. Terzo criterio: il retraining. Se il testo parla di drift, la risposta è un retraining guidato dagli eventi, con allarme e pipeline. Se parla di stagionalità o di calendario, la risposta è un retraining pianificato. Un retraining a ogni singola violazione è quasi sempre la risposta sbagliata. Quarto criterio: il rilascio. Se bisogna validare un modello senza che gli utenti vedano le sue risposte, la risposta è lo shadow test. Se bisogna confrontare due versioni sugli utenti e misurare un effetto di business, la risposta è A/B. Quinto criterio: la sicurezza. Dati sensibili significano VPC, endpoint privati, network isolation, cifratura KMS quando serve l'accesso tra account, e un ruolo di esecuzione con privilegio minimo. Una risposta che aggiunge access key statiche è quasi sempre sbagliata. Ultimo criterio: la data. Model Monitor, Clarify e Role Manager non accettano nuovi clienti dal 30 luglio 2026. Se la domanda li nomina, l'esame valuta il concetto che rappresentano e l'alternativa che AWS indica. Per Model Monitor sono CloudWatch, QuickSight e le soluzioni open source su SageMaker AI MLflow. Per Role Manager sono la console IAM, IAM Identity Center, IAM Access Analyzer e CloudFormation o CDK. Ricordate il principio operativo: monitorare sempre, allarmare su soglie ragionevoli, reagire con pipeline automatiche e documentare ogni decisione.",
+      "todo": []
     }
   ],
-  "summary": "Model Monitor rileva il drift confrontando traffico catturato con baseline su quattro dimensioni: qualita dati, qualita modello, bias e explainability. CloudWatch ed EventBridge chiudono il ciclo con allarmi e retraining automatico. Autoscaling, blue green, A/B e shadow testing garantiscono rilasci sicuri. IAM, KMS, VPC e Secrets Manager proteggono dati e accessi, mentre Model Cards e lineage assicurano governance.",
-  "title": "Monitoraggio, manutenzione e sicurezza",
+  "keywords": [
+    {
+      "term": "Data drift",
+      "def": "Cambiamento nella distribuzione delle feature in ingresso, mentre la relazione tra input e output resta la stessa."
+    },
+    {
+      "term": "Concept drift",
+      "def": "Cambiamento nella relazione tra input e output: la regola appresa dal modello non vale più."
+    },
+    {
+      "term": "Training-serving skew",
+      "def": "Differenza tra il modo in cui una feature viene calcolata in training e in produzione. Spesso compare fin dal primo giorno."
+    },
+    {
+      "term": "Data Capture",
+      "def": "Cattura configurabile di richieste e risposte dell'endpoint su S3, con InitialSamplingPercentage da 0 a 100."
+    },
+    {
+      "term": "InitialSamplingPercentage",
+      "def": "Campo intero da 0 a 100 che indica la percentuale di richieste salvate dalla data capture. Con traffico alto si sceglie un valore più basso."
+    },
+    {
+      "term": "Baseline",
+      "def": "Statistiche e vincoli calcolati sul dataset di training, che definiscono il comportamento normale del modello."
+    },
+    {
+      "term": "statistics.json e constraints.json",
+      "def": "I due file prodotti dal job di baseline: le statistiche per feature e i vincoli attesi."
+    },
+    {
+      "term": "Monitoring schedule",
+      "def": "Pianificazione che avvia periodicamente un job di confronto tra dati catturati e baseline, con una cron expression."
+    },
+    {
+      "term": "CompletedWithViolations",
+      "def": "Stato finale di un'esecuzione di monitoraggio terminata correttamente, ma con violazioni dei vincoli."
+    },
+    {
+      "term": "Model quality",
+      "def": "Monitor che unisce le predizioni catturate alle label reali tramite un identificatore, e calcola metriche di accuratezza o errore."
+    },
+    {
+      "term": "Feature attribution drift",
+      "def": "Monitor che confronta la classifica delle feature in training e in produzione con la metrica NDCG. Allarme sotto 0,90."
+    },
+    {
+      "term": "CloudWatch",
+      "def": "Servizio per metriche, log, allarmi e dashboard. Risponde alla domanda come sta il sistema."
+    },
+    {
+      "term": "ModelLatency e OverheadLatency",
+      "def": "ModelLatency è il tempo del modello nel container. OverheadLatency è il tempo aggiunto da SageMaker AI, cioè il totale meno ModelLatency."
+    },
+    {
+      "term": "CloudTrail",
+      "def": "Registro delle chiamate API: chi ha fatto cosa, quando e con quale esito. I data event sono disattivati di default."
+    },
+    {
+      "term": "EventBridge",
+      "def": "Servizio che riceve eventi di stato di SageMaker AI e li instrada verso target come Lambda o Step Functions."
+    },
+    {
+      "term": "Canary e linear",
+      "def": "Strategie blue green che spostano il traffico in una quota (canary) o in più passi (linear), con allarmi di rollback durante il baking."
+    },
+    {
+      "term": "Shadow test",
+      "def": "Copia del traffico live verso una variante nuova, la cui risposta non torna al cliente. Serve per validare senza impatto."
+    },
+    {
+      "term": "Execution role",
+      "def": "Ruolo IAM che SageMaker AI assume per conto dei job, con trust policy verso sagemaker.amazonaws.com e permessi di privilegio minimo."
+    },
+    {
+      "term": "iam:PassRole",
+      "def": "Permesso di passare un ruolo a un servizio. Chi lancia un job deve averlo, e si limita con iam:PassedToService."
+    },
+    {
+      "term": "Condition key",
+      "def": "Chiave che rende una policy condizionale, per esempio sagemaker:VpcSubnets o sagemaker:NetworkIsolation."
+    },
+    {
+      "term": "SSE-S3 e SSE-KMS",
+      "def": "Cifratura lato server di S3: SSE-S3 usa una chiave gestita da AWS, SSE-KMS usa una chiave KMS del cliente."
+    },
+    {
+      "term": "Network isolation",
+      "def": "Modalità in cui il container non effettua chiamate di rete, né in entrata né in uscita."
+    },
+    {
+      "term": "PrivateLink e interface endpoint",
+      "def": "Connessione privata dalla VPC verso l'API SageMaker o SageMaker Runtime, senza internet gateway o NAT."
+    },
+    {
+      "term": "Model Cards",
+      "def": "Documento di governance del modello con uso previsto, dettagli di business, training, valutazione e risk rating."
+    },
+    {
+      "term": "Lineage tracking",
+      "def": "Tracciamento automatico di dataset, job, pipeline, endpoint e modelli, per riprodurre e verificare il modello."
+    },
+    {
+      "term": "Model Registry",
+      "def": "Registro dei model package con stato di approvazione: PendingManualApproval, Approved o Rejected."
+    }
+  ],
+  "quiz": [
+    {
+      "q": "Un modello di previsione dei prezzi riceve input con la stessa distribuzione di prima, ma dopo una crisi la relazione tra quegli input e il prezzo reale è cambiata. Che tipo di drift è?",
+      "options": [
+        "Data drift",
+        "Training-serving skew",
+        "Concept drift",
+        "Bias drift"
+      ],
+      "answer": 2,
+      "explain": "Quando cambia la relazione tra input e output, il fenomeno è concept drift. Il data drift riguarda la distribuzione degli input, che qui non cambia."
+    },
+    {
+      "q": "Un endpoint restituisce molti errori del modello, cioè risposte con codice 5xx. Quale metrica CloudWatch conta queste risposte?",
+      "options": [
+        "Invocation5XXErrors",
+        "CPUReservation per i componenti di inferenza attivi",
+        "ModelSetupTime per i serverless endpoint",
+        "OverheadLatency del tempo di risposta totale"
+      ],
+      "answer": 0,
+      "explain": "Invocation5XXErrors conta le richieste la cui risposta ha codice 5xx, con 1 per ogni errore. OverheadLatency misura il tempo aggiunto da SageMaker AI."
+    },
+    {
+      "q": "Per calcolare l'accuratezza di un modello con Model Monitor, che cosa serve oltre alla cattura delle predizioni?",
+      "options": [
+        "Un secondo endpoint in un'altra regione, sempre acceso",
+        "Una baseline di bias calcolata sul dataset di training",
+        "Un bucket cifrato con SSE-S3 e nient'altro",
+        "Label reali unite alle predizioni"
+      ],
+      "answer": 3,
+      "explain": "La model quality richiede le label reali, caricate su S3 e unite alle predizioni tramite inferenceId o eventId. Senza label si misura solo il data drift."
+    },
+    {
+      "q": "Un team vuole sapere chi ha cancellato un endpoint e quando. Quale servizio risponde a questa domanda?",
+      "options": [
+        "CloudWatch Logs",
+        "CloudTrail",
+        "Model Cards",
+        "Feature Store"
+      ],
+      "answer": 1,
+      "explain": "CloudTrail registra le chiamate API: chi, cosa, quando e con quale esito. CloudWatch Logs contiene i log applicativi, non l'identità di chi ha chiamato l'API."
+    },
+    {
+      "q": "Un training job con dati sensibili non deve fare nessuna chiamata di rete in uscita. Quale configurazione soddisfa il requisito?",
+      "options": [
+        "Endpoint pubblico con chiavi di accesso",
+        "Network isolation attiva sul job di training",
+        "Subnet pubblica con NAT libero verso internet",
+        "Traffico libero con security group aperto a tutti"
+      ],
+      "answer": 1,
+      "explain": "Con network isolation il container non fa chiamate di rete, né in entrata né in uscita. SageMaker AI può comunque scaricare gli input e caricare gli artefatti per conto del container."
+    },
+    {
+      "q": "Quale strategia invia una copia del traffico reale al nuovo modello, senza restituire al cliente la sua risposta?",
+      "options": [
+        "Canary",
+        "Linear",
+        "Shadow test",
+        "All at once"
+      ],
+      "answer": 2,
+      "explain": "Nello shadow test solo la risposta della variante di produzione torna al cliente. La variante shadow riceve la copia del traffico e le sue risposte si scartano o si salvano."
+    },
+    {
+      "q": "In un canary deployment, quanta capacità del nuovo gruppo può ricevere traffico al massimo?",
+      "options": [
+        "Il 10 per cento",
+        "Il 90 per cento",
+        "Il 100 per cento",
+        "Il 50 per cento"
+      ],
+      "answer": 3,
+      "explain": "La canary size deve essere al massimo il 50 per cento della capacità del nuovo gruppo. Il restante traffico passa al nuovo gruppo solo dopo il baking."
+    },
+    {
+      "q": "Un job di training deve avere solo i permessi necessari per leggere i dati, scrivere l'output e pubblicare i log. Quale principio si applica?",
+      "options": [
+        "Privilegio minimo: solo le azioni e le risorse necessarie al job",
+        "Accesso amministratore su tutto l'account, per evitare errori di permessi",
+        "Access key statiche nel codice, così il job parte senza ruoli",
+        "Nessuna policy, così il job eredita i permessi dell'utente che lo lancia"
+      ],
+      "answer": 0,
+      "explain": "Il least privilege concede solo le azioni e le risorse necessarie. Le access key statiche nel codice e i permessi ereditati dall'utente sono anti-pattern."
+    },
+    {
+      "q": "Un'azienda deve dare a un altro account AWS l'accesso ai modelli cifrati. Quale scelta è necessaria?",
+      "options": [
+        "SSE-S3 di default, con chiave gestita da AWS",
+        "Nessuna cifratura, il traffico resta libero",
+        "Chiave gestita dal cliente con KMS",
+        "Chiave pubblica nel codice del progetto"
+      ],
+      "answer": 2,
+      "explain": "Per l'accesso tra account serve una chiave gestita dal cliente. La chiave di default di S3 non può essere condivisa tra account."
+    },
+    {
+      "q": "Che cosa crea una modifica alla model card?",
+      "options": [
+        "Una sovrascrittura silenziosa del documento precedente",
+        "Un ticket di revisione per il team di governance",
+        "Una copia cancellata e poi ricreata da zero",
+        "Una nuova versione della model card"
+      ],
+      "answer": 3,
+      "explain": "Ogni modifica diversa dall'aggiornamento dello stato di approvazione crea una nuova versione, così il registro delle modifiche è immutabile."
+    }
+  ],
   "sources": [
     {
       "title": "DataCaptureConfig - Amazon SageMaker AI API Reference",
@@ -208,16 +466,150 @@
       "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-availability-change.html"
     },
     {
-      "title": "Clarify availability change",
-      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-availability-change.html"
+      "title": "Schedule monitoring jobs - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-scheduling.html"
     },
     {
-      "title": "Amazon SageMaker AI features",
-      "url": "https://aws.amazon.com/sagemaker/ai/features/"
+      "title": "Data quality - Amazon SageMaker Model Monitor",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-data-quality.html"
+    },
+    {
+      "title": "Ingest Ground Truth labels and merge them with predictions",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality-merge.html"
+    },
+    {
+      "title": "Bias drift for models in production - Amazon SageMaker Clarify",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-model-monitor-bias-drift.html"
+    },
+    {
+      "title": "Feature attribution drift for models in production",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-model-monitor-feature-attribution-drift.html"
+    },
+    {
+      "title": "Interpret results - Amazon SageMaker Model Monitor",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-interpreting-results.html"
+    },
+    {
+      "title": "Data capture - Amazon SageMaker Model Monitor",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-data-capture.html"
+    },
+    {
+      "title": "Amazon SageMaker AI metrics in Amazon CloudWatch",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/monitoring-cloudwatch.html"
+    },
+    {
+      "title": "Model Monitor CloudWatch metrics",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-interpreting-cloudwatch.html"
+    },
+    {
+      "title": "Logging data events with AWS CloudTrail",
+      "url": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html"
+    },
+    {
+      "title": "Events that Amazon SageMaker AI sends to Amazon EventBridge",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/automating-sagemaker-with-eventbridge.html"
+    },
+    {
+      "title": "Deployment guardrails for updating models in production",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails.html"
+    },
+    {
+      "title": "Use canary traffic shifting - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-blue-green-canary.html"
+    },
+    {
+      "title": "Use linear traffic shifting - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails-blue-green-linear.html"
+    },
+    {
+      "title": "Shadow tests - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/shadow-tests.html"
     },
     {
       "title": "Amazon SageMaker Model Cards",
       "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards.html"
+    },
+    {
+      "title": "Clarify availability change - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-availability-change.html"
+    },
+    {
+      "title": "Role Manager availability change - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/role-manager-availability-change.html"
+    },
+    {
+      "title": "Amazon SageMaker Role Manager",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/role-manager.html"
+    },
+    {
+      "title": "Connect to SageMaker AI within your VPC (AWS PrivateLink)",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/interface-vpc-endpoint.html"
+    },
+    {
+      "title": "Give SageMaker AI Training Jobs Access to Resources in Your Amazon VPC",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html"
+    },
+    {
+      "title": "Amazon SageMaker AI identity-based policy examples",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/security_iam_id-based-policy-examples.html"
+    },
+    {
+      "title": "How to use SageMaker AI execution roles",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html"
+    },
+    {
+      "title": "Protect Data at Rest Using Encryption - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/encryption-at-rest.html"
+    },
+    {
+      "title": "Protecting Data in Transit with Encryption - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/encryption-in-transit.html"
+    },
+    {
+      "title": "Update the Approval Status of a Model - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry-approve.html"
+    },
+    {
+      "title": "Amazon SageMaker ML Lineage Tracking",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/lineage-tracking.html"
+    },
+    {
+      "title": "Amazon SageMaker Model Dashboard",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-dashboard.html"
+    },
+    {
+      "title": "AWS Shared Responsibility Model",
+      "url": "https://aws.amazon.com/compliance/shared-responsibility-model/"
+    },
+    {
+      "title": "Amazon SageMaker AI features (end of availability for new customers, July 30, 2026)",
+      "url": "https://aws.amazon.com/sagemaker/ai/features/"
+    },
+    {
+      "title": "Capture data from real-time endpoint - Amazon SageMaker Model Monitor",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-data-capture-endpoint.html"
+    },
+    {
+      "title": "Schema for Statistics (statistics.json file) - Amazon SageMaker Model Monitor",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-interpreting-statistics.html"
+    },
+    {
+      "title": "CreateEndpointConfig - Amazon SageMaker AI API Reference",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html"
+    },
+    {
+      "title": "CreateFeatureGroup - Amazon SageMaker AI API Reference",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateFeatureGroup.html"
+    },
+    {
+      "title": "NetworkConfig - Amazon SageMaker AI API Reference",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_NetworkConfig.html"
+    },
+    {
+      "title": "Actions, resources, and condition keys for Amazon SageMaker AI - Service Authorization Reference",
+      "url": "https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonsagemaker.html"
     }
-  ]
+  ],
+  "todo": [],
+  "script": "Un modello di machine learning non si rompe come un programma. Il codice resta identico, ma il mondo cambia, e il modello continua a rispondere con la regola che ha imparato mesi o anni prima. Per questo serve monitorarlo. L'esame distingue tre cause principali di peggioramento, e conviene saperle riconoscere. Il primo caso è il data drift: cambia la distribuzione delle feature in ingresso. Immaginiamo un modello di scoring del credito addestrato su redditi raccolti nel 2024. Se nel 2026 l'inflazione sposta i valori tipici dei redditi richiesti, le feature arrivano con statistiche diverse, anche se la relazione tra reddito e rischio resta la stessa. Il secondo caso è il concept drift: cambia la relazione tra input e output. Un filtro antifrode impara i trucchi usati dai truffatori un anno fa. Quando cambiano tecnica, le stesse feature possono significare un'altra cosa, e la regola appresa non vale più. Il terzo caso è il training-serving skew: il modello riceve in produzione dati calcolati in modo diverso da quelli visti in training. Succede, per esempio, quando una feature viene calcolata in batch con una logica e in tempo reale con un'altra, oppure quando un importo arriva in euro in un caso e in centesimi nell'altro. Come si riconoscono? Il data drift si vede confrontando le statistiche degli input con una baseline. Il concept drift richiede le label reali: si vede quando l'accuratezza cala mentre gli input restano stabili. Lo skew si vede confrontando lo stesso record nelle due pipeline, e spesso compare fin dal primo giorno, perché il problema è nel codice e non nel mondo. Attenzione al tranello d'esame: un calo di accuratezza non significa automaticamente data drift. Prima di scegliere la soluzione bisogna capire quale dei tre casi si sta verificando, perché ciascuno richiede una risposta diversa. Il monitoraggio è un ciclo di cinque passi, e l'ordine conta. Il primo passo è la baseline. Si prende il dataset di training o di validazione e si calcolano statistiche come medie, valori minimi e massimi, percentuali di valori mancanti, e si ricavano regole attese. Queste regole definiscono che cosa è normale per il modello. Il secondo passo è la cattura. L'endpoint salva su Amazon S3 le richieste e le risposte reali, con una percentuale di campionamento. Senza cattura non c'è niente da confrontare, quindi la cattura è il prerequisito di tutto il resto. Il terzo passo è il confronto. Un job periodico, chiamato schedule di monitoraggio, legge i dati catturati in una finestra di tempo e li confronta con la baseline. Il risultato è un report con le violazioni. Il quarto passo è l'allarme. Una violazione, o una metrica che supera una soglia, diventa un segnale che CloudWatch può monitorare e notificare. Il quinto passo è l'azione, ed è quella che fa la differenza. Non ogni violazione merita un retraining. Una violazione singola può essere rumore, perché una finestra con pochi campioni produce statistiche instabili. Per questo la regola pratica è reagire a violazioni consecutive o a cali significativi. Prima di riaddestrare conviene indagare la causa. L'azione può essere un rollback del modello, una correzione della pipeline dei dati, la richiesta di nuove label o un retraining. Ricordiamo infine che la baseline va ricalcolata quando cambia il modello o la pipeline. Altrimenti il confronto avviene con una versione vecchia del mondo, e le violazioni diventano falsi allarmi. Questo ciclo vale per ogni strumento di monitoraggio, anche quando al posto di Model Monitor si usano CloudWatch e soluzioni open source. La cattura dei dati è il prerequisito di tutto il monitoraggio. Sull'endpoint si configura una DataCaptureConfig. Il campo più importante per l'esame è InitialSamplingPercentage, un intero che va da 0 a 100 e indica la percentuale di richieste che SageMaker AI salva. Zero significa nessuna cattura, cento significa tutte le richieste. La documentazione raccomanda un valore più basso per endpoint con traffico alto, perché salvare tutto costa in storage e in elaborazione. Ecco un calcolo concreto. Un endpoint che riceve un milione di richieste al giorno, con campionamento al dieci per cento, salva centomila record al giorno, più che sufficienti per una baseline e per stimare il drift. Un endpoint che riceve cinquecento richieste al giorno può invece salvare tutto, al cento per cento, senza costi rilevanti. Il campo DestinationS3Uri indica dove scrivere, e accetta un URI con schema https o s3. Ogni richiesta catturata diventa una riga in un file JSON Lines, con un blocco captureData che contiene endpointInput ed endpointOutput, e un blocco eventMetadata con eventId e inferenceTime. I file sono organizzati per endpoint, variante, anno, mese, giorno e ora. Con CaptureOptions si decide che cosa salvare: solo l'input, solo l'output o entrambi. Per il data quality serve l'input. Per la qualità del modello serve anche l'output, perché le predizioni vanno confrontate con le label reali. Il campo KmsKeyId indica una chiave KMS con cui cifrare i dati catturati su S3. C'è anche un limite operativo. La documentazione di Model Monitor avverte che, con il disco quasi pieno, la cattura smette di salvare le richieste per non rallentare l'inferenza, e consiglia di tenere l'uso del disco sotto il 75 per cento. Per l'esame ricordate due cose: la cattura si configura sull'endpoint e non sul modello, e il campionamento non cambia le risposte date agli utenti. Model Monitor offre quattro tipi di monitoraggio, e distinguerli è materia d'esame. Il primo è la data quality. Il job calcola per ogni feature statistiche come media, somma, deviazione standard, minimo e massimo. Per le feature testuali conta invece i valori distinti. Poi confronta i dati con i vincoli prodotti dalla baseline. Il motore è basato su Deequ, una libreria open source costruita su Apache Spark. Il secondo è la model quality, che richiede più lavoro. Le predizioni catturate vengono unite alle label reali, cioè alle risposte corrette. Le label devono arrivare in un bucket S3 con la stessa struttura di percorso dei dati catturati, in formato JSON Lines. Il join avviene tramite un identificatore. Se il chiamante fornisce un inferenceId, quello viene usato. Altrimenti si usa l'eventId generato da SageMaker AI. Le metriche dipendono dal tipo di problema. Per la classificazione si calcolano accuratezza, precisione, recall, F1 e AUC. Per la regressione si calcolano errori come RMSE. Il terzo è il bias drift. Il monitor controlla che le metriche di equità, per esempio la differenza proporzionale di predizioni positive tra gruppi, restino nell'intervallo atteso. La documentazione usa l'esempio di DPPL, con un intervallo ammesso tra meno 0,1 e 0,1. Il calcolo non fa scattare l'allarme su una finestra piccola e rumorosa. Usa un intervallo di confidenza, costruito con il metodo Normal Bootstrap, e l'allarme scatta solo quando quell'intervallo è completamente fuori dall'intervallo ammesso. Il quarto è il feature attribution drift. Si confronta l'importanza delle feature in training con quella in produzione. La metrica NDCG misura quanto è cambiata la classifica, pesando di più le feature che contavano di più. Se NDCG scende sotto 0,90, l'allarme scatta. L'importanza viene calcolata con i valori di Shapley, il metodo SHAP, lo stesso motore su cui si basa Clarify. Il tranello d'esame è questo: senza ground truth si misura il data drift, ma non si può dire che l'accuratezza è calata. Per dirlo servono le label reali, e solo la model quality le confronta con le predizioni. Il lavoro concreto si svolge in tre oggetti: la baseline, la schedule e il report delle violazioni. La baseline è un job che analizza il dataset usato per il training. Produce due file. Il primo è statistics.json, con le statistiche di ogni feature. Il secondo è constraints.json, con i vincoli che i dati futuri dovranno rispettare. Le statistiche descrivono com'era il mondo durante il training, e i vincoli dicono che cosa è accettabile. La schedule è il meccanismo che ripete il confronto. Con l'API CreateMonitoringSchedule si indicano il dato da leggere, la frequenza, la baseline, il percorso di output e la cron expression. Nel codice di esempio della documentazione, CronExpressionGenerator.hourly produce una esecuzione ogni ora. Per un controllo una tantum si usa CronExpressionGenerator.now, e la finestra da analizzare si definisce con data_analysis_start_time e data_analysis_end_time, in formato ISO 8601. Il valore -PT1H indica un'ora fa. Ogni esecuzione produce uno stato finale. Completed significa che non ci sono violazioni. CompletedWithViolations significa che l'esecuzione è finita ma ha trovato violazioni. Failed significa che il job è fallito, per esempio per un ruolo senza permessi o per un problema infrastrutturale, e la causa sta in FailureReason. Le violazioni vanno in constraint_violations.json, nella cartella di output su S3. Se la baseline ha attiva l'opzione emit_metrics, il container pubblica anche una metrica per ogni feature su CloudWatch. Due limiti da ricordare: Model Monitor analizza solo dati tabellari. Per l'esame basta questo: la schedule confronta, la baseline definisce il normale e il report elenca le violazioni. Model Monitor ha una data che conta per l'esame. Dal 30 luglio 2026, come indica la pagina delle funzionalità di SageMaker AI sul sito AWS, il servizio non accetta più nuovi clienti. Chi lo usava prima può continuare a usarlo normalmente. AWS dichiara che continuerà a investire in sicurezza e disponibilità, ma non prevede nuove funzionalità. Nella stessa data chiudono ai nuovi clienti anche Clarify e Role Manager, insieme a Ground Truth, Augmented AI e Studio Lab. Quali sono le alternative? La pagina di disponibilità di Model Monitor indica una combinazione di soluzioni. La prima sono le soluzioni di monitoraggio open source pubblicate nell'organizzazione aws-samples. Sono costruite su SageMaker AI MLflow Apps e su Evidently AI, calcolano il drift su dati e modello e registrano i risultati nello stesso ambiente di tracciamento del training. La seconda è QuickSight, per le dashboard di governance. La terza è CloudWatch, per le metriche di sistema e di inferenza, con allarmi basati su anomalie. Per il bias, AWS indica metriche calcolate per segmento con Evidently AI, registrate in MLflow e mostrate in QuickSight. Per l'esame la distinzione è importante. La guida MLA-C01 chiede ancora di monitorare i modelli con SageMaker Model Monitor. La guida MLA-C02 nel compito 4.1 non nomina più Model Monitor: parla di CloudWatch, di Bedrock Model Evaluation e di pipeline di rilevamento del drift. Il concetto di drift, però, resta materia d'esame in entrambe le guide. Quando una domanda nomina Model Monitor, si risponde sulla funzione: confrontare la produzione con una baseline e segnalare il drift. Le alternative sono quelle indicate da AWS, cioè CloudWatch, QuickSight e le soluzioni open source su SageMaker AI MLflow. Per un endpoint, CloudWatch pubblica due famiglie di metriche. Le metriche di invocazione stanno nel namespace AWS/SageMaker, e misurano le chiamate ricevute. Le metriche di istanza stanno nel namespace dedicato agli endpoint, e misurano le risorse usate dai container. Cominciamo dalle invocazioni. Invocations conta le richieste inviate all'endpoint, e per il totale si usa la statistica Sum. Le latenze sono due, e la distinzione è un classico dell'esame. ModelLatency è il tempo che il modello impiega per rispondere, incluso il passaggio dei dati verso il container. OverheadLatency è il tempo aggiunto da SageMaker AI: si misura dal momento in cui il servizio riceve la richiesta fino alla risposta al client, meno ModelLatency. Entrambe sono in microsecondi. Se la latenza totale sale ma ModelLatency resta stabile, il problema è nella piattaforma o nella dimensione del payload, non nel modello. Se invece sale ModelLatency, il modello è lento: serve un'istanza più grande, un batch più piccolo o un modello più leggero. Gli errori sono due metriche distinte. Invocation4XXErrors conta le risposte con codice 4xx, di solito richieste malformate. Invocation5XXErrors conta le risposte con codice 5xx, cioè errori lato server. Ogni richiesta vale 1 oppure 0, quindi la media della metrica è il tasso di errore. Per le risorse, CPUUtilization somma l'utilizzo di ogni core. Con quattro CPU il valore massimo è quattrocento per cento, e non cento. MemoryUtilization, GPUUtilization e DiskUtilization misurano memoria, GPU e disco usati dai container, come percentuale. Le metriche sono pubblicate ogni minuto. Con MetricsConfig si può cambiare la frequenza di pubblicazione tra 10, 30, 60, 120, 180, 240 e 300 secondi, e per le metriche di invocazione serve anche EnableEnhancedMetrics. Le metriche restano disponibili per quindici mesi. Per l'esame basta ricordare il significato di ogni metrica e la distinzione tra latenza del modello e overhead. Un allarme CloudWatch collega una metrica a una decisione. Le metriche di Model Monitor per dati reali si trovano nel namespace /aws/sagemaker/Endpoints/data-metric per gli endpoint in tempo reale, con le dimensioni EndpointName e ScheduleName. Se nella baseline è attiva l'opzione emit_metrics, per ogni feature il container pubblica due tipi di metrica. La prima è feature_non_null con il nome della feature, che misura la completezza: quanti valori non sono nulli. La seconda è feature_baseline_drift con il nome della feature, che misura lo scostamento rispetto alla baseline. Per la feature di reddito, quindi, si può creare un allarme su feature_baseline_drift_reddito. Un allarme ha due parametri da scegliere con cura: la soglia e il numero di periodi di valutazione. Se la soglia è troppo bassa e il numero di periodi è uno, un'unica finestra rumorosa fa scattare l'allarme e il team smette di fidarsi. Se i periodi sono molti, la reazione arriva tardi. Il compromesso è richiedere più periodi consecutivi sopra soglia, esattamente come raccomanda la regola di reagire a violazioni consecutive. I log dei container sono l'altra metà del quadro. Quando un endpoint produce errori 5xx, la metrica dice quante volte succede, e il log dice perché. Il log del container finisce in CloudWatch Logs, e per leggerlo si usano i filtri e le query. Le dashboard, le query con Logs Insights e le anomalie operative sono trattate nel capitolo 11, che approfondisce l'osservabilità. Qui conta il principio: ogni metrica importante deve avere un allarme, ogni allarme una persona o un'azione collegata, e ogni allarme deve essere verificato con un evento reale, non solo con un test simulato. Tre servizi sembrano simili e l'esame li confonde spesso. Il criterio è la domanda a cui rispondono. CloudTrail registra le chiamate API: chi ha fatto che cosa, quando e con quale esito. Per default registra i management event, cioè le operazioni di gestione, come la creazione o la cancellazione di un endpoint. I data event, cioè le operazioni sui dati, come la lettura di un oggetto S3 o l'invocazione di una funzione Lambda, sono disattivati di default, perché sono ad alto volume, e hanno un costo aggiuntivo. CloudTrail non è lo strumento per le performance: i valori delle metriche e i log applicativi stanno in CloudWatch. CloudWatch risponde alla domanda come sta il sistema. Conserva metriche per quindici mesi, log, allarmi e dashboard. EventBridge risponde alla domanda che cosa succede e che cosa facciamo quando succede. Riceve eventi di stato di SageMaker AI con source aws.sagemaker, e una regola filtra quegli eventi e li manda a un target. Nella documentazione compaiono, tra gli altri, questi eventi. SageMaker Training Job State Change riguarda i job di training. SageMaker Endpoint State Change riguarda lo stato degli endpoint. SageMaker Endpoint Deployment State Change riguarda i rilasci, e mostra lo stato Baking durante il periodo di osservazione. SageMaker Model Building Pipeline Execution Status Change riguarda le esecuzioni delle pipeline, con stati come Executing, Succeeded, Failed, Stopping e Stopped. Attenzione: nella pagina degli eventi non compare un evento dedicato al monitoring schedule, né uno stato CompletedWithViolations. Le esecuzioni di monitoraggio sono processing job, e per i processing job esiste l'evento SageMaker Processing Job State Change, che segnala il cambio di stato del job ma non il numero di violazioni trovate. Per reagire alle violazioni si usano quindi le metriche e gli allarmi CloudWatch, mentre EventBridge reagisce agli esiti dei job, delle pipeline e dei rilasci. Per l'esame: chi ha cancellato l'endpoint è CloudTrail, quanti errori 5xx ci sono è CloudWatch, e il fallimento di una pipeline si intercetta con EventBridge. Ora costruiamo il ciclo chiuso, un passo per volta. Il punto di partenza è uno schedule di monitoraggio che gira ogni ora sull'endpoint di credito, e confronta la cattura della giornata con la baseline. Il report finisce su S3 con le eventuali violazioni. Il secondo passo è l'allarme. Su una metrica di drift per feature, per esempio feature_baseline_drift sul reddito, si imposta una soglia e si richiede che la violazione duri per più periodi consecutivi. Questo evita di riaddestrare su un rumore di una sola finestra. Il terzo passo è la decisione. Un'azione dell'allarme, per esempio un topic SNS collegato a una funzione Lambda, legge constraint_violations.json dal bucket, conta le violazioni consecutive e confronta il risultato con una soglia. Se la condizione non è soddisfatta, la funzione termina senza fare nulla e lo registra nel log. In alternativa si potrebbe usare una regola EventBridge sull'evento SageMaker Processing Job State Change, perché ogni esecuzione è un processing job, ma quell'evento segnala il cambio di stato del job e non il numero di violazioni. Per questo la scelta più semplice resta l'allarme CloudWatch. Il quarto passo è la pipeline di retraining, eseguita con SageMaker Pipelines. Unisce i dati catturati alle label reali tramite l'identificatore, riaddestra il modello, lo valuta con una condition step e, se supera il controllo, registra un nuovo model package. Il quinto passo è l'approvazione. Il package entra nel Model Registry con ModelApprovalStatus uguale a PendingManualApproval. Un umano valuta le metriche e cambia lo stato in Approved. Quando il progetto usa i template di SageMaker AI, il passaggio ad Approved avvia il deploy tramite CI/CD. Il sesto passo è il rilascio. Il nuovo endpoint non sostituisce di colpo il vecchio: si usa una strategia blue green con canary o linear, e gli allarmi di rollback proteggono la produzione. Durante questo periodo, EventBridge riceve eventi di stato del rilascio. Accanto al retraining guidato da eventi, c'è il retraining pianificato. Una regola con una pianificazione lo lancia a intervalli fissi, anche senza drift. È utile per dati stagionali, dove il modello va aggiornato comunque, e costa di più perché riaddestra anche quando non serve. Il retraining a evento è più efficiente, ma dipende dalla qualità del monitoraggio: se il monitor non scatta, il modello non si aggiorna. Per l'esame, la risposta giusta dipende dalla domanda. Se il testo parla di drift, la soluzione è a evento. Se parla di stagionalità, è pianificata. Un modello nuovo non va messo di colpo davanti a tutti gli utenti. SageMaker AI offre rilasci sicuri che riducono il rischio. Il primo tipo è il blue green con traffico all at once: tutto il traffico passa al gruppo nuovo, il green, e per un periodo di baking gli allarmi CloudWatch controllano il comportamento. Se nessun allarme scatta, il gruppo vecchio viene terminato. Il secondo è il canary. Una quota del gruppo nuovo, definita con CAPACITY_PERCENT, riceve traffico per un intervallo. La quota non può superare il 50 per cento della capacità del nuovo gruppo. Nell'esempio della documentazione il canary è al 30 per cento, con dieci minuti di attesa tra i passi, dieci minuti di attesa prima di terminare il gruppo blu e un tempo massimo di trenta minuti. Il terzo è il linear, che fa più passi. Ogni passo sposta tra il 10 e il 50 per cento della capacità del nuovo gruppo. Nell'esempio il passo è del 20 per cento, con cinque minuti tra i passi e un tempo massimo di un'ora. In tutti i casi, se un allarme scatta durante un periodo di baking, il traffico torna interamente al gruppo blu. È l'auto rollback. Le strategie di guardrail usano gli allarmi CloudWatch come condizione di rollback automatico. Lo shadow test è diverso. SageMaker AI deploya la variante nuova in modalità shadow e copia le richieste reali verso di lei. Solo la risposta della variante di produzione torna al chiamante. Le risposte della variante shadow si possono scartare o salvare per un confronto offline. Serve per valutare latenza ed errori con traffico reale, prima di promuovere il modello. Non serve per confrontare due versioni dal punto di vista del business: per quello si usano i test A/B, che dividono il traffico tra varianti di produzione con pesi diversi. Lo shadow test non è disponibile con endpoint serverless, asincroni, multi-model, multi-container o con istanze Inf1. Per l'esame la regola pratica è questa: validare senza impatto sugli utenti significa shadow; confrontare due versioni sugli utenti significa A/B. Il dettaglio operativo dei rilasci e dell'autoscaling sta nel capitolo 10, dove si usano anche i comandi di deploy. La sicurezza in cloud si divide tra AWS e cliente. Il modello di responsabilità condivisa stabilisce che AWS protegge l'infrastruttura che fa girare tutti i servizi: hardware, software, rete e strutture fisiche. Il cliente è responsabile della sicurezza nel cloud, cioè dei propri dati, della configurazione e degli accessi. Quanta configurazione tocca al cliente dipende dal servizio scelto: su un'istanza EC2 il cliente gestisce il sistema operativo e i security group, mentre con un servizio gestito come S3 gestisce soprattutto dati, opzioni di cifratura e permessi. Per SageMaker AI la responsabilità del cliente riguarda dati, cifratura, rete e IAM. Ora la parte IAM. Un utente o un ruolo è un'identità. Una policy è un documento JSON che concede o nega azioni su risorse. Le policy si dividono in due famiglie. Le policy basate su identità si allegano a utenti, gruppi o ruoli. Le policy basate su risorse si allegano alla risorsa stessa, per esempio una bucket policy su S3, o una key policy su una chiave KMS. Per i job di SageMaker AI serve l'execution role. È un ruolo che il servizio assume per conto del job, e la sua trust policy indica il principal sagemaker.amazonaws.com. Dentro ci sono le azioni per leggere i dati da S3, scaricare l'immagine da ECR, scrivere i log su CloudWatch e usare una chiave KMS. Il principio è il least privilege, cioè il privilegio minimo. Ogni job deve avere solo ciò che serve. Un ruolo con AmazonSageMakerFullAccess è un buon punto di partenza, ma per la produzione conviene restringerlo a bucket e prefissi precisi. Mai access key statiche dentro il codice dei job. C'è un punto frequente di errore: iam:PassRole. Per creare un job, chi lo lancia deve poter passare l'execution role al servizio. La condition key iam:PassedToService permette di limitare questa azione al solo servizio sagemaker.amazonaws.com. Per l'esame, la domanda tipica chiede quale ruolo usare. La risposta è un ruolo dedicato al job, con il minimo di permessi necessari. Le condition key permettono di decidere caso per caso. Una policy non si limita a dire se un utente può creare un training job: può dire che lo può fare solo a certe condizioni. Le chiavi più utili per la sicurezza del training sono nel namespace sagemaker. La prima coppia è sagemaker:VpcSubnets e sagemaker:VpcSecurityGroupIds, entrambe liste di valori: con queste chiavi si impone che il job parta solo nelle subnet e con i security group indicati. La seconda è sagemaker:NetworkIsolation, di tipo booleano, che si usa con l'operatore Bool: una policy può imporre che il training job sia creato con network isolation attiva. La terza è sagemaker:VolumeKmsKey, di tipo ARN, che controlla la chiave KMS del volume di storage. La quarta è sagemaker:OutputKmsKey, che riguarda la chiave con cui si cifra l'output su S3. Una quinta chiave utile è sagemaker:InterContainerTrafficEncryption, di tipo Bool, che permette di imporre la cifratura del traffico tra i nodi nel training distribuito. Ora un tranello tecnico. Quando una chiave è multivalore, come le subnet, si usa ForAllValues. Il problema è che, se la chiave è assente dalla richiesta, la condizione può risultare vera. Per questo gli esempi della documentazione aggiungono un controllo Null sulle subnet, che rende obbligatoria la presenza della configurazione VPC. È un dettaglio che l'esame può usare: una policy che sembra restrittiva, ma lascia passare una richiesta senza subnet. Gli operatori più comuni sono StringEquals per le stringhe, Bool per i valori booleani, ArnEquals per gli ARN come le chiavi KMS, e Null per verificare la presenza di una chiave. Un esempio sensato: una policy permette CreateTrainingJob solo se le subnet sono quelle private del team, il security group è quello approvato, la network isolation è attiva e il volume usa la chiave KMS del progetto. Se una di queste condizioni manca, la chiamata viene negata con AccessDenied. Il troubleshooting di AccessDenied e le SCP sono nel capitolo 11. La cifratura protegge i dati in due momenti: a riposo, cioè quando sono salvati, e in transito, cioè quando viaggiano in rete. A riposo SageMaker AI usa di default la cifratura lato server di S3, con una chiave gestita da AWS, SSE-S3. Vale per i notebook di Studio, per i notebook instance, per i model artifact e per l'output di training, batch transform e processing. Per usare una chiave KMS gestita dal cliente bisogna indicarla in fase di creazione della risorsa. È obbligatoria quando i dati devono essere letti da un altro account, perché la chiave di default di S3 non può essere condivisa. Sui singoli job i campi sono precisi. VolumeKmsKeyId cifra il volume di storage collegato all'istanza, sia per il training sia per il processing. KmsKeyId, dentro l'output configuration, cifra quello che il job scrive su S3. Nella DataCaptureConfig, il campo KmsKeyId cifra i dati catturati dall'endpoint. Nella EndpointConfig, il campo KmsKeyId cifra il volume di storage collegato alle istanze che ospitano l'endpoint. Il Feature Store ha due campi separati: KmsKeyId nella configurazione dell'online store, e KmsKeyId nella configurazione S3 dell'offline store. Se per l'offline store non si indica una chiave, la cifratura usa comunque una chiave KMS. Ora il transito. Tutto il traffico su internet passa per TLS. La documentazione dice che si supporta TLS 1.2, e che si raccomanda TLS 1.3. Le richieste all'API e alla console usano SSL. Tuttavia, il traffico interno alla piattaforma non è sempre cifrato. Due esempi: i comandi del control plane verso le istanze di training, e la comunicazione tra i nodi di un job distribuito. Per cifrare i nodi del training distribuito si imposta EnableInterContainerTrafficEncryption a true, nella configurazione di rete del job. Il costo è il tempo: la cifratura può allungare il training, soprattutto con algoritmi distribuiti di deep learning. Gli algoritmi built-in più comuni, come XGBoost, DeepAR e linear learner, di solito non risentono molto del costo. Per l'esame, lo schema da ricordare è semplice. A riposo: SSE-S3 di default, KMS gestito dal cliente per il controllo e per l'accesso tra account. In transito: TLS per le API, e cifratura tra nodi se il training è distribuito e i dati sono sensibili. La rete è il terzo pilastro della sicurezza. Il principio è semplice: il traffico dei dati sensibili non deve passare su internet. Per farlo, un job si configura con VpcConfig, dove si indicano le subnet e i security group. SageMaker AI crea le interfacce di rete nelle subnet indicate, e il container le usa per comunicare dentro la VPC. Per il training conviene usare subnet private senza accesso a internet. In queste subnet il container non raggiunge S3 da solo, quindi serve un gateway endpoint per S3. Il gateway endpoint si associa alle route table delle subnet. Con una policy sul gateway si può limitare l'accesso ai soli bucket del progetto. Se il training distribuito usa più istanze, i nodi devono parlarsi. Il security group deve quindi avere una regola self-referencing, che permette il traffico tra membri dello stesso gruppo. Per i servizi AWS che non sono raggiungibili con un gateway endpoint, la documentazione indica interface endpoint basati su PrivateLink. Per SageMaker AI esistono endpoint per l'API SageMaker e per SageMaker Runtime, che invoca gli endpoint. Con il private DNS abilitato, gli URL standard risolvono verso l'endpoint nella VPC. Per il Feature Store esiste un endpoint VPC dedicato al runtime, featurestore-runtime. Un endpoint di interfaccia può avere una policy che permette sagemaker:InvokeEndpoint solo su un endpoint preciso. Poi c'è la network isolation. Quando è attiva, il container non può fare chiamate di rete, né verso la tua VPC né verso internet. SageMaker AI però può ancora scaricare gli input e caricare gli artefatti per conto del container. Se si indica anche una VPC, questi trasferimenti passano dalla tua VPC. Con VPC e isolamento insieme, il passaggio dei dati resta dentro la VPC, grazie al gateway S3. Il dettaglio di subnet, security group e tabelle di routing è nel capitolo 11, dove si affronta anche il troubleshooting. Per l'esame, il segnale da riconoscere è questo: dati sensibili, nessun passaggio su internet, endpoint privati, network isolation. La governance risponde alle domande di chi deve verificare il modello: perché esiste, da dove viene, come si comporta e chi l'ha approvato. Il primo strumento sono le SageMaker Model Cards. Una model card raccoglie in un posto solo le informazioni di governo del modello. Ci sono sezioni per l'uso previsto, con gli scenari in cui il modello è appropriato e quelli in cui non lo è. Altre sezioni coprono i dettagli di business, il training con job e iperparametri, la valutazione con metriche e osservazioni, e informazioni aggiuntive come considerazioni etiche. Il rischio si classifica con risk rating: High, Medium, Low oppure Unknown. Ogni modifica, tranne l'aggiornamento dello stato di approvazione, crea una nuova versione. Il registro è quindi immutabile e l'auditor può vedere com'era la card in ogni momento. La card si può esportare in PDF. Il secondo è il Model Dashboard. È una vista centralizzata da cui si vedono tutti i modelli dell'account, quali sono in produzione e lo stato dei loro monitor. Per ogni monitor lo stato è None se non è configurato, Inactive se è disattivato, OK se è attivo senza allarmi, oppure la data e l'ora dell'ultimo allarme. Il terzo è il lineage tracking. SageMaker AI registra automaticamente i job di training, i dataset, le pipeline, gli endpoint e i modelli, e costruisce un grafo. Con il grafo si risponde alla domanda da quali dati viene questo modello, e con quali parametri è stato addestrato. Il quarto è il Model Registry, dove il modello passa dagli stati di approvazione. Un package si registra con PendingManualApproval. Approved lo rende idoneo al deploy, e in un progetto con i template SageMaker AI il passaggio ad Approved può avviare il deploy tramite CI/CD. Rejected segnala un modello non approvato. Le transizioni tra stati sono un punto d'esame: il passaggio da Approved a Rejected può far deployare l'ultima versione approvata. Per l'esame, ricordate i quattro strumenti e la domanda a cui ciascuno risponde: la card spiega il modello, la dashboard mostra lo stato, il lineage ricostruisce l'origine, il registry governa il passaggio in produzione. Role Manager merita una nota a parte, perché dal 30 luglio 2026 è uno dei servizi chiusi ai nuovi clienti. Il servizio permetteva di creare ruoli IAM per tre persona predefinite: data scientist, MLOps e compute. AWS dichiara che Role Manager non accetta più nuovi clienti, ma i clienti esistenti possono continuare a usarlo. I ruoli già creati sono ruoli IAM standard: restano validi, si vedono nella console IAM e si modificano lì. Non serve migrarli. Per creare nuovi ruoli, AWS indica alternative precise. La console IAM e le API consentono di creare un ruolo con trust policy verso sagemaker.amazonaws.com e di allegare le policy gestite. IAM Identity Center gestisce l'accesso dei lavoratori con permission set, anche da provider esterni. IAM Access Analyzer genera policy di privilegio minimo a partire dall'attività reale registrata in CloudTrail, che è più precisa dei template statici. CloudFormation e CDK rendono i ruoli versionati e ripetibili, adatti ai processi di revisione. Il tag è l'altro strumento di governance. Un tag per progetto o per centro di costo permette di attribuire la spesa e di filtrare le risorse. I tag compaiono anche nei dati degli eventi di SageMaker AI, per esempio nei dettagli dei job e degli endpoint, quindi sono utili per collegare un evento al progetto. L'audit combina i tre strumenti visti finora. CloudTrail risponde a chi ha fatto cosa, e a quando. La model card risponde a perché il modello esiste e quali limiti ha. Il lineage risponde a da quali dati e da quale codice è nato. Un auditor che chiede di dimostrare la riproducibilità di un modello chiede proprio questi tre elementi. AWS Config, la storia della configurazione e le regole di conformità, insieme ai data event di CloudTrail, sono trattati nel capitolo 11. Chiudiamo con le scelte rapide, che servono quando la domanda è breve e le opzioni sembrano tutte plausibili. Primo criterio: il drift si misura con le label. Se la domanda parla di calo di accuratezza e fornisce label reali, la risposta è la model quality. Se non ci sono label e si chiede di rilevare cambiamenti negli input, la risposta è la data quality. Secondo criterio: la domanda chiede una metrica o una traccia? Un errore 5xx ricorrente, una latenza che sale o un tasso di invocazioni si trovano in CloudWatch. Chi ha creato, modificato o cancellato una risorsa si trova in CloudTrail, perché è un registro delle chiamate API. Terzo criterio: il retraining. Se il testo parla di drift, la risposta è un retraining guidato dagli eventi, con allarme e pipeline. Se parla di stagionalità o di calendario, la risposta è un retraining pianificato. Un retraining a ogni singola violazione è quasi sempre la risposta sbagliata. Quarto criterio: il rilascio. Se bisogna validare un modello senza che gli utenti vedano le sue risposte, la risposta è lo shadow test. Se bisogna confrontare due versioni sugli utenti e misurare un effetto di business, la risposta è A/B. Quinto criterio: la sicurezza. Dati sensibili significano VPC, endpoint privati, network isolation, cifratura KMS quando serve l'accesso tra account, e un ruolo di esecuzione con privilegio minimo. Una risposta che aggiunge access key statiche è quasi sempre sbagliata. Ultimo criterio: la data. Model Monitor, Clarify e Role Manager non accettano nuovi clienti dal 30 luglio 2026. Se la domanda li nomina, l'esame valuta il concetto che rappresentano e l'alternativa che AWS indica. Per Model Monitor sono CloudWatch, QuickSight e le soluzioni open source su SageMaker AI MLflow. Per Role Manager sono la console IAM, IAM Identity Center, IAM Access Analyzer e CloudFormation o CDK. Ricordate il principio operativo: monitorare sempre, allarmare su soglie ragionevoli, reagire con pipeline automatiche e documentare ogni decisione."
 }
