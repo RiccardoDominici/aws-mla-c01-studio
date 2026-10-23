@@ -2,8 +2,10 @@
   "version": 1,
   "chapters": {
     "ch1-exam-guide": {
-      "script_sha256": "03ee44370a31dc7234c80d50b110f6546bc545fa23aed445ba1cb61c2d904e2a",
-      "adopted": true
+      "script_sha256": "bf98ca7cf5104ffeda9989832294b307de238b9cc2b5d7477bb84ca5b32e65d1",
+      "sentences": 95,
+      "duration": 439.42,
+      "synthesized_at": "2026-10-22T17:25:28+00:00"
     },
     "ch2-data-prep": {
       "script_sha256": "a16970f3c9a95f6731c8469bc31a99fcb267a58643450b3a39ae3295f5246e78",
@@ -32,6 +34,12 @@
     "quick-ref": {
       "script_sha256": "17cc496d310fc97b39f7d0ce576f70ee615f2cf25e10283e35c220d44caa79e9",
       "adopted": true
+    },
+    "ch10-infra-cicd": {
+      "script_sha256": "90909f131896ba99efabcb5f35b51ab8ea24ee926842070020e1a7528e428237",
+      "sentences": 262,
+      "duration": 1841.53,
+      "synthesized_at": "2026-10-23T01:05:29+00:00"
     }
   }
 }
