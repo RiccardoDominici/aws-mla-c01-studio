@@ -1,198 +1,473 @@
 {
-  "area": "mlops",
   "id": "ch4-deploy",
-  "keywords": [
-    {
-      "def": "Endpoint HTTPS sempre attivo su istanze ml dedicate, con latenza di millisecondi e payload fino a 25 MB. Ideale per traffico costante che richiede risposte immediate.",
-      "term": "Real-Time Endpoint"
-    },
-    {
-      "def": "Endpoint che scala fino a zero senza istanze da gestire, con fatturazione a consumo e payload fino a 4 MB. Ha un cold start che lo rende inadatto a SLA rigide.",
-      "term": "Serverless Inference"
-    },
-    {
-      "def": "Endpoint con coda interna SQS che accetta payload fino a 1 GB via S3 e tempi fino a un ora, con notifica SNS al termine. Scala a zero quando non usato.",
-      "term": "Asynchronous Inference"
-    },
-    {
-      "def": "Job offline non interattivo che elabora grandi dataset S3 in input e scrive predizioni su S3. Pensato per throughput elevato e risultati precalcolati.",
-      "term": "Batch Transform"
-    },
-    {
-      "def": "Un solo endpoint condiviso che carica e scarica dinamicamente centinaia di modelli simili da S3. Riduce molto i costi quando ogni modello ha poco traffico.",
-      "term": "Multi-Model Endpoint"
-    },
-    {
-      "def": "Servizio MLOps di SageMaker per definire workflow di ML come grafi di step versionati e parametrizzati, con esecuzione automatica e tracciabile.",
-      "term": "SageMaker Pipelines"
-    },
-    {
-      "def": "Catalogo versionato dei modelli con stati di approvazione PendingManualApproval, Approved e Rejected. Funge da cancello di qualita tra training e produzione.",
-      "term": "Model Registry"
-    },
-    {
-      "def": "Orchestratore serverless a stati che coordina job SageMaker, Lambda e approvazioni umane in workflow visivi con gestione nativa di errori e retry.",
-      "term": "Step Functions"
-    },
-    {
-      "def": "Bus di eventi serverless che attiva pipeline e funzioni in risposta a eventi AWS o su schedule. Chiude il ciclo tra monitoraggio e retraining.",
-      "term": "EventBridge"
-    }
-  ],
+  "area": "mlops",
+  "title": "Deploy e orchestrazione dei workflow ML",
   "prereq": [
     "ch3-model-dev"
   ],
+  "summary": "SageMaker offre cinque opzioni di inferenza con compromessi precisi tra latenza, payload, costo e traffico. Il real-time serve traffico costante con payload fino a 25 MB, il serverless traffico intermittente con payload fino a 4 MB e cold start, l'asincrono payload fino a 1 GB ed elaborazioni fino a un'ora con scale to zero, e il batch transform elabora dataset su S3 senza endpoint. Per più modelli si usano il multi-model endpoint, il multi-container e l'inference pipeline, mentre le production variant permettono A/B test e shadow test. SageMaker Pipelines definisce il ciclo di vita come un DAG di step con parametri e caching, il Model Registry governa le versioni con lo stato di approvazione, e Step Functions, EventBridge e MWAA coordinano il resto del workflow.",
+  "keywords": [
+    {
+      "term": "Inferenza",
+      "def": "Uso di un modello addestrato per produrre predizioni su dati nuovi."
+    },
+    {
+      "term": "model.tar.gz",
+      "def": "Archivio compresso su S3 con i pesi del modello e, se serve, il codice di inferenza."
+    },
+    {
+      "term": "EndpointConfig",
+      "def": "Descrizione dell'infrastruttura di un endpoint: istanze, tipo e varianti con i relativi pesi."
+    },
+    {
+      "term": "Production variant",
+      "def": "Voce dell'EndpointConfig che lega un Model a istanze e a un peso di traffico."
+    },
+    {
+      "term": "Real-time endpoint",
+      "def": "Endpoint HTTPS persistente su istanze dedicate, con payload fino a 25 MB e risposta regolare entro 60 secondi."
+    },
+    {
+      "term": "Serverless inference",
+      "def": "Inferenza che scala a zero senza istanze da gestire, con payload fino a 4 MB e timeout di 60 secondi."
+    },
+    {
+      "term": "Cold start",
+      "def": "Ritardo alla prima richiesta dopo una pausa, quando SageMaker deve avviare le risorse; misurato con OverheadLatency."
+    },
+    {
+      "term": "Provisioned concurrency",
+      "def": "Risorse serverless tenute pronte per rispondere in millisecondi, a pagamento."
+    },
+    {
+      "term": "Asynchronous inference",
+      "def": "Inferenza con coda interna, payload fino a 1 GB, elaborazione fino a un'ora, output su S3 e notifiche SNS."
+    },
+    {
+      "term": "Batch transform",
+      "def": "Job offline senza endpoint che legge dataset da S3 e scrive le predizioni su S3."
+    },
+    {
+      "term": "Multi-model endpoint",
+      "def": "Un endpoint che carica da S3 molti modelli dello stesso framework, su richiesta, con TargetModel."
+    },
+    {
+      "term": "Multi-container endpoint",
+      "def": "Endpoint con più container diversi, invocabili in sequenza o singolarmente con TargetContainerHostname."
+    },
+    {
+      "term": "Inference pipeline",
+      "def": "Catena lineare di da 2 a 15 container, con l'output di ciascuno in ingresso al successivo."
+    },
+    {
+      "term": "TargetVariant",
+      "def": "Parametro di InvokeEndpoint che invia una richiesta a una production variant precisa."
+    },
+    {
+      "term": "Shadow variant",
+      "def": "Variante affiancata alla produzione, configurata con ShadowProductionVariants, per validare un candidato prima di promuoverlo."
+    },
+    {
+      "term": "model_fn",
+      "def": "Funzione dello script di inferenza che carica il modello, chiamata una volta all'avvio del server."
+    },
+    {
+      "term": "input_fn, predict_fn, output_fn",
+      "def": "Funzioni chiamate per ogni richiesta: deserializzano l'input, predicono e serializzano la risposta."
+    },
+    {
+      "term": "SageMaker Pipelines",
+      "def": "Servizio MLOps che definisce il ciclo di vita del modello come DAG di step, con parametri e caching."
+    },
+    {
+      "term": "CacheConfig",
+      "def": "Configurazione che riusa l'output di uno step riuscito, con ExpireAfter in formato ISO 8601."
+    },
+    {
+      "term": "CallbackStep",
+      "def": "Step che attende una risposta esterna tramite SendPipelineExecutionStepSuccess o Failure."
+    },
+    {
+      "term": "PropertyFile e JsonGet",
+      "def": "Meccanismo che legge un valore da un file JSON prodotto da uno step, per usarlo in una Condition."
+    },
+    {
+      "term": "Model Registry",
+      "def": "Catalogo versionato dei modelli, organizzato in model package group, con metadati, metriche e stato di approvazione."
+    },
+    {
+      "term": "PendingManualApproval",
+      "def": "Stato di una versione in attesa di approvazione, impostato alla registrazione; le alternative sono Approved e Rejected."
+    },
+    {
+      "term": "EventBridge",
+      "def": "Servizio che instrada eventi e pianificazioni; può avviare una pipeline con StartPipelineExecution."
+    },
+    {
+      "term": "Step Functions",
+      "def": "Orchestratore a stati, con retry nativi, integrazioni .sync e pattern waitForTaskToken per attese esterne."
+    },
+    {
+      "term": "MWAA",
+      "def": "Amazon Managed Workflows for Apache Airflow: Airflow gestito, con DAG in Python per workflow su molti sistemi."
+    }
+  ],
+  "slides": [
+    {
+      "title": "Dal modello addestrato al servizio",
+      "bullets": [
+        "Inferenza: usare il modello addestrato per produrre predizioni su dati nuovi",
+        "model.tar.gz: pesi del modello in un archivio compresso su S3",
+        "Model: container, percorso degli artefatti e ruolo IAM",
+        "EndpointConfig: tipo e numero di istanze, production variant",
+        "Endpoint: l'istanza in esecuzione che riceve le richieste HTTPS"
+      ],
+      "narration": "Questo capitolo porta il modello dal training al servizio. Il training produce pesi numerici, ma nessuno può ancora usarli. Usare un modello per produrre predizioni su dati nuovi si chiama inferenza. In SageMaker l'inferenza si configura con tre oggetti collegati tra loro. Il primo è il file model.tar.gz, un archivio compresso su Amazon S3 che contiene i pesi addestrati e, se serve, il codice per caricarli ed eseguirli. Il secondo è l'oggetto Model, che dice quale container usare, dove si trova l'archivio e quale ruolo IAM assumere. Il terzo è l'EndpointConfig, che descrive l'infrastruttura: quante istanze, di quale tipo, e come dividere il traffico. Con l'EndpointConfig si crea l'Endpoint, cioè l'istanza in esecuzione che riceve richieste HTTPS. Ogni voce dell'EndpointConfig si chiama production variant. Una variante lega un Model a un numero di istanze e a un peso di traffico. Per questo l'A/B test, che vedremo più avanti, si costruisce con più varianti sullo stesso endpoint. Ricordate la distinzione: il Model è il cosa, l'EndpointConfig è il come, l'Endpoint è il dove. Quando una domanda chiede di cambiare il modello senza toccare l'infrastruttura, pensate al Model. Quando chiede di cambiare tipo o numero di istanze, pensate all'EndpointConfig. Nelle slide successive vedremo le cinque opzioni di inferenza e come sceglierne una.",
+      "todo": []
+    },
+    {
+      "title": "Real-time: l'endpoint sempre acceso",
+      "bullets": [
+        "Endpoint HTTPS persistente su istanze dedicate, con auto scaling e data capture",
+        "Payload fino a 25 MB; risposta regolare entro 60 secondi",
+        "Risposte in streaming fino a 8 minuti",
+        "Il container ascolta sulla porta 8080 con /invocations e /ping",
+        "Ideale per traffico costante e risposta immediata: frodi, raccomandazioni"
+      ],
+      "narration": "L'endpoint real-time è un endpoint HTTPS sempre attivo, che gira su istanze dedicate e resta acceso anche senza traffico. Quando una domanda parla di traffico costante e di risposte immediate, questa è la risposta. Il limite del payload è di 25 MB e il tempo di risposta regolare è di 60 secondi. Per le risposte in streaming, cioè il modello che manda pezzi di output mentre li produce, il tempo arriva a 8 minuti. Alcuni materiali più vecchi indicano 6 MB come limite del real-time. Il valore attuale è 25 MB, e una domanda che cita un numero va letta con questo dato. Il container dentro l'endpoint deve ascoltare sulla porta 8080, accettare richieste POST su /invocations e rispondere su /ping. SageMaker chiama /ping come controllo di salute. Il container deve rispondere con 200 in modo costante, altrimenti l'istanza viene sostituita. Un controllo che risponde sempre 200, anche quando il modello non è caricato, nasconde il guasto e continua a mandare traffico a un'istanza rotta. Sull'endpoint si possono attivare l'auto scaling e il data capture, cioè la registrazione di richieste e risposte su S3, che alimenta il monitoraggio. Il costo segue le istanze: si paga finché l'endpoint è acceso, anche se non arrivano richieste. Esempio concreto: un sistema antifrode che deve rispondere in meno di 100 millisecondi a ogni transazione costante usa un real-time endpoint con almeno un'istanza sempre pronta. Il real-time è la scelta giusta quando il costo fisso delle istanze è giustificato dal traffico.",
+      "todo": []
+    },
+    {
+      "title": "Serverless: scala a zero, con cold start",
+      "bullets": [
+        "Nessuna istanza da gestire: SageMaker crea le risorse quando arrivano richieste",
+        "Scala a zero senza traffico e si paga per tempo di calcolo e dati elaborati",
+        "Payload fino a 4 MB e timeout di 60 secondi",
+        "Memoria da 1024 a 6144 MB, a passi di 1024 MB; disco effimero di 5 GB",
+        "Cold start, misurato con OverheadLatency; provisioned concurrency per ridurlo"
+      ],
+      "narration": "L'inferenza serverless non richiede di scegliere né di gestire istanze. SageMaker crea le risorse quando arrivano richieste e le scala fino a zero quando il traffico si ferma. Si paga solo per il tempo di calcolo, misurato in millisecondi, e per i dati elaborati, e non per il tempo di inattività. È perfetta per traffico intermittente, prototipi e ambienti di test. I limiti da ricordare sono 4 MB di payload e 60 secondi di timeout. La memoria si sceglie tra 1024, 2048, 3072, 4096, 5120 e 6144 MB, e le risorse di calcolo crescono in proporzione. Il disco effimero è di 5 GB, indipendentemente dalla memoria. Il punto debole è il cold start. Quando l'endpoint non riceve traffico per un po' e arriva una richiesta, SageMaker deve avviare le risorse, scaricare il modello e far partire il container. Questo ritardo si misura con la metrica CloudWatch OverheadLatency. Un cold start può capitare anche quando le richieste concorrenti superano la concorrenza attuale. La concorrenza massima per un singolo endpoint arriva a 200, mentre il totale condiviso tra gli endpoint serverless dipende dalla regione. Per ridurre i cold start si usa la provisioned concurrency: SageMaker tiene pronto un numero definito di risorse, che rispondono in millisecondi. Si paga anche la capacità riservata, quindi conviene quando i picchi sono prevedibili. Il tranello è questo: se la domanda chiede una latenza costante sotto una soglia rigida, il serverless è escluso, anche con traffico basso.",
+      "todo": []
+    },
+    {
+      "title": "Serverless: cosa non supporta",
+      "bullets": [
+        "Niente GPU e niente prodotti del marketplace AWS",
+        "Niente configurazione VPC, niente network isolation, niente data capture",
+        "Niente Model Monitor, niente multi-model endpoint, niente inference pipeline",
+        "Niente varianti multiple sullo stesso endpoint",
+        "Un endpoint real-time non si converte in serverless; il contrario sì, ma è irreversibile"
+      ],
+      "narration": "Prima di scegliere il serverless bisogna controllare che la funzione richiesta sia supportata, perché l'esclusione è netta. Il serverless non supporta GPU, i prodotti del marketplace AWS e i registry Docker privati. Non supporta il multi-model endpoint, né la configurazione VPC e nemmeno la network isolation. Non supporta il data capture e Model Monitor. Se una domanda chiede il monitoraggio della qualità dei dati su un endpoint serverless, la risposta non è quella. Non supporta le varianti multiple, cioè l'A/B test sullo stesso endpoint, e non supporta le inference pipeline. Ci sono due regole di passaggio da ricordare. Un endpoint real-time non si può convertire in serverless: l'aggiornamento viene rifiutato con un ValidationError. Un endpoint serverless si può invece convertire in real-time, ma una volta fatta la modifica non si torna indietro. È un tranello tipico: un team che parte dal serverless per risparmiare e poi ha bisogno di GPU deve creare un nuovo endpoint real-time. Model Monitor, che compare in questa lista, va trattato con attenzione: è chiuso ai nuovi clienti. Secondo l'annuncio AWS, dal 30 luglio 2026 non è più aperto ai nuovi clienti. Chi lo usa già può continuare, ma AWS non prevede nuove funzioni. AWS indica come alternativa una combinazione di soluzioni di monitoraggio open source pubblicate su GitHub, QuickSight e CloudWatch. Il concetto di monitoraggio resta utile anche per la MLA-C02, anche se lo strumento cambia. Il monitoraggio è trattato nel capitolo 5.",
+      "todo": []
+    },
+    {
+      "title": "Asincrona: payload grandi e tempi lunghi",
+      "bullets": [
+        "Payload fino a 1 GB, passato come puntatore a un file su S3",
+        "Elaborazione fino a un'ora, con coda interna gestita da SageMaker",
+        "Output su S3; notifiche di successo o errore con SNS",
+        "Scale to zero: nessuna richiesta, nessuna istanza in esecuzione",
+        "Casi tipici: documenti NLP lunghi, immagini e video di grandi dimensioni"
+      ],
+      "narration": "L'inferenza asincrona è pensata per richieste con payload grandi e tempi di elaborazione lunghi, fino a 1 GB di payload e fino a un'ora. Il flusso è diverso dal real-time. Il client scrive il payload su S3 e chiama InvokeEndpointAsync, passando il puntatore a quel file. SageMaker mette la richiesta in una coda interna, risponde subito con un identificatore e con la posizione dell'output, e poi elabora. Il risultato viene scritto su S3. Se si configurano le notifiche SNS, arriva un messaggio di successo o di errore. Il client quindi non aspetta una risposta HTTP che dura minuti: aspetta una notifica oppure legge S3. Il vantaggio economico è lo scale to zero. Quando non ci sono richieste il numero di istanze scende a zero, e si paga solo mentre l'endpoint elabora. La configurazione è un AsyncInferenceConfig nell'EndpointConfig, e un endpoint con questa configurazione accetta solo invocazioni asincrone. Nei casi tipici rientrano documenti NLP lunghi, immagini e video di grandi dimensioni, e in generale tutto ciò che supera i 25 MB del real-time o i 4 MB del serverless, purché la risposta non serva subito. Il tranello più frequente è sbagliare il limite. Un file da 800 MB con elaborazione di minuti va in asincrono, non nel real-time e non nel serverless. Se invece l'input è un dataset intero che non ha bisogno di un endpoint, la risposta è il batch transform, che vediamo nella prossima slide.",
+      "todo": []
+    },
+    {
+      "title": "Batch transform: nessun endpoint, job offline",
+      "bullets": [
+        "Nessun endpoint: legge un dataset da S3 e scrive le predizioni su S3",
+        "Più istanze lavorano su più file; un solo file usa una sola istanza",
+        "SplitType Line suddivide il file in mini-batch; MaxPayloadInMB al massimo 100 MB",
+        "Output con nome del file di input e suffisso .out, stesso ordine dei record",
+        "Costo basso per scoring notturno e predizioni precalcolate"
+      ],
+      "narration": "Il batch transform non crea un endpoint. È un job offline che legge uno o più dataset da S3, applica il modello e scrive le predizioni su S3. Non c'è nulla da tenere acceso tra un'esecuzione e l'altra, quindi per lo scoring notturno di milioni di record è spesso l'opzione più economica. Il job suddivide il lavoro tra le istanze, ma con una regola precisa: ogni file dell'input viene elaborato separatamente. Se c'è un solo file grande, una sola istanza lavora e le altre restano ferme. Per parallelizzare servono più file in input: un file grande, anche diviso in mini-batch, viene comunque elaborato da una sola istanza. Il parametro SplitType impostato a Line suddivide il file riga per riga. Il parametro MaxPayloadInMB controlla la dimensione di ogni richiesta, e non può superare 100 MB. Il parametro BatchStrategy controlla come vengono raggruppati i record in ciascuna richiesta. Se si usa MaxConcurrentTransforms, il valore ideale è pari al numero di worker del job, e il prodotto con MaxPayloadInMB non deve superare 100 MB. L'output ha lo stesso nome del file di input con estensione .out, e le predizioni compaiono nello stesso ordine dei record. Con AssembleWith impostato a Line le predizioni vengono concatenate con un a capo, ma il numero di file di output resta uguale a quello di input. Il batch transform può elaborare dataset da gigabyte e tempi di giorni. È il candidato naturale per predizioni precalcolate, per il preprocessing dei dati e per confrontare varianti su un validation set. Il tranello: se la domanda chiede una risposta per ogni richiesta che arriva, il batch non è adatto, perché le predizioni vengono calcolate in blocco.",
+      "todo": []
+    },
+    {
+      "title": "Come scegliere: l'albero di decisione",
+      "bullets": [
+        "Primo bivio: serve un endpoint, oppure basta un job su S3?",
+        "Traffico costante e latenza bassa: real-time",
+        "Traffico intermittente e cold start tollerato: serverless, se non servono funzioni escluse",
+        "Payload oltre 4 MB o elaborazione lunga con risposta differita: asincrona",
+        "Molti modelli poco usati, stesso framework: multi-model endpoint"
+      ],
+      "narration": "Mettiamo insieme le opzioni in un albero di decisione, che si legge partendo dalle parole chiave della domanda. Il primo bivio è se serve un endpoint. Se la domanda parla di dataset già in S3, di risultati notturni, di predizioni precalcolate o di milioni di record senza fretta, non serve un endpoint: si sceglie il batch transform. Se invece serve una risposta per ogni richiesta, il secondo bivio riguarda il traffico. Traffico costante, latenza sotto i 100 millisecondi, sistemi di frodi o raccomandazioni portano al real-time. Traffico intermittente o imprevedibile, con periodi di inattività e tolleranza al cold start, porta al serverless, purché il modello non abbia bisogno di GPU, VPC o delle altre funzioni escluse. Se il payload supera 4 MB, oppure l'elaborazione è lunga e la risposta può arrivare dopo minuti, il ramo giusto è l'asincrono, con limiti di 1 GB e di un'ora. Se i modelli sono molti, poco usati e dello stesso framework, il ramo è il multi-model endpoint. Se la domanda descrive container di framework diversi o una catena di preprocessing e predizione, il ramo è il multi-container o l'inference pipeline, che vedremo più avanti. Il metodo è sempre lo stesso: partite dal vincolo più restrittivo della domanda. Un requisito di latenza rigida esclude il serverless anche quando il traffico è basso. Un requisito di payload grandi esclude il real-time anche quando il traffico è costante. Solo dopo aver escluso le opzioni incompatibili con i vincoli si sceglie quella più economica tra le rimaste.",
+      "todo": []
+    },
+    {
+      "title": "Tranelli d'esame sulle parole chiave",
+      "bullets": [
+        "Traffico imprevedibile ma GPU richiesta: il serverless è escluso",
+        "Payload di 6 MB: il vecchio limite non vale, il real-time oggi arriva a 25 MB",
+        "File da 800 MB con elaborazione di minuti: asincrona",
+        "Cinquanta milioni di transazioni in S3 senza fretta: batch transform",
+        "Centinaia di modelli dello stesso framework con poco traffico: multi-model",
+        "Payload oltre 1 GB o elaborazione di giorni: il batch è la strada"
+      ],
+      "narration": "Le domande dell'esame usano parole chiave che sembrano indicare una risposta e ne nascondono un'altra. Il primo tranello è il traffico imprevedibile con tolleranza ai ritardi. La risposta sembra il serverless, ma se la domanda aggiunge GPU o VPC, il serverless è escluso. Il secondo è il payload da 6 MB, che sembra il limite del real-time di una versione precedente. Oggi il real-time arriva a 25 MB, mentre il serverless si ferma a 4 MB. Il terzo è il file da 800 MB con elaborazione di minuti, che va in asincrono e non nel real-time. Il quarto è il dataset di cinquanta milioni di transazioni salvate in S3, senza bisogno di risposte immediate. La risposta è il batch transform, non l'asincrono, perché non serve una coda di richieste. Il quinto è un'azienda che serve centinaia di modelli dello stesso framework, ciascuno usato di rado. La risposta è un multi-model endpoint, non un endpoint per modello e non un job per modello. Il sesto è un payload oltre 1 GB o un'elaborazione che dura giorni. Qui l'asincrono non basta e la strada è il batch transform. Quando leggete una domanda, cercate il vincolo più forte e verificate che l'opzione scelta non lo violi. Spesso la domanda contiene due vincoli, uno di costo e uno di latenza, e la risposta giusta è quella che rispetta il vincolo più duro. Un'altra trappola riguarda i numeri. Se un'opzione sembra corretta ma il numero citato non corrisponde ai limiti attuali, la risposta è sbagliata.",
+      "todo": []
+    },
+    {
+      "title": "Più modelli su un endpoint: multi-model",
+      "bullets": [
+        "Un solo endpoint per un gran numero di modelli dello stesso framework",
+        "I modelli vengono caricati da S3 quando arriva una richiesta per loro",
+        "Il modello si nomina con TargetModel nella chiamata a InvokeEndpoint",
+        "Un modello inattivo non occupa memoria; i modelli si aggiungono senza aggiornare l'endpoint",
+        "Cold start alla prima richiesta di un modello; adatto a modelli di dimensione e latenza simili"
+      ],
+      "narration": "Il multi-model endpoint risolve un problema di costo. Centinaia di modelli dello stesso framework, ciascuno usato di rado, non devono occupare ciascuno la propria istanza. Tutti i modelli condividono un gruppo di istanze e un container di serving comune. I modelli non vengono scaricati tutti quando l'endpoint parte. Quando arriva una richiesta per un modello, SageMaker la instrada a un'istanza, scarica il modello da S3 sul volume dell'istanza se non c'è già, e lo carica in memoria. Le richieste successive allo stesso modello sono più veloci, perché il modello è già in memoria. Se la memoria si riempie, SageMaker scarica dalla memoria i modelli non usati. Questi restano sul volume dell'istanza e possono tornare in memoria senza un nuovo download. Il modello si indica con il parametro TargetModel nella chiamata a InvokeEndpoint. La chiave di condizione IAM sagemaker:TargetModel usa lo stesso nome. Aggiungere un modello non richiede di aggiornare l'endpoint: basta caricarlo su S3 e invocarlo. Il costo di questa soluzione è il primo accesso a un modello, che può essere lento, cioè il cold start del modello. Per questo l'applicazione deve tollerare ritardi occasionali. Il multi-model funziona bene quando i modelli hanno dimensioni e latenze simili. Se un modello riceve molto più traffico degli altri, conviene un endpoint dedicato. Supporta VPC, auto scaling, A/B test, e istanze sia CPU sia GPU. La regola d'esame è semplice: stesso framework, molti modelli, traffico frammentato, e la risposta è il multi-model endpoint.",
+      "todo": []
+    },
+    {
+      "title": "Multi-container e inference pipeline",
+      "bullets": [
+        "Multi-container endpoint: fino a 15 container diversi, con modelli o framework differenti, sullo stesso endpoint",
+        "Invocazione diretta: TargetContainerHostname sceglie il container da raggiungere",
+        "IAM: sagemaker:TargetContainerHostname limita i container invocabili, diversa da sagemaker:TargetModel",
+        "Inference pipeline: una catena lineare di da 2 a 15 container, eseguiti in sequenza",
+        "I container di una pipeline girano sulle stesse istanze; nessun costo extra",
+        "Un multi-model endpoint può entrare in una pipeline solo come unico container"
+      ],
+      "narration": "Quando i modelli usano framework diversi, il multi-model non basta, perché ogni container ha un ambiente diverso. Il multi-container endpoint mette fino a 15 container diversi sullo stesso endpoint, e offre due modi di usarli. Nel primo, i container girano in sequenza come inference pipeline. Nel secondo si invoca un singolo container con la direct invocation: il campo TargetContainerHostname indica quale container deve ricevere la richiesta. Di default, chi ha il permesso InvokeEndpoint può chiamare qualsiasi container dell'endpoint. Per limitarlo si usa la condition key sagemaker:TargetContainerHostname, che è diversa da sagemaker:TargetModel, la chiave dei multi-model endpoint. L'inference pipeline è invece una sequenza lineare di da 2 a 15 container. SageMaker gestisce la chiamata come una serie di richieste HTTP. Il primo container riceve l'input, il suo output diventa l'input del secondo, e così via fino alla risposta finale. I container girano sulle stesse istanze, quindi il passaggio tra loro è rapido, e non ci sono costi aggiuntivi oltre alle istanze. È il modo classico di combinare il preprocessing con la predizione. Per esempio, si possono usare i container di Spark ML o scikit-learn, che riusano i trasformatori sviluppati durante il training. Un vincolo da ricordare: un multi-model endpoint può entrare in una inference pipeline solo come unico container multi-model. In sintesi: container diversi che servono richieste indipendenti sono un multi-container con invocazione diretta. Container in catena, dove ogni output alimenta il successivo, sono una inference pipeline. Modelli simili dello stesso framework, in gran numero, sono un multi-model endpoint.",
+      "todo": []
+    },
+    {
+      "title": "A/B test e shadow test con le production variant",
+      "bullets": [
+        "Pesi di traffico per variante: InitialVariantWeight, proporzionali tra loro",
+        "TargetVariant nella chiamata a InvokeEndpoint manda una richiesta a una variante precisa",
+        "UpdateEndpointWeightsAndCapacities sposta il traffico senza aggiornare l'endpoint",
+        "Shadow variant: ShadowProductionVariants nell'EndpointConfig, per validare un candidato",
+        "Blue/green, canary e linear: dettagli nel capitolo 10"
+      ],
+      "narration": "Le production variant servono a confrontare modelli, istanze o container sullo stesso endpoint, con traffico reale. Ogni variante ha un peso, e il traffico si divide in proporzione ai pesi. Con due varianti di peso 1 ciascuna, ognuna riceve il 50 per cento. I pesi si impostano con InitialVariantWeight nell'EndpointConfig. Si può anche mandare una richiesta a una variante precisa con il parametro TargetVariant di InvokeEndpoint. In quel caso il routing mirato sostituisce la distribuzione casuale. Per spostare il traffico senza aggiornare l'endpoint si usa UpdateEndpointWeightsAndCapacities, che cambia i pesi e la capacità. La documentazione mostra la sequenza: prima 50 e 50, poi 25 e 75, poi 0 e 1 quando la variante nuova è migliore e la vecchia si può rimuovere. Su CloudWatch si controllano le invocazioni e la latenza per ciascuna variante. Lo shadow test è una strategia diversa. Con ShadowProductionVariants nell'EndpointConfig si affianca alla variante di produzione una variante ombra. La documentazione la descrive come una variante di lunga durata, usata per validare un nuovo componente dello stack di serving, per esempio un container o un tipo di istanza, prima di promuoverlo in produzione. Le strategie di rilascio graduale, cioè blue/green, canary e linear, con i relativi rollback, sono nel capitolo 10. Il tranello è confondere l'A/B test con il rilascio graduale. Nell'A/B test due varianti ricevono traffico reale e il peso decide la quota. Nel rilascio graduale si sposta il traffico verso una nuova versione con meccanismi diversi.",
+      "todo": []
+    },
+    {
+      "title": "Container di inferenza e script di inference",
+      "bullets": [
+        "Deep Learning Container: immagini prebuilt per PyTorch, TensorFlow, MXNet, Hugging Face",
+        "Script di inferenza: model_fn carica il modello, una volta all'avvio",
+        "Per ogni richiesta: input_fn, poi predict_fn, poi output_fn",
+        "PyTorch: model_fn senza default; input JSON, CSV o NPY, output JSON, CSV o NPY",
+        "Container custom e BYOC: contratto e ECR nel capitolo 10"
+      ],
+      "narration": "Un endpoint esegue un container, e il container può essere di tre tipi. Il primo è un Deep Learning Container prebuilt di AWS, cioè un'immagine con PyTorch, TensorFlow, MXNet, Hugging Face o altri framework già installati. Il secondo è il container del framework scelto, dove si inserisce solo lo script di inferenza. Il terzo è un container custom, portato su ECR, che rispetta il contratto di serving: porta 8080, /ping e /invocations. Per i container di framework, lo script di inferenza definisce funzioni con nomi fissi. La funzione model_fn riceve la cartella con il modello e lo carica. Viene chiamata una volta, all'avvio del server. Per ogni richiesta, il server chiama input_fn con il corpo e il tipo di contenuto, poi predict_fn con l'oggetto ottenuto e il modello, e infine output_fn, che serializza la risposta. Nel container PyTorch, il default di input_fn accetta JSON, CSV o NPY e produce un tensore. Il default di output_fn accetta application/json, text/csv e application/x-npy. Per PyTorch, model_fn non ha un default, a meno di Elastic Inference, quindi va sempre scritto. Nel container scikit-learn l'input diventa un array NumPy, e il comportamento è analogo. Il modello è copiato in /opt/ml/model in sola lettura, dopo la decompressione del tar.gz. Il contratto BYOC, cioè il container tutto proprio con i dettagli di ECR e Dockerfile, è nel capitolo 10. Qui basta ricordare che il container deve rispondere sulla porta 8080, e che /ping deve dare un controllo di salute reale.",
+      "todo": []
+    },
+    {
+      "title": "Auto scaling degli endpoint, introdotto",
+      "bullets": [
+        "Aggiunge e toglie istanze in base al carico, per pagare solo la capacità usata",
+        "Target tracking: si fissa un valore obiettivo per una metrica",
+        "Metrica predefinita per variante: SageMakerVariantInvocationsPerInstance, invocazioni per istanza",
+        "Metriche ad alta risoluzione ogni 10 secondi, come ConcurrentRequestsPerModel",
+        "ScaleOutCooldown e ScaleInCooldown per evitare oscillazioni"
+      ],
+      "narration": "L'auto scaling aggiunge e toglie istanze da un endpoint in base al carico. Così non si paga capacità inutilizzata. Il meccanismo tipico è la target tracking policy: si fissa un valore obiettivo per una metrica, e SageMaker regola il numero di istanze per mantenerla vicina a quel valore. La metrica predefinita per le varianti è SageMakerVariantInvocationsPerInstance, cioè il numero di invocazioni per istanza. La documentazione usa come esempio un obiettivo di 70 invocazioni per istanza. Per i carichi con molte richieste concorrenti esistono metriche ad alta risoluzione, come ConcurrentRequestsPerModel. Queste emettono dati ogni 10 secondi, mentre le metriche standard emettono dati una volta al minuto. Con le metriche ad alta risoluzione la policy reagisce più in fretta all'aumento del traffico. Le policy hanno anche periodi di cooldown: ScaleOutCooldown regola l'aumento e ScaleInCooldown la riduzione, per evitare oscillazioni. Per l'esame bastano due idee. La prima è che l'auto scaling di un endpoint si basa su metriche di invocazione per istanza, non solo sulla CPU. La seconda è che l'asincrono e il serverless scalano a zero, mentre il real-time è pensato per restare attivo. Il dettaglio di minimo e massimo, delle policy programmate e della scelta delle metriche per il costo è nel capitolo 10.",
+      "todo": []
+    },
+    {
+      "title": "SageMaker Pipelines: DAG, parametri e cache",
+      "bullets": [
+        "Pipeline = DAG: nodi sono step, frecce nascono dalle dipendenze di dati",
+        "Parametri: ParameterString, ParameterInteger, ParameterFloat, ParameterBoolean, con default",
+        "Override a runtime: pipeline.start con il dizionario dei parametri",
+        "Caching: CacheConfig con Enabled e ExpireAfter in formato ISO 8601, disattivato per default",
+        "Solo esecuzioni riuscite vengono riusate, e solo dentro lo stesso pipeline"
+      ],
+      "narration": "SageMaker Pipelines è il servizio MLOps per definire il ciclo di vita del modello come grafo di step. Un pipeline è un DAG, cioè un grafo orientato senza cicli. Ogni nodo è uno step, e le frecce nascono dalle dipendenze di dati. Se lo step di training usa l'output dello step di preprocessing, la dipendenza è creata dal riferimento alla proprietà di quell'output. SageMaker esegue gli step nell'ordine che rispetta queste dipendenze. I parametri rendono il pipeline riutilizzabile. Si dichiarano con ParameterString, ParameterInteger, ParameterFloat o ParameterBoolean, con un valore di default. Si usano al posto dei valori fissi, per esempio per il tipo di istanza, il percorso S3 o una soglia di qualità. Al momento dell'esecuzione si può cambiare il valore con pipeline.start e un dizionario di parametri. Quelli non specificati prendono il default. Nel pipeline questi valori non sono ancora numeri, quindi non si possono concatenare con operazioni di stringa. Si usa la funzione Join. Il caching riusa l'output di uno step precedente quando configurazione e input sono uguali. Si attiva con CacheConfig, con Enabled impostato a true e un tempo di scadenza ExpireAfter in formato ISO 8601. Per esempio PT1H indica un'ora. Il caching è disattivato per default. Riusa solo esecuzioni riuscite, mai quelle fallite, e vale solo dentro lo stesso pipeline. È disponibile per Processing, Training, Tuning, AutoML, Transform, ClarifyCheck, QualityCheck ed EMR. Il risultato è meno costo e iterazioni più rapide, perché gli step invariati non vengono ricalcolati.",
+      "todo": []
+    },
+    {
+      "title": "Gli step di Pipelines e la valutazione",
+      "bullets": [
+        "Processing, Training, Tuning, AutoML, Model, Create model, Register model, Deploy model, Transform",
+        "Condition confronta valori e sceglie il ramo; Fail termina con un errore",
+        "Callback attende un sistema esterno; Lambda esegue una funzione",
+        "ClarifyCheck e QualityCheck confrontano il modello con una baseline",
+        "Evaluation non è un tipo di step: la valutazione è uno step Processing"
+      ],
+      "narration": "Gli step disponibili in SageMaker Pipelines sono diversi, ed è utile riconoscerli nelle domande. Processing esegue codice di preprocessing o di valutazione in un job gestito. Training addestra un modello. Tuning esegue l'ottimizzazione degli iperparametri. AutoML lancia un job AutoML. Model, Create model e Register model gestiscono il modello: lo definiscono, lo creano in SageMaker, o lo registrano nel Model Registry. Deploy model crea un endpoint. Transform esegue un batch transform. Condition confronta valori e sceglie il ramo da percorrere. Fail termina la pipeline con un errore. Callback si ferma e attende una risposta esterna. Lambda esegue una funzione. ClarifyCheck e QualityCheck confrontano il modello con una baseline: il primo per bias e spiegabilità, il secondo per qualità dei dati e del modello. Model Monitor e Clarify sono chiusi ai nuovi clienti: per un progetto nuovo, la strada indicata da AWS è la combinazione di soluzioni open source, QuickSight e CloudWatch. EMR, EMR serverless e Notebook job eseguono altri carichi di lavoro. Un tranello frequente è lo step Evaluation, che non esiste come tipo. La valutazione si fa con uno step Processing che scrive un file JSON con le metriche. La Condition legge quel file con JsonGet tramite un PropertyFile. Lo step Callback serve quando la pipeline deve aspettare una decisione umana o un sistema esterno. Pipelines invia un messaggio su una coda SQS con un token, e il processo esterno risponde con SendPipelineExecutionStepSuccess o SendPipelineExecutionStepFailure. Lo step Lambda ha un timeout di default di 120 secondi e un massimo di 10 minuti, e non può essere fermato mentre la funzione è in esecuzione. Per le attese lunghe la risposta è Callback.",
+      "todo": []
+    },
+    {
+      "title": "Esempio di pipeline completa, passo per passo",
+      "bullets": [
+        "Step 1, Processing: pulisce il dataset e lo divide in training e test",
+        "Step 2, Training: addestra il modello e ne salva l'artefatto su S3",
+        "Step 3, Processing: calcola le metriche e scrive un file JSON",
+        "Step 4, Condition: JsonGet legge l'errore e lo confronta con una soglia",
+        "Step 5, RegisterModel: model package con PendingManualApproval"
+      ],
+      "narration": "Vediamo una pipeline completa, seguendo l'esempio classico della documentazione. Primo step, un Processing. Prende il dataset grezzo da S3, pulisce i dati e lo divide in training e test. Secondo step, un Training. Addestra il modello sul dataset di training, e il risultato è un artefatto su S3. Il passo successivo fa riferimento a quell'artefatto tramite una proprietà dello step, e così nasce la dipendenza. Terzo step, un altro Processing. Carica il modello e il test set, calcola le metriche, per esempio l'errore quadratico medio, e scrive un file JSON di valutazione. Quarto step, una Condition. Legge il valore dell'errore da quel file con JsonGet, tramite un PropertyFile, e lo confronta con una soglia. La soglia è un ParameterFloat, quindi può cambiare a ogni esecuzione senza modificare il codice. Se l'errore è sotto soglia, il ramo vero registra il modello e crea il modello. Altrimenti il ramo falso esegue uno step Fail, che chiude la run con un messaggio di errore. Quinto step, RegisterModel. Crea un model package nel Model Registry, con stato di approvazione PendingManualApproval. A questo punto la pipeline di training è finita, e il modello attende una decisione. Ogni step è tracciato: si vede quale è riuscito, quale è fallito e con quali output. Il vantaggio è che lo stesso ciclo si rilancia cambiando solo i parametri, senza toccare il codice. Il caching evita di ripetere il preprocessing se dati e configurazione non cambiano. Per l'esame ricordate che approvazione e deploy non sono nella pipeline di training. Partono dopo, quando il modello viene approvato.",
+      "todo": []
+    },
+    {
+      "title": "Model Registry: versioni, metriche e approvazione",
+      "bullets": [
+        "Model package group: contenitore di tutte le versioni di un modello",
+        "Ogni versione porta metadati, metriche e lineage",
+        "Stati: PendingManualApproval, Approved, Rejected",
+        "PendingManualApproval verso Approved avvia il deploy CI/CD dei template",
+        "Attesa di una persona: CallbackStep, non LambdaStep"
+      ],
+      "narration": "Il Model Registry è il catalogo versionato dei modelli. Un model package group raccoglie tutte le versioni di un modello che risolve lo stesso problema. Ogni esecuzione di training che registra un modello aggiunge una nuova versione al gruppo. Ogni versione porta con sé metadati e metriche, per esempio l'errore di validazione. Porta anche il lineage, cioè da quali dati e da quale training nasce. Lo stato di approvazione è il cancello di qualità. Alla registrazione si imposta ModelApprovalStatus a PendingManualApproval. Poi una persona, o una regola automatica, lo porta ad Approved oppure a Rejected. Nei template di Projects le transizioni hanno conseguenze precise. Da PendingManualApproval ad Approved parte il deploy CI/CD della versione approvata. Da PendingManualApproval a Rejected non succede nulla. Da Rejected ad Approved parte di nuovo il deploy. Da Approved a Rejected parte un deploy dell'ultima versione ancora approvata. Dove entra EventBridge? Una regola EventBridge può osservare il cambio di stato nel registry e avviare il passo successivo, per esempio il deploy. Il template con Jenkins lo fa esattamente così, con una regola che controlla il registry per i modelli appena approvati. Il tranello dell'esame riguarda l'attesa di una persona. Se la pipeline deve aspettare un'approvazione umana, usate CallbackStep. Una LambdaStep non può aspettare una decisione umana, perché il suo timeout massimo è di 10 minuti. Il modo più pulito è spesso non tenere la pipeline aperta: la pipeline registra il modello con PendingManualApproval, e l'approvazione, tramite EventBridge, avvia il deploy.",
+      "todo": []
+    },
+    {
+      "title": "MLOps e CI/CD in sintesi con SageMaker Projects",
+      "bullets": [
+        "Projects: template di Service Catalog che creano l'infrastruttura di CI/CD",
+        "Template Git con CodePipeline: building e training, poi deployment con approvazione manuale",
+        "Template Jenkins: pipeline separate di build e deploy",
+        "Repository CodeCommit rimossi dai template dal 28 ottobre 2024",
+        "Dettagli di CodePipeline, CodeBuild e CodeDeploy nel capitolo 10"
+      ],
+      "narration": "SageMaker Projects automatizza l'MLOps con i template. Un template è un prodotto di Service Catalog che Studio rende disponibile agli utenti, e crea l'infrastruttura di CI/CD. Il template con repository Git di terze parti e CodePipeline ha un primo tipo, che riguarda building e training. Crea una pipeline SageMaker, la esegue e la aggiorna dal codice nel repository. Il secondo tipo riguarda il deployment. Distribuisce il modello in staging e in produzione con CloudFormation, e tra i due ambienti c'è un passo di approvazione manuale. Esiste anche un template che combina i due, e uno che usa Jenkins al posto di CodePipeline. Un template aggiunge i monitor di qualità dei dati, di qualità del modello e di bias drift. Questi monitor fanno parte di Model Monitor e Clarify, che sono chiusi ai nuovi clienti. Esiste anche un template per il build delle immagini: aggiunge una pipeline che costruisce i container e li registra su ECR. Un dettaglio da non dimenticare: i template con AWS CodeCommit sono stati rimossi dal 28 ottobre 2024. I nuovi progetti usano repository Git di terze parti. Il flusso tipico è questo. Un push nel repository lancia la build della pipeline di training. Il modello viene registrato nel registry. Una persona approva la versione, e il deploy parte. Il dettaglio di CodePipeline, CodeBuild e CodeDeploy, insieme ai rilasci blue/green, canary e linear, è nel capitolo 10.",
+      "todo": []
+    },
+    {
+      "title": "Orchestrazione oltre SageMaker Pipelines",
+      "bullets": [
+        "Step Functions: stati, retry e try/catch nativi, integrazione con oltre 200 servizi AWS",
+        "Pattern: request-response, .sync per aspettare un job, waitForTaskToken per attese esterne",
+        "EventBridge: regole che avviano pipeline su eventi o su schedule cron, fino a 5 target per regola",
+        "MWAA: Apache Airflow gestito, DAG in Python per workflow su molti sistemi",
+        "Regola pratica: solo SageMaker, Pipelines; servizi AWS con stati, Step Functions; eventi, EventBridge"
+      ],
+      "narration": "Non tutto il workflow sta dentro SageMaker. Per orchestrare più servizi abbiamo tre strumenti, e la scelta dipende da cosa coordinano. Step Functions è un orchestratore a stati, con integrazioni dirette verso oltre 200 servizi AWS tramite le loro API. Ha retry e gestione degli errori nativi, con try, catch e percorsi di fallback. Ha tre pattern di integrazione. Request-response va avanti appena arriva la risposta. Il pattern .sync aspetta la fine di un job, come un training SageMaker. Il pattern waitForTaskToken mette in pausa la macchina finché un processo esterno restituisce il token, ed è utile per le approvazioni umane. EventBridge non esegue passi, ma instrada eventi. Una regola può avviare una pipeline SageMaker con StartPipelineExecution quando arriva un file su S3 o quando cambia lo stato di un endpoint. Oppure la regola può partire secondo una pianificazione con un'espressione cron. Una regola può avere fino a cinque target. MWAA è Apache Airflow gestito. Si scrivono DAG in Python per workflow complessi che toccano molti sistemi, anche fuori da AWS, come ETL, reportistica o pipeline dati multi-sistema. Il criterio di scelta è questo. Se tutto il workflow sta dentro SageMaker, si usa SageMaker Pipelines. Se si coordinano servizi AWS con stati, retry, attese e approvazioni, si usa Step Functions. Se il workflow deve reagire a un evento o a una pianificazione, si aggiunge EventBridge. Se il workflow è un grafo complesso su molti sistemi e il team lavora già con Airflow, si usa MWAA. Lambda resta per la logica leggera tra un passo e l'altro. In esame, la parola chiave di MWAA è Airflow. Quella di Step Functions è stato, retry e attesa.",
+      "todo": []
+    }
+  ],
+  "script": "Questo capitolo porta il modello dal training al servizio. Il training produce pesi numerici, ma nessuno può ancora usarli. Usare un modello per produrre predizioni su dati nuovi si chiama inferenza. In SageMaker l'inferenza si configura con tre oggetti collegati tra loro. Il primo è il file model.tar.gz, un archivio compresso su Amazon S3 che contiene i pesi addestrati e, se serve, il codice per caricarli ed eseguirli. Il secondo è l'oggetto Model, che dice quale container usare, dove si trova l'archivio e quale ruolo IAM assumere. Il terzo è l'EndpointConfig, che descrive l'infrastruttura: quante istanze, di quale tipo, e come dividere il traffico. Con l'EndpointConfig si crea l'Endpoint, cioè l'istanza in esecuzione che riceve richieste HTTPS. Ogni voce dell'EndpointConfig si chiama production variant. Una variante lega un Model a un numero di istanze e a un peso di traffico. Per questo l'A/B test, che vedremo più avanti, si costruisce con più varianti sullo stesso endpoint. Ricordate la distinzione: il Model è il cosa, l'EndpointConfig è il come, l'Endpoint è il dove. Quando una domanda chiede di cambiare il modello senza toccare l'infrastruttura, pensate al Model. Quando chiede di cambiare tipo o numero di istanze, pensate all'EndpointConfig. Nelle slide successive vedremo le cinque opzioni di inferenza e come sceglierne una. L'endpoint real-time è un endpoint HTTPS sempre attivo, che gira su istanze dedicate e resta acceso anche senza traffico. Quando una domanda parla di traffico costante e di risposte immediate, questa è la risposta. Il limite del payload è di 25 MB e il tempo di risposta regolare è di 60 secondi. Per le risposte in streaming, cioè il modello che manda pezzi di output mentre li produce, il tempo arriva a 8 minuti. Alcuni materiali più vecchi indicano 6 MB come limite del real-time. Il valore attuale è 25 MB, e una domanda che cita un numero va letta con questo dato. Il container dentro l'endpoint deve ascoltare sulla porta 8080, accettare richieste POST su /invocations e rispondere su /ping. SageMaker chiama /ping come controllo di salute. Il container deve rispondere con 200 in modo costante, altrimenti l'istanza viene sostituita. Un controllo che risponde sempre 200, anche quando il modello non è caricato, nasconde il guasto e continua a mandare traffico a un'istanza rotta. Sull'endpoint si possono attivare l'auto scaling e il data capture, cioè la registrazione di richieste e risposte su S3, che alimenta il monitoraggio. Il costo segue le istanze: si paga finché l'endpoint è acceso, anche se non arrivano richieste. Esempio concreto: un sistema antifrode che deve rispondere in meno di 100 millisecondi a ogni transazione costante usa un real-time endpoint con almeno un'istanza sempre pronta. Il real-time è la scelta giusta quando il costo fisso delle istanze è giustificato dal traffico. L'inferenza serverless non richiede di scegliere né di gestire istanze. SageMaker crea le risorse quando arrivano richieste e le scala fino a zero quando il traffico si ferma. Si paga solo per il tempo di calcolo, misurato in millisecondi, e per i dati elaborati, e non per il tempo di inattività. È perfetta per traffico intermittente, prototipi e ambienti di test. I limiti da ricordare sono 4 MB di payload e 60 secondi di timeout. La memoria si sceglie tra 1024, 2048, 3072, 4096, 5120 e 6144 MB, e le risorse di calcolo crescono in proporzione. Il disco effimero è di 5 GB, indipendentemente dalla memoria. Il punto debole è il cold start. Quando l'endpoint non riceve traffico per un po' e arriva una richiesta, SageMaker deve avviare le risorse, scaricare il modello e far partire il container. Questo ritardo si misura con la metrica CloudWatch OverheadLatency. Un cold start può capitare anche quando le richieste concorrenti superano la concorrenza attuale. La concorrenza massima per un singolo endpoint arriva a 200, mentre il totale condiviso tra gli endpoint serverless dipende dalla regione. Per ridurre i cold start si usa la provisioned concurrency: SageMaker tiene pronto un numero definito di risorse, che rispondono in millisecondi. Si paga anche la capacità riservata, quindi conviene quando i picchi sono prevedibili. Il tranello è questo: se la domanda chiede una latenza costante sotto una soglia rigida, il serverless è escluso, anche con traffico basso. Prima di scegliere il serverless bisogna controllare che la funzione richiesta sia supportata, perché l'esclusione è netta. Il serverless non supporta GPU, i prodotti del marketplace AWS e i registry Docker privati. Non supporta il multi-model endpoint, né la configurazione VPC e nemmeno la network isolation. Non supporta il data capture e Model Monitor. Se una domanda chiede il monitoraggio della qualità dei dati su un endpoint serverless, la risposta non è quella. Non supporta le varianti multiple, cioè l'A/B test sullo stesso endpoint, e non supporta le inference pipeline. Ci sono due regole di passaggio da ricordare. Un endpoint real-time non si può convertire in serverless: l'aggiornamento viene rifiutato con un ValidationError. Un endpoint serverless si può invece convertire in real-time, ma una volta fatta la modifica non si torna indietro. È un tranello tipico: un team che parte dal serverless per risparmiare e poi ha bisogno di GPU deve creare un nuovo endpoint real-time. Model Monitor, che compare in questa lista, va trattato con attenzione: è chiuso ai nuovi clienti. Secondo l'annuncio AWS, dal 30 luglio 2026 non è più aperto ai nuovi clienti. Chi lo usa già può continuare, ma AWS non prevede nuove funzioni. AWS indica come alternativa una combinazione di soluzioni di monitoraggio open source pubblicate su GitHub, QuickSight e CloudWatch. Il concetto di monitoraggio resta utile anche per la MLA-C02, anche se lo strumento cambia. Il monitoraggio è trattato nel capitolo 5. L'inferenza asincrona è pensata per richieste con payload grandi e tempi di elaborazione lunghi, fino a 1 GB di payload e fino a un'ora. Il flusso è diverso dal real-time. Il client scrive il payload su S3 e chiama InvokeEndpointAsync, passando il puntatore a quel file. SageMaker mette la richiesta in una coda interna, risponde subito con un identificatore e con la posizione dell'output, e poi elabora. Il risultato viene scritto su S3. Se si configurano le notifiche SNS, arriva un messaggio di successo o di errore. Il client quindi non aspetta una risposta HTTP che dura minuti: aspetta una notifica oppure legge S3. Il vantaggio economico è lo scale to zero. Quando non ci sono richieste il numero di istanze scende a zero, e si paga solo mentre l'endpoint elabora. La configurazione è un AsyncInferenceConfig nell'EndpointConfig, e un endpoint con questa configurazione accetta solo invocazioni asincrone. Nei casi tipici rientrano documenti NLP lunghi, immagini e video di grandi dimensioni, e in generale tutto ciò che supera i 25 MB del real-time o i 4 MB del serverless, purché la risposta non serva subito. Il tranello più frequente è sbagliare il limite. Un file da 800 MB con elaborazione di minuti va in asincrono, non nel real-time e non nel serverless. Se invece l'input è un dataset intero che non ha bisogno di un endpoint, la risposta è il batch transform, che vediamo nella prossima slide. Il batch transform non crea un endpoint. È un job offline che legge uno o più dataset da S3, applica il modello e scrive le predizioni su S3. Non c'è nulla da tenere acceso tra un'esecuzione e l'altra, quindi per lo scoring notturno di milioni di record è spesso l'opzione più economica. Il job suddivide il lavoro tra le istanze, ma con una regola precisa: ogni file dell'input viene elaborato separatamente. Se c'è un solo file grande, una sola istanza lavora e le altre restano ferme. Per parallelizzare servono più file in input: un file grande, anche diviso in mini-batch, viene comunque elaborato da una sola istanza. Il parametro SplitType impostato a Line suddivide il file riga per riga. Il parametro MaxPayloadInMB controlla la dimensione di ogni richiesta, e non può superare 100 MB. Il parametro BatchStrategy controlla come vengono raggruppati i record in ciascuna richiesta. Se si usa MaxConcurrentTransforms, il valore ideale è pari al numero di worker del job, e il prodotto con MaxPayloadInMB non deve superare 100 MB. L'output ha lo stesso nome del file di input con estensione .out, e le predizioni compaiono nello stesso ordine dei record. Con AssembleWith impostato a Line le predizioni vengono concatenate con un a capo, ma il numero di file di output resta uguale a quello di input. Il batch transform può elaborare dataset da gigabyte e tempi di giorni. È il candidato naturale per predizioni precalcolate, per il preprocessing dei dati e per confrontare varianti su un validation set. Il tranello: se la domanda chiede una risposta per ogni richiesta che arriva, il batch non è adatto, perché le predizioni vengono calcolate in blocco. Mettiamo insieme le opzioni in un albero di decisione, che si legge partendo dalle parole chiave della domanda. Il primo bivio è se serve un endpoint. Se la domanda parla di dataset già in S3, di risultati notturni, di predizioni precalcolate o di milioni di record senza fretta, non serve un endpoint: si sceglie il batch transform. Se invece serve una risposta per ogni richiesta, il secondo bivio riguarda il traffico. Traffico costante, latenza sotto i 100 millisecondi, sistemi di frodi o raccomandazioni portano al real-time. Traffico intermittente o imprevedibile, con periodi di inattività e tolleranza al cold start, porta al serverless, purché il modello non abbia bisogno di GPU, VPC o delle altre funzioni escluse. Se il payload supera 4 MB, oppure l'elaborazione è lunga e la risposta può arrivare dopo minuti, il ramo giusto è l'asincrono, con limiti di 1 GB e di un'ora. Se i modelli sono molti, poco usati e dello stesso framework, il ramo è il multi-model endpoint. Se la domanda descrive container di framework diversi o una catena di preprocessing e predizione, il ramo è il multi-container o l'inference pipeline, che vedremo più avanti. Il metodo è sempre lo stesso: partite dal vincolo più restrittivo della domanda. Un requisito di latenza rigida esclude il serverless anche quando il traffico è basso. Un requisito di payload grandi esclude il real-time anche quando il traffico è costante. Solo dopo aver escluso le opzioni incompatibili con i vincoli si sceglie quella più economica tra le rimaste. Le domande dell'esame usano parole chiave che sembrano indicare una risposta e ne nascondono un'altra. Il primo tranello è il traffico imprevedibile con tolleranza ai ritardi. La risposta sembra il serverless, ma se la domanda aggiunge GPU o VPC, il serverless è escluso. Il secondo è il payload da 6 MB, che sembra il limite del real-time di una versione precedente. Oggi il real-time arriva a 25 MB, mentre il serverless si ferma a 4 MB. Il terzo è il file da 800 MB con elaborazione di minuti, che va in asincrono e non nel real-time. Il quarto è il dataset di cinquanta milioni di transazioni salvate in S3, senza bisogno di risposte immediate. La risposta è il batch transform, non l'asincrono, perché non serve una coda di richieste. Il quinto è un'azienda che serve centinaia di modelli dello stesso framework, ciascuno usato di rado. La risposta è un multi-model endpoint, non un endpoint per modello e non un job per modello. Il sesto è un payload oltre 1 GB o un'elaborazione che dura giorni. Qui l'asincrono non basta e la strada è il batch transform. Quando leggete una domanda, cercate il vincolo più forte e verificate che l'opzione scelta non lo violi. Spesso la domanda contiene due vincoli, uno di costo e uno di latenza, e la risposta giusta è quella che rispetta il vincolo più duro. Un'altra trappola riguarda i numeri. Se un'opzione sembra corretta ma il numero citato non corrisponde ai limiti attuali, la risposta è sbagliata. Il multi-model endpoint risolve un problema di costo. Centinaia di modelli dello stesso framework, ciascuno usato di rado, non devono occupare ciascuno la propria istanza. Tutti i modelli condividono un gruppo di istanze e un container di serving comune. I modelli non vengono scaricati tutti quando l'endpoint parte. Quando arriva una richiesta per un modello, SageMaker la instrada a un'istanza, scarica il modello da S3 sul volume dell'istanza se non c'è già, e lo carica in memoria. Le richieste successive allo stesso modello sono più veloci, perché il modello è già in memoria. Se la memoria si riempie, SageMaker scarica dalla memoria i modelli non usati. Questi restano sul volume dell'istanza e possono tornare in memoria senza un nuovo download. Il modello si indica con il parametro TargetModel nella chiamata a InvokeEndpoint. La chiave di condizione IAM sagemaker:TargetModel usa lo stesso nome. Aggiungere un modello non richiede di aggiornare l'endpoint: basta caricarlo su S3 e invocarlo. Il costo di questa soluzione è il primo accesso a un modello, che può essere lento, cioè il cold start del modello. Per questo l'applicazione deve tollerare ritardi occasionali. Il multi-model funziona bene quando i modelli hanno dimensioni e latenze simili. Se un modello riceve molto più traffico degli altri, conviene un endpoint dedicato. Supporta VPC, auto scaling, A/B test, e istanze sia CPU sia GPU. La regola d'esame è semplice: stesso framework, molti modelli, traffico frammentato, e la risposta è il multi-model endpoint. Quando i modelli usano framework diversi, il multi-model non basta, perché ogni container ha un ambiente diverso. Il multi-container endpoint mette fino a 15 container diversi sullo stesso endpoint, e offre due modi di usarli. Nel primo, i container girano in sequenza come inference pipeline. Nel secondo si invoca un singolo container con la direct invocation: il campo TargetContainerHostname indica quale container deve ricevere la richiesta. Di default, chi ha il permesso InvokeEndpoint può chiamare qualsiasi container dell'endpoint. Per limitarlo si usa la condition key sagemaker:TargetContainerHostname, che è diversa da sagemaker:TargetModel, la chiave dei multi-model endpoint. L'inference pipeline è invece una sequenza lineare di da 2 a 15 container. SageMaker gestisce la chiamata come una serie di richieste HTTP. Il primo container riceve l'input, il suo output diventa l'input del secondo, e così via fino alla risposta finale. I container girano sulle stesse istanze, quindi il passaggio tra loro è rapido, e non ci sono costi aggiuntivi oltre alle istanze. È il modo classico di combinare il preprocessing con la predizione. Per esempio, si possono usare i container di Spark ML o scikit-learn, che riusano i trasformatori sviluppati durante il training. Un vincolo da ricordare: un multi-model endpoint può entrare in una inference pipeline solo come unico container multi-model. In sintesi: container diversi che servono richieste indipendenti sono un multi-container con invocazione diretta. Container in catena, dove ogni output alimenta il successivo, sono una inference pipeline. Modelli simili dello stesso framework, in gran numero, sono un multi-model endpoint. Le production variant servono a confrontare modelli, istanze o container sullo stesso endpoint, con traffico reale. Ogni variante ha un peso, e il traffico si divide in proporzione ai pesi. Con due varianti di peso 1 ciascuna, ognuna riceve il 50 per cento. I pesi si impostano con InitialVariantWeight nell'EndpointConfig. Si può anche mandare una richiesta a una variante precisa con il parametro TargetVariant di InvokeEndpoint. In quel caso il routing mirato sostituisce la distribuzione casuale. Per spostare il traffico senza aggiornare l'endpoint si usa UpdateEndpointWeightsAndCapacities, che cambia i pesi e la capacità. La documentazione mostra la sequenza: prima 50 e 50, poi 25 e 75, poi 0 e 1 quando la variante nuova è migliore e la vecchia si può rimuovere. Su CloudWatch si controllano le invocazioni e la latenza per ciascuna variante. Lo shadow test è una strategia diversa. Con ShadowProductionVariants nell'EndpointConfig si affianca alla variante di produzione una variante ombra. La documentazione la descrive come una variante di lunga durata, usata per validare un nuovo componente dello stack di serving, per esempio un container o un tipo di istanza, prima di promuoverlo in produzione. Le strategie di rilascio graduale, cioè blue/green, canary e linear, con i relativi rollback, sono nel capitolo 10. Il tranello è confondere l'A/B test con il rilascio graduale. Nell'A/B test due varianti ricevono traffico reale e il peso decide la quota. Nel rilascio graduale si sposta il traffico verso una nuova versione con meccanismi diversi. Un endpoint esegue un container, e il container può essere di tre tipi. Il primo è un Deep Learning Container prebuilt di AWS, cioè un'immagine con PyTorch, TensorFlow, MXNet, Hugging Face o altri framework già installati. Il secondo è il container del framework scelto, dove si inserisce solo lo script di inferenza. Il terzo è un container custom, portato su ECR, che rispetta il contratto di serving: porta 8080, /ping e /invocations. Per i container di framework, lo script di inferenza definisce funzioni con nomi fissi. La funzione model_fn riceve la cartella con il modello e lo carica. Viene chiamata una volta, all'avvio del server. Per ogni richiesta, il server chiama input_fn con il corpo e il tipo di contenuto, poi predict_fn con l'oggetto ottenuto e il modello, e infine output_fn, che serializza la risposta. Nel container PyTorch, il default di input_fn accetta JSON, CSV o NPY e produce un tensore. Il default di output_fn accetta application/json, text/csv e application/x-npy. Per PyTorch, model_fn non ha un default, a meno di Elastic Inference, quindi va sempre scritto. Nel container scikit-learn l'input diventa un array NumPy, e il comportamento è analogo. Il modello è copiato in /opt/ml/model in sola lettura, dopo la decompressione del tar.gz. Il contratto BYOC, cioè il container tutto proprio con i dettagli di ECR e Dockerfile, è nel capitolo 10. Qui basta ricordare che il container deve rispondere sulla porta 8080, e che /ping deve dare un controllo di salute reale. L'auto scaling aggiunge e toglie istanze da un endpoint in base al carico. Così non si paga capacità inutilizzata. Il meccanismo tipico è la target tracking policy: si fissa un valore obiettivo per una metrica, e SageMaker regola il numero di istanze per mantenerla vicina a quel valore. La metrica predefinita per le varianti è SageMakerVariantInvocationsPerInstance, cioè il numero di invocazioni per istanza. La documentazione usa come esempio un obiettivo di 70 invocazioni per istanza. Per i carichi con molte richieste concorrenti esistono metriche ad alta risoluzione, come ConcurrentRequestsPerModel. Queste emettono dati ogni 10 secondi, mentre le metriche standard emettono dati una volta al minuto. Con le metriche ad alta risoluzione la policy reagisce più in fretta all'aumento del traffico. Le policy hanno anche periodi di cooldown: ScaleOutCooldown regola l'aumento e ScaleInCooldown la riduzione, per evitare oscillazioni. Per l'esame bastano due idee. La prima è che l'auto scaling di un endpoint si basa su metriche di invocazione per istanza, non solo sulla CPU. La seconda è che l'asincrono e il serverless scalano a zero, mentre il real-time è pensato per restare attivo. Il dettaglio di minimo e massimo, delle policy programmate e della scelta delle metriche per il costo è nel capitolo 10. SageMaker Pipelines è il servizio MLOps per definire il ciclo di vita del modello come grafo di step. Un pipeline è un DAG, cioè un grafo orientato senza cicli. Ogni nodo è uno step, e le frecce nascono dalle dipendenze di dati. Se lo step di training usa l'output dello step di preprocessing, la dipendenza è creata dal riferimento alla proprietà di quell'output. SageMaker esegue gli step nell'ordine che rispetta queste dipendenze. I parametri rendono il pipeline riutilizzabile. Si dichiarano con ParameterString, ParameterInteger, ParameterFloat o ParameterBoolean, con un valore di default. Si usano al posto dei valori fissi, per esempio per il tipo di istanza, il percorso S3 o una soglia di qualità. Al momento dell'esecuzione si può cambiare il valore con pipeline.start e un dizionario di parametri. Quelli non specificati prendono il default. Nel pipeline questi valori non sono ancora numeri, quindi non si possono concatenare con operazioni di stringa. Si usa la funzione Join. Il caching riusa l'output di uno step precedente quando configurazione e input sono uguali. Si attiva con CacheConfig, con Enabled impostato a true e un tempo di scadenza ExpireAfter in formato ISO 8601. Per esempio PT1H indica un'ora. Il caching è disattivato per default. Riusa solo esecuzioni riuscite, mai quelle fallite, e vale solo dentro lo stesso pipeline. È disponibile per Processing, Training, Tuning, AutoML, Transform, ClarifyCheck, QualityCheck ed EMR. Il risultato è meno costo e iterazioni più rapide, perché gli step invariati non vengono ricalcolati. Gli step disponibili in SageMaker Pipelines sono diversi, ed è utile riconoscerli nelle domande. Processing esegue codice di preprocessing o di valutazione in un job gestito. Training addestra un modello. Tuning esegue l'ottimizzazione degli iperparametri. AutoML lancia un job AutoML. Model, Create model e Register model gestiscono il modello: lo definiscono, lo creano in SageMaker, o lo registrano nel Model Registry. Deploy model crea un endpoint. Transform esegue un batch transform. Condition confronta valori e sceglie il ramo da percorrere. Fail termina la pipeline con un errore. Callback si ferma e attende una risposta esterna. Lambda esegue una funzione. ClarifyCheck e QualityCheck confrontano il modello con una baseline: il primo per bias e spiegabilità, il secondo per qualità dei dati e del modello. Model Monitor e Clarify sono chiusi ai nuovi clienti: per un progetto nuovo, la strada indicata da AWS è la combinazione di soluzioni open source, QuickSight e CloudWatch. EMR, EMR serverless e Notebook job eseguono altri carichi di lavoro. Un tranello frequente è lo step Evaluation, che non esiste come tipo. La valutazione si fa con uno step Processing che scrive un file JSON con le metriche. La Condition legge quel file con JsonGet tramite un PropertyFile. Lo step Callback serve quando la pipeline deve aspettare una decisione umana o un sistema esterno. Pipelines invia un messaggio su una coda SQS con un token, e il processo esterno risponde con SendPipelineExecutionStepSuccess o SendPipelineExecutionStepFailure. Lo step Lambda ha un timeout di default di 120 secondi e un massimo di 10 minuti, e non può essere fermato mentre la funzione è in esecuzione. Per le attese lunghe la risposta è Callback. Vediamo una pipeline completa, seguendo l'esempio classico della documentazione. Primo step, un Processing. Prende il dataset grezzo da S3, pulisce i dati e lo divide in training e test. Secondo step, un Training. Addestra il modello sul dataset di training, e il risultato è un artefatto su S3. Il passo successivo fa riferimento a quell'artefatto tramite una proprietà dello step, e così nasce la dipendenza. Terzo step, un altro Processing. Carica il modello e il test set, calcola le metriche, per esempio l'errore quadratico medio, e scrive un file JSON di valutazione. Quarto step, una Condition. Legge il valore dell'errore da quel file con JsonGet, tramite un PropertyFile, e lo confronta con una soglia. La soglia è un ParameterFloat, quindi può cambiare a ogni esecuzione senza modificare il codice. Se l'errore è sotto soglia, il ramo vero registra il modello e crea il modello. Altrimenti il ramo falso esegue uno step Fail, che chiude la run con un messaggio di errore. Quinto step, RegisterModel. Crea un model package nel Model Registry, con stato di approvazione PendingManualApproval. A questo punto la pipeline di training è finita, e il modello attende una decisione. Ogni step è tracciato: si vede quale è riuscito, quale è fallito e con quali output. Il vantaggio è che lo stesso ciclo si rilancia cambiando solo i parametri, senza toccare il codice. Il caching evita di ripetere il preprocessing se dati e configurazione non cambiano. Per l'esame ricordate che approvazione e deploy non sono nella pipeline di training. Partono dopo, quando il modello viene approvato. Il Model Registry è il catalogo versionato dei modelli. Un model package group raccoglie tutte le versioni di un modello che risolve lo stesso problema. Ogni esecuzione di training che registra un modello aggiunge una nuova versione al gruppo. Ogni versione porta con sé metadati e metriche, per esempio l'errore di validazione. Porta anche il lineage, cioè da quali dati e da quale training nasce. Lo stato di approvazione è il cancello di qualità. Alla registrazione si imposta ModelApprovalStatus a PendingManualApproval. Poi una persona, o una regola automatica, lo porta ad Approved oppure a Rejected. Nei template di Projects le transizioni hanno conseguenze precise. Da PendingManualApproval ad Approved parte il deploy CI/CD della versione approvata. Da PendingManualApproval a Rejected non succede nulla. Da Rejected ad Approved parte di nuovo il deploy. Da Approved a Rejected parte un deploy dell'ultima versione ancora approvata. Dove entra EventBridge? Una regola EventBridge può osservare il cambio di stato nel registry e avviare il passo successivo, per esempio il deploy. Il template con Jenkins lo fa esattamente così, con una regola che controlla il registry per i modelli appena approvati. Il tranello dell'esame riguarda l'attesa di una persona. Se la pipeline deve aspettare un'approvazione umana, usate CallbackStep. Una LambdaStep non può aspettare una decisione umana, perché il suo timeout massimo è di 10 minuti. Il modo più pulito è spesso non tenere la pipeline aperta: la pipeline registra il modello con PendingManualApproval, e l'approvazione, tramite EventBridge, avvia il deploy. SageMaker Projects automatizza l'MLOps con i template. Un template è un prodotto di Service Catalog che Studio rende disponibile agli utenti, e crea l'infrastruttura di CI/CD. Il template con repository Git di terze parti e CodePipeline ha un primo tipo, che riguarda building e training. Crea una pipeline SageMaker, la esegue e la aggiorna dal codice nel repository. Il secondo tipo riguarda il deployment. Distribuisce il modello in staging e in produzione con CloudFormation, e tra i due ambienti c'è un passo di approvazione manuale. Esiste anche un template che combina i due, e uno che usa Jenkins al posto di CodePipeline. Un template aggiunge i monitor di qualità dei dati, di qualità del modello e di bias drift. Questi monitor fanno parte di Model Monitor e Clarify, che sono chiusi ai nuovi clienti. Esiste anche un template per il build delle immagini: aggiunge una pipeline che costruisce i container e li registra su ECR. Un dettaglio da non dimenticare: i template con AWS CodeCommit sono stati rimossi dal 28 ottobre 2024. I nuovi progetti usano repository Git di terze parti. Il flusso tipico è questo. Un push nel repository lancia la build della pipeline di training. Il modello viene registrato nel registry. Una persona approva la versione, e il deploy parte. Il dettaglio di CodePipeline, CodeBuild e CodeDeploy, insieme ai rilasci blue/green, canary e linear, è nel capitolo 10. Non tutto il workflow sta dentro SageMaker. Per orchestrare più servizi abbiamo tre strumenti, e la scelta dipende da cosa coordinano. Step Functions è un orchestratore a stati, con integrazioni dirette verso oltre 200 servizi AWS tramite le loro API. Ha retry e gestione degli errori nativi, con try, catch e percorsi di fallback. Ha tre pattern di integrazione. Request-response va avanti appena arriva la risposta. Il pattern .sync aspetta la fine di un job, come un training SageMaker. Il pattern waitForTaskToken mette in pausa la macchina finché un processo esterno restituisce il token, ed è utile per le approvazioni umane. EventBridge non esegue passi, ma instrada eventi. Una regola può avviare una pipeline SageMaker con StartPipelineExecution quando arriva un file su S3 o quando cambia lo stato di un endpoint. Oppure la regola può partire secondo una pianificazione con un'espressione cron. Una regola può avere fino a cinque target. MWAA è Apache Airflow gestito. Si scrivono DAG in Python per workflow complessi che toccano molti sistemi, anche fuori da AWS, come ETL, reportistica o pipeline dati multi-sistema. Il criterio di scelta è questo. Se tutto il workflow sta dentro SageMaker, si usa SageMaker Pipelines. Se si coordinano servizi AWS con stati, retry, attese e approvazioni, si usa Step Functions. Se il workflow deve reagire a un evento o a una pianificazione, si aggiunge EventBridge. Se il workflow è un grafo complesso su molti sistemi e il team lavora già con Airflow, si usa MWAA. Lambda resta per la logica leggera tra un passo e l'altro. In esame, la parola chiave di MWAA è Airflow. Quella di Step Functions è stato, retry e attesa.",
   "quiz": [
     {
-      "q": "Un modello antifrode riceve traffico costante tutto il giorno e deve rispondere in meno di 100 ms. Quale opzione di inferenza e la migliore?",
+      "q": "Un modello antifrode riceve traffico costante tutto il giorno e deve rispondere in meno di 100 millisecondi. Quale opzione è la migliore?",
       "options": [
-        "Inferenza serverless, che scala a zero quando non c'e traffico",
-        "Inferenza asincrona, con coda interna e risposta su S3 piu notifica",
-        "Endpoint real-time con auto scaling",
-        "Job di batch transform eseguito in parallelo su dataset S3 notturni"
+        "Inferenza serverless, che scala a zero quando non c'è traffico",
+        "Inferenza asincrona, con coda interna e notifica SNS",
+        "Endpoint real-time sempre attivo, con auto scaling",
+        "Job di batch transform notturno su dataset S3"
       ],
       "answer": 2,
-      "explain": "Il traffico costante con SLA stretta esclude il serverless, per i cold start, e async o batch, perche non sono in tempo reale. Un endpoint real-time con auto scaling e la risposta classica."
+      "explain": "Il traffico costante con latenza bassa va al real-time. Il serverless ha cold start, l'asincrono non risponde in tempo reale e il batch non è una risposta per richiesta."
     },
     {
-      "q": "Un prototipo riceve poche richieste all'ora in momenti imprevedibili. Il costo deve essere minimo. Quale opzione e la migliore?",
+      "q": "Un prototipo riceve poche richieste all'ora, in momenti imprevedibili, e il costo deve essere minimo. Quale opzione è la migliore?",
       "options": [
-        "Endpoint real-time con due istanze sempre attive, anche senza richieste",
         "Inferenza serverless",
-        "Inferenza asincrona",
-        "Endpoint multi-model condiviso tra modelli di team diversi"
+        "Endpoint real-time con due istanze sempre attive",
+        "Endpoint multi-container con due modelli",
+        "Job di batch transform per ogni richiesta"
       ],
-      "answer": 1,
-      "explain": "L'inferenza serverless scala a zero e fattura a consumo, quindi e ideale per il traffico intermittente. Il ritardo iniziale del cold start e accettabile perche la domanda non cita una SLA stretta."
+      "answer": 0,
+      "explain": "Il serverless scala a zero e si paga per richiesta, quindi è ideale per traffico intermittente. Il cold start è accettabile in un prototipo."
     },
     {
-      "q": "Un modello NLP elabora documenti PDF fino a 800 MB, ciascuno per fino a 10 minuti, e gli utenti devono essere avvisati al termine. Quale opzione e la migliore?",
+      "q": "Un modello NLP riceve documenti PDF fino a 800 MB, ciascuno con elaborazione di circa dieci minuti, e gli utenti vanno avvisati al termine. Quale opzione è la migliore?",
       "options": [
-        "Endpoint real-time sempre attivo, con risposta immediata e istanze dedicate",
-        "Inferenza serverless, che scala a zero e fattura solo le richieste ricevute",
-        "Batch transform, con job offline pensato per dataset gia presenti in S3",
+        "Endpoint real-time sempre attivo, con istanze dedicate",
+        "Inferenza serverless, con memoria massima",
+        "Batch transform su un solo file alla volta",
         "Inferenza asincrona"
       ],
       "answer": 3,
-      "explain": "Payload vicini a 1 GB e tempi di elaborazione di minuti superano i limiti di real-time, 25 MB, e serverless, 4 MB e 60 secondi. L'inferenza asincrona accetta fino a 1 GB e un'ora, con input e output su S3 e notifica SNS."
+      "explain": "L'asincrona accetta fino a 1 GB e un'ora di elaborazione, con output su S3 e notifica SNS. Real-time e serverless hanno limiti più bassi."
     },
     {
-      "q": "Ogni notte un'azienda assegna punteggi a 50 milioni di transazioni salvate, senza bisogno di risposte immediate. Quale opzione e la piu economica?",
+      "q": "Ogni notte un'azienda assegna punteggi a 50 milioni di transazioni salvate su S3, senza bisogno di risposte immediate. Quale opzione è la più economica?",
       "options": [
-        "Batch transform",
         "Endpoint real-time",
-        "Inferenza asincrona",
+        "Batch transform",
+        "Inferenza asincrona con coda",
         "Inferenza serverless"
       ],
-      "answer": 0,
-      "explain": "Batch transform e l'opzione offline: input e output su S3, istanze in parallelo, nessun endpoint da tenere acceso. E la scelta standard per lo scoring notturno di grandi dataset."
+      "answer": 1,
+      "explain": "Il batch transform è un job offline senza endpoint, con input e output su S3. Non c'è nulla da tenere acceso tra un'esecuzione e l'altra."
     },
     {
-      "q": "Un'azienda SaaS serve 300 modelli per cliente sullo stesso framework, ciascuno usato di rado. Come riduce i costi?",
+      "q": "Un'azienda SaaS serve 300 modelli dello stesso framework, ciascuno usato di rado. Come riduce i costi?",
       "options": [
         "Un endpoint real-time per ogni modello",
-        "Un multi-model endpoint",
         "Un endpoint serverless per ogni modello",
+        "Un multi-model endpoint condiviso",
         "Un job di batch transform per ogni modello"
       ],
-      "answer": 1,
-      "explain": "Centinaia di modelli dello stesso framework, poco usati, sono il caso tipico del multi-model endpoint: un solo endpoint condiviso carica i modelli da S3 quando servono, invece di pagare centinaia di endpoint inattivi."
+      "answer": 2,
+      "explain": "Il multi-model endpoint condivide istanze e container tra molti modelli dello stesso framework, caricandoli da S3 quando servono. Un endpoint serverless per modello non regge: un account ha al massimo 50 endpoint serverless per regione."
     },
     {
-      "q": "In una SageMaker Pipeline, quale step registra un modello addestrato come pacchetto versionato, con approvazione prima della produzione?",
+      "q": "Una catena prevede un container di preprocessing e un container di predizione, che devono girare in sequenza sullo stesso endpoint. Quale soluzione usate?",
       "options": [
-        "TrainingStep, che addestra il modello ma non lo registra",
-        "ConditionStep, che confronta le metriche e decide il percorso",
-        "RegisterModel con stato di approvazione",
-        "FailStep, che termina la pipeline quando una condizione non e soddisfatta"
+        "Inference pipeline, con container in sequenza",
+        "Multi-model endpoint con container diversi",
+        "Shadow test su una variante",
+        "Endpoint serverless con GPU attiva"
+      ],
+      "answer": 0,
+      "explain": "L'inference pipeline esegue i container in sequenza, con l'output di ciascuno in ingresso al successivo. Il serverless non supporta le inference pipeline."
+    },
+    {
+      "q": "Un team vuole mandare il 25 per cento del traffico a una nuova versione di modello, senza aggiornare l'endpoint. Quale campo imposta il peso della variante?",
+      "options": [
+        "TargetModel",
+        "TargetContainerHostname",
+        "ScaleInCooldown",
+        "InitialVariantWeight"
+      ],
+      "answer": 3,
+      "explain": "InitialVariantWeight nell'EndpointConfig imposta il peso. Lo spostamento successivo si fa con UpdateEndpointWeightsAndCapacities."
+    },
+    {
+      "q": "In una pipeline, quale step valuta il modello e scrive le metriche usate per la decisione?",
+      "options": [
+        "Evaluation, lo step dedicato alla valutazione",
+        "Processing, con un file JSON di metriche",
+        "Fail, che registra le metriche",
+        "Transform, che calcola l'errore"
+      ],
+      "answer": 1,
+      "explain": "Evaluation non è un tipo di step. La valutazione è uno step Processing che scrive un file JSON, letto da una Condition con JsonGet."
+    },
+    {
+      "q": "Una pipeline deve attendere che un revisore umano approvi il modello prima di proseguire. Quale step usate?",
+      "options": [
+        "LambdaStep, che attende fino a un'ora",
+        "ConditionStep con una soglia",
+        "CallbackStep",
+        "TrainingStep"
       ],
       "answer": 2,
-      "explain": "RegisterModel crea un pacchetto versionato nel Model Registry con stato di approvazione, e fa da cancello di qualita. Solo i pacchetti Approved passano alla fase di deploy."
+      "explain": "CallbackStep attende una risposta esterna tramite SendPipelineExecutionStepSuccess o Failure. La LambdaStep ha un timeout massimo di 10 minuti."
+    },
+    {
+      "q": "Dopo l'approvazione di un modello nel Model Registry, il deploy deve partire da solo. Quale meccanismo usate?",
+      "options": [
+        "Un ParameterString",
+        "Una regola EventBridge sul cambio di stato",
+        "Un CacheConfig",
+        "Un monitor di Model Monitor"
+      ],
+      "answer": 1,
+      "explain": "Una regola EventBridge osserva il cambio di stato nel registry e avvia il deploy. Model Monitor non avvia deploy."
+    },
+    {
+      "q": "Quale stato di approvazione ha una versione appena registrata con approvazione manuale?",
+      "options": [
+        "Approved",
+        "Draft",
+        "PendingManualApproval",
+        "Rejected"
+      ],
+      "answer": 2,
+      "explain": "La versione parte con PendingManualApproval, poi passa ad Approved o Rejected. Approved avvia il deploy CI/CD nei template di Projects."
     }
   ],
-  "script": "In questo capitolo studiamo il deploy dei modelli e l'orchestrazione dei workflow ML, un tema centrale del terzo dominio dell'esame. Partiamo dalle cinque opzioni di inference di SageMaker, perche quasi ogni domanda di scenario ne testa una. L'endpoint real-time e un endpoint HTTPS sempre attivo su istanze dedicate della famiglia ml, con auto scaling e data capture. Offre latenza di millisecondi e supporta payload fino a 25 MB con timeout di 60 secondi, mentre il serverless si ferma a 4 MB. Alcuni materiali piu vecchi indicano 6 MB come limite del real-time: il valore attuale e 25 MB. e la scelta giusta per traffico costante che richiede risposte immediate, come il rilevamento frodi o i sistemi di raccomandazione. L'inference serverless invece non richiede di gestire istanze: scala automaticamente fino a zero e fattura solo per durata e numero di richieste. E perfetta per traffico intermittente, prototipi e ambienti di test, ma ha un cold start, cioe un ritardo iniziale quando il servizio parte da zero, quindi non va mai usata quando esiste uno SLA rigido di latenza. Il serverless non supporta GPU, configurazione VPC, network isolation, data capture, Model Monitor, varianti multiple, multi-model endpoint e inference pipeline. Se una domanda chiede una di queste funzioni, il serverless e escluso. L'inference asincrona accetta la richiesta tramite S3, la mette in una coda interna, elabora anche a lungo e scrive il risultato su S3 con notifica SNS. Supporta payload fino a 1 GB e timeout fino a un ora, e scala a zero quando non c e traffico: e la risposta tipica per documenti lunghi, immagini grandi e video. Il batch transform non e un endpoint ma un job offline: legge un dataset S3, applica il modello in parallelo su una o piu istanze e scrive le predizioni su S3. E l'opzione piu economica per lo scoring notturno di milioni di record, con strategie di batch a singolo o multi record e partizionamento dei dati. Il multi-model endpoint condivide un solo endpoint tra centinaia di modelli dello stesso framework, caricandoli dinamicamente da S3: quando ogni modello ha poco traffico, il risparmio rispetto a un endpoint per modello e enorme. Se i container sono diversi si usa il multi-container endpoint, mentre per framework non nativi si porta un container custom da ECR, con controllo totale su ECS o EKS quando serve. Passiamo poi a SageMaker Pipelines, il servizio MLOps che definisce workflow come grafi di step: Processing, Training, Tuning, Condition, Callback, Lambda, RegisterModel, Transform e Fail. La valutazione del modello non e uno step a parte: si fa in uno step Processing, e il risultato guida la Condition. I parametri tipizzati permettono di rieseguire la pipeline cambiando tipi di istanza, path S3 o soglie senza modificare il codice. La cache riusa gli output degli step riusciti e riduce costi e tempi di iterazione. Le proprieta collegano gli step tra loro, cosi le metriche di evaluation guidano i passi condizionali e la registrazione. Il Model Registry versiona i package con stati di approvazione PendingManualApproval, Approved e Rejected e funge da cancello di qualita. SageMaker Projects fornisce template CI/CD con CodePipeline e CodeBuild: il flusso tipico parte dal push Git, compila la training pipeline, registra il modello, attende l'approvazione e poi deploya. Step Functions orchestra workflow cross-servizio con retry nativi, EventBridge attiva pipeline su eventi o schedule, Lambda gestisce la logica leggera e MWAA copre le DAG complesse multi-sistema. Ricorda la regola pratica: tutto dentro SageMaker uguale Pipelines, orchestrazione tra servizi con stati uguale Step Functions. Sul fronte dei container custom, l'esame vuole che distinguiamo tre livelli. Il primo e l'immagine custom su ECR con SageMaker gestito: mantieni training e hosting gestiti ma controlli dipendenze e codice di inference. Il secondo e ECS o EKS: controllo totale su orchestrazione e rete, ma devi gestire scaling, patching e monitoraggio da solo. La regola e scegliere il livello piu gestito che soddisfa i vincoli: solo se serve personalizzazione profonda si scende verso ECS o EKS. Per i tradeoff ricorda tre assi. La latenza premia real-time e multi-model con istanze calde; il costo premia serverless, async con scala a zero e batch condiviso; il throughput premia batch con istanze parallele e partizionamento. Nelle domande confronta sempre questi tre assi prima di rispondere. Infine, per l'orchestrazione oltre SageMaker, Step Functions coordina stati con retry, timeout e percorsi di errore nativi, ed e ideale con approvazioni umane e Lambda intermedie. EventBridge instrada eventi tra servizi con regole e schedule, come nuovi package nel Model Registry o upload S3. MWAA esegue DAG Airflow quando il workflow coinvolge molti sistemi esterni oltre AWS.",
-  "slides": [
-    {
-      "bullets": [
-        "Cinque opzioni: real-time, serverless, asynchronous, batch transform, multi-model.",
-        "La scelta dipende da latenza, dimensione payload, pattern di traffico e costo.",
-        "Real-time accetta 25 MB di payload e serverless 4 MB, entrambi con 60 secondi di timeout.",
-        "Async arriva a 1 GB via S3 e fino a un'ora; batch elabora dataset S3 offline.",
-        "Regole rapide: costante e veloce uguale real-time; intermittente uguale serverless; pesante uguale async; offline uguale batch; tanti modelli uguale multi-model."
-      ],
-      "title": "Le cinque opzioni di inference",
-      "narration": "In questo capitolo studiamo il deploy dei modelli e l'orchestrazione dei workflow ML, un tema centrale del terzo dominio dell'esame. Partiamo dalle cinque opzioni di inference di SageMaker, perche quasi ogni domanda di scenario ne testa una. L'endpoint real-time e un endpoint HTTPS sempre attivo su istanze dedicate della famiglia ml, con auto scaling e data capture. Offre latenza di millisecondi e supporta payload fino a 25 MB con timeout di 60 secondi, mentre il serverless si ferma a 4 MB. Alcuni materiali piu vecchi indicano 6 MB come limite del real-time: il valore attuale e 25 MB. e la scelta giusta per traffico costante che richiede risposte immediate, come il rilevamento frodi o i sistemi di raccomandazione."
-    },
-    {
-      "bullets": [
-        "Endpoint HTTPS sempre attivo su istanze ml con auto scaling e data capture.",
-        "Latenza di millisecondi per traffico costante: fraud detection, recommendation.",
-        "Serverless scala a zero e fattura a consumo: ideale per traffico intermittente e test.",
-        "Cold start al primo traffico dopo una pausa: mai usare serverless con SLA rigide.",
-        "Serverless non supporta GPU, VPC, network isolation, data capture, Model Monitor, varianti multiple, multi-model endpoint o inference pipeline.",
-        "Tranello esame: traffico a picchi imprevedibili con tolleranza ai ritardi uguale serverless."
-      ],
-      "title": "Real-time e serverless a confronto",
-      "narration": "L'inference serverless invece non richiede di gestire istanze: scala automaticamente fino a zero e fattura solo per durata e numero di richieste. E perfetta per traffico intermittente, prototipi e ambienti di test, ma ha un cold start, cioe un ritardo iniziale quando il servizio parte da zero, quindi non va mai usata quando esiste uno SLA rigido di latenza. Il serverless non supporta GPU, configurazione VPC, network isolation, data capture, Model Monitor, varianti multiple, multi-model endpoint e inference pipeline. Se una domanda chiede una di queste funzioni, il serverless e escluso. L'inference asincrona accetta la richiesta tramite S3, la mette in una coda interna, elabora anche a lungo e scrive il risultato su S3 con notifica SNS. Supporta payload fino a 1 GB e timeout fino a un ora, e scala a zero quando non c e traffico: e la risposta tipica per documenti lunghi, immagini grandi e video. Il batch transform non e un endpoint ma un job offline: legge un dataset S3, applica il modello in parallelo su una o piu istanze e scrive le predizioni su S3."
-    },
-    {
-      "bullets": [
-        "Async: richiesta su S3, coda SQS interna, risultato su S3 piu notifica SNS.",
-        "Payload fino a 1 GB e timeout fino a un ora; scala a zero.",
-        "Casi tipici: documenti NLP lunghi, immagini e video di grandi dimensioni.",
-        "Batch transform: job offline S3 in e S3 out, parallelo su piu istanze.",
-        "Batch non crea endpoint: perfetto per scoring notturno e predizioni precalcolate."
-      ],
-      "title": "Async e batch transform",
-      "narration": "E l'opzione piu economica per lo scoring notturno di milioni di record, con strategie di batch a singolo o multi record e partizionamento dei dati. Il multi-model endpoint condivide un solo endpoint tra centinaia di modelli dello stesso framework, caricandoli dinamicamente da S3: quando ogni modello ha poco traffico, il risparmio rispetto a un endpoint per modello e enorme. Se i container sono diversi si usa il multi-container endpoint, mentre per framework non nativi si porta un container custom da ECR, con controllo totale su ECS o EKS quando serve. Passiamo poi a SageMaker Pipelines, il servizio MLOps che definisce workflow come grafi di step: Processing, Training, Tuning, Condition, Callback, Lambda, RegisterModel, Transform e Fail. La valutazione del modello non e uno step a parte: si fa in uno step Processing, e il risultato guida la Condition."
-    },
-    {
-      "bullets": [
-        "Multi-model endpoint: centinaia di modelli stesso framework su un endpoint solo.",
-        "Caricamento dinamico da S3: un modello inattivo non occupa memoria.",
-        "Multi-container endpoint: fino a 15 container diversi sullo stesso endpoint.",
-        "Container custom via ECR per framework non nativi: porti la tua immagine Docker.",
-        "ECS ed EKS servono quando serve controllo totale oltre SageMaker gestito."
-      ],
-      "title": "Multi-model e container custom",
-      "narration": "I parametri tipizzati permettono di rieseguire la pipeline cambiando tipi di istanza, path S3 o soglie senza modificare il codice. La cache riusa gli output degli step riusciti e riduce costi e tempi di iterazione. Le proprieta collegano gli step tra loro, cosi le metriche di evaluation guidano i passi condizionali e la registrazione. Il Model Registry versiona i package con stati di approvazione PendingManualApproval, Approved e Rejected e funge da cancello di qualita."
-    },
-    {
-      "bullets": [
-        "Pipeline come DAG di step: Processing, Training, Tuning, Condition, Callback, Lambda, RegisterModel, Transform, Fail.",
-        "Parametri tipizzati per rieseguire senza cambiare codice: tipi istanza, path S3, soglie.",
-        "CacheConfig riusa output degli step riusciti: meno costi e iterazioni piu rapide.",
-        "Scheduling ed event trigger: riesecuzione su nuovi dati o su schedule.",
-        "Properties e JsonGet collegano gli step: le metriche di valutazione prodotte in Processing guidano Condition e RegisterModel."
-      ],
-      "title": "SageMaker Pipelines",
-      "narration": "SageMaker Projects fornisce template CI/CD con CodePipeline e CodeBuild: il flusso tipico parte dal push Git, compila la training pipeline, registra il modello, attende l'approvazione e poi deploya. Step Functions orchestra workflow cross-servizio con retry nativi, EventBridge attiva pipeline su eventi o schedule, Lambda gestisce la logica leggera e MWAA copre le DAG complesse multi-sistema. Ricorda la regola pratica: tutto dentro SageMaker uguale Pipelines, orchestrazione tra servizi con stati uguale Step Functions. Sul fronte dei container custom, l'esame vuole che distinguiamo tre livelli. Il primo e l'immagine custom su ECR con SageMaker gestito: mantieni training e hosting gestiti ma controlli dipendenze e codice di inference."
-    },
-    {
-      "bullets": [
-        "SageMaker Projects: template MLOps con CodePipeline, CodeBuild e Git.",
-        "Flusso tipico: push Git, build della training pipeline, RegisterModel, approvazione, deploy.",
-        "Model Registry versiona i package con stati PendingManualApproval, Approved, Rejected.",
-        "Solo i package Approved avanzano verso staging e produzione.",
-        "Pattern multi-account: training in dev, promozione controllata verso prod."
-      ],
-      "title": "CI/CD con Projects e Model Registry",
-      "narration": "Il secondo e ECS o EKS: controllo totale su orchestrazione e rete, ma devi gestire scaling, patching e monitoraggio da solo. La regola e scegliere il livello piu gestito che soddisfa i vincoli: solo se serve personalizzazione profonda si scende verso ECS o EKS. Per i tradeoff ricorda tre assi. La latenza premia real-time e multi-model con istanze calde; il costo premia serverless, async con scala a zero e batch condiviso; il throughput premia batch con istanze parallele e partizionamento."
-    },
-    {
-      "bullets": [
-        "Step Functions orchestra job SageMaker, Lambda e approvazioni umane con retry nativi.",
-        "EventBridge attiva pipeline su eventi: nuovo Model Package, upload S3, drift rilevato.",
-        "Lambda per logica leggera sotto i 15 minuti: preprocessing e glue tra servizi.",
-        "MWAA, cioe Airflow gestito, per DAG complesse multi-sistema oltre SageMaker.",
-        "Regola pratica: tutto dentro SageMaker uguale Pipelines; cross-servizio con stati uguale Step Functions."
-      ],
-      "title": "Orchestrazione oltre le pipeline",
-      "narration": "Nelle domande confronta sempre questi tre assi prima di rispondere. Infine, per l'orchestrazione oltre SageMaker, Step Functions coordina stati con retry, timeout e percorsi di errore nativi, ed e ideale con approvazioni umane e Lambda intermedie. EventBridge instrada eventi tra servizi con regole e schedule, come nuovi package nel Model Registry o upload S3. MWAA esegue DAG Airflow quando il workflow coinvolge molti sistemi esterni oltre AWS."
-    }
-  ],
-  "summary": "SageMaker offre cinque opzioni di inference con tradeoff precisi tra latenza, costo e volume. Gli endpoint real-time servono traffico costante a bassa latenza, quelli serverless il traffico intermittente, quelli asincroni i workload pesanti con payload fino a 1 GB, mentre batch transform elabora offline grandi dataset S3. SageMaker Pipelines automatizza il ciclo di vita ML con step, parametri e caching, integrato con Model Registry e CI/CD. Step Functions, EventBridge, Lambda e MWAA completano l'orchestrazione tra servizi.",
-  "title": "Deploy e orchestrazione dei workflow ML",
   "sources": [
     {
       "title": "Inference options in Amazon SageMaker AI",
@@ -207,16 +482,109 @@
       "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/async-inference.html"
     },
     {
-      "title": "Update the Approval Status of a Model - Amazon SageMaker AI",
-      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry-approve.html"
+      "title": "Batch transform for inference with Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform.html"
     },
     {
-      "title": "Pipelines steps - Amazon SageMaker AI",
-      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html"
+      "title": "Custom Inference Code with Hosting Services - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-inference-code.html"
+    },
+    {
+      "title": "Multi-model endpoints - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/multi-model-endpoints.html"
+    },
+    {
+      "title": "Multi-container endpoints - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/multi-container-endpoints.html"
+    },
+    {
+      "title": "Inference pipelines in Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipelines.html"
+    },
+    {
+      "title": "Testing models with production variants - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html"
+    },
+    {
+      "title": "Testing models with shadow variants - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-shadow-deployment.html"
+    },
+    {
+      "title": "Define a scaling policy - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/endpoint-auto-scaling-add-code-define.html"
+    },
+    {
+      "title": "Use PyTorch with the SageMaker Python SDK v2.29.0",
+      "url": "https://sagemaker.readthedocs.io/en/v2.29.0/frameworks/pytorch/using_pytorch.html"
+    },
+    {
+      "title": "Prebuilt SageMaker AI Docker images for deep learning",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/pre-built-containers-frameworks-deep-learning.html"
+    },
+    {
+      "title": "Pipelines overview - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-overview.html"
     },
     {
       "title": "Add a step - Amazon SageMaker Pipelines",
       "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps-types.html"
+    },
+    {
+      "title": "Pipeline parameters - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html"
+    },
+    {
+      "title": "Turn on step caching - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-caching-enabling.html"
+    },
+    {
+      "title": "Update the Approval Status of a Model - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry-approve.html"
+    },
+    {
+      "title": "Model Registration Deployment with Model Registry",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry.html"
+    },
+    {
+      "title": "Use SageMaker AI-Provided Project Templates",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-projects-templates-sm.html"
+    },
+    {
+      "title": "Schedule Pipeline Runs - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/pipeline-eventbridge.html"
+    },
+    {
+      "title": "Discover service integration patterns in Step Functions",
+      "url": "https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html"
+    },
+    {
+      "title": "Amazon Managed Workflows for Apache Airflow",
+      "url": "https://aws.amazon.com/managed-workflows-for-apache-airflow/"
+    },
+    {
+      "title": "Amazon SageMaker Model Monitor availability change",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-availability-change.html"
+    },
+    {
+      "title": "Clarify availability change - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-availability-change.html"
+    },
+    {
+      "title": "Caching pipeline steps - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-caching.html"
+    },
+    {
+      "title": "Scikit-learn Serving Functions (SageMaker Python SDK v2.29.0)",
+      "url": "https://sagemaker.readthedocs.io/en/v2.29.0/frameworks/sklearn/using_sklearn.html"
+    },
+    {
+      "title": "Invoke a multi-container endpoint with direct invocation - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/multi-container-direct.html"
+    },
+    {
+      "title": "Security with multi-container endpoints with direct invocation - Amazon SageMaker AI",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/multi-container-security.html"
     }
-  ]
+  ],
+  "todo": []
 }
