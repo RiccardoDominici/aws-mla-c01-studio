@@ -382,12 +382,12 @@
       "Continued pre-training on unlabelled domain text"
     ],
     "answer": 3,
-    "explain": "Continued pre-training uses unlabelled text to teach domain vocabulary. Prompt-completion fine-tuning needs labelled answers, and distillation transfers behavior rather than vocabulary.",
+    "explain": "Continued pre-training uses unlabelled text to teach domain vocabulary. Prompt-completion fine-tuning needs labelled answers, and distillation transfers behavior rather than vocabulary. Bedrock no longer lists continued pre-training among its customization methods; the equivalent on SageMaker JumpStart is domain adaptation fine-tuning on unlabelled text.",
     "difficulty": "difficile",
     "tags": [
       "continued-pretraining"
     ],
-    "source": "AWS docs: Amazon Bedrock User Guide — Customize your model to improve its performance for your use case",
+    "source": "AWS docs: Amazon SageMaker Developer Guide — Fine-tune a large language model (LLM) using domain adaptation",
     "origin": "ai",
     "domain": "1",
     "task": "1.2",

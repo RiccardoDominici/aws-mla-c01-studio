@@ -1388,7 +1388,7 @@
   {
     "id": "ch6-ext08",
     "chapter": "ch6-genai",
-    "q": "A team debates Bedrock customization: learning finance jargon from unlabeled filings versus learning to follow labeled support instructions. Which statement is correct?",
+    "q": "A team debates foundation model customization: learning finance jargon from unlabeled filings versus learning to follow labeled support instructions. Which statement is correct?",
     "options": [
       "Run both the jargon and instruction tasks on identical RAG pipelines and skip model customization entirely for each case",
       "Train finance jargon with supervised fine-tuning on unlabeled filings and pre-train on labeled support instructions",

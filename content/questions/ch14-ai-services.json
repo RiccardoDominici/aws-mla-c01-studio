@@ -2202,7 +2202,7 @@
     "options": [
       "Lexicon editing for pronunciation",
       "Custom vocabulary upload for speech recognition",
-      "Continued pre-training on domain documents",
+      "Reinforcement fine-tuning with reward functions",
       "Distillation of a larger model into a smaller one",
       "Speech marks configuration",
       "Fine-tuning on the company's labeled examples"
@@ -2212,14 +2212,14 @@
       3,
       5
     ],
-    "explain": "Bedrock documents fine-tuning, continued pre-training and distillation as customization methods. Lexicons, custom vocabularies, and speech marks belong to Polly and Transcribe.",
+    "explain": "Amazon Bedrock currently documents three customization methods: supervised fine-tuning on labeled examples, reinforcement fine-tuning driven by reward functions, and distillation from a teacher model into a student model. Lexicons, custom vocabularies, and speech marks belong to Polly and Transcribe.",
     "difficulty": "difficile",
     "tags": [
       "bedrock",
       "fine-tuning",
       "distillation"
     ],
-    "source": "AWS docs: Amazon Bedrock User Guide: What is Amazon Bedrock?",
+    "source": "AWS docs: Amazon Bedrock User Guide — Customize your model to improve its performance for your use case",
     "origin": "ai",
     "domain": "2",
     "task": "2.2",
