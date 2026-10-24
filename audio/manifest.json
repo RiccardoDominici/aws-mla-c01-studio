@@ -8,38 +8,88 @@
       "synthesized_at": "2026-10-22T17:25:28+00:00"
     },
     "ch2-data-prep": {
-      "script_sha256": "a16970f3c9a95f6731c8469bc31a99fcb267a58643450b3a39ae3295f5246e78",
-      "adopted": true
+      "script_sha256": "6fd2ca73ec3227e2d6ac7deeed6ee7eeadb1dfe429db658d248587c121d1f8bd",
+      "sentences": 366,
+      "duration": 2234.49,
+      "synthesized_at": "2026-10-23T14:02:51+00:00"
     },
     "ch3-model-dev": {
-      "script_sha256": "387c837d995afda9a658823fb9f94cc80af0f1336ad4c0ff4b7d7b56e3f5eec9",
-      "adopted": true
+      "script_sha256": "dcaa25f4cfcc09d6349d97d0091020f3d3e566f7dbf3d2579732f33cfc8e74fe",
+      "sentences": 423,
+      "duration": 2591.78,
+      "synthesized_at": "2026-10-23T15:47:30+00:00"
     },
     "ch4-deploy": {
-      "script_sha256": "ee8718dceb722858c93e7a75adf07b16f2c2046d062bb077070903367fc16b8e",
-      "adopted": true
+      "script_sha256": "b557ad8fea01c81b7bdfdf2d38cb1159ffc90094b11fd8aa29bbcf2600e4ba1f",
+      "sentences": 316,
+      "duration": 2075.15,
+      "synthesized_at": "2026-10-23T17:49:01+00:00"
     },
     "ch5-monitor-security": {
-      "script_sha256": "7e3db6053c4438d47020e04f6d39755a7ee19743fa00db75fedcd1115043a57f",
-      "adopted": true
+      "script_sha256": "0eb9274878afbb14acc60e7fc4db81578335218dfb88e67a894db1afc62ba72c",
+      "sentences": 376,
+      "duration": 2502.27,
+      "synthesized_at": "2026-10-24T01:25:39+00:00"
     },
     "ch6-genai": {
-      "script_sha256": "7d771957b1d8d14d4a276ec4cf07fc66c65df212340fced2a3fe0b744c5777a0",
-      "adopted": true
+      "script_sha256": "8a143f2bc6c3f7820a6be98f05c90ab0cb53209c10dcb85a3c2762076dd02bbe",
+      "sentences": 307,
+      "duration": 2138.38,
+      "synthesized_at": "2026-10-23T21:42:36+00:00"
     },
     "ch7-practice": {
-      "script_sha256": "2aa215658061d00bc5e1963ed082e030ef999a4bdf6cf5913975769a823a9597",
-      "adopted": true
+      "script_sha256": "90ce716db4a7abf675fd15a131b591aa53b26c2d291d04c7470d25f27f1c8fac",
+      "sentences": 285,
+      "duration": 1865.84,
+      "synthesized_at": "2026-10-23T23:26:19+00:00"
     },
     "quick-ref": {
-      "script_sha256": "17cc496d310fc97b39f7d0ce576f70ee615f2cf25e10283e35c220d44caa79e9",
-      "adopted": true
+      "script_sha256": "29bc4a051d03fd04bb72a5c62e600257176a1693d3b673429e97a2800833933c",
+      "sentences": 17,
+      "duration": 157.88,
+      "synthesized_at": "2026-10-24T01:24:48+00:00"
     },
     "ch10-infra-cicd": {
       "script_sha256": "90909f131896ba99efabcb5f35b51ab8ea24ee926842070020e1a7528e428237",
       "sentences": 262,
       "duration": 1841.53,
       "synthesized_at": "2026-10-23T01:05:29+00:00"
+    },
+    "ch11-cost-security": {
+      "script_sha256": "931b1289915a96bf935341837f7b1c21eb5b0e41330505a24459d1296191db31",
+      "sentences": 283,
+      "duration": 2207.22,
+      "synthesized_at": "2026-10-23T08:19:19+00:00"
+    },
+    "ch12-genai-rag": {
+      "script_sha256": "dc59a49799d2d0795689fbcd3e9be6fddf64ef36a87fb26c33fef4225bf8f709",
+      "sentences": 237,
+      "duration": 1738.2,
+      "synthesized_at": "2026-10-23T10:38:44+00:00"
+    },
+    "ch13-genai-agents": {
+      "script_sha256": "f5a17a136b375cad276fb67e12a1c7ab6539c6f484a661335fc81dce5199e0f4",
+      "sentences": 310,
+      "duration": 1896.13,
+      "synthesized_at": "2026-10-23T10:33:37+00:00"
+    },
+    "ch14-ai-services": {
+      "script_sha256": "977a66c277e4a06c30bc8b6fa50f9f473762acf00b1c1e72681fd276b91791db",
+      "sentences": 252,
+      "duration": 1866.55,
+      "synthesized_at": "2026-10-23T12:14:33+00:00"
+    },
+    "ch8-data-advanced": {
+      "script_sha256": "e5bad4a9779cb60ca1c7f571c2e18598b3919c55ef53a4fd22f1c8b7c5102c6d",
+      "sentences": 205,
+      "duration": 1981.36,
+      "synthesized_at": "2026-10-24T00:10:20+00:00"
+    },
+    "ch9-training-advanced": {
+      "script_sha256": "49ebc196e3e72e97b6dfe8d226329294b949d62df132dc444bac2befe8e90fae",
+      "sentences": 238,
+      "duration": 1734.69,
+      "synthesized_at": "2026-10-24T01:18:46+00:00"
     }
   }
 }
