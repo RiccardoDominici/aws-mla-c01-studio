@@ -55,9 +55,11 @@ TTS_FORBIDDEN = {
 MAX_VISUALS = 3
 MAX_TEXT_BULLETS = 8
 
-# Sopra questa quota di parole del testo già presenti dentro uno schema, le
-# schede sotto ripetono lo schema invece di aggiungere qualcosa.
-DUPLICATE_RATIO = 0.85
+# Sopra questa quota di parole del testo già presenti dentro uno schema, la
+# scheda ripete lo schema. È la stessa soglia di `ECHO_RATIO` in visuals.js: lì
+# la scheda viene nascosta, qui viene segnalata perché il contenuto può essere
+# potato anche nel JSON.
+DUPLICATE_RATIO = 0.72
 STOPWORDS = set(
     "che di e il la per un una in con a da del della i gli le non si su al alla come o "
     "più dei delle lo è sono tra fra nel nella ai alle se ma anche quando ogni sua suo "
@@ -176,17 +178,26 @@ def check_slide(idx: int, slide: dict, errors: list, warnings: list):
         elif not isinstance(b, str):
             errors.append(f"{where} bullet {i}: tipo {type(b).__name__} non gestito")
 
-    # schemi e schede che dicono la stessa cosa: lo schema basta
+    # Schede che ripetono lo schema: il renderer le nasconde già (ECHO_RATIO in
+    # visuals.js), ma il JSON resta gonfio e chi ascolta non le sente. Segnalate
+    # per poterle togliere davvero.
+    # Le schede con un distinguo (non, invece, solo...), un tranello o una
+    # conseguenza restano anche quando ripetono le parole dello schema: è la
+    # stessa regola di KEEP_MARKERS in visuals.js.
+    keep_markers = re.compile(
+        r"\b(non|invece|mentre|altrimenti|senza|mai|sempre|solo|tranne|purch|perch|quindi|"
+        r"diverso|differenza|attenzione|tranello|trappola|errore|sbagli|meglio|peggio|unica|"
+        r"eccezione|ricorda)\b", re.I)
     if visuals and texts:
         visual_words = words(" ".join(plain_strings(visuals)))
-        text_words = words(" ".join(texts))
-        if text_words:
-            shared = len(visual_words & text_words) / len(text_words)
-            if shared > DUPLICATE_RATIO:
-                warnings.append(
-                    f"{where}: i bullet ripetono lo schema ({shared:.0%} delle parole già presenti); "
-                    "valuta se togliere le schede o alleggerire lo schema"
-                )
+        echoes = [t for t in texts if visual_words and not keep_markers.search(t) and (
+            len(words(t) & visual_words) / max(1, len(words(t)))
+        ) >= DUPLICATE_RATIO]
+        if echoes:
+            warnings.append(
+                f"{where}: {len(echoes)} bullet ripetono lo schema e vengono nascosti dal "
+                f"renderer (es. {echoes[0][:44]!r}); toglierli dal JSON"
+            )
 
     if len(visuals) > MAX_VISUALS:
         errors.append(f"{where}: {len(visuals)} schemi (massimo {MAX_VISUALS}): la slide non si legge")

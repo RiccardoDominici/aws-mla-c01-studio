@@ -44,6 +44,57 @@
     return box;
   }
 
+  /* ---------- rilevamento delle ripetizioni ---------- */
+
+  /* Parole portatrici di significato: articoli e preposizioni non dicono se un
+   * testo ripete un altro, i termini tecnici sì. */
+  var STOPWORDS = {};
+  ('che di e il la per un una in con a da del della i gli le non si su al alla come o più dei ' +
+   'delle lo è sono tra fra nel nella ai alle se ma anche quando ogni sua suo questo questa ' +
+   'quello quella essere viene possono può con cui dei delle loro ogni').split(/\s+/).forEach(function (w) {
+    STOPWORDS[w] = true;
+  });
+
+  /** Insieme delle parole "piene" di un testo, minuscole e senza punteggiatura. */
+  function keyWords(value) {
+    var words = String(value || '').toLowerCase().match(/[a-zàèéìòù0-9_]+/g) || [];
+    var set = {};
+    words.forEach(function (w) {
+      if (w.length > 2 && !STOPWORDS[w]) set[w] = true;
+    });
+    return set;
+  }
+
+  /** Tutte le stringhe foglia di uno schema, unite: serve a capire cosa dice. */
+  function specText(spec) {
+    var parts = [];
+    (function walk(v, key) {
+      if (typeof v === 'string') {
+        if (key !== 'mml' && key !== 'tone') parts.push(v);
+      } else if (Array.isArray(v)) {
+        v.forEach(function (x) { walk(x, key); });
+      } else if (v && typeof v === 'object') {
+        Object.keys(v).forEach(function (k) { walk(v[k], k); });
+      }
+    })(spec, '');
+    return parts.join(' ');
+  }
+
+  /* Parole che segnalano un distinguo, una conseguenza o una trappola: sono il
+   * motivo per cui una scheda che ripete lo schema vale comunque la pena.
+   * Se compaiono, la scheda resta anche quando le parole coincidono. */
+  var KEEP_MARKERS = /\b(non|invece|mentre|altrimenti|senza|mai|sempre|solo|tranne|purch|perch|quindi|diverso|differenza|attenzione|tranello|trappola|errore|sbagli|meglio|peggio|unica|eccezione|ricorda)\b/i;
+
+  /** Quota delle parole del testo già presenti nello schema (0..1). */
+  function coveredBy(text, specWords) {
+    var w = keyWords(text);
+    var keys = Object.keys(w);
+    if (!keys.length) return 1;
+    var hit = 0;
+    keys.forEach(function (k) { if (specWords[k]) hit++; });
+    return hit / keys.length;
+  }
+
   /** Nodo con classe, figli in ordine. */
   function box(cls, children) {
     var n = el('div', cls);
@@ -563,11 +614,14 @@
     var grid = el('div', cls);
     var notes = [];
     var notesHost = el('div', 'v-notes');
+    // numerazione continua sulle sole schede: le note e le voci filtrate non
+    // devono lasciare buchi (1, 2, 4 sembrerebbe un errore)
+    var n = 0;
     texts.forEach(function (t, i) {
-      if (parsed[i]) { grid.appendChild(termCard(parsed[i], i)); return; }
+      if (parsed[i]) { grid.appendChild(termCard(parsed[i], n++)); return; }
       var note = asNote(t);
       if (note) { notes.push(note); return; }
-      grid.appendChild(plainCard(t, i));
+      grid.appendChild(plainCard(t, n++));
     });
     notes.forEach(function (n) {
       notesHost.appendChild(renderNote({ title: n.title, text: n.text, tone: 'warn' }));
@@ -600,9 +654,42 @@
    *   chapter.js con il suo codice esistente).
    * Ritorna un Fragment.
    */
+  /* Soglia oltre la quale una scheda ripete uno schema invece di aggiungere
+   * qualcosa. Misurata sulle slide reali: le schede che dicevano la stessa cosa
+   * di una tabella stavano sopra 0,8; quelle con un dettaglio in più stavano
+   * sotto 0,6. */
+  var ECHO_RATIO = 0.72;
+
   function render(bullets) {
     var frag = document.createDocumentFragment();
     var list = Array.isArray(bullets) ? bullets : [];
+
+    // parole già dette dagli schemi di questa slide: le schede che non
+    // aggiungono nulla vengono tolte invece di ripetere la tabella a parole
+    var seen = {};
+    list.forEach(function (b) {
+      if (isItem(b)) {
+        var sw = keyWords(specText(b));
+        Object.keys(sw).forEach(function (k) { seen[k] = true; });
+      }
+    });
+    var hasVisuals = Object.keys(seen).length > 0;
+    var kept = [];
+    var echoCount = 0;
+    list.forEach(function (b) {
+      if (!hasVisuals || typeof b !== 'string') return kept.push(b);
+      // una scheda che ripete lo schema si toglie solo se non aggiunge un
+      // distinguo: "data quality non richiede label" va tenuto anche se le
+      // parole sono le stesse della tabella
+      if (coveredBy(b, seen) >= ECHO_RATIO && !KEEP_MARKERS.test(b)) { echoCount++; return; }
+      kept.push(b);
+    });
+    if (echoCount) {
+      // una scheda "ripetuta" resta visibile solo se serve a spiegare: la
+      // sintesi più lunga della media sopravvive, le altre no
+      console.info('[visuals] ' + echoCount + ' bullet ripetevano uno schema: nascosti');
+    }
+    list = kept;
 
     /* gruppi consecutivi di schede; uno schema esplicito chiude il gruppo */
     var run = [];
