@@ -2384,5 +2384,86 @@
     "todo": [
       "K-2.2S2"
     ]
+  },
+  {
+    "id": "ch9-ext01",
+    "chapter": "ch9-training-advanced",
+    "q": "A recommender must rank items by likely click. Which XGBoost use case does AWS document for this, besides classification and regression?",
+    "options": [
+      "Learning-to-rank, the ranking objective on tabular data",
+      "Anomaly detection through the Random Cut Forest built-in algorithm",
+      "Topic modelling through the Neural Topic Model built-in algorithm",
+      "Sequence translation through the Sequence-to-Sequence built-in algorithm"
+    ],
+    "answer": 0,
+    "difficulty": "media",
+    "domain": "2",
+    "task": "2.1",
+    "tags": [
+      "xgboost",
+      "learning-to-rank",
+      "ctr"
+    ],
+    "explain": "AWS documents XGBoost for regression, binary and multiclass classification, and ranking. Click-through-rate prediction and personalised recommendations are the standard ranking examples.",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "origin": "ai",
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+  },
+  {
+    "id": "ch9-ext02",
+    "chapter": "ch9-training-advanced",
+    "q": "A dropout layer uses probability p during training. What happens to the activations that survive, and what changes at inference?",
+    "options": [
+      "Survivors are scaled by 1/(1-p) in training; at inference nothing is dropped",
+      "They are scaled by the probability p in training, and at inference each activation is halved",
+      "They are left unscaled during training, and at inference every weight is multiplied by p",
+      "They are scaled by 1/(1-p) only at inference, while dropout stays active during serving"
+    ],
+    "answer": 0,
+    "difficulty": "difficile",
+    "domain": "2",
+    "task": "2.2",
+    "tags": [
+      "dropout",
+      "regularization",
+      "neural-networks"
+    ],
+    "explain": "With inverted dropout the surviving activations are scaled by 1/(1-p) during training so the expected magnitude is unchanged, which lets inference run with every neuron active and no rescaling. The result is deterministic.",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "origin": "ai",
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+  },
+  {
+    "id": "ch9-ext03",
+    "chapter": "ch9-training-advanced",
+    "q": "A deep network stops improving as more layers are added, while a wider version of the same shallow network keeps converging. Which explanation fits the documented behaviour?",
+    "options": [
+      "Depth compounds weight matrices and the gradient vanishes, so skip connections help",
+      "Width always needs fewer parameters than depth, so wider networks generalise better",
+      "Depth cannot express hierarchical features, so adding layers adds no capacity at all",
+      "Wider layers make the loss surface much steeper and therefore harder to optimise"
+    ],
+    "answer": 0,
+    "difficulty": "difficile",
+    "domain": "2",
+    "task": "2.2",
+    "tags": [
+      "deep-learning",
+      "vanishing-gradient",
+      "residual-connections"
+    ],
+    "explain": "Backpropagating through many layers multiplies the weight matrices and the gradient decays exponentially; residual connections of the form x + F(x) give the gradient a direct path. Wide networks instead show a smoother loss surface, which is why they converge more easily.",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "origin": "ai",
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
   }
 ]

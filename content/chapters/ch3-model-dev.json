@@ -388,13 +388,15 @@
         "Ogni nuovo albero segue la direzione del gradiente della perdita",
         "Eta riduce il contributo di ogni albero: più piccolo, più prudente",
         "Molti alberi semplici combinati formano un modello potente",
-        "Adatto a dati tabellari con relazioni non lineari e tipi di dato misti"
+        "Adatto a dati tabellari con relazioni non lineari e tipi di dato misti",
+        "XGBoost copre anche il learning-to-rank, cioè ordinare risultati; caso tipico il CTR e i suggerimenti",
+        "Feature importance: dal modello addestrato si legge quali colonne pesano di più sulla previsione"
       ],
       "narration": "XGBoost è l'implementazione aperta e molto usata del gradient boosting sugli alberi. La documentazione AWS spiega che il gradient boosting combina molte stime di modelli semplici per prevedere con precisione la variabile target. Il meccanismo è questo. Parti da una previsione iniziale, per esempio la media dei valori. Per ogni esempio calcoli l'errore residuo, cioè quanto la previsione attuale sbaglia. Poi addestri un albero piccolo che cerca di prevedere quel residuo, e lo aggiungi al modello. Ripeti il procedimento: ogni nuovo albero corregge gli errori di quelli precedenti. Facciamo un conto semplice. Il valore reale è 10 e il modello attuale prevede 6. Il residuo è 4. Un albero impara a stimare quel 4. Se il passo di correzione è eta uguale a 0,3, al modello viene aggiunto solo 0,3 per 4, cioè 1,2. La previsione passa da 6 a 7,2. Al round successivo il residuo è più piccolo e il processo continua. Questo passo ridotto si chiama shrinkage, ed è il motivo per cui eta rende il boosting più prudente. Perché gli alberi? Perché gestiscono bene dati eterogenei, con colonne numeriche e categoriche, relazioni non lineari e interazioni tra variabili. Per questo XGBoost è la scelta standard per la classificazione tabellare e la regressione tabellare. Sul fronte dell'esame, ricorda due cose. Primo: per dati tabellari complessi la risposta è spesso XGBoost. Secondo: per relazioni lineari semplici, o quando serve un modello molto leggero, si può preferire Linear Learner. Infine, XGBoost è un algoritmo a cui si applica il tuning: la sua qualità dipende molto dagli iperparametri, che vediamo nella prossima slide.",
       "todo": []
     },
     {
-      "title": "Iperparametri chiave di XGBoost: eta, max_depth, num_round, subsample",
+      "title": "Iperparametri chiave di XGBoost: eta, max_depth, min_child_weight, gamma",
       "bullets": [
         {
           "kind": "table",
@@ -419,6 +421,22 @@
               },
               "6",
               "profondità dell'albero; 0 = nessun limite"
+            ],
+            [
+              {
+                "v": "min_child_weight",
+                "head": true
+              },
+              "1",
+              "peso minimo (hessiano) di una foglia; alto = più prudente"
+            ],
+            [
+              {
+                "v": "gamma",
+                "head": true
+              },
+              "0",
+              "riduzione minima di perdita per dividere; alto = più pruning"
             ],
             [
               {
@@ -466,6 +484,11 @@
           "kind": "note",
           "title": "Regola pratica",
           "text": "Eta piccolo rende il modello più prudente ma richiede più alberi: il numero di round cresce mentre eta scende."
+        },
+        {
+          "kind": "note",
+          "title": "Monotonic constraints",
+          "text": "monotone_constraints impone la direzione della relazione: 1 crescente, -1 decrescente, 0 libera. Default (0,0), nessun vincolo."
         }
       ],
       "narration": "Ecco gli iperparametri che l'esame e la documentazione AWS citano più spesso. Il primo è eta, lo step size shrinkage: riduce il peso di ogni nuovo albero per rendere il boosting più conservativo. Il suo valore di default è 0,3 e l'intervallo valido va da 0 a 1. Valori più bassi richiedono più round, ma generalizzano meglio. Il secondo è max_depth, la profondità massima di ciascun albero. Il default è 6. Aumentarlo rende il modello più complesso e più esposto all'overfitting. Il valore 0 indica nessun limite, ma la documentazione richiede un limite quando la crescita è depthwise, che è la politica di default. Il terzo è num_round, il numero di round di boosting. È obbligatorio: non c'è un default da usare senza impostarlo. Il quarto è subsample, la frazione di righe di training che ogni albero vede. Il default è 1, cioè tutte. Il valore 0,5 significa che ogni albero usa metà dei dati, e questo riduce l'overfitting. Colsample_bytree fa lo stesso sulle colonne, con default 1. Poi ci sono due termini di regolarizzazione. Lambda è la regolarizzazione L2 sui pesi, con default 1. Alpha è la regolarizzazione L1, con default 0. Aumentarle rende il modello più prudente. Attenzione a un tranello. Nei tutorial trovi intervalli come eta da 0,05 a 0,3, o profondità da 3 a 10. Non sono limiti dell'algoritmo, sono scelte di ricerca. La pagina di tuning di AWS indica come intervalli consigliati per la ricerca automatica eta da 0,1 a 0,5, e max_depth da 0 a 10. Il default resta eta 0,3 e max_depth 6. Se la domanda chiede il default, rispondi con i valori di default, non con i range di ricerca.",

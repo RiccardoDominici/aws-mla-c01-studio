@@ -1909,5 +1909,85 @@
       "C01",
       "C02"
     ]
+  },
+  {
+    "id": "ch3-ext26",
+    "chapter": "ch3-model-dev",
+    "q": "An XGBoost model overfits noisy tabular data. Which change makes each tree partition more conservative without lowering the learning rate?",
+    "options": [
+      "Raise min_child_weight so a split needs a larger minimum hessian sum in the child",
+      "Lower max_depth to zero to remove the depth limit",
+      "Raise eta to shrink each tree contribution more",
+      "Set colsample_bytree above one to see more columns"
+    ],
+    "answer": 0,
+    "difficulty": "difficile",
+    "domain": "2",
+    "task": "2.1",
+    "tags": [
+      "xgboost",
+      "min_child-weight",
+      "regularization"
+    ],
+    "explain": "min_child_weight is the minimum sum of instance weight (hessian) a child must have; raising it blocks low-weight splits, which is pruning. eta above 1 is invalid, and raising eta makes trees contribute more, not less.",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "origin": "ai",
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+  },
+  {
+    "id": "ch3-ext27",
+    "chapter": "ch3-model-dev",
+    "q": "A model must never predict a lower risk score for a higher income. Which SageMaker XGBoost hyperparameter encodes that constraint?",
+    "options": [
+      "monotone_constraints, with 1 for increasing and -1 for decreasing",
+      "gamma, raised so the tree prunes weak splits",
+      "max_delta_step, set between one and ten",
+      "interaction_constraints, listing the allowed feature pairs"
+    ],
+    "answer": 0,
+    "difficulty": "media",
+    "domain": "2",
+    "task": "2.1",
+    "tags": [
+      "xgboost",
+      "monotone-constraints"
+    ],
+    "explain": "monotone_constraints takes a tuple of integers per feature: 1 forces an increasing relation, -1 a decreasing one, 0 leaves it free. The default is (0, 0), meaning no constraint.",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "origin": "ai",
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+  },
+  {
+    "id": "ch3-ext28",
+    "chapter": "ch3-model-dev",
+    "q": "Which SageMaker XGBoost capability returns the columns that contributed most to a trained model?",
+    "options": [
+      "Feature importance computed from the trained model",
+      "The eval_metric reported during training",
+      "The validation channel declared in the input configuration",
+      "The monotone_constraints tuple chosen before training"
+    ],
+    "answer": 0,
+    "difficulty": "facile",
+    "domain": "2",
+    "task": "2.1",
+    "tags": [
+      "xgboost",
+      "feature-importance",
+      "explainability"
+    ],
+    "explain": "XGBoost exposes feature importances from the trained model, which ranks how much each column influenced the splits. It is a post-training reading, not a hyperparameter.",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "origin": "ai",
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
   }
 ]

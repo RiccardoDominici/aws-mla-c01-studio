@@ -1871,5 +1871,85 @@
       "C01",
       "C02"
     ]
+  },
+  {
+    "id": "ch6-ext26",
+    "chapter": "ch6-genai",
+    "q": "A Bedrock model keeps repeating the same word in a loop. Which parameter addresses repetition proportionally to how often a token already appeared?",
+    "options": [
+      "Frequency penalty",
+      "Presence penalty",
+      "Top K truncation of the candidate pool",
+      "A larger maximum token budget"
+    ],
+    "answer": 0,
+    "difficulty": "media",
+    "domain": "2",
+    "task": "2.1",
+    "tags": [
+      "bedrock",
+      "inference-parameters",
+      "frequency-penalty"
+    ],
+    "explain": "Frequency penalty scales with the number of occurrences, so repeated tokens are suppressed more each time. Presence penalty is a flat penalty applied once a token has appeared at all, which pushes the model toward new topics instead.",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "origin": "ai",
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+  },
+  {
+    "id": "ch6-ext27",
+    "chapter": "ch6-genai",
+    "q": "A team wants to widen the topics a generative model covers instead of fixing verbatim loops. Which parameter encourages tokens that have not appeared yet?",
+    "options": [
+      "Presence penalty",
+      "Frequency penalty",
+      "Temperature set to zero",
+      "A longer stop sequence list"
+    ],
+    "answer": 0,
+    "difficulty": "media",
+    "domain": "2",
+    "task": "2.1",
+    "tags": [
+      "bedrock",
+      "inference-parameters",
+      "presence-penalty"
+    ],
+    "explain": "Presence penalty applies a flat penalty to any token already produced, regardless of how often, which steers the model toward new words and topics. Frequency penalty targets repetition volume instead.",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "origin": "ai",
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+  },
+  {
+    "id": "ch6-ext28",
+    "chapter": "ch6-genai",
+    "q": "Before writing application code, a developer wants to compare prompts and inference parameters across Bedrock models. Which console feature is intended for that?",
+    "options": [
+      "Amazon Bedrock Playgrounds",
+      "SageMaker Studio notebooks",
+      "Bedrock Guardrails policy checks",
+      "AWS CloudFormation templates"
+    ],
+    "answer": 0,
+    "difficulty": "facile",
+    "domain": "2",
+    "task": "2.1",
+    "tags": [
+      "bedrock",
+      "playgrounds"
+    ],
+    "explain": "Bedrock Playgrounds is the console surface for trying prompts and parameters against a model interactively, which is why the course starts there before any API integration.",
+    "exam": [
+      "C01",
+      "C02"
+    ],
+    "origin": "ai",
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
   }
 ]
