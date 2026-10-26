@@ -341,9 +341,9 @@ SLIDES = {0: [{'kind': 'compare',
                     {'when': 'due modelli della stessa famiglia vanno bene',
                      'then': 'intelligent prompt routing',
                      'note': 'il risparmio dipende dal criterio di qualità impostato'}]},
-      'Batch inference: prezzo più basso per carichi grandi e non urgenti',
-      'Prompt caching: solo on-demand, non in batch, con TTL di 5 minuti o 1 ora',
-      'Provisioned Throughput: conviene con traffico alto, costante e prevedibile'],
+      'Batch e Provisioned Throughput non si combinano: il batch non si usa con la capacità provisionata',
+      'Il risparmio del routing non è garantito: dipende dal criterio di differenza di qualità e dal modello '
+      'di riferimento'],
  17: [{'kind': 'formula',
        'text': 'costo del RAG = embedding + storage vettoriale + interrogazioni + token del generatore',
        'caption': 'Chunk più piccoli producono più vettori: più embedding da calcolare e più spazio da '

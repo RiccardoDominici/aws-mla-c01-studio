@@ -190,7 +190,8 @@ def check_slide(idx: int, slide: dict, errors: list, warnings: list):
         r"eccezione|ricorda)\b", re.I)
     if visuals and texts:
         visual_words = words(" ".join(plain_strings(visuals)))
-        echoes = [t for t in texts if visual_words and not keep_markers.search(t) and (
+        echoes = [t for t in texts if visual_words and not keep_markers.search(t)
+                  and not re.match(r"^\s*\d+[.)]\s", t) and (
             len(words(t) & visual_words) / max(1, len(words(t)))
         ) >= DUPLICATE_RATIO]
         if echoes:

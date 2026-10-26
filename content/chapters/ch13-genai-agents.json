@@ -1074,9 +1074,8 @@
             }
           ]
         },
-        "Batch inference: prezzo più basso per carichi grandi e non urgenti",
-        "Prompt caching: solo on-demand, non in batch, con TTL di 5 minuti o 1 ora",
-        "Provisioned Throughput: conviene con traffico alto, costante e prevedibile"
+        "Batch e Provisioned Throughput non si combinano: il batch non si usa con la capacità provisionata",
+        "Il risparmio del routing non è garantito: dipende dal criterio di differenza di qualità e dal modello di riferimento"
       ],
       "narration": "Il costo di un foundation model in produzione si calcola per token. Ogni richiesta paga i token di input e i token di output. Il primo ottimizzatore è il batch inference. Per carichi grandi e non urgenti il prezzo è più basso, circa la metà dell'on-demand per i modelli della pagina prezzi. Non si usa con il Provisioned Throughput, e nei job Converse non supporta la chiamata di tool. Il secondo è il Provisioned Throughput. Conviene quando il traffico è alto, costante e prevedibile, perché paghi l'ora di capacità anche se non la usi. Il terzo è il prompt caching. Se il prompt inizia con un prefisso lungo e ripetuto, come le istruzioni di sistema o un documento, Bedrock può riusarlo. Le letture dalla cache costano meno dei token normali. Il caching funziona solo on-demand, non in batch. Ha un TTL di 5 minuti, oppure di 1 ora per i modelli Claude che lo supportano. Il quarto è l'intelligent prompt routing. È un endpoint unico che instrada le richieste tra due modelli della stessa famiglia, scegliendo quello più economico con qualità sufficiente. Non è garantito che costi di meno: il risultato dipende dal criterio di differenza di qualità che imposti, e dal modello di riferimento scelto. Per l'esame, se il carico è grande e non urgente, la risposta è batch. Se il prefisso si ripete, è caching. Se due modelli della stessa famiglia vanno bene, è routing.",
       "todo": [

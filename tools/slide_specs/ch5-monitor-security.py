@@ -1,7 +1,7 @@
 """Specifica delle slide di ch5-monitor-security (fonte di verità degli schemi).
 
-Generata da content/chapters/ch5-monitor-security.json; le modifiche si fanno qui e si
-applicano con tools/apply_slides.py.
+Generata da content/chapters/ch5-monitor-security.json; le modifiche si fanno
+qui e si applicano con tools/apply_slides.py.
 """
 
 SLIDES = {0: [{'kind': 'table',
@@ -381,7 +381,6 @@ SLIDES = {0: [{'kind': 'table',
       'Role Manager offre tre persona predefinite ed è chiuso ai nuovi clienti. I ruoli già creati restano '
       'validi.',
       'Tag: usati per progetto e centro di costo, e visibili nei dati degli eventi di SageMaker AI.',
-      'Audit: CloudTrail dice chi ha fatto cosa, la model card dice perché, il lineage dice da dove viene.',
       'AWS Config e i data event di CloudTrail sono nel capitolo 11.'],
  17: [{'kind': 'tree',
        'root': 'Che cosa chiede la domanda?',

@@ -680,9 +680,15 @@
     var kept = [], hidden = [];
     list.forEach(function (b, i) {
       if (!hasVisuals || typeof b !== 'string') { kept.push(b); return; }
+      // Una scheda numerata ("3. Una Lambda legge...") è un passo: la sua
+      // posizione è informazione che la tabella non dà. Si tiene sempre.
+      var isStep = /^\s*\d+[.)]\s/.test(b);
       // si toglie solo se non aggiunge un distinguo: "data quality non
       // richiede label" va tenuto anche se le parole sono nella tabella
-      if (coveredBy(b, seen) >= ECHO_RATIO && !KEEP_MARKERS.test(b)) { hidden.push(i); return; }
+      if (!isStep && coveredBy(b, seen) >= ECHO_RATIO && !KEEP_MARKERS.test(b)) {
+        hidden.push(i);
+        return;
+      }
       kept.push(b);
     });
     return { kept: kept, hidden: hidden };
@@ -723,6 +729,12 @@
         var node = null;
         try {
           node = RENDERERS[b.kind](b);
+          // Il contratto prevede `caption` per tutti gli schemi, ma solo alcuni
+          // renderer lo emettevano: quelli che non lo fanno lo ricevono qui,
+          // così il campo non viene più ignorato in silenzio.
+          if (node && b.caption && !node.querySelector('.v-caption, .formula-caption')) {
+            node.appendChild(el('p', 'v-caption', b.caption));
+          }
         } catch (err) {
           // una vignetta scritta male non deve far sparire il resto della slide
           console.error('[visuals] schema "' + b.kind + '" non reso: ' + err.message);
