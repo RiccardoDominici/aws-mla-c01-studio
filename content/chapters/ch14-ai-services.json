@@ -124,11 +124,51 @@
     {
       "title": "Servizio gestito o modello custom?",
       "bullets": [
-        "Un AI service gestito è un'API già addestrata: niente dataset, niente algoritmo, niente endpoint da gestire",
-        "Il modello custom serve per problemi specifici su dati etichettati tuoi",
-        "Compito generico (lingua, voce, documenti comuni): quasi sempre vince il servizio gestito",
-        "Dati proprietari, controllo dell'algoritmo, addestramento ricorrente: si sceglie SageMaker",
-        "Traffico imprevedibile e nessun team di data science: segnali a favore del servizio gestito",
+        {
+          "kind": "tree",
+          "root": "Servizio AI gestito o modello custom?",
+          "branches": [
+            {
+              "when": "compito generico: lingua, voce, documenti comuni",
+              "then": "Servizio AI gestito"
+            },
+            {
+              "when": "traffico imprevedibile, tempi brevi, nessun team di data science",
+              "then": "Servizio AI gestito"
+            },
+            {
+              "when": "dominio stretto con dati etichettati tuoi",
+              "then": "Modello custom su SageMaker"
+            },
+            {
+              "when": "controllo dell'algoritmo e addestramento ricorrente",
+              "then": "Modello custom su SageMaker"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Servizio gestito",
+              "tone": "good",
+              "items": [
+                "API già addestrata: nessun dataset da preparare",
+                "Nessun algoritmo da scegliere, nessun endpoint da gestire",
+                "Vince su tempi, costi e manutenzione per i compiti generici"
+              ]
+            },
+            {
+              "head": "Modello custom",
+              "tone": "warn",
+              "items": [
+                "Problema specifico su dati etichettati tuoi",
+                "Controllo pieno di algoritmo e addestramento",
+                "Richiede il ciclo MLOps dei capitoli precedenti"
+              ]
+            }
+          ]
+        },
         "Nell'MLA-C02 i foundation model si usano tramite Amazon Bedrock"
       ],
       "narration": "Il primo bivio di ogni domanda d'esame è questo: un servizio AI gestito oppure un modello custom che costruisci tu. Un AI service gestito è un'API già addestrata da AWS. Lo chiami con una richiesta, passi il testo o l'immagine e ricevi il risultato. Non devi preparare dataset, scegliere un algoritmo o gestire un endpoint. Il modello custom ha senso quando il problema è molto specifico, per esempio riconoscere i pezzi di ricambio di un'azienda che nessun modello generico conosce, e quando hai dati etichettati tuoi. Qui entrano in gioco SageMaker, la preparazione dei dati e il ciclo MLOps dei capitoli precedenti. La regola pratica è semplice. Se il compito è generico, come riconoscere la lingua, trascrivere una chiamata, tradurre un testo o estrarre dati da un modulo, il servizio gestito batte quasi sempre il modello custom su tempi, costi e manutenzione. Se la domanda insiste su dati proprietari, controllo dell'algoritmo o addestramento ricorrente, il modello custom diventa la scelta giusta. Fai attenzione alle parole chiave. Traffico imprevedibile, tempi di sviluppo ridotti e assenza di un team di data science sono segnali a favore del servizio gestito. Grandi quantità di dati etichettati e requisiti di accuratezza su un dominio stretto sono segnali a favore del modello custom. Nell'MLA-C02 questo confronto si estende anche ai foundation model, che si usano tramite Amazon Bedrock.",
@@ -137,12 +177,79 @@
     {
       "title": "Amazon Comprehend e Comprehend Medical",
       "bullets": [
-        "Comprehend analizza testo: entità, frasi chiave, lingua, sentiment e sentiment per entità",
-        "Rileva le PII, cioè dati personali come indirizzi e numeri di conto",
-        "Custom classification: classificatori addestrati sulle tue categorie",
-        "Custom entity recognition: termini specifici come numeri di polizza",
-        "Comprehend Medical estrae informazioni da note cliniche e collega le entità a ICD-10-CM, RxNorm e SNOMED CT",
-        "Comprehend Medical lavora solo su testo in inglese statunitense e riconosce PHI"
+        {
+          "kind": "table",
+          "head": [
+            "Capacità",
+            "Comprehend",
+            "Comprehend Medical"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Entità",
+                "head": true
+              },
+              "persone, luoghi, organizzazioni",
+              "condizioni, farmaci, anatomia"
+            ],
+            [
+              {
+                "v": "Frasi chiave",
+                "head": true
+              },
+              "sì",
+              "no"
+            ],
+            [
+              {
+                "v": "Sentiment",
+                "head": true
+              },
+              "generale e per entità",
+              "no"
+            ],
+            [
+              {
+                "v": "Dati sensibili",
+                "head": true
+              },
+              "PII",
+              "PHI"
+            ],
+            [
+              {
+                "v": "Ontologie",
+                "head": true
+              },
+              "no",
+              "ICD-10-CM, RxNorm, SNOMED CT"
+            ],
+            [
+              {
+                "v": "Lingua",
+                "head": true
+              },
+              "rileva la lingua dominante",
+              "solo inglese statunitense"
+            ],
+            [
+              {
+                "v": "Modelli custom",
+                "head": true
+              },
+              "custom classification ed entity recognition",
+              "no"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Da non confondere",
+          "text": "Sentiment di una recensione: Comprehend standard. Codifica di una nota clinica o fatturazione: Comprehend Medical."
+        },
+        "Comprehend Custom usa AutoML e accetta anche PDF, documenti Word e immagini oltre al testo semplice"
       ],
       "narration": "Amazon Comprehend è il servizio di elaborazione del linguaggio naturale di AWS. Riceve testo in UTF-8 e restituisce informazioni: entità come persone, luoghi e organizzazioni, frasi chiave, lingua dominante, sentiment complessivo e sentiment associato a ciascuna entità. Può anche rilevare le PII, cioè i dati personali come indirizzi o numeri di conto, utili per anonimizzare i documenti. La distinzione importante per l'esame è tra modelli pre-addestrati e modelli custom. Con la custom classification addestri un classificatore sulle tue categorie, per esempio per smistare le richieste di supporto verso il team giusto. Con la custom entity recognition insegni al modello termini del tuo dominio, come numeri di polizza o frasi che indicano un'escalation del cliente. Comprehend Custom usa AutoML e accetta anche PDF, documenti Word e immagini oltre al testo semplice. Comprehend Medical è la variante per il settore sanitario. Analizza note cliniche, referti e cartelle, riconosce condizioni, farmaci, anatomia e PHI, cioè le informazioni sanitarie protette. La sua caratteristica più tipica è il collegamento alle ontologie standard. InferICD10CM collega le condizioni ai codici ICD-10-CM, InferRxNorm collega i farmaci a RxNorm e InferSNOMEDCT collega i concetti clinici a SNOMED CT. Comprehend Medical non risulta chiuso ai nuovi clienti nella documentazione consultata, e riconosce solo testo in inglese statunitense. La documentazione ricorda che non sostituisce il parere medico. Se la domanda parla di codifica automatica da note cliniche o di fatturazione sanitaria, la risposta è Comprehend Medical. Se parla di sentiment delle recensioni di prodotti, la risposta è Comprehend standard.",
       "todo": [
@@ -153,12 +260,63 @@
     {
       "title": "Amazon Translate e Amazon Transcribe",
       "bullets": [
-        "Translate traduce testo in tempo reale o in batch",
-        "Custom terminology: forza la traduzione di marchi e termini, con file fino a 20 MB",
-        "Transcribe converte l'audio in testo, in batch o in streaming",
-        "Custom vocabulary: fino a 100 file per account, ciascuno fino a 50 KB",
-        "Redazione PII nelle trascrizioni, con output redatto e non redatto",
-        "Call Analytics per i call center, con audio a due canali"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio e funzione",
+            "Limite da ricordare"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Translate: traduzione in tempo reale o in batch, tra lingue diverse",
+                "head": true
+              },
+              "—"
+            ],
+            [
+              {
+                "v": "Translate, custom terminology: marchi e nomi propri tradotti come decidi tu",
+                "head": true
+              },
+              "20 MB per file, 100 file per regione"
+            ],
+            [
+              {
+                "v": "Transcribe: trascrizione in batch o in streaming, l'audio diventa testo",
+                "head": true
+              },
+              "—"
+            ],
+            [
+              {
+                "v": "Transcribe, custom vocabulary: sigle, marchi e nomi propri",
+                "head": true
+              },
+              "50 KB per file, 100 file per account"
+            ],
+            [
+              {
+                "v": "Transcribe, redazione PII: maschera i dati personali nelle trascrizioni",
+                "head": true
+              },
+              "non è una de-identificazione conforme a HIPAA"
+            ],
+            [
+              {
+                "v": "Transcribe, Call Analytics: sentiment, categorie e riassunti delle chiamate",
+                "head": true
+              },
+              "audio a due canali"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Tranello",
+          "text": "Il sentiment del cliente al telefono lo produce Call Analytics, non Comprehend."
+        }
       ],
       "narration": "Amazon Translate traduce il testo tra lingue diverse. Quando un termine non deve essere tradotto, o deve essere reso in modo preciso, usi la custom terminology. Il caso classico è un nome di prodotto come Amazon Photos, che senza terminologia in francese diventerebbe Photos d'Amazon. Con una terminologia personalizzata, Translate usa la traduzione che hai indicato quando trova la corrispondenza nel testo. Due dettagli ricorrono nelle domande: una terminologia si applica a una sola richiesta, e ogni termine può contenere al massimo 200 byte tra testo sorgente e destinazione. Il file di terminologia ha un limite di 20 MB, e un account può averne fino a 100 per regione. Translate offre anche la parallel data, detta active custom translation, che adatta lo stile alle traduzioni di esempio che fornisci. Amazon Transcribe fa il percorso inverso: converte l'audio in testo. Con il custom vocabulary migliori il riconoscimento di parole specifiche come marchi, sigle o nomi propri. I limiti sono 100 file per account, 50 KB per file e 256 caratteri per voce, e la documentazione avverte di non inserire PII o PHI nel vocabolario. La redazione PII maschera i dati sensibili nelle trascrizioni, sia in batch sia in streaming. Puoi produrre solo la trascrizione redatta oppure entrambe, perché con la sola versione redatta il contenuto originale resta solo nell'audio. La redazione non è una de-identificazione conforme a HIPAA, quindi va verificata. Call Analytics è pensato per i call center. Lavora su audio a due canali, uno per l'agente e uno per il cliente, e produce sentiment, categorie, tempo di parola, interruzioni e riassunti. Se la domanda chiede di misurare il sentiment del cliente durante una telefonata, la risposta è Call Analytics, non Comprehend.",
       "todo": [
@@ -170,12 +328,53 @@
     {
       "title": "Amazon Polly e Amazon Lex",
       "bullets": [
-        "Polly converte testo in voce con motori standard, neural, long-form e generative",
-        "Il motore standard è il default: una voce non compatibile con il motore scelto dà errore",
-        "SSML: pause, velocità, enfasi e pronuncia, tutto racchiuso nel tag speak",
-        "Lexicon in formato PLS, per regione, fino a 5 per richiesta",
-        "Lex V2 costruisce chatbot vocali e testuali con intent e slot",
-        "Assisted NLU usa LLM per migliorare intent e slot, restando nella configurazione del bot"
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Polly: testo in voce",
+              "tone": "good",
+              "items": [
+                "Motori: standard (default), neural, long-form, generative",
+                "SSML nel tag speak: pause, velocità, enfasi, pronuncia",
+                "Lexicon in formato PLS per sigle e nomi insoliti",
+                "Il lexicon vale solo se la lingua coincide con quella della voce",
+                "Una voce non compatibile con il motore dà errore"
+              ]
+            },
+            {
+              "head": "Lex V2: chatbot",
+              "tone": "warn",
+              "items": [
+                "Intent: l'azione che l'utente vuole compiere",
+                "Slot: i parametri che il bot deve raccogliere",
+                "Fulfillment quando gli slot sono completi, spesso con Lambda",
+                "Versioni e alias per aggiornare il bot senza toccare i client",
+                "Assisted NLU usa gli LLM per migliorare intent e slot"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "6000",
+              "label": "caratteri per richiesta",
+              "note": "massimo di SynthesizeSpeech"
+            },
+            {
+              "value": "3000",
+              "label": "caratteri fatturabili",
+              "note": "sul totale"
+            },
+            {
+              "value": "5",
+              "label": "lexicon per richiesta",
+              "note": "stessa lingua della voce"
+            }
+          ]
+        }
       ],
       "narration": "Amazon Polly trasforma il testo in parlato. Il parametro Engine sceglie il motore: standard, neural, long-form o generative. Se non lo specifichi, il default è standard, e una voce non compatibile con il motore scelto genera un errore. È un tranello tipico: una domanda che chiede voci di qualità più alta di quella standard punta al motore neural, che la documentazione descrive come più naturale della standard. Con SSML controlli come viene pronunciato il testo. Tutto il contenuto va racchiuso nel tag speak, poi puoi aggiungere pause, cambiare velocità e volume, enfatizzare parole o usare la pronuncia fonetica. Per sigle e nomi insoliti usi il lexicon, un file in formato PLS, la specifica W3C, che memorizzi nella regione. Il lexicon si applica alla sintesi solo se la lingua coincide con quella della voce, e una richiesta può usarne fino a 5. Il limite di input di SynthesizeSpeech è di 6000 caratteri in totale, di cui al massimo 3000 fatturabili. Amazon Lex V2 serve a costruire chatbot conversazionali in voce o testo. Un bot contiene intent, cioè l'azione che l'utente vuole compiere, come ordinare una pizza. Ogni intent richiede slot, cioè parametri come dimensione e numero di pizze, che il bot chiede all'utente se mancano. Quando gli slot sono completi, il bot esegue la fulfillment, spesso con una funzione Lambda. Versioni e alias permettono di aggiornare il bot senza modificare i client. Lex V2 include anche Assisted NLU, che usa modelli linguistici di grandi dimensioni per migliorare intent e slot senza uscire dalla configurazione del bot. Se la domanda descrive un assistente vocale che raccoglie informazioni, la risposta è Lex. Se descrive la lettura ad alta voce di un testo, la risposta è Polly.",
       "todo": [
@@ -186,13 +385,84 @@
     {
       "title": "Amazon Rekognition e Amazon Textract",
       "bullets": [
-        "Rekognition Custom Labels: classifica immagini o localizza oggetti con bounding box",
-        "Custom Labels parte da poche centinaia di immagini di addestramento in totale, senza esperienza ML",
-        "Moderazione con DetectModerationLabels, migliorabile con un adattatore personalizzato",
-        "Textract estrae testo, coppie chiave-valore e tabelle dai documenti",
-        "Queries: domande in linguaggio naturale su un documento",
-        "AnalyzeExpense per fatture e ricevute, AnalyzeID per documenti d'identità",
-        "API sincrona per un documento di una pagina, asincrona per documenti multipagina"
+        {
+          "kind": "table",
+          "head": [
+            "Cosa devi fare",
+            "Servizio e operazione"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Riconoscere oggetti comuni",
+                "head": true
+              },
+              "Rekognition, etichettatura standard senza addestrare nulla"
+            ],
+            [
+              {
+                "v": "Riconoscere i tuoi oggetti",
+                "head": true
+              },
+              "Rekognition Custom Labels, con poche centinaia di immagini"
+            ],
+            [
+              {
+                "v": "Localizzare un oggetto",
+                "head": true
+              },
+              "Custom Labels con bounding box"
+            ],
+            [
+              {
+                "v": "Moderare i contenuti",
+                "head": true
+              },
+              "DetectModerationLabels, con adattatore personalizzato opzionale"
+            ],
+            [
+              {
+                "v": "Estrarre testo, coppie chiave-valore e tabelle",
+                "head": true
+              },
+              "Textract, API di analisi del documento"
+            ],
+            [
+              {
+                "v": "Fare domande sul documento",
+                "head": true
+              },
+              "Textract Queries"
+            ],
+            [
+              {
+                "v": "Leggere fatture e ricevute",
+                "head": true
+              },
+              "Textract AnalyzeExpense"
+            ],
+            [
+              {
+                "v": "Leggere un documento d'identità",
+                "head": true
+              },
+              "Textract AnalyzeID"
+            ],
+            [
+              {
+                "v": "Documento multipagina",
+                "head": true
+              },
+              "API asincrona; la sincrona è per una sola pagina"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Limiti di Custom Labels",
+          "text": "Non è pensato per analizzare volti, rilevare testo o trovare contenuti non sicuri: per quello ci sono le altre funzioni di Rekognition."
+        }
       ],
       "narration": "Amazon Rekognition analizza immagini e video. Per riconoscere oggetti comuni, come auto o palloni, usi l'etichettatura standard, senza addestrare nulla. Quando devi riconoscere elementi specifici della tua azienda, come pezzi di ricambio su una linea di produzione o il tuo logo nei post social, entra in gioco Rekognition Custom Labels. La documentazione dice che in genere bastano poche centinaia di immagini, e che il servizio carica i dati, sceglie gli algoritmi e addestra il modello. Può classificare l'intera immagine oppure localizzare oggetti con riquadri di delimitazione, detti bounding box. Attenzione: Custom Labels non è pensato per analizzare volti, rilevare testo o trovare contenuti non sicuri. Per quelli usi altre funzioni di Rekognition. La moderazione dei contenuti passa dall'operazione DetectModerationLabels, che può essere migliorata con un adattatore addestrato sulle tue immagini. Amazon Textract estrae il contenuto dei documenti, come moduli, referti e rendiconti. Le API di analisi ricavano testo, coppie chiave-valore e tabelle. Con Queries fai domande in linguaggio naturale, per esempio sul nome del fornitore, senza definire regole di estrazione. AnalyzeExpense è pensata per fatture e ricevute, mentre AnalyzeID legge patenti e passaporti emessi dal governo degli Stati Uniti. Conta anche la modalità. L'API sincrona analizza un documento di una pagina quando la latenza è critica, mentre l'asincrona gestisce documenti multipagina. La combinazione tipica è Textract per estrarre il dato e A2I per farlo verificare da una persona quando la confidenza è bassa.",
       "todo": [
@@ -202,12 +472,48 @@
     {
       "title": "Amazon A2I: la revisione umana",
       "bullets": [
-        "A2I aggiunge il giudizio umano quando il modello non è sicuro",
-        "Tre risorse: worker task template, flow definition e human loop",
-        "Condizioni di attivazione: confidenza di una chiave, chiave mancante, campione casuale",
-        "Integrato con l'operazione AnalyzeDocument di Textract",
-        "Integrato con DetectModerationLabels di Rekognition",
-        "Stato attuale: chiuso ai nuovi clienti, AWS non pianifica nuove funzioni"
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Worker task template",
+              "sub": "l'interfaccia che vede il revisore"
+            },
+            {
+              "label": "Flow definition",
+              "sub": "collega bucket S3, condizioni e work team"
+            },
+            {
+              "label": "Human loop",
+              "sub": "la singola revisione, creata quando la condizione scatta"
+            }
+          ]
+        },
+        {
+          "kind": "tree",
+          "root": "Quando parte la revisione umana?",
+          "branches": [
+            {
+              "when": "la confidenza di una chiave scende sotto la soglia",
+              "then": "Human loop"
+            },
+            {
+              "when": "una chiave attesa manca",
+              "then": "Human loop"
+            },
+            {
+              "when": "serve un campione casuale di documenti",
+              "then": "Human loop"
+            }
+          ]
+        },
+        "Integrazioni pronte: AnalyzeDocument di Textract e DetectModerationLabels di Rekognition",
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Stato attuale",
+          "text": "A2I è chiuso ai nuovi clienti e AWS non pianifica nuove funzioni: resta valido nelle architetture già in produzione, per i progetti nuovi valuta alternative."
+        }
       ],
       "narration": "Amazon Augmented AI, abbreviato A2I, aggiunge il giudizio umano a un'applicazione di machine learning. Quando il modello non valuta un dato con sufficiente confidenza, la decisione passa a un revisore. Questo flusso si chiama human review workflow. Per crearlo servono tre risorse. La prima è il worker task template, cioè l'interfaccia che vede il revisore. La seconda è la flow definition, che collega il workflow al bucket S3 dei dati, alle condizioni di attivazione e al work team. La terza è lo human loop, cioè la singola revisione creata quando una condizione si verifica. Le condizioni di attivazione sono il cuore delle domande d'esame. Puoi avviare una revisione quando la confidenza di una chiave scende sotto una soglia, quando una chiave attesa manca, oppure per un campione casuale di documenti. Per Textract, un esempio della documentazione è avviare la revisione ogni volta che compare la chiave Full name. A2I è integrato anche con Rekognition, tramite DetectModerationLabels. Un dettaglio che l'esame sfrutta: A2I ha chiuso ai nuovi clienti. A2I compare nella guida MLA-C01 e non nella MLA-C02. AWS dice che continua a migliorare sicurezza e disponibilità, ma non pianifica nuove funzionalità. Quindi nelle domande su progetti nuovi bisogna valutare alternative più recenti, mentre nelle architetture già in produzione A2I resta un componente valido. Lo stesso vale per altre funzioni di SageMaker. Dal 30 luglio 2026 hanno chiuso ai nuovi clienti anche Ground Truth, Mechanical Turk, Studio Lab, Clarify, Debugger, Model Monitor, Role Manager, Geospatial e Profiler. Ground Truth Plus è stato dismesso il 30 giugno 2026, mentre le altre funzioni di SageMaker restano disponibili. Chi li usava già può continuare.",
       "todo": [
@@ -218,13 +524,89 @@
     {
       "title": "Amazon Kendra e Amazon Personalize",
       "bullets": [
-        "Kendra: ricerca semantica su fonti enterprise, con connettori, indici e filtri sui metadati",
-        "Edizioni: GenAI Enterprise Edition, Enterprise Edition e Developer Edition",
-        "Kendra in manutenzione dal 30 giugno 2026, chiuso ai nuovi clienti dal 30 luglio 2026",
-        "Alternativa indicata da AWS: Amazon Bedrock Managed Knowledge Base",
-        "Personalize: raccomandazioni da dati di interazione tra utenti e item",
-        "Recipe: USER_PERSONALIZATION, PERSONALIZED_RANKING, RELATED_ITEMS, POPULAR_ITEMS, PERSONALIZED_ACTIONS",
-        "USER_SEGMENTATION per i segmenti di utenti, con job batch"
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Kendra: ricerca",
+              "tone": "warn",
+              "items": [
+                "Somiglianza semantica e contestuale, non solo parole chiave",
+                "Connettori alle fonti enterprise e filtri sui metadati",
+                "Edizioni: GenAI Enterprise, Enterprise, Developer",
+                "In manutenzione dal 30/06/2026, chiuso ai nuovi clienti dal 30/07/2026",
+                "Per i nuovi progetti AWS indica Bedrock Managed Knowledge Base"
+              ]
+            },
+            {
+              "head": "Personalize: raccomandazioni",
+              "tone": "good",
+              "items": [
+                "Parte dalle interazioni tra utenti e item",
+                "I metadati degli item arricchiscono il risultato",
+                "La recipe è l'algoritmo pronto per un caso d'uso",
+                "USER_SEGMENTATION lavora con un job batch"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Recipe",
+            "Cosa fa"
+          ],
+          "rows": [
+            [
+              {
+                "v": "USER_PERSONALIZATION",
+                "head": true
+              },
+              "raccomanda item a un utente"
+            ],
+            [
+              {
+                "v": "PERSONALIZED_RANKING",
+                "head": true
+              },
+              "riordina una lista per quell'utente"
+            ],
+            [
+              {
+                "v": "RELATED_ITEMS",
+                "head": true
+              },
+              "suggerisce elementi simili"
+            ],
+            [
+              {
+                "v": "POPULAR_ITEMS",
+                "head": true
+              },
+              "propone elementi popolari o di tendenza"
+            ],
+            [
+              {
+                "v": "PERSONALIZED_ACTIONS",
+                "head": true
+              },
+              "indica la prossima azione migliore"
+            ],
+            [
+              {
+                "v": "USER_SEGMENTATION",
+                "head": true
+              },
+              "costruisce segmenti di utenti"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Tranello",
+          "text": "Ordinare i risultati di ricerca in base all'utente è PERSONALIZED_RANKING, non Kendra."
+        }
       ],
       "narration": "Amazon Kendra è un servizio di ricerca intelligente. A differenza della ricerca per parole chiave, usa la somiglianza semantica e contestuale per decidere se un passaggio è pertinente. Puoi collegare più fonti dati con i connettori, indicizzare i documenti e usare i metadati per filtrare i risultati. Esistono tre tipi di indice. GenAI Enterprise Edition è quello che la documentazione raccomanda per la massima accuratezza nel RAG. Enterprise Edition offre ricerca semantica ad alta disponibilità per la produzione, e Developer Edition serve per i test e non per la produzione. Attenzione alla data. AWS ha messo Kendra in manutenzione dal 30 giugno 2026, e dal 30 luglio 2026 ha chiuso ai nuovi clienti. Gli account esistenti continuano a funzionare con le correzioni di sicurezza. Kendra compare nella guida MLA-C01 e non nella MLA-C02. Per i nuovi progetti AWS indica Amazon Bedrock Managed Knowledge Base, una soluzione RAG gestita con connettori, vector store e risposta generata. Amazon Personalize costruisce raccomandazioni a partire dai dati di interazione tra utenti e oggetti del catalogo, eventualmente arricchiti dai metadati. Il concetto chiave è la recipe, un algoritmo preparato per un caso d'uso. USER_PERSONALIZATION raccomanda item a un utente. PERSONALIZED_RANKING riordina una lista di risultati o di prodotti per un utente. RELATED_ITEMS suggerisce elementi simili, POPULAR_ITEMS propone elementi di tendenza o popolari, e PERSONALIZED_ACTIONS indica la prossima azione migliore. Per segmentare gli utenti si usa USER_SEGMENTATION con un job batch. Il tranello è confondere raccomandazione e ricerca. Se la domanda vuole ordinare i risultati di una ricerca in base all'utente, la risposta è PERSONALIZED_RANKING, non Kendra.",
       "todo": [
@@ -236,13 +618,78 @@
     {
       "title": "Servizi di settore, ritirati e alternative",
       "bullets": [
-        "HealthLake: dati sanitari in formato FHIR R4, servizio gestito e idoneo HIPAA",
-        "Fraud Detector: chiuso ai nuovi clienti dal 7 novembre 2025",
-        "Lookout for Equipment: supporto terminato il 7 ottobre 2026",
-        "Lookout for Metrics: supporto terminato il 10 ottobre 2025",
-        "Lookout for Vision: supporto terminato il 31 ottobre 2025",
-        "Forecast: chiuso ai nuovi clienti dal 29 luglio 2024",
-        "Canvas: interfaccia senza codice, alternativa a Forecast per le previsioni"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Stato",
+            "Alternativa indicata"
+          ],
+          "rows": [
+            [
+              {
+                "v": "HealthLake",
+                "head": true
+              },
+              "attivo, idoneo HIPAA, dati in FHIR R4",
+              "nessuna: per i dati FHIR è la risposta"
+            ],
+            [
+              {
+                "v": "Fraud Detector",
+                "head": true
+              },
+              "chiuso ai nuovi clienti dal 07/11/2025",
+              "SageMaker, AutoGluon, AWS WAF"
+            ],
+            [
+              {
+                "v": "Lookout for Metrics",
+                "head": true
+              },
+              "supporto terminato il 10/10/2025",
+              "OpenSearch, CloudWatch, Redshift ML, QuickSight"
+            ],
+            [
+              {
+                "v": "Lookout for Vision",
+                "head": true
+              },
+              "supporto terminato il 31/10/2025",
+              "SageMaker, Bedrock, partner"
+            ],
+            [
+              {
+                "v": "Lookout for Equipment",
+                "head": true
+              },
+              "supporto terminato il 07/10/2026",
+              "AWS IoT SiteWise, che però è fuori ambito nella MLA-C01"
+            ],
+            [
+              {
+                "v": "Forecast",
+                "head": true
+              },
+              "chiuso ai nuovi clienti dal 29/07/2024",
+              "SageMaker Canvas"
+            ],
+            [
+              {
+                "v": "SageMaker Canvas",
+                "head": true
+              },
+              "attivo, interfaccia senza codice",
+              "è l'alternativa a Forecast per le previsioni"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Regola d'esame",
+          "text": "Un servizio ritirato non è la scelta per un progetto nuovo, anche se compare nella guida: confronta la data della domanda con lo stato del servizio."
+        }
       ],
       "narration": "Questo gruppo è dove l'esame mette più trappole legate alla data. Il primo servizio è AWS HealthLake, un servizio gestito e idoneo HIPAA che fa da livello di persistenza FHIR R4, lo standard per lo scambio di dati sanitari. Se una domanda descrive dati clinici in formato FHIR da archiviare e interrogare, la risposta è HealthLake. La pagina AWS di HealthLake lo presenta come servizio attivo, e la notifica AWS del 30 giugno 2026 non lo elenca tra i servizi in manutenzione. Amazon Fraud Detector rileva frodi online, come transazioni fraudolente o account falsi. Addestra modelli sui tuoi dati storici e assegna esiti come approva o invia a revisione. AWS lo ha chiuso ai nuovi clienti il 7 novembre 2025, e per i progetti nuovi indica SageMaker, AutoGluon e AWS WAF. Fraud Detector e la famiglia Lookout compaiono solo nella guida MLA-C01. La famiglia Lookout è la parte più netta. Lookout for Metrics cerca anomalie nelle metriche di business: AWS ha chiuso l'accesso ai nuovi clienti nell'ottobre 2024 e ha terminato il supporto il 10 ottobre 2025, indicando OpenSearch, CloudWatch, Redshift ML e QuickSight. Lookout for Vision cerca difetti visivi: il supporto è finito il 31 ottobre 2025, e AWS indica SageMaker, Bedrock e i partner. Lookout for Equipment fa manutenzione predittiva su macchinari industriali: il supporto è terminato il 7 ottobre 2026, e AWS consigliava AWS IoT SiteWise. Attenzione, IoT SiteWise è fuori ambito nella guida MLA-C01, e la domanda potrebbe volerti far ragionare proprio su questo. Amazon Forecast ha chiuso ai nuovi clienti il 29 luglio 2024. La pagina di migrazione di AWS indica SageMaker Canvas come destinazione. Forecast non compare nell'elenco in ambito di nessuno dei due esami, ma resta un caso di migrazione frequente. Per chi vuole un algoritmo proprio, SageMaker offre DeepAR, un algoritmo built-in per previsioni su molte serie temporali correlate. Canvas è l'interfaccia senza codice di SageMaker: importi i dati, costruisci un modello e generi previsioni, anche su serie temporali. Quindi, per una previsione di domanda affidata a un analista senza esperienza di data science, la risposta è Canvas. La regola per l'esame è questa: un servizio ritirato non è la scelta per un progetto nuovo, anche se compare nella guida. Controlla sempre la data indicata nella domanda rispetto allo stato del servizio.",
       "todo": [
@@ -257,13 +704,66 @@
     {
       "title": "Amazon Q e Amazon Bedrock",
       "bullets": [
-        "Amazon Q Business: assistente generativo sui dati aziendali, con citazioni e permessi",
-        "Q Business ha chiuso ai nuovi clienti dal 30 luglio 2026: AWS indica Amazon Quick",
-        "Amazon Q Developer: assistente per AWS e per il codice nell'IDE",
-        "Plugin IDE di Q Developer: il supporto termina il 30 aprile 2027",
-        "Bedrock: API unica verso modelli di fondazione di più provider",
-        "Personalizzazione: fine-tuning supervisionato, fine-tuning per rinforzo e distillazione",
-        "Knowledge Base per il RAG, con le API Converse e InvokeModel"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "A cosa serve",
+            "Stato"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Q Business",
+                "head": true
+              },
+              "assistente sui dati aziendali, con citazioni e permessi dell'utente",
+              "chiuso ai nuovi clienti dal 30/07/2026; AWS indica Amazon Quick"
+            ],
+            [
+              {
+                "v": "Q Developer",
+                "head": true
+              },
+              "assistente per AWS e per il codice nell'IDE",
+              "plugin IDE supportati fino al 30/04/2027; AWS indica Kiro"
+            ],
+            [
+              {
+                "v": "Bedrock",
+                "head": true
+              },
+              "modelli di fondazione di più provider con una sola API",
+              "attivo, è il servizio centrale della parte GenAI nella MLA-C02"
+            ]
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "API Converse",
+              "tone": "good",
+              "items": [
+                "Formato di messaggi comune a tutti i modelli",
+                "Cambiare modello senza riscrivere la chiamata"
+              ]
+            },
+            {
+              "head": "API InvokeModel",
+              "tone": "warn",
+              "items": [
+                "Usa il formato nativo del modello scelto",
+                "Accesso completo alle opzioni del provider"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Personalizzazione",
+          "text": "Fine-tuning supervisionato, fine-tuning per rinforzo e distillazione. Per il RAG ci sono le Knowledge Base."
+        }
       ],
       "narration": "Amazon Q è la famiglia di assistenti generativi di AWS, e nell'esame conta distinguere le varianti. Amazon Q non compare nell'elenco della MLA-C02, quindi è materia solo della MLA-C01. Amazon Q Business è un assistente configurabile che risponde a domande sui dati aziendali, con citazioni alle fonti e rispettando i permessi di chi chiede. Si usa per help desk di IT e risorse umane, e si collega a fonti come S3, SharePoint e Salesforce. AWS lo ha inserito tra i servizi in manutenzione il 30 giugno 2026, chiuso ai nuovi clienti dal 30 luglio 2026, e la pagina indica Amazon Quick come alternativa per capacità simili. Amazon Q Developer è invece l'assistente per chi costruisce su AWS. Risponde a domande su architettura e risorse, e nell'IDE genera codice, suggerisce completamenti e cerca vulnerabilità. Il supporto ai plugin IDE termina il 30 aprile 2027, e AWS indica Kiro per le funzioni simili. Amazon Bedrock è il servizio gestito per usare modelli di fondazione di più provider con una sola API, senza gestire l'infrastruttura. Puoi chiamarlo con le API Converse, che usano un formato di messaggi comune, oppure con InvokeModel, che usa il formato nativo del modello. Puoi personalizzare un modello con fine-tuning supervisionato, fine-tuning per rinforzo o distillazione. Per il RAG, Bedrock offre le Knowledge Base, che collegano i tuoi dati al modello. Per l'esame la distinzione è questa. Se la domanda chiede un assistente aziendale già pronto, valuta Q Business o Quick. Se chiede di costruire un'applicazione generativa con la scelta del modello, la risposta è Bedrock. Per la MLA-C02, Bedrock è il servizio centrale della parte GenAI.",
       "todo": [
@@ -273,13 +773,93 @@
     {
       "title": "Catalogo: analytics",
       "bullets": [
-        "Amazon Athena: query SQL su dati in S3 e altre fonti esterne",
-        "Amazon Data Firehose: consegna di dati in streaming verso le destinazioni",
-        "Amazon EMR: big data con framework open source",
-        "AWS Glue, Glue DataBrew e Glue Data Quality: ETL, preparazione e controlli di qualità",
-        "Amazon Kinesis: dati in streaming in tempo reale",
-        "AWS Lake Formation: permessi e governance del data lake",
-        "Amazon Managed Service for Apache Flink: elaborazione di stream con Apache Flink"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Cosa fa",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Athena",
+                "head": true
+              },
+              "query SQL su dati in S3 e fonti esterne",
+              "query senza infrastruttura da gestire"
+            ],
+            [
+              {
+                "v": "EMR",
+                "head": true
+              },
+              "big data con framework open source",
+              "Spark e volumi grandi"
+            ],
+            [
+              {
+                "v": "Glue",
+                "head": true
+              },
+              "ETL e scoperta dei dati",
+              "trasformazioni programmate"
+            ],
+            [
+              {
+                "v": "Glue DataBrew",
+                "head": true
+              },
+              "preparazione visuale dei dati",
+              "preparare i dati senza scrivere codice"
+            ],
+            [
+              {
+                "v": "Glue Data Quality",
+                "head": true
+              },
+              "controlli sulla qualità dei dati",
+              "regole e metriche sui dataset"
+            ],
+            [
+              {
+                "v": "Kinesis",
+                "head": true
+              },
+              "dati in streaming",
+              "elaborazione continua in tempo reale"
+            ],
+            [
+              {
+                "v": "Data Firehose",
+                "head": true
+              },
+              "consegna dei dati in streaming",
+              "portare lo stream verso le destinazioni"
+            ],
+            [
+              {
+                "v": "Managed Service for Apache Flink",
+                "head": true
+              },
+              "elaborazione di stream con Apache Flink",
+              "trasformazione continua"
+            ],
+            [
+              {
+                "v": "Lake Formation",
+                "head": true
+              },
+              "permessi e governance del data lake",
+              "accesso controllato ai dati"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Criterio di scelta",
+          "text": "Prima domanda: il dato arriva in batch o in streaming? Poi: serve una trasformazione in tempo reale o una preparazione programmata?"
+        }
       ],
       "narration": "Questa slide è il catalogo dell'analytics, cioè i servizi in ambito per l'esame. Nella guida MLA-C01 la categoria include Amazon Athena, Amazon Data Firehose, Amazon EMR e AWS Glue. La lista continua con AWS Glue DataBrew, AWS Glue Data Quality, Amazon Kinesis, AWS Lake Formation, Amazon Managed Service for Apache Flink, Amazon OpenSearch Service, Amazon QuickSight e Amazon Redshift. Nella MLA-C02 la categoria è la stessa, con QuickSight rinominato Amazon Quick. Per scegliere, parti dal tipo di dato e dal tipo di elaborazione. Athena interroga dati in S3 con SQL senza infrastruttura da gestire. EMR serve quando devi eseguire framework open source come Spark su grandi volumi. Glue è il servizio di ETL e di scoperta dei dati, mentre DataBrew offre la preparazione visuale e Glue Data Quality i controlli sulla qualità. Per dati in streaming usi Kinesis o Data Firehose, e per elaborare gli stream con Flink usi Managed Service for Apache Flink. Lake Formation governa i permessi su un data lake. Le domande d'esame spesso mettono a confronto questi servizi. Il criterio decisivo è sempre se il dato arriva in batch o in streaming, e se serve una trasformazione in tempo reale o una preparazione programmata.",
       "todo": [
@@ -289,13 +869,70 @@
     {
       "title": "Catalogo: analytics di ricerca e integrazione",
       "bullets": [
-        "Amazon OpenSearch Service: ricerca e analisi in quasi tempo reale di dati operativi",
-        "Amazon QuickSight (Quick nella MLA-C02): dashboard e business intelligence interattiva",
-        "Amazon Redshift: data warehouse e lakehouse",
-        "Amazon EventBridge: bus di eventi per collegare applicazioni e servizi",
-        "Amazon MWAA: Apache Airflow gestito per orchestrare pipeline",
-        "Amazon SNS: notifiche publish e subscribe",
-        "Amazon SQS: code di messaggi tra componenti"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Cosa fa"
+          ],
+          "rows": [
+            [
+              {
+                "v": "OpenSearch Service",
+                "head": true
+              },
+              "ricerca e analisi in quasi tempo reale di dati operativi, log e metriche"
+            ],
+            [
+              {
+                "v": "QuickSight",
+                "head": true
+              },
+              "dashboard e business intelligence interattiva; nella MLA-C02 è Amazon Quick"
+            ],
+            [
+              {
+                "v": "Redshift",
+                "head": true
+              },
+              "data warehouse e lakehouse"
+            ],
+            [
+              {
+                "v": "EventBridge",
+                "head": true
+              },
+              "bus di eventi tra applicazioni e servizi"
+            ],
+            [
+              {
+                "v": "MWAA",
+                "head": true
+              },
+              "Apache Airflow gestito per pipeline schedulate e dipendenze tra job"
+            ],
+            [
+              {
+                "v": "SNS",
+                "head": true
+              },
+              "notifiche publish e subscribe"
+            ],
+            [
+              {
+                "v": "SQS",
+                "head": true
+              },
+              "code di messaggi tra componenti"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "SNS o SQS?",
+          "text": "SNS spinge il messaggio a più destinatari, SQS lo conserva in coda finché un consumatore lo prende."
+        }
       ],
       "narration": "Questa slide riprende il catalogo dell'analytics e aggiunge la parte di integrazione delle applicazioni. OpenSearch Service serve a cercare e analizzare dati operativi quasi in tempo reale, ed è il servizio che la guida indica per la ricerca su log e metriche. QuickSight crea dashboard interattive, e nella MLA-C02 viene citato come Amazon Quick. Redshift è il data warehouse di AWS, usato per analisi su grandi volumi strutturati. Nella categoria integrazione ci sono i servizi che collegano componenti senza accoppiarli. EventBridge distribuisce eventi tra servizi e applicazioni, SNS invia notifiche a più abbonati, SQS mette in coda i messaggi per l'elaborazione asincrona. MWAA è Apache Airflow gestito, per pipeline schedulate e dipendenze tra job. Per l'esame conviene distinguere SNS da SQS: SNS spinge il messaggio a più destinatari, SQS lo conserva in coda finché un consumatore lo prende. Un'altra distinzione frequente è tra un workflow orchestrato da Step Functions, che vedi nella prossima slide, e un orchestratore di pipeline dati come MWAA.",
       "todo": [
@@ -305,13 +942,76 @@
     {
       "title": "Catalogo: calcolo, orchestrazione e container",
       "bullets": [
-        "AWS Step Functions: orchestrazione di workflow tra servizi",
-        "AWS Batch: job batch su capacità di calcolo gestita",
-        "Amazon EC2: capacità di calcolo flessibile per quasi ogni carico di lavoro",
-        "AWS Lambda e Serverless Application Repository: funzioni serverless e applicazioni riutilizzabili",
-        "Amazon ECR: registro per archiviare e distribuire container",
-        "Amazon ECS: container gestiti su scala",
-        "Amazon EKS: Kubernetes gestito in produzione"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Cosa fa"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Step Functions",
+                "head": true
+              },
+              "orchestrazione di workflow tra servizi, con stati e logica condizionale"
+            ],
+            [
+              {
+                "v": "AWS Batch",
+                "head": true
+              },
+              "job batch su capacità di calcolo gestita"
+            ],
+            [
+              {
+                "v": "EC2",
+                "head": true
+              },
+              "capacità di calcolo con controllo completo di sistema operativo e macchina"
+            ],
+            [
+              {
+                "v": "Lambda",
+                "head": true
+              },
+              "funzioni serverless, senza server da gestire"
+            ],
+            [
+              {
+                "v": "Serverless Application Repository",
+                "head": true
+              },
+              "applicazioni serverless pronte da distribuire"
+            ],
+            [
+              {
+                "v": "ECR",
+                "head": true
+              },
+              "registro per archiviare e distribuire le immagini container"
+            ],
+            [
+              {
+                "v": "ECS",
+                "head": true
+              },
+              "container gestiti su scala"
+            ],
+            [
+              {
+                "v": "EKS",
+                "head": true
+              },
+              "Kubernetes gestito in produzione"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "ECS o EKS?",
+          "text": "Dipende dal fatto che il team usi già Kubernetes. Per un endpoint in container servono registro, orchestratore e calcolo."
+        }
       ],
       "narration": "Questa slide copre calcolo, orchestrazione e container. Nella guida MLA-C01 la categoria Compute include AWS Batch, Amazon EC2, AWS Lambda e AWS Serverless Application Repository. La categoria Containers include Amazon ECR, Amazon ECS e Amazon EKS. Step Functions orchestra più servizi in un workflow con stati, ed è la scelta quando devi coordinare passaggi di una pipeline con logica condizionale. AWS Batch esegue job batch su capacità gestita, utile per elaborazioni lunghe e numerose. EC2 è la capacità di calcolo virtuale più flessibile, quando serve controllo completo del sistema operativo e della macchina. Lambda esegue funzioni serverless, senza gestire server, e può essere il fulfillment di un bot Lex o il trigger di un'elaborazione. Serverless Application Repository raccoglie applicazioni serverless pronte da distribuire. Per i container, ECR è il registro dove archiviare le immagini, ECS è l'orchestratore di container gestito da AWS, ed EKS è Kubernetes gestito. La scelta tra ECS ed EKS dipende dal fatto che il team usi già Kubernetes. Per un endpoint di inferenza in container, le domande d'esame si concentrano su questa combinazione tra registro, orchestratore e calcolo.",
       "todo": [
@@ -321,13 +1021,80 @@
     {
       "title": "Catalogo: database e costi",
       "bullets": [
-        "Amazon DocumentDB: database documentale compatibile con MongoDB",
-        "Amazon DynamoDB: key-value per accessi veloci e su larga scala",
-        "Amazon ElastiCache: cache in memoria per dati che richiedono accesso in tempo reale",
-        "Amazon Neptune: database a grafo per relazioni tra entità",
-        "Amazon RDS: database relazionali con schema predefinito",
-        "AWS Billing and Cost Management: fatturazione e gestione dei costi",
-        "AWS Budgets e AWS Cost Explorer: budget di spesa e analisi dei costi"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Tipo",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "DynamoDB",
+                "head": true
+              },
+              "key-value",
+              "pattern di accesso noti e volumi molto grandi"
+            ],
+            [
+              {
+                "v": "RDS",
+                "head": true
+              },
+              "relazionale",
+              "schema e relazioni definiti"
+            ],
+            [
+              {
+                "v": "DocumentDB",
+                "head": true
+              },
+              "documentale",
+              "JSON con API compatibile con MongoDB"
+            ],
+            [
+              {
+                "v": "Neptune",
+                "head": true
+              },
+              "a grafo",
+              "relazioni tra entità, come in un motore di raccomandazione"
+            ],
+            [
+              {
+                "v": "ElastiCache",
+                "head": true
+              },
+              "cache in memoria",
+              "accesso in tempo reale ai dati"
+            ],
+            [
+              {
+                "v": "AWS Budgets",
+                "head": true
+              },
+              "controllo dei costi",
+              "avviso quando la spesa supera una soglia"
+            ],
+            [
+              {
+                "v": "AWS Cost Explorer",
+                "head": true
+              },
+              "controllo dei costi",
+              "analisi dell'andamento della spesa"
+            ],
+            [
+              {
+                "v": "Billing and Cost Management",
+                "head": true
+              },
+              "controllo dei costi",
+              "punto di controllo della fatturazione"
+            ]
+          ]
+        }
       ],
       "narration": "Questa slide raccoglie i database e la gestione dei costi. La categoria Database della guida MLA-C01 include Amazon DocumentDB, Amazon DynamoDB, Amazon ElastiCache, Amazon Neptune e Amazon RDS. DocumentDB archivia documenti JSON e usa l'API compatibile con MongoDB. DynamoDB è un database key-value pensato per accessi con pattern noti e per volumi molto grandi. ElastiCache è la cache in memoria, usata quando serve accesso in tempo reale ai dati. Neptune è un database a grafo, adatto alle relazioni tra entità, come in un motore di raccomandazione basato su connessioni. RDS offre database relazionali con schema e relazioni definite. Per la gestione dei costi, nella categoria Cloud Financial Management, la guida MLA-C01 include AWS Billing and Cost Management, AWS Budgets e AWS Cost Explorer. Budgets avvisa quando la spesa supera una soglia, Cost Explorer analizza l'andamento dei costi, e Billing and Cost Management è il punto di controllo della fatturazione. Nelle domande sull'ottimizzazione dei costi d'inferenza, questi strumenti si combinano con le scelte di calcolo della slide precedente.",
       "todo": [
@@ -337,13 +1104,62 @@
     {
       "title": "Catalogo: sviluppo, ML e media",
       "bullets": [
-        "AWS CDK, CodeArtifact, CodeBuild, CodeDeploy, CodePipeline, X-Ray: sviluppo e delivery",
-        "AWS CodeCommit e CodeConnections: solo nella MLA-C02",
-        "Amazon SageMaker (SageMaker AI nella MLA-C02): piattaforma ML",
-        "Amazon CodeGuru, Amazon DevOps Guru: analisi del codice e anomalie operative",
-        "Amazon Mechanical Turk: forza lavoro per annotazioni, solo nella MLA-C01",
-        "Bedrock AgentCore: solo nella MLA-C02, per agenti AI",
-        "Kinesis Video Streams e AWS DataSync: video in streaming e trasferimento dati"
+        {
+          "kind": "table",
+          "head": [
+            "Area",
+            "Servizi",
+            "Nota per l'esame"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Sviluppo",
+                "head": true
+              },
+              "CDK, CodeArtifact, CodeBuild, CodeDeploy, CodePipeline, X-Ray",
+              "CodeCommit e CodeConnections solo nella MLA-C02"
+            ],
+            [
+              {
+                "v": "Machine learning",
+                "head": true
+              },
+              "SageMaker, CodeGuru, DevOps Guru",
+              "nella MLA-C02 SageMaker AI e Bedrock AgentCore"
+            ],
+            [
+              {
+                "v": "Annotazioni",
+                "head": true
+              },
+              "Mechanical Turk",
+              "solo nella MLA-C01"
+            ],
+            [
+              {
+                "v": "Media",
+                "head": true
+              },
+              "Kinesis Video Streams",
+              "streaming video verso AWS"
+            ],
+            [
+              {
+                "v": "Migrazione",
+                "head": true
+              },
+              "DataSync",
+              "trasferimento dati accelerato"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Funzioni SageMaker chiuse il 30/07/2026",
+          "text": "Ground Truth, Mechanical Turk, A2I, Studio Lab, Clarify, Debugger, Model Monitor, Role Manager, Geospatial e Profiler non accettano nuovi clienti; Ground Truth Plus è stato dismesso il 30/06/2026. Chi li usava continua."
+        }
       ],
       "narration": "Questa slide riprende i servizi di sviluppo e alcuni servizi di machine learning e di media. Nella categoria Developer Tools della guida MLA-C01 trovi AWS CDK, AWS CodeArtifact, AWS CodeBuild, AWS CodeDeploy, AWS CodePipeline e AWS X-Ray. X-Ray traccia le richieste che attraversano più servizi, e CodePipeline orchestra il ciclo di build e deploy. Nella MLA-C02 compaiono anche AWS CodeCommit e AWS CodeConnections. Nella categoria Machine Learning della MLA-C01 trovi Amazon SageMaker, Amazon CodeGuru, Amazon DevOps Guru e Amazon Mechanical Turk. Nella MLA-C02 compaiono SageMaker AI e Bedrock AgentCore, mentre Mechanical Turk non c'è più. Attenzione alle funzioni di SageMaker. Dal 30 luglio 2026 hanno chiuso ai nuovi clienti Ground Truth, Mechanical Turk, Augmented AI, Studio Lab, Clarify, Debugger, Model Monitor, Role Manager, Geospatial e Profiler. Ground Truth Plus è stato dismesso il 30 giugno 2026. Chi li usava prima può continuare. Amazon DevOps Guru rileva anomalie operative, e CodeGuru analizza il codice. Tra i servizi di media compare Amazon Kinesis Video Streams, per lo streaming video verso AWS. Nella categoria Migration and Transfer compare AWS DataSync, che trasferisce dati tra ambienti on-premises e AWS in modo accelerato. Nelle domande d'esame questi servizi appaiono come tranelli quando la domanda parla di sviluppo o di media ma chiede un servizio di machine learning, o viceversa.",
       "todo": [
@@ -354,13 +1170,77 @@
     {
       "title": "Catalogo: monitoraggio, governance e rete",
       "bullets": [
-        "AWS Auto Scaling: adatta la capacità alla domanda",
-        "AWS CloudFormation: infrastruttura descritta con template",
-        "AWS CloudTrail: traccia l'attività utente e le chiamate API",
-        "Amazon CloudWatch e CloudWatch Logs: metriche, allarmi e log",
-        "AWS Compute Optimizer: raccomandazioni per performance e costo",
-        "AWS Config: registra e valuta le configurazioni delle risorse",
-        "AWS Organizations: governance centralizzata su più account"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Cosa fa"
+          ],
+          "rows": [
+            [
+              {
+                "v": "CloudWatch e CloudWatch Logs",
+                "head": true
+              },
+              "metriche, allarmi e log"
+            ],
+            [
+              {
+                "v": "CloudTrail",
+                "head": true
+              },
+              "chi ha chiamato quale API, la fonte per l'audit"
+            ],
+            [
+              {
+                "v": "AWS Config",
+                "head": true
+              },
+              "come sono configurate le risorse nel tempo"
+            ],
+            [
+              {
+                "v": "AWS Auto Scaling",
+                "head": true
+              },
+              "capacità adattata alla domanda"
+            ],
+            [
+              {
+                "v": "AWS CloudFormation",
+                "head": true
+              },
+              "infrastruttura descritta con template ripetibili"
+            ],
+            [
+              {
+                "v": "AWS Compute Optimizer",
+                "head": true
+              },
+              "dimensioni e tipi di istanza più adatti per performance e costo"
+            ],
+            [
+              {
+                "v": "AWS Organizations",
+                "head": true
+              },
+              "governance centralizzata su più account"
+            ],
+            [
+              {
+                "v": "Service Catalog, Systems Manager, Trusted Advisor",
+                "head": true
+              },
+              "prodotti approvati, operazioni sulle risorse, raccomandazioni"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Config o CloudTrail?",
+          "text": "Se la domanda vuole capire perché una risorsa è cambiata: Config per la configurazione, CloudTrail per l'azione."
+        }
       ],
       "narration": "Questa slide copre monitoraggio e governance. La categoria Management and Governance della guida MLA-C01 include molti servizi. Sono AWS Auto Scaling, AWS Chatbot, AWS CloudFormation, AWS CloudTrail, Amazon CloudWatch, Amazon CloudWatch Logs, AWS Compute Optimizer, AWS Config, AWS Organizations, AWS Service Catalog, AWS Systems Manager e AWS Trusted Advisor. AWS Chatbot non compare nella MLA-C02. Per l'esame conviene ricordare ruoli precisi. CloudWatch raccoglie metriche, allarmi e log, e CloudWatch Logs gestisce i log. CloudTrail registra chi ha chiamato quale API, ed è la fonte per l'audit. Config registra come sono configurate le risorse nel tempo. Auto Scaling adatta la capacità alla domanda, mentre CloudFormation descrive l'infrastruttura con template ripetibili. Compute Optimizer suggerisce dimensioni e tipi di istanza più adatti, sia per performance sia per costo. Organizations governa più account AWS in modo centralizzato. Nelle domande sul monitoraggio di un endpoint, la combinazione tipica è CloudWatch per metriche e allarmi, CloudTrail per l'audit delle chiamate. Se la domanda chiede di capire perché una risorsa è cambiata, la risposta è Config o CloudTrail, a seconda che cerchi la configurazione o l'azione.",
       "todo": [
@@ -370,13 +1250,92 @@
     {
       "title": "Catalogo: governance, rete e sicurezza",
       "bullets": [
-        "AWS Service Catalog e AWS Systems Manager: catalogo di prodotti e gestione operativa",
-        "AWS Trusted Advisor: raccomandazioni su costi, sicurezza e performance",
-        "Amazon API Gateway, Amazon CloudFront, AWS Direct Connect, Amazon VPC: rete e accesso",
-        "AWS IAM e AWS KMS: identità, permessi e chiavi di crittografia",
-        "Amazon Macie: scoperta di dati sensibili in S3",
-        "AWS Secrets Manager: segreti e credenziali",
-        "Amazon Inspector: scansione delle vulnerabilità, in ambito solo nella MLA-C02"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Ruolo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "AWS IAM",
+                "head": true
+              },
+              "chi può fare cosa"
+            ],
+            [
+              {
+                "v": "AWS KMS",
+                "head": true
+              },
+              "chiavi di crittografia usate da S3, SageMaker e altri servizi"
+            ],
+            [
+              {
+                "v": "Amazon Macie",
+                "head": true
+              },
+              "dati sensibili nei bucket S3, come le PII"
+            ],
+            [
+              {
+                "v": "AWS Secrets Manager",
+                "head": true
+              },
+              "credenziali e segreti recuperati a runtime, non scritti nel codice"
+            ],
+            [
+              {
+                "v": "Amazon API Gateway",
+                "head": true
+              },
+              "API HTTP per un endpoint di inferenza"
+            ],
+            [
+              {
+                "v": "Amazon CloudFront",
+                "head": true
+              },
+              "distribuzione dei contenuti"
+            ],
+            [
+              {
+                "v": "AWS Direct Connect",
+                "head": true
+              },
+              "collegamento di rete dedicato verso AWS"
+            ],
+            [
+              {
+                "v": "Amazon VPC",
+                "head": true
+              },
+              "isolamento della rete"
+            ],
+            [
+              {
+                "v": "Service Catalog e Systems Manager",
+                "head": true
+              },
+              "prodotti approvati e operazioni sulle risorse"
+            ],
+            [
+              {
+                "v": "AWS Trusted Advisor",
+                "head": true
+              },
+              "raccomandazioni su costi, sicurezza e performance"
+            ],
+            [
+              {
+                "v": "Amazon Inspector",
+                "head": true
+              },
+              "scansione delle vulnerabilità: in ambito solo nella MLA-C02"
+            ]
+          ]
+        }
       ],
       "narration": "Questa slide chiude il catalogo della governance, della rete e della sicurezza. La guida MLA-C01 include nella rete Amazon API Gateway, Amazon CloudFront, AWS Direct Connect e Amazon VPC. Nella sicurezza include AWS IAM, AWS KMS, Amazon Macie e AWS Secrets Manager. Per le domande d'esame ricorda i ruoli. IAM stabilisce chi può fare cosa. KMS gestisce le chiavi di crittografia usate da S3, da SageMaker e da molti altri servizi. Macie trova dati sensibili nei bucket S3, come PII. Secrets Manager custodisce credenziali e segreti da recuperare a runtime invece di scriverli nel codice. API Gateway espone API HTTP per un endpoint di inferenza. CloudFront distribuisce contenuti. Direct Connect crea un collegamento di rete dedicato verso AWS, e VPC isola la rete. Amazon Inspector cerca vulnerabilità: nella guida MLA-C01 è fuori ambito, mentre nella MLA-C02 compare tra i servizi in ambito. Nella stessa categoria Service Catalog e Systems Manager gestiscono prodotti approvati e operazioni sulle risorse, mentre Trusted Advisor dà raccomandazioni su costi, sicurezza e performance.",
       "todo": [
@@ -386,12 +1345,69 @@
     {
       "title": "Catalogo: storage",
       "bullets": [
-        "Amazon EBS: block storage ad alte prestazioni per EC2",
-        "Amazon EFS: file system condiviso, serverless ed elastico",
-        "Amazon FSx: file system completamente gestiti, commerciali e open source",
-        "Amazon S3: object storage con scalabilità e disponibilità elevate",
-        "Amazon S3 Glacier: archiviazione a lungo termine a costo ridotto",
-        "AWS Storage Gateway: storage ibrido tra on-premises e cloud"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Tipo",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Amazon S3",
+                "head": true
+              },
+              "object storage",
+              "dataset, artefatti e output dei job"
+            ],
+            [
+              {
+                "v": "Amazon EBS",
+                "head": true
+              },
+              "block storage",
+              "disco ad alte prestazioni per una singola istanza EC2"
+            ],
+            [
+              {
+                "v": "Amazon EFS",
+                "head": true
+              },
+              "file system condiviso",
+              "più istanze montano lo stesso file system"
+            ],
+            [
+              {
+                "v": "Amazon FSx",
+                "head": true
+              },
+              "file system gestiti",
+              "capacità di sistemi commerciali o open source"
+            ],
+            [
+              {
+                "v": "S3 Glacier",
+                "head": true
+              },
+              "archiviazione a lungo termine",
+              "dati raramente letti, costo ridotto"
+            ],
+            [
+              {
+                "v": "AWS Storage Gateway",
+                "head": true
+              },
+              "storage ibrido",
+              "collegare l'on-premises al cloud"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Dataset per il training",
+          "text": "Su più istanze il criterio è se serve un file system condiviso o un oggetto in S3."
+        }
       ],
       "narration": "Questa slide riprende la categoria Storage. La guida MLA-C01 include Amazon Elastic Block Store, Amazon Elastic File System, Amazon FSx, Amazon S3, Amazon S3 Glacier e AWS Storage Gateway. Per il machine learning, S3 è il luogo principale di dataset, artefatti e output dei job. Le domande d'esame chiedono spesso di scegliere lo storage giusto per il caso. EBS è un volume a blocchi collegato a una singola istanza EC2 e serve per un disco ad alte prestazioni. EFS è un file system condiviso e serverless, che più istanze possono montare insieme. FSx offre file system completamente gestiti con le capacità di sistemi commerciali o open source. S3 è l'object storage, e le sue classi di archiviazione cambiano il costo in base alla frequenza di accesso. Glacier è l'archiviazione a lungo termine per dati raramente letti. Storage Gateway collega l'on-premises al cloud con uno storage ibrido. Quando la domanda parla di dataset per il training su più istanze, il criterio è se serve un file system condiviso o un oggetto in S3.",
       "todo": [
@@ -401,13 +1417,86 @@
     {
       "title": "Servizi fuori ambito da non confondere",
       "bullets": [
-        "AWS Clean Rooms e Amazon DataZone: condivisione e governance dati, fuori ambito",
-        "Amazon AppFlow: integrazione con applicazioni SaaS, fuori ambito",
-        "Famiglia AWS IoT, incluso IoT SiteWise: fuori ambito nella MLA-C01",
-        "Amazon GuardDuty e AWS Security Hub: sicurezza, fuori ambito nella MLA-C01",
-        "Amazon Route 53 e AWS Cloud Map: networking, fuori ambito nella MLA-C01",
-        "AWS DeepRacer, HealthImaging, HealthOmics, Panorama, Monitron: ML di settore, fuori ambito",
-        "Amazon Lightsail, App Runner, Elastic Beanstalk, Outposts: compute, fuori ambito"
+        {
+          "kind": "table",
+          "head": [
+            "Servizio fuori ambito",
+            "Perché sembra la risposta",
+            "In realtà"
+          ],
+          "rows": [
+            [
+              {
+                "v": "AWS IoT SiteWise",
+                "head": true
+              },
+              "AWS lo indica come alternativa a Lookout for Equipment",
+              "fuori ambito nella MLA-C01"
+            ],
+            [
+              {
+                "v": "Amazon Inspector",
+                "head": true
+              },
+              "scansione delle vulnerabilità",
+              "fuori ambito nella MLA-C01, in ambito nella MLA-C02"
+            ],
+            [
+              {
+                "v": "Clean Rooms, DataZone, FinSpace",
+                "head": true
+              },
+              "condivisione e governance dei dati",
+              "fuori ambito nella MLA-C01"
+            ],
+            [
+              {
+                "v": "AppFlow, Amazon MQ",
+                "head": true
+              },
+              "integrazione con applicazioni SaaS e code",
+              "fuori ambito nella MLA-C01"
+            ],
+            [
+              {
+                "v": "GuardDuty, Security Hub, Cognito, WAF",
+                "head": true
+              },
+              "sicurezza e identità",
+              "fuori ambito nella MLA-C01"
+            ],
+            [
+              {
+                "v": "Route 53, Cloud Map",
+                "head": true
+              },
+              "networking",
+              "fuori ambito nella MLA-C01"
+            ],
+            [
+              {
+                "v": "DeepRacer, HealthImaging, HealthOmics, Panorama, Monitron",
+                "head": true
+              },
+              "machine learning di settore",
+              "fuori ambito nella MLA-C01"
+            ],
+            [
+              {
+                "v": "Lightsail, App Runner, Elastic Beanstalk, Outposts",
+                "head": true
+              },
+              "compute alternativo",
+              "fuori ambito nella MLA-C01"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Liste non esaustive",
+          "text": "Cambiano nel tempo: per una domanda controlla sempre la versione della guida indicata."
+        }
       ],
       "narration": "L'ultima slide elenca i servizi fuori ambito, cioè quelli che compaiono nelle esercitazioni generiche ma non nell'esame. Nella guida MLA-C01 trovi AWS Clean Rooms, Amazon DataZone e Amazon FinSpace tra gli analytics, Amazon AppFlow e Amazon MQ tra le integrazioni, e la famiglia AWS IoT, con AWS IoT Core, AWS IoT SiteWise e AWS IoT Events. Trovi anche Amazon GuardDuty, AWS Security Hub, Amazon Cognito, AWS WAF e Amazon Route 53 tra i servizi di sicurezza e rete. Nella categoria Machine Learning fuori ambito ci sono AWS DeepRacer, AWS HealthImaging, AWS HealthOmics, Amazon Monitron e AWS Panorama. Nella compute compaiono AWS App Runner, AWS Elastic Beanstalk, Amazon Lightsail e AWS Outposts. Il tranello più frequente è IoT SiteWise: AWS lo indica come alternativa a Lookout for Equipment, ma per la MLA-C01 è fuori ambito. Il secondo tranello è Amazon Inspector, fuori ambito nella MLA-C01 e in ambito nella MLA-C02. Le liste sono non esaustive e cambiano nel tempo, quindi per una domanda controlla sempre la versione della guida indicata.",
       "todo": [

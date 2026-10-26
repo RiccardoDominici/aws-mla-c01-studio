@@ -116,10 +116,65 @@
     {
       "title": "Dal modello addestrato al servizio",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "model.tar.gz",
+              "sub": "pesi su S3"
+            },
+            {
+              "label": "Model",
+              "sub": "container, artefatti, ruolo IAM"
+            },
+            {
+              "label": "EndpointConfig",
+              "sub": "istanze e production variant"
+            },
+            {
+              "label": "Endpoint",
+              "sub": "riceve richieste HTTPS",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Oggetto",
+            "Risponde a",
+            "Si cambia quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Model",
+                "head": true
+              },
+              "cosa eseguo",
+              "cambia il modello"
+            ],
+            [
+              {
+                "v": "EndpointConfig",
+                "head": true
+              },
+              "come lo eseguo",
+              "cambiano tipo o numero di istanze"
+            ],
+            [
+              {
+                "v": "Endpoint",
+                "head": true
+              },
+              "dove gira",
+              "serve un endpoint nuovo"
+            ]
+          ]
+        },
         "Inferenza: usare il modello addestrato per produrre predizioni su dati nuovi",
         "model.tar.gz: pesi del modello in un archivio compresso su S3",
         "Model: container, percorso degli artefatti e ruolo IAM",
-        "EndpointConfig: tipo e numero di istanze, production variant",
         "Endpoint: l'istanza in esecuzione che riceve le richieste HTTPS"
       ],
       "narration": "Questo capitolo porta il modello dal training al servizio. Il training produce pesi numerici, ma nessuno può ancora usarli. Usare un modello per produrre predizioni su dati nuovi si chiama inferenza. In SageMaker l'inferenza si configura con tre oggetti collegati tra loro. Il primo è il file model.tar.gz, un archivio compresso su Amazon S3 che contiene i pesi addestrati e, se serve, il codice per caricarli ed eseguirli. Il secondo è l'oggetto Model, che dice quale container usare, dove si trova l'archivio e quale ruolo IAM assumere. Il terzo è l'EndpointConfig, che descrive l'infrastruttura: quante istanze, di quale tipo, e come dividere il traffico. Con l'EndpointConfig si crea l'Endpoint, cioè l'istanza in esecuzione che riceve richieste HTTPS. Ogni voce dell'EndpointConfig si chiama production variant. Una variante lega un Model a un numero di istanze e a un peso di traffico. Per questo l'A/B test, che vedremo più avanti, si costruisce con più varianti sullo stesso endpoint. Ricordate la distinzione: il Model è il cosa, l'EndpointConfig è il come, l'Endpoint è il dove. Quando una domanda chiede di cambiare il modello senza toccare l'infrastruttura, pensate al Model. Quando chiede di cambiare tipo o numero di istanze, pensate all'EndpointConfig. Nelle slide successive vedremo le cinque opzioni di inferenza e come sceglierne una.",
@@ -128,6 +183,35 @@
     {
       "title": "Real-time: l'endpoint sempre acceso",
       "bullets": [
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "25 MB",
+              "label": "payload massimo",
+              "note": "i materiali vecchi indicano 6 MB"
+            },
+            {
+              "value": "60 s",
+              "label": "risposta regolare"
+            },
+            {
+              "value": "8 min",
+              "label": "risposta in streaming"
+            },
+            {
+              "value": "8080",
+              "label": "porta del container",
+              "note": "/invocations e /ping"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Numero aggiornato",
+          "text": "Il limite attuale del real-time è 25 MB: una domanda che cita 6 MB descrive una versione precedente."
+        },
         "Endpoint HTTPS persistente su istanze dedicate, con auto scaling e data capture",
         "Payload fino a 25 MB; risposta regolare entro 60 secondi",
         "Risposte in streaming fino a 8 minuti",
@@ -140,6 +224,38 @@
     {
       "title": "Serverless: scala a zero, con cold start",
       "bullets": [
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "4 MB",
+              "label": "payload massimo"
+            },
+            {
+              "value": "60 s",
+              "label": "timeout"
+            },
+            {
+              "value": "1–6 GB",
+              "label": "memoria",
+              "note": "a passi di 1 GB"
+            },
+            {
+              "value": "5 GB",
+              "label": "disco effimero"
+            },
+            {
+              "value": "200",
+              "label": "concorrenza massima"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Cold start",
+          "text": "Si misura con OverheadLatency; la provisioned concurrency lo riduce, ma si paga la capacità riservata."
+        },
         "Nessuna istanza da gestire: SageMaker crea le risorse quando arrivano richieste",
         "Scala a zero senza traffico e si paga per tempo di calcolo e dati elaborati",
         "Payload fino a 4 MB e timeout di 60 secondi",
@@ -152,9 +268,72 @@
     {
       "title": "Serverless: cosa non supporta",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Funzionalità",
+            "Serverless"
+          ],
+          "rows": [
+            [
+              {
+                "v": "GPU",
+                "head": true
+              },
+              "no"
+            ],
+            [
+              {
+                "v": "VPC e network isolation",
+                "head": true
+              },
+              "no"
+            ],
+            [
+              {
+                "v": "Data capture e Model Monitor",
+                "head": true
+              },
+              "no"
+            ],
+            [
+              {
+                "v": "Varianti multiple sull'endpoint",
+                "head": true
+              },
+              "no"
+            ],
+            [
+              {
+                "v": "Multi-model endpoint",
+                "head": true
+              },
+              "no"
+            ],
+            [
+              {
+                "v": "Inference pipeline",
+                "head": true
+              },
+              "no"
+            ],
+            [
+              {
+                "v": "Prodotti del marketplace e registry Docker privati",
+                "head": true
+              },
+              "no"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Passaggi tra modalità",
+          "text": "Da real-time a serverless l'aggiornamento viene rifiutato; da serverless a real-time è permesso, ma irreversibile."
+        },
         "Niente GPU e niente prodotti del marketplace AWS",
         "Niente configurazione VPC, niente network isolation, niente data capture",
-        "Niente Model Monitor, niente multi-model endpoint, niente inference pipeline",
         "Niente varianti multiple sullo stesso endpoint",
         "Un endpoint real-time non si converte in serverless; il contrario sì, ma è irreversibile"
       ],
@@ -164,8 +343,50 @@
     {
       "title": "Asincrona: payload grandi e tempi lunghi",
       "bullets": [
-        "Payload fino a 1 GB, passato come puntatore a un file su S3",
-        "Elaborazione fino a un'ora, con coda interna gestita da SageMaker",
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Client",
+              "sub": "scrive il payload su S3"
+            },
+            {
+              "label": "InvokeEndpointAsync",
+              "sub": "passa il puntatore al file"
+            },
+            {
+              "label": "Coda interna",
+              "sub": "gestita da SageMaker"
+            },
+            {
+              "label": "Endpoint",
+              "sub": "elabora fino a un'ora"
+            },
+            {
+              "label": "S3 e SNS",
+              "sub": "output e notifica",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "1 GB",
+              "label": "payload massimo"
+            },
+            {
+              "value": "1 ora",
+              "label": "elaborazione massima"
+            },
+            {
+              "value": "0",
+              "label": "istanze senza traffico",
+              "note": "scale to zero"
+            }
+          ]
+        },
         "Output su S3; notifiche di successo o errore con SNS",
         "Scale to zero: nessuna richiesta, nessuna istanza in esecuzione",
         "Casi tipici: documenti NLP lunghi, immagini e video di grandi dimensioni"
@@ -176,10 +397,70 @@
     {
       "title": "Batch transform: nessun endpoint, job offline",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "S3 input",
+              "sub": "uno o più dataset"
+            },
+            {
+              "label": "Batch transform job",
+              "sub": "nessun endpoint"
+            },
+            {
+              "label": "S3 output",
+              "sub": "file .out, stesso ordine",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Parametro",
+            "Valore"
+          ],
+          "rows": [
+            [
+              {
+                "v": "SplitType",
+                "head": true
+              },
+              "Line suddivide il file riga per riga"
+            ],
+            [
+              {
+                "v": "MaxPayloadInMB",
+                "head": true
+              },
+              "al massimo 100 MB per richiesta"
+            ],
+            [
+              {
+                "v": "MaxConcurrentTransforms",
+                "head": true
+              },
+              "ideale pari ai worker del job"
+            ],
+            [
+              {
+                "v": "AssembleWith",
+                "head": true
+              },
+              "Line concatena le predizioni"
+            ],
+            [
+              {
+                "v": "BatchStrategy",
+                "head": true
+              },
+              "decide come raggruppare i record"
+            ]
+          ]
+        },
         "Nessun endpoint: legge un dataset da S3 e scrive le predizioni su S3",
         "Più istanze lavorano su più file; un solo file usa una sola istanza",
-        "SplitType Line suddivide il file in mini-batch; MaxPayloadInMB al massimo 100 MB",
-        "Output con nome del file di input e suffisso .out, stesso ordine dei record",
         "Costo basso per scoring notturno e predizioni precalcolate"
       ],
       "narration": "Il batch transform non crea un endpoint. È un job offline che legge uno o più dataset da S3, applica il modello e scrive le predizioni su S3. Non c'è nulla da tenere acceso tra un'esecuzione e l'altra, quindi per lo scoring notturno di milioni di record è spesso l'opzione più economica. Il job suddivide il lavoro tra le istanze, ma con una regola precisa: ogni file dell'input viene elaborato separatamente. Se c'è un solo file grande, una sola istanza lavora e le altre restano ferme. Per parallelizzare servono più file in input: un file grande, anche diviso in mini-batch, viene comunque elaborato da una sola istanza. Il parametro SplitType impostato a Line suddivide il file riga per riga. Il parametro MaxPayloadInMB controlla la dimensione di ogni richiesta, e non può superare 100 MB. Il parametro BatchStrategy controlla come vengono raggruppati i record in ciascuna richiesta. Se si usa MaxConcurrentTransforms, il valore ideale è pari al numero di worker del job, e il prodotto con MaxPayloadInMB non deve superare 100 MB. L'output ha lo stesso nome del file di input con estensione .out, e le predizioni compaiono nello stesso ordine dei record. Con AssembleWith impostato a Line le predizioni vengono concatenate con un a capo, ma il numero di file di output resta uguale a quello di input. Il batch transform può elaborare dataset da gigabyte e tempi di giorni. È il candidato naturale per predizioni precalcolate, per il preprocessing dei dati e per confrontare varianti su un validation set. Il tranello: se la domanda chiede una risposta per ogni richiesta che arriva, il batch non è adatto, perché le predizioni vengono calcolate in blocco.",
@@ -188,11 +469,42 @@
     {
       "title": "Come scegliere: l'albero di decisione",
       "bullets": [
+        {
+          "kind": "tree",
+          "root": "Serve una risposta per ogni richiesta?",
+          "branches": [
+            {
+              "when": "i dati sono già su S3 e non c'è fretta",
+              "then": "Batch transform",
+              "note": "nessun endpoint"
+            },
+            {
+              "when": "il traffico è costante e la latenza sotto 100 ms",
+              "then": "Real-time"
+            },
+            {
+              "when": "il traffico è intermittente e il cold start è tollerato",
+              "then": "Serverless",
+              "note": "se non servono GPU, VPC o funzioni escluse"
+            },
+            {
+              "when": "il payload supera 4 MB e la risposta può attendere",
+              "then": "Asincrona",
+              "note": "fino a 1 GB e un'ora"
+            },
+            {
+              "when": "i modelli sono molti, poco usati e dello stesso framework",
+              "then": "Multi-model endpoint"
+            },
+            {
+              "when": "servono framework diversi o una catena di container",
+              "then": "Multi-container o inference pipeline"
+            }
+          ]
+        },
         "Primo bivio: serve un endpoint, oppure basta un job su S3?",
-        "Traffico costante e latenza bassa: real-time",
         "Traffico intermittente e cold start tollerato: serverless, se non servono funzioni escluse",
-        "Payload oltre 4 MB o elaborazione lunga con risposta differita: asincrona",
-        "Molti modelli poco usati, stesso framework: multi-model endpoint"
+        "Payload oltre 4 MB o elaborazione lunga con risposta differita: asincrona"
       ],
       "narration": "Mettiamo insieme le opzioni in un albero di decisione, che si legge partendo dalle parole chiave della domanda. Il primo bivio è se serve un endpoint. Se la domanda parla di dataset già in S3, di risultati notturni, di predizioni precalcolate o di milioni di record senza fretta, non serve un endpoint: si sceglie il batch transform. Se invece serve una risposta per ogni richiesta, il secondo bivio riguarda il traffico. Traffico costante, latenza sotto i 100 millisecondi, sistemi di frodi o raccomandazioni portano al real-time. Traffico intermittente o imprevedibile, con periodi di inattività e tolleranza al cold start, porta al serverless, purché il modello non abbia bisogno di GPU, VPC o delle altre funzioni escluse. Se il payload supera 4 MB, oppure l'elaborazione è lunga e la risposta può arrivare dopo minuti, il ramo giusto è l'asincrono, con limiti di 1 GB e di un'ora. Se i modelli sono molti, poco usati e dello stesso framework, il ramo è il multi-model endpoint. Se la domanda descrive container di framework diversi o una catena di preprocessing e predizione, il ramo è il multi-container o l'inference pipeline, che vedremo più avanti. Il metodo è sempre lo stesso: partite dal vincolo più restrittivo della domanda. Un requisito di latenza rigida esclude il serverless anche quando il traffico è basso. Un requisito di payload grandi esclude il real-time anche quando il traffico è costante. Solo dopo aver escluso le opzioni incompatibili con i vincoli si sceglie quella più economica tra le rimaste.",
       "todo": []
@@ -200,12 +512,72 @@
     {
       "title": "Tranelli d'esame sulle parole chiave",
       "bullets": [
-        "Traffico imprevedibile ma GPU richiesta: il serverless è escluso",
+        {
+          "kind": "table",
+          "head": [
+            "Parole chiave",
+            "Risposta",
+            "Perché"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Traffico imprevedibile, ma serve GPU",
+                "head": true
+              },
+              "Real-time",
+              "il serverless esclude GPU e VPC"
+            ],
+            [
+              {
+                "v": "Payload di 6 MB",
+                "head": true
+              },
+              "Real-time",
+              "il limite attuale è 25 MB"
+            ],
+            [
+              {
+                "v": "File da 800 MB, minuti di elaborazione",
+                "head": true
+              },
+              "Asincrona",
+              "fino a 1 GB e un'ora"
+            ],
+            [
+              {
+                "v": "50 milioni di transazioni già su S3",
+                "head": true
+              },
+              "Batch transform",
+              "nessuna risposta immediata richiesta"
+            ],
+            [
+              {
+                "v": "Centinaia di modelli, stesso framework",
+                "head": true
+              },
+              "Multi-model",
+              "un endpoint, modelli caricati on demand"
+            ],
+            [
+              {
+                "v": "Oltre 1 GB oppure giorni di elaborazione",
+                "head": true
+              },
+              "Batch transform",
+              "l'asincrono si ferma a 1 GB e un'ora"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Limiti da tenere a mente",
+          "text": "Real-time 25 MB, serverless 4 MB, asincrona 1 GB: se l'opzione citata nella domanda non rispetta il numero, è sbagliata."
+        },
         "Payload di 6 MB: il vecchio limite non vale, il real-time oggi arriva a 25 MB",
-        "File da 800 MB con elaborazione di minuti: asincrona",
-        "Cinquanta milioni di transazioni in S3 senza fretta: batch transform",
-        "Centinaia di modelli dello stesso framework con poco traffico: multi-model",
-        "Payload oltre 1 GB o elaborazione di giorni: il batch è la strada"
+        "Cinquanta milioni di transazioni in S3 senza fretta: batch transform"
       ],
       "narration": "Le domande dell'esame usano parole chiave che sembrano indicare una risposta e ne nascondono un'altra. Il primo tranello è il traffico imprevedibile con tolleranza ai ritardi. La risposta sembra il serverless, ma se la domanda aggiunge GPU o VPC, il serverless è escluso. Il secondo è il payload da 6 MB, che sembra il limite del real-time di una versione precedente. Oggi il real-time arriva a 25 MB, mentre il serverless si ferma a 4 MB. Il terzo è il file da 800 MB con elaborazione di minuti, che va in asincrono e non nel real-time. Il quarto è il dataset di cinquanta milioni di transazioni salvate in S3, senza bisogno di risposte immediate. La risposta è il batch transform, non l'asincrono, perché non serve una coda di richieste. Il quinto è un'azienda che serve centinaia di modelli dello stesso framework, ciascuno usato di rado. La risposta è un multi-model endpoint, non un endpoint per modello e non un job per modello. Il sesto è un payload oltre 1 GB o un'elaborazione che dura giorni. Qui l'asincrono non basta e la strada è il batch transform. Quando leggete una domanda, cercate il vincolo più forte e verificate che l'opzione scelta non lo violi. Spesso la domanda contiene due vincoli, uno di costo e uno di latenza, e la risposta giusta è quella che rispetta il vincolo più duro. Un'altra trappola riguarda i numeri. Se un'opzione sembra corretta ma il numero citato non corrisponde ai limiti attuali, la risposta è sbagliata.",
       "todo": []
@@ -213,6 +585,57 @@
     {
       "title": "Più modelli su un endpoint: multi-model",
       "bullets": [
+        {
+          "kind": "topology",
+          "title": "Una richiesta a un multi-model endpoint",
+          "nodes": [
+            {
+              "label": "Client",
+              "sub": "indica TargetModel"
+            },
+            {
+              "label": "Endpoint",
+              "sub": "gruppo di istanze condiviso"
+            },
+            {
+              "label": "Modello su S3",
+              "sub": "scaricato al primo uso"
+            },
+            {
+              "label": "Memoria dell'istanza",
+              "sub": "resta caldo per le richieste dopo",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "sagemaker:TargetModel",
+            "cold start al primo accesso",
+            "modelli non usati scaricati dalla memoria"
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Multi-model conviene",
+              "tone": "good",
+              "items": [
+                "Molti modelli dello stesso framework",
+                "Traffico frammentato, ogni modello usato di rado",
+                "Modelli con dimensioni e latenze simili"
+              ]
+            },
+            {
+              "head": "Meglio un endpoint dedicato",
+              "tone": "warn",
+              "items": [
+                "Un modello riceve molto più traffico degli altri",
+                "I framework sono diversi",
+                "Il ritardo del primo accesso non è tollerabile"
+              ]
+            }
+          ]
+        },
         "Un solo endpoint per un gran numero di modelli dello stesso framework",
         "I modelli vengono caricati da S3 quando arriva una richiesta per loro",
         "Il modello si nomina con TargetModel nella chiamata a InvokeEndpoint",
@@ -225,11 +648,75 @@
     {
       "title": "Multi-container e inference pipeline",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Multi-container, invocazione diretta",
+              "tone": "good",
+              "items": [
+                "Fino a 15 container diversi sullo stesso endpoint",
+                "TargetContainerHostname sceglie il container",
+                "I container servono richieste indipendenti"
+              ]
+            },
+            {
+              "head": "Inference pipeline",
+              "tone": "warn",
+              "items": [
+                "Da 2 a 15 container in sequenza",
+                "L'output di un container è l'input del successivo",
+                "Un multi-model può entrare solo come unico container"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Vincolo",
+            "Valore"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Container per endpoint",
+                "head": true
+              },
+              "fino a 15"
+            ],
+            [
+              {
+                "v": "Container in una pipeline",
+                "head": true
+              },
+              "da 2 a 15, in catena lineare"
+            ],
+            [
+              {
+                "v": "Chiave IAM del routing",
+                "head": true
+              },
+              "sagemaker:TargetContainerHostname"
+            ],
+            [
+              {
+                "v": "Chiave IAM del multi-model",
+                "head": true
+              },
+              "sagemaker:TargetModel"
+            ],
+            [
+              {
+                "v": "Costo delle istanze",
+                "head": true
+              },
+              "nessun costo extra: stesse istanze"
+            ]
+          ]
+        },
         "Multi-container endpoint: fino a 15 container diversi, con modelli o framework differenti, sullo stesso endpoint",
-        "Invocazione diretta: TargetContainerHostname sceglie il container da raggiungere",
         "IAM: sagemaker:TargetContainerHostname limita i container invocabili, diversa da sagemaker:TargetModel",
-        "Inference pipeline: una catena lineare di da 2 a 15 container, eseguiti in sequenza",
-        "I container di una pipeline girano sulle stesse istanze; nessun costo extra",
         "Un multi-model endpoint può entrare in una pipeline solo come unico container"
       ],
       "narration": "Quando i modelli usano framework diversi, il multi-model non basta, perché ogni container ha un ambiente diverso. Il multi-container endpoint mette fino a 15 container diversi sullo stesso endpoint, e offre due modi di usarli. Nel primo, i container girano in sequenza come inference pipeline. Nel secondo si invoca un singolo container con la direct invocation: il campo TargetContainerHostname indica quale container deve ricevere la richiesta. Di default, chi ha il permesso InvokeEndpoint può chiamare qualsiasi container dell'endpoint. Per limitarlo si usa la condition key sagemaker:TargetContainerHostname, che è diversa da sagemaker:TargetModel, la chiave dei multi-model endpoint. L'inference pipeline è invece una sequenza lineare di da 2 a 15 container. SageMaker gestisce la chiamata come una serie di richieste HTTP. Il primo container riceve l'input, il suo output diventa l'input del secondo, e così via fino alla risposta finale. I container girano sulle stesse istanze, quindi il passaggio tra loro è rapido, e non ci sono costi aggiuntivi oltre alle istanze. È il modo classico di combinare il preprocessing con la predizione. Per esempio, si possono usare i container di Spark ML o scikit-learn, che riusano i trasformatori sviluppati durante il training. Un vincolo da ricordare: un multi-model endpoint può entrare in una inference pipeline solo come unico container multi-model. In sintesi: container diversi che servono richieste indipendenti sono un multi-container con invocazione diretta. Container in catena, dove ogni output alimenta il successivo, sono una inference pipeline. Modelli simili dello stesso framework, in gran numero, sono un multi-model endpoint.",
@@ -238,6 +725,53 @@
     {
       "title": "A/B test e shadow test con le production variant",
       "bullets": [
+        {
+          "kind": "topology",
+          "title": "A/B test con production variant",
+          "nodes": [
+            {
+              "label": "Client",
+              "sub": "InvokeEndpoint"
+            },
+            {
+              "label": "Variante A",
+              "sub": "peso 1, metà del traffico"
+            },
+            {
+              "label": "Variante B",
+              "sub": "peso 1, metà del traffico"
+            }
+          ],
+          "aside": [
+            "TargetVariant: routing mirato",
+            "ShadowProductionVariants: variante ombra",
+            "UpdateEndpointWeightsAndCapacities"
+          ]
+        },
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "50 e 50",
+              "sub": "due varianti pari"
+            },
+            {
+              "label": "25 e 75",
+              "sub": "la nuova guadagna traffico",
+              "tone": "warn"
+            },
+            {
+              "label": "0 e 1",
+              "sub": "la vecchia si rimuove",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Pesi in movimento",
+          "text": "La sequenza della documentazione: 50 e 50, poi 25 e 75, poi 0 e 1. I pesi cambiano senza ricreare l'endpoint."
+        },
         "Pesi di traffico per variante: InitialVariantWeight, proporzionali tra loro",
         "TargetVariant nella chiamata a InvokeEndpoint manda una richiesta a una variante precisa",
         "UpdateEndpointWeightsAndCapacities sposta il traffico senza aggiornare l'endpoint",
@@ -250,9 +784,62 @@
     {
       "title": "Container di inferenza e script di inference",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Tipo di container",
+            "Contenuto",
+            "Chi lo costruisce"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Deep Learning Container",
+                "head": true
+              },
+              "framework e dipendenze preinstallate",
+              "AWS"
+            ],
+            [
+              {
+                "v": "Container di framework",
+                "head": true
+              },
+              "solo lo script di inferenza",
+              "tu, sopra l'immagine AWS"
+            ],
+            [
+              {
+                "v": "Container custom (BYOC)",
+                "head": true
+              },
+              "server, codice e dipendenze",
+              "tu, immagine su ECR"
+            ]
+          ]
+        },
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "model_fn",
+              "sub": "una volta, all'avvio"
+            },
+            {
+              "label": "input_fn",
+              "sub": "per ogni richiesta"
+            },
+            {
+              "label": "predict_fn",
+              "sub": "esegue il modello"
+            },
+            {
+              "label": "output_fn",
+              "sub": "serializza la risposta"
+            }
+          ]
+        },
         "Deep Learning Container: immagini prebuilt per PyTorch, TensorFlow, MXNet, Hugging Face",
-        "Script di inferenza: model_fn carica il modello, una volta all'avvio",
-        "Per ogni richiesta: input_fn, poi predict_fn, poi output_fn",
         "PyTorch: model_fn senza default; input JSON, CSV o NPY, output JSON, CSV o NPY",
         "Container custom e BYOC: contratto e ECR nel capitolo 10"
       ],
@@ -262,9 +849,51 @@
     {
       "title": "Auto scaling degli endpoint, introdotto",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Metrica CloudWatch",
+              "sub": "invocazioni per istanza"
+            },
+            {
+              "label": "Target tracking",
+              "sub": "valore obiettivo"
+            },
+            {
+              "label": "Endpoint",
+              "sub": "aggiunge o toglie istanze"
+            }
+          ],
+          "loop": "la metrica viene rivalutata e il ciclo continua"
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Metrica",
+            "Risoluzione",
+            "Uso"
+          ],
+          "rows": [
+            [
+              {
+                "v": "SageMakerVariantInvocationsPerInstance",
+                "head": true
+              },
+              "1 minuto",
+              "metrica predefinita per variante"
+            ],
+            [
+              {
+                "v": "ConcurrentRequestsPerModel",
+                "head": true
+              },
+              "10 secondi",
+              "richieste concorrenti, reazione più rapida"
+            ]
+          ]
+        },
         "Aggiunge e toglie istanze in base al carico, per pagare solo la capacità usata",
-        "Target tracking: si fissa un valore obiettivo per una metrica",
-        "Metrica predefinita per variante: SageMakerVariantInvocationsPerInstance, invocazioni per istanza",
         "Metriche ad alta risoluzione ogni 10 secondi, come ConcurrentRequestsPerModel",
         "ScaleOutCooldown e ScaleInCooldown per evitare oscillazioni"
       ],
@@ -274,8 +903,67 @@
     {
       "title": "SageMaker Pipelines: DAG, parametri e cache",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Processing",
+              "sub": "pulisce i dati"
+            },
+            {
+              "label": "Training",
+              "sub": "usa l'output del processing"
+            },
+            {
+              "label": "Valutazione",
+              "sub": "usa il modello del training"
+            }
+          ],
+          "loop": "le frecce nascono dai riferimenti alle proprietà degli output"
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Parametro",
+            "Tipo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Tipo di istanza",
+                "head": true
+              },
+              "ParameterString"
+            ],
+            [
+              {
+                "v": "Soglia di qualità",
+                "head": true
+              },
+              "ParameterFloat"
+            ],
+            [
+              {
+                "v": "Numero di epoche",
+                "head": true
+              },
+              "ParameterInteger"
+            ],
+            [
+              {
+                "v": "Interruttore di una funzione",
+                "head": true
+              },
+              "ParameterBoolean"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Cache",
+          "text": "CacheConfig è disattivato per default, ExpireAfter usa ISO 8601 (PT1H): si riusano solo esecuzioni riuscite, dentro lo stesso pipeline."
+        },
         "Pipeline = DAG: nodi sono step, frecce nascono dalle dipendenze di dati",
-        "Parametri: ParameterString, ParameterInteger, ParameterFloat, ParameterBoolean, con default",
         "Override a runtime: pipeline.start con il dizionario dei parametri",
         "Caching: CacheConfig con Enabled e ExpireAfter in formato ISO 8601, disattivato per default",
         "Solo esecuzioni riuscite vengono riusate, e solo dentro lo stesso pipeline"
@@ -286,10 +974,93 @@
     {
       "title": "Gli step di Pipelines e la valutazione",
       "bullets": [
-        "Processing, Training, Tuning, AutoML, Model, Create model, Register model, Deploy model, Transform",
+        {
+          "kind": "table",
+          "head": [
+            "Step",
+            "Cosa fa"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Processing",
+                "head": true
+              },
+              "preprocessing o valutazione in un job gestito"
+            ],
+            [
+              {
+                "v": "Training",
+                "head": true
+              },
+              "addestra il modello e ne salva l'artefatto"
+            ],
+            [
+              {
+                "v": "Tuning, AutoML",
+                "head": true
+              },
+              "ottimizzazione degli iperparametri, training automatico"
+            ],
+            [
+              {
+                "v": "Model, Create model",
+                "head": true
+              },
+              "definiscono e creano il modello in SageMaker"
+            ],
+            [
+              {
+                "v": "Register model",
+                "head": true
+              },
+              "versione del modello nel Model Registry"
+            ],
+            [
+              {
+                "v": "Deploy model, Transform",
+                "head": true
+              },
+              "endpoint oppure predizioni batch"
+            ],
+            [
+              {
+                "v": "Condition, Fail",
+                "head": true
+              },
+              "sceglie il ramo oppure chiude con un errore"
+            ],
+            [
+              {
+                "v": "Callback, Lambda",
+                "head": true
+              },
+              "attesa esterna oppure funzione, con Lambda fino a 10 minuti"
+            ],
+            [
+              {
+                "v": "ClarifyCheck, QualityCheck",
+                "head": true
+              },
+              "confronto del modello con una baseline"
+            ],
+            [
+              {
+                "v": "EMR, Notebook Job",
+                "head": true
+              },
+              "altri carichi di lavoro"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Step Evaluation",
+          "text": "Non esiste come tipo di step: la valutazione è un Processing che scrive un file JSON, letto poi da Condition con JsonGet."
+        },
         "Condition confronta valori e sceglie il ramo; Fail termina con un errore",
         "Callback attende un sistema esterno; Lambda esegue una funzione",
-        "ClarifyCheck e QualityCheck confrontano il modello con una baseline",
         "Evaluation non è un tipo di step: la valutazione è uno step Processing"
       ],
       "narration": "Gli step disponibili in SageMaker Pipelines sono diversi, ed è utile riconoscerli nelle domande. Processing esegue codice di preprocessing o di valutazione in un job gestito. Training addestra un modello. Tuning esegue l'ottimizzazione degli iperparametri. AutoML lancia un job AutoML. Model, Create model e Register model gestiscono il modello: lo definiscono, lo creano in SageMaker, o lo registrano nel Model Registry. Deploy model crea un endpoint. Transform esegue un batch transform. Condition confronta valori e sceglie il ramo da percorrere. Fail termina la pipeline con un errore. Callback si ferma e attende una risposta esterna. Lambda esegue una funzione. ClarifyCheck e QualityCheck confrontano il modello con una baseline: il primo per bias e spiegabilità, il secondo per qualità dei dati e del modello. Model Monitor e Clarify sono chiusi ai nuovi clienti: per un progetto nuovo, la strada indicata da AWS è la combinazione di soluzioni open source, QuickSight e CloudWatch. EMR, EMR serverless e Notebook job eseguono altri carichi di lavoro. Un tranello frequente è lo step Evaluation, che non esiste come tipo. La valutazione si fa con uno step Processing che scrive un file JSON con le metriche. La Condition legge quel file con JsonGet tramite un PropertyFile. Lo step Callback serve quando la pipeline deve aspettare una decisione umana o un sistema esterno. Pipelines invia un messaggio su una coda SQS con un token, e il processo esterno risponde con SendPipelineExecutionStepSuccess o SendPipelineExecutionStepFailure. Lo step Lambda ha un timeout di default di 120 secondi e un massimo di 10 minuti, e non può essere fermato mentre la funzione è in esecuzione. Per le attese lunghe la risposta è Callback.",
@@ -298,7 +1069,38 @@
     {
       "title": "Esempio di pipeline completa, passo per passo",
       "bullets": [
-        "Step 1, Processing: pulisce il dataset e lo divide in training e test",
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Processing",
+              "sub": "pulisce e divide il dataset"
+            },
+            {
+              "label": "Training",
+              "sub": "artefatto su S3"
+            },
+            {
+              "label": "Processing",
+              "sub": "metriche in un file JSON"
+            },
+            {
+              "label": "Condition",
+              "sub": "JsonGet contro la soglia"
+            },
+            {
+              "label": "RegisterModel",
+              "sub": "PendingManualApproval",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Ramo falso e passi successivi",
+          "text": "Se l'errore supera la soglia interviene uno step Fail. Approvazione e deploy non stanno nella pipeline di training: partono dopo."
+        },
         "Step 2, Training: addestra il modello e ne salva l'artefatto su S3",
         "Step 3, Processing: calcola le metriche e scrive un file JSON",
         "Step 4, Condition: JsonGet legge l'errore e lo confronta con una soglia",
@@ -310,9 +1112,73 @@
     {
       "title": "Model Registry: versioni, metriche e approvazione",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Training run",
+              "sub": "nuovo modello"
+            },
+            {
+              "label": "Nuova versione",
+              "sub": "metadati, metriche, lineage"
+            },
+            {
+              "label": "PendingManualApproval",
+              "sub": "attesa della decisione",
+              "tone": "warn"
+            },
+            {
+              "label": "Approved o Rejected",
+              "sub": "esito registrato",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Transizione",
+            "Effetto nei template"
+          ],
+          "rows": [
+            [
+              {
+                "v": "PendingManualApproval → Approved",
+                "head": true
+              },
+              "parte il deploy CI/CD della versione approvata"
+            ],
+            [
+              {
+                "v": "PendingManualApproval → Rejected",
+                "head": true
+              },
+              "non succede nulla"
+            ],
+            [
+              {
+                "v": "Rejected → Approved",
+                "head": true
+              },
+              "parte di nuovo il deploy"
+            ],
+            [
+              {
+                "v": "Approved → Rejected",
+                "head": true
+              },
+              "si deploya l'ultima versione ancora approvata"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Attesa di una persona",
+          "text": "Serve CallbackStep: una LambdaStep non può aspettare, perché ha un massimo di 10 minuti."
+        },
         "Model package group: contenitore di tutte le versioni di un modello",
-        "Ogni versione porta metadati, metriche e lineage",
-        "Stati: PendingManualApproval, Approved, Rejected",
         "PendingManualApproval verso Approved avvia il deploy CI/CD dei template",
         "Attesa di una persona: CallbackStep, non LambdaStep"
       ],
@@ -322,9 +1188,55 @@
     {
       "title": "MLOps e CI/CD in sintesi con SageMaker Projects",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Push sul repository",
+              "sub": "Git di terze parti"
+            },
+            {
+              "label": "CodePipeline",
+              "sub": "build e training"
+            },
+            {
+              "label": "Model Registry",
+              "sub": "versione registrata"
+            },
+            {
+              "label": "Approvazione",
+              "sub": "una persona decide"
+            },
+            {
+              "label": "Deploy",
+              "sub": "staging e produzione",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Template con CodePipeline",
+              "tone": "good",
+              "items": [
+                "Building e training nel primo tipo",
+                "Deployment con approvazione manuale nel secondo",
+                "Un template per il build delle immagini su ECR"
+              ]
+            },
+            {
+              "head": "Template con Jenkins",
+              "tone": "warn",
+              "items": [
+                "Pipeline separate di build e deploy",
+                "EventBridge osserva il registry per i modelli approvati"
+              ]
+            }
+          ]
+        },
         "Projects: template di Service Catalog che creano l'infrastruttura di CI/CD",
-        "Template Git con CodePipeline: building e training, poi deployment con approvazione manuale",
-        "Template Jenkins: pipeline separate di build e deploy",
         "Repository CodeCommit rimossi dai template dal 28 ottobre 2024",
         "Dettagli di CodePipeline, CodeBuild e CodeDeploy nel capitolo 10"
       ],
@@ -334,8 +1246,54 @@
     {
       "title": "Orchestrazione oltre SageMaker Pipelines",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Strumento",
+            "Quando usarlo",
+            "Parola chiave"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Step Functions",
+                "head": true
+              },
+              "coordinare servizi AWS con stati e attese",
+              "stato, retry, try/catch"
+            ],
+            [
+              {
+                "v": "EventBridge",
+                "head": true
+              },
+              "reagire a un evento o a una pianificazione",
+              "evento, cron, 5 target per regola"
+            ],
+            [
+              {
+                "v": "MWAA",
+                "head": true
+              },
+              "grafi complessi su molti sistemi",
+              "Airflow, DAG in Python"
+            ],
+            [
+              {
+                "v": "Lambda",
+                "head": true
+              },
+              "logica leggera tra un passo e l'altro",
+              "funzione"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Pattern di Step Functions",
+          "text": "request-response per una risposta immediata, .sync per aspettare un job come un training, waitForTaskToken per attese esterne e approvazioni umane."
+        },
         "Step Functions: stati, retry e try/catch nativi, integrazione con oltre 200 servizi AWS",
-        "Pattern: request-response, .sync per aspettare un job, waitForTaskToken per attese esterne",
         "EventBridge: regole che avviano pipeline su eventi o su schedule cron, fino a 5 target per regola",
         "MWAA: Apache Airflow gestito, DAG in Python per workflow su molti sistemi",
         "Regola pratica: solo SageMaker, Pipelines; servizi AWS con stati, Step Functions; eventi, EventBridge"

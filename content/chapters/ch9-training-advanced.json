@@ -136,6 +136,32 @@
     {
       "title": "Fattibilità e criteri di scelta",
       "bullets": [
+        {
+          "kind": "tree",
+          "root": "La soluzione è fattibile?",
+          "branches": [
+            {
+              "when": "il problema non è descritto con precisione",
+              "then": "manca il target: fermati"
+            },
+            {
+              "when": "i dati storici sono pochi o di bassa qualità",
+              "then": "servono più dati o dati migliori"
+            },
+            {
+              "when": "i dati non hanno un target etichettato",
+              "then": "rileggilo come non supervisionato"
+            },
+            {
+              "when": "non esiste una baseline semplice",
+              "then": "regola o modello lineare di confronto"
+            },
+            {
+              "when": "il valore atteso non supera il costo",
+              "then": "il modello non conviene"
+            }
+          ]
+        },
         "Prima del modello: dati disponibili, etichette affidabili, baseline, valore di business",
         "Il costo è un vincolo da dichiarare, non un confronto già fatto",
         "L'interpretabilità si verifica dopo il training con explainability, non è un criterio built-in",
@@ -152,11 +178,75 @@
     {
       "title": "Algoritmi built-in tabellari",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Algoritmo",
+            "Meccanismo",
+            "Quando sceglierlo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "XGBoost",
+                "head": true
+              },
+              "alberi potenziati in sequenza",
+              "tabelle con classificazione o regressione, prestazioni alte"
+            ],
+            [
+              {
+                "v": "Linear Learner",
+                "head": true
+              },
+              "funzione lineare o soglia lineare",
+              "modello semplice, veloce, leggibile"
+            ],
+            [
+              {
+                "v": "k-NN",
+                "head": true
+              },
+              "etichette dei k punti più vicini",
+              "non parametrico, senza equazione da stimare"
+            ],
+            [
+              {
+                "v": "Factorization Machines",
+                "head": true
+              },
+              "interazioni tra feature",
+              "dati sparsi ad alta dimensione"
+            ],
+            [
+              {
+                "v": "LightGBM",
+                "head": true
+              },
+              "GOSS ed EFB",
+              "alternative rapide e scalabili agli alberi di boosting"
+            ],
+            [
+              {
+                "v": "CatBoost",
+                "head": true
+              },
+              "boosting ordinato",
+              "feature categoriche gestite bene"
+            ],
+            [
+              {
+                "v": "TabTransformer e AutoGluon-Tabular",
+                "head": true
+              },
+              "attenzione, stacking di più modelli",
+              "tabelle con AutoML"
+            ]
+          ]
+        },
         "XGBoost: gradient boosted trees su dati tabellari, input CSV, LibSVM o Parquet",
         "Linear Learner: funzione lineare per regressione o classificazione, input recordIO-protobuf o CSV",
-        "k-NN: non parametrico, usa i k punti etichettati più vicini",
-        "Factorization Machines: interazioni tra feature in dati sparsi e ad alta dimensione",
-        "LightGBM, CatBoost, TabTransformer, AutoGluon-Tabular: alternative tabellari moderne"
+        "k-NN: non parametrico, usa i k punti etichettati più vicini"
       ],
       "narration": "Gli algoritmi built-in tabellari sono il primo gruppo da conoscere, perché i dati in forma di tabella sono la situazione più comune nell'esame. XGBoost è un'implementazione di gradient boosted trees: combina un insieme di modelli più semplici e più deboli, di solito alberi, costruiti in sequenza. È la scelta da considerare quando la domanda parla di dati tabellari, classificazione o regressione con buone prestazioni. Linear Learner impara una funzione lineare per la regressione oppure una soglia lineare per la classificazione. Accetta formati recordIO-protobuf o CSV, e può ottimizzare obiettivi come accuratezza, F1, precisione o richiamo. È la risposta quando la domanda chiede un modello semplice, veloce e facile da leggere nella sua struttura lineare. Il k-NN è un metodo non parametrico: per classificare un nuovo punto guarda le etichette dei k punti più vicini. Factorization Machines modella le interazioni tra feature in dataset sparsi e ad alta dimensione. LightGBM usa GOSS ed EFB per essere più efficiente e scalabile. CatBoost introduce il boosting ordinato e gestisce bene le feature categoriche. TabTransformer usa l'attenzione dei Transformer sui dati tabellari. AutoGluon-Tabular combina molti modelli e li impila in più livelli. Il suggerimento d'esame è semplice: se la domanda chiede un modello da provare velocemente su tabelle, pensa a XGBoost o a Linear Learner, non a una rete profonda.",
       "todo": [
@@ -167,8 +257,54 @@
     {
       "title": "Algoritmi non supervisionati e anomalie",
       "bullets": [
-        "K-Means: raggruppa i dati in cluster di elementi simili",
-        "PCA: riduce il numero di feature proiettando sulle componenti principali",
+        {
+          "kind": "table",
+          "head": [
+            "Algoritmo",
+            "Cosa fa",
+            "Etichette"
+          ],
+          "rows": [
+            [
+              {
+                "v": "K-Means",
+                "head": true
+              },
+              "raggruppa in cluster gli elementi simili",
+              "nessuna"
+            ],
+            [
+              {
+                "v": "PCA",
+                "head": true
+              },
+              "riduce le feature sulle componenti principali",
+              "nessuna"
+            ],
+            [
+              {
+                "v": "Random Cut Forest",
+                "head": true
+              },
+              "isola i punti che si discostano dal resto",
+              "nessuna"
+            ],
+            [
+              {
+                "v": "IP Insights",
+                "head": true
+              },
+              "pattern degli indirizzi IPv4 e associazioni con gli account",
+              "nessuna"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Tranello",
+          "text": "Se ogni elemento deve ricevere una categoria nota, è classificazione supervisionata: non è anomaly detection."
+        },
         "Random Cut Forest: rileva punti anomali rispetto ai dati regolari",
         "IP Insights: impara i pattern di uso degli indirizzi IPv4 e le associazioni con utenti o account",
         "Il verbo della domanda decide l'algoritmo: raggruppare, ridurre, rilevare o classificare"
@@ -181,11 +317,76 @@
     {
       "title": "Testo, serie temporali e visione",
       "bullets": [
-        "BlazingText: Word2vec e classificazione del testo su dataset grandi",
+        {
+          "kind": "table",
+          "head": [
+            "Dato",
+            "Algoritmo",
+            "Supervisione",
+            "Input tipico"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Testo",
+                "head": true
+              },
+              "BlazingText",
+              "Word2vec non supervisionato, classificazione supervisionata",
+              "testo, dataset grandi"
+            ],
+            [
+              {
+                "v": "Testo",
+                "head": true
+              },
+              "Sequence-to-Sequence",
+              "supervisionata",
+              "coppie di sequenze"
+            ],
+            [
+              {
+                "v": "Testo",
+                "head": true
+              },
+              "LDA e NTM",
+              "non supervisionata",
+              "documenti, senza argomenti noti"
+            ],
+            [
+              {
+                "v": "Testo",
+                "head": true
+              },
+              "Object2Vec",
+              "embedding",
+              "oggetti ad alta dimensione"
+            ],
+            [
+              {
+                "v": "Serie temporali",
+                "head": true
+              },
+              "DeepAR",
+              "supervisionata",
+              "JSON Lines o Parquet"
+            ],
+            [
+              {
+                "v": "Immagini",
+                "head": true
+              },
+              "Image Classification, Object Detection, Semantic Segmentation",
+              "supervisionata con transfer learning",
+              "file jpg o png"
+            ]
+          ]
+        },
         "Sequence-to-Sequence: traduzione, riassunto e trascrizione del parlato",
         "LDA e NTM: topic modeling non supervisionato, statistico o neurale",
         "Object2Vec: embedding di oggetti per confrontare, per esempio, ticket di supporto",
-        "DeepAR per serie temporali; Image Classification, Object Detection e Semantic Segmentation per immagini"
+        "LDA è statistico, NTM usa una rete neurale",
+        "Per un'immagine serve la visione, per un testo serve NLP, per una serie temporale serve DeepAR"
       ],
       "narration": "Il gruppo testo contiene algoritmi per il linguaggio naturale e i documenti. BlazingText è un'implementazione ottimizzata di Word2vec e della classificazione del testo, utile come base per molti compiti di NLP. Sequence-to-Sequence è un algoritmo supervisionato usato per la traduzione automatica, per il riassunto del testo e per la trascrizione del parlato in testo. LDA e NTM sono algoritmi non supervisionati per il topic modeling: scoprono argomenti in un insieme di documenti senza che siano noti in anticipo. LDA è di tipo statistico, NTM usa una rete neurale. Object2Vec produce embedding densi di oggetti ad alta dimensione, utili per trovare ticket di supporto duplicati o per instradarli in base alla somiglianza del testo. La serie temporale è coperta da DeepAR, un algoritmo supervisionato che prevede valori scalari nel tempo con reti ricorrenti, addestrato su file JSON Lines o Parquet. Per la visione ci sono Image Classification, che classifica immagini con il transfer learning, Object Detection, che individua e classifica oggetti nelle immagini, e Semantic Segmentation, che assegna una categoria a ogni pixel. Il formato di input conta. Molti algoritmi accettano recordIO-protobuf, con modalità File o Pipe, mentre le immagini arrivano come file jpg o png. Ricorda: per un'immagine serve la visione, per un testo serve NLP, per una serie temporale serve DeepAR.",
       "todo": [
@@ -196,11 +397,53 @@
     {
       "title": "Script mode, framework e modelli importati",
       "bullets": [
-        "Script mode: il proprio codice di training gira dentro un container gestito del framework",
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Script mode",
+              "tone": "good",
+              "items": [
+                "Codice di training scritto in un tuo script Python",
+                "Gira dentro un Deep Learning Container di AWS",
+                "Dipendenze extra dichiarate in un file requirements"
+              ]
+            },
+            {
+              "head": "BYOC",
+              "tone": "warn",
+              "items": [
+                "Ambiente tuo: costruisci l'immagine",
+                "La carichi su Amazon ECR e la usi come container",
+                "Quando nessun framework gestito basta"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "flow",
+          "loop": "estratto in /opt/ml/model: niente link simbolici né file inutili",
+          "steps": [
+            {
+              "label": "Addestrato altrove",
+              "sub": "fuori da SageMaker"
+            },
+            {
+              "label": "model.tar.gz",
+              "sub": "struttura attesa dal container"
+            },
+            {
+              "label": "S3",
+              "sub": "caricamento dell'archivio"
+            },
+            {
+              "label": "Import",
+              "sub": "nessun nuovo training"
+            }
+          ]
+        },
         "Deep Learning Containers: immagini AWS già pronte con il framework installato",
-        "BYOC: container proprio caricato su Amazon ECR",
-        "model.tar.gz: modello addestrato altrove, estratto in /opt/ml/model",
-        "Niente link simbolici né file inutili nell'archivio"
+        "BYOC: container proprio caricato su Amazon ECR"
       ],
       "narration": "Quando il modello è scritto in TensorFlow, PyTorch, Hugging Face o scikit-learn, si usa la script mode. Il codice di training è uno script Python, e l'estimator del framework lo esegue dentro un container gestito. Il container è un Deep Learning Container di AWS, cioè un'immagine già pronta con il framework installato. Le dipendenze extra si dichiarano in un file requirements. Per l'esame, la distinzione è questa: se usi un framework supportato, non costruisci un'immagine; se usi un ambiente tuo, costruisci un container e lo carichi su Amazon ECR, il percorso BYOC, cioè bring your own container. Il secondo tema è il modello addestrato altrove. SageMaker accetta un modello addestrato fuori dal servizio solo se lo impacchetti in un file model.tar.gz con la struttura attesa dal container. Il file viene estratto nella cartella /opt/ml/model dentro il container, e non deve contenere link simbolici né file inutili. Per PyTorch, per esempio, il file del modello va insieme a una cartella code con inference.py e requirements.txt. Quindi la domanda che descrive un modello già addestrato su un altro server ha come risposta: impacchetta in model.tar.gz, carica su S3 e importa in SageMaker. Non serve rifare il training dentro SageMaker.",
       "todo": [
@@ -211,9 +454,41 @@
     {
       "title": "Elementi del training: epoch, step, batch, learning rate",
       "bullets": [
+        {
+          "kind": "formula",
+          "text": "iterazioni per epoch = campioni / batch size = 5000 / 500 = 10",
+          "mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mtext>iterazioni per epoch</mtext><mo>=</mo><mfrac><mtext>campioni</mtext><mtext>batch size</mtext></mfrac><mo>=</mo><mfrac><mn>5000</mn><mn>500</mn></mfrac><mo>=</mo><mn>10</mn></mrow></math>",
+          "caption": "Un'epoch è un passaggio su tutto il dataset; l'iterazione è un passo avanti e indietro su un solo mini-batch."
+        },
+        {
+          "kind": "flow",
+          "loop": "si ripete per ogni mini-batch, fino a completare l'epoch",
+          "steps": [
+            {
+              "label": "Mini-batch",
+              "sub": "batch size esempi"
+            },
+            {
+              "label": "Passo avanti",
+              "sub": "la previsione"
+            },
+            {
+              "label": "Perdita",
+              "sub": "quanto sbaglia"
+            },
+            {
+              "label": "Passo indietro",
+              "sub": "i gradienti"
+            },
+            {
+              "label": "Aggiorna i pesi",
+              "sub": "learning rate × gradiente",
+              "tone": "warn"
+            }
+          ]
+        },
         "Epoch: un passaggio completo su tutto il dataset di training",
         "Mini-batch: sottoinsieme dei dati usato per un aggiornamento",
-        "Iterazione o step: un passaggio avanti e indietro su un mini-batch",
         "Esempio: 5000 campioni con batch globale 500 danno 10 iterazioni per epoch",
         "Linear Learner: epochs 15 e mini_batch_size 1000 come valori predefiniti"
       ],
@@ -225,6 +500,72 @@
     {
       "title": "Iperparametri principali e i loro effetti",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Iperparametro",
+            "Default",
+            "Se lo aumenti"
+          ],
+          "rows": [
+            [
+              {
+                "v": "num_round",
+                "head": true
+              },
+              "obbligatorio",
+              "più alberi: più capacità e più tempo"
+            ],
+            [
+              {
+                "v": "eta",
+                "head": true
+              },
+              "0,3 (intervallo 0–1)",
+              "apprende più in fretta, più rischio di overfitting"
+            ],
+            [
+              {
+                "v": "max_depth",
+                "head": true
+              },
+              "6",
+              "alberi più complessi, più overfitting"
+            ],
+            [
+              {
+                "v": "subsample",
+                "head": true
+              },
+              "1",
+              "ogni albero vede più dati: meno regolarizzazione"
+            ],
+            [
+              {
+                "v": "alpha (L1)",
+                "head": true
+              },
+              "0",
+              "più coefficienti portati esattamente a zero"
+            ],
+            [
+              {
+                "v": "lambda (L2)",
+                "head": true
+              },
+              "1",
+              "pesi più piccoli, modello più conservativo"
+            ],
+            [
+              {
+                "v": "layer e neuroni",
+                "head": true
+              },
+              "dipende dalla rete",
+              "più capacità, più tempo, più overfitting"
+            ]
+          ]
+        },
         "num_round: numero di round di boosting, obbligatorio in XGBoost",
         "eta: passo di riduzione, predefinito 0,3 con intervallo tra 0 e 1",
         "max_depth: profondità massima, predefinito 6, più alta significa più overfitting",
@@ -239,8 +580,37 @@
     {
       "title": "Regolarizzazione, overfitting e forgetting",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "L1, Lasso",
+              "tone": "warn",
+              "items": [
+                "Penalità sulla somma dei valori assoluti",
+                "Porta alcuni coefficienti esattamente a zero",
+                "Fa anche selezione delle feature",
+                "In Linear Learner è il parametro l1"
+              ]
+            },
+            {
+              "head": "L2, Ridge",
+              "items": [
+                "Penalità sulla somma dei quadrati",
+                "Riduce i coefficienti senza azzerarli",
+                "Tiene tutte le feature, più piccole",
+                "In Linear Learner è il weight decay wd"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Catastrophic forgetting",
+          "text": "Non è un iperparametro: è il sintomo di un fine-tuning senza precauzioni, quando la rete dimentica il compito precedente."
+        },
         "L1 azzera alcuni pesi e seleziona le feature, L2 riduce i pesi",
-        "Linear Learner: l1 per la penalità L1, wd per il weight decay L2",
         "Dropout: azzera a caso elementi durante il training con probabilità p",
         "Overfitting: la loss di validazione sale mentre quella di training scende",
         "Catastrophic forgetting: un modello dimentica il compito precedente dopo un nuovo training"
@@ -253,11 +623,64 @@
     {
       "title": "Ensembling: bagging, boosting, stacking, voting",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Tecnica",
+            "Modelli in gioco",
+            "Ordine",
+            "Effetto principale"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Bagging",
+                "head": true
+              },
+              "molte copie dello stesso modello",
+              "in parallelo, campioni diversi",
+              "riduce la varianza"
+            ],
+            [
+              {
+                "v": "Boosting",
+                "head": true
+              },
+              "modelli deboli, di solito alberi",
+              "in sequenza, ognuno corregge",
+              "riduce il bias"
+            ],
+            [
+              {
+                "v": "Stacking",
+                "head": true
+              },
+              "più modelli base e un meta-modello",
+              "base addestrati prima, poi il meta",
+              "può battere il migliore dei base"
+            ],
+            [
+              {
+                "v": "Voting",
+                "head": true
+              },
+              "modelli diversi",
+              "in parallelo, poi si vota",
+              "robustezza sulla decisione"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Il costo",
+          "text": "Un ensemble migliora le prestazioni ma moltiplica il tempo di training e di inferenza: con un vincolo di costo può convenire un singolo modello ben regolato."
+        },
         "Bagging: modelli su campioni casuali con reinserimento, riduce la varianza",
-        "Boosting: modelli deboli in sequenza, ognuno corregge gli errori precedenti",
         "Stacking: le predizioni dei modelli base sono input di un modello finale",
         "Voting: hard voting a maggioranza, soft voting con la media delle probabilità",
-        "Un ensemble migliora le prestazioni ma moltiplica il costo di training"
+        "Bagging usa campioni casuali con reinserimento e riduce la varianza di un modello complesso, come un albero profondo",
+        "Voting soft richiede modelli capaci di restituire probabilità; lo stacking si addestra con validazione incrociata"
       ],
       "narration": "L'ensembling combina più modelli per ottenere una predizione più robusta di quella di un singolo modello. Il bagging addestra più istanze dello stesso modello su campioni casuali del training set, con reinserimento, e poi ne aggrega le predizioni. Serve soprattutto a ridurre la varianza di un modello complesso, come un albero profondo. Il boosting fa il contrario: costruisce modelli deboli in sequenza, e ogni nuovo modello corregge gli errori dei precedenti. Il gradient boosting, come quello di XGBoost, adatta ogni nuovo albero ai gradienti negativi della funzione di perdita. Lo stacking usa le predizioni di più modelli base come input di un modello finale, addestrato con validazione incrociata. A volte batte il migliore dei modelli base, ma il costo di training è alto. Il voting combina modelli diversi con un voto di maggioranza, cioè hard voting, oppure con la media delle probabilità, cioè soft voting, che richiede modelli capaci di restituire probabilità. Nell'esame, la domanda sul costo è spesso la chiave. Un ensemble migliora la performance, ma moltiplica il tempo di training e di inferenza. Se il vincolo è il costo, la risposta giusta può essere un singolo modello ben regolato.",
       "todo": [
@@ -268,6 +691,37 @@
     {
       "title": "Migliorare un modello in modo sistematico",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Dati",
+              "sub": "più esempi e più varietà"
+            },
+            {
+              "label": "Feature",
+              "sub": "selezionare, creare, normalizzare"
+            },
+            {
+              "label": "Tuning",
+              "sub": "Automatic Model Tuning"
+            },
+            {
+              "label": "Algoritmo",
+              "sub": "se le relazioni non sono lineari"
+            },
+            {
+              "label": "Ensemble",
+              "sub": "se i modelli sbagliano in punti diversi"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Prima la diagnosi",
+          "text": "Validazione che sale e training che scende: overfitting. Entrambe alte: modello troppo semplice o feature insufficienti."
+        },
         "Prima leva: più dati e etichette migliori",
         "Seconda leva: feature selezionate, create e normalizzate",
         "Terza leva: tuning con Automatic Model Tuning",
@@ -282,7 +736,34 @@
     {
       "title": "Dimensione del modello e come ridurla",
       "bullets": [
-        "Fattori: numero di parametri, precisione numerica, architettura",
+        {
+          "kind": "flow",
+          "loop": "i tre fattori sono parametri, precisione numerica e architettura",
+          "steps": [
+            {
+              "label": "Data type",
+              "sub": "da FP32 a FP16 o INT8"
+            },
+            {
+              "label": "Pruning",
+              "sub": "maschera binaria su pesi o canali"
+            },
+            {
+              "label": "Distillazione",
+              "sub": "il piccolo imita il grande"
+            },
+            {
+              "label": "Compilazione",
+              "sub": "SageMaker Neo per l'hardware di destinazione"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Da riconoscere soltanto",
+          "text": "La quantizzazione con analisi d'impatto non è materia di questo ruolo nella guida MLA-C01: basta sapere che esiste."
+        },
         "Cambio di data type: FP32 verso FP16 o INT8, con verifica del risultato",
         "Pruning: pesi o canali azzerati tramite maschera",
         "Distillazione: un modello piccolo imita un modello grande o un ensemble",
@@ -297,10 +778,55 @@
     {
       "title": "Ridurre il tempo di training: early stopping e distribuzione",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Strumento",
+            "Come funziona",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Early stopping",
+                "head": true
+              },
+              "Linear Learner si ferma dopo 3 epoch senza miglioramento",
+              "evitare epoch che non servono"
+            ],
+            [
+              {
+                "v": "Stop nel tuning",
+                "head": true
+              },
+              "confronto con la mediana dei job precedenti, alla stessa epoch",
+              "fermare presto i job peggiori"
+            ],
+            [
+              {
+                "v": "Data parallelism",
+                "head": true
+              },
+              "dataset diviso, copia del modello per dispositivo, gradienti mediati con allreduce",
+              "la strategia più comune"
+            ],
+            [
+              {
+                "v": "Model parallelism",
+                "head": true
+              },
+              "il modello è partizionato tra più dispositivi",
+              "il modello non entra su un dispositivo"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "La trappola",
+          "text": "Più istanze non significano sempre più velocità: la comunicazione tra nodi ha un costo, e senza ottimizzazione il tempo può salire."
+        },
         "Early stopping: early_stopping_patience di Linear Learner vale 3 per default",
-        "Automatic Model Tuning ferma i job peggiori confrontando con la mediana",
-        "Data parallelism: dataset diviso, copie del modello, gradienti sincronizzati con allreduce",
-        "Model parallelism: il modello è partizionato tra più dispositivi",
         "Più istanze non significano sempre più velocità, perché la comunicazione ha un costo"
       ],
       "narration": "Ridurre il tempo di training significa agire su tre cose: quando fermarsi, quante macchine usare e come non pagare il tempo perso. Il primo strumento è l'early stopping. Linear Learner lo controlla con il parametro early_stopping_patience, che ha valore predefinito 3: se per tre epoch la metrica non migliora, il training si ferma. Nel tuning, Automatic Model Tuning può fermare i job peggiori confrontando il loro valore con la mediana dei job precedenti, alla stessa epoch. Il secondo strumento è il training distribuito. Nella data parallelism il dataset viene diviso tra più dispositivi, ognuno con una copia del modello, e i gradienti vengono mediati tra tutti con un'operazione di allreduce. È la strategia più comune. Nella model parallelism il modello viene partizionato tra più dispositivi, perché non entra in memoria su uno solo. La libreria SageMaker distributed data parallelism ottimizza le operazioni di comunicazione AllReduce e AllGather per l'infrastruttura AWS. La trappola è pensare che più istanze significhino sempre più velocità. Il dataset distribuito richiede comunicazione tra i nodi, e se questa non è ottimizzata il tempo di training può salire. Il terzo strumento, cioè il costo del tempo di attesa, è trattato nella slide successiva con le warm pool e lo spot.",
@@ -311,10 +837,59 @@
     {
       "title": "Warm pool e Managed Spot Training con checkpoint",
       "bullets": [
-        "Warm pool: KeepAlivePeriodInSeconds fino a 3600 secondi, massimo 28 giorni di catena",
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Managed warm pool",
+              "tone": "warn",
+              "items": [
+                "Tiene pronta l'infrastruttura tra un job e l'altro",
+                "KeepAlivePeriodInSeconds fino a 3600 secondi",
+                "Catena massima di 28 giorni",
+                "Serve stesso ruolo, tipo e numero di istanze, rete e volumi",
+                "Non con istanze spot né con cluster eterogenei"
+              ]
+            },
+            {
+              "head": "Managed Spot Training",
+              "tone": "good",
+              "items": [
+                "Istanze spot con risparmio fino al 90 per cento",
+                "MaxWaitTimeInSeconds maggiore di MaxRuntimeInSeconds",
+                "Nessun ritorno automatico all'on-demand",
+                "Checkpoint in /opt/ml/checkpoints, sincronizzati con S3"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "3600 s",
+              "label": "keep-alive massimo",
+              "note": "60 minuti di warm pool"
+            },
+            {
+              "value": "28 giorni",
+              "label": "catena di una pool",
+              "note": "passaggio tra job"
+            },
+            {
+              "value": "90%",
+              "label": "risparmio spot",
+              "note": "rispetto all'on-demand"
+            },
+            {
+              "value": "3600 s",
+              "label": "limite senza checkpoint",
+              "note": "algoritmi built-in che non salvano"
+            }
+          ]
+        },
         "Il job successivo deve avere stesso ruolo, InstanceType, InstanceCount e configurazione di rete",
         "Warm pool non compatibili con istanze spot né con cluster eterogenei",
-        "Managed Spot Training: risparmio fino al 90 per cento, nessun ritorno automatico all'on-demand",
         "Checkpoint in /opt/ml/checkpoints, sincronizzati con S3; senza checkpoint il limite è 3600 secondi"
       ],
       "narration": "Le warm pool e lo spot risolvono due problemi diversi, e le domande d'esame li confondono spesso. Una managed warm pool mantiene l'infrastruttura provisionata dopo un job, per ridurre la latenza di avvio dei job successivi simili. Si imposta KeepAlivePeriodInSeconds nella configurazione delle risorse, con un massimo di 3600 secondi, cioè 60 minuti. Il job successivo riutilizza la pool solo se ha lo stesso ruolo, lo stesso tipo e numero di istanze, e la stessa configurazione di rete e volume. Una pool può passare da un job all'altro per un massimo di 28 giorni. Le warm pool sono una risorsa fatturabile, e non possono essere usate con istanze spot né con cluster eterogenei. Il Managed Spot Training è il secondo strumento. Usa istanze EC2 Spot, con un risparmio fino al 90 per cento rispetto al prezzo on-demand di SageMaker. Per attivarlo si imposta EnableManagedSpotTraining a True e MaxWaitTimeInSeconds a un valore più grande di MaxRuntimeInSeconds. Non c'è un ritorno automatico all'on-demand: se manca capacità spot, il job aspetta fino al limite. Per non perdere lavoro si usano i checkpoint. Il container salva lo stato nella cartella /opt/ml/checkpoints, SageMaker lo sincronizza con S3, e dopo un'interruzione il job riparte dall'ultimo checkpoint. Gli algoritmi built-in che non salvano checkpoint sono limitati a un MaxWaitTimeInSeconds di 3600 secondi.",
@@ -326,6 +901,54 @@
     {
       "title": "Automatic Model Tuning in profondità",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Strategia",
+            "Come sceglie",
+            "Vincolo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Grid",
+                "head": true
+              },
+              "tutte le combinazioni dei valori",
+              "solo parametri categorici, job pari alle combinazioni"
+            ],
+            [
+              {
+                "v": "Random",
+                "head": true
+              },
+              "combinazioni a caso, indipendenti dai risultati",
+              "massimo parallelismo senza perdere efficacia"
+            ],
+            [
+              {
+                "v": "Bayesian",
+                "head": true
+              },
+              "un modello di regressione sui risultati passati",
+              "meglio con pochi job in parallelo"
+            ],
+            [
+              {
+                "v": "Hyperband",
+                "head": true
+              },
+              "rialloca le epoch ai job promettenti",
+              "solo algoritmi iterativi, early stopping su OFF"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Warm start",
+          "text": "Massimo 5 job padre, stessa metrica obiettivo, e i job padre contano nel tetto di 500 training job."
+        },
         "Grid: solo parametri categorici, MaxNumberOfTrainingJobs uguale al numero di combinazioni",
         "Random: combinazioni indipendenti, parallelismo massimo senza perdere efficacia",
         "Bayesian: un modello di regressione sceglie la prossima combinazione",
@@ -338,10 +961,72 @@
     {
       "title": "Convergenza: Debugger e TensorBoard",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Regola",
+            "Cosa segnala",
+            "Soglia"
+          ],
+          "rows": [
+            [
+              {
+                "v": "VanishingGradient",
+                "head": true
+              },
+              "gradienti vicini a zero",
+              "0,0000001"
+            ],
+            [
+              {
+                "v": "ExplodingTensor",
+                "head": true
+              },
+              "valori infiniti o NaN",
+              "nessuna"
+            ],
+            [
+              {
+                "v": "LossNotDecreasing",
+                "head": true
+              },
+              "loss che non scende",
+              "ritmo inadeguato"
+            ],
+            [
+              {
+                "v": "Overfit",
+                "head": true
+              },
+              "validazione peggiore del training",
+              "confronto tra le due loss"
+            ],
+            [
+              {
+                "v": "Overtraining",
+                "head": true
+              },
+              "la validazione comincia a salire",
+              "punto di svolta"
+            ],
+            [
+              {
+                "v": "StalledTrainingRule",
+                "head": true
+              },
+              "nessun tensore emesso",
+              "1800 secondi"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Quante regole",
+          "text": "Massimo 20 regole per job. Dal 30 luglio 2026 Debugger è chiuso ai nuovi clienti, ma resta materia d'esame."
+        },
         "Vanishing gradient: gradienti vicini a zero, regola VanishingGradient con soglia predefinita 0,0000001",
-        "Exploding: valori NaN o infiniti, regola ExplodingTensor",
         "Regole anche per loss che non scende, overfit, overtraining e stallo",
-        "Massimo 20 regole built-in per job",
         "TensorBoard su SageMaker per PyTorch, TensorFlow e Hugging Face Transformers"
       ],
       "narration": "Quando un training non converge, la domanda d'esame chiede di riconoscere il sintomo e lo strumento. Il gradiente vanishing è un gradiente così piccolo da non muovere più i pesi. Il gradiente exploding è così grande da far divergere il training. SageMaker Debugger fornisce regole built-in che analizzano tensori e metriche durante il training. La regola VanishingGradient segnala quando la media dei valori assoluti dei gradienti scende sotto una soglia, con valore predefinito 0,0000001. La regola ExplodingTensor segnala valori non finiti, cioè infiniti o NaN. LossNotDecreasing segnala una loss che non scende a un ritmo adeguato. Overfit confronta la loss di validazione con quella di training. Overtraining segnala il momento in cui il modello smette di migliorare e la validazione comincia a salire. StalledTrainingRule scatta se nessun tensore viene emesso entro la soglia, che di default è 1800 secondi. Ogni job può avere al massimo 20 regole. Debugger compare nella guida MLA-C01 per la convergenza. Dal 30 luglio 2026 ha chiuso ai nuovi clienti, mentre chi lo usava già può continuare, e la guida MLA-C02 non lo nomina più. TensorBoard su SageMaker visualizza i tensori dei job di PyTorch, TensorFlow e Hugging Face Transformers, e permette di confrontare più job nello stesso posto. Il suggerimento d'esame: gradienti vicini a zero indicano vanishing, valori NaN indicano exploding, e il rimedio include un learning rate più basso e la normalizzazione.",
@@ -353,11 +1038,104 @@
     {
       "title": "Metriche per dati sbilanciati e regressione",
       "bullets": [
+        {
+          "kind": "formula",
+          "text": "MAPE = media di |y − ŷ| / |y|",
+          "mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>MAPE</mi><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mfrac><mrow><mo>|</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><msub><mi>ŷ</mi><mi>i</mi></msub><mo>|</mo></mrow><mrow><mo>|</mo><msub><mi>y</mi><mi>i</mi></msub><mo>|</mo><mo>+</mo><mi>ε</mi></mrow></mfrac></mrow></math>",
+          "caption": "Errore relativo medio: non cambia se il target viene scalato, diventa enorme quando i valori veri sono vicini a zero. Scikit-learn la restituisce come frazione: va moltiplicata per 100."
+        },
+        {
+          "kind": "scaling",
+          "caption": "Curve illustrate. La linea tratteggiata è il livello di una predizione casuale: con una classe rara sta molto in basso, quindi ROC può sembrare alta mentre PR mostra quanto poco si batte quel livello.",
+          "panels": [
+            {
+              "title": "ROC: sembra alta anche con pochi positivi",
+              "xLabel": "falsi positivi →",
+              "yLabel": "veri positivi",
+              "curves": [
+                {
+                  "label": "curva ROC",
+                  "points": [
+                    [
+                      0,
+                      0
+                    ],
+                    [
+                      0.08,
+                      0.55
+                    ],
+                    [
+                      0.2,
+                      0.8
+                    ],
+                    [
+                      0.4,
+                      0.93
+                    ],
+                    [
+                      0.7,
+                      0.98
+                    ],
+                    [
+                      1,
+                      1
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "PR: il baseline è la frazione di positivi",
+              "xLabel": "recall →",
+              "yLabel": "precision",
+              "curves": [
+                {
+                  "label": "curva PR",
+                  "points": [
+                    [
+                      0,
+                      0.9
+                    ],
+                    [
+                      0.2,
+                      0.7
+                    ],
+                    [
+                      0.5,
+                      0.35
+                    ],
+                    [
+                      0.8,
+                      0.12
+                    ],
+                    [
+                      1,
+                      0.05
+                    ]
+                  ]
+                },
+                {
+                  "label": "caso casuale",
+                  "points": [
+                    [
+                      0,
+                      0.01
+                    ],
+                    [
+                      1,
+                      0.01
+                    ]
+                  ],
+                  "dashed": true
+                }
+              ]
+            }
+          ]
+        },
         "Dati sbilanciati: la ROC AUC può sembrare buona anche con pochi positivi trovati",
         "PR-AUC: area sotto la curva precision-recall, centrata sulla classe positiva",
         "Con predizioni casuali l'average precision è la frazione di campioni positivi",
-        "MAPE: errore relativo medio, insensibile al cambio di scala del target",
-        "MAPE instabile con valori veri vicini allo zero; scikit-learn la restituisce come frazione"
+        "MAPE: errore relativo medio, insensibile al cambio di scala del target"
       ],
       "narration": "Le metriche decidono se il modello è buono, e sbagliare metrica è un errore classico d'esame. Con dati sbilanciati, per esempio frodi rare su milioni di transazioni, la ROC AUC può sembrare alta anche quando il modello trova poche frodi reali. La PR-AUC, cioè l'area sotto la curva precision-recall, si concentra sulla classe positiva ed è quindi più informativa. La documentazione scikit-learn osserva che con predizioni casuali l'average precision è pari alla frazione di campioni positivi. Il baseline dipende quindi dalla rarità della classe, e con classi rare va confrontato con quel baseline. Passiamo alla regressione. La MAPE misura l'errore relativo medio: per ogni campione prende il valore assoluto della differenza tra vero e previsto, lo divide per il valore vero in valore assoluto, e fa la media. Un piccolo epsilon evita la divisione per zero. La metrica non cambia se il target viene scalato globalmente, ma diventa enorme quando i valori veri sono vicini allo zero. Rispetto all'errore assoluto medio, che nell'esempio della documentazione riflette soprattutto l'errore sui valori grandi, la MAPE pesa gli errori in modo relativo. Scikit-learn restituisce la MAPE come frazione e non come percentuale: va moltiplicata per 100 per leggerla in percentuale.",
       "todo": [
@@ -367,9 +1145,56 @@
     {
       "title": "Clarify: bias post-training e explainability",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Metrica",
+            "Cosa misura",
+            "Come leggerla"
+          ],
+          "rows": [
+            [
+              {
+                "v": "DPPL",
+                "head": true
+              },
+              "differenza di proporzione di predizioni positive tra gruppi",
+              "vicino a 0: proporzioni più uguali; positivo: il gruppo favorito riceve più positivi"
+            ],
+            [
+              {
+                "v": "Disparate Impact",
+                "head": true
+              },
+              "rapporto tra le stesse proporzioni",
+              "1 = parità; sotto 1 il favorito ha più positivi, sopra 1 il contrario"
+            ],
+            [
+              {
+                "v": "Accuracy e Recall Difference",
+                "head": true
+              },
+              "differenza di accuratezza o di richiamo tra gruppi",
+              "dice quale gruppo subisce l'errore"
+            ],
+            [
+              {
+                "v": "Treatment Equality e Counterfactual Fliptest",
+                "head": true
+              },
+              "rapporto tra falsi positivi e negativi; cambio di predizione cambiando un attributo",
+              "dice di che tipo è l'errore"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Dal 30 luglio 2026",
+          "text": "Clarify è chiuso ai nuovi clienti e non riceve nuove funzionalità: per i nuovi progetti AWS indica SHAP, MLflow, CloudWatch e Bedrock Evaluations."
+        },
         "Clarify ha chiuso ai nuovi clienti e non riceve nuove funzionalità",
         "Undici metriche di bias post-training, tra cui DPPL e Disparate Impact",
-        "DPPL vicino a zero indica proporzioni di predizioni positive più equilibrate",
         "Disparate Impact uguale a 1 indica parità demografica",
         "SHAP con Kernel SHAP, partial dependence plot tra gli output"
       ],
@@ -385,7 +1210,34 @@
     {
       "title": "Esperimenti riproducibili, registry e compromessi",
       "bullets": [
-        "MLflow su SageMaker AI: tracking server o MLflow App, artefatti in S3 nel proprio account",
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Run",
+              "sub": "parametri, metriche, artefatti"
+            },
+            {
+              "label": "MLflow su SageMaker AI",
+              "sub": "tracking server o MLflow App"
+            },
+            {
+              "label": "Model Registry",
+              "sub": "versioni, lineage, approvazione"
+            },
+            {
+              "label": "Produzione",
+              "sub": "solo la versione approvata",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "SageMaker Experiments",
+          "text": "Esiste solo in Studio Classic, che non accetta nuovi onboarding: per i nuovi progetti AWS raccomanda MLflow."
+        },
         "Dimensioni Small, Medium e Large; Small è il valore predefinito",
         "SageMaker Experiments esiste solo in Studio Classic; AWS consiglia MLflow",
         "Model Registry: model group, versioni, lineage e stato di approvazione",

@@ -45,57 +45,315 @@
   "slides": [
     {
       "bullets": [
-        "Real-time: costante, millisecondi, 25 MB, 60 s.",
-        "Serverless: intermittente, scala a zero, 4 MB, 60 s, cold start.",
-        "Async: 1 GB via S3, fino a 1 ora, notifica SNS.",
-        "Batch: offline S3 in S3 out, nessun endpoint.",
-        "Multi-model: tanti modelli stesso framework, un endpoint."
+        {
+          "kind": "table",
+          "head": [
+            "Opzione",
+            "Quando",
+            "Limiti"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Real-time",
+                "head": true
+              },
+              "traffico costante, risposta immediata",
+              "25 MB, 60 s"
+            ],
+            [
+              {
+                "v": "Serverless",
+                "head": true
+              },
+              "intermittente, scala a zero",
+              "4 MB, 60 s, cold start"
+            ],
+            [
+              {
+                "v": "Async",
+                "head": true
+              },
+              "payload grande, elaborazione lenta",
+              "1 GB via S3, fino a 1 ora, notifica SNS"
+            ],
+            [
+              {
+                "v": "Batch",
+                "head": true
+              },
+              "scoring offline su grandi volumi",
+              "nessun endpoint, S3 in e S3 out"
+            ],
+            [
+              {
+                "v": "Multi-model",
+                "head": true
+              },
+              "tanti modelli dello stesso framework",
+              "un solo endpoint per più modelli"
+            ]
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "25 MB",
+              "label": "limite real-time",
+              "note": "e 60 secondi"
+            },
+            {
+              "value": "4 MB",
+              "label": "limite serverless",
+              "note": "e 60 secondi"
+            },
+            {
+              "value": "1 GB",
+              "label": "limite async",
+              "note": "fino a 1 ora"
+            }
+          ]
+        }
       ],
       "title": "Endpoint: scelta rapida",
       "narration": "Scheda ripasso lampo per MLA-C01. Endpoint: real-time per traffico costante sotto i 100 ms con 25 MB e 60 secondi. Serverless per intermittente con scala a zero, 4 MB, 60 secondi e cold start. Async per payload fino a 1 GB e un ora con notifica SNS. Batch per scoring offline S3 in S3 out. Multi-model per centinaia di modelli poco usati. Pipelines: step Processing, Training, Tuning, Condition, Callback, Lambda, RegisterModel, Transform e Fail, con parametri, cache e cancello Approved nel Model Registry; CI/CD con Projects, CodePipeline ed EventBridge."
     },
     {
       "bullets": [
-        "Step: Processing, Training, Tuning, Condition, Callback, Lambda, RegisterModel, Transform, Fail.",
-        "Parametri per rieseguire; cache per risparmiare.",
-        "Registry: PendingManualApproval, Approved, Rejected come cancello.",
-        "Projects piu CodePipeline per CI/CD.",
-        "EventBridge piu Step Functions per orchestrazione."
+        {
+          "kind": "table",
+          "head": [
+            "Passo",
+            "Strumento"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Step della pipeline",
+                "head": true
+              },
+              "Processing, Training, Tuning, Condition, Callback, Lambda, RegisterModel, Transform, Fail"
+            ],
+            [
+              {
+                "v": "Rieseguire",
+                "head": true
+              },
+              "parametri; la cache evita lavoro ripetuto"
+            ],
+            [
+              {
+                "v": "Cancello di approvazione",
+                "head": true
+              },
+              "Model Registry: PendingManualApproval, Approved, Rejected"
+            ],
+            [
+              {
+                "v": "CI/CD",
+                "head": true
+              },
+              "Projects e CodePipeline"
+            ],
+            [
+              {
+                "v": "Orchestrazione a eventi",
+                "head": true
+              },
+              "EventBridge con Step Functions"
+            ]
+          ]
+        }
       ],
       "title": "Pipelines e deploy",
       "narration": "Monitoraggio: Data Capture con sampling, baseline di statistiche e vincoli, quattro monitor Data, Model, Bias ed Explainability, allarmi CloudWatch e retraining via EventBridge; deploy con autoscaling, blue green, A/B e shadow. Sicurezza: execution role minimi, KMS con chiavi cliente, VPC-only con gateway e interface endpoint, Secrets Manager e CloudTrail."
     },
     {
       "bullets": [
-        "Capture verso S3 con sampling da zero a 100 per cento.",
-        "Baseline: statistics.json piu constraints.json.",
-        "Quattro monitor: Data, Model, Bias, Explainability.",
-        "Allarme su CompletedWithViolations.",
-        "Retraining via EventBridge, non a ogni singola violazione.",
-        "Model Monitor e Clarify chiusi ai nuovi clienti dal 30/07/2026."
+        {
+          "kind": "table",
+          "head": [
+            "Monitor",
+            "Cosa controlla"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Data",
+                "head": true
+              },
+              "qualità e deriva dei dati in ingresso"
+            ],
+            [
+              {
+                "v": "Model",
+                "head": true
+              },
+              "qualità delle previsioni rispetto alla baseline"
+            ],
+            [
+              {
+                "v": "Bias",
+                "head": true
+              },
+              "equità del modello su gruppi diversi"
+            ],
+            [
+              {
+                "v": "Explainability",
+                "head": true
+              },
+              "importanza delle feature nel tempo"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Come funziona",
+          "text": "Capture verso S3 con sampling da 0 a 100 per cento; baseline con statistics.json e constraints.json; allarme su CompletedWithViolations; retraining via EventBridge, non a ogni violazione. Model Monitor e Clarify chiusi ai nuovi clienti dal 30/07/2026."
+        }
       ],
       "title": "Monitoraggio e retraining",
       "narration": "Bedrock: Knowledge Bases per RAG su dati dinamici, Agents per task multi-step, Guardrails per topic vietati e PII, fine-tuning per stile di dominio; Comprehend per testi, Rekognition per immagini, Textract per documenti. Metodo esame: due minuti a domanda, vincoli, mapping, eliminazione, verifica. Numeri da fissare: 25 MB e 60 secondi per real-time, 4 MB e 60 secondi per serverless, 1 GB e un ora per async, batch senza endpoint, multi-model per centinaia di modelli."
     },
     {
       "bullets": [
-        "Knowledge Bases uguale RAG per dati dinamici.",
-        "Agents uguale operare via Action Groups.",
-        "Guardrails uguale filtri, topic vietati, PII.",
-        "RAG per conoscenza; fine-tuning per stile.",
-        "Comprehend testi, Rekognition immagini, Textract documenti."
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Perché sceglierlo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Bedrock Knowledge Bases",
+                "head": true
+              },
+              "RAG su dati dinamici"
+            ],
+            [
+              {
+                "v": "Bedrock Agents",
+                "head": true
+              },
+              "task multi-step, azioni via Action Groups"
+            ],
+            [
+              {
+                "v": "Bedrock Guardrails",
+                "head": true
+              },
+              "topic vietati, filtri, PII"
+            ],
+            [
+              {
+                "v": "Fine-tuning",
+                "head": true
+              },
+              "stile e dominio, non conoscenza aggiornata"
+            ],
+            [
+              {
+                "v": "Comprehend",
+                "head": true
+              },
+              "testi: sentiment ed entità senza training"
+            ],
+            [
+              {
+                "v": "Rekognition",
+                "head": true
+              },
+              "immagini: volti, oggetti, moderazione"
+            ],
+            [
+              {
+                "v": "Textract",
+                "head": true
+              },
+              "documenti: OCR, tabelle e form"
+            ]
+          ]
+        }
       ],
       "title": "Bedrock e AI gestita",
       "narration": "Registry con PendingManualApproval, Approved e Rejected; monitor su Data, Model, Bias ed Explainability; sampling capture da zero a 100 per cento. Bedrock: RAG per dati dinamici, Agents per azioni, Guardrails per filtri e PII, fine-tuning per stile."
     },
     {
       "bullets": [
-        "IAM: execution role minimi, mai access key.",
-        "KMS CMK per volumi, S3 ed endpoint.",
-        "VPC-only piu gateway S3 piu PrivateLink.",
-        "Secrets Manager per credenziali; CloudTrail per audit.",
-        "Esame: vincoli, mapping, eliminazione, verifica.",
-        "Servizi chiusi o ritirati: rispondi in base alla funzione, non alla disponibilita."
+        {
+          "kind": "table",
+          "head": [
+            "Esigenza",
+            "Servizio"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Permessi e identità",
+                "head": true
+              },
+              "IAM con execution role minimi, mai access key"
+            ],
+            [
+              {
+                "v": "Chiavi di crittografia",
+                "head": true
+              },
+              "KMS con chiavi gestite dal cliente (CMK)"
+            ],
+            [
+              {
+                "v": "Rete privata",
+                "head": true
+              },
+              "VPC-only, gateway endpoint S3 e PrivateLink"
+            ],
+            [
+              {
+                "v": "Credenziali",
+                "head": true
+              },
+              "Secrets Manager, recuperate a runtime"
+            ],
+            [
+              {
+                "v": "Audit delle chiamate",
+                "head": true
+              },
+              "CloudTrail"
+            ]
+          ]
+        },
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Vincoli",
+              "sub": "numeri e condizioni"
+            },
+            {
+              "label": "Mapping",
+              "sub": "servizio per requisito"
+            },
+            {
+              "label": "Eliminazione",
+              "sub": "scarta chi viola un vincolo"
+            },
+            {
+              "label": "Verifica",
+              "sub": "ricontrolla le quattro opzioni"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Servizi chiusi o ritirati",
+          "text": "Rispondi in base alla funzione richiesta, non alla disponibilità del servizio."
+        }
       ],
       "title": "Sicurezza e metodo",
       "narration": "In aula applica sempre vincoli, mapping, eliminazione e verifica finale. Ultimo promemoria operativo: leggi sempre tutte e quattro le opzioni prima di rispondere, perche due distrattori sono spesso quasi identici e differiscono per un solo vincolo. Quando due opzioni sembrano entrambe valide, scegli quella piu gestita e piu semplice che soddisfa tutti i requisiti, perche l esame premia il principio del minimo sforzo operativo."

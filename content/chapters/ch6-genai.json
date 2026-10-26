@@ -132,6 +132,40 @@
     {
       "title": "La GenAI e i foundation model",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Modelli di testo",
+              "tone": "good",
+              "items": [
+                "Generano e riassumono linguaggio",
+                "Producono la risposta che l'utente legge"
+              ]
+            },
+            {
+              "head": "Modelli di immagini",
+              "tone": "warn",
+              "items": [
+                "Generano o modificano immagini",
+                "Partono da una descrizione testuale"
+              ]
+            },
+            {
+              "head": "Modelli di embedding",
+              "tone": "warn",
+              "items": [
+                "Non generano testo: producono vettori",
+                "Base della ricerca semantica e della RAG"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Due modelli, due ruoli",
+          "text": "Chi scrive la risposta e chi misura la somiglianza tra due testi sono spesso modelli diversi."
+        },
         "GenAI: modelli che producono contenuti nuovi, come testo, immagini, audio o codice.",
         "Foundation model: un modello grande, addestrato una volta, adattabile a molti compiti.",
         "LLM: foundation model specializzato sul testo.",
@@ -144,6 +178,32 @@
     {
       "title": "Come un LLM genera testo: token, context window, allucinazioni",
       "bullets": [
+        {
+          "kind": "flow",
+          "loop": "un token alla volta, finché la risposta è completa",
+          "steps": [
+            {
+              "label": "Prompt",
+              "sub": "il testo di partenza"
+            },
+            {
+              "label": "Token",
+              "sub": "pezzi di parola"
+            },
+            {
+              "label": "Distribuzione",
+              "sub": "probabilità per ogni token"
+            },
+            {
+              "label": "Un token scelto",
+              "sub": "aggiunto alla risposta"
+            },
+            {
+              "label": "Testo",
+              "sub": "generato token per token"
+            }
+          ]
+        },
         "Token: pezzi di parola, spesso di qualche lettera. Il costo si misura in token di input e di output.",
         "Generazione: un token alla volta, scelto tra i candidati più probabili.",
         "Context window: il massimo di token che il modello considera in una chiamata.",
@@ -156,9 +216,35 @@
     {
       "title": "Amazon Bedrock: servizio gestito e catalogo di modelli",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "InvokeModel",
+              "tone": "warn",
+              "items": [
+                "Corpo della richiesta nel formato del modello",
+                "Cambiare modello spesso significa cambiare il codice"
+              ]
+            },
+            {
+              "head": "Converse",
+              "tone": "good",
+              "items": [
+                "Formato di messaggi unico tra modelli conversazionali",
+                "Supporta tool use e guardrail",
+                "Stesso codice con modelli diversi"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Stesso endpoint",
+          "text": "Entrambe le API passano da bedrock-runtime: cambia il formato della richiesta, non il servizio."
+        },
         "Bedrock: foundation model via API, serverless, senza gestire GPU o serving.",
         "Catalogo: modelli di più fornitori, tra cui Amazon, Anthropic, Meta, Mistral AI, Cohere, DeepSeek e OpenAI.",
-        "InvokeModel: corpo della richiesta nel formato specifico del modello.",
         "Converse: formato messaggi unico, valido per i modelli che supportano le conversazioni.",
         "Tranello: Bedrock usa modelli pronti dal catalogo; SageMaker ospita i modelli che controlli tu."
       ],
@@ -168,10 +254,38 @@
     {
       "title": "Privacy, regioni e cross-region inference",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Profilo",
+            "Dove instrada",
+            "Quando serve",
+            "Costo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Geografico",
+                "head": true
+              },
+              "solo Region dell'area, per esempio US o EU",
+              "vincoli di residenza dei dati",
+              "nessun costo di instradamento"
+            ],
+            [
+              {
+                "v": "Globale",
+                "head": true
+              },
+              "qualunque Region commerciale supportata",
+              "più throughput, più risparmio",
+              "circa 10 per cento in meno"
+            ]
+          ]
+        },
         "Privacy: AWS e i fornitori non usano input e output di Bedrock per addestrare i modelli base.",
         "Cifratura in transito con TLS 1.2 e a riposo per i modelli personalizzati, con chiavi KMS.",
         "Geographic: il traffico resta nell'area, per esempio US o EU, per la residenza dei dati.",
-        "Global: instrada in qualunque Region commerciale supportata, con risparmio di circa 10 per cento.",
         "Tranello: i profili di inferenza non supportano il Provisioned Throughput."
       ],
       "todo": [],
@@ -180,11 +294,47 @@
     {
       "title": "Modalità di consumo: on-demand, batch e Provisioned Throughput",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Modalità",
+            "Come si paga",
+            "Quando conviene",
+            "Vincolo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "On-demand",
+                "head": true
+              },
+              "token di input e di output",
+              "traffico variabile, prototipi",
+              "nessun impegno, nessuna capacità riservata"
+            ],
+            [
+              {
+                "v": "Batch",
+                "head": true
+              },
+              "job asincrono su file in S3",
+              "grandi volumi non urgenti",
+              "non con Provisioned Throughput; con Converse niente tool calling"
+            ],
+            [
+              {
+                "v": "Provisioned Throughput",
+                "head": true
+              },
+              "model unit, costo orario",
+              "traffico costante e alto",
+              "impegno nessuno, 1 o 6 mesi; obbligatorio per un modello personalizzato"
+            ]
+          ]
+        },
         "On-demand: paghi per token di input e di output, senza impegno. Il default.",
         "Batch inference: job asincrono su file in S3, per grandi volumi non urgenti.",
-        "Batch: non disponibile per i modelli con Provisioned Throughput; con Converse non supporta il tool calling.",
-        "Provisioned Throughput: capacità fissa in model unit, a costo orario.",
-        "Impegno: nessuno, 1 mese o 6 mesi. Obbligatorio per usare un modello personalizzato."
+        "Batch: non disponibile per i modelli con Provisioned Throughput; con Converse non supporta il tool calling."
       ],
       "todo": [],
       "narration": "Bedrock offre tre modi di pagare l'inferenza, e le domande chiedono quale scegliere in base al traffico e alla latenza. On-demand è il default: paghi per i token di input e di output che invii e ricevi, senza impegno e senza capacità riservata. È la scelta per traffico variabile, prototipi e carichi interattivi. Batch inference è pensata per grandi volumi non urgenti. Carichi i file di input su S3 nel formato InvokeModel o Converse, lanci un job asincrono e recuperi i risultati da S3 quando il job termina. Non è disponibile per i modelli con Provisioned Throughput e, nella modalità Converse, non supporta il tool calling: per usare i tool bisogna passare dall'invocazione InvokeModel. Il batch è la risposta giusta quando, per esempio, devi classificare ogni notte milioni di documenti e i risultati possono arrivare in ore. Provisioned Throughput compra capacità fissa misurata in model unit. Ogni model unit garantisce un certo numero di token di input e di output al minuto per quel modello, a un costo orario. Puoi scegliere nessun impegno, un mese o sei mesi: più lungo è l'impegno, più basso è il prezzo orario, ma la fattura continua finché non cancelli la capacità. Se personalizzi un modello, il Provisioned Throughput è obbligatorio per usarlo. La regola d'esame è questa. Traffico imprevedibile e basso: on-demand. Grandi volumi non urgenti: batch. Traffico costante e alto, con prestazioni prevedibili: Provisioned Throughput. I dettagli sui costi e sul dimensionamento sono nei capitoli 12 e 13."
@@ -192,11 +342,67 @@
     {
       "title": "Parametri di inferenza: temperature, top P, top K, max token",
       "bullets": [
+        {
+          "kind": "bars",
+          "max": 1,
+          "rows": [
+            {
+              "label": "cavalli",
+              "value": 0.7,
+              "display": "0,7",
+              "note": "candidato più probabile"
+            },
+            {
+              "label": "zebre",
+              "value": 0.2,
+              "display": "0,2"
+            },
+            {
+              "label": "unicorni",
+              "value": 0.1,
+              "display": "0,1"
+            }
+          ],
+          "caption": "Il prompt è «sento lo scalpitio di»: la distribuzione dei tre candidati."
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Impostazione",
+            "Candidati ammessi",
+            "Perché"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Top K = 2",
+                "head": true
+              },
+              "cavalli, zebre",
+              "conta solo il numero di candidati"
+            ],
+            [
+              {
+                "v": "Top P = 0,7",
+                "head": true
+              },
+              "solo cavalli",
+              "cavalli da solo copre il 70 per cento"
+            ],
+            [
+              {
+                "v": "Top P = 0,9",
+                "head": true
+              },
+              "cavalli, zebre",
+              "serve arrivare al 90 per cento"
+            ]
+          ]
+        },
         "Temperature: bassa per risposte deterministiche, alta per risposte più varie.",
         "Top K: sceglie tra le K parole più probabili, indipendentemente dal resto.",
         "Top P: considera i candidati che coprono la probabilità cumulata P.",
-        "Max token: limita la lunghezza della risposta, quindi il costo.",
-        "Esempio: candidati cavalli 0,7, zebre 0,2, unicorni 0,1."
+        "Max token: limita la lunghezza della risposta, quindi il costo."
       ],
       "todo": [],
       "narration": "Oltre al modello, puoi regolare come genera le risposte. Sono i parametri di inferenza, e i più comuni sono quattro. Il primo è la temperature. A ogni token il modello assegna una probabilità a ciascun candidato possibile. La temperature rimodella questa distribuzione. Valori bassi rendono le risposte più deterministiche, perché il modello sceglie quasi sempre il candidato più probabile. Valori alti appiattiscono la distribuzione, e il modello pesca più spesso candidati meno probabili, quindi risposte più varie e meno prevedibili. Il secondo è il top K, che limita la scelta alle K parole più probabili, indipendentemente da come è distribuita la probabilità. Il terzo è il top P, che considera solo i candidati che coprono la probabilità cumulata P. Il numero di candidati cambia da un token all'altro, perché dipende da come è distribuita la probabilità. Facciamo un esempio concreto, quello della documentazione. Il prompt è sento lo scalpitio di, e i candidati hanno probabilità: cavalli 0,7, zebre 0,2, unicorni 0,1. Con top K uguale a 2, il modello considera solo cavalli e zebre. Con top P uguale a 0,7, considera solo cavalli, perché è l'unico candidato che sta nel primo 70 per cento della distribuzione. Con top P uguale a 0,9, considera cavalli e zebre. Il quarto parametro è il numero massimo di token della risposta, che limita la lunghezza e quindi il costo. Esistono anche le stop sequence, che fermano la generazione quando compare una sequenza che hai indicato. Per l'esame basta ricordare la direzione. Più temperature significa più varietà. Per risposte precise e ripetibili servono temperature bassa e top P basso. I valori di default e i range cambiano da modello a modello, e il dettaglio per modello è nel capitolo 12."
@@ -204,6 +410,29 @@
     {
       "title": "Prompt engineering: quando basta",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Zero-shot",
+              "tone": "warn",
+              "items": [
+                "Solo l'istruzione, nessun esempio",
+                "Costa meno token",
+                "Prova rapida di cosa sa già fare il modello"
+              ]
+            },
+            {
+              "head": "Few-shot",
+              "tone": "good",
+              "items": [
+                "Alcuni esempi di input e output corretti",
+                "Rende più stabile formato e stile",
+                "Costa solo qualche token in più"
+              ]
+            }
+          ]
+        },
         "Istruzione: verbo chiaro e vincolo chiaro.",
         "Contesto: dati e situazione. Esempi: input e output corretti.",
         "Formato di output: JSON con campi precisi, utilizzabile da un programma.",
@@ -216,6 +445,53 @@
     {
       "title": "RAG da zero: perché e come",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Documenti",
+              "sub": "una volta, poi al cambio"
+            },
+            {
+              "label": "Chunk",
+              "sub": "porzioni di testo controllate"
+            },
+            {
+              "label": "Embedding",
+              "sub": "un vettore per chunk"
+            },
+            {
+              "label": "Vector store",
+              "sub": "vettore, testo e metadati"
+            }
+          ]
+        },
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Domanda",
+              "sub": "a ogni richiesta"
+            },
+            {
+              "label": "Embedding",
+              "sub": "stesso modello"
+            },
+            {
+              "label": "Chunk più vicini",
+              "sub": "vettori più simili"
+            },
+            {
+              "label": "Prompt",
+              "sub": "domanda più contesto"
+            },
+            {
+              "label": "Risposta",
+              "sub": "fondata sui chunk",
+              "tone": "good"
+            }
+          ]
+        },
         "Problema: il modello conosce solo ciò che ha visto in addestramento, vecchio e pubblico.",
         "Ingestione: documenti spezzati in chunk, trasformati in embedding, salvati in un vector store.",
         "Retrieval: la domanda diventa un embedding; si recuperano i chunk più vicini in significato.",
@@ -228,10 +504,76 @@
     {
       "title": "Knowledge Bases: cosa automatizza Bedrock",
       "bullets": [
+        {
+          "kind": "topology",
+          "title": "Cosa fa Bedrock per te",
+          "nodes": [
+            {
+              "label": "Sorgente dati",
+              "sub": "S3 o connettore"
+            },
+            {
+              "label": "Knowledge Base",
+              "sub": "chunking, embedding, sync"
+            },
+            {
+              "label": "Vector store",
+              "sub": "indice dei vettori",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "Retrieve: chunk e punteggi",
+            "RetrieveAndGenerate: risposta e citazioni"
+          ],
+          "caption": "Le due API sono alternative: Retrieve si ferma ai passaggi, RetrieveAndGenerate genera anche la risposta."
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Vector store",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "OpenSearch Serverless",
+                "head": true
+              },
+              "motore faiss, metrica euclidea per i vettori in virgola mobile"
+            ],
+            [
+              {
+                "v": "Aurora PostgreSQL",
+                "head": true
+              },
+              "con pgvector, accanto ai dati relazionali"
+            ],
+            [
+              {
+                "v": "Neptune Analytics",
+                "head": true
+              },
+              "grafo, per il GraphRAG"
+            ],
+            [
+              {
+                "v": "S3 Vectors",
+                "head": true
+              },
+              "query poco frequenti e costi bassi"
+            ],
+            [
+              {
+                "v": "Pinecone, Redis, MongoDB",
+                "head": true
+              },
+              "servizi di terze parti"
+            ]
+          ]
+        },
         "Automatizza ingestione, chunking, embedding e sincronizzazione dei documenti.",
         "Sorgenti: S3 e custom per le Knowledge Base classiche; la versione gestita aggiunge SharePoint, Confluence, Google Drive, OneDrive e web crawler.",
-        "Vector store: OpenSearch Serverless, Aurora PostgreSQL con pgvector, Neptune Analytics, S3 Vectors, Pinecone, Redis, MongoDB Atlas.",
-        "Retrieve: restituisce i passaggi e i punteggi. RetrieveAndGenerate: aggiunge la risposta con citazioni.",
         "Dimensione dei vettori uguale a quella del modello di embedding, per esempio 1024, 512 o 256."
       ],
       "todo": [],
@@ -240,7 +582,30 @@
     {
       "title": "Agenti: ragiona, agisce, osserva",
       "bullets": [
-        "Ciclo: ragiona sul prossimo passo, agisce chiamando uno strumento, osserva il risultato.",
+        {
+          "kind": "flow",
+          "loop": "finché l'obiettivo non è raggiunto",
+          "steps": [
+            {
+              "label": "Ragiona",
+              "sub": "decide il prossimo passo"
+            },
+            {
+              "label": "Agisce",
+              "sub": "chiama uno strumento"
+            },
+            {
+              "label": "Osserva",
+              "sub": "legge il risultato"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Recuperare non è agire",
+          "text": "Una Knowledge Base risponde su documenti. Prenotare, modificare o aggiornare richiede un agente con action group."
+        },
         "Strumento: una funzione o un'API con parametri precisi, eseguita fuori dal modello.",
         "Bedrock Agents: modello, action group e Knowledge Base collegate.",
         "Action group: azioni definite con schema OpenAPI o funzione, di solito eseguite da Lambda.",
@@ -252,11 +617,61 @@
     {
       "title": "Bedrock Agents Classic: stato e successore",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Situazione",
+            "Cosa succede"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Nuovo cliente, dal 30 luglio 2026",
+                "head": true
+              },
+              "il servizio è chiuso: nessun nuovo agente"
+            ],
+            [
+              {
+                "v": "Account con attività negli ultimi 12 mesi",
+                "head": true
+              },
+              "continua a creare e usare agenti"
+            ],
+            [
+              {
+                "v": "CreateAgent su account senza attività",
+                "head": true
+              },
+              "AccessDeniedException, codice 403"
+            ],
+            [
+              {
+                "v": "API esistenti",
+                "head": true
+              },
+              "restano disponibili: UpdateAgent, GetAgent, InvokeAgent"
+            ],
+            [
+              {
+                "v": "Nuove funzionalità e nuovi modelli",
+                "head": true
+              },
+              "non arrivano, il catalogo resta fermo"
+            ],
+            [
+              {
+                "v": "Successore indicato da AWS",
+                "head": true
+              },
+              "Amazon Bedrock AgentCore"
+            ]
+          ]
+        },
         "Dal 30 luglio 2026 non è aperto ai nuovi clienti: è in modalità manutenzione.",
         "Chi ha avuto attività con Bedrock Agents negli ultimi 12 mesi continua a usarlo.",
         "Un account senza attività riceve AccessDeniedException con codice 403 su CreateAgent.",
-        "Le API esistenti restano disponibili. Non arrivano nuove funzionalità né nuovi modelli.",
-        "Successore indicato da AWS: Amazon Bedrock AgentCore. Dettaglio nel capitolo 13."
+        "Le API esistenti restano disponibili. Non arrivano nuove funzionalità né nuovi modelli."
       ],
       "todo": [],
       "narration": "Lo stato di Bedrock Agents è cambiato, e l'esame lo usa come trappola legata alla data. Il nome attuale è Amazon Bedrock Agents Classic. Il servizio è entrato in modalità manutenzione e non è più aperto ai nuovi clienti a partire dal 30 luglio 2026. La regola concreta è questa. Chi ha avuto attività con Bedrock Agents negli ultimi dodici mesi, nello stesso account, continua a poterlo creare e usare. Un account senza attività precedente riceve un errore AccessDeniedException con codice 403 quando prova a creare un agente, e non esiste un processo di eccezione. Le API esistenti restano disponibili per tutti, da UpdateAgent e GetAgent fino a InvokeAgent e alle API di action group e di Knowledge Base. Non arrivano nuove funzionalità, e il catalogo dei modelli disponibili nel servizio resta fermo alla data di chiusura. Knowledge Bases, Guardrails e i modelli di Bedrock continuano invece a funzionare e a ricevere aggiornamenti. AWS indica Amazon Bedrock AgentCore come successore. Per i nuovi agenti, la strada raccomandata è l'harness gestito di AgentCore, configurabile con modello, strumenti e istruzioni, oppure codice proprio su AgentCore per orchestrazioni avanzate. Per l'esame i concetti restano validi: action group, Lambda e Knowledge Base descrivono come un agente opera. Il dettaglio di AgentCore, con memoria, runtime e protocolli, è nel capitolo 13."
@@ -264,11 +679,71 @@
     {
       "title": "Bedrock Guardrails: le policy di sicurezza",
       "bullets": [
-        "Content filter: odio, insulti, sessuale, violenza, misconduct e prompt attack, con intensità regolabile.",
-        "Denied topics: argomenti vietati, bloccati nella domanda e nella risposta.",
-        "Word filter: parole e frasi esatte, senza distinguere maiuscole, più un elenco di parolacce pronto.",
-        "Informazioni sensibili: PII riconosciuti, bloccati o mascherati, con regex personalizzate.",
-        "Contextual grounding check: verifica che la risposta sia fondata sui documenti recuperati."
+        {
+          "kind": "table",
+          "head": [
+            "Policy",
+            "Cosa controlla",
+            "Come"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Content filter",
+                "head": true
+              },
+              "odio, insulti, sessuale, violenza, misconduct, prompt attack",
+              "intensità regolabile per categoria"
+            ],
+            [
+              {
+                "v": "Denied topics",
+                "head": true
+              },
+              "argomenti vietati",
+              "bloccati nella domanda e nella risposta"
+            ],
+            [
+              {
+                "v": "Word filter",
+                "head": true
+              },
+              "parole e frasi esatte",
+              "senza distinguere maiuscole, più un elenco pronto"
+            ],
+            [
+              {
+                "v": "Informazioni sensibili",
+                "head": true
+              },
+              "PII riconosciuti",
+              "bloccati o mascherati, con regex personalizzate"
+            ],
+            [
+              {
+                "v": "Contextual grounding check",
+                "head": true
+              },
+              "risposta fondata sui documenti e pertinente",
+              "contrasta le allucinazioni in una RAG"
+            ],
+            [
+              {
+                "v": "Automated Reasoning",
+                "head": true
+              },
+              "coerenza con regole logiche",
+              "confronto della risposta con le regole"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "good",
+          "title": "ApplyGuardrail",
+          "text": "Valuta un testo senza invocare il modello: protegge anche input e output di modelli non ospitati su Bedrock."
+        },
+        "Il tranello: bloccare un argomento o mascherare dati personali è compito di Guardrails, non di un modello più grande"
       ],
       "todo": [],
       "narration": "Guardrails è il livello di sicurezza di Bedrock. Applica policy configurabili all'input dell'utente e all'output del modello. Ci sono sei tipi di controllo. Il primo sono i content filter, che rilevano contenuti dannosi nelle categorie odio, insulti, sessuale, violenza, misconduct e prompt attack, e per ciascuna puoi regolare l'intensità del filtro. Il secondo sono i denied topics, cioè argomenti che non vuoi trattare. Per esempio consigli di investimento in una banca possono essere bloccati sia nella domanda sia nella risposta. Il terzo sono i word filter, liste di parole o frasi da bloccare con corrispondenza di parola intera, senza distinguere maiuscole, con un elenco di parolacce pronto all'uso. Il quarto sono i filtri sulle informazioni sensibili, che riconoscono dati personali come indirizzi, date di nascita e numeri di previdenza sociale. Possono bloccarli o mascherarli, e si possono aggiungere regex personalizzate. Il quinto è il contextual grounding check: verifica che la risposta sia fondata sui documenti recuperati e pertinente alla domanda, ed è pensato proprio per le allucinazioni in una RAG. Il sesto sono gli Automated Reasoning check, che confrontano la risposta con regole logiche. Dove si applicano? Un guardrail si collega alla chiamata di inferenza, passando identificativo e versione. Oppure si usa direttamente con l'API ApplyGuardrail, che valuta un testo senza invocare il modello. Quindi può proteggere input e output anche di modelli non ospitati su Bedrock. Il tranello: bloccare un argomento o mascherare dati personali è compito di Guardrails, non di un modello più grande."
@@ -276,11 +751,62 @@
     {
       "title": "Personalizzare il modello: fine-tuning, continued pre-training, distillazione",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Metodo",
+            "Dati",
+            "Cosa cambia",
+            "Su Bedrock"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Fine-tuning supervisionato",
+                "head": true
+              },
+              "coppie input e output corrette",
+              "stile, formato, tono",
+              "sì"
+            ],
+            [
+              {
+                "v": "Fine-tuning per rinforzo",
+                "head": true
+              },
+              "una funzione di ricompensa",
+              "il comportamento premiato",
+              "sì"
+            ],
+            [
+              {
+                "v": "Distillazione",
+                "head": true
+              },
+              "prompt e risposte del modello grande",
+              "capacità in un modello più piccolo",
+              "sì"
+            ],
+            [
+              {
+                "v": "Continued pre-training",
+                "head": true
+              },
+              "testo non etichettato del dominio",
+              "terminologia e stile del settore",
+              "no"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Da ricordare",
+          "text": "Il modello personalizzato richiede Provisioned Throughput, e tutti i metodi richiedono dati curati e una valutazione contro le regressioni."
+        },
         "Fine-tuning: addestramento su esempi supervisionati, per stile, formato e tono.",
         "Continued pre-training: testo non etichettato del dominio, per assorbire terminologia. Non è tra i metodi di Bedrock.",
-        "Distillazione: un modello grande insegna a uno più piccolo ed economico.",
-        "Su Bedrock: fine-tuning supervisionato, per rinforzo e distillazione; il modello personalizzato richiede Provisioned Throughput.",
-        "Tutti richiedono dati curati, tempo e valutazione contro le regressioni."
+        "Distillazione: un modello grande insegna a uno più piccolo ed economico."
       ],
       "todo": [],
       "narration": "Quando il prompt e la RAG non bastano, puoi cambiare i pesi del modello. Ci sono tre strade. Il fine-tuning addestra il modello su esempi supervisionati, cioè coppie di input e output corretti, per insegnargli uno stile, un formato, un tono o un linguaggio specialistico. È la scelta quando il comportamento deve cambiare in modo stabile. Il continued pre-training riprende l'addestramento su grandi quantità di testo non etichettato del tuo dominio, per fargli assorbire terminologia e stile di un settore. Non richiede coppie di esempi, ma richiede molti dati e più calcolo. La distillazione trasferisce le capacità di un modello grande in un modello più piccolo e meno costoso da servire. Su Bedrock la personalizzazione funziona così. La documentazione elenca tre metodi: il fine-tuning supervisionato, con esempi etichettati, il fine-tuning per rinforzo, che usa funzioni di ricompensa invece di coppie corrette, e la distillazione, in cui un modello grande insegna a uno più piccolo. Il continued pre-training non compare in questo elenco. Il modello personalizzato va poi usato con Provisioned Throughput. Tutti questi metodi richiedono dati curati, tempo di addestramento e una valutazione rigorosa, per verificare che il modello non regredisca su altri compiti e non inventi di più. Il formato e la qualità dei dati di fine-tuning sono nel capitolo 12. Per l'esame ricorda la differenza di fondo. Il fine-tuning cambia il comportamento del modello. La RAG gli fornisce i fatti al momento della domanda."
@@ -288,6 +814,29 @@
     {
       "title": "Modelli aperti su SageMaker JumpStart",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Bedrock",
+              "tone": "good",
+              "items": [
+                "Modelli pronti dal catalogo",
+                "Nessuna istanza e nessun serving da gestire",
+                "Paghi a token o a capacità riservata"
+              ]
+            },
+            {
+              "head": "SageMaker JumpStart",
+              "tone": "warn",
+              "items": [
+                "Il modello gira su un endpoint tuo",
+                "Controlli pesi, istanze, rete e logging",
+                "Serve un modello che Bedrock non ha"
+              ]
+            }
+          ]
+        },
         "JumpStart: catalogo di foundation model aperti, mantenuti da AWS, più modelli di fornitori terzi.",
         "Distribuzione su un endpoint SageMaker, da Studio o con il SageMaker Python SDK.",
         "Fine-tuning con esempi e notebook forniti, con controllo di pesi e infrastruttura.",
@@ -300,11 +849,44 @@
     {
       "title": "Prompt, RAG, fine-tuning o continued pre-training: l'albero di decisione",
       "bullets": [
-        "1. Formato, tono, compito chiaro: prompt engineering, con few-shot se serve.",
-        "2. Dati privati o che cambiano: RAG con Knowledge Bases.",
-        "3. Comportamento stabile e dati etichettati: fine-tuning.",
-        "4. Dominio lontano dal generale: continued pre-training, costoso.",
-        "5. Deve agire, non solo rispondere: agente con action group."
+        {
+          "kind": "tree",
+          "root": "Cosa manca al modello?",
+          "branches": [
+            {
+              "when": "formato, tono o istruzioni",
+              "then": "Prompt engineering",
+              "note": "con few-shot se serve; nessun addestramento"
+            },
+            {
+              "when": "dati privati o che cambiano",
+              "then": "RAG con Knowledge Bases",
+              "note": "niente etichette, si aggiorna con la risincronizzazione"
+            },
+            {
+              "when": "comportamento stabile e dati etichettati",
+              "then": "Fine-tuning",
+              "note": "costa in dati curati, tempo e valutazione"
+            },
+            {
+              "when": "il dominio è lontano dal linguaggio generale",
+              "then": "Continued pre-training",
+              "note": "costoso, e su Bedrock non è offerto"
+            },
+            {
+              "when": "deve agire, non solo rispondere",
+              "then": "Agente con action group",
+              "note": "strumenti eseguiti fuori dal modello"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "I tranelli ricorrenti",
+          "text": "Documenti che cambiano ogni giorno: RAG, non fine-tuning. Cambiare il tono: il fine-tuning, non la RAG. Servono entrambi: modello personalizzato con una RAG sopra."
+        },
+        "Le soluzioni si combinano, ma la domanda chiede quasi sempre la soluzione più semplice che funziona"
       ],
       "todo": [],
       "narration": "Ora mettiamo insieme le scelte. Quando un'applicazione GenAI non fa quello che serve, si attraversa un albero di decisione, sempre nello stesso ordine. Primo passo: il problema riguarda formato, tono o istruzioni, e il modello conosce già il dominio? Allora il prompt engineering, con esempi few-shot se serve. È la soluzione più economica, perché non richiede addestramento e si prova in ore. Secondo passo: il modello non conosce i dati, che sono privati o cambiano spesso? Allora RAG con Knowledge Bases. Costa in storage e in embedding, non richiede etichette, e aggiorna i dati con la risincronizzazione senza riaddestrare. Terzo passo: il comportamento deve cambiare in modo stabile, per stile o formato, e hai esempi etichettati? Allora fine-tuning. Costa in dati curati, tempo e valutazione, e va rifatto se i requisiti cambiano molto. Quarto passo: il linguaggio del dominio è così lontano dal generale che serve assorbirlo da grandi corpora di testo? Allora continued pre-training, una scelta costosa da riservare a casi chiari. Su Bedrock questo metodo non è offerto, quindi il lavoro si fa fuori da Bedrock, per esempio su SageMaker. Quinto passo: la soluzione deve agire, non solo rispondere? Allora un agente con action group. I tranelli d'esame sono sempre gli stessi. Se i documenti cambiano ogni giorno, la risposta non è il fine-tuning, anche se sembra più sofisticata: è la RAG. Se la richiesta è cambiare il tono, la RAG non basta. Se servono insieme comportamento e conoscenza, la combinazione è frequente: un modello fine-tuned con una RAG sopra. Le soluzioni si combinano, ma la domanda chiede quasi sempre la soluzione più semplice che funziona."
@@ -312,10 +894,64 @@
     {
       "title": "Valutare modelli e risposte",
       "bullets": [
-        "Automatica: dataset di prompt e metriche integrate, con confronto tra modelli.",
+        {
+          "kind": "table",
+          "head": [
+            "Metodo",
+            "Cosa produce",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Valutazione automatica",
+                "head": true
+              },
+              "punteggi su un dataset di prompt",
+              "confronto tra modelli, in modo ripetibile"
+            ],
+            [
+              {
+                "v": "LLM come giudice",
+                "head": true
+              },
+              "punteggio spiegato da un altro modello",
+              "scala, senza revisione manuale"
+            ],
+            [
+              {
+                "v": "Revisione umana",
+                "head": true
+              },
+              "giudizio di dipendenti o esperti",
+              "qualità soggettiva, come il tono"
+            ]
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Metriche di qualità",
+              "tone": "good",
+              "items": [
+                "correctness, completeness, relevance",
+                "faithfulness: la chiave per una RAG",
+                "coerenza logica, rispetto delle istruzioni, stile professionale"
+              ]
+            },
+            {
+              "head": "Metriche di responsabilità",
+              "tone": "warn",
+              "items": [
+                "harmfulness",
+                "stereotyping",
+                "refusal"
+              ]
+            }
+          ]
+        },
         "LLM come giudice: un modello valutatore assegna punteggi e spiega il perché.",
-        "Metriche di qualità: correctness, completeness, faithfulness, relevance, coerenza logica.",
-        "Metriche di responsabilità: harmfulness, stereotyping, refusal.",
         "Revisione umana: dipendenti o esperti del settore, per giudizi soggettivi."
       ],
       "todo": [],
@@ -324,11 +960,43 @@
     {
       "title": "Monitorare in produzione: model invocation logging",
       "bullets": [
+        {
+          "kind": "topology",
+          "title": "Percorso di una chiamata registrata",
+          "nodes": [
+            {
+              "label": "Applicazione",
+              "sub": "Converse, InvokeModel e stream"
+            },
+            {
+              "label": "bedrock-runtime",
+              "sub": "endpoint di inferenza"
+            },
+            {
+              "label": "Model invocation logging",
+              "sub": "disattivato di default",
+              "tone": "warn"
+            },
+            {
+              "label": "S3 o CloudWatch Logs",
+              "sub": "destinazione",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "stesso account",
+            "stessa Region",
+            "corpo fino a 100 KB per voce"
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Dati sensibili",
+          "text": "I log contengono prompt e risposte: servono controllo degli accessi, cifratura e una retention definita. Corpi oltre 100 KB e immagini finiscono come oggetti S3 separati."
+        },
         "Logging disattivato di default: va attivato esplicitamente.",
-        "Destinazione: bucket S3 o log group di CloudWatch Logs, stesso account e stessa Region.",
-        "Operazioni registrate: Converse, ConverseStream, InvokeModel, InvokeModelWithResponseStream su bedrock-runtime.",
-        "Corpi fino a 100 KB per voce; dati più grandi e immagini finiscono come oggetti S3.",
-        "I log contengono prompt e risposte: vanno protetti come dati sensibili."
+        "Operazioni registrate: Converse, ConverseStream, InvokeModel, InvokeModelWithResponseStream su bedrock-runtime."
       ],
       "todo": [],
       "narration": "Quando l'applicazione è in produzione, serve sapere cosa succede. Il model invocation logging registra le chiamate di inferenza dell'account in una Region: richiesta, risposta, numero di token, identità del chiamante e metadati. Attenzione a due dettagli d'esame. Il primo: il logging è disattivato di default, quindi va attivato esplicitamente. Il secondo: scrive su un bucket S3 oppure su un log group di CloudWatch Logs, e la destinazione deve stare nello stesso account e nella stessa Region. Le operazioni registrate sono Converse, ConverseStream, InvokeModel e InvokeModelWithResponseStream, sull'endpoint bedrock-runtime. Le chiamate fatte su altri endpoint non vengono catturate. Il corpo di richiesta e risposta viene scritto fino a 100 KB per voce. Corpi più grandi, e dati binari come le immagini, finiscono come oggetti separati in S3, con un riferimento nel log. I log contengono prompt e risposte, che sono dati sensibili: vanno protetti con controllo degli accessi, cifratura e una retention definita. Questo collega il monitoraggio alla privacy vista prima. Per il controllo della qualità nel tempo, invece, servono valutazioni periodiche su un campione di risposte, con punteggi che vanno in dashboard e allarmi. Il monitoraggio dei dati e dei modelli di machine learning classici è il tema del capitolo 5, dove si trova anche SageMaker Model Monitor, chiuso ai nuovi clienti."
@@ -336,11 +1004,66 @@
     {
       "title": "Servizi AI gestiti: il catalogo di base",
       "bullets": [
-        "Comprehend: analisi del testo e sentiment a quattro valori; classificatori custom.",
-        "Rekognition: oggetti, volti, testo nelle immagini, contenuti non sicuri, custom labels, video.",
-        "Textract: testo, form e tabelle da scansioni e PDF; API AnalyzeExpense per fatture e ricevute.",
-        "Transcribe, Translate, Polly: audio in testo, traduzione, testo in voce.",
-        "Lex e Personalize: chatbot con intent e slot; raccomandazioni da dati di interazione."
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Compito",
+            "Dettaglio"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Comprehend",
+                "head": true
+              },
+              "analisi del testo",
+              "sentiment a quattro valori, classificatori custom"
+            ],
+            [
+              {
+                "v": "Rekognition",
+                "head": true
+              },
+              "immagini e video",
+              "oggetti, volti, testo, contenuti non sicuri, face liveness, custom labels"
+            ],
+            [
+              {
+                "v": "Textract",
+                "head": true
+              },
+              "documenti scansionati",
+              "testo, form e tabelle; AnalyzeExpense per fatture e ricevute"
+            ],
+            [
+              {
+                "v": "Transcribe, Translate, Polly",
+                "head": true
+              },
+              "voce e lingua",
+              "audio in testo, traduzione, testo in voce"
+            ],
+            [
+              {
+                "v": "Lex",
+                "head": true
+              },
+              "chatbot",
+              "intent e slot, con un LLM per le intenzioni"
+            ],
+            [
+              {
+                "v": "Personalize",
+                "head": true
+              },
+              "raccomandazioni",
+              "da dati di interazione, in tempo reale o batch"
+            ]
+          ]
+        },
+        "Il tranello: un servizio pronto batte un custom quando il compito è standard e non hai dati etichettati",
+        "Un modello custom vince solo quando il dominio è specifico e i dati etichettati ci sono"
       ],
       "todo": [],
       "narration": "Non ogni problema richiede un modello generativo o un modello custom. AWS offre servizi AI gestiti già addestrati, che si chiamano con un'API, senza dataset, senza algoritmo e senza endpoint da gestire. Il criterio dell'esame è chiedersi se esiste già un servizio per quel compito. Amazon Comprehend analizza testo e restituisce un sentiment con quattro valori: positivo, negativo, misto e neutro. Può anche addestrare classificatori custom. Amazon Rekognition analizza immagini e video: oggetti e scene, volti, testo nelle immagini, contenuti non sicuri, face liveness per verificare che una persona reale sia davanti alla camera, e custom labels per oggetti specifici. Amazon Textract estrae testo, form e tabelle da scansioni e PDF, e ha l'API AnalyzeExpense per fatture e ricevute. Amazon Transcribe trasforma l'audio in testo. Amazon Translate traduce testo tra lingue diverse. Amazon Polly trasforma il testo in voce con motori standard, neurali, long-form e generativi. Amazon Lex costruisce chatbot vocali e testuali con intent e slot, e usa un LLM per migliorare la classificazione delle intenzioni. Amazon Personalize genera raccomandazioni personalizzate a partire dai dati di interazione degli utenti, in tempo reale o in batch. Il tranello: un servizio pronto batte un custom quando il compito è standard e i dati non sono tuoi o non sono etichettati. Un modello custom vince quando il dominio è specifico e hai dati etichettati da sfruttare. Il dettaglio dello stato di ciascun servizio è nel capitolo 14."
@@ -348,10 +1071,55 @@
     {
       "title": "Servizi GenAI chiusi: stato e alternative",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Chiuso ai nuovi clienti",
+            "Alternativa indicata"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Bedrock Agents Classic",
+                "head": true
+              },
+              "30 luglio 2026",
+              "Amazon Bedrock AgentCore"
+            ],
+            [
+              {
+                "v": "Amazon Kendra",
+                "head": true
+              },
+              "30 luglio 2026",
+              "Bedrock Knowledge Bases"
+            ],
+            [
+              {
+                "v": "SageMaker Clarify",
+                "head": true
+              },
+              "30 luglio 2026",
+              "Bedrock Evaluations, per i modelli di base"
+            ],
+            [
+              {
+                "v": "Amazon Forecast",
+                "head": true
+              },
+              "29 luglio 2024",
+              "SageMaker Canvas"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Prima di scegliere",
+          "text": "Verifica sulla pagina ufficiale che il servizio sia aperto ai nuovi clienti: un servizio chiuso resta corretto solo per chi lo usava già."
+        },
         "Bedrock Agents Classic: chiuso dal 30 luglio 2026, successore AgentCore (vedi la slide sugli agenti).",
-        "Amazon Kendra: chiuso ai nuovi clienti dal 30 luglio 2026, alternativa Bedrock Knowledge Bases.",
-        "Amazon SageMaker Clarify: chiuso dal 30 luglio 2026, per i modelli di base alternativa Bedrock Evaluations.",
-        "Amazon Forecast: chiuso dal 29 luglio 2024, alternativa indicata da AWS SageMaker Canvas.",
         "Elenco completo delle funzioni SageMaker chiuse: capitoli 5 e 7."
       ],
       "todo": [],
@@ -360,9 +1128,50 @@
     {
       "title": "AI responsabile: bias, trasparenza, sicurezza, privacy",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Concetto",
+            "Dimensione AWS",
+            "In pratica"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Bias",
+                "head": true
+              },
+              "equità",
+              "misurare le prestazioni per gruppo, con dati bilanciati"
+            ],
+            [
+              {
+                "v": "Trasparenza",
+                "head": true
+              },
+              "spiegabilità, governance",
+              "spiegare le predizioni con SHAP, tracciare il lineage con MLflow, documentare"
+            ],
+            [
+              {
+                "v": "Sicurezza d'uso",
+                "head": true
+              },
+              "sicurezza d'uso",
+              "Guardrails: content filter, argomenti vietati, controllo di fondatezza"
+            ],
+            [
+              {
+                "v": "Privacy",
+                "head": true
+              },
+              "privacy e sicurezza dei dati",
+              "usare solo i dati necessari, cifrare, controllare gli accessi"
+            ]
+          ]
+        },
         "AWS descrive otto dimensioni: equità, spiegabilità, privacy e sicurezza, sicurezza d'uso, controllabilità, veridicità, governance, trasparenza.",
         "Bias: squilibrio nei dati o disparità di prestazioni tra gruppi diversi.",
-        "Sicurezza d'uso: Guardrails con content filter, argomenti vietati e controllo di fondatezza.",
         "Privacy: minimizzare i dati, cifrarli, controllarne gli accessi, dichiarare dove vanno.",
         "Risposta d'esame: quasi sempre una misura di controllo o di misura, non un modello più grande."
       ],

@@ -100,6 +100,7 @@ npx wrangler pages dev .
     ├── tts_chatterbox_batch.py   # sintesi vocale con cache per frase e --stale
     ├── apply_slides.py           # applica bullet arricchiti senza toccare la narrazione
     ├── check_slides.py           # schema degli schemi, narrazione intatta, leggibilità
+    ├── prune_echoes.mjs          # toglie dal JSON le schede che ripetono uno schema
     ├── slide_specs/              # specifiche degli schemi, una per capitolo
     ├── check_questions.py        # schema + bias di lunghezza del banco domande
     ├── check_answer_keys.py      # cerca chiavi `answer` puntate all'opzione errata
@@ -176,6 +177,20 @@ aggiungere qualcosa.
 
 Le specifiche in `tools/slide_specs/` sono la fonte di verità degli schemi: si
 modifica il `.py`, si riapplica, e il JSON si rigenera da lì.
+
+Una scheda che ripete parola per parola uno schema della stessa slide non viene
+mostrata: `visuals.js` la nasconde, e `check_slides.py` la segnala. Per toglierla
+anche dal dato (e non solo dalla vista) c'è:
+
+```bash
+node tools/prune_echoes.mjs --dry-run content/chapters/*.json
+node tools/prune_echoes.mjs content/chapters/*.json
+```
+
+Lo script usa la stessa funzione del renderer, quindi non può divergere da ciò
+che l'utente vede. Restano sempre le schede che portano un distinguo o una
+conseguenza (`non`, `invece`, `solo`, `tranello`...): quelle aggiungono qualcosa
+anche quando le parole coincidono.
 
 ## Banco domande
 

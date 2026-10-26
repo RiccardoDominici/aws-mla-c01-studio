@@ -128,8 +128,47 @@
     {
       "title": "Perimetro del capitolo e regole d'esame",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Costi",
+              "sub": "quanto costa davvero una soluzione"
+            },
+            {
+              "label": "Osservabilità",
+              "sub": "come si vede un sistema in produzione"
+            },
+            {
+              "label": "Sicurezza",
+              "sub": "regole che un revisore può verificare",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Vale in entrambe le guide",
+              "tone": "good",
+              "items": [
+                "Costi, osservabilità, IAM, KMS e rete",
+                "Il metodo: requisito soddisfatto, costo minimo, privilegi minimi"
+              ]
+            },
+            {
+              "head": "Solo MLA-C01",
+              "tone": "warn",
+              "items": [
+                "Well-Architected Machine Learning Lens",
+                "Reserved Instances tra gli esempi di acquisto",
+                "Model Monitor come servizio citato dalla guida"
+              ]
+            }
+          ]
+        },
         "Dominio 4: monitoraggio, manutenzione e sicurezza",
-        "Costi, osservabilità e sicurezza avanzata",
         "Alcuni temi cambiano tra MLA-C01 e MLA-C02",
         "L'esame cerca il requisito soddisfatto con meno costo e meno privilegi"
       ],
@@ -139,10 +178,79 @@
     {
       "title": "Famiglie di istanze e chip AWS",
       "bullets": [
-        "General purpose (M): calcolo, memoria e rete bilanciati",
+        {
+          "kind": "table",
+          "head": [
+            "Famiglia",
+            "Sigla",
+            "Uso tipico"
+          ],
+          "rows": [
+            [
+              {
+                "v": "General purpose",
+                "head": true
+              },
+              "M",
+              "calcolo, memoria e rete bilanciati"
+            ],
+            [
+              {
+                "v": "Compute optimized",
+                "head": true
+              },
+              "C",
+              "batch e transcodifica"
+            ],
+            [
+              {
+                "v": "Memory optimized",
+                "head": true
+              },
+              "R",
+              "dataset che deve restare in memoria"
+            ],
+            [
+              {
+                "v": "Accelerated",
+                "head": true
+              },
+              "P, G",
+              "training intensivo su GPU; G per grafica e virgola mobile"
+            ],
+            [
+              {
+                "v": "Inferentia",
+                "head": true
+              },
+              "Inf1, Inf2",
+              "inferenza: Inf2 fino a 4 volte il throughput e 10 volte meno latenza di Inf1"
+            ],
+            [
+              {
+                "v": "Trainium",
+                "head": true
+              },
+              "—",
+              "training di modelli grandi"
+            ],
+            [
+              {
+                "v": "Graviton",
+                "head": true
+              },
+              "ARM",
+              "fino al 20 per cento più economico di istanze x86 comparabili"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Come si sceglie",
+          "text": "Inferenza di un modello già addestrato: Inferentia o Graviton. Training di un modello grande: GPU P o Trainium."
+        },
         "Compute optimized (C) e memory optimized (R) per carichi specifici",
-        "Accelerated computing: P per training intensivo, G con acceleratori",
-        "Inferentia (Inf1, Inf2) per inferenza, Trainium per training, Graviton ARM"
+        "Accelerated computing: P per training intensivo, G con acceleratori"
       ],
       "narration": "La prima leva sui costi è la famiglia dell'istanza. Le istanze general purpose, della famiglia M, bilanciano calcolo, memoria e rete, e la documentazione AWS le indica per server web, repository di codice e database piccoli o medi. Le istanze compute optimized, famiglia C, servono ai carichi legati al processore, come il batch e la transcodifica dei media. Le istanze memory optimized, famiglia R, servono quando il dataset deve restare in memoria, come nei database in memoria e nell'analisi dei dati. Per il machine learning contano di più le famiglie con acceleratori hardware. Le istanze P sono GPU ad alte prestazioni per il deep learning e l'HPC, e la pagina AWS le presenta per il training di modelli molto grandi, come i large language model. Le istanze G usano acceleratori per la grafica e per i calcoli in virgola mobile. Inferentia è il chip progettato da AWS per l'inferenza. La pagina ufficiale dichiara che Inferentia2, usato dalle istanze Inf2, offre fino a 4 volte il throughput e fino a 10 volte meno latenza rispetto alla prima generazione. Trainium è il chip AWS per il training, e la pagina ufficiale lo presenta anche per l'inferenza. Graviton è una famiglia di processori ARM, dichiarata fino al 20 per cento più economica di istanze x86 comparabili. Il tranello d'esame è questo: per l'inferenza di un modello già addestrato, Inferentia o Graviton sono candidati forti. Per il training di un modello grande, la risposta tende alle GPU P o a Trainium. La scelta della famiglia va comunque combinata con il tipo di acquisto, che è il tema della prossima slide.",
       "todo": [
@@ -154,8 +262,62 @@
     {
       "title": "Opzioni d'acquisto: On-Demand, Spot, Savings Plans, Reserved",
       "bullets": [
-        "On-Demand: nessun impegno, prezzo pieno, massima flessibilità",
-        "Managed Spot Training: fino al 90 per cento di risparmio, con interruzioni",
+        {
+          "kind": "bars",
+          "unit": "%",
+          "max": 90,
+          "caption": "Risparmio massimo dichiarato rispetto all'On-Demand: è un tetto, non una garanzia.",
+          "rows": [
+            {
+              "label": "On-Demand",
+              "value": 0,
+              "display": "0%",
+              "note": "nessun impegno, prezzo pieno"
+            },
+            {
+              "label": "Savings Plans",
+              "value": 64,
+              "display": "fino al 64%",
+              "note": "impegno in dollari all'ora per 1 o 3 anni"
+            },
+            {
+              "label": "Managed Spot",
+              "value": 90,
+              "display": "fino al 90%",
+              "note": "la reference API scrive 80%: con interruzioni possibili",
+              "tone": "warn"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Impegno",
+              "tone": "good",
+              "items": [
+                "Savings Plans: 1 o 3 anni, in dollari all'ora",
+                "Reserved Instances: legate a istanze EC2",
+                "Oltre l'impegno si paga la tariffa On-Demand"
+              ]
+            },
+            {
+              "head": "Interruzione",
+              "tone": "warn",
+              "items": [
+                "Spot: costo minimo, capacità che può sparire",
+                "Servono i checkpoint su S3",
+                "MaxWaitTimeInSeconds maggiore di MaxRuntimeInSeconds"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Due regole dello Spot",
+          "text": "Managed Spot Training non ricade su On-Demand: se la capacità manca, il job si ferma. Senza checkpoint, per gli algoritmi integrati l'attesa massima è 3600 secondi."
+        },
         "SageMaker Savings Plans: impegno in dollari all'ora per uno o tre anni, fino al 64 per cento",
         "Reserved Instances: negli esempi della guida MLA-C01, non in quelli della MLA-C02"
       ],
@@ -168,10 +330,56 @@
     {
       "title": "Strumenti di costo: Cost Explorer, Budgets, Billing, Trusted Advisor",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Strumento",
+            "Costo e limite d'uso",
+            "Cosa non fa"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Cost Explorer",
+                "head": true
+              },
+              "interfaccia gratuita; l'API costa un centesimo per richiesta paginata",
+              "non blocca la spesa"
+            ],
+            [
+              {
+                "v": "Billing and Cost Management",
+                "head": true
+              },
+              "incluso; è qui che si attivano i costi per tag",
+              "non produce avvisi"
+            ],
+            [
+              {
+                "v": "AWS Budgets",
+                "head": true
+              },
+              "aggiornato fino a 3 volte al giorno; l'addebito può arrivare in ritardo",
+              "non impedisce di superare la soglia"
+            ],
+            [
+              {
+                "v": "Trusted Advisor",
+                "head": true
+              },
+              "piani Business Support o superiori per i controlli completi",
+              "non analizza la singola risorsa"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Piano di supporto",
+          "text": "Con Basic restano i controlli sui limiti di servizio e alcuni controlli di sicurezza: i controlli completi richiedono Business Support+, Enterprise Support o Unified Operations."
+        },
         "Cost Explorer: fino a 13 mesi di storico e previsione di 18 mesi",
-        "Billing and Cost Management: fatture e attivazione dei tag di costo",
-        "AWS Budgets: soglie, notifiche via email o SNS, azioni automatiche",
-        "Trusted Advisor: controlli su costi, sicurezza, prestazioni e limiti"
+        "AWS Budgets: soglie, notifiche via email o SNS, azioni automatiche"
       ],
       "narration": "Gli strumenti di costo rispondono a domande diverse, e l'esame chiede di distinguerle. Cost Explorer serve ad analizzare la spesa: mostra fino a 13 mesi di dati storici, prevede la spesa dei 18 mesi successivi e permette di filtrare e raggruppare la spesa. L'interfaccia è gratuita, mentre ogni richiesta paginata via API costa un centesimo di dollaro. La console Billing and Cost Management è il punto di controllo di fatture, pagamenti e attivazione dei tag di costo. AWS Budgets serve invece a porre limiti e a reagire. Si possono creare budget di costo e di utilizzo, e budget su utilizzo o copertura di Savings Plans e Reserved Instances. Le notifiche arrivano via email o Amazon SNS, e si possono definire azioni automatiche, per esempio applicare una policy IAM che impedisce di creare altre risorse. I dati di Budgets vengono aggiornati fino a tre volte al giorno, e l'addebito può comparire con ritardo rispetto all'uso. Trusted Advisor ispeziona l'ambiente e suggerisce miglioramenti di costo, prestazioni, sicurezza e tolleranza ai guasti. I controlli completi richiedono i piani Business Support+, Enterprise Support o Unified Operations. Con il piano Basic restano i controlli sui limiti di servizio e alcuni controlli di sicurezza. Per ricordare la differenza: Cost Explorer guarda indietro e prevede, Budgets avvisa e agisce, Trusted Advisor consiglia.",
       "todo": [
@@ -186,6 +394,49 @@
     {
       "title": "Tagging per allocazione e monitoraggio dei costi",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Tag sulla risorsa",
+              "sub": "Project, CostCenter, Team"
+            },
+            {
+              "label": "Attivazione",
+              "sub": "console Billing, management account"
+            },
+            {
+              "label": "Report di costo",
+              "sub": "la chiave diventa una colonna",
+              "tone": "good"
+            },
+            {
+              "label": "Backfill",
+              "sub": "fino a 12 mesi, ma non retroattivo",
+              "tone": "warn"
+            }
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "12 mesi",
+              "label": "backfill massimo",
+              "note": "solo per risorse che avevano già quel tag"
+            },
+            {
+              "value": "24 ore",
+              "label": "una richiesta ogni",
+              "note": "e lo stato attuale viene applicato anche al passato"
+            },
+            {
+              "value": "50",
+              "label": "coppie per CreateTrainingJob",
+              "note": "il parametro Tags"
+            }
+          ]
+        },
         "Cost allocation tag: chiave per assegnare i costi a un progetto o centro di costo",
         "Tag definiti dall'utente o generati da AWS, da attivare nella console Billing",
         "Comparsa e attivazione non sono immediate nella console Billing",
@@ -200,8 +451,54 @@
     {
       "title": "Rightsizing con Inference Recommender e Compute Optimizer",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Strumento",
+            "Cosa analizza",
+            "Tempi e limiti"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Inference Recommender Default",
+                "head": true
+              },
+              "solo l'ARN di un model package, load test sui tipi candidati",
+              "circa 45 minuti"
+            ],
+            [
+              {
+                "v": "Inference Recommender Advanced",
+                "head": true
+              },
+              "istanze o serverless, pattern di traffico e requisiti di latenza",
+              "circa 2 ore in media"
+            ],
+            [
+              {
+                "v": "Compute Optimizer",
+                "head": true
+              },
+              "configurazione e utilizzo delle risorse già in uso, con opt-in",
+              "14 giorni di default, 93 con le metriche avanzate a pagamento"
+            ],
+            [
+              {
+                "v": "Compute Optimizer su SageMaker",
+                "head": true
+              },
+              "solo endpoint inattivi: segnala, non sceglie l'istanza",
+              "non è il rightsizing di un endpoint attivo"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Chi fa cosa",
+          "text": "Tipo di istanza di un endpoint SageMaker, anche in produzione: Inference Recommender. Istanza EC2 o Auto Scaling group che ospita il modello: Compute Optimizer."
+        },
         "Inference Recommender Default: benchmark rapido, circa 45 minuti, serve solo il model package",
-        "Inference Recommender Advanced: load test personalizzato, circa 2 ore in media",
         "Compute Optimizer: rightsizing di EC2, Lambda e database; per SageMaker solo endpoint inattivi",
         "Analisi di 14 giorni di default, fino a 93 giorni con le metriche avanzate a pagamento"
       ],
@@ -214,8 +511,49 @@
     {
       "title": "Quote di servizio e concorrenza provisioned",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Service Quotas",
+              "tone": "warn",
+              "items": [
+                "Massimo tecnico di risorse o operazioni",
+                "Valore predefinito e valore applicato",
+                "Aumento dalla console o via API, con approvazione del supporto"
+              ]
+            },
+            {
+              "head": "AWS Budgets",
+              "tone": "good",
+              "items": [
+                "Avvisa quando la spesa supera una soglia",
+                "Non impedisce di superare un limite tecnico"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "100",
+              "label": "margine non riservato",
+              "note": "Il totale provisioned non supera la concorrenza non riservata meno 100"
+            },
+            {
+              "value": "70%",
+              "label": "target tracking",
+              "note": "Application Auto Scaling mantiene l'utilizzo vicino al valore scelto"
+            },
+            {
+              "value": "0",
+              "label": "richieste necessarie",
+              "note": "la provisioned concurrency si paga anche se non arriva traffico"
+            }
+          ]
+        },
         "Service Quotas: valori predefiniti e applicati, con quote regolabili",
-        "Richiesta di aumento dalla console o via API, con approvazione del supporto",
         "Lambda provisioned concurrency: ambienti pre-inizializzati per latenza bassa",
         "Costo continuo anche senza richieste: non per carichi batch"
       ],
@@ -227,6 +565,77 @@
     {
       "title": "Metriche infrastrutturali: utilizzo, throughput, disponibilità",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Se la metrica si muove così",
+            "La causa probabile"
+          ],
+          "rows": [
+            [
+              {
+                "v": "CPUUtilization vicino a 400 per cento",
+                "head": true
+              },
+              "tutti i core sono saturi: serve più capacità o un modello più leggero"
+            ],
+            [
+              {
+                "v": "ModelLatency sale, OverheadLatency stabile",
+                "head": true
+              },
+              "il modello è lento"
+            ],
+            [
+              {
+                "v": "OverheadLatency sale, ModelLatency stabile",
+                "head": true
+              },
+              "payload grande o problema della piattaforma"
+            ],
+            [
+              {
+                "v": "Invocation5XXErrors sale",
+                "head": true
+              },
+              "errore del modello o del servizio"
+            ],
+            [
+              {
+                "v": "Invocation4XXErrors sale",
+                "head": true
+              },
+              "richieste sbagliate del client"
+            ],
+            [
+              {
+                "v": "Meno istanze del previsto",
+                "head": true
+              },
+              "una zona di disponibilità persa"
+            ]
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "400%",
+              "label": "CPU su quattro core",
+              "note": "le metriche di utilizzo sono somme sulle unità dell'istanza"
+            },
+            {
+              "value": "1 min",
+              "label": "pubblicazione",
+              "note": "si sceglie tra 10, 30, 60, 120, 180, 240 e 300 secondi"
+            },
+            {
+              "value": "15 mesi",
+              "label": "conservazione",
+              "note": "per istanza servono EnableEnhancedMetrics e la dimensione InstanceId"
+            }
+          ]
+        },
         "Utilizzo: CPUUtilization, MemoryUtilization, GPUUtilization, DiskUtilization",
         "Throughput: Invocations e InvocationsPerInstance",
         "Latenza ed errori: ModelLatency, OverheadLatency, Invocation4XXErrors, Invocation5XXErrors",
@@ -240,10 +649,69 @@
     {
       "title": "CloudWatch: metriche, allarmi, dashboard e Logs Insights",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Metriche",
+              "sub": "ogni minuto, per 15 mesi"
+            },
+            {
+              "label": "Allarmi",
+              "sub": "soglia, notifica o azione",
+              "tone": "warn"
+            },
+            {
+              "label": "Dashboard",
+              "sub": "grafici e risultati di query"
+            },
+            {
+              "label": "Logs Insights",
+              "sub": "query sui log, risultati per 7 giorni",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Logs Insights",
+            "Dettaglio"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Linguaggi",
+                "head": true
+              },
+              "Logs Insights QL nativo, OpenSearch PPL, OpenSearch SQL"
+            ],
+            [
+              {
+                "v": "Timeout",
+                "head": true
+              },
+              "la query scade dopo 60 minuti"
+            ],
+            [
+              {
+                "v": "Costo",
+                "head": true
+              },
+              "dati di log non compressi scansionati, non la visualizzazione"
+            ],
+            [
+              {
+                "v": "Per spendere meno",
+                "head": true
+              },
+              "field index sui campi più usati, così la query salta i log"
+            ]
+          ]
+        },
         "Metriche: pubblicate ogni minuto e conservate per 15 mesi",
         "Allarmi: soglie che inviano notifiche o avviano azioni",
-        "Dashboard: grafici di metriche e risultati di query in un'unica pagina",
-        "Logs Insights: linguaggio di query, PPL e SQL, timeout di 60 minuti"
+        "Dashboard: grafici di metriche e risultati di query in un'unica pagina"
       ],
       "narration": "Amazon CloudWatch è il servizio di base dell'osservabilità AWS. Raccoglie metriche, le trasforma in grafici quasi in tempo reale, avvia allarmi e raccoglie i log. Un allarme controlla una metrica rispetto a una soglia e, quando scatta, invia una notifica o esegue un'azione. È lo stesso meccanismo con cui un monitor come Model Monitor segnala una violazione, come abbiamo visto nel capitolo cinque. Attenzione: dal 30 luglio 2026 Model Monitor ha chiuso ai nuovi clienti, e chi lo usava già continua a usarlo. AWS indica come alternative CloudWatch, Amazon QuickSight e soluzioni open source basate su SageMaker AI MLflow Apps ed Evidently AI. Le dashboard raccolgono grafici di metriche e risultati di query in un'unica pagina, e servono a chi deve reagire in tempo reale. Per i log, CloudWatch Logs Insights è lo strumento d'interrogazione. Supporta il linguaggio nativo Logs Insights QL, OpenSearch PPL e OpenSearch SQL. Le query scadono dopo 60 minuti se non completano, e i risultati restano disponibili per 7 giorni. La parte costosa è la quantità di dati letti, non la visualizzazione: si paga sui dati di log non compressi scansionati. Per ridurre il costo si creano field index sui campi usati più spesso, così la query salta i log che non contengono quel campo. Logs Insights permette anche di salvare le query, rieseguirle e aggiungerle a una dashboard. Infine, per le pipeline di machine learning, SageMaker pubblica metriche nel namespace AWS/Sagemaker/ModelBuildingPipeline, come ExecutionFailed, ExecutionSucceeded e StepFailed. Sono le metriche da mettere su un allarme se si vuole sapere subito quando una pipeline fallisce.",
       "todo": [
@@ -253,8 +721,54 @@
     {
       "title": "Lambda Insights, X-Ray e DevOps Guru",
       "bullets": [
-        "Lambda Insights: CPU, memoria, disco, rete e cold start delle funzioni",
-        "X-Ray: segmenti, tracce e trace map per trovare colli di bottiglia",
+        {
+          "kind": "table",
+          "head": [
+            "Strumento",
+            "Domanda",
+            "Come funziona"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Lambda Insights",
+                "head": true
+              },
+              "quanto consuma una funzione",
+              "extension come layer; CPU, memoria, disco, rete, cold start"
+            ],
+            [
+              {
+                "v": "X-Ray",
+                "head": true
+              },
+              "dove passa una singola richiesta",
+              "segmenti inviati a un daemon, trace map, colli di bottiglia"
+            ],
+            [
+              {
+                "v": "AgentCore Observability",
+                "head": true
+              },
+              "come si comportano gli agenti",
+              "trace, sessioni, latenza, token ed errori; OpenTelemetry"
+            ],
+            [
+              {
+                "v": "DevOps Guru",
+                "head": true
+              },
+              "cosa devia dalla normalità",
+              "insight reattivi e proattivi; chiuso ai nuovi clienti dal 29/10/2026, fine 30/09/2027"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "DevOps Guru",
+          "text": "Non accetta nuovi clienti dal 29 ottobre 2026 e cessa il 30 settembre 2027: per un progetto nuovo non è una scelta ammessa."
+        },
         "AgentCore Observability: trace e metriche per agenti in produzione",
         "DevOps Guru: anomalie operative, nuovi clienti fino al 29 ottobre 2026"
       ],
@@ -269,9 +783,51 @@
     {
       "title": "Dashboard con Amazon Quick e notifiche con Amazon Q Developer",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "CloudWatch",
+              "tone": "good",
+              "items": [
+                "Grafico operativo per chi è di turno",
+                "Metriche, allarmi e log in tempo reale"
+              ]
+            },
+            {
+              "head": "Amazon Quick Sight",
+              "tone": "warn",
+              "items": [
+                "Dashboard di business intelligence",
+                "Stakeholder che esplorano i dati; oggi è una funzione di Amazon Quick"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "flow",
+          "loop": "le azioni sui pulsanti rispettano i ruoli IAM del canale",
+          "steps": [
+            {
+              "label": "Allarme CloudWatch",
+              "sub": "soglia superata"
+            },
+            {
+              "label": "Topic SNS",
+              "sub": "canale di notifica"
+            },
+            {
+              "label": "Q Developer in chat",
+              "sub": "ex AWS Chatbot"
+            },
+            {
+              "label": "Slack, Teams o Chime",
+              "sub": "con pulsanti di rimedio",
+              "tone": "good"
+            }
+          ]
+        },
         "Amazon Quick Sight: business intelligence, erede di QuickSight",
-        "Dashboard CloudWatch per il monitoraggio operativo in tempo reale",
-        "Amazon Q Developer in chat applications, ex AWS Chatbot",
         "Canali Slack, Microsoft Teams e Amazon Chime"
       ],
       "narration": "Per la presentazione dei dati ci sono due famiglie di strumenti, da non confondere. Le dashboard operative e gli allarmi vivono in CloudWatch, e servono a chi deve reagire subito. Per i dashboard di business intelligence il nome è cambiato: QuickSight è diventato Amazon Quick Sight, una funzione all'interno di Amazon Quick, la piattaforma Amazon Quick. Le API e le integrazioni di QuickSight continuano a funzionare senza modifiche. Se una domanda parla di dashboard per stakeholder che esplorano dati in modo interattivo, la risposta è Quick Sight. Se parla di un grafico operativo per chi è di turno, la risposta è CloudWatch. Per le notifiche, AWS Chatbot è stato rinominato Amazon Q Developer in chat applications. Riceve messaggi dagli argomenti Amazon SNS e li inoltra ai canali Slack, Microsoft Teams o Amazon Chime. Può inoltrare anche le notifiche di un budget che supera la soglia. Permette inoltre di definire azioni personalizzate, cioè pulsanti sulla notifica che eseguono una funzione Lambda o un comando CLI, e i comandi sono consentiti in base ai ruoli IAM configurati per il canale. Il flusso tipico è quindi: allarme CloudWatch, argomento SNS, canale della chat, azione di rimedio con controllo IAM.",
@@ -284,7 +840,38 @@
     {
       "title": "Anomalie in processing, pipeline e monitor",
       "bullets": [
-        "Violazione del monitor: allarme CloudWatch sulla metrica di violazione",
+        {
+          "kind": "tree",
+          "root": "Che cosa è fallito?",
+          "branches": [
+            {
+              "when": "il servizio risponde con un errore interno",
+              "then": "RetryStrategy riprova",
+              "note": "solo errori transitori"
+            },
+            {
+              "when": "manca un file di input o il codice ha un bug",
+              "then": "correggi e rilancia",
+              "note": "il retry non aiuta"
+            },
+            {
+              "when": "si ferma un'esecuzione della pipeline",
+              "then": "allarme su ExecutionFailed e StepFailed",
+              "note": "oppure una regola EventBridge"
+            },
+            {
+              "when": "il monitor trova una violazione",
+              "then": "allarme sulla metrica di violazione",
+              "note": "non è un errore del job"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Retry: il punto insidioso",
+          "text": "Un bug o un file mancante non viene riprovato da RetryStrategy: si corregge il codice o l'input e si rilancia."
+        },
         "Job di processing e training: stato Failed e log in CloudWatch",
         "Pipeline: metriche ExecutionFailed e StepFailed, eventi su EventBridge",
         "Retry: RetryStrategy riprova solo per InternalServerError"
@@ -297,9 +884,93 @@
     {
       "title": "Well-Architected Machine Learning Lens",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Principio",
+            "Cosa chiede"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Assign ownership",
+                "head": true
+              },
+              "competenze e risorse adeguate"
+            ],
+            [
+              {
+                "v": "Provide protection",
+                "head": true
+              },
+              "sicurezza su dati, algoritmi, calcolo, endpoint"
+            ],
+            [
+              {
+                "v": "Enable resiliency",
+                "head": true
+              },
+              "tolleranza ai guasti e recupero"
+            ],
+            [
+              {
+                "v": "Enable reusability",
+                "head": true
+              },
+              "componenti modulari e riusabili"
+            ],
+            [
+              {
+                "v": "Enable reproducibility",
+                "head": true
+              },
+              "versione di infrastruttura, dati, modello, codice"
+            ],
+            [
+              {
+                "v": "Optimize resources",
+                "head": true
+              },
+              "compromessi tra risorse e configurazioni"
+            ],
+            [
+              {
+                "v": "Reduce cost",
+                "head": true
+              },
+              "sprechi trovati con automazione"
+            ],
+            [
+              {
+                "v": "Enable automation",
+                "head": true
+              },
+              "pipeline, CI/CD e continuous training"
+            ],
+            [
+              {
+                "v": "Enable continuous improvement",
+                "head": true
+              },
+              "monitoraggio e apprendimento continuo"
+            ],
+            [
+              {
+                "v": "Minimize environmental impact",
+                "head": true
+              },
+              "sostenibilità e uso efficiente"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Dove vale",
+          "text": "Pubblicato il 19 novembre 2025. Tema della guida MLA-C01: nella MLA-C02 non compare, quindi studialo come ragionamento, non come nome da citare."
+        },
         "Pubblicato il 19 novembre 2025, complementare al Well-Architected Framework",
         "Dieci principi di progettazione per i workload di machine learning",
-        "Esempi: assign ownership, provide protection, enable reproducibility",
         "Tema della guida MLA-C01, non presente nella MLA-C02"
       ],
       "narration": "Il Well-Architected Machine Learning Lens è un documento AWS che estende il Well-Architected Framework ai carichi di machine learning. Il framework generale dice come progettare un workload nel cloud. Il lens aggiunge i problemi tipici del machine learning: i dati cambiano nel tempo, i modelli degradano e il lavoro è iterativo. Il documento è stato pubblicato il 19 novembre 2025, e la pagina ufficiale elenca dieci principi di progettazione. Assign ownership chiede competenze, responsabilità e numero di risorse adeguati. Provide protection chiede controlli di sicurezza su dati, algoritmi, calcolo ed endpoint. Enable resiliency chiede di verificare tolleranza ai guasti e recuperabilità, con versionamento, tracciabilità e spiegabilità. Enable reusability chiede componenti modulari e riusabili. Enable reproducibility chiede versionamento di infrastruttura, dati, modelli e codice, così da tornare a una release precisa. Optimize resources chiede di valutare i compromessi tra risorse e configurazioni. Reduce cost chiede di trovare gli sprechi con automazione e ottimizzazione. Enable automation chiede pipeline, integrazione e distribuzione continua, e il continuous training. Enable continuous improvement chiede monitoraggio e apprendimento continuo. Minimize environmental impact chiede obiettivi di sostenibilità e uso efficiente dell'hardware. La guida MLA-C01 include questo tema tra i principi di design rilevanti per il monitoraggio. Nella guida MLA-C02 non compare. Studiate quindi i principi come ragionamento di architettura, senza aspettarvi una domanda diretta sul nome del lens nella versione nuova.",
@@ -310,10 +981,38 @@
     {
       "title": "Audit con CloudTrail e AWS Config",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "CloudTrail",
+              "tone": "good",
+              "items": [
+                "Chi ha fatto una modifica, quando e da dove",
+                "Trail verso S3 oltre i 90 giorni di cronologia",
+                "Multi-Region dalla console, single-Region da CLI",
+                "Data event spenti di default e a pagamento"
+              ]
+            },
+            {
+              "head": "AWS Config",
+              "tone": "warn",
+              "items": [
+                "Com'era configurata una risorsa e se è conforme",
+                "Storia, relazioni, regole di conformità",
+                "Conformance pack e aggregatori multi-account"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Regola d'esame",
+          "text": "CloudTrail dice chi ha fatto una modifica; AWS Config dice come appare la risorsa e se rispetta le regole."
+        },
         "CloudTrail: chi ha chiamato quale API, quando e con quale esito",
         "Trail verso S3, multi-Region per default dalla console, single-Region solo da CLI",
-        "Data event disattivati di default, con costo aggiuntivo",
-        "AWS Config: storia della configurazione e regole di conformità"
+        "Data event disattivati di default, con costo aggiuntivo"
       ],
       "narration": "CloudTrail registra le chiamate API fatte in un account: chi, quando, da dove e con quale esito. Per l'audit è la fonte primaria. Un trail è la configurazione che invia questi log in modo continuo a un bucket Amazon S3. Serve perché la cronologia degli eventi copre solo 90 giorni, mentre il trail permette di conservare gli eventi oltre quel limite e di interrogarli con Athena. Un trail può anche inviare gli eventi a CloudWatch Logs, per creare allarmi su eventi specifici. La scelta della Regione è importante. La documentazione dice che i trail creati dalla console sono multi-Region, cioè catturano l'attività in tutte le Regioni abilitate, mentre un trail single-Region si crea con la CLI. In un'organizzazione, il management account o un amministratore delegato può creare un trail per tutti gli account membri. Poi c'è la trappola dei data event. Sono le operazioni sui dati, come GetObject, PutObject e DeleteObject sugli oggetti S3, o l'invocazione di una funzione Lambda. Non vengono registrati di default: va aggiunto esplicitamente il tipo di risorsa, e i data event generano costi aggiuntivi. AWS Config risponde invece a un'altra domanda: com'era configurata una risorsa in un dato momento, e se rispetta le regole. Registra la configurazione delle risorse e la sua storia, con le relazioni tra risorse. Le regole valutano le configurazioni e segnalano le risorse non conformi. Un conformance pack raggruppa più regole, e un aggregatore raccoglie i dati di più account e più Regioni. La regola d'esame: CloudTrail dice chi ha fatto una modifica, AWS Config dice come appare la risorsa e se è conforme.",
       "todo": [
@@ -325,9 +1024,37 @@
     {
       "title": "Isolamento di rete e cifratura del traffico in SageMaker",
       "bullets": [
+        {
+          "kind": "layers",
+          "layers": [
+            {
+              "label": "Default",
+              "sub": "i container hanno accesso a internet",
+              "tone": "bad"
+            },
+            {
+              "label": "Network isolation",
+              "sub": "nessuna chiamata in ingresso né in uscita, e nessuna credenziale AWS nel container",
+              "tone": "warn"
+            },
+            {
+              "label": "Inter-container encryption",
+              "sub": "cifra il traffico tra i nodi del training distribuito",
+              "tone": "good"
+            },
+            {
+              "label": "Security group",
+              "sub": "UDP 500 ed ESP 50 in ingresso e in uscita, con origine il gruppo stesso"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Il costo nascosto",
+          "text": "Con l'isolamento attivo, boto3 dentro il container non raggiunge S3: se il codice deve leggere direttamente, l'isolamento lo impedisce. Con la VPC, SageMaker scarica per conto del job."
+        },
         "EnableNetworkIsolation: network isolation blocca chiamate in ingresso e in uscita",
-        "Nessuna credenziale AWS disponibile nel container",
-        "Inter-container traffic encryption: cifra i nodi del training distribuito",
         "Security group con regole UDP 500 ed ESP 50 per la cifratura"
       ],
       "narration": "Per impostazione predefinita, i container di training e di inferenza di SageMaker hanno accesso a internet. Il controllo più forte è la network isolation, attivata con EnableNetworkIsolation impostato a True. La documentazione dell'API CreateTrainingJob dice che il container non può fare chiamate in ingresso né in uscita, tranne quelle tra i peer di un cluster di training distribuito. Sono bloccate anche le chiamate verso altri servizi AWS, come S3, e nel container non vengono rese disponibili credenziali AWS. È un dettaglio importante: se il codice di training deve leggere da S3 direttamente con boto3, l'isolamento lo impedisce. Con una VPC, SageMaker scarica e carica dati e artefatti attraverso la subnet della VPC, ma il container resta senza accesso di rete. Per i job di monitoraggio del bias, il controllo di Security Hub avverte che l'isolamento non si può modificare dopo la creazione della job definition. Il secondo controllo è l'inter-container traffic encryption, attivato con EnableInterContainerTrafficEncryption impostato a True. Cifra tutte le comunicazioni tra le istanze di un training distribuito, perché i framework distribuiti trasmettono informazioni legate al modello, come i pesi. Il costo è il tempo: la documentazione avverte che può allungare il training, soprattutto con algoritmi di deep learning distribuito, ma non ha effetto su un job con una sola istanza. Per usarlo in una VPC, il gruppo di sicurezza deve avere regole in ingresso e in uscita per UDP sulla porta 500 e per il protocollo ESP 50, con origine il gruppo stesso. Per l'esame: dati sensibili senza uscita verso internet, network isolation; comunicazione tra nodi cifrata, inter-container traffic encryption.",
@@ -340,9 +1067,43 @@
     {
       "title": "Subnet, security group e VPC endpoint",
       "bullets": [
+        {
+          "kind": "topology",
+          "title": "Job in subnet privata, senza internet",
+          "nodes": [
+            {
+              "label": "Training job",
+              "sub": "VpcConfig: subnet e security group"
+            },
+            {
+              "label": "Subnet privata",
+              "sub": "due IP privati per istanza, cinque con EFA",
+              "tone": "warn"
+            },
+            {
+              "label": "Gateway endpoint S3",
+              "sub": "route table più policy sull'endpoint"
+            },
+            {
+              "label": "S3",
+              "sub": "bucket del progetto",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "Interface endpoint per gli altri servizi",
+            "NAT gateway solo per risorse esterne",
+            "bucket policy che accetta solo la VPC"
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Il sintomo",
+          "text": "Se manca il gateway endpoint verso S3 il job non legge i dati: la causa sta nell'endpoint e nella tabella di routing, non nei permessi IAM."
+        },
         "Subnet private senza accesso a internet per i job di training",
         "Security group con regola che consente il traffico tra i membri del gruppo",
-        "Gateway endpoint per S3, interface endpoint per gli altri servizi",
         "NAT gateway solo se serve uscire verso risorse esterne"
       ],
       "narration": "Quando un job di training gira in una VPC, il tipo di collegamento di rete determina sicurezza e costi. Si configurano subnet e gruppi di sicurezza nel parametro VpcConfig di CreateTrainingJob. SageMaker crea le interfacce di rete nelle subnet e le collega ai container. La documentazione consiglia subnet private senza accesso a internet, e indica che ogni istanza del job richiede almeno due indirizzi IP privati, cinque se usa Elastic Fabric Adapter. Nel training distribuito il security group deve permettere la comunicazione tra i membri dello stesso gruppo, con una regola in ingresso. Con Elastic Fabric Adapter servono regole in ingresso e in uscita. Se la VPC non ha accesso a internet, i container non raggiungono S3 da soli. Serve un S3 gateway endpoint aggiunto alle tabelle di routing, e per limitare l'accesso si può usare una policy sull'endpoint e una bucket policy che accetta solo traffico dalla VPC. Per gli altri servizi AWS che supportano gli interface endpoint, cioè collegamenti privati basati su AWS PrivateLink, si crea un endpoint di interfaccia nelle subnet. Se una risorsa esterna non ha un endpoint, serve un NAT gateway con un security group che consenta l'uscita. Le notebook instance seguono la stessa logica. Il controllo SageMaker.1 di Security Hub segnala una notebook con accesso diretto a internet. Per l'esame, la sequenza mentale è questa: niente internet, quindi endpoint per ogni servizio necessario. Se manca l'endpoint verso S3, il job non legge i dati, e la causa va cercata nel gateway endpoint e nella tabella di routing.",
@@ -353,8 +1114,67 @@
     {
       "title": "IAM: ruolo di esecuzione, least privilege, Role Manager e SCP",
       "bullets": [
+        {
+          "kind": "layers",
+          "layers": [
+            {
+              "label": "SCP",
+              "sub": "massimo dei permessi degli account membri: limita, non concede",
+              "tone": "warn"
+            },
+            {
+              "label": "Permission boundary",
+              "sub": "tetto opzionale per un utente o ruolo"
+            },
+            {
+              "label": "Identity policy",
+              "sub": "l'azione consentita a chi chiama",
+              "tone": "good"
+            },
+            {
+              "label": "iam:PassRole",
+              "sub": "chi crea il job deve poter passare il ruolo di esecuzione"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Role Manager: per creare nuovi ruoli",
+            "Alternativa"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Ruolo con trust policy",
+                "head": true
+              },
+              "console IAM e API"
+            ],
+            [
+              {
+                "v": "Accesso dei lavoratori",
+                "head": true
+              },
+              "IAM Identity Center"
+            ],
+            [
+              {
+                "v": "Policy di minimo privilegio",
+                "head": true
+              },
+              "IAM Access Analyzer, dagli accessi in CloudTrail"
+            ],
+            [
+              {
+                "v": "Ruoli versionati",
+                "head": true
+              },
+              "CloudFormation"
+            ]
+          ]
+        },
         "Ruolo di esecuzione: accesso a S3, ECR, CloudWatch e chiavi KMS del job",
-        "iam:PassRole: chi crea il job deve poter passare il ruolo di esecuzione",
         "Role Manager: tre persona predefinite, ma chiuso ai nuovi clienti",
         "SCP: guardrail sugli account membri, non concede permessi"
       ],
@@ -368,7 +1188,77 @@
     {
       "title": "Segreti e configurazione: Secrets Manager e Parameter Store",
       "bullets": [
-        "Secrets Manager: credenziali, chiavi API e certificati con rotazione automatica",
+        {
+          "kind": "table",
+          "head": [
+            "",
+            "Secrets Manager",
+            "Parameter Store"
+          ],
+          "rows": [
+            [
+              {
+                "v": "A cosa serve",
+                "head": true
+              },
+              "credenziali, chiavi API, certificati",
+              "configurazione, anche sensibile"
+            ],
+            [
+              {
+                "v": "Cifratura",
+                "head": true
+              },
+              "KMS",
+              "KMS con SecureString"
+            ],
+            [
+              {
+                "v": "Rotazione automatica",
+                "head": true
+              },
+              "sì",
+              "no: per le credenziali AWS raccomanda Secrets Manager"
+            ],
+            [
+              {
+                "v": "Costo",
+                "head": true
+              },
+              "per segreto al mese e per chiamata API",
+              "standard senza costo aggiuntivo"
+            ],
+            [
+              {
+                "v": "Limiti",
+                "head": true
+              },
+              "—",
+              "standard 10.000 parametri e 4 KB; advanced 100.000 e 8 KB"
+            ],
+            [
+              {
+                "v": "Versioni",
+                "head": true
+              },
+              "—",
+              "le ultime 100 per parametro"
+            ],
+            [
+              {
+                "v": "Configurazione rischiosa",
+                "head": true
+              },
+              "—",
+              "AWS AppConfig, pensato per i rollout"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "La regola",
+          "text": "Credenziali e segreti: Secrets Manager. Configurazione non sensibile: Parameter Store. Configurazione che può causare un'interruzione: AppConfig."
+        },
         "Parameter Store: tipi String, StringList e SecureString",
         "SecureString cifrato con KMS, ma senza rotazione automatica",
         "Parameter Store standard: fino a 10000 parametri e 4 KB per valore"
@@ -382,6 +1272,60 @@
     {
       "title": "Troubleshooting di AccessDenied",
       "bullets": [
+        {
+          "kind": "flow",
+          "title": "Ordine di verifica",
+          "steps": [
+            {
+              "label": "Identity policy",
+              "sub": "l'azione sulla risorsa giusta è concessa?"
+            },
+            {
+              "label": "Resource policy",
+              "sub": "bucket o key policy la consentono o la negano?"
+            },
+            {
+              "label": "Limiti",
+              "sub": "SCP e permission boundary devono consentire anche loro",
+              "tone": "warn"
+            },
+            {
+              "label": "Rete",
+              "sub": "VPC senza endpoint: il job non arriva al bucket",
+              "tone": "bad"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Causa frequente",
+            "Rimedio"
+          ],
+          "rows": [
+            [
+              {
+                "v": "iam:PassRole mancante",
+                "head": true
+              },
+              "il permesso va dato a chi crea il job, non al ruolo di esecuzione"
+            ],
+            [
+              {
+                "v": "Chiave KMS",
+                "head": true
+              },
+              "permesso sulla chiave e key policy che lo consente"
+            ],
+            [
+              {
+                "v": "VPC senza endpoint S3",
+                "head": true
+              },
+              "gateway endpoint e tabella di routing"
+            ]
+          ]
+        },
         "Identity policy: l'utente o il ruolo deve avere l'azione sulla risorsa",
         "Resource policy: può consentire o negare l'accesso alla risorsa",
         "SCP e permission boundary: limiti che non concedono nulla",
@@ -395,9 +1339,62 @@
     {
       "title": "Sicurezza delle pipeline CI/CD: Inspector e CodeGuru",
       "bullets": [
-        "Inspector: vulnerabilità nelle immagini ECR, con scansione al push o continua",
-        "Inspector: scansione delle dipendenze e del codice delle funzioni Lambda",
-        "CodeGuru Security e Reviewer: dismesso e in manutenzione, sostituiti da Inspector e Amazon Q Developer",
+        {
+          "kind": "table",
+          "head": [
+            "Strumento",
+            "Cosa scansiona",
+            "Stato"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Inspector su ECR",
+                "head": true
+              },
+              "immagini container: base su push, enhanced con pacchetti OS e linguaggi, continua sui nuovi CVE",
+              "attivo"
+            ],
+            [
+              {
+                "v": "Inspector su Lambda",
+                "head": true
+              },
+              "dipendenze, poi il codice; non le funzioni cifrate con chiavi gestite dal cliente",
+              "attivo"
+            ],
+            [
+              {
+                "v": "CodeGuru Security",
+                "head": true
+              },
+              "scansione del codice",
+              "supporto terminato il 20/11/2025, dati persi"
+            ],
+            [
+              {
+                "v": "CodeGuru Reviewer",
+                "head": true
+              },
+              "code review",
+              "in manutenzione dal 7/11/2025, niente nuove associazioni"
+            ],
+            [
+              {
+                "v": "Sostituti indicati da AWS",
+                "head": true
+              },
+              "Inspector anche su repository GitHub e GitLab, Amazon Q Developer",
+              "la scelta operativa oggi"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Il principio comune",
+          "text": "Il ruolo della pipeline deve poter fare solo ciò che serve, e la scansione deve bloccare il deploy prima che l'immagine raggiunga l'endpoint."
+        },
         "Ruolo della pipeline con privilegi minimi e scansione prima del deploy"
       ],
       "narration": "Nelle pipeline CI/CD la sicurezza si gioca su due fronti: il codice e le immagini che vengono distribuite, e i privilegi con cui la pipeline opera. Amazon Inspector scansiona le immagini container in Amazon ECR alla ricerca di vulnerabilità del software. Quando si attiva la scansione di ECR, Inspector diventa il servizio di scansione preferito del registro. La scansione base avviene su push o manualmente, ed è fatturata da ECR. La scansione avanzata, o enhanced, controlla i pacchetti del sistema operativo e dei linguaggi di programmazione, ed è fatturata da Inspector. Con la scansione continua, Inspector riesamina un'immagine quando compare un nuovo CVE rilevante, e riesegue la scansione quando un'immagine torna attiva in ECR. Per le funzioni Lambda, Inspector offre la scansione standard delle dipendenze e, come attivazione successiva, la scansione del codice applicativo. Attenzione: Inspector non supporta funzioni Lambda cifrate con chiavi gestite dal cliente. Amazon CodeGuru è il servizio che la guida MLA-C02 nomina ancora nella skill 4.3.1, insieme a Inspector, per la sicurezza del codice nelle pipeline. Oggi però la strada è cambiata. CodeGuru Security ha terminato il supporto il 20 novembre 2025: non si accede più alla console né alla documentazione, e i dati storici delle scansioni sono andati persi. AWS indica come sostituti Amazon Inspector, che scansiona anche i repository GitHub e GitLab, e Amazon Q Developer, per la code review. CodeGuru Reviewer è in manutenzione dal 7 novembre 2025: non si possono creare nuove associazioni di repository, ma quelle esistenti continuano a funzionare. Per l'esame, quindi, CodeGuru è il nome da riconoscere, mentre la scelta operativa oggi è Inspector. Il principio comune è il privilegio minimo: il ruolo con cui la pipeline esegue il deploy deve poter fare solo le operazioni necessarie, e la scansione deve bloccare il deploy prima che l'immagine raggiunga l'endpoint. Per l'esame: vulnerabilità nelle immagini ECR, Inspector; vulnerabilità nel codice della pipeline, Inspector; permessi della pipeline, minimi.",

@@ -132,7 +132,35 @@
     {
       "title": "Il ciclo di vita dei dati e perché pesano all'esame",
       "bullets": [
-        "Raccolta, archiviazione, ingestione, trasformazione, feature e split",
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Raccolta",
+              "sub": "app, terminali, sistemi contabili"
+            },
+            {
+              "label": "Archiviazione",
+              "sub": "S3 come data lake"
+            },
+            {
+              "label": "Ingestione",
+              "sub": "trasferimento continuo o periodico"
+            },
+            {
+              "label": "Trasformazione",
+              "sub": "pulizia, join, tipi"
+            },
+            {
+              "label": "Feature",
+              "sub": "le colonne che il modello usa"
+            },
+            {
+              "label": "Split",
+              "sub": "training, validation, test"
+            }
+          ]
+        },
         "Dominio 1 della guida MLA-C01: 28 per cento del punteggio",
         "Nella guida MLA-C02 il dominio dei dati pesa ancora 28 per cento",
         "Dati sbagliati producono modelli sbagliati anche con l'algoritmo migliore",
@@ -144,6 +172,79 @@
     {
       "title": "S3 come data lake: bucket, prefissi e partizioni",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Bucket",
+              "sub": "nome globalmente unico"
+            },
+            {
+              "label": "Prefisso",
+              "sub": "clicks/"
+            },
+            {
+              "label": "Partizione",
+              "sub": "anno=2026/"
+            },
+            {
+              "label": "Partizione",
+              "sub": "mese=10/"
+            },
+            {
+              "label": "Oggetto",
+              "sub": "il file, con i suoi metadati"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Criterio",
+            "S3 data lake",
+            "Database relazionale"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Formato",
+                "head": true
+              },
+              "qualunque file",
+              "tabelle con schema imposto"
+            ],
+            [
+              {
+                "v": "Schema",
+                "head": true
+              },
+              "letto al momento della query",
+              "imposto alla scrittura"
+            ],
+            [
+              {
+                "v": "Costo",
+                "head": true
+              },
+              "storage a oggetti, economico",
+              "capacità e istanze da pagare"
+            ],
+            [
+              {
+                "v": "Chi legge",
+                "head": true
+              },
+              "Athena, Glue, EMR, training",
+              "le applicazioni transazionali"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Premessa superata",
+          "text": "Dal 1 dicembre 2020 S3 è fortemente consistente: dopo una scrittura la lettura immediata vede l'ultima versione. Una domanda che presenta l'attesa di consistenza come problema ha una risposta sbagliata in partenza."
+        },
         "Bucket: contenitore con nome globale unico, dove vivono gli oggetti",
         "Oggetto: un file più i suoi metadati, identificato da una chiave completa",
         "Partizioni in stile Hive: coppie chiave e valore nei prefissi, come anno=2026",
@@ -156,12 +257,109 @@
     {
       "title": "Formati dei dati: righe, colonne e i formati dei built-in",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Formato",
+            "Layout",
+            "Uso tipico"
+          ],
+          "rows": [
+            [
+              {
+                "v": "CSV",
+                "head": true
+              },
+              "righe, testo",
+              "universale, senza tipi né schema"
+            ],
+            [
+              {
+                "v": "JSON",
+                "head": true
+              },
+              "righe, annidato",
+              "dati flessibili"
+            ],
+            [
+              {
+                "v": "JSON Lines",
+                "head": true
+              },
+              "un oggetto per riga",
+              "streaming; BlazingText e DeepAR"
+            ],
+            [
+              {
+                "v": "Parquet",
+                "head": true
+              },
+              "colonnare, compresso",
+              "Athena e analisi su S3"
+            ],
+            [
+              {
+                "v": "ORC",
+                "head": true
+              },
+              "colonnare, compresso",
+              "analisi su S3"
+            ],
+            [
+              {
+                "v": "Avro",
+                "head": true
+              },
+              "righe, con schema",
+              "pipeline di flusso"
+            ],
+            [
+              {
+                "v": "RecordIO-protobuf",
+                "head": true
+              },
+              "binario",
+              "K-Means, PCA, Factorization Machines"
+            ]
+          ]
+        },
+        {
+          "kind": "bars",
+          "max": 15,
+          "rows": [
+            {
+              "label": "CSV su 3 TB",
+              "value": 15,
+              "display": "15 dollari",
+              "note": "5 dollari per TB scansionato",
+              "tone": "bad"
+            },
+            {
+              "label": "CSV compresso GZIP (3 a 1)",
+              "value": 5,
+              "display": "5 dollari",
+              "note": "1 TB scansionato"
+            },
+            {
+              "label": "Parquet, una sola colonna",
+              "value": 1.25,
+              "display": "1,25 dollari",
+              "note": "0,25 TB scansionati, risparmio di quattro volte",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Formato accettato",
+          "text": "Il formato è parte del contratto dell'algoritmo: per i built-in si guarda la tabella dei content type, non il formato preferito in astratto."
+        },
         "CSV e JSON: testo leggibile, senza colonne separate né compressione colonnare",
         "JSON Lines: un oggetto JSON per riga, adatto alla lettura in streaming",
         "Parquet e ORC: colonnari e compressi, letture economiche",
         "Avro: formato che conserva lo schema insieme ai dati, comune nei flussi",
-        "RecordIO-protobuf: formato binario di molti algoritmi built-in",
-        "Athena: 3 TB di CSV costano 15 dollari a 5 dollari per TB"
+        "RecordIO-protobuf: formato binario di molti algoritmi built-in"
       ],
       "narration": "Un formato è il modo in cui i valori sono scritti su disco, e la scelta cambia sia le prestazioni sia la fattura. La differenza principale è tra formati a righe e formati colonnari. In un formato a righe, come CSV o JSON, ogni record è una riga intera: per leggere una sola colonna bisogna leggere tutto. In un formato colonnare, come Parquet o ORC, i valori sono raggruppati per colonna. Una query che somma il campo importo legge solo quella colonna, e la compressione funziona meglio, perché valori simili stanno vicini. CSV è semplice e universale, ma non ha tipi né schema, e ogni colonna va scansionata. JSON è flessibile per i dati annidati. JSON Lines mette un oggetto per riga e si legge in streaming. Avro conserva lo schema insieme ai dati ed è comune nei flussi. Parquet è il formato di riferimento per l'analisi su S3. Ora il collegamento con i costi. Athena fattura per dati scansionati. La pagina prezzi di AWS usa come esempio 3 TB scansionati a 5 dollari per TB, cioè 15 dollari. Se lo stesso dato è compresso in GZIP con un rapporto di tre a uno, la scansione scende a 1 TB e il costo a 5 dollari. Se è in Parquet e la query legge una sola colonna, l'esempio ufficiale mostra un risparmio di quattro volte, cioè una scansione di 0,25 TB e un costo di 1,25 dollari. Il formato, dunque, decide quanto si paga. Per gli algoritmi built-in di SageMaker, la documentazione elenca i content type più comuni. CSV funziona per molti algoritmi, come XGBoost e Linear Learner: niente intestazione, e la colonna del target deve essere la prima. RecordIO-protobuf è il formato binario di algoritmi come K-Means, PCA e Factorization Machines. JSON Lines serve BlazingText e DeepAR. Nelle domande d'esame che chiedono quale formato accetta un algoritmo, rispondete guardando quella tabella, non ricordando che Parquet va bene ovunque. La modalità Pipe, che legge in streaming da S3 durante il training, la vediamo nel capitolo 8.",
       "todo": []
@@ -169,11 +367,36 @@
     {
       "title": "Governance con Lake Formation: tabelle, colonne e righe",
       "bullets": [
-        "Permessi su database, tabella, vista e colonne, con SELECT",
+        {
+          "kind": "layers",
+          "layers": [
+            {
+              "label": "Database",
+              "sub": "raggruppa le tabelle del catalogo"
+            },
+            {
+              "label": "Tabella",
+              "sub": "SELECT su tutte le colonne, oppure con una lista di colonne incluse o escluse"
+            },
+            {
+              "label": "Colonne e righe",
+              "sub": "colonne escluse e data filter con un'espressione sulle righe"
+            },
+            {
+              "label": "Due famiglie insieme",
+              "tone": "warn",
+              "sub": "policy IAM per le chiamate al catalogo, permessi Lake Formation per i dati: servono entrambe"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "La trappola più frequente",
+          "text": "IAMAllowedPrincipals dà accesso tramite le vecchie policy IAM: finché resta, Lake Formation non controlla davvero. Va revocato sulle risorse, oppure si passa alla modalità di accesso ibrida."
+        },
         "Data filter: limita le righe e le colonne visibili",
-        "Lista di colonne incluse o escluse nella concessione SELECT",
-        "Servono sia permessi Lake Formation sia permessi IAM",
-        "IAMAllowedPrincipals: va revocato perché Lake Formation controlli davvero l'accesso",
+        "Le chiavi di partizione non si possono limitare con la lista di colonne",
         "PII, cifratura, LF-Tags e permessi per cella: capitolo 8"
       ],
       "narration": "Quando il data lake contiene dati personali, non basta proteggere il bucket. Lake Formation è il servizio che governa l'accesso ai dati nel catalogo di Glue e nei file su S3. Concede permessi su database, tabelle, viste e colonne. Il permesso più usato è SELECT, cioè la lettura. Su una tabella si può concedere SELECT su tutte le colonne, oppure con una lista di colonne incluse, oppure con una lista di colonne escluse. Athena e Redshift rispettano queste liste. Se un analista deve vedere l'ordine e l'importo ma non il codice fiscale, la soluzione è una concessione SELECT limitata alle colonne utili. Il secondo strumento è il data filter, che limita anche le righe, per esempio solo i clienti di una regione. Ci sono regole da ricordare. Non si possono limitare le colonne che sono chiavi di partizione. Chi ha SELECT su un sottoinsieme di colonne non può ricevere ALTER, DROP, DELETE o INSERT sulla stessa tabella. Il secondo punto d'esame riguarda due famiglie di permessi. Le politiche IAM autorizzano le chiamate alle API del catalogo di Glue. I permessi Lake Formation autorizzano l'accesso ai dati. Per leggere una tabella servono entrambi. Il terzo punto è il gruppo IAMAllowedPrincipals. Lake Formation lo usa per compatibilità con le vecchie politiche IAM. Chi ne fa parte ottiene l'accesso attraverso IAM, quindi per far contare davvero Lake Formation bisogna revocare quel permesso sulle risorse, oppure passare alla modalità di accesso ibrida. È una trappola frequente nelle domande sulla sicurezza. La classificazione delle PII, il rilevamento con Macie e la conformità con HIPAA li trattiamo nel capitolo 8, insieme a LF-Tags e ai permessi per cella.",
@@ -182,12 +405,64 @@
     {
       "title": "Batch e streaming: Kinesis Data Streams, Firehose e MSK",
       "bullets": [
-        "Batch: file caricati a intervalli, adatti al training periodico",
-        "Streaming: eventi continui, adatti a feature aggiornate in pochi secondi",
-        "Kinesis Data Streams: record in shard, letti da più consumer",
-        "Retention minima di 24 ore, massima di 365 giorni",
-        "Firehose: consegna gestita verso S3, con buffer e conversione in Parquet o ORC",
-        "MSK: Apache Kafka gestito, per chi usa già Kafka"
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Batch",
+              "tone": "warn",
+              "items": [
+                "File o tabelle caricati a intervalli",
+                "Training periodico, per esempio ogni notte",
+                "Il dato arriva in blocco"
+              ]
+            },
+            {
+              "head": "Streaming",
+              "tone": "good",
+              "items": [
+                "Eventi consegnati appena accadono",
+                "Feature aggiornate in pochi secondi",
+                "Serve un servizio di ingestione dedicato"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Modello",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Kinesis Data Streams",
+                "head": true
+              },
+              "record in shard, più consumer, retention da 24 ore a 365 giorni",
+              "elaborazione in tempo reale con consumer propri"
+            ],
+            [
+              {
+                "v": "Data Firehose",
+                "head": true
+              },
+              "gestito, buffer per dimensione o tempo, conversione in Parquet o ORC",
+              "consegna verso S3, Redshift, OpenSearch"
+            ],
+            [
+              {
+                "v": "MSK",
+                "head": true
+              },
+              "Apache Kafka gestito",
+              "il team usa già Kafka"
+            ]
+          ]
+        },
+        "Retention minima di 24 ore, massima di 365 giorni"
       ],
       "narration": "Non tutti i dati arrivano a blocchi. Il batch carica file o tabelle a intervalli, per esempio ogni notte, ed è adatto al training periodico. Lo streaming porta gli eventi appena accadono, per esempio un click o una transazione, ed è necessario quando una feature deve essere aggiornata in pochi secondi. AWS offre tre strumenti principali. Amazon Kinesis Data Streams è un flusso di record organizzato in shard. I producer scrivono, più consumer leggono in modo indipendente, e i dati restano disponibili per il periodo di retention. Il minimo è 24 ore, il massimo 365 giorni. Scegliete Data Streams quando serve elaborare in tempo reale con consumer propri, o quando più applicazioni devono rileggere gli stessi eventi. Amazon Data Firehose è gestito: non scrivete applicazioni di consegna, configurate il flusso e i dati arrivano a S3, Redshift, OpenSearch o ad altri endpoint. Firehose accumula i dati in un buffer, per dimensione o per tempo, e poi scrive i file. Può convertire il JSON in Parquet o ORC, ma richiede uno schema nel catalogo di Glue che corrisponda ai dati. Se i dati non sono JSON, si usa una funzione Lambda per trasformarli prima. Amazon MSK gestisce cluster Apache Kafka: lo scegliete quando il team usa già Kafka o ha bisogno del suo ecosistema. Le trappole d'esame sono chiare. Se la domanda chiede di consegnare eventi su S3 in Parquet con poca gestione, la risposta è Firehose con conversione del formato. Se più applicazioni devono leggere gli stessi eventi entro una finestra di tempo, la risposta è Kinesis Data Streams. Shard, throughput e throttling, con i loro limiti numerici, sono nel capitolo 8.",
       "todo": []
@@ -195,12 +470,44 @@
     {
       "title": "Glue Data Catalog e crawler: lo schema registrato una volta",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "File su S3",
+              "sub": "JSON, CSV, Avro"
+            },
+            {
+              "label": "Classificatori",
+              "sub": "prima i personalizzati, poi gli integrati"
+            },
+            {
+              "label": "Schema dedotto",
+              "sub": "colonne e tipi dal contenuto"
+            },
+            {
+              "label": "Catalogo",
+              "sub": "tabelle e partizioni"
+            },
+            {
+              "label": "Athena, Glue, EMR",
+              "sub": "leggono tutte lo stesso catalogo",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Regola",
+          "text": "Un prefisso con uno schema: due tabelle con schemi diversi sulla stessa cartella possono restituire zero righe, e MSCK REPAIR TABLE scansiona tutte le sottocartelle. I dati di tabelle diverse vanno in cartelle separate."
+        },
         "Il catalogo è il registro di database e tabelle per Athena, Glue ed EMR",
         "Una tabella è metadati: colonne, tipi, formato e prefisso S3",
         "Il crawler legge i file, deduce lo schema e scrive nel catalogo",
         "Le cartelle con chiave e valore diventano partizioni",
         "Uno schedule trova nuovi file, tabelle e partizioni",
-        "Regola: un prefisso con uno schema, altrimenti Athena può restituire zero righe"
+        "Partition projection: per tabelle molto partizionate con struttura nota"
       ],
       "narration": "Un data lake senza catalogo è una raccolta di file senza descrizione. Il Glue Data Catalog è il registro che dice quali database e tabelle esistono, quali colonne hanno, di che tipo sono, in quale formato sono e dove stanno su S3. Una tabella nel catalogo non contiene dati: contiene metadati che puntano a un prefisso. Athena, Glue ed EMR leggono lo stesso catalogo, quindi una tabella definita una volta è disponibile a tutti. Scrivere lo schema a mano porta spesso a errori. Per questo esiste il crawler. Un crawler di AWS Glue lavora in tre passi. Prima classifica i file: i classificatori personalizzati vanno per primi, poi quelli integrati, che riconoscono JSON, CSV e Avro. Poi deduce lo schema dal contenuto. Infine scrive o aggiorna tabelle e partizioni nel catalogo. Il crawler ragiona sulle cartelle. Se sotto un prefisso le cartelle hanno nomi come anno uguale 2026, e lo schema è simile, crea una sola tabella con una partizione per ogni livello. Se due cartelle di primo livello hanno schemi diversi, il crawler può creare tabelle distinte, e la regola va impostata con un percorso di inclusione per ciascuna tabella. Il crawler si può pianificare: a ogni esecuzione trova i file e le partizioni nuove e le registra. Attenzione a un comportamento di Athena: più tabelle con schemi diversi nello stesso prefisso possono produrre risultati vuoti. Anche MSCK REPAIR TABLE scansiona le sottocartelle, quindi i dati di tabelle diverse vanno tenuti in cartelle separate. Una domanda d'esame tipica dice che ogni giorno arrivano partizioni nuove e Athena non le vede. La soluzione è un crawler pianificato, oppure il comando MSCK REPAIR TABLE per le partizioni in stile Hive. Per tabelle molto partizionate con struttura nota c'è la partition projection, che calcola le partizioni senza leggerle dal catalogo.",
       "todo": []
@@ -208,11 +515,74 @@
     {
       "title": "Athena: SQL serverless su S3 e costo per dato scansionato",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "CSV in zona grezza",
+              "sub": "query ripetute e costose"
+            },
+            {
+              "label": "CTAS",
+              "sub": "una conversione, una volta sola"
+            },
+            {
+              "label": "Parquet partizionato",
+              "sub": "zona curata"
+            },
+            {
+              "label": "Query successive",
+              "sub": "scansionano molto meno",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Leva",
+            "Effetto nell'esempio ufficiale"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Partizione",
+                "head": true
+              },
+              "con un filtro sulla colonna Athena legge solo quel prefisso"
+            ],
+            [
+              {
+                "v": "Parquet",
+                "head": true
+              },
+              "legge solo le colonne richieste: risparmio di quattro volte"
+            ],
+            [
+              {
+                "v": "Compressione GZIP",
+                "head": true
+              },
+              "rapporto di tre a uno sul dato scansionato"
+            ],
+            [
+              {
+                "v": "CTAS",
+                "head": true
+              },
+              "converte una volta, poi le query costano meno"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Limite",
+          "text": "Athena non legge più di un milione di partizioni in una singola scansione: oltre si usano la partition projection o gli indici di partizione del catalogo."
+        },
         "Nessun cluster: si paga per i dati scansionati dalla query",
         "Esempio ufficiale: 3 TB scansionati a 5 dollari per TB, cioè 15 dollari",
         "Filtro sulla partizione: Athena legge solo quel prefisso",
-        "Parquet e compressione riducono la scansione",
-        "CTAS: converte CSV in Parquet partizionato, una volta sola",
         "Non più di 1 milione di partizioni in una singola scansione"
       ],
       "narration": "Amazon Athena esegue SQL direttamente sui file in S3, usando le tabelle del catalogo di Glue. Non ci sono server da gestire né cluster da accendere. Il modello di costo è diverso da quello di un database: si paga per i dati scansionati dalla query, non per il tempo di calcolo. Quindi il costo dipende dal volume e dal formato dei dati. Riprendiamo l'esempio ufficiale della pagina prezzi di AWS: 3 TB scansionati a 5 dollari per TB fanno 15 dollari. Le tariffe cambiano nel tempo, quindi per un progetto reale controllate la pagina prezzi aggiornata. Le leve per ridurlo sono tre. La prima sono le partizioni. Se la query contiene un filtro sulla colonna di partizione, per esempio anno e mese, Athena legge solo i prefissi corrispondenti. Senza quel filtro, la query scansiona tutto. Le partizioni in stile Hive si caricano con MSCK REPAIR TABLE. Quelle in un altro formato, come i percorsi per data che Firehose scrive, si aggiungono una per una con ALTER TABLE ADD PARTITION. La seconda leva è il formato. Parquet legge solo le colonne richieste, e nell'esempio ufficiale il risparmio è di quattro volte. La terza è la compressione: GZIP con un rapporto di tre a uno riduce di tre volte il dato scansionato, sempre nell'esempio. Il flusso tipico è questo. I dati arrivano in CSV nella zona grezza. Un'operazione CTAS li converte in Parquet partizionato in una zona curata. Da quel momento le query ripetute costano molto meno. Attenzione a un limite: Athena non può leggere più di un milione di partizioni in una singola scansione. Per tabelle con moltissime partizioni si usano la partition projection oppure gli indici di partizione del catalogo. Per l'esame ricordate tre tranelli. Se la domanda parla di costi alti su query ripetute, la risposta è Parquet con partizioni e CTAS. Se una query non filtra la data, la trappola è la scansione completa dei dati. Se servono analisi interattive prima di costruire la pipeline, Athena è lo strumento giusto per l'esplorazione.",
@@ -221,11 +591,71 @@
     {
       "title": "Glue ETL: job Spark serverless, DynamicFrame e job bookmark",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Opzione del bookmark",
+            "Comportamento",
+            "Cosa rielabora"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Enable",
+                "head": true
+              },
+              "traccia i file già letti",
+              "solo i nuovi"
+            ],
+            [
+              {
+                "v": "Disable (predefinita)",
+                "head": true
+              },
+              "nessun tracciamento",
+              "tutto, a ogni esecuzione"
+            ],
+            [
+              {
+                "v": "Pause",
+                "head": true
+              },
+              "elabora un intervallo senza aggiornare lo stato",
+              "quello che serve, una volta"
+            ]
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "DataFrame",
+              "tone": "warn",
+              "items": [
+                "Vuole uno schema fisso",
+                "Un tipo che cambia fa fallire il job"
+              ]
+            },
+            {
+              "head": "DynamicFrame",
+              "tone": "good",
+              "items": [
+                "Lo schema viaggia con ogni record",
+                "resolveChoice risolve una colonna con tipi misti"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Due dettagli del bookmark",
+          "text": "Il bookmark non cancella i file di output: il target va gestito a parte. Ed è legato al job, quindi se il job viene eliminato lo stato sparisce."
+        },
         "Job Spark serverless: nessun cluster da creare e gestire",
         "DynamicFrame: record con schema proprio, utile con colonne miste",
         "resolveChoice: risolve una colonna che arriva con tipi diversi",
-        "Job bookmark: ricorda i file già elaborati",
-        "Opzioni: enable, disable (predefinita) e pause",
+        "Job bookmark: ricorda i file già elaborati, per la data di ultima modifica",
         "EMR: cluster gestiti, più controllo su Hadoop, Spark e altri framework"
       ],
       "narration": "AWS Glue ETL esegue job Apache Spark senza server. Scrivete lo script in Python o in Scala, oppure costruite il flusso in modo visuale con Glue Studio. Spark lavora con i DataFrame, mentre Glue offre anche il DynamicFrame. La differenza pratica è questa: un DataFrame richiede uno schema fisso, un DynamicFrame porta lo schema con ogni record. Se un campo arriva come numero in alcuni file e come stringa in altri, il DynamicFrame lo rappresenta come una scelta di tipi, senza far fallire il job. Poi lo risolvete con resolveChoice, per esempio convertendo tutto in un numero decimale. Il punto più importante per l'elaborazione incrementale è il job bookmark. Un job che gira ogni notte su una cartella S3 rischia di rielaborare tutto. Con il bookmark abilitato, Glue salva lo stato di ciò che ha letto. Per gli oggetti S3 il controllo si basa sulla data di ultima modifica, quindi alla run successiva vengono elaborati solo i file nuovi. Le opzioni sono tre. Enable abilita il tracciamento. Disable è il valore predefinito e rielabora sempre tutto. Pause elabora un intervallo senza aggiornare lo stato. Se volete rielaborare tutto, azzerate il bookmark. Il bookmark però non cancella i file di output: il target va gestito a parte. Il bookmark è associato al job, quindi se il job viene eliminato lo stato sparisce. Quando scegliere Glue e quando EMR? Glue è serverless: definite il job e pagate durante l'esecuzione. È la scelta per le pipeline ETL programmate, con poca gestione. Amazon EMR è una piattaforma di cluster gestiti per Spark, Hadoop e altri strumenti open source. Dà più controllo su istanze, configurazione e strumenti, al prezzo di gestire il cluster. Nell'esame, rielaborazione dei file già visti significa bookmark. Controllo completo e strumenti Hadoop significano EMR. La struttura dei nodi EMR e l'uso delle istanze Spot sono nel capitolo 8.",
@@ -234,12 +664,71 @@
     {
       "title": "Data Wrangler e DataBrew: preparazione senza codice",
       "bullets": [
-        "Data Wrangler: flow visuale, oggi integrato in SageMaker Canvas",
-        "Import da S3, Athena, Redshift, Snowflake e Databricks",
-        "Insight, report di qualità e analisi di target leakage",
-        "Export verso S3, SageMaker Pipelines, Feature Store o script Python",
-        "DataBrew: fuori da SageMaker, serverless, con più di 250 trasformazioni",
-        "Scelta: Data Wrangler per il flusso di machine learning, DataBrew per gli analisti"
+        {
+          "kind": "table",
+          "head": [
+            "Aspetto",
+            "Data Wrangler",
+            "DataBrew"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Dove",
+                "head": true
+              },
+              "dentro SageMaker, oggi in Canvas",
+              "fuori da SageMaker, serverless"
+            ],
+            [
+              {
+                "v": "Fonti",
+                "head": true
+              },
+              "S3, Athena, Redshift, Snowflake, Databricks",
+              "dataset collegati"
+            ],
+            [
+              {
+                "v": "Qualità",
+                "head": true
+              },
+              "insight automatici, report di qualità, analisi di target leakage",
+              "profilatura dei dati"
+            ],
+            [
+              {
+                "v": "Trasformazioni",
+                "head": true
+              },
+              "passi visuali, anche in linguaggio naturale in Canvas",
+              "più di 250 trasformazioni pronte"
+            ],
+            [
+              {
+                "v": "Riutilizzo",
+                "head": true
+              },
+              "export verso S3, Pipelines, Feature Store o script Python",
+              "ricette riusabili e pianificabili"
+            ],
+            [
+              {
+                "v": "A chi serve",
+                "head": true
+              },
+              "chi costruisce il flusso di machine learning",
+              "analisti e data engineer"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Nome in movimento",
+          "text": "Data Wrangler nasce in Studio Classic ed è oggi integrato in Canvas: è il punto che cambia più spesso, quindi la documentazione va verificata."
+        },
+        "All'esame: se lo scenario parla di preparazione visuale dentro il flusso di machine learning, la risposta è Data Wrangler; se parla di analisti o data engineer che vogliono ricette, è DataBrew"
       ],
       "narration": "Non tutti gli operatori scrivono codice Spark. SageMaker Data Wrangler è lo strumento visuale per preparare i dati per il machine learning. Nasce come funzione di SageMaker Studio Classic, e oggi AWS lo ha integrato in SageMaker Canvas. Nella nuova esperienza di Canvas si possono esplorare e trasformare i dati anche con un'interfaccia in linguaggio naturale. Questo è un punto che cambia spesso, quindi verificate sempre la documentazione più recente. Un flusso di Data Wrangler si compone di passi. Importate dati da S3, Athena, Redshift, Snowflake o Databricks, unite le tabelle, e applicate trasformazioni come la codifica delle categorie, la normalizzazione e la gestione dei valori mancanti. Lo strumento genera insight automatici e un rapporto di qualità, e include un'analisi di target leakage che segnala le feature troppo legate alla variabile da prevedere. Quando il flusso è pronto, lo esportate. Le destinazioni sono un bucket S3, una pipeline di SageMaker Pipelines, il Feature Store oppure uno script Python. Glue DataBrew è un altro strumento visuale, ma fuori da SageMaker. È serverless, offre la profilatura dei dati e più di 250 trasformazioni pronte. Ogni sequenza di passi si salva in una ricetta, che si riusa su altri dataset e si può pianificare. L'output va su S3. La regola per l'esame è questa. Se lo scenario parla di preparazione visuale dentro il flusso di machine learning, con esportazione verso una pipeline o il Feature Store, la risposta è Data Wrangler. Se parla di analisti o di data engineer che vogliono ricette senza codice, la risposta è DataBrew. Le regole DQDL e Glue Data Quality appartengono al capitolo 8.",
       "todo": []
@@ -247,12 +736,67 @@
     {
       "title": "Feature Store: feature group, record identifier ed event time",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Feature group",
+              "sub": "feature con nome e tipo"
+            },
+            {
+              "label": "PutRecord",
+              "sub": "una sola scrittura"
+            },
+            {
+              "label": "Online store",
+              "sub": "l'ultimo valore per identificatore"
+            },
+            {
+              "label": "Offline store",
+              "sub": "tutta la storia, per il training"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Pezzo",
+            "Regola"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Tipi delle feature",
+                "head": true
+              },
+              "integral, string e fractional"
+            ],
+            [
+              {
+                "v": "Record identifier",
+                "head": true
+              },
+              "identifica l'entità, per esempio il codice cliente"
+            ],
+            [
+              {
+                "v": "Event time",
+                "head": true
+              },
+              "il momento dell'evento, obbligatorio su ogni record"
+            ],
+            [
+              {
+                "v": "Record",
+                "head": true
+              },
+              "la coppia record identifier più event time"
+            ]
+          ]
+        },
         "Feature Store: archivio unico delle feature, con condivisione e controllo di accesso",
-        "Feature group: feature con nome e tipo, più il record identifier",
-        "Tipi ammessi: integral, string e fractional",
-        "Record identifier: la chiave che identifica l'entità, per esempio il cliente",
-        "Event time: il momento dell'evento, obbligatorio per ogni record",
-        "Online store e offline store ricevono la stessa ingestione"
+        "Online store e offline store ricevono la stessa ingestione",
+        "Il problema che risolve: training serving skew, valori incoerenti tra training e produzione"
       ],
       "narration": "Il Feature Store di SageMaker risolve un problema concreto. Un'organizzazione ha più modelli, e più team calcolano le stesse feature in modi diversi. Il risultato sono valori incoerenti tra training e produzione, il cosiddetto training serving skew. Il Feature Store è lo strato unico in cui le feature sono definite, salvate, condivise e controllate. Un feature group è il contenitore. Ha un elenco di feature, ognuna con un nome e un tipo. I tipi ammessi sono integral, string e fractional. Ogni feature group ha un record identifier, cioè la feature che identifica in modo univoco l'entità, per esempio il codice cliente. Ha anche un event time, cioè il timestamp dell'evento che il record descrive. Un record è una riga, identificata dalla coppia formata da record identifier ed event time. Il concetto più importante per l'esame riguarda i due store. L'online store conserva solo il record più recente per ogni identificatore: è pensato per le letture veloci durante la previsione. L'offline store conserva tutta la storia: serve per costruire dataset di training e per le previsioni in batch. Quando scrivete con la chiamata PutRecord, il sistema aggiorna entrambi. AWS documenta che il servizio mantiene automaticamente la coerenza tra online e offline, senza codice aggiuntivo da parte vostra. Perché serve la storia nel training? Perché un modello deve imparare da ciò che si sapeva al momento di ogni esempio, non da ciò che si sa oggi. Lo vediamo nel dettaglio nelle prossime slide, con la latenza e con la query point-in-time. Per ora fissate il principio: online per leggere l'ultimo valore in fretta, offline per il passato completo.",
       "todo": []
@@ -260,8 +804,54 @@
     {
       "title": "Feature Store: latenza, offline store su S3 e query point-in-time",
       "bullets": [
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "pochi ms",
+              "label": "latenza dell'online store",
+              "note": "GetRecord restituisce l'ultimo record"
+            },
+            {
+              "value": "15 min",
+              "label": "buffer dell'offline store",
+              "note": "scrittura su S3 dopo il PutRecord"
+            },
+            {
+              "value": "Parquet",
+              "label": "formato dell'offline store",
+              "note": "su S3, con tabella nel catalogo Glue"
+            },
+            {
+              "value": "event time",
+              "label": "filtro point-in-time",
+              "note": "nessun record successivo all'etichetta"
+            }
+          ]
+        },
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Etichetta",
+              "sub": "il momento della transazione"
+            },
+            {
+              "label": "Filtro",
+              "sub": "event time non successivo all'etichetta"
+            },
+            {
+              "label": "Feature storiche",
+              "sub": "solo ciò che si sapeva allora"
+            },
+            {
+              "label": "Dataset di training",
+              "sub": "senza target leakage",
+              "tone": "good"
+            }
+          ]
+        },
         "Online store: letture a latenza di pochi millisecondi, per l'inferenza in tempo reale",
-        "Offline store: Parquet su S3 con catalogo Glue, per training e batch",
         "Scrittura nell'offline store entro 15 minuti dal PutRecord",
         "Point-in-time: solo feature con event time non successivo all'etichetta",
         "SDK: create_dataset e point_in_time_accurate_join",
@@ -273,12 +863,49 @@
     {
       "title": "Feature engineering: scaling, normalizzazione e standardizzazione",
       "bullets": [
-        "Standardizzazione: media zero e deviazione standard uno",
-        "Normalizzazione min-max: valori tra zero e uno",
+        {
+          "kind": "formula",
+          "text": "z = (x − μ) / σ   ;   x' = (x − min) / (max − min)",
+          "caption": "Standardizzazione: media zero e deviazione standard uno. Min-max: valori tra zero e uno. La scala robusta, con mediana e quartili, regge meglio gli outlier."
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Standardizzazione",
+              "tone": "good",
+              "items": [
+                "La scelta più comune",
+                "Distribuzione circa normale"
+              ]
+            },
+            {
+              "head": "Min-max",
+              "tone": "warn",
+              "items": [
+                "Limiti fissi tra zero e uno",
+                "Un outlier la schiaccia"
+              ]
+            },
+            {
+              "head": "Scala robusta",
+              "tone": "good",
+              "items": [
+                "Mediana e quartili",
+                "Con outlier forti"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "L'errore",
+          "text": "Adattare lo scaler sull'intero dataset prima dello split è leakage: media, deviazione standard, minimo e massimo si calcolano solo sul training e si applicano a validation e test."
+        },
         "Servono a k-NN, SVM, reti neurali e regressione addestrata con gradiente",
         "Gli alberi decisionali non ne hanno bisogno",
-        "Lo scaler si adatta solo sul training e si applica a validation e test",
-        "Scalare l'intero dataset prima dello split è leakage"
+        "Lo scaler si adatta solo sul training e si applica a validation e test"
       ],
       "narration": "La feature engineering è l'arte di trasformare le colonne grezze in input che il modello può usare bene. Iniziamo dalla scala. Immaginate due feature: il reddito, con valori nell'ordine delle migliaia, e l'età, con valori tra venti e settanta. Molti algoritmi misurano la distanza tra punti oppure usano i gradienti. In quel caso il reddito domina il calcolo, e l'età conta poco, non per la sua importanza ma per la sua unità di misura. La standardizzazione trasforma ogni colonna in modo che abbia media zero e deviazione standard uno. La normalizzazione min-max la porta nell'intervallo tra zero e uno. Non c'è una scelta unica. La standardizzazione è la scelta più comune quando la distribuzione è approssimativamente normale. La min-max è comoda quando servono limiti fissi, ma un outlier la schiaccia. Con outlier forti conviene una scala robusta, che usa mediana e quartili. Quali algoritmi la richiedono? Quelli basati su distanze, come k-NN e SVM, e quelli addestrati con discesa del gradiente, come le reti neurali e la regressione lineare regolarizzata. Gli alberi decisionali e le foreste casuali dividono le feature con soglie, quindi non sono sensibili alla scala. Un errore frequente, e anche una trappola d'esame, riguarda il momento in cui si calcola la trasformazione. Le statistiche di media, deviazione standard, minimo e massimo devono venire solo dal training. Lo scaler si adatta sul training e poi si applica a validation e test. Se calcolate la media sull'intero dataset prima dello split, il test ha contribuito alle statistiche del training. È contaminazione, e le metriche finali risultano ottimistiche. La stessa regola vale per ogni trasformazione che impara dai dati, dall'imputazione agli encoder.",
       "todo": []
@@ -286,12 +913,67 @@
     {
       "title": "Encoding delle categorie: one-hot, label, ordinal e target",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Tecnica",
+            "Quando",
+            "Rischio"
+          ],
+          "rows": [
+            [
+              {
+                "v": "One-hot",
+                "head": true
+              },
+              "categoria nominale, senza ordine",
+              "le colonne esplodono con alta cardinalità"
+            ],
+            [
+              {
+                "v": "Label",
+                "head": true
+              },
+              "alberi e foreste",
+              "un ordine falso per modelli lineari e distanze"
+            ],
+            [
+              {
+                "v": "Ordinal",
+                "head": true
+              },
+              "ordine vero, come basso, medio, alto",
+              "nessuno, se l'ordine esiste davvero"
+            ],
+            [
+              {
+                "v": "Target",
+                "head": true
+              },
+              "alta cardinalità, come i codici postali",
+              "leakage se include l'etichetta della riga"
+            ],
+            [
+              {
+                "v": "Hashing o embedding",
+                "head": true
+              },
+              "milioni di valori, come gli identificativi",
+              "meno interpretabile"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Categoria mai vista",
+          "text": "In inferenza può arrivare un valore assente dal training: la pipeline deve avere una regola, per esempio tutti zeri oppure un valore dedicato."
+        },
         "One-hot: una colonna binaria per ogni categoria nominale",
         "Label encoding: un numero per categoria, senza ordine reale",
         "Ordinal encoding: numeri che rispettano un ordine vero, per esempio basso, medio, alto",
         "Target encoding: media del target per categoria, con rischio di leakage",
-        "Alta cardinalità: one-hot diventa enorme, si usano hashing o embedding",
-        "Le categorie nuove in inferenza vanno gestite con una regola"
+        "Alta cardinalità: one-hot diventa enorme, si usano hashing o embedding"
       ],
       "narration": "I modelli lavorano con numeri, quindi le categorie vanno codificate. Il primo caso è la categoria nominale, senza ordine: colore, città, tipo di pagamento. La scelta standard è il one-hot encoding, che crea una colonna binaria per ogni valore. Se la città è Milano, la colonna Milano vale uno e le altre valgono zero. Non introduce un ordine falso e funziona con quasi ogni modello, ma con migliaia di valori le colonne esplodono. Il label encoding assegna un numero intero a ogni categoria: Milano uguale a uno, Roma uguale a due. Con gli alberi va bene, perché le soglie non presuppongono una distanza. Con modelli lineari o basati su distanze diventa un errore, perché il modello crede che Roma valga il doppio di Milano. L'ordinal encoding è diverso. Si usa quando l'ordine esiste davvero, come basso, medio e alto, e i numeri lo rispettano. Il target encoding sostituisce la categoria con la media del target per quella categoria. È potente con alta cardinalità, per esempio con i codici postali, ma è pericoloso. Se la media include anche l'etichetta della riga stessa, il modello vede già la risposta. Va calcolata fuori fold, cioè usando solo i dati degli altri fold o del training. Per categorie con milioni di valori, come gli identificativi di prodotto, il one-hot non è praticabile. Si usano l'hashing, che riduce le colonne a un numero fisso, oppure gli embedding, che imparano una rappresentazione densa. Infine una domanda pratica: cosa succede a una categoria mai vista in training? La pipeline deve avere una regola, per esempio una categoria sconosciuta che produce tutti zeri, oppure un valore dedicato. Se la domanda d'esame parla di identificativi molto numerosi, non rispondete one-hot.",
       "todo": []
@@ -299,12 +981,75 @@
     {
       "title": "Binning, trasformazione logaritmica e valori mancanti",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Trattamento",
+            "Cosa fa",
+            "Cautela"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Binning",
+                "head": true
+              },
+              "un continuo diventa fasce, per esempio l'età",
+              "si perde precisione dentro la fascia"
+            ],
+            [
+              {
+                "v": "Log transform",
+                "head": true
+              },
+              "comprime la coda lunga, come importi e conteggi",
+              "con gli zeri si usa il logaritmo di uno più il valore"
+            ],
+            [
+              {
+                "v": "Imputazione numerica",
+                "head": true
+              },
+              "media, mediana o moda",
+              "la media è sensibile agli outlier"
+            ],
+            [
+              {
+                "v": "Imputazione categorica",
+                "head": true
+              },
+              "una categoria dedicata, per esempio sconosciuto",
+              "la categoria nuova può confondere il modello"
+            ],
+            [
+              {
+                "v": "Indicatore di mancanza",
+                "head": true
+              },
+              "una colonna che vale uno quando il dato manca",
+              "si aggiunge, non sostituisce l'imputazione"
+            ],
+            [
+              {
+                "v": "Eliminazione delle righe",
+                "head": true
+              },
+              "toglie le righe incomplete",
+              "accettabile solo se sono poche e la mancanza è casuale"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Tranello",
+          "text": "Ogni statistica di imputazione si calcola solo sul training: usare la media dell'intero dataset, test compreso, è leakage."
+        },
         "Binning: intervalli di valori continui, per esempio fasce d'età",
         "Log transform: comprime le code lunghe, come importi e conteggi",
         "Valori mancanti: media, mediana o moda per le colonne numeriche",
         "Categoria dedicata o indicatore di mancanza per le colonne categoriche",
-        "Imputazione calcolata solo sul training",
-        "Eliminare righe è accettabile solo se sono poche"
+        "Imputazione calcolata solo sul training"
       ],
       "narration": "Altre trasformazioni servono a rendere le distribuzioni più utili. Il binning raggruppa un valore continuo in intervalli. L'età diventa fasce, da diciotto a venticinque anni, da venticinque a trentacinque, e così via. Il vantaggio è la leggibilità e la robustezza al rumore. Lo svantaggio è la perdita di precisione dentro ogni fascia. La trasformazione logaritmica serve quando la distribuzione ha una coda lunga, come gli importi delle transazioni o i conteggi delle visite. Pochi valori enormi schiacciano tutto il resto. Il logaritmo comprime la coda e rende la relazione più regolare. Quando ci sono zeri, si usa il logaritmo di uno più il valore. Veniamo ai valori mancanti. Le colonne numeriche si riempiono con la media, che è sensibile agli outlier, oppure con la mediana, più robusta. Per le variabili discrete si usa la moda. Per le categorie si può creare una categoria dedicata, per esempio sconosciuto. Spesso la mancanza stessa è informativa: un reddito non dichiarato può essere un segnale. In quel caso si aggiunge una colonna indicatrice che vale uno quando il valore manca, e si imputa la colonna originale. Eliminare le righe è accettabile solo se sono poche e se la mancanza è casuale. In caso contrario si perde un pezzo del campione e si introduce bias. Come per la scala, l'imputazione è una statistica e va calcolata solo sul training. Usare la media dell'intero dataset, test compreso, è leakage. La domanda d'esame tipica è questa: qual è l'imputazione corretta in una pipeline? La risposta è sempre quella che calcola le statistiche sul training e le riusa sugli altri insiemi.",
       "todo": []
@@ -312,9 +1057,63 @@
     {
       "title": "Testo: tokenizzazione, bag of words e TF-IDF",
       "bullets": [
-        "Tokenizzazione: divide il testo in parole o sottoparole",
-        "Normalizzazione: minuscole, punteggiatura e stopword rimosse",
-        "Bag of words: conta le parole e ignora l'ordine",
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Testo",
+              "sub": "recensioni, email, documenti"
+            },
+            {
+              "label": "Tokenizzazione",
+              "sub": "parole o sottoparole"
+            },
+            {
+              "label": "Normalizzazione",
+              "sub": "minuscole, punteggiatura, stopword"
+            },
+            {
+              "label": "Bag of words",
+              "sub": "conteggio per documento"
+            },
+            {
+              "label": "TF-IDF",
+              "sub": "peso per rarità nel corpus"
+            }
+          ]
+        },
+        {
+          "kind": "formula",
+          "text": "tf-idf(t, d) = tf(t, d) · log(N / df(t))",
+          "caption": "tf: quante volte il termine compare nel documento. df: in quanti documenti compare. N: il numero di documenti del corpus. Una parola rara nel corpus ma frequente nel documento pesa molto."
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Bag of words",
+              "items": [
+                "conta le parole",
+                "ignora l'ordine"
+              ]
+            },
+            {
+              "head": "TF-IDF",
+              "tone": "good",
+              "items": [
+                "pesa la rarità",
+                "classico con i modelli lineari"
+              ]
+            },
+            {
+              "head": "Embedding",
+              "items": [
+                "vettori densi",
+                "catturano il significato"
+              ]
+            }
+          ]
+        },
         "TF-IDF: pesa di più le parole frequenti nel documento e rare nel corpus",
         "Gli embedding per i modelli moderni sono trattati nel capitolo 6 e nel capitolo 12"
       ],
@@ -324,11 +1123,65 @@
     {
       "title": "Leakage, split e cross-validation",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Dataset",
+              "sub": "pulito e senza duplicati"
+            },
+            {
+              "label": "Training 80%",
+              "sub": "addestra i parametri"
+            },
+            {
+              "label": "Validation 10%",
+              "sub": "sceglie iperparametri e modelli"
+            },
+            {
+              "label": "Test 10%",
+              "sub": "stima finale, una sola volta",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Split casuale",
+              "tone": "warn",
+              "items": [
+                "Sottoinsiemi non sovrapposti",
+                "Sbagliato per le serie storiche"
+              ]
+            },
+            {
+              "head": "Split temporale",
+              "tone": "good",
+              "items": [
+                "Il test viene dopo il training",
+                "Per i dati ordinati nel tempo"
+              ]
+            },
+            {
+              "head": "Split stratificato",
+              "tone": "good",
+              "items": [
+                "Stesse proporzioni di classe",
+                "Per le classi sbilanciate"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Leakage",
+          "text": "Tre forme: una feature che contiene il futuro, duplicati o record correlati tra training e test, statistiche calcolate sul test. La difesa è una sola: prima si divide, poi si trasforma. Con pochi dati si usa la cross-validation a k fold, sempre con le trasformazioni dentro ogni fold."
+        },
         "Target leakage: una feature contiene informazioni dal futuro o dal risultato",
-        "Contaminazione: duplicati o record correlati tra training e test",
         "Split tipico: per esempio 80 per cento training, 10 per cento validation, 10 per cento test",
-        "Split temporale per le serie storiche: il test viene dopo il training",
-        "Split stratificato per classi sbilanciate",
         "Cross-validation: k fold, media delle metriche"
       ],
       "narration": "Il leakage è l'errore più pericoloso del machine learning, perché produce metriche molto buone che non reggono in produzione. Ci sono tre forme. La prima è il target leakage: una feature contiene informazioni che si conoscono solo dopo l'evento da prevedere. Per esempio, in un modello che prevede l'abbandono di un cliente, la feature numero di chiamate al servizio clienti nel mese successivo rivela già la risposta. La seconda è la contaminazione tra training e test: lo stesso cliente appare in entrambi con righe quasi identiche, e il modello ricorda invece di generalizzare. La terza è l'uso delle statistiche del test, come abbiamo visto con scala e imputazione. Per evitarlo si divide prima, poi si trasforma. Lo split classico separa i dati in training, validation e test. Il training serve ad addestrare. La validation serve a scegliere iperparametri e modelli. Il test dà una stima finale, da usare una sola volta. Le proporzioni tipiche sono per esempio 80, 10 e 10 per cento, ma dipendono dalla quantità di dati: con milioni di righe bastano pochi punti percentuali per la validation. Per le serie storiche lo split casuale è sbagliato, perché il modello vedrebbe il futuro durante il training. Si usa uno split temporale, in cui il test è cronologicamente successivo al training. Per le classi sbilanciate, come le frodi, uno split casuale può lasciare pochissimi casi positivi nel test. Lo split stratificato mantiene le stesse proporzioni in ogni insieme. Quando i dati sono pochi, la cross-validation divide il training in k fold, allena k volte lasciando fuori un fold alla volta e media le metriche. Dà una stima più stabile, ma costa k addestramenti. Le trasformazioni vanno comunque calcolate dentro ogni fold. Il dataset di test resta intoccato fino alla fine.",
@@ -337,12 +1190,67 @@
     {
       "title": "Bias nei dati e Clarify: misurarlo prima del training",
       "bullets": [
-        "Class imbalance: una classe è molto più rara, per esempio le frodi all'1% delle transazioni",
-        "Bias di selezione: il campione non rappresenta la popolazione reale",
-        "Bias di misura: un'etichetta o una feature è raccolta in modo diverso tra gruppi",
-        "Clarify CI: sbilanciamento dei campioni tra gruppi, con valori tra meno 1 e più 1",
-        "Clarify DPL: differenza di esiti positivi tra gruppi, con valori tra meno 1 e più 1",
-        "Stato: Clarify non accetta nuovi clienti dal 30 luglio 2026"
+        {
+          "kind": "table",
+          "head": [
+            "Bias",
+            "Definizione",
+            "Come si vede"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Class imbalance",
+                "head": true
+              },
+              "una classe è molto più rara",
+              "frodi all'uno per cento: accuratezza alta e recall nullo"
+            ],
+            [
+              {
+                "v": "Selezione",
+                "head": true
+              },
+              "il campione non rappresenta la popolazione reale",
+              "dati raccolti solo da chi ha completato l'acquisto"
+            ],
+            [
+              {
+                "v": "Misura",
+                "head": true
+              },
+              "etichetta o feature rilevata in modo diverso tra gruppi",
+              "strumenti o operatori diversi"
+            ]
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "CI",
+              "label": "sbilanciamento dei campioni",
+              "note": "gruppo favorito contro sfavorito"
+            },
+            {
+              "value": "DPL",
+              "label": "differenza di esiti positivi",
+              "note": "quota dei due gruppi"
+            },
+            {
+              "value": "−1 … +1",
+              "label": "intervallo di entrambe",
+              "note": "vicino a zero: equilibrio"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Dal 30 luglio 2026",
+          "text": "Clarify è chiuso ai nuovi clienti. AWS indica pandas e scikit-learn per le metriche standard e SHAP per le spiegazioni, con i risultati tracciati in MLflow, CloudWatch e QuickSight."
+        },
+        "Perché prima del training: correggere il bias dopo costa di più ed è meno chiaro"
       ],
       "narration": "Il bias nei dati è una distorsione che entra prima del modello. Se il dataset dei prestiti ha pochissimi esempi di un gruppo, il modello imparerà poco su quel gruppo. Tre concetti vanno distinti. Il class imbalance riguarda la frequenza delle classi. Se le frodi sono l'uno per cento delle transazioni, un modello che risponde sempre non frode ha un'accuratezza del novantanove per cento e non trova nulla. Il bias di selezione nasce quando il campione non rappresenta la popolazione reale, per esempio quando si raccolgono dati solo dai clienti che hanno completato un acquisto. Il bias di misura nasce quando un'etichetta o una feature viene rilevata in modo diverso tra gruppi, per esempio da strumenti o operatori diversi. Perché misurarlo prima del training? Perché correggerlo dopo è più costoso e meno chiaro. SageMaker Clarify calcola metriche di bias pre-training sui dati grezzi, senza bisogno di un modello. Le due metriche da ricordare sono CI e DPL. CI misura lo sbilanciamento dei campioni tra un gruppo favorito e uno sfavorito. DPL misura la differenza nelle proporzioni di esiti positivi tra i gruppi. Entrambe hanno un intervallo tra meno 1 e più 1. Ora lo stato, che è materia d'esame. AWS ha chiuso Clarify ai nuovi clienti dal 30 luglio 2026. Chi lo usava prima continua a farlo, e AWS non prevede nuove funzioni. Per i nuovi progetti, AWS indica di calcolare le stesse metriche standard con pandas e scikit-learn, e di calcolare le spiegazioni delle feature con la libreria SHAP, su cui Clarify si basa. I risultati si possono tracciare con SageMaker AI MLflow, CloudWatch e QuickSight. Bedrock Evaluations sostituisce Clarify solo per la valutazione dei modelli di fondazione, non per il bias nei dati tabellari. Questo punto è nella guida MLA-C01, che nomina Clarify per il bias e per l'interpretabilità. La guida MLA-C02 non lo nomina più, ma il concetto di bias nei dati e le sue metriche restano. Alle domande su questo tema rispondete con il concetto e con l'alternativa indicata da AWS.",
       "todo": []
@@ -350,12 +1258,44 @@
     {
       "title": "Tranelli d'esame: scegliere il servizio dallo scenario",
       "bullets": [
-        "Inferenza in tempo reale con latenza di millisecondi: online store",
-        "Storico per training e batch: offline store su S3",
-        "Leakage con dati temporali: query point-in-time",
-        "Costi di Athena su query ripetute: Parquet, partizioni, CTAS",
-        "Eventi da consegnare su S3 con poca gestione: Firehose",
-        "Più consumer che rileggono gli eventi: Kinesis Data Streams"
+        {
+          "kind": "tree",
+          "root": "Da dove parte la domanda?",
+          "branches": [
+            {
+              "when": "parla di latenza di millisecondi all'inferenza",
+              "then": "Online store",
+              "note": "GetRecord, ultimo record"
+            },
+            {
+              "when": "parla dello storico per training o batch",
+              "then": "Offline store su S3",
+              "note": "Parquet, tabella nel catalogo Glue"
+            },
+            {
+              "when": "il dato cambia nel tempo e temi il leakage",
+              "then": "Query point-in-time",
+              "note": "event time non successivo all'etichetta"
+            },
+            {
+              "when": "il costo delle query Athena ripetute è alto",
+              "then": "Parquet, partizioni e CTAS",
+              "note": "con la compressione"
+            },
+            {
+              "when": "devi consegnare eventi con poca gestione",
+              "then": "Data Firehose",
+              "note": "Kinesis Data Streams se più consumer rileggono gli stessi eventi"
+            },
+            {
+              "when": "devi preparare dati senza codice",
+              "then": "Data Wrangler o DataBrew",
+              "note": "Wrangler per il flusso ML, DataBrew per gli analisti"
+            }
+          ]
+        },
+        "Due regole valgono ovunque: le trasformazioni si calcolano sul training, e nessuna scelta usa il test set",
+        "Bias prima del training: Clarify è chiuso ai nuovi clienti dal 30 luglio 2026, AWS indica pandas, scikit-learn e SHAP"
       ],
       "narration": "Chiudiamo con un metodo per le domande a scenario. Il testo contiene quasi sempre una parola chiave che decide la risposta. Se la domanda parla di latenza di millisecondi per l'inferenza, la risposta è l'online store del Feature Store. Se parla di storico per il training o per le previsioni in batch, è l'offline store su S3 in Parquet. Se parla di evitare il leakage con dati che cambiano nel tempo, è la query point-in-time, con event time minore o uguale al momento dell'etichetta. Se parla di costo alto di query Athena ripetute su CSV, la risposta è convertire in Parquet, partizionare e usare CTAS, con la compressione. Se parla di eventi da consegnare a S3 con poca gestione, è Amazon Data Firehose. Se più applicazioni devono rileggere gli stessi eventi, è Kinesis Data Streams. Se un job Glue rielabora ogni notte file già visti, serve il job bookmark. Se un team di analisti vuole preparare dati senza codice e salvare le ricette, è DataBrew. Se il flusso è di machine learning e deve finire in una pipeline o nel Feature Store, è Data Wrangler. Se la domanda chiede di proteggere colonne personali, la risposta è Lake Formation con permessi di colonna, non una policy sul bucket. Se chiede di misurare il bias prima del training, ricordate che Clarify è chiuso ai nuovi clienti dal 30 luglio 2026, e che AWS indica pandas, scikit-learn e SHAP come alternativa. Due regole valgono ovunque. Le trasformazioni si calcolano sul training. E nessuna scelta deve usare il test set per decidere. Nel capitolo 8 trovate i dettagli che qui sono solo accennati.",
       "todo": []

@@ -128,12 +128,56 @@
     {
       "title": "Compute per training e inferenza",
       "bullets": [
-        "Training di deep learning: istanze con GPU NVIDIA, per esempio le famiglie p3 e g4dn",
-        "Inferenza di modelli tabellari: CPU, per esempio ml.c5 o ml.m5",
-        "Inferentia (ml.inf2) per l'inferenza, Trainium (ml.trn1) per il training",
+        {
+          "kind": "table",
+          "head": [
+            "Lavoro",
+            "Istanze",
+            "Note"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Training deep learning",
+                "head": true
+              },
+              "GPU NVIDIA: p3, g4dn",
+              "CUDA senza modifiche"
+            ],
+            [
+              {
+                "v": "Training su chip AWS",
+                "head": true
+              },
+              "ml.trn1 (Trainium)",
+              "richiede il Neuron SDK"
+            ],
+            [
+              {
+                "v": "Inferenza di modelli grandi",
+                "head": true
+              },
+              "ml.inf2 (Inferentia2)",
+              "costo più basso, Neuron SDK"
+            ],
+            [
+              {
+                "v": "Tabellari e test",
+                "head": true
+              },
+              "CPU: ml.c5, ml.m5",
+              "costano molto meno"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Banda di rete",
+          "text": "Nel training distribuito i gradienti viaggiano tra i nodi: una rete lenta rallenta il cluster anche con GPU potenti."
+        },
         "Inferentia e Trainium richiedono il Neuron SDK per compilare il modello",
-        "In test: istanze piccole. In produzione: dimensionamento su latenza e throughput",
-        "Rete ad alta banda per il training distribuito su più nodi"
+        "In test: istanze piccole. In produzione: dimensionamento su latenza e throughput"
       ],
       "narration": "Il primo passo di ogni scelta di deployment è capire quale compute serve, e questo dipende dal lavoro: training o inferenza. Per il training di deep learning si usano istanze con GPU NVIDIA, come le famiglie p3 e g4dn che la documentazione di Neo elenca tra i target cloud. Per modelli tabellari, come XGBoost o scikit-learn, spesso basta una CPU, con istanze della famiglia ml.c5 o ml.m5, che costano molto meno. AWS progetta anche chip propri. Le istanze ml.inf2 usano AWS Inferentia2 e sono pensate per l'inferenza di modelli grandi. Le istanze ml.trn1 usano AWS Trainium, e possono addestrare modelli di deep learning a costo ridotto. Per usare questi chip serve il Neuron SDK, che compila il modello per l'hardware. Ecco un tranello tipico dell'esame: se la domanda chiede il costo più basso per l'inferenza di un modello generativo, Inferentia è spesso la risposta. Se chiede di usare CUDA senza modifiche, la risposta è la GPU. Per il test conviene usare istanze piccole, perché serve verificare che il codice funzioni, non che sia veloce. Per la produzione si dimensiona il compute misurando latenza e throughput con un benchmark reale. Infine la banda di rete. Nel training distribuito su più nodi i gradienti viaggiano in continuazione tra le macchine, e una rete lenta rallenta tutto il cluster, anche con GPU potenti.",
       "todo": [
@@ -145,8 +189,36 @@
     {
       "title": "Target di deploy: dove gira il modello",
       "bullets": [
+        {
+          "kind": "tree",
+          "root": "Che controllo ti serve sul modello?",
+          "branches": [
+            {
+              "when": "vuoi che AWS gestisca istanze e scaling",
+              "then": "Endpoint SageMaker",
+              "note": "real-time, serverless o asincrona"
+            },
+            {
+              "when": "ti serve controllo totale sui container",
+              "then": "ECS o EKS",
+              "note": "più operatività a carico tuo"
+            },
+            {
+              "when": "sono job in coda, senza endpoint sempre attivo",
+              "then": "AWS Batch"
+            },
+            {
+              "when": "il modello è piccolo e il carico intermittente",
+              "then": "Lambda dietro API Gateway"
+            },
+            {
+              "when": "molti utenti chiedono la stessa risposta",
+              "then": "CloudFront",
+              "note": "cache, non autenticazione"
+            }
+          ]
+        },
         "Endpoint SageMaker: gestito, con auto scaling e modalità real-time, serverless o asincrona",
-        "ECS e EKS: controllo totale sui container, con più operatività",
         "AWS Batch: job batch in coda, senza un endpoint sempre attivo",
         "Lambda: funzioni leggere per modelli piccoli, spesso dietro API Gateway",
         "API Gateway davanti al modello per autenticazione, throttling e API pubblica",
@@ -165,7 +237,65 @@
     {
       "title": "Edge con SageMaker Neo",
       "bullets": [
-        "Neo compila il modello per l'hardware di destinazione, cloud o edge",
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Modello addestrato",
+              "sub": "PyTorch, TensorFlow, MXNet, Keras, ONNX"
+            },
+            {
+              "label": "Neo",
+              "sub": "rappresentazione intermedia e ottimizzazioni"
+            },
+            {
+              "label": "Modello compilato",
+              "sub": "codice per il processore di destinazione"
+            },
+            {
+              "label": "Greengrass",
+              "sub": "distribuzione sul dispositivo edge",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Punto",
+            "Dettaglio"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Target",
+                "head": true
+              },
+              "hardware cloud, incluse le Inferentia, oppure edge"
+            ],
+            [
+              {
+                "v": "Runtime",
+                "head": true
+              },
+              "runtime leggero DLR sul dispositivo"
+            ],
+            [
+              {
+                "v": "Distribuzione",
+                "head": true
+              },
+              "modello compilato scaricato da S3, deploy con IoT Greengrass"
+            ],
+            [
+              {
+                "v": "Verifica",
+                "head": true
+              },
+              "controllare sui dati di prova che l'accuratezza resti accettabile"
+            ]
+          ]
+        },
         "Framework supportati tra cui PyTorch, TensorFlow, MXNet, Keras e ONNX",
         "Ottimizzazioni per il processore di destinazione, senza riscrivere il modello a mano",
         "Deploy su dispositivi edge tramite AWS IoT Greengrass",
@@ -181,12 +311,38 @@
     {
       "title": "Container: immagini, Dockerfile e ECR",
       "bullets": [
+        {
+          "kind": "layers",
+          "layers": [
+            {
+              "label": "Dockerfile",
+              "sub": "base, pacchetti, comando di avvio"
+            },
+            {
+              "label": "Immagine",
+              "sub": "codice, librerie e dipendenze impacchettate"
+            },
+            {
+              "label": "Amazon ECR",
+              "sub": "registry privato, permessi IAM, scansione delle vulnerabilità",
+              "tone": "good"
+            },
+            {
+              "label": "ECS ed EKS",
+              "sub": "prelevano l'immagine da ECR al deploy"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Tranello",
+          "text": "Le immagini container private gestite da AWS stanno in ECR: S3 non è pensato per le immagini container."
+        },
         "Immagine: il pacchetto eseguibile con codice, librerie e dipendenze",
         "Dockerfile: la ricetta con cui si costruisce l'immagine",
-        "Registry: il deposito delle immagini, in Amazon ECR",
         "ECR supporta repository privati con permessi IAM e scansione delle vulnerabilità",
-        "Deep Learning Containers: immagini AWS pronte per PyTorch, TensorFlow e altri framework",
-        "ECS ed EKS prelevano le immagini da ECR al momento del deploy"
+        "Deep Learning Containers: immagini AWS pronte per PyTorch, TensorFlow e altri framework"
       ],
       "narration": "Un container impacchetta il modello con il suo codice, le librerie e le dipendenze, in modo che giri allo stesso modo ovunque. Il concetto base è l'immagine Docker, un file costruito da un Dockerfile. Il Dockerfile è una ricetta: dice da quale base partire, quali pacchetti installare e quale comando eseguire. Un'immagine costruita va pubblicata in un registry, il deposito da cui i servizi la prelevano. Il registry AWS è Amazon ECR. ECR supporta repository privati con permessi basati su IAM, quindi solo gli utenti e i ruoli autorizzati possono scaricare le immagini. Può anche eseguire la scansione delle vulnerabilità a ogni push. Per il machine learning AWS pubblica i Deep Learning Containers, immagini già pronte con framework come PyTorch e TensorFlow e con le dipendenze preinstallate. Conviene partire da queste immagini invece di costruirne una da zero, perché riducono il lavoro di manutenzione. Quando ECS o EKS devono avviare un container, prelevano l'immagine da ECR, quindi la pipeline di build deve pubblicare lì la versione corretta. Il tranello d'esame è semplice: se la domanda chiede dove archiviare le immagini container private gestite da AWS, la risposta è ECR. Amazon S3 non è pensato per immagini container, e una risposta che lo indica è sbagliata.",
       "todo": [
@@ -196,11 +352,94 @@
     {
       "title": "BYOC: il contratto del container di inferenza",
       "bullets": [
+        {
+          "kind": "topology",
+          "title": "Il contratto di un container BYOC",
+          "nodes": [
+            {
+              "label": "SageMaker",
+              "sub": "avvia il container e copia il modello"
+            },
+            {
+              "label": "/opt/ml/model",
+              "sub": "modello in sola lettura"
+            },
+            {
+              "label": "Server sulla 8080",
+              "sub": "POST /invocations"
+            },
+            {
+              "label": "POST /ping",
+              "sub": "200 solo se il modello funziona",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "utente root",
+            "ENTRYPOINT in forma exec",
+            "risposta entro 60 secondi",
+            "SIGTERM e SIGKILL"
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Requisito",
+            "Valore"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Porta",
+                "head": true
+              },
+              "8080"
+            ],
+            [
+              {
+                "v": "Route di inferenza",
+                "head": true
+              },
+              "POST /invocations"
+            ],
+            [
+              {
+                "v": "Route di salute",
+                "head": true
+              },
+              "POST /ping, codice 200"
+            ],
+            [
+              {
+                "v": "Percorso del modello",
+                "head": true
+              },
+              "/opt/ml/model, in sola lettura"
+            ],
+            [
+              {
+                "v": "Utente del processo",
+                "head": true
+              },
+              "root"
+            ],
+            [
+              {
+                "v": "Tempo di risposta",
+                "head": true
+              },
+              "entro 60 secondi"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Endpoint che non va in servizio",
+          "text": "Le cause tipiche sono un /ping che non risponde 200 oppure una porta diversa dalla 8080; un /ping statico nasconde il guasto."
+        },
         "Il server del container deve ascoltare sulla porta 8080",
         "Due route obbligatorie: POST su /invocations per le richieste e POST su /ping per i controlli di salute",
-        "Il container è pronto quando /ping risponde con codice 200",
-        "Il modello arriva in /opt/ml/model, in sola lettura",
-        "ENTRYPOINT in forma exec, per ricevere SIGTERM e SIGKILL",
         "Build e manutenzione: ricostruire l'immagine con CodeBuild quando cambiano codice o base"
       ],
       "narration": "Quando si porta un proprio container, cioè BYOC, SageMaker deve poter parlarci, e il contratto è preciso. Il server HTTP del container deve ascoltare sulla porta 8080 e accettare richieste POST sugli endpoint /invocations e /ping. Ogni richiesta di inferenza arriva su /invocations. Il /ping serve per i controlli di salute: SageMaker lo chiama di continuo dopo l'avvio, e l'istanza è considerata pronta solo se risponde con un codice 200. La documentazione consiglia di non restituire 200 in modo statico, ma di verificare che il modello sia caricato e che una previsione di prova funzioni. Se il /ping segnala un'istanza non sana, SageMaker la sostituisce. Il container deve poi rispettare altri vincoli. Il modello viene copiato in /opt/ml/model, in sola lettura, e il container deve girare con l'utente root. L'ENTRYPOINT va scritto nella forma exec, così il processo riceve direttamente i segnali SIGTERM e SIGKILL dalle operazioni SageMaker. Una risposta alle richieste deve arrivare entro 60 secondi. La domanda d'esame tipica chiede perché l'endpoint non va in servizio. Spesso la risposta è che /ping non risponde con 200, oppure che la porta non è la 8080. Per la manutenzione, ogni container va ricostruito quando cambiano il codice o l'immagine base. Una pipeline con CodeBuild può farlo in automatico, pubblicando su ECR la nuova versione che ECS o EKS useranno al deploy successivo.",
@@ -211,10 +450,63 @@
     {
       "title": "Deploy programmatico: SDK, Boto3 e CLI",
       "bullets": [
-        "SageMaker Python SDK: ModelBuilder con build() e deploy() nella versione 3",
-        "Boto3: create_model, create_endpoint_config, create_endpoint",
+        {
+          "kind": "table",
+          "head": [
+            "Strumento",
+            "Comandi o oggetti",
+            "Livello"
+          ],
+          "rows": [
+            [
+              {
+                "v": "SageMaker Python SDK",
+                "head": true
+              },
+              "ModelBuilder, build(), deploy(), invoke",
+              "alto"
+            ],
+            [
+              {
+                "v": "Boto3",
+                "head": true
+              },
+              "create_model, create_endpoint_config, create_endpoint, invoke_endpoint",
+              "basso"
+            ],
+            [
+              {
+                "v": "AWS CLI",
+                "head": true
+              },
+              "gli stessi passaggi da script e pipeline",
+              "basso"
+            ]
+          ]
+        },
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "create_model",
+              "sub": "container e artefatti su S3"
+            },
+            {
+              "label": "create_endpoint_config",
+              "sub": "tipo e numero di istanze"
+            },
+            {
+              "label": "create_endpoint",
+              "sub": "Creating"
+            },
+            {
+              "label": "InService",
+              "sub": "l'endpoint risponde",
+              "tone": "good"
+            }
+          ]
+        },
         "invoke_endpoint per chiamare un endpoint in tempo reale",
-        "AWS CLI per gli stessi passaggi da script e pipeline",
         "Lo stato dell'endpoint passa da Creating a InService",
         "Il Predictor incapsula la chiamata di inferenza"
       ],
@@ -226,12 +518,52 @@
     {
       "title": "On-demand, provisioned e scale to zero",
       "bullets": [
-        "Serverless Inference: on-demand, scala a zero, con possibili cold start",
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "On-demand e scale to zero",
+              "tone": "good",
+              "items": [
+                "Serverless Inference: paghi per l'uso, memoria da 1 a 6 GB",
+                "Cold start dopo un periodo di inattività",
+                "Asynchronous inference: coda, payload fino a 1 GB, zero istanze quando è vuota"
+              ]
+            },
+            {
+              "head": "Sempre caldo",
+              "tone": "warn",
+              "items": [
+                "Provisioned concurrency: risorse pronte in millisecondi, si paga anche se non usate",
+                "Real-time: sempre attivo, latenza più bassa, costo anche senza traffico"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "1–6 GB",
+              "label": "memoria serverless"
+            },
+            {
+              "value": "200",
+              "label": "concorrenza massima"
+            },
+            {
+              "value": "1 GB",
+              "label": "payload asincrono"
+            },
+            {
+              "value": "1 ora",
+              "label": "elaborazione asincrona"
+            }
+          ]
+        },
         "Provisioned concurrency: risorse calde per rispondere in millisecondi",
-        "Asynchronous inference: coda, payload fino a 1 GB, scale to zero quando è vuota",
         "Real-time: sempre attivo, con latenza più bassa e costo che corre anche senza traffico",
         "Il Provisioned Throughput di Bedrock è un concetto diverso, trattato nel capitolo 13",
-        "Memoria da 1 a 6 GB, e concorrenza massima per endpoint fino a 200",
         "Scegli in base a traffico, latenza richiesta e tolleranza ai cold start"
       ],
       "narration": "La scelta tra on-demand e provisioned riguarda il costo di chi non lavora. Serverless Inference è on-demand: non gestisci istanze, lo scaling avviene da solo e paghi per l'uso. La memoria si sceglie da 1 a 6 GB, e la concorrenza massima di un endpoint arriva a 200, con una quota condivisa tra tutti gli endpoint serverless della stessa regione. Il prezzo è il cold start, cioè il ritardo della prima richiesta dopo un periodo di inattività, perché le risorse vengono attivate solo quando servono. La provisioned concurrency è l'opzione per eliminare quel ritardo. Mantiene un numero prefissato di risorse di calcolo già pronte, che rispondono in millisecondi, e le richieste oltre quel numero passano alla capacità on-demand. Si paga anche la concorrenza provisionata quando non viene usata, quindi conviene solo per traffico prevedibile e a picchi. Nella configurazione è un campo di ServerlessConfig, e il valore non può superare MaxConcurrency. L'asynchronous inference è un'altra soluzione. Accetta richieste con payload fino a 1 GB e processi lunghi fino a un'ora, e scala a zero quando la coda è vuota, quindi paghi solo mentre elabora. Il real-time invece resta acceso e costa anche senza traffico. Il tranello: se la domanda descrive traffico intermittente e tollerante ai cold start, la risposta è serverless on-demand. Se descrive picchi prevedibili con latenza di millisecondi, la risposta è provisioned concurrency. Se descrive richieste grandi che possono attendere il risultato, la risposta è asynchronous inference. Il Provisioned Throughput di Bedrock è un concetto diverso, e lo vedremo nel capitolo 13.",
@@ -243,12 +575,49 @@
     {
       "title": "Scaling policy: target tracking, step e scheduled",
       "bullets": [
-        "Target tracking: mantiene una metrica vicina a un valore target",
-        "Esempio: InvocationsPerInstance con target 70",
-        "Step scaling: regole a gradini collegate ad allarmi CloudWatch",
-        "Scheduled scaling: azioni a orario, una volta o ricorrenti",
-        "Scheduled scaling si gestisce solo da AWS CLI o API",
-        "Step scaling è obbligatorio per lo scaling da zero istanze"
+        {
+          "kind": "table",
+          "head": [
+            "Policy",
+            "Cosa la fa scattare",
+            "Allarmi CloudWatch"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Target tracking",
+                "head": true
+              },
+              "lo scostamento da una metrica target",
+              "li crea e li gestisce SageMaker"
+            ],
+            [
+              {
+                "v": "Step scaling",
+                "head": true
+              },
+              "le soglie di un allarme",
+              "li colleghi tu alla policy"
+            ],
+            [
+              {
+                "v": "Scheduled scaling",
+                "head": true
+              },
+              "orario, una volta o ricorrente",
+              "non ne usa: agisce a tempo"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Scalare da zero istanze",
+          "text": "Serve uno step scaling, non il target tracking: l'endpoint deve ospitare inference component e la metrica è NoCapacityInvocationFailures."
+        },
+        "Il target tracking parte da una metrica e un valore, per esempio InvocationsPerInstance con target 70",
+        "Le scheduled action si gestiscono solo da AWS CLI o dall'API di Application Auto Scaling",
+        "Dopo l'azione programmata la policy dinamica riprende a decidere sul traffico reale"
       ],
       "narration": "Lo scaling dell'endpoint si configura con una scaling policy, e i tipi sono tre. Il target tracking è la scelta predefinita nella maggior parte dei casi. Scegli una metrica CloudWatch e un valore target, per esempio InvocationsPerInstance con target 70, e la policy aggiunge o rimuove istanze per mantenere la metrica vicina a quel valore. SageMaker crea e gestisce gli allarmi per te. Lo step scaling è più esplicito: definisci a quali soglie di un allarme aggiungere quante istanze. Serve quando vuoi regole precise, per esempio aggiungere due istanze se la latenza supera una soglia. Lo scheduled scaling esegue azioni a orari fissi, una volta sola o su base ricorrente. Per esempio puoi portare il minimo a dieci istanze alle otto del mattino. Dopo l'azione programmata, la policy dinamica continua a decidere in base al traffico reale. Le scheduled action si gestiscono solo da AWS CLI o dall'API di Application Auto Scaling. Il tranello d'esame è questo. Se la domanda chiede di scalare un endpoint da zero istanze, il target tracking non basta, perché serve uno step scaling collegato a un allarme CloudWatch. Lo scaling a zero vale per gli endpoint che ospitano inference component, e il minimo va impostato a zero. Quando arriva una richiesta a un endpoint senza istanze, la metrica NoCapacityInvocationFailures fa scattare la policy. L'endpoint riparte in alcuni minuti, e nel frattempo le chiamate falliscono.",
       "todo": [
@@ -259,9 +628,54 @@
     {
       "title": "Metriche, cooldown, minimo e massimo",
       "bullets": [
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "70",
+              "label": "target tipico",
+              "note": "InvocationsPerInstance"
+            },
+            {
+              "value": "300 s",
+              "label": "cooldown di default",
+              "note": "scale-in e scale-out"
+            },
+            {
+              "value": "1",
+              "label": "minimo istanze",
+              "note": "zero solo con inference component"
+            },
+            {
+              "value": "1 min",
+              "label": "metrica standard",
+              "note": "alta risoluzione ogni 10 s"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Scale-out cooldown",
+              "tone": "good",
+              "items": [
+                "Protegge dalla creazione troppo rapida di istanze",
+                "Se le istanze arrivano troppo lentamente, si riduce"
+              ]
+            },
+            {
+              "head": "Scale-in cooldown",
+              "tone": "warn",
+              "items": [
+                "Protegge dalla rimozione troppo rapida di istanze",
+                "Se le istanze salgono e scendono di continuo, si aumenta"
+              ]
+            }
+          ]
+        },
         "InvocationsPerInstance: invocazioni per istanza, la metrica predefinita",
         "CPUUtilization e latenza: segnali utili di carico, da confrontare",
-        "Cooldown di scale-in e scale-out, con default di 300 secondi",
         "Minimo di almeno 1, massimo senza un limite imposto da SageMaker",
         "Cooldown troppo corto causa scaling nervoso, troppo lungo reagisce tardi",
         "Valori da verificare con un test di carico sul traffico atteso"
@@ -274,12 +688,72 @@
     {
       "title": "Costo e scelta dell'istanza: Spot, Lambda e Inference Recommender",
       "bullets": [
-        "Managed Spot Training: risparmio dichiarato fino al 90 per cento sul training",
+        {
+          "kind": "bars",
+          "unit": "%",
+          "max": 100,
+          "rows": [
+            {
+              "label": "On-demand: costo di riferimento",
+              "value": 100,
+              "display": "100%",
+              "tone": "bad",
+              "note": "nessuna interruzione"
+            },
+            {
+              "label": "Spot: costo residuo sul prezzo on-demand",
+              "value": 10,
+              "display": "fino a -90%",
+              "tone": "good",
+              "note": "risparmio dichiarato, ma con interruzioni possibili"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Strumento",
+            "Quando",
+            "Vincolo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Spot con checkpoint",
+                "head": true
+              },
+              "training interrompibile",
+              "nessun ripiego su on-demand"
+            ],
+            [
+              {
+                "v": "Inference Recommender",
+                "head": true
+              },
+              "scegliere l'istanza di inferenza",
+              "test di carico, solo guida MLA-C01"
+            ],
+            [
+              {
+                "v": "Lambda con API Gateway",
+                "head": true
+              },
+              "carichi intermittenti e leggeri",
+              "costo che cresce con l'uso"
+            ],
+            [
+              {
+                "v": "EC2",
+                "head": true
+              },
+              "massimo controllo",
+              "patching e scaling a carico tuo"
+            ]
+          ]
+        },
         "I checkpoint su S3 permettono di riprendere dopo un'interruzione Spot",
         "Managed Spot Training non ripiega su istanze on-demand",
-        "Inference Recommender: test di carico su più istanze, nominato solo nella guida MLA-C01",
-        "Lambda dietro API Gateway per carichi intermittenti e leggeri",
-        "EC2 dà controllo totale, ma patching e scaling restano a carico tuo"
+        "Inference Recommender: test di carico su più istanze, nominato solo nella guida MLA-C01"
       ],
       "narration": "Sui costi si lavora su due fronti: il training e l'inferenza. Per il training, il managed spot training usa istanze Spot di EC2, che costano molto meno delle on-demand. La documentazione dichiara un risparmio fino al 90 per cento rispetto al prezzo on-demand. Il prezzo è l'interruzione, perché AWS può togliere l'istanza in qualunque momento. Per questo va abilitato il checkpoint, che salva lo stato su S3 e permette di riprendere dall'ultimo salvataggio invece di ripartire da zero. Attenzione: il managed spot training non ripiega su istanze on-demand. Se la capacità Spot manca, il job aspetta fino a MaxWaitTimeInSeconds e poi si ferma. Per l'inferenza, il primo strumento è Inference Recommender. Attenzione all'esame: è nominato nella guida MLA-C01 per il dimensionamento delle istanze, ma non compare nella guida MLA-C02. Automatizza i test di carico su più tipi di istanza e configurazioni, e mostra metriche di prestazioni, utilizzo e costo, così da scegliere quella con il miglior rapporto. Sul lato degli endpoint, un modello con traffico molto intermittente e leggero può stare dietro API Gateway con una funzione Lambda, evitando un'istanza sempre accesa. Il costo di Lambda cresce con l'uso, quindi per carichi continui conviene un endpoint. EC2 dà il massimo controllo sul sistema operativo e sui driver, ma la gestione del fleet, del patching e dello scaling resta a te. La domanda d'esame tipica chiede quale opzione riduce il costo di un training che può essere interrotto. La risposta è Spot con checkpoint.",
       "todo": [
@@ -290,11 +764,68 @@
     {
       "title": "IaC con CloudFormation",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Template",
+              "sub": "YAML o JSON versionato"
+            },
+            {
+              "label": "Change set",
+              "sub": "anteprima delle modifiche"
+            },
+            {
+              "label": "Stack",
+              "sub": "risorse in un account e in una regione"
+            },
+            {
+              "label": "Drift detection",
+              "sub": "scostamenti fatti a mano",
+              "tone": "warn"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Strumento",
+            "A cosa serve"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Change set",
+                "head": true
+              },
+              "vedere aggiunte, modifiche e sostituzioni prima di applicare"
+            ],
+            [
+              {
+                "v": "Drift detection",
+                "head": true
+              },
+              "confrontare lo stato reale con il template, dopo una modifica a mano"
+            ],
+            [
+              {
+                "v": "Nested stack",
+                "head": true
+              },
+              "template figli richiamati dal padre con AWS::CloudFormation::Stack"
+            ],
+            [
+              {
+                "v": "DependsOn",
+                "head": true
+              },
+              "forzare l'ordine quando non c'è un riferimento"
+            ]
+          ]
+        },
         "Template: il file YAML o JSON che descrive le risorse",
         "Stack: l'istanza di un template deployato in un account e in una regione",
-        "Change set: anteprima delle modifiche prima di eseguirle",
         "Drift detection: rileva le modifiche fatte fuori da CloudFormation",
-        "Nested stack: template figli richiamati dal template padre",
         "DependsOn: forza l'ordine di creazione quando non c'è un riferimento"
       ],
       "narration": "Infrastructure as code significa descrivere le risorse in un file versionato, invece di crearle a mano dalla console. CloudFormation è il servizio AWS per farlo. Un template descrive le risorse in YAML o JSON, e uno stack è l'istanza concreta di quel template, creata in un account e in una regione. Quando il template cambia, il modo sicuro di aggiornare lo stack è il change set. Il change set confronta il template nuovo con lo stato attuale e mostra quali risorse verranno aggiunte, modificate o sostituite, senza toccare nulla finché non lo esegui. Questo è importante, perché alcune modifiche sostituiscono una risorsa e possono far perdere dati. Il drift detection serve quando qualcuno cambia una risorsa a mano, dalla console. Confronta lo stato reale con il template e segnala la risorsa come modificata o eliminata, cioè in drift. Conviene eseguirlo periodicamente. Per organizzare template grandi si usano i nested stack, cioè template figli richiamati con la risorsa AWS::CloudFormation::Stack dal template padre. Il padre resta la radice da cui si fanno gli aggiornamenti. Infine DependsOn forza l'ordine di creazione quando CloudFormation non può dedurlo da un riferimento. Il tranello d'esame: se la domanda chiede di vedere le modifiche prima di applicarle, la risposta è il change set. Il drift detection guarda invece lo scostamento già avvenuto, quindi non è lo strumento per l'anteprima.",
@@ -306,11 +837,55 @@
     {
       "title": "CDK e comunicazione tra stack",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "cdk bootstrap",
+              "sub": "una volta per ambiente"
+            },
+            {
+              "label": "cdk synth",
+              "sub": "genera il template"
+            },
+            {
+              "label": "cdk diff",
+              "sub": "confronta con lo stack deployato"
+            },
+            {
+              "label": "cdk deploy",
+              "sub": "distribuisce su CloudFormation",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "topology",
+          "title": "Passaggio di valori tra stack",
+          "nodes": [
+            {
+              "label": "Stack di rete",
+              "sub": "crea la VPC"
+            },
+            {
+              "label": "Output con Export",
+              "sub": "nome unico per account e regione"
+            },
+            {
+              "label": "Stack del modello",
+              "sub": "Fn::ImportValue",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "niente export tra regioni diverse",
+            "non si elimina uno stack che viene importato"
+          ]
+        },
         "CDK: costrutti in Python, TypeScript e altri linguaggi che generano il template",
         "cdk synth: genera il template CloudFormation dall'app",
         "cdk diff: confronta l'app con lo stack già deployato",
         "cdk deploy: sintetizza e distribuisce, dopo cdk bootstrap per ogni ambiente",
-        "Export e Fn::ImportValue: passano valori tra stack nella stessa regione e account",
         "Il nome dell'export è unico, e non si elimina uno stack che lo importa"
       ],
       "narration": "AWS CDK è il framework che permette di scrivere l'infrastruttura in un linguaggio di programmazione, come Python o TypeScript, usando costrutti riutilizzabili. Il CDK non sostituisce CloudFormation. Alla fine produce template CloudFormation e li distribuisce. Il comando cdk synth esegue l'app e genera il template, senza modificare l'account. cdk diff mostra le differenze rispetto allo stack già deployato. cdk deploy sintetizza, prepara gli asset e lancia la distribuzione. Prima del primo deploy in un ambiente serve cdk bootstrap, che crea le risorse di supporto, come il bucket per gli asset. Un altro punto d'esame riguarda la comunicazione tra stack. Quando lo stack di rete crea una VPC e lo stack del modello ne ha bisogno, lo stack produttore dichiara un Output con Export, e lo stack consumatore usa Fn::ImportValue. I nomi di export devono essere unici per account e regione. Non si può importare tra regioni diverse. Finché uno stack importa un valore, non si può eliminare lo stack che lo esporta né modificare il valore: prima vanno rimossi gli import. Se il legame deve essere più lasco, si usano i nested stack oppure un parametro in SSM Parameter Store. Il tranello è pensare che un export sia un collegamento dinamico. È un valore che il consumatore legge alla creazione o all'aggiornamento, e cambiarlo richiede di aggiornare gli stack che lo usano.",
@@ -322,10 +897,54 @@
     {
       "title": "Template e riuso: Service Catalog, SageMaker Projects, Serverless Application Repository e CodeArtifact",
       "bullets": [
-        "Service Catalog: catalogo di prodotti approvati, raggruppati in portfolio con vincoli",
-        "SageMaker Projects: template MLOps che sono prodotti di Service Catalog",
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Cosa offre",
+            "Parola chiave d'esame"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Service Catalog",
+                "head": true
+              },
+              "catalogo di prodotti approvati in portfolio",
+              "governance dei template"
+            ],
+            [
+              {
+                "v": "SageMaker Projects",
+                "head": true
+              },
+              "template MLOps, prodotti di Service Catalog",
+              "pipeline CI/CD pronta"
+            ],
+            [
+              {
+                "v": "Serverless Application Repository",
+                "head": true
+              },
+              "applicazioni serverless pubblicate, template AWS SAM",
+              "componenti pronti"
+            ],
+            [
+              {
+                "v": "CodeArtifact",
+                "head": true
+              },
+              "repository di pacchetti: npm, PyPI, Maven",
+              "dipendenze delle build"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Come distinguerli",
+          "text": "Governance dei template: Service Catalog. Dipendenze dei pacchetti: CodeArtifact. Il Serverless Application Repository non serve a nessuna delle due."
+        },
         "Serverless Application Repository: applicazioni serverless pubblicate e installabili con pochi clic",
-        "CodeArtifact: repository di pacchetti per npm, PyPI, Maven e altri formati",
         "CodeArtifact può collegarsi a repository pubblici e recuperare i pacchetti su richiesta",
         "Riuso e governance: i team usano solo template già approvati"
       ],
@@ -339,12 +958,63 @@
     {
       "title": "Git: branching e repository",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Gitflow",
+              "tone": "warn",
+              "items": [
+                "Rami stabili main e develop",
+                "Rami feature e rami release",
+                "Release pianificate con più funzionalità insieme"
+              ]
+            },
+            {
+              "head": "GitHub Flow",
+              "tone": "good",
+              "items": [
+                "Branch brevi, uno per funzionalità",
+                "Merge nel main quando è pronto",
+                "Rilasci frequenti"
+              ]
+            },
+            {
+              "head": "Trunk-based",
+              "tone": "good",
+              "items": [
+                "Un solo ramo, integrazione frequente",
+                "Test automatici forti",
+                "Il ramo resta sempre rilasciabile"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Strumento AWS",
+            "Ruolo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "CodeCommit",
+                "head": true
+              },
+              "repository Git privato e gestito"
+            ],
+            [
+              {
+                "v": "CodeConnections",
+                "head": true
+              },
+              "collega GitHub, GitLab o Bitbucket a CodePipeline"
+            ]
+          ]
+        },
         "Git traccia le modifiche in commit, e i branch sono linee di lavoro parallele",
-        "Gitflow: rami develop e release per release pianificate, più complesso",
-        "GitHub Flow: branch brevi per ogni funzionalità, uniti nel main quando pronti",
-        "Trunk-based: integrazione frequente su un solo ramo, con test automatici forti",
-        "CodeCommit: repository Git privato e gestito su AWS",
-        "CodeConnections: collega GitHub, GitLab o Bitbucket a CodePipeline"
+        "Trunk-based: integrazione frequente su un solo ramo, con test automatici forti"
       ],
       "narration": "Ogni pipeline parte da un repository, e il repository ha una strategia di branch. Git traccia le modifiche in commit, e i branch sono linee di lavoro parallele, unite con un merge. Tre strategie ricorrono nei testi d'esame. Gitflow usa rami stabili come main e develop, rami feature per ogni funzionalità e rami release per preparare una versione. Funziona bene per team con cicli di release pianificati e una raccolta di funzionalità da rilasciare insieme, ma è più complesso. GitHub Flow è più leggero. Ogni funzionalità vive in un branch breve e viene unita direttamente nel main quando è pronta. Il main resta sempre rilasciabile. Trunk-based development va oltre: tutti lavorano su un solo ramo, integrano spesso e si affidano a test automatici forti per tenerlo pronto al rilascio. Per l'esame la regola pratica è questa. Release pianificate con più funzionalità insieme indicano Gitflow. Rilasci frequenti indicano GitHub Flow o trunk-based. Gli strumenti AWS sono CodeCommit, un repository Git privato e gestito, e CodeConnections, il servizio che collega un provider esterno come GitHub, GitLab o Bitbucket a CodePipeline, senza dover gestire segreti a mano. Nella guida MLA-C02 compaiono esplicitamente CodeCommit e CodeConnections, che sono quindi nuovi rispetto alla guida MLA-C01. Gitflow e GitHub Flow invece sono nella guida MLA-C01, e non nella MLA-C02.",
       "todo": [
@@ -358,10 +1028,70 @@
     {
       "title": "CodePipeline, CodeBuild e CodeDeploy",
       "bullets": [
-        "CodePipeline: pipeline di stage, action e artefatti tra gli stage",
-        "Tipi di action: source, build, test, deploy, approval e invoke",
-        "CodeBuild: buildspec con le fasi install, pre_build, build e post_build",
-        "CodeDeploy: deploy su EC2, Lambda ed ECS con configurazioni predefinite",
+        {
+          "kind": "topology",
+          "title": "Chi fa cosa nella pipeline",
+          "nodes": [
+            {
+              "label": "CodePipeline",
+              "sub": "stage, action, artefatti"
+            },
+            {
+              "label": "CodeBuild",
+              "sub": "buildspec e build"
+            },
+            {
+              "label": "CodeDeploy",
+              "sub": "EC2, Lambda, ECS"
+            },
+            {
+              "label": "Approvazione",
+              "sub": "action che attende una persona",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "source, build, test, deploy, approval, invoke",
+            "artifact store tra le action"
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Dettaglio da ricordare"
+          ],
+          "rows": [
+            [
+              {
+                "v": "CodePipeline",
+                "head": true
+              },
+              "uno stage elabora una sola esecuzione: la nuova può superare quella in attesa, che finisce superseded"
+            ],
+            [
+              {
+                "v": "CodeBuild",
+                "head": true
+              },
+              "buildspec 0.2 con install, pre_build, build, post_build; finally gira anche in caso di errore"
+            ],
+            [
+              {
+                "v": "CodeDeploy su EC2",
+                "head": true
+              },
+              "AllAtOnce, HalfAtATime, OneAtATime"
+            ],
+            [
+              {
+                "v": "CodeDeploy su Lambda",
+                "head": true
+              },
+              "configurazioni canary e linear"
+            ]
+          ]
+        },
         "Approvazione manuale: una action che ferma la pipeline finché una persona approva",
         "Troubleshooting: stato di stage e action, poi i log di CodeBuild"
       ],
@@ -376,12 +1106,86 @@
     {
       "title": "Test automatici nella pipeline",
       "bullets": [
-        "Unit test: funzioni singole, veloci, eseguiti a ogni commit",
-        "Integration test: componenti che lavorano insieme, come preprocessing e training",
-        "End-to-end test: l'intero flusso dall'input fino alla risposta dell'endpoint",
-        "Test di qualità del modello: metriche su un dataset di validazione con soglia minima",
-        "Test per workload AI: controllo del formato dell'output e della latenza",
-        "Report di test in CodeBuild, con formato come JUnit XML"
+        {
+          "kind": "table",
+          "head": [
+            "Livello",
+            "Quando gira",
+            "Costo in tempo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Unit test",
+                "head": true
+              },
+              "a ogni commit",
+              "secondi"
+            ],
+            [
+              {
+                "v": "Integration test",
+                "head": true
+              },
+              "quando i componenti cambiano insieme",
+              "minuti"
+            ],
+            [
+              {
+                "v": "End-to-end test",
+                "head": true
+              },
+              "prima di un rilascio",
+              "i più lenti"
+            ],
+            [
+              {
+                "v": "Qualità del modello",
+                "head": true
+              },
+              "a ogni training, contro una baseline",
+              "dipende dal validation set"
+            ],
+            [
+              {
+                "v": "Formato e latenza",
+                "head": true
+              },
+              "prima del deploy del modello",
+              "una misura, non una suite"
+            ]
+          ]
+        },
+        {
+          "kind": "layers",
+          "layers": [
+            {
+              "label": "Il codice funziona",
+              "sub": "unit e integration test",
+              "tone": "good"
+            },
+            {
+              "label": "Il sistema funziona",
+              "sub": "end-to-end test dall'input alla risposta"
+            },
+            {
+              "label": "Il modello è buono",
+              "sub": "QualityCheck e ClarifyCheck contro una baseline",
+              "tone": "warn"
+            },
+            {
+              "label": "Il cliente non si rompe",
+              "sub": "formato dell'output e latenza"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Soglia non rispettata",
+          "text": "La pipeline si ferma con Condition o Fail; i risultati dei test si pubblicano in CodeBuild come report, per esempio JUnit XML."
+        },
+        "Un test di qualità del modello non sostituisce un integration test, e viceversa",
+        "Clarify ha chiuso ai nuovi clienti dal 30 luglio 2026: ClarifyCheck non è disponibile per gli account nuovi"
       ],
       "narration": "Una pipeline ML fa più test di una pipeline software normale, perché il codice deve funzionare e il modello deve anche essere buono. Il primo livello sono gli unit test, che verificano singole funzioni, come il calcolo di una feature. Girano a ogni commit perché sono veloci. Il secondo sono gli integration test, che verificano che i componenti lavorino insieme, per esempio il preprocessing con il training, o il container con l'endpoint. Il terzo sono gli end-to-end test, che eseguono l'intero flusso dall'input fino alla risposta. Sono i più lenti, quindi si lanciano meno spesso, per esempio prima di un rilascio. Per il machine learning c'è un livello in più, cioè i test di qualità del modello. Confrontano le metriche del nuovo modello su un dataset di validazione con una soglia minima, e la pipeline si ferma con uno step Fail o un Condition se la soglia non è rispettata. In SageMaker Pipelines questi controlli sono fatti dagli step QualityCheck e ClarifyCheck, che confrontano il modello con una baseline. Dal 30 luglio 2026 però Clarify ha chiuso ai nuovi clienti, quindi ClarifyCheck non è disponibile per gli account nuovi. Per i workload AI si aggiungono controlli sul formato dell'output e sulla latenza, perché una risposta sbagliata nella forma rompe i client anche se il modello è accurato. In CodeBuild i risultati dei test possono essere pubblicati come report, con formati come JUnit XML, così la pipeline mostra quanti test sono passati e quali sono falliti. Il tranello d'esame: un test di qualità del modello non sostituisce un integration test, e viceversa.",
       "todo": [
@@ -392,10 +1196,78 @@
     {
       "title": "Deploy e rollback: blue/green, canary, linear e shadow test",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Strategia",
+            "Come sposta il traffico",
+            "Effetto sugli utenti"
+          ],
+          "rows": [
+            [
+              {
+                "v": "All at once",
+                "head": true
+              },
+              "100 per cento in un solo passaggio",
+              "baking period prima di terminare la blu"
+            ],
+            [
+              {
+                "v": "Canary",
+                "head": true
+              },
+              "una quota alla nuova versione, poi il resto",
+              "esposizione limitata nella prima fase"
+            ],
+            [
+              {
+                "v": "Linear",
+                "head": true
+              },
+              "passi uguali tra 10 e 50 per cento della flotta verde",
+              "crescita graduale del traffico"
+            ],
+            [
+              {
+                "v": "Shadow",
+                "head": true
+              },
+              "nessuno: copia delle richieste al nuovo modello",
+              "nessuno, solo la risposta di produzione torna al chiamante"
+            ]
+          ]
+        },
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Flotta blu",
+              "sub": "versione vecchia"
+            },
+            {
+              "label": "Flotta verde",
+              "sub": "nuova versione"
+            },
+            {
+              "label": "Baking period",
+              "sub": "allarmi CloudWatch"
+            },
+            {
+              "label": "Rollback o termine",
+              "sub": "la blu resta finché il verde non è stabile",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Dove non si applica",
+          "text": "Lo shadow test non è supportato per gli endpoint serverless né per quelli asincroni."
+        },
         "Blue/green: due flotte, la verde riceve il traffico e la blu resta per il rollback",
         "All at once: il 100 per cento del traffico passa in un solo passaggio, poi il baking period",
-        "Canary: una quota del traffico alla nuova versione, poi il resto dopo l'intervallo",
-        "Linear: passi uguali, con dimensioni tra il 10 e il 50 per cento della capacità della flotta verde",
         "Rollback automatico se un allarme CloudWatch scatta durante il baking period",
         "Shadow test: copia del traffico al nuovo modello, senza impatto sugli utenti"
       ],
@@ -407,9 +1279,64 @@
     {
       "title": "SageMaker Pipelines: gli step",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Famiglia di step",
+            "Step"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Dati e training",
+                "head": true
+              },
+              "Processing, Training, Tuning, AutoML"
+            ],
+            [
+              {
+                "v": "Modello",
+                "head": true
+              },
+              "Model, Create model, Register model"
+            ],
+            [
+              {
+                "v": "Inferenza",
+                "head": true
+              },
+              "Transform, Deploy model endpoint"
+            ],
+            [
+              {
+                "v": "Controllo di flusso",
+                "head": true
+              },
+              "Condition, Fail"
+            ],
+            [
+              {
+                "v": "Integrazione",
+                "head": true
+              },
+              "Callback step, Lambda, EMR, Notebook Job"
+            ],
+            [
+              {
+                "v": "Qualità e bias",
+                "head": true
+              },
+              "QualityCheck, ClarifyCheck"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Condition o Register model",
+          "text": "Condition decide il ramo; Register model crea la versione approvabile. Il gate prima della produzione è il secondo."
+        },
         "Processing, Training, Tuning e AutoML per preparare, addestrare e ottimizzare",
-        "Model, Create model e Register model per il Model Registry",
-        "Transform, Deploy model endpoint e Condition per scegliere il ramo",
         "Callback step, Lambda, EMR e Notebook Job per integrare servizi esterni",
         "QualityCheck per la qualità del modello rispetto a una baseline",
         "ClarifyCheck per bias e spiegabilità, con Clarify chiuso ai nuovi clienti dal 30 luglio 2026",

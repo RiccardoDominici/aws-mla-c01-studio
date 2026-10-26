@@ -204,10 +204,60 @@
     {
       "title": "Formato e tempo: i numeri da conoscere",
       "bullets": [
-        "MLA-C01: 65 domande in 130 minuti, circa 2,0 minuti per domanda.",
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "65",
+              "label": "domande MLA-C01",
+              "note": "in 130 minuti"
+            },
+            {
+              "value": "85",
+              "label": "domande MLA-C02",
+              "note": "in 170 minuti"
+            },
+            {
+              "value": "2,0",
+              "label": "minuti per domanda",
+              "note": "lo stesso ritmo nei due formati"
+            },
+            {
+              "value": "720",
+              "label": "riferimento MLA-C01",
+              "note": "su scala da 100 a 1000"
+            },
+            {
+              "value": "75 $",
+              "label": "quota in beta",
+              "note": "MLA-C02, solo inglese"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Scelta singola",
+              "tone": "good",
+              "items": [
+                "Quattro opzioni",
+                "Una sola risposta giusta",
+                "Il punto arriva alla prima risposta corretta"
+              ]
+            },
+            {
+              "head": "Risposta multipla",
+              "tone": "warn",
+              "items": [
+                "Cinque o più opzioni",
+                "Due o più risposte giuste",
+                "Il punto arriva solo se le selezioni tutte"
+              ]
+            }
+          ]
+        },
         "MLA-C02 in beta: 85 domande in 170 minuti, stesso ritmo, solo inglese.",
-        "Scelta singola: una risposta giusta su quattro opzioni.",
-        "Risposta multipla: due o più risposte giuste su cinque o più opzioni.",
         "Punteggio scalato da 100 a 1000; la guida MLA-C01 indica 720 come minimo.",
         "Domanda senza risposta: conta come sbagliata; nessuna penalità per tirare a indovinare.",
         "Segna i casi lunghi, vai avanti, torna con il tempo residuo."
@@ -218,9 +268,34 @@
     {
       "title": "Il metodo in quattro mosse",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "1. Vincoli",
+              "sub": "latenza, payload, traffico, sicurezza, costo"
+            },
+            {
+              "label": "2. Mappatura",
+              "sub": "parole chiave → servizio, prima delle opzioni"
+            },
+            {
+              "label": "3. Eliminazione",
+              "sub": "via le opzioni che violano una regola fissa"
+            },
+            {
+              "label": "4. Verifica",
+              "sub": "la risposta regge su ogni vincolo"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Una sola mossa sbagliata",
+          "text": "Se non aggiungi ipotesi tue e verifichi ogni vincolo, il metodo funziona anche quando il servizio non lo ricordi."
+        },
         "1. Vincoli: sottolinea latenza, payload, traffico, sicurezza e costo nello scenario.",
-        "2. Mappatura: collega le parole chiave a un servizio prima di guardare le opzioni.",
-        "3. Eliminazione: scarta le opzioni che violano una regola fissa.",
         "4. Verifica: controlla la risposta rimasta contro ogni vincolo, senza ipotesi tue.",
         "Cambia una risposta solo con una ragione tecnica precisa."
       ],
@@ -230,11 +305,57 @@
     {
       "title": "Eliminazione dei distrattori",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Opzione da scartare",
+            "Perché",
+            "Cosa serve invece"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Access key nei job",
+                "head": true
+              },
+              "il job non incorpora credenziali",
+              "execution role"
+            ],
+            [
+              {
+                "v": "Lambda per il training pesante",
+                "head": true
+              },
+              "una invocazione dura al massimo 15 minuti",
+              "un training job"
+            ],
+            [
+              {
+                "v": "Endpoint pubblico per dati sensibili",
+                "head": true
+              },
+              "il traffico resta su internet",
+              "VPC-only e interface endpoint"
+            ],
+            [
+              {
+                "v": "Fine-tuning per dati che cambiano ogni giorno",
+                "head": true
+              },
+              "cambia stile e comportamento, non la conoscenza",
+              "RAG con Knowledge Bases"
+            ],
+            [
+              {
+                "v": "SSE-C quando serve controllo centrale",
+                "head": true
+              },
+              "la chiave resta fuori da KMS",
+              "SSE-KMS"
+            ]
+          ]
+        },
         "Elimina prima le opzioni fuori scenario, poi scegli tra le due rimaste.",
-        "Access key nei job: sbagliato, il job usa un execution role.",
-        "Lambda per il training pesante: sbagliato, una invocazione dura al massimo 15 minuti.",
-        "Endpoint pubblico per dati sensibili: sbagliato, serve VPC-only.",
-        "Fine-tuning per dati che cambiano ogni giorno: sbagliato, serve RAG.",
         "SSE-C al posto di SSE-KMS quando serve controllo centrale: quasi sempre sbagliato."
       ],
       "narration": "L'eliminazione è la tecnica che ti fa guadagnare più punti. Non serve sapere tutto, serve riconoscere le opzioni impossibili. Parti dallo scenario: scarta le opzioni palesemente fuori contesto, per esempio un servizio che non fa quella cosa, e tieni le due che restano. Poi applica le regole fisse che l'esame ripete. La prima: in un job SageMaker si usa un execution role, non access key incorporate. Il ruolo di esecuzione è il modo in cui SageMaker AI accede per tuo conto a S3, a ECR e agli altri servizi, e la documentazione lo descrive così. La seconda: Lambda non serve per il training pesante, perché una singola invocazione può durare al massimo 15 minuti. La terza: un endpoint pubblico non va bene per dati sensibili, e per il traffico privato esiste l'interface endpoint, che usa AWS PrivateLink. La quarta: il fine-tuning cambia lo stile o il comportamento di un modello, ma non aggiorna la conoscenza ogni giorno. Quello è il compito della RAG. La quinta riguarda la cifratura. Con SSE-KMS la chiave è gestita in modo centralizzato in KMS, e il suo uso si può controllare. Con SSE-C la chiave la fornisci tu con ogni richiesta, quindi resta fuori dal controllo centralizzato. Se lo scenario chiede audit e chiavi centrali, scegli SSE-KMS. Attenzione anche a una novità: da aprile 2026 Amazon S3 disattiva SSE-C di default sui nuovi bucket, e per usarlo va abilitato esplicitamente. Queste regole non coprono tutto, ma eliminano molte opzioni sbagliate in pochi secondi.",
@@ -243,9 +364,35 @@
     {
       "title": "Risposte multiple: come si affrontano",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Leggi quante risposte",
+              "sub": "cinque o più opzioni: è multipla"
+            },
+            {
+              "label": "Valuta ogni opzione",
+              "sub": "vera o falsa rispetto allo scenario"
+            },
+            {
+              "label": "Raccogli le vere",
+              "sub": "senza confrontarle tra loro"
+            },
+            {
+              "label": "Seleziona il numero richiesto",
+              "sub": "se sono più, rileggi il vincolo più stretto"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Punteggio",
+          "text": "Non esiste punteggio parziale: una risposta giusta su due non vale nulla, quindi cerca sempre anche la seconda."
+        },
         "Riconosci la risposta multipla: cinque o più opzioni e l'indicazione di quante scegliere.",
         "Il punto arriva solo se selezioni tutte le risposte giuste.",
-        "Valuta ogni opzione da sola: vera o falsa rispetto allo scenario.",
         "Un'opzione vera in generale, ma che non rispetta un vincolo, va scartata.",
         "Prima di selezionare la seconda risposta, rileggi lo scenario."
       ],
@@ -255,13 +402,72 @@
     {
       "title": "Parole-chiave e mapping",
       "bullets": [
-        "Always-on e latenza in millisecondi: real-time endpoint.",
-        "Traffico intermittente con periodi di inattività: serverless inference, con 4 MB e 60 secondi.",
-        "Payload grande, minuti di elaborazione e notifica: asynchronous inference, con S3 e SNS.",
-        "Dataset già in S3, nessun endpoint persistente: batch transform.",
-        "Molti modelli poco usati dietro lo stesso endpoint: multi-model endpoint.",
-        "Dati aggiornati senza retraining: RAG con Bedrock Knowledge Bases.",
-        "Nessuna rotta verso internet: VPC-only; chiavi centrali: KMS; audit: CloudTrail."
+        {
+          "kind": "table",
+          "head": [
+            "Parola chiave nello scenario",
+            "Servizio o funzione"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Always-on, latenza in millisecondi",
+                "head": true
+              },
+              "real-time endpoint, sincrono"
+            ],
+            [
+              {
+                "v": "Traffico intermittente, inattività",
+                "head": true
+              },
+              "serverless inference, 4 MB e cold start"
+            ],
+            [
+              {
+                "v": "Payload grande, minuti, notifica",
+                "head": true
+              },
+              "asynchronous inference, S3 e SNS"
+            ],
+            [
+              {
+                "v": "Dataset già in S3, offline",
+                "head": true
+              },
+              "batch transform"
+            ],
+            [
+              {
+                "v": "Molti modelli poco usati",
+                "head": true
+              },
+              "multi-model endpoint"
+            ],
+            [
+              {
+                "v": "Dati aggiornati senza retraining",
+                "head": true
+              },
+              "RAG con Bedrock Knowledge Bases"
+            ],
+            [
+              {
+                "v": "Nessuna rotta verso internet",
+                "head": true
+              },
+              "VPC-only con endpoint privati"
+            ],
+            [
+              {
+                "v": "Chiavi centrali, audit",
+                "head": true
+              },
+              "KMS e CloudTrail"
+            ]
+          ]
+        },
+        "Imparali a memoria: sono la base di quasi ogni domanda di mapping"
       ],
       "narration": "La lettura delle parole chiave è la scorciatoia più utile. Ogni espressione ricorrente in una domanda porta quasi sempre a una famiglia di servizi. Always-on e latenza in millisecondi portano al real-time endpoint: il container è sempre attivo e risponde in modo sincrono. Traffico intermittente, con periodi di inattività, porta al serverless inference, che scala a zero, ma con cold start e un payload massimo di 4 MB. Payload grande, elaborazione di minuti e notifica portano all'asynchronous inference: l'input va su S3, la richiesta viene accodata, il risultato torna su S3 e SNS avvisa. Dataset già in S3, elaborati offline senza un endpoint persistente, portano al batch transform. Molti modelli poco usati dietro lo stesso endpoint portano al multi-model endpoint, che carica i modelli quando servono, con possibili cold start per quelli meno usati. Dati aggiornati senza retraining portano alla RAG, cioè a Bedrock Knowledge Bases, che recuperano documenti al momento della domanda. Dati da leggere in tempo reale e storico per il training portano a SageMaker Feature Store, con online e offline store. Nessuna rotta verso internet porta a VPC-only, con endpoint privati. Audit porta a CloudTrail, chiavi centralizzate portano a KMS. Impara questi legami a memoria: sono la base di ogni mapping, e li userai in quasi tutte le domande.",
       "todo": []
@@ -269,12 +475,67 @@
     {
       "title": "Numeri da memorizzare",
       "bullets": [
-        "Serverless inference: payload fino a 4 MB, elaborazione fino a 60 secondi.",
-        "Asynchronous inference: payload fino a 1 GB, elaborazione fino a un'ora.",
-        "Real-time: payload fino a 25 MB, 60 secondi per le risposte regolari e 8 minuti per lo streaming.",
-        "Data capture: InitialSamplingPercentage tra 0 e 100 per cento.",
-        "Model Registry: PendingManualApproval, Approved, Rejected.",
-        "Model Monitor: quattro tipi, qualità dei dati, qualità del modello, bias drift, drift dell'attribuzione."
+        {
+          "kind": "table",
+          "head": [
+            "Modalità",
+            "Payload massimo",
+            "Tempo di elaborazione"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Serverless",
+                "head": true
+              },
+              "4 MB",
+              "60 secondi, con cold start"
+            ],
+            [
+              {
+                "v": "Real-time",
+                "head": true
+              },
+              "25 MB",
+              "60 secondi regolari, 8 minuti in streaming"
+            ],
+            [
+              {
+                "v": "Asynchronous",
+                "head": true
+              },
+              "1 GB",
+              "fino a un'ora"
+            ]
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "0-100%",
+              "label": "InitialSamplingPercentage",
+              "note": "valori più bassi con traffico alto"
+            },
+            {
+              "value": "3",
+              "label": "stati del Model Registry",
+              "note": "PendingManualApproval, Approved, Rejected"
+            },
+            {
+              "value": "4",
+              "label": "tipi di Model Monitor",
+              "note": "dati, modello, bias drift, attribuzione"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Valore vecchio",
+          "text": "Il materiale più vecchio e la reference di InvokeEndpoint riportano ancora 6 MB. Se è l'unica opzione proposta, leggi la domanda con quel limite."
+        },
+        "Data capture: InitialSamplingPercentage tra 0 e 100 per cento."
       ],
       "narration": "Pochi numeri ricorrono in molte domande, quindi conviene fissarli. Il serverless inference accetta payload fino a 4 MB, e il container deve rispondere entro 60 secondi. L'asynchronous inference accetta payload fino a 1 GB e può elaborare fino a un'ora, con il numero di istanze che scende a zero quando non ci sono richieste. Il real-time accetta payload fino a 25 MB. La pagina AWS sulle opzioni di inferenza indica 25 MB, con 60 secondi per le risposte regolari e 8 minuti per lo streaming, e anche le Model Hosting FAQ danno 25 MB. Attenzione però al valore vecchio. Il materiale più vecchio riporta 6 MB, cioè il limite in vigore quando è nato l'esame, e la reference dell'API InvokeEndpoint riporta ancora un corpo massimo di 6291456 byte, cioè circa 6 MB. Se una domanda più vecchia propone solo 6 MB tra le opzioni, leggila con quel limite. Per confrontare i payload, usa i valori attuali: 4 MB per il serverless, 25 MB per il real-time, 1 GB per l'asincrono. Per il data capture, il parametro InitialSamplingPercentage va da 0 a 100 per cento, e AWS consiglia valori più bassi per gli endpoint con traffico alto. Nel Model Registry lo stato di approvazione è PendingManualApproval, Approved o Rejected. Model Monitor ha quattro tipi di monitoraggio: qualità dei dati, qualità del modello, bias drift e drift dell'attribuzione delle feature, che corrisponde all'explainability. Model Monitor oggi non è aperto ai nuovi clienti, ma il concetto resta nell'esame, come vedremo più avanti.",
       "todo": []
@@ -282,10 +543,65 @@
     {
       "title": "Tranelli frequenti",
       "bullets": [
-        "Serverless per traffico costante e latenza stretta: sbagliato, arrivano i cold start.",
-        "Batch transform per una risposta immediata all'utente: sbagliato, è offline.",
+        {
+          "kind": "table",
+          "head": [
+            "Tranello",
+            "Perché è sbagliato",
+            "La scelta giusta"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Serverless per traffico costante",
+                "head": true
+              },
+              "con traffico continuo arrivano i cold start",
+              "real-time endpoint"
+            ],
+            [
+              {
+                "v": "Batch transform per una risposta immediata",
+                "head": true
+              },
+              "lavora offline su un dataset",
+              "endpoint sincrono"
+            ],
+            [
+              {
+                "v": "Guardrails per dare conoscenza",
+                "head": true
+              },
+              "filtrano contenuti, non aggiungono fatti",
+              "RAG con Knowledge Bases"
+            ],
+            [
+              {
+                "v": "Lambda per un job di ore",
+                "head": true
+              },
+              "il limite è 15 minuti per invocazione",
+              "un servizio di elaborazione gestito"
+            ],
+            [
+              {
+                "v": "Retraining a ogni violazione isolata",
+                "head": true
+              },
+              "una violazione può essere rumore",
+              "violazioni consecutive o calo significativo"
+            ],
+            [
+              {
+                "v": "Scartare un servizio chiuso",
+                "head": true
+              },
+              "l'esame valuta la funzione",
+              "rispondi su cosa fa il servizio"
+            ]
+          ]
+        },
         "Guardrails per dare conoscenza al modello: sbagliato, filtrano soltanto.",
-        "Lambda per un job di ore: sbagliato, il limite è 15 minuti per invocazione.",
         "Retraining a ogni violazione isolata: sbagliato, meglio violazioni consecutive o un calo significativo.",
         "Servizio chiuso: rispondi sulla funzione, non sulla disponibilità commerciale."
       ],
@@ -295,9 +611,35 @@
     {
       "title": "Domanda svolta, dominio 1: scegliere lo store delle feature",
       "bullets": [
-        "Scenario: le stesse feature servono al training storico e a predizioni con latenza di millisecondi.",
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Online store",
+              "tone": "good",
+              "items": [
+                "Ultimo valore per ogni record",
+                "Letture a bassa latenza, nei millisecondi",
+                "Serve l'inferenza in tempo reale"
+              ]
+            },
+            {
+              "head": "Offline store",
+              "tone": "warn",
+              "items": [
+                "Tutto lo storico, su S3 in formato Parquet",
+                "Estrazioni point-in-time senza leakage",
+                "Serve training e predizioni batch"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Perché la B",
+          "text": "Un feature group con online e offline store dà le stesse feature a training e inferenza, ed evita il training-serving skew."
+        },
         "A) File CSV su S3, letti direttamente dall'applicazione.",
-        "B) Feature group in SageMaker Feature Store, con online store e offline store.",
         "C) Copia giornaliera in un database, aggiornata una volta al giorno.",
         "D) Ricalcolo con Lambda a ogni richiesta, con codice diverso dal training."
       ],
@@ -307,9 +649,45 @@
     {
       "title": "Domanda svolta, dominio 1: scegliere il servizio di trasformazione",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Vincolo dello scenario",
+            "Chi lo viola"
+          ],
+          "rows": [
+            [
+              {
+                "v": "2 TB di dati",
+                "head": true
+              },
+              "Lambda, che dura al massimo 15 minuti"
+            ],
+            [
+              {
+                "v": "Lavoro una volta a notte",
+                "head": true
+              },
+              "un endpoint real-time, che serve richieste"
+            ],
+            [
+              {
+                "v": "Nessun cluster sempre acceso",
+                "head": true
+              },
+              "l'istanza EC2 con cron"
+            ],
+            [
+              {
+                "v": "Join e aggregazioni su file in S3",
+                "head": true
+              },
+              "→ job AWS Glue programmato"
+            ]
+          ]
+        },
         "Scenario: 2 TB di log in S3, trasformazioni con join e aggregazioni, una volta a notte, nessun cluster sempre acceso.",
         "A) Funzione Lambda che legge tutti i file in sequenza.",
-        "B) Job AWS Glue programmato.",
         "C) Istanza EC2 sempre accesa con cron.",
         "D) Endpoint real-time che trasforma i dati a ogni richiesta."
       ],
@@ -319,6 +697,27 @@
     {
       "title": "Domanda svolta, dominio 2: cercare gli iperparametri",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Definisci i range",
+              "sub": "quattro iperparametri da esplorare"
+            },
+            {
+              "label": "Automatic Model Tuning",
+              "sub": "molti training job, anche su Spot"
+            },
+            {
+              "label": "Misura la metrica",
+              "sub": "in questo caso l'AUC"
+            },
+            {
+              "label": "Scegli la combinazione",
+              "sub": "il modello migliore, senza prove manuali"
+            }
+          ]
+        },
         "Scenario: XGBoost con quattro iperparametri da ottimizzare, obiettivo AUC, meno prove manuali.",
         "A) Dieci training a mano con valori casuali e confronto dei log.",
         "B) SageMaker Automatic Model Tuning con metrica AUC e intervalli di valori.",
@@ -331,8 +730,30 @@
     {
       "title": "Domanda svolta, dominio 2: scegliere la metrica con classi sbilanciate",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Accuratezza",
+              "tone": "bad",
+              "items": [
+                "Con frodi rare resta altissima",
+                "Un modello che dice sempre legittimo sembra ottimo",
+                "Non mostra gli errori sulla classe rara"
+              ]
+            },
+            {
+              "head": "Precision, recall, F1",
+              "tone": "good",
+              "items": [
+                "Precision: quante segnalazioni sono vere frodi",
+                "Recall: quante frodi reali il modello trova",
+                "F1: le due in un solo numero"
+              ]
+            }
+          ]
+        },
         "Scenario: frodi rare, circa lo 0,5 per cento delle transazioni, da usare per confrontare due modelli.",
-        "A) Accuratezza.",
         "B) Precision e recall, riassunte con F1.",
         "C) RMSE.",
         "D) Numero di epoche di training."
@@ -343,6 +764,29 @@
     {
       "title": "Domanda svolta, dominio 3: scegliere l'inferenza",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Serverless",
+              "tone": "bad",
+              "items": [
+                "Scala a zero, ma con cold start",
+                "Il vantaggio svanisce con traffico costante",
+                "Payload massimo 4 MB"
+              ]
+            },
+            {
+              "head": "Real-time endpoint",
+              "tone": "good",
+              "items": [
+                "Istanze sempre attive, risposta sincrona",
+                "Supporta l'autoscaling",
+                "Il container risponde entro 60 secondi"
+              ]
+            }
+          ]
+        },
         "Scenario: un'app di pagamenti, una richiesta per transazione, traffico costante, risposta immediata.",
         "A) Batch transform su file giornalieri.",
         "B) Real-time endpoint con istanze sempre attive.",
@@ -355,6 +799,54 @@
     {
       "title": "Domanda svolta, dominio 3: documenti grandi e risposta in minuti",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Opzione",
+            "Limite",
+            "500 MB in 8 minuti"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Real-time",
+                "head": true
+              },
+              "25 MB, 60 secondi",
+              false
+            ],
+            [
+              {
+                "v": "Serverless",
+                "head": true
+              },
+              "4 MB",
+              false
+            ],
+            [
+              {
+                "v": "Batch transform",
+                "head": true
+              },
+              "offline, su dataset",
+              false
+            ],
+            [
+              {
+                "v": "Asynchronous",
+                "head": true
+              },
+              "1 GB, fino a un'ora, notifica SNS",
+              true
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Regola d'esame",
+          "text": "S3 e SNS nella stessa domanda, con elaborazioni lunghe: pensa quasi sempre all'asynchronous inference."
+        },
         "Scenario: documenti da 500 MB, circa 8 minuti di elaborazione, avviso all'utente quando il risultato è pronto.",
         "A) Real-time endpoint con timeout di 60 secondi.",
         "B) Serverless inference con payload massimo di 4 MB.",
@@ -367,8 +859,34 @@
     {
       "title": "Domanda svolta, dominio 4: rilevare il drift",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Data capture",
+              "sub": "richieste e risposte su S3"
+            },
+            {
+              "label": "Monitoraggio pianificato",
+              "sub": "confronto con la baseline del training"
+            },
+            {
+              "label": "Allarme CloudWatch",
+              "sub": "quando il drift supera la soglia"
+            },
+            {
+              "label": "Regola EventBridge",
+              "sub": "avvia la pipeline di retraining"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Model Monitor",
+          "text": "Non è più aperto ai nuovi clienti dal 30 luglio 2026. Per l'esame rispondi sulla funzione; per un progetto nuovo ricorda l'alternativa indicata da AWS."
+        },
         "Scenario: endpoint in produzione, serve rilevare il cambio dei dati in ingresso, un allarme e il retraining.",
-        "A) Data capture su S3, monitoraggio con baseline, allarme CloudWatch, regola EventBridge per il retraining.",
         "B) Controllo manuale dei log ogni settimana.",
         "C) Disattivare la cattura dei dati per ridurre i costi.",
         "D) Riaddestrare ogni notte senza confronti."
@@ -379,12 +897,59 @@
     {
       "title": "Domanda svolta, dominio 4: sicurezza, risposta multipla",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Opzione",
+            "Vincolo violato",
+            "Esito"
+          ],
+          "rows": [
+            [
+              {
+                "v": "A. Endpoint pubblico con chiavi IAM nel codice",
+                "head": true
+              },
+              "traffico pubblico e niente execution role",
+              false
+            ],
+            [
+              {
+                "v": "B. VPC, subnet private, interface endpoint",
+                "head": true
+              },
+              "nessuno: il traffico resta nella rete AWS",
+              true
+            ],
+            [
+              {
+                "v": "C. Access key salvate nel bucket dei dati",
+                "head": true
+              },
+              "credenziali esposte",
+              false
+            ],
+            [
+              {
+                "v": "D. KMS e CloudTrail",
+                "head": true
+              },
+              "nessuno: cifratura centrale e log verificabili",
+              true
+            ],
+            [
+              {
+                "v": "E. Firewall davanti a un endpoint pubblico",
+                "head": true
+              },
+              "il traffico passa comunque su internet",
+              false
+            ]
+          ]
+        },
         "Scenario: dati sensibili, niente traffico su internet pubblica, log verificabili. Scegli DUE risposte.",
-        "A) Endpoint pubblico con chiavi IAM nel codice del container.",
         "B) VPC con subnet private e interface endpoint per SageMaker Runtime.",
-        "C) Access key salvate nel bucket dei dati.",
-        "D) Cifratura con KMS e logging verificabile con CloudTrail.",
-        "E) Firewall applicativo davanti a un endpoint pubblico."
+        "D) Cifratura con KMS e logging verificabile con CloudTrail."
       ],
       "narration": "Questo caso è in risposta multipla: cinque opzioni e due risposte giuste. Le parole chiave sono dati sensibili, niente traffico su internet pubblica e log verificabili. Ogni vincolo va letto come un filtro. La A, endpoint pubblico con chiavi IAM nel codice, viola il primo vincolo e il principio dell'execution role. Scartata. La C, access key salvate nel bucket dei dati, è una pratica da evitare, perché espone credenziali e contraddice il controllo degli accessi. Scartata. La E, un firewall applicativo davanti a un endpoint pubblico, lascia il traffico su internet, e il vincolo lo vieta. Scartata. La B è corretta. Una VPC con subnet private e un interface endpoint per SageMaker Runtime fa sì che la comunicazione tra la VPC e l'API resti dentro la rete AWS, senza passare da un internet gateway o da un NAT. La D è corretta. La cifratura con AWS KMS protegge i dati e gestisce le chiavi in modo centralizzato, e il logging con CloudTrail fornisce la traccia verificabile richiesta dall'audit. Attenzione alla regola della risposta multipla: se ne selezioni una sola, o una sbagliata, non ottieni il punto. Seleziona entrambe, e solo quelle giuste.",
       "todo": []
@@ -392,8 +957,50 @@
     {
       "title": "Servizi chiusi ai nuovi clienti",
       "bullets": [
-        "Dal 30 luglio 2026, chiusi ai nuovi clienti: Bedrock Agents Classic, Kendra, Amazon Q Business.",
-        "Funzioni SageMaker chiuse dal 30 luglio 2026: A2I, Clarify, Debugger, Ground Truth, Model Monitor, Role Manager, Studio Lab, GeoSpatial, Mechanical Turk e Profiler.",
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Stato e data"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Forecast",
+                "head": true
+              },
+              "chiuso ai nuovi clienti dal 29/07/2024"
+            ],
+            [
+              {
+                "v": "Fraud Detector, CodeGuru Reviewer",
+                "head": true
+              },
+              "in manutenzione dal 07/11/2025"
+            ],
+            [
+              {
+                "v": "Bedrock Agents Classic, Kendra, Amazon Q Business",
+                "head": true
+              },
+              "chiusi ai nuovi clienti dal 30/07/2026"
+            ],
+            [
+              {
+                "v": "A2I, Clarify, Debugger, Ground Truth, Model Monitor, Role Manager, Studio Lab, GeoSpatial, Mechanical Turk, Profiler",
+                "head": true
+              },
+              "funzioni SageMaker chiuse ai nuovi clienti dal 30/07/2026"
+            ],
+            [
+              {
+                "v": "DevOps Guru",
+                "head": true
+              },
+              "chiuso ai nuovi clienti dal 29/10/2026, fine del servizio il 30/09/2027"
+            ]
+          ]
+        },
         "Già chiusi prima: Forecast dal 29 luglio 2024; Fraud Detector e CodeGuru Reviewer in manutenzione dal 7 novembre 2025.",
         "DevOps Guru: nuovi clienti non ammessi dal 29 ottobre 2026, fine il 30 settembre 2027.",
         "Chi li usava già può continuare a usarli.",
@@ -407,12 +1014,95 @@
     {
       "title": "Servizi in fine supporto e tattica d'esame",
       "bullets": [
-        "Fine supporto già avvenuto: Lookout for Metrics, Lookout for Vision, CodeGuru Security.",
-        "Chiusi del tutto: Kinesis Data Analytics for SQL, Panorama, Ground Truth Plus, Mechanical Turk, FinSpace.",
-        "Lookout for Equipment: fine supporto il 7 ottobre 2026.",
-        "Sunset senza data sulla pagina AWS: SageMaker Profiler, WorkSpaces PCoIP e Pool, AWS re:Post Private.",
-        "Tattica: se la domanda nomina un servizio della guida, rispondi in base a cosa fa.",
-        "Se il servizio è chiuso, cerca la funzione descritta e l'alternativa indicata da AWS."
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Data",
+            "Stato"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Lookout for Metrics",
+                "head": true
+              },
+              "10/10/2025",
+              "fine supporto"
+            ],
+            [
+              {
+                "v": "Lookout for Vision",
+                "head": true
+              },
+              "31/10/2025",
+              "fine supporto"
+            ],
+            [
+              {
+                "v": "CodeGuru Security",
+                "head": true
+              },
+              "20/11/2025",
+              "fine supporto"
+            ],
+            [
+              {
+                "v": "Kinesis Data Analytics for SQL",
+                "head": true
+              },
+              "27/01/2026",
+              "chiuso del tutto"
+            ],
+            [
+              {
+                "v": "Panorama",
+                "head": true
+              },
+              "20/05/2026",
+              "chiuso del tutto"
+            ],
+            [
+              {
+                "v": "Ground Truth Plus",
+                "head": true
+              },
+              "30/06/2026",
+              "chiuso del tutto"
+            ],
+            [
+              {
+                "v": "Mechanical Turk",
+                "head": true
+              },
+              "29/09/2026",
+              "chiuso del tutto"
+            ],
+            [
+              {
+                "v": "Lookout for Equipment",
+                "head": true
+              },
+              "07/10/2026",
+              "fine supporto"
+            ],
+            [
+              {
+                "v": "FinSpace",
+                "head": true
+              },
+              "07/10/2026",
+              "chiuso del tutto"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Tattica",
+          "text": "Se la domanda nomina un servizio della guida, rispondi in base a cosa fa. Se il servizio è chiuso, cerca la funzione descritta e l'alternativa indicata da AWS."
+        },
+        "Sunset senza data sulla pagina AWS: SageMaker Profiler, WorkSpaces PCoIP e Pool, AWS re:Post Private."
       ],
       "narration": "Ecco i servizi già in fine supporto o chiusi del tutto. Lookout for Metrics ha terminato il supporto il 10 ottobre 2025, Lookout for Vision il 31 ottobre 2025, e CodeGuru Security il 20 novembre 2025. Lookout for Equipment ha terminato il supporto il 7 ottobre 2026: dopo quella data console e risorse non sono più accessibili. Alla chiusura totale appartengono Kinesis Data Analytics for SQL, dal 27 gennaio 2026, Panorama, dal 20 maggio 2026, Ground Truth Plus, dal 30 giugno 2026, Mechanical Turk, dal 29 settembre 2026, e FinSpace, dal 7 ottobre 2026. La pagina AWS elenca anche servizi in sunset senza una data precisa, come SageMaker Profiler, WorkSpaces PCoIP e Pool, e AWS re:Post Private. Ora la tattica. L'esame valuta le competenze descritte nella guida, non la disponibilità commerciale di un servizio. Se una domanda nomina un servizio della guida, rispondi in base a ciò che il servizio fa. Per esempio, se una domanda chiede come far operare un agente che chiama funzioni, la risposta descrive il comportamento dell'agente, anche se AWS oggi indica AgentCore per i nuovi progetti. Non scartare un'opzione solo perché il servizio è chiuso: valuta la funzione che descrive. Se la domanda descrive un progetto nuovo, puoi citare l'alternativa indicata da AWS, perché è l'indicazione attuale di AWS per i nuovi progetti.",
       "todo": []
@@ -420,10 +1110,49 @@
     {
       "title": "Piano di studio con il sito",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Modalità",
+            "Domande",
+            "Quando usarla"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Studio",
+                "head": true
+              },
+              "per capitolo o tema",
+              "dopo ogni capitolo, con la spiegazione"
+            ],
+            [
+              {
+                "v": "Simulazione d'esame",
+                "head": true
+              },
+              "85 MLA-C02, 65 MLA-C01",
+              "quando hai coperto i capitoli"
+            ],
+            [
+              {
+                "v": "Simulazione libera",
+                "head": true
+              },
+              "10, 25 o 50",
+              "sul filtro attivo, per il dominio debole"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Soglia del sito",
+          "text": "Il 75 per cento è un criterio di studio, non una conversione del punteggio AWS da 100 a 1000."
+        },
         "Ordine della mappa: prima i capitoli base, poi gli approfondimenti dove servono, questo capitolo per ultimo.",
         "Studio: domande con spiegazione dopo ogni risposta, con la stellina da rivedere.",
         "Simulazione d'esame: 85 domande per MLA-C02, 65 per MLA-C01, senza filtri.",
-        "Simulazione libera: 10, 25 o 50 domande, dal filtro attivo.",
         "Filtri per capitolo, dominio, esame, tipo, difficoltà e stato: lavora sul dominio più debole.",
         "Ripasso errori: leggi la spiegazione, poi rifai le domande sbagliate dopo qualche giorno.",
         "Pronto quando le simulazioni restano sopra la soglia del sito, 75 per cento, con margine."
@@ -434,13 +1163,68 @@
     {
       "title": "Il giorno dell'esame",
       "bullets": [
-        "Centro Pearson VUE oppure online con sorveglianza remota: scegli in fase di prenotazione.",
+        {
+          "kind": "table",
+          "head": [
+            "Voce",
+            "Regola"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Prenotazione",
+                "head": true
+              },
+              "centro Pearson VUE oppure online con sorveglianza remota"
+            ],
+            [
+              {
+                "v": "Documento",
+                "head": true
+              },
+              "identità valida, nome allineato all'account; online comunicazione obbligatoria con il proctor"
+            ],
+            [
+              {
+                "v": "Accomodamenti",
+                "head": true
+              },
+              "da chiedere prima di prenotare"
+            ],
+            [
+              {
+                "v": "Spostamento",
+                "head": true
+              },
+              "non oltre le 24 ore prima; massimo due spostamenti"
+            ],
+            [
+              {
+                "v": "Risultati",
+                "head": true
+              },
+              "di solito entro 5 giorni lavorativi"
+            ],
+            [
+              {
+                "v": "Punteggio",
+                "head": true
+              },
+              "scalato da 100 a 1000, con 720 come riferimento MLA-C01"
+            ],
+            [
+              {
+                "v": "Validità",
+                "head": true
+              },
+              "3 anni"
+            ]
+          ]
+        },
         "Documento d'identità valido: il nome deve corrispondere a quello dell'account.",
         "Online: la comunicazione con il proctor è obbligatoria per completare l'appuntamento.",
         "Annullare o spostare entro 24 ore dall'appuntamento non è possibile; lo spostamento è consentito due volte.",
-        "Accomodamenti: vanno richiesti prima di prenotare.",
-        "Risultati di solito entro 5 giorni lavorativi; certificazione valida 3 anni.",
-        "Punteggio scalato da 100 a 1000, con 720 come riferimento della guida MLA-C01."
+        "Accomodamenti: vanno richiesti prima di prenotare."
       ],
       "narration": "Il giorno dell'esame ha regole semplici, ma vanno lette con attenzione. Puoi sostenere la prova in un centro Pearson VUE oppure online, con sorveglianza remota da casa. La scelta si fa in fase di prenotazione. Per il centro serve un documento d'identità valido rilasciato dal governo, più un secondo documento, e il nome sull'account va allineato a quello del documento. Per l'online i requisiti del documento sono diversi, e la comunicazione con il proctor è obbligatoria per completare l'appuntamento. Controlla in anticipo i requisiti tecnici indicati nella conferma di Pearson VUE. Se hai bisogno di accomodamenti, chiedili prima di prenotare, perché vanno richiesti prima di ogni prenotazione. Non puoi annullare o spostare l'appuntamento nelle 24 ore precedenti, e puoi spostarlo al massimo due volte. Se annulli troppo tardi o non ti presenti, la quota può essere persa. I risultati arrivano di solito entro cinque giorni lavorativi. Il punteggio è scalato da 100 a 1000, con 720 come riferimento della guida MLA-C01. La certificazione vale tre anni. Per le regole precise su documenti e oggetti consentiti leggi la pagina Pearson VUE collegata dalla pagina AWS, perché AWS non riporta qui tutti i dettagli.",
       "todo": []
@@ -448,11 +1232,49 @@
     {
       "title": "Checklist finale e tre pattern di risposta",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Pattern",
+            "Forma della risposta"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Sicurezza",
+                "head": true
+              },
+              "VPC-only, subnet private, endpoint privati per SageMaker Runtime, KMS, ruolo minimo, CloudTrail"
+            ],
+            [
+              {
+                "v": "Retraining",
+                "head": true
+              },
+              "cattura dei dati su S3, monitoraggio con baseline, allarme CloudWatch, EventBridge verso la pipeline"
+            ],
+            [
+              {
+                "v": "GenAI",
+                "head": true
+              },
+              "documenti dinamici uguale Knowledge Bases; azioni uguale Agents, per i nuovi progetti AgentCore; filtri uguale Guardrails"
+            ],
+            [
+              {
+                "v": "Stile di dominio",
+                "head": true
+              },
+              "fine-tuning, con valutazione automatica e revisione umana"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Ultimo giorno",
+          "text": "Solo mapping, numeri e checklist: niente argomenti nuovi, e nessun cambio di risposta senza una ragione tecnica."
+        },
         "Ultimo giorno: solo mapping, numeri e checklist, niente nuovi argomenti.",
-        "Pattern sicurezza: VPC-only, subnet private, endpoint privati per SageMaker Runtime, KMS, ruolo minimo, CloudTrail.",
-        "Pattern retraining: cattura dei dati su S3, monitoraggio con baseline, allarme CloudWatch, EventBridge verso la pipeline.",
-        "Pattern GenAI: documenti dinamici uguale Knowledge Bases; azioni uguale Agents, per i nuovi progetti AgentCore; filtri uguale Guardrails.",
-        "Stile di dominio uguale fine-tuning, con valutazione automatica e revisione umana.",
         "In aula: vincoli, mappatura, eliminazione, verifica per ogni domanda.",
         "Dormi, prepara i documenti e decidi prima la strategia di revisione."
       ],

@@ -660,12 +660,15 @@
    * sotto 0,6. */
   var ECHO_RATIO = 0.72;
 
-  function render(bullets) {
-    var frag = document.createDocumentFragment();
+  /**
+   * Bullet da non mostrare: quelli che ripetono uno schema della stessa slide
+   * senza aggiungere un distinguo. È una funzione pura, così il renderer e gli
+   * strumenti di manutenzione (`tools/prune_echoes.mjs`) usano la stessa regola
+   * invece di due euristiche che col tempo divergono.
+   * Ritorna {kept, hidden} dove `hidden` sono gli indici tolti.
+   */
+  function pruneEchoes(bullets) {
     var list = Array.isArray(bullets) ? bullets : [];
-
-    // parole già dette dagli schemi di questa slide: le schede che non
-    // aggiungono nulla vengono tolte invece di ripetere la tabella a parole
     var seen = {};
     list.forEach(function (b) {
       if (isItem(b)) {
@@ -674,22 +677,24 @@
       }
     });
     var hasVisuals = Object.keys(seen).length > 0;
-    var kept = [];
-    var echoCount = 0;
-    list.forEach(function (b) {
-      if (!hasVisuals || typeof b !== 'string') return kept.push(b);
-      // una scheda che ripete lo schema si toglie solo se non aggiunge un
-      // distinguo: "data quality non richiede label" va tenuto anche se le
-      // parole sono le stesse della tabella
-      if (coveredBy(b, seen) >= ECHO_RATIO && !KEEP_MARKERS.test(b)) { echoCount++; return; }
+    var kept = [], hidden = [];
+    list.forEach(function (b, i) {
+      if (!hasVisuals || typeof b !== 'string') { kept.push(b); return; }
+      // si toglie solo se non aggiunge un distinguo: "data quality non
+      // richiede label" va tenuto anche se le parole sono nella tabella
+      if (coveredBy(b, seen) >= ECHO_RATIO && !KEEP_MARKERS.test(b)) { hidden.push(i); return; }
       kept.push(b);
     });
-    if (echoCount) {
-      // una scheda "ripetuta" resta visibile solo se serve a spiegare: la
-      // sintesi più lunga della media sopravvive, le altre no
-      console.info('[visuals] ' + echoCount + ' bullet ripetevano uno schema: nascosti');
+    return { kept: kept, hidden: hidden };
+  }
+
+  function render(bullets) {
+    var frag = document.createDocumentFragment();
+    var pruned = pruneEchoes(bullets);
+    var list = pruned.kept;
+    if (pruned.hidden.length) {
+      console.info('[visuals] ' + pruned.hidden.length + ' bullet ripetevano uno schema: nascosti');
     }
-    list = kept;
 
     /* gruppi consecutivi di schede; uno schema esplicito chiude il gruppo */
     var run = [];
@@ -741,6 +746,7 @@
     render: render,
     hasVisual: hasVisual,
     isItem: isItem,
+    pruneEchoes: pruneEchoes,
     /* esposti per i test e per il controllo qualità */
     _splitTerm: splitTerm,
     _splitArrow: splitArrow

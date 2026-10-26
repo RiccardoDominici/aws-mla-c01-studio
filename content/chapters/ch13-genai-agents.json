@@ -132,10 +132,75 @@
     {
       "title": "Valutare la GenAI non è come valutare un modello classico",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "ML classico",
+              "tone": "good",
+              "items": [
+                "L'output è una classe, un numero o un valore",
+                "Il confronto con l'etichetta vera è automatico",
+                "Metriche fisse: accuratezza, precisione, recall",
+                "Una risposta giusta e una sbagliata si distinguono"
+              ]
+            },
+            {
+              "head": "GenAI",
+              "tone": "warn",
+              "items": [
+                "L'output è testo libero",
+                "Due risposte diverse possono essere entrambe corrette",
+                "Una risposta fluida può essere sbagliata",
+                "Servono più dimensioni e un riferimento"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Dimensione",
+            "Domanda a cui risponde",
+            "Come si misura"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Accuratezza",
+                "head": true
+              },
+              "la risposta è corretta?",
+              "confronto con risposta attesa o con criteri scritti"
+            ],
+            [
+              {
+                "v": "Robustezza",
+                "head": true
+              },
+              "resta affidabile se la domanda cambia forma?",
+              "stesse domande riformulate, si confrontano i risultati"
+            ],
+            [
+              {
+                "v": "Tossicità",
+                "head": true
+              },
+              "contiene contenuti offensivi o dannosi?",
+              "classificazione dei contenuti, con filtri dedicati"
+            ],
+            [
+              {
+                "v": "Fedeltà al contesto",
+                "head": true
+              },
+              "resta dentro le informazioni fornite?",
+              "confronto con il contesto recuperato"
+            ]
+          ]
+        },
         "Il ML classico produce una classe o un numero, confrontabili con un'etichetta",
         "Un foundation model produce testo libero: più risposte possono essere giuste",
-        "Dimensioni: accuratezza, robustezza, tossicità, fedeltà al contesto",
-        "Serve un riferimento: risposta attesa, contesto recuperato o criteri scritti",
         "La guida MLA-C01 quasi non tratta la GenAI: è un tema nuovo della MLA-C02"
       ],
       "narration": "Benvenuti al capitolo sulla GenAI in produzione. Qui vediamo come valutare, distribuire, controllare e pagare i foundation model e gli agenti. Partiamo dalla valutazione, perché è il punto dove l'esame costruisce più trappole. Con un modello di ML classico il risultato è una classe, un numero o un valore previsto. Si confronta con un'etichetta vera, e le metriche sono quasi automatiche: accuratezza, precisione, recall. Con un foundation model l'output è testo libero. Due risposte diverse possono essere entrambe corrette. Una risposta fluida può anche essere sbagliata, e questo è il problema più subdolo. Per questo la valutazione di un sistema GenAI guarda più dimensioni. L'accuratezza dice se la risposta è corretta. La robustezza dice se il sistema resta affidabile quando la domanda cambia forma. La tossicità misura contenuti offensivi o dannosi. La fedeltà al contesto dice se la risposta resta dentro le informazioni fornite, senza inventare. Serve anche un riferimento. Può essere una risposta attesa, un contesto recuperato da un database di documenti, oppure criteri di qualità scritti in modo esplicito. Se la domanda d'esame chiede come valutare un chatbot senza etichette, la risposta non è l'accuratezza. Servono giudizi di qualità e di fedeltà, spesso fatti con un altro modello o con persone. La regola da ricordare è semplice: nella GenAI la metrica si sceglie in base al compito, non si copia dal ML classico.",
@@ -146,9 +211,60 @@
     {
       "title": "Metriche NLP: BLEU, ROUGE, BERTScore e similarità semantica",
       "bullets": [
-        "BLEU: confronta sequenze di parole con il riferimento, nato per la traduzione automatica",
+        {
+          "kind": "table",
+          "head": [
+            "Metrica",
+            "Cosa confronta",
+            "Nata per",
+            "Limite"
+          ],
+          "rows": [
+            [
+              {
+                "v": "BLEU",
+                "head": true
+              },
+              "n-grammi tra risposta e riferimento",
+              "traduzione automatica, 2002",
+              "penalizza le parafrasi"
+            ],
+            [
+              {
+                "v": "ROUGE",
+                "head": true
+              },
+              "richiamo delle parole del riferimento",
+              "riassunti, 2004",
+              "penalizza le parafrasi"
+            ],
+            [
+              {
+                "v": "BERTScore",
+                "head": true
+              },
+              "embedding contestuali dei token",
+              "tollerare sinonimi e parafrasi",
+              "richiede un riferimento"
+            ],
+            [
+              {
+                "v": "Similarità semantica",
+                "head": true
+              },
+              "vettori dei due testi, senza contare le parole",
+              "confronto di significato",
+              "non dice quale parte è giusta"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Regola d'esame",
+          "text": "Riassunto con riferimento e richiamo: ROUGE. Traduzione: BLEU. Parafrasi da tollerare: BERTScore o similarità semantica."
+        },
         "ROUGE: misura la sovrapposizione orientata al richiamo, usata per i riassunti",
-        "BERTScore: confronta gli embedding contestuali dei token",
         "Similarità semantica: confronta il significato tra vettori, senza contare le parole uguali",
         "Limite comune: servono riferimenti, e le metriche lessicali penalizzano le parafrasi"
       ],
@@ -160,7 +276,33 @@
     {
       "title": "LLM-as-a-judge: un modello che giudica un altro modello",
       "bullets": [
-        "Il generatore produce le risposte, il valutatore assegna i punteggi",
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Dataset di prompt",
+              "sub": "le domande del test"
+            },
+            {
+              "label": "Modello generatore",
+              "sub": "produce le risposte"
+            },
+            {
+              "label": "Modello valutatore",
+              "sub": "prompt e risposta, con la metrica"
+            },
+            {
+              "label": "Punteggio",
+              "sub": "spiegato per le prime 5 coppie"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Il limite",
+          "text": "Il giudice ha dei bias: può preferire risposte lunghe o il proprio stile. Va tarato, e i punteggi vanno verificati a campione con persone."
+        },
         "Ogni metrica usa un prompt diverso per il valutatore",
         "La console mostra la spiegazione del punteggio per le prime cinque coppie del dataset",
         "Limiti: bias del valutatore, costo, variabilità, controlli a campione con persone",
@@ -174,8 +316,63 @@
     {
       "title": "Amazon Bedrock Model Evaluation: automatica, con giudice o umana",
       "bullets": [
-        "Generatore: un modello di Bedrock, un modello importato, oppure risposte tue già pronte",
-        "Valutatore: un modello giudice supportato, per metriche integrate o personalizzate",
+        {
+          "kind": "table",
+          "head": [
+            "Modalità",
+            "Chi giudica",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Automatica",
+                "head": true
+              },
+              "metriche calcolate sui dati",
+              "riferimenti disponibili e verifica a costo basso"
+            ],
+            [
+              {
+                "v": "Con giudice",
+                "head": true
+              },
+              "un modello valutatore supportato",
+              "serve qualità del testo su scala"
+            ],
+            [
+              {
+                "v": "Umana",
+                "head": true
+              },
+              "un team di lavoro scelto da te",
+              "il giudizio è soggettivo o conta l'esperto"
+            ]
+          ]
+        },
+        {
+          "kind": "topology",
+          "title": "Anatomia di un job di valutazione",
+          "nodes": [
+            {
+              "label": "Generatore",
+              "sub": "modello Bedrock, importato o risposte già pronte"
+            },
+            {
+              "label": "Valutatore",
+              "sub": "modello giudice supportato"
+            },
+            {
+              "label": "Metriche",
+              "sub": "integrate o definite da te"
+            },
+            {
+              "label": "Report",
+              "sub": "bucket S3 indicato",
+              "tone": "good"
+            }
+          ]
+        },
         "Metriche integrate: correttezza, completezza, fedeltà, utilità, coerenza, rilevanza, dannosità",
         "Valutazione umana: un team di lavoro scelto da te, gestibile in SageMaker Ground Truth",
         "Il report completo va nel bucket S3 indicato alla creazione del job"
@@ -188,8 +385,49 @@
     {
       "title": "Human-in-the-loop: la valutazione umana della qualità",
       "bullets": [
+        {
+          "kind": "flow",
+          "loop": "i giudizi umani rientrano nel dataset e migliorano le valutazioni successive",
+          "steps": [
+            {
+              "label": "Campiona",
+              "sub": "estrai risposte periodiche"
+            },
+            {
+              "label": "Valuta",
+              "sub": "tono, utilità, sicurezza"
+            },
+            {
+              "label": "Correggi",
+              "sub": "la risposta sbagliata"
+            },
+            {
+              "label": "Reinserisci",
+              "sub": "i giudizi tornano nel dataset"
+            }
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "50",
+              "label": "valutatori per team",
+              "note": "massimo in Bedrock"
+            },
+            {
+              "value": "1",
+              "label": "notifica sola",
+              "note": "arriva quando aggiungi la persona"
+            },
+            {
+              "value": "30/07/2026",
+              "label": "A2I chiuso",
+              "note": "come Ground Truth e Clarify"
+            }
+          ]
+        },
         "Serve quando la qualità è soggettiva: tono, utilità, sicurezza del consiglio",
-        "Team di lavoro: massimo 50 valutatori per team in Bedrock",
         "La notifica arriva solo quando aggiungi il lavoratore al team",
         "Le istruzioni per i valutatori sono parte della metrica",
         "Human in the loop: revisione periodica dentro il processo, non solo alla fine",
@@ -204,8 +442,54 @@
     {
       "title": "Valutare un RAG: retrieval e generazione separati",
       "bullets": [
+        {
+          "kind": "tree",
+          "root": "Dove sta il problema del RAG?",
+          "branches": [
+            {
+              "when": "context relevance è bassa",
+              "then": "è il retrieval",
+              "note": "cerca, chunking o embedding: cambiare modello non basta"
+            },
+            {
+              "when": "context relevance è alta ma faithfulness è bassa",
+              "then": "è la generazione",
+              "note": "il modello inventa rispetto ai chunk"
+            },
+            {
+              "when": "context coverage è bassa",
+              "then": "il corpus o il chunking non copre",
+              "note": "serve un ground truth per misurarla"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Livello",
+            "Metriche",
+            "Cosa dicono"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Solo retrieval",
+                "head": true
+              },
+              "context relevance, context coverage",
+              "i chunk trovati sono pertinenti e coprono il testo di riferimento?"
+            ],
+            [
+              {
+                "v": "Retrieve e generate",
+                "head": true
+              },
+              "correctness, completeness, faithfulness, citation precision e coverage",
+              "la risposta è giusta, completa e fondata sui chunk?"
+            ]
+          ]
+        },
         "Solo retrieval: context relevance e context coverage, con ground truth per la copertura",
-        "Retrieve e generate: correctness, completeness, faithfulness, citation precision e coverage",
         "Faithfulness: misura quanto la risposta evita di inventare rispetto ai chunk recuperati",
         "Ogni metrica è una media tra 0 e 1 su tutte le domande del dataset",
         "Monitorare il retrieval: i chunk trovati servono davvero alla domanda?"
@@ -218,11 +502,37 @@
     {
       "title": "Prompt management, test dei prompt e riproducibilità",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Prompt con variabili",
+              "sub": "segnaposto valorizzati alla chiamata"
+            },
+            {
+              "label": "Varianti",
+              "sub": "messaggio, modello o parametri diversi"
+            },
+            {
+              "label": "Confronto",
+              "sub": "si tiene quella con output migliori"
+            },
+            {
+              "label": "Versione salvata",
+              "sub": "richiamata senza rilasciare il codice",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Riproducibilità",
+          "text": "Ogni confronto vale solo con lo stesso dataset, la stessa versione del prompt e gli stessi parametri. Gli esperimenti si tracciano con MLflow su SageMaker AI."
+        },
         "Prompt management: prompt con variabili, varianti e versioni salvate",
         "Una variante cambia messaggio, modello o parametri di inferenza",
-        "Confronto tra varianti: si tiene quella con output migliori",
-        "Un prompt versionato si richiama dall'applicazione senza rilasciare il codice",
-        "Riproducibilità: stessi dataset, stessa versione, esperimenti tracciati con MLflow"
+        "Un prompt versionato si richiama dall'applicazione senza rilasciare il codice"
       ],
       "narration": "Prompt management in Amazon Bedrock serve a creare, salvare e riusare i prompt come oggetti versionati. Così non restano sparsi nel codice. Un prompt può contenere variabili, cioè segnaposto valorizzati al test o al momento della chiamata. Una variante è una configurazione alternativa del prompt. Può cambiare il messaggio, il modello o i parametri di inferenza. Puoi confrontare le varianti nella stessa schermata e tenere quella che produce output migliori. Quando un prompt è pronto, salvi una versione. L'applicazione richiama quella versione, quindi cambiare il testo non richiede un nuovo rilascio del codice. Per il test dei prompt conta la riproducibilità. Ogni esperimento deve usare lo stesso dataset, la stessa versione del prompt e gli stessi parametri, altrimenti i confronti non valgono. Per tracciare gli esperimenti, confrontare i run e registrare i modelli, su AWS si usa MLflow gestito su SageMaker AI. MLflow registra parametri e metriche, e li confronta nella sua interfaccia. Il prompt management si integra con Amazon Bedrock Flows, dove un nodo prompt può usare una versione salvata. Nell'esame, se la domanda chiede di cambiare il prompt senza rilasciare il codice, la risposta è il prompt management con le versioni. Se chiede esperimenti riproducibili e confrontabili, pensa a MLflow e a dataset fissi.",
       "todo": [
@@ -234,8 +544,60 @@
     {
       "title": "Opzioni di deploy dei foundation model",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Modalità",
+            "Paghi",
+            "Traffico giusto",
+            "Vincolo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "On-demand",
+                "head": true
+              },
+              "token di input e output",
+              "variabile o prototipo",
+              "nessun impegno"
+            ],
+            [
+              {
+                "v": "Batch inference",
+                "head": true
+              },
+              "circa metà dell'on-demand per i modelli elencati",
+              "grande e non urgente",
+              "asincrono su S3, non con Provisioned Throughput"
+            ],
+            [
+              {
+                "v": "Provisioned Throughput",
+                "head": true
+              },
+              "capacità oraria in model unit",
+              "alto e costante",
+              "impegno senza, di un mese o di sei mesi; non si elimina prima"
+            ],
+            [
+              {
+                "v": "Endpoint JumpStart",
+                "head": true
+              },
+              "l'istanza che gestisci tu",
+              "modelli pubblici",
+              "scaling e costi a tuo carico"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Modelli personalizzati",
+          "text": "Di solito richiedono Provisioned Throughput, ma dal 2025 alcuni Nova e Llama 3.3 personalizzati ammettono l'on-demand in poche Regioni."
+        },
         "On-demand: paghi per token di input e output, senza impegno",
-        "Batch inference: job asincrono su S3, circa la metà del prezzo on-demand per i modelli elencati",
         "Provisioned Throughput: model unit prenotate, senza impegno o con impegno di un mese o di sei mesi",
         "Cross-region inference: profili che instradano tra Regioni della stessa area geografica",
         "Endpoint SageMaker JumpStart: modello pubblico su un endpoint che gestisci tu"
@@ -249,9 +611,49 @@
     {
       "title": "Modelli costruiti fuori AWS e versioni dei modelli personalizzati",
       "bullets": [
-        "Custom Model Import: pesi Hugging Face in formato safetensors, caricati su S3",
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Pesi su S3",
+              "sub": "Hugging Face, safetensors"
+            },
+            {
+              "label": "Architettura supportata",
+              "sub": "Llama, Mistral, Mixtral, Qwen, GPT-OSS"
+            },
+            {
+              "label": "Limiti",
+              "sub": "100 GB multimodale, 200 GB testo, 128K di contesto"
+            },
+            {
+              "label": "InvokeModel on-demand",
+              "sub": "non in batch inference",
+              "tone": "warn"
+            }
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "100 GB",
+              "label": "pesi multimodali",
+              "note": "tetto per il Custom Model Import"
+            },
+            {
+              "value": "200 GB",
+              "label": "pesi testuali",
+              "note": "tetto per il Custom Model Import"
+            },
+            {
+              "value": "128K",
+              "label": "contesto massimo",
+              "note": "token accettati"
+            }
+          ]
+        },
         "Architetture supportate: Llama, Mistral, Mixtral, Qwen, GPT-OSS e altre",
-        "Limiti: pesi sotto 100 GB se multimodali, sotto 200 GB se testuali, contesto sotto 128K",
         "Il modello importato si usa con InvokeModel on-demand, non in batch inference",
         "Versioni: ogni modello personalizzato è un artefatto versionato in pipeline di deploy"
       ],
@@ -264,10 +666,39 @@
     {
       "title": "GPU e SageMaker HyperPod per l'inferenza",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "SageMaker HyperPod",
+              "tone": "good",
+              "items": [
+                "Cluster Kubernetes con GPU che governi tu",
+                "Operatore di inferenza: JumpStartModel o configurazione tua",
+                "KEDA scala su CloudWatch, coda SQS, Prometheus, CPU e memoria",
+                "minReplicaCount a zero per scendere a zero pod"
+              ]
+            },
+            {
+              "head": "Endpoint gestito",
+              "tone": "warn",
+              "items": [
+                "Meno infrastruttura da gestire",
+                "Inference component per più modelli sulle stesse istanze",
+                "Ogni componente scala da solo, anche a zero copie",
+                "Scale down a zero: MinInstanceCount a zero e provisioning automatico"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Trappola KEDA",
+          "text": "CPU e memoria da soli non portano a zero: serve almeno un altro trigger, per esempio una coda SQS o Prometheus."
+        },
         "Il carico GPU si legge con metriche di invocazione, latenza e capacità",
-        "HyperPod: operatore di inferenza su Kubernetes per distribuire i modelli",
         "JumpStartModel per i modelli pubblici, configurazione personalizzata per i tuoi",
-        "KEDA scala su CloudWatch, coda SQS, Prometheus, CPU e memoria",
         "Con minReplicaCount a zero il deployment scende a zero pod quando è inattivo",
         "Inference component: un modello per componente, con acceleratori, CPU e memoria assegnati",
         "Ogni componente ha un numero di copie che scala da solo, anche fino a zero"
@@ -281,10 +712,60 @@
     {
       "title": "Amazon Bedrock AgentCore: componenti, MCP e A2A",
       "bullets": [
+        {
+          "kind": "layers",
+          "layers": [
+            {
+              "label": "Runtime",
+              "sub": "esegue l'agente in modo serverless, con isolamento della sessione"
+            },
+            {
+              "label": "Memory",
+              "sub": "contesto a breve e a lungo termine"
+            },
+            {
+              "label": "Gateway",
+              "sub": "API, Lambda e server MCP diventano tool"
+            },
+            {
+              "label": "Identity",
+              "sub": "autenticazione e credenziali"
+            },
+            {
+              "label": "Code Interpreter e Browser",
+              "sub": "ambienti isolati per eseguire codice e navigare"
+            },
+            {
+              "label": "Observability",
+              "sub": "tracce e metriche in formato OpenTelemetry",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Modulari per scelta",
+          "text": "I componenti si usano insieme o separatamente, con qualsiasi framework open source e con qualsiasi foundation model, anche fuori da Bedrock."
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "MCP",
+              "items": [
+                "Collega l'agente ai tool"
+              ]
+            },
+            {
+              "head": "A2A",
+              "items": [
+                "Collega un agente a un altro agente"
+              ]
+            }
+          ]
+        },
         "AgentCore: piattaforma per costruire, distribuire e far operare agenti",
-        "Componenti: Runtime, Memory, Gateway, Identity, Code Interpreter, Browser, Observability",
         "Anche Evaluations, Policy, Registry, Optimization, Payments e Harness",
-        "MCP collega l'agente ai tool, A2A collega un agente a un altro agente",
         "Bedrock Agents Classic ha chiuso ai nuovi clienti"
       ],
       "narration": "Amazon Bedrock AgentCore è la piattaforma AWS per costruire, distribuire e far operare gli agenti. Funziona con qualsiasi framework open source e con qualsiasi foundation model, anche fuori da Bedrock. I suoi componenti sono modulari e si usano insieme o separatamente. Runtime esegue l'agente in modo serverless, con isolamento della sessione. Memory gestisce il contesto a breve e a lungo termine. Gateway converte API, funzioni Lambda e server MCP in tool disponibili agli agenti. Identity gestisce autenticazione e credenziali. Code Interpreter e Browser sono ambienti isolati per eseguire codice e navigare il web. Observability offre tracce e metriche in formato OpenTelemetry. Ci sono anche Evaluations, Policy, Registry, Optimization, Payments e Harness. Harness gestisce il ciclo dell'agente con una sola chiamata API. Due protocolli contano per l'esame. MCP, cioè Model Context Protocol, collega l'agente ai tool. A2A, agent to agent, collega un agente a un altro agente. La domanda tipica chiede quale componente o protocollo serve a un caso. Il tranello più importante è questo: Amazon Bedrock Agents Classic ha chiuso ai nuovi clienti, e la documentazione indica AgentCore come alternativa per funzionalità simili. Per un esame che chiede di costruire un nuovo agente, guarda ad AgentCore. Il servizio Classic resta usabile dai clienti esistenti.",
@@ -296,7 +777,35 @@
     {
       "title": "AgentCore Memory: memoria a breve e a lungo termine",
       "bullets": [
-        "Short-term memory: i turni di una singola sessione, per il contesto immediato",
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Short-term",
+              "tone": "warn",
+              "items": [
+                "I turni di una singola sessione",
+                "Serve al follow up, per esempio «e domani»",
+                "Vale finché dura la sessione"
+              ]
+            },
+            {
+              "head": "Long-term",
+              "tone": "good",
+              "items": [
+                "Preferenze, fatti importanti, riassunti di sessione",
+                "Dura oltre la sessione, fino alle prenotazioni successive",
+                "Si può condividere tra più agenti"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Stato di business",
+          "text": "Un ordine o un saldo non vanno tenuti solo nella memoria dell'agente: restano nel sistema di origine. La memoria dà contesto, non sostituisce un database."
+        },
         "Long-term memory: preferenze, fatti e riassunti che durano tra sessioni diverse",
         "Una memoria può essere condivisa tra più agenti",
         "Stato di sessione e stato di business non vanno confusi",
@@ -310,11 +819,55 @@
     {
       "title": "AgentCore Runtime e Gateway: dove gira l'agente e come usa i tool",
       "bullets": [
-        "Runtime: ambiente serverless con isolamento tra sessioni e avvio rapido",
-        "Runtime funziona con LangGraph, Strands, CrewAI, LlamaIndex, Google ADK, OpenAI Agents SDK",
-        "Gateway: converte API OpenAPI, Lambda e server MCP in tool MCP",
-        "Gateway gestisce autenticazione in ingresso e in uscita",
-        "Runtime e Gateway supportano MCP e A2A"
+        {
+          "kind": "topology",
+          "title": "Chi esegue e chi espone",
+          "nodes": [
+            {
+              "label": "Applicazione",
+              "sub": "la richiesta dell'utente"
+            },
+            {
+              "label": "Gateway",
+              "sub": "autenticazione in ingresso e in uscita"
+            },
+            {
+              "label": "Runtime",
+              "sub": "esegue l'agente, isolato per sessione",
+              "tone": "good"
+            },
+            {
+              "label": "Tool MCP",
+              "sub": "API OpenAPI, Lambda, server MCP"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Runtime",
+              "tone": "good",
+              "items": [
+                "Esegue l'agente: è l'ambiente",
+                "Avvio rapido e isolamento tra sessioni",
+                "Anche esecuzioni asincrone lunghe",
+                "Supporta MCP e A2A"
+              ]
+            },
+            {
+              "head": "Gateway",
+              "tone": "warn",
+              "items": [
+                "Espone i tool all'agente: è l'ingresso",
+                "Converte API, Lambda e server MCP in tool MCP",
+                "Autenticazione in ingresso e in uscita",
+                "Ricerca semantica dei tool quando la lista è lunga"
+              ]
+            }
+          ]
+        },
+        "Runtime funziona con LangGraph, Strands, CrewAI, LlamaIndex, Google ADK, OpenAI Agents SDK"
       ],
       "narration": "Per distribuire un agente servono due parti: un ambiente dove gira, e un modo per dargli accesso a tool e dati. AgentCore Runtime è l'ambiente serverless. Offre avvii rapidi per interazioni in tempo reale, supporto a esecuzioni asincrone lunghe e isolamento tra sessioni. Funziona con framework come LangGraph, Strands Agents, CrewAI, LlamaIndex, Google ADK e OpenAI Agents SDK, e con modelli dentro o fuori Bedrock. Il Runtime supporta i protocolli MCP e A2A. AgentCore Gateway è il punto d'ingresso sicuro per il traffico degli agenti. Converte API con specifica OpenAPI, funzioni Lambda e server MCP esistenti in tool compatibili con MCP. Gestisce l'autenticazione in ingresso, cioè chi può chiamare l'agente, e quella in uscita, cioè come il Gateway si autentica verso i servizi a valle. Ha anche una ricerca semantica dei tool, utile quando la lista è molto lunga. Il tranello è confondere i due componenti. Il Runtime esegue l'agente. Il Gateway espone i tool. Per l'esame, se la domanda chiede di trasformare una funzione Lambda in tool MCP senza riscrivere il codice, la risposta è Gateway. Se chiede dove far girare un agente con isolamento per sessione, la risposta è Runtime.",
       "todo": [
@@ -324,10 +877,48 @@
     {
       "title": "Versioni, alias e pipeline di deploy degli agenti",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Repository",
+              "sub": "codice e configurazione dell'agente"
+            },
+            {
+              "label": "Infrastruttura come codice",
+              "sub": "ambienti riproducibili"
+            },
+            {
+              "label": "Test",
+              "sub": "verifica del comportamento"
+            },
+            {
+              "label": "Alias aggiornato",
+              "sub": "le chiamate vanno alla versione nuova",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "topology",
+          "title": "Multi-agent collaboration",
+          "nodes": [
+            {
+              "label": "Domanda",
+              "sub": "arriva dal client"
+            },
+            {
+              "label": "Supervisore",
+              "sub": "salvato prima di associare i collaboratori"
+            },
+            {
+              "label": "Collaboratori",
+              "sub": "action group, knowledge base e guardrail"
+            }
+          ]
+        },
         "Un agente si distribuisce creando un alias, poi si chiama con InvokeAgent",
         "Spostare l'alias su una nuova versione cambia l'agente senza toccare il client",
-        "Il supervisore va salvato prima di associare i collaboratori",
-        "Pipeline: codice e configurazione in repository, infrastruttura come codice, test prima dell'alias",
         "Bedrock Agents Classic prevede action group, knowledge base e guardrail"
       ],
       "narration": "Un agente di Bedrock si usa tramite un alias. La documentazione dice che, prima di usarlo, devi distribuirlo creando un alias. L'applicazione chiama l'agente con l'operazione InvokeAgent sull'alias, non sulla bozza. Questo permette di pubblicare una nuova versione senza cambiare il codice client. Sposti l'alias sulla versione nuova, e le chiamate successive usano quella. Per tornare indietro basta riportare l'alias alla versione precedente. Nelle pipeline di deploy automatico, il percorso è questo. Codice e configurazione dell'agente stanno in un repository. L'infrastruttura è definita come codice. I test verificano il comportamento, e solo dopo il test l'alias viene aggiornato. Con la multi-agent collaboration, un agente supervisore riceve la domanda e la smista a collaboratori specializzati. Il supervisore va salvato prima di associare i collaboratori. Ogni agente può avere action group, knowledge base e guardrail. Il tranello d'esame è questo: per una versione stabile per gli utenti, la risposta è un alias. Non è la bozza, né il nome dell'agente. Ricorda che Bedrock Agents Classic ha chiuso ai nuovi clienti. Per i nuovi progetti, valuta AgentCore come riferimento.",
@@ -338,8 +929,36 @@
     {
       "title": "Monitorare i foundation model: logging e CloudWatch",
       "bullets": [
+        {
+          "kind": "flow",
+          "loop": "il corpo grande o binario esce dal record e resta su S3",
+          "steps": [
+            {
+              "label": "Chiamata",
+              "sub": "su bedrock-runtime"
+            },
+            {
+              "label": "Record",
+              "sub": "modello, operazione, identità, token"
+            },
+            {
+              "label": "Corpo fino a 100 KB",
+              "sub": "dentro il record"
+            },
+            {
+              "label": "Corpo più grande o binario",
+              "sub": "solo su S3",
+              "tone": "warn"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Cosa non viene registrato",
+          "text": "Il logging copre Converse, ConverseStream, InvokeModel e InvokeModelWithResponseStream su bedrock-runtime: le chiamate su altri endpoint non risultano."
+        },
         "Model invocation logging: disattivato di default, scrive su S3 o CloudWatch Logs",
-        "Registra le chiamate Converse, ConverseStream, InvokeModel e InvokeModelWithResponseStream su bedrock-runtime",
         "CloudWatch dashboard Model invocations: invocazioni, token, errori, log",
         "Metriche di latenza: media, P90 e P99, più errori e throttling",
         "Valutazione continua: confrontare i punteggi nel tempo dopo ogni cambio"
@@ -353,8 +972,63 @@
     {
       "title": "Monitorare gli agenti: errori, tracce e consumo",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Errore",
+            "Come si vede",
+            "Dove guardare"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Tool che fallisce",
+                "head": true
+              },
+              "una API risponde con errore o scade il timeout",
+              "tracce e span del passo"
+            ],
+            [
+              {
+                "v": "Streaming troncato",
+                "head": true
+              },
+              "la risposta arriva a metà e il client non lo sa",
+              "log della risposta"
+            ],
+            [
+              {
+                "v": "Coordinamento tra agenti",
+                "head": true
+              },
+              "il supervisore smista male o due agenti si sovrappongono",
+              "percorso completo della richiesta"
+            ]
+          ]
+        },
+        {
+          "kind": "topology",
+          "title": "Dove finiscono le tracce dell'agente",
+          "aside": [
+            "AWS X-Ray: segmenti tra servizi e mappa di chi rallenta"
+          ],
+          "nodes": [
+            {
+              "label": "Agente",
+              "sub": "esegue i passi e chiama i tool"
+            },
+            {
+              "label": "AgentCore Observability",
+              "sub": "tracce e span, in OpenTelemetry",
+              "tone": "good"
+            },
+            {
+              "label": "CloudWatch",
+              "sub": "metriche e log dell'esecuzione"
+            }
+          ]
+        },
         "Errori tipici: tool che falliscono, streaming troncato, coordinamento tra agenti",
-        "AgentCore Observability: tracce e span del percorso dell'agente, in OpenTelemetry",
         "Metriche di sessione: numero di sessioni, latenza, durata, token, errori",
         "AWS X-Ray: tracing distribuito e mappa dei servizi",
         "Consumo: monitorare token e chiamate ai tool per sessione"
@@ -369,10 +1043,39 @@
     {
       "title": "Costi dei foundation model: token, batch, caching e routing",
       "bullets": [
-        "Il costo di inferenza si calcola per token di input e di output",
+        {
+          "kind": "formula",
+          "text": "costo = token di input × prezzo input + token di output × prezzo output + capacità + storage",
+          "caption": "Il costo di inferenza si calcola per token. Le leve agiscono su quale prezzo si paga (batch, Provisioned Throughput) o su quanti token si spediscono (caching, routing)."
+        },
+        {
+          "kind": "tree",
+          "root": "Che forma ha il carico?",
+          "branches": [
+            {
+              "when": "è grande e non urgente",
+              "then": "batch inference",
+              "note": "circa metà prezzo, ma asincrono e senza tool calling nei job Converse"
+            },
+            {
+              "when": "è alto, costante e prevedibile",
+              "then": "Provisioned Throughput",
+              "note": "paghi l'ora anche quando la capacità resta ferma"
+            },
+            {
+              "when": "ogni richiesta ripete lo stesso prefisso lungo",
+              "then": "prompt caching",
+              "note": "solo on-demand, TTL di 5 minuti o 1 ora"
+            },
+            {
+              "when": "due modelli della stessa famiglia vanno bene",
+              "then": "intelligent prompt routing",
+              "note": "il risparmio dipende dal criterio di qualità impostato"
+            }
+          ]
+        },
         "Batch inference: prezzo più basso per carichi grandi e non urgenti",
         "Prompt caching: solo on-demand, non in batch, con TTL di 5 minuti o 1 ora",
-        "Intelligent prompt routing: due modelli della stessa famiglia, scelta per costo e qualità",
         "Provisioned Throughput: conviene con traffico alto, costante e prevedibile"
       ],
       "narration": "Il costo di un foundation model in produzione si calcola per token. Ogni richiesta paga i token di input e i token di output. Il primo ottimizzatore è il batch inference. Per carichi grandi e non urgenti il prezzo è più basso, circa la metà dell'on-demand per i modelli della pagina prezzi. Non si usa con il Provisioned Throughput, e nei job Converse non supporta la chiamata di tool. Il secondo è il Provisioned Throughput. Conviene quando il traffico è alto, costante e prevedibile, perché paghi l'ora di capacità anche se non la usi. Il terzo è il prompt caching. Se il prompt inizia con un prefisso lungo e ripetuto, come le istruzioni di sistema o un documento, Bedrock può riusarlo. Le letture dalla cache costano meno dei token normali. Il caching funziona solo on-demand, non in batch. Ha un TTL di 5 minuti, oppure di 1 ora per i modelli Claude che lo supportano. Il quarto è l'intelligent prompt routing. È un endpoint unico che instrada le richieste tra due modelli della stessa famiglia, scegliendo quello più economico con qualità sufficiente. Non è garantito che costi di meno: il risultato dipende dal criterio di differenza di qualità che imposti, e dal modello di riferimento scelto. Per l'esame, se il carico è grande e non urgente, la risposta è batch. Se il prefisso si ripete, è caching. Se due modelli della stessa famiglia vanno bene, è routing.",
@@ -384,8 +1087,52 @@
     {
       "title": "Costi degli embedding e dello storage vettoriale",
       "bullets": [
+        {
+          "kind": "formula",
+          "text": "costo del RAG = embedding + storage vettoriale + interrogazioni + token del generatore",
+          "caption": "Chunk più piccoli producono più vettori: più embedding da calcolare e più spazio da pagare. Ogni nuova versione del corpus richiede di ricalcolare gli embedding."
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Voce",
+            "Cosa la fa crescere",
+            "Come si contiene"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Embedding",
+                "head": true
+              },
+              "documenti e versioni del corpus, chunk piccoli",
+              "ricalcolare solo ciò che cambia"
+            ],
+            [
+              {
+                "v": "Storage vettoriale",
+                "head": true
+              },
+              "numero di vettori e numero di dimensioni",
+              "Amazon S3 Vectors per grandi dataset"
+            ],
+            [
+              {
+                "v": "Interrogazioni",
+                "head": true
+              },
+              "ricerche frequenti su molti vettori",
+              "S3 Vectors: circa 100 millisecondi a caldo"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Limiti di S3 Vectors",
+          "text": "Ricerca solo semantica, non ibrida; 1 KB di metadati personalizzati e al massimo 35 chiavi; vettori in virgola mobile, non binari."
+        },
         "Embedding: ogni documento va trasformato in vettori, con costo di calcolo",
-        "Storage vettoriale: più vettori e dimensioni significano più spazio e più costo",
         "Amazon S3 Vectors è un'opzione economica per grandi dataset vettoriali",
         "Latenza di S3 Vectors in Knowledge Bases: sotto il secondo a freddo, circa 100 millisecondi a caldo",
         "Limiti: ricerca solo semantica, 1 KB di metadati personalizzati, vettori in virgola mobile"
@@ -398,11 +1145,64 @@
     {
       "title": "Sicurezza: credenziali per i FM e guardrail",
       "bullets": [
-        "Chiave API di breve durata: al massimo 12 ore, legata alla Region, eredita i permessi",
+        {
+          "kind": "layers",
+          "layers": [
+            {
+              "label": "Credenziali",
+              "sub": "chiave di breve durata o ruolo IAM per la produzione",
+              "tone": "warn"
+            },
+            {
+              "label": "Guardrails in ingresso",
+              "sub": "denied topics, word filter, filtro dati sensibili"
+            },
+            {
+              "label": "Guardrails in uscita",
+              "sub": "filtri di contenuto, dati sensibili mascherati, contextual grounding"
+            },
+            {
+              "label": "Automated Reasoning",
+              "sub": "la risposta verificata contro regole logiche"
+            },
+            {
+              "label": "ApplyGuardrail",
+              "sub": "gli stessi controlli su testo di modelli fuori Bedrock",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Difese in profondità",
+          "text": "Prima chi chiama, poi il testo che entra e quello che esce: ogni livello copre un attacco diverso."
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Breve durata",
+              "tone": "good",
+              "items": [
+                "Massimo 12 ore, o la durata della sessione se più breve",
+                "Legata alla Region in cui è creata",
+                "Eredita i permessi del principal che la genera"
+              ]
+            },
+            {
+              "head": "Lungo termine",
+              "tone": "bad",
+              "items": [
+                "Crea un utente IAM dedicato",
+                "Consigliata solo per esplorare Bedrock",
+                "In produzione si passa a credenziali temporanee"
+              ]
+            }
+          ]
+        },
         "Chiave API di lungo termine: crea un utente IAM, consigliata solo per esplorare",
-        "Guardrails: filtri di contenuto, denied topics, word filter, dati sensibili, grounding, Automated Reasoning",
-        "Contextual grounding: la risposta è fondata sul contesto e pertinente alla domanda",
-        "ApplyGuardrail applica i controlli anche a modelli fuori Bedrock"
+        "Contextual grounding: la risposta è fondata sul contesto e pertinente alla domanda"
       ],
       "narration": "L'ultimo blocco riguarda sicurezza e responsabilità. Il primo punto è la credenziale con cui l'applicazione chiama un foundation model. Bedrock offre chiavi API di due tipi. Quella di breve durata vale al massimo 12 ore, o per la durata della sessione che l'ha generata, se è più breve. È legata alla Region in cui è stata creata, ed eredita i permessi del principal che la genera. Quella di lungo termine crea un utente IAM dedicato, ed è consigliata solo per esplorare Bedrock. Per applicazioni con requisiti di sicurezza più stringenti, la documentazione indica di passare a credenziali temporanee. Nell'esame, la risposta giusta per un'applicazione in produzione è la credenziale temporanea, come un ruolo IAM o una chiave di breve durata, non la chiave di lungo termine. Il secondo punto sono i Guardrails. Offrono sei famiglie di controlli. I filtri di contenuto coprono odio, insulti, sessualità, violenza, condotta scorretta e attacchi di prompt. Le denied topics bloccano argomenti vietati, e i word filter bloccano parole o frasi precise. Il filtro di informazioni sensibili blocca o maschera dati come l'SSN, la data di nascita o l'indirizzo, e accetta regex personalizzate. Il contextual grounding verifica che la risposta sia fondata sul contesto e pertinente alla domanda, quindi è il controllo anti allucinazione per i sistemi RAG. Automated Reasoning verifica la risposta contro regole logiche definite da te. ApplyGuardrail applica i controlli a qualsiasi testo, anche prodotto da modelli fuori Bedrock. Per l'esame: se la domanda chiede di verificare che una risposta sia fondata sul contesto, la risposta è contextual grounding. Se chiede di mascherare dati personali, è il sensitive information filter.",
       "todo": [

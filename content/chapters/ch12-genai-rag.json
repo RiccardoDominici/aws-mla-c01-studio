@@ -132,12 +132,60 @@
     {
       "title": "Scegliere un foundation model su Bedrock",
       "bullets": [
-        "Criteri: tipo di compito, modalità, context window, lingue, latenza, costo, licenza",
+        {
+          "kind": "tree",
+          "root": "Serve davvero un foundation model?",
+          "branches": [
+            {
+              "when": "dati strutturati e risposta numerica",
+              "then": "Algoritmo di ML classico",
+              "note": "più semplice, più economico, più facile da spiegare"
+            },
+            {
+              "when": "latenza molto stretta",
+              "then": "Modello più piccolo",
+              "note": "il più grande risponde più lentamente"
+            },
+            {
+              "when": "serve un modello fuori dal catalogo",
+              "then": "Bedrock Marketplace",
+              "note": "oltre 100 modelli, su endpoint SageMaker AI"
+            },
+            {
+              "when": "nessuno di questi vincoli",
+              "then": "Modello del catalogo Bedrock",
+              "note": "confrontato su dati tuoi, non sulla fama"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Criteri del modello",
+              "tone": "good",
+              "items": [
+                "tipo di compito, modalità di input e output",
+                "context window e lingue supportate",
+                "latenza, costo e licenza",
+                "personalizzazioni supportate, come il fine-tuning"
+              ]
+            },
+            {
+              "head": "Come scegliere",
+              "tone": "warn",
+              "items": [
+                "confronta i modelli su dati tuoi",
+                "non guardare solo la qualità generale",
+                "nel Marketplace l'endpoint lo gestisci tu"
+              ]
+            }
+          ]
+        },
         "Confronta i modelli su dati tuoi, non solo sulla qualità generale",
         "Verifica quali personalizzazioni il modello supporta",
         "Problemi strutturati: spesso basta un algoritmo di ML classico",
-        "Latenza stretta: un modello più piccolo può essere la scelta giusta",
-        "Bedrock Marketplace: oltre 100 modelli su endpoint gestiti da SageMaker AI"
+        "Latenza stretta: un modello più piccolo può essere la scelta giusta"
       ],
       "narration": "Il primo errore da evitare è scegliere un modello generativo guardando solo la sua fama o le sue dimensioni. La domanda giusta è un'altra: quale compito devo svolgere, e quali vincoli ho. Un foundation model, o FM, è un modello generico, addestrato su grandi quantità di dati, che puoi usare per molti compiti diversi. Su Amazon Bedrock trovi modelli di più fornitori, e ogni modello ha punti di forza diversi. I criteri da confrontare sono questi. Il tipo di compito, per esempio riassunto, classificazione o generazione di immagini. Le modalità di input e di output, cioè solo testo oppure anche immagini. La context window, cioè quanti token il modello può leggere in una singola chiamata. Le lingue supportate. La latenza, il costo e la licenza. Infine conta se il modello supporta le personalizzazioni che ti servono, come il fine-tuning. Attenzione però: non sempre serve un FM. Per un problema con dati strutturati e una risposta numerica, un algoritmo di machine learning classico, o un template di soluzione già pronto, è spesso più semplice, più economico e più facile da spiegare. Un tranello tipico dell'esame: la domanda chiede la massima qualità, ma impone anche una latenza molto stretta. In quel caso il modello più grande, che risponde più lentamente, non è la scelta giusta. Amazon Bedrock Marketplace amplia la scelta: contiene oltre 100 modelli, in aggiunta ai modelli principali di Bedrock. Ti iscrivi al modello e lo distribuisci su un endpoint gestito da SageMaker AI. Una volta distribuito, lo usi con le stesse API di Bedrock, e puoi collegarlo ad agenti, Knowledge Base e Guardrail. Scegli il Marketplace quando serve un modello che non trovi nel catalogo serverless, ma ricorda che l'endpoint lo distribuisci e lo gestisci tu.",
       "todo": [
@@ -148,6 +196,68 @@
     {
       "title": "Parametri di inferenza: temperature, top P, top K",
       "bullets": [
+        {
+          "kind": "bars",
+          "max": 1,
+          "rows": [
+            {
+              "label": "cavalli",
+              "value": 0.7,
+              "display": "0,7"
+            },
+            {
+              "label": "zebre",
+              "value": 0.2,
+              "display": "0,2"
+            },
+            {
+              "label": "unicorni",
+              "value": 0.1,
+              "display": "0,1"
+            }
+          ],
+          "caption": "I tre candidati della parola successiva, con la loro probabilità."
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Impostazione",
+            "Candidati",
+            "Regola"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Top K = 2",
+                "head": true
+              },
+              "cavalli, zebre",
+              "conta il numero di token ammessi"
+            ],
+            [
+              {
+                "v": "Top P = 0,7",
+                "head": true
+              },
+              "solo cavalli",
+              "probabilità cumulata fino a 0,7"
+            ],
+            [
+              {
+                "v": "Top P = 0,9",
+                "head": true
+              },
+              "cavalli, zebre",
+              "probabilità cumulata fino a 0,9"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Eccezione",
+          "text": "Titan Text Embeddings non accetta questi parametri: né max tokens né top P."
+        },
         "Temperature: più alta significa risposte più varie e meno prevedibili",
         "Top K: sceglie solo tra i K token più probabili",
         "Top P: sceglie tra i token che coprono la probabilità cumulata P",
@@ -163,12 +273,66 @@
     {
       "title": "Prompt engineering: quando basta",
       "bullets": [
-        "Zero-shot: solo istruzione, nessun esempio",
-        "Few-shot: alcuni esempi di input e output corretti",
-        "Chain-of-thought: ragionamento passo dopo passo prima della risposta",
-        "System prompt: ruolo, tono e regole generali",
-        "Template con segnaposto e delimitatori tra istruzioni e testo",
-        "Output strutturato: formato preciso, per esempio JSON"
+        {
+          "kind": "table",
+          "head": [
+            "Tecnica",
+            "Cosa aggiungi al prompt",
+            "Quando serve"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Zero-shot",
+                "head": true
+              },
+              "solo l'istruzione",
+              "compito chiaro, nessun esempio"
+            ],
+            [
+              {
+                "v": "Few-shot",
+                "head": true
+              },
+              "alcuni esempi di input e output corretti",
+              "formato e coerenza da tenere stabili"
+            ],
+            [
+              {
+                "v": "Chain-of-thought",
+                "head": true
+              },
+              "la richiesta di ragionare passo dopo passo",
+              "calcoli e decisioni con più condizioni"
+            ],
+            [
+              {
+                "v": "System prompt",
+                "head": true
+              },
+              "ruolo, tono e regole generali",
+              "valido per tutta la conversazione"
+            ],
+            [
+              {
+                "v": "Delimitatori",
+                "head": true
+              },
+              "tre apici o tag XML",
+              "separa istruzioni e testo dell'utente"
+            ],
+            [
+              {
+                "v": "Output strutturato",
+                "head": true
+              },
+              "un formato preciso, per esempio JSON",
+              "la risposta deve essere usata da un programma"
+            ]
+          ]
+        },
+        "Il prompt engineering non addestra pesi: si prova in pochi minuti ed è la prima leva da tentare",
+        "Template con segnaposto e delimitatori tra istruzioni e testo"
       ],
       "narration": "Il prompt engineering è la prima leva di personalizzazione, e costa quasi nulla. Non addestra nessun peso del modello, quindi lo puoi provare in pochi minuti. La tecnica più semplice è lo zero-shot: dai al modello solo l'istruzione, senza esempi. Il few-shot aggiunge alcuni esempi di input e output corretti, e spesso migliora il formato e la coerenza della risposta. Il chain-of-thought chiede al modello di ragionare passo dopo passo prima di dare la risposta finale, e aiuta nei problemi a più passaggi, come i calcoli o le decisioni con più condizioni. Il system prompt definisce il ruolo, il tono e le regole generali. I template con segnaposto permettono di riusare lo stesso prompt con dati diversi. I delimitatori, come tre apici o tag XML, separano le istruzioni dal testo da elaborare, e riducono il rischio che il testo inserito dall'utente venga letto come un'istruzione. Per l'output strutturato chiedi un formato preciso, per esempio JSON, e valida la risposta prima di usarla. La regola per l'esame: prova prima il prompt engineering. Passa al RAG se il modello non conosce i tuoi dati, e al fine-tuning solo se servono uno stile o un comportamento che il prompt non riesce a ottenere in modo stabile.",
       "todo": [
@@ -178,12 +342,72 @@
     {
       "title": "Personalizzare un modello: strategie a confronto",
       "bullets": [
-        "Prompt engineering: nessun addestramento, costo minimo",
-        "RAG: conoscenza esterna al momento della domanda, pesi invariati",
+        {
+          "kind": "table",
+          "head": [
+            "Strategia",
+            "Cosa tocca",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Prompt engineering",
+                "head": true
+              },
+              "nessun peso",
+              "formato, tono, compito chiaro"
+            ],
+            [
+              {
+                "v": "RAG",
+                "head": true
+              },
+              "nessun peso: conoscenza esterna al momento della domanda",
+              "dati privati o che cambiano"
+            ],
+            [
+              {
+                "v": "Full fine-tuning",
+                "head": true
+              },
+              "tutti i parametri",
+              "comportamento stabile, massimo costo"
+            ],
+            [
+              {
+                "v": "PEFT con LoRA",
+                "head": true
+              },
+              "piccole matrici di basso rango",
+              "stesso obiettivo, addestramento più economico"
+            ],
+            [
+              {
+                "v": "Fine-tuning per rinforzo",
+                "head": true
+              },
+              "i pesi, con una funzione di ricompensa",
+              "quando la qualità si misura in modo oggettivo"
+            ],
+            [
+              {
+                "v": "Distillazione",
+                "head": true
+              },
+              "un modello studente, guidato dall'insegnante",
+              "serve un modello più piccolo ed economico"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Catastrophic forgetting",
+          "text": "Un fine-tuning troppo spinto fa dimenticare le capacità generali: si bilanciano i dati nuovi con dati generali e si valuta anche fuori dal compito addestrato."
+        },
         "Fine-tuning: aggiorna i pesi con esempi di input e output attesi",
         "Full fine-tuning: aggiorna tutti i parametri, più costoso",
-        "PEFT con LoRA: addestra piccole matrici di basso rango",
-        "Catastrophic forgetting: il modello perde capacità generali",
         "Fine-tuning per rinforzo: punteggio di ricompensa al posto delle risposte corrette"
       ],
       "narration": "Quando un modello pre-addestrato non basta, hai diverse strade, e l'esame chiede di sceglierle in base al problema. Il prompt engineering non cambia il modello. Il RAG aggiunge conoscenza esterna al momento della domanda, senza toccare i pesi. Il fine-tuning, invece, continua l'addestramento su esempi etichettati, cioè coppie di input e output attesi, e modifica i pesi. Serve per adattare stile, formato o comportamento. Il continued pre-training usa testo non etichettato del tuo dominio, per esempio documentazione interna, e insegna al modello il lessico di quel settore. Oggi Amazon Bedrock elenca tre metodi di personalizzazione: fine-tuning supervisionato, fine-tuning per rinforzo e distillazione. Il continued pre-training non compare più tra questi, ma l'idea resta materia d'esame, perché la skill 1.2.9 della guida MLA-C02 chiede di prepararne i dati. La distillazione prende un modello grande, detto insegnante, e addestra un modello più piccolo, detto studente, a imitarne le risposte. Dentro il fine-tuning ci sono due approcci. Il full fine-tuning aggiorna tutti i parametri, ed è il più costoso in calcolo e memoria. Il PEFT, cioè parameter-efficient fine-tuning, con la tecnica LoRA, lascia fermi i pesi del modello di base e addestra solo piccole matrici di basso rango inserite nei suoi livelli. Il risultato è un adattatore piccolo, più economico da addestrare e da conservare. Il rischio da conoscere si chiama catastrophic forgetting: un fine-tuning troppo lungo o troppo spinto fa dimenticare al modello capacità generali che aveva prima. Per mitigarlo si bilanciano i dati nuovi con dati generali, e si valuta il modello anche su compiti che non hai addestrato. Esiste anche il fine-tuning per rinforzo, in inglese reinforcement fine-tuning. Qui non servono coppie di input e output corretti. Serve una funzione di ricompensa che valuta ogni risposta, per esempio eseguendo un codice o usando un giudice automatico, e il modello impara a produrre risposte con punteggio più alto. Conviene quando puoi misurare la qualità in modo oggettivo e quando etichettare esempi è costoso o impraticabile. Il fine-tuning supervisionato resta la scelta se il punteggio iniziale è quasi zero, perché il modello deve prima imparare le basi. Il consiglio AWS è partire da 100 o 200 prompt, validando prima la funzione di ricompensa.",
@@ -195,11 +419,66 @@
     {
       "title": "Dati per fine-tuning, continued pre-training e distillazione",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Metodo",
+            "Dati di partenza",
+            "Formato o minimo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Fine-tuning non conversazionale",
+                "head": true
+              },
+              "coppie di input e risposta attesa",
+              "JSONL, un esempio per riga: prompt e completion"
+            ],
+            [
+              {
+                "v": "Fine-tuning conversazionale",
+                "head": true
+              },
+              "un dialogo con ruoli",
+              "blocco di sistema, messaggi user e assistant"
+            ],
+            [
+              {
+                "v": "Continued pre-training",
+                "head": true
+              },
+              "testo non etichettato del dominio",
+              "TXT, CSV o JSON nella domain adaptation di JumpStart"
+            ],
+            [
+              {
+                "v": "Distillazione",
+                "head": true
+              },
+              "prompt e risposte del modello insegnante",
+              "lo studente imita le risposte generate"
+            ]
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "32",
+              "label": "record minimi",
+              "note": "Claude 3 Haiku, fine-tuning"
+            },
+            {
+              "value": "100",
+              "label": "record minimi",
+              "note": "Llama 3.1, training più validazione"
+            }
+          ]
+        },
         "Fine-tuning: file JSONL, un esempio completo per riga",
         "Non conversazionale: campi prompt e completion",
-        "Conversazionale: messaggi con sistema, user e assistant",
         "Continued pre-training: testo non etichettato del dominio",
-        "Distillazione: il modello insegnante genera le risposte",
         "Controlla il numero minimo di record del modello scelto"
       ],
       "narration": "Per il fine-tuning i dati vanno preparati in file JSONL, cioè un file di testo in cui ogni riga è un oggetto JSON completo, un esempio per riga. Per i compiti non conversazionali, come domande e risposte, riassunti o estrazione di informazioni, ogni riga ha un campo prompt e un campo completion, cioè l'input e la risposta attesa. Per i modelli conversazionali il formato è a messaggi: un blocco di sistema e una sequenza di messaggi con ruolo user e assistant. Non tutti i modelli usano lo stesso formato, quindi controlla la documentazione del modello scelto prima di preparare i dati. Il continued pre-training usa dati non etichettati, cioè testo del tuo dominio senza una risposta attesa per ogni esempio. Dove si fa oggi? Il modo più vicino è la domain adaptation fine-tuning di SageMaker AI JumpStart, che accetta file TXT, CSV o JSON con il testo del dominio. La documentazione non la chiama continued pre-training, quindi all'esame riconosci il concetto dalla descrizione del dato. Serve quando vuoi che il modello conosca il lessico e lo stile di un settore, non un singolo compito. Nella distillazione, invece, parti da un insieme di prompt, e il modello insegnante genera le risposte con cui addestrare lo studente. Ci sono anche limiti numerici da controllare. Per Claude 3 Haiku il fine-tuning richiede almeno 32 record. Per i modelli Llama 3.1 la somma tra record di training e di validazione deve essere almeno 100. Un tranello dell'esame: se il dataset è sotto il minimo, il job non rispetta i requisiti del modello, e il primo passo è raccogliere più esempi, non cambiare tipo di addestramento.",
@@ -210,12 +489,78 @@
     {
       "title": "Validare l'integrità dei dati di training",
       "bullets": [
+        {
+          "kind": "matrix",
+          "corner": "Controllo",
+          "cols": [
+            "Esito se pulito",
+            "Esito se sporco"
+          ],
+          "rows": [
+            "Coppia prompt-response",
+            "JSON, campi, duplicati",
+            "Content safety",
+            "PII"
+          ],
+          "cells": [
+            [
+              {
+                "value": "Addestra bene",
+                "note": "la risposta risponde al suo prompt",
+                "tone": "good"
+              },
+              {
+                "value": "Impara l'errore",
+                "note": "risposta sbagliata o troncata, senza errore",
+                "tone": "bad"
+              }
+            ],
+            [
+              {
+                "value": "Job accettato",
+                "note": "righe valide, campi richiesti",
+                "tone": "good"
+              },
+              {
+                "value": "Job rifiutato",
+                "note": "JSON non valido, righe vuote o duplicate",
+                "tone": "bad"
+              }
+            ],
+            [
+              {
+                "value": "Output sicuro",
+                "note": "il modello imita esempi puliti",
+                "tone": "good"
+              },
+              {
+                "value": "Output tossico",
+                "note": "il modello imita i contenuti dannosi",
+                "tone": "bad"
+              }
+            ],
+            [
+              {
+                "value": "Dati protetti",
+                "note": "PII anonimizzati prima di S3",
+                "tone": "good"
+              },
+              {
+                "value": "Dati esposti",
+                "note": "email, telefoni, codici fiscali",
+                "tone": "bad"
+              }
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Prima di lanciare il job",
+          "text": "Separa un set di validazione dove il modello lo supporta, e prova su un campione piccolo: ogni errore qui costa meno di un addestramento sbagliato."
+        },
         "Coppie prompt-response: ogni risposta deve rispondere al suo prompt",
-        "Controlla JSON valido, campi richiesti, righe vuote e duplicati",
         "Content safety: rimuovi contenuti tossici, offensivi o pericolosi",
-        "PII: cerca e rimuovi dati personali prima di caricare su S3",
-        "Set di validazione separato, dove il modello lo supporta",
-        "Prova il job su un campione piccolo prima del job completo"
+        "PII: cerca e rimuovi dati personali prima di caricare su S3"
       ],
       "narration": "Prima di spendere ore di addestramento, verifica che i dati siano integri. Il controllo più importante riguarda le coppie prompt-response: ogni risposta deve rispondere davvero al prompt a cui è associata. Una risposta copiata dal prompt sbagliato, o troncata a metà, insegna al modello un comportamento sbagliato, senza che nessun errore venga segnalato. Controlla anche il formato: ogni riga deve essere un JSON valido, con i campi richiesti dal modello, e non devono esserci righe vuote o duplicate. Il secondo controllo è la content safety. Scansiona gli esempi per contenuti tossici, offensivi o pericolosi, e rimuovili o riscrivili, perché il modello li imiterebbe. Il terzo controllo riguarda la privacy. Cerca dati personali, come indirizzi email, numeri di telefono o codici fiscali, e anonimizzali o eliminali prima di caricare il file su Amazon S3. Separa un set di validazione dal training, dove il modello lo supporta, per misurare se il modello generalizza invece di memorizzare. Non tutti i modelli accettano un set di validazione: per i modelli di generazione di immagini e di embedding di immagini, per esempio, il set di validazione non è supportato. Infine prova il job su un campione piccolo prima di lanciare quello completo. Ogni errore trovato in questa fase costa meno di un addestramento sbagliato.",
       "todo": [
@@ -225,9 +570,49 @@
     {
       "title": "Tokenizzazione e preprocessing del testo",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Testo",
+              "sub": "una frase del dominio"
+            },
+            {
+              "label": "Token",
+              "sub": "parola, parte o segno"
+            },
+            {
+              "label": "Subword",
+              "sub": "le parole rare si spezzano"
+            },
+            {
+              "label": "Conto",
+              "sub": "input più output dentro il limite"
+            }
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "4,7",
+              "label": "caratteri per token",
+              "note": "inglese, Titan Text Embeddings V2"
+            },
+            {
+              "value": "8.192",
+              "label": "token per input",
+              "note": "limite del Titan Text Embeddings V2"
+            },
+            {
+              "value": "6",
+              "label": "caratteri per token",
+              "note": "stima per la dimensione di un dataset"
+            }
+          ]
+        },
         "Token: pezzi di testo, spesso parti di parola, non parole intere",
         "Subword: le parole rare si spezzano in frammenti frequenti",
-        "Inglese: circa 4,7 caratteri per token nel Titan Text Embeddings V2",
         "Dataset: circa 6 caratteri per token per stimare la dimensione",
         "Normalizzazione: spazi, codifica, maiuscole e caratteri speciali",
         "Augmentation di dominio: varianti con termini tecnici preservati"
@@ -240,11 +625,53 @@
     {
       "title": "Embedding: testo e immagini come vettori",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Modello",
+            "Dimensioni",
+            "Cosa rappresenta"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Titan Text Embeddings V2",
+                "head": true
+              },
+              "1024 di default, poi 512 e 256",
+              "solo testo"
+            ],
+            [
+              {
+                "v": "Titan Multimodal Embeddings G1",
+                "head": true
+              },
+              "1024 nelle Knowledge Bases",
+              "testo e immagini"
+            ],
+            [
+              {
+                "v": "Cohere Embed English e Multilingual",
+                "head": true
+              },
+              "1024",
+              "testo, una o più lingue"
+            ]
+          ]
+        },
+        {
+          "kind": "formula",
+          "text": "similarità coseno = (A · B) / (|A| × |B|)",
+          "mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>cos</mi><mo>&#x2061;</mo><mo>(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo>)</mo><mo>=</mo><mfrac><mrow><mi>A</mi><mo>&#x22C5;</mo><mi>B</mi></mrow><mrow><mo>|</mo><mi>A</mi><mo>|</mo><mo>&#x2062;</mo><mo>|</mo><mi>B</mi><mo>|</mo></mrow></mfrac></mrow></math>",
+          "caption": "Confronta l'angolo e ignora la lunghezza: con vettori normalizzati a uno il prodotto scalare coincide con la similarità coseno."
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Cambiare modello di embedding",
+          "text": "I vettori vecchi e nuovi non sono confrontabili: se cambi modello devi reindicizzare tutto."
+        },
         "Embedding: vettore numerico che rappresenta il significato",
-        "Titan Text Embeddings V2: 1024 dimensioni di default, poi 512 e 256",
-        "Titan Multimodal Embeddings G1: testo e immagini, 1024 nelle Knowledge Bases",
-        "Cohere Embed English e Multilingual: 1024 dimensioni",
-        "Similarità coseno: confronta l'angolo tra due vettori",
         "Ricerca a bassa latenza, indicizzazione in batch"
       ],
       "narration": "Un embedding è un vettore di numeri che rappresenta il significato di un testo o di un'immagine. Due testi con significato simile producono vettori vicini nello spazio, e questo permette la ricerca semantica, anche quando le parole non coincidono. Su Bedrock il modello di riferimento per il testo è Amazon Titan Text Embeddings V2. Il suo vettore ha 1024 dimensioni di default, ma puoi chiederne 512 o 256, per ridurre spazio di archiviazione e tempo di ricerca a fronte di un po' meno dettaglio. Il Titan Multimodal Embeddings G1 converte testo e immagini in vettori, e nelle Knowledge Bases supporta solo 1024 dimensioni. Cohere Embed, nelle versioni English e Multilingual, produce vettori da 1024 dimensioni. Per la misura di somiglianza più usata, la similarità coseno confronta l'angolo tra due vettori e ignora la loro lunghezza. Per questo molti sistemi normalizzano i vettori, cioè li riportano a lunghezza uno, così il prodotto scalare coincide con la similarità coseno. Il database vettoriale esegue il calcolo di similarità, non il modello di embedding. Durante la ricerca conviene la versione a bassa latenza dell'invocazione, perché ogni domanda deve generare un vettore in fretta. Durante l'indicizzazione di grandi archivi conviene invece un job batch, orientato al throughput. Il tranello dell'esame: se cambi modello di embedding, devi reindicizzare tutto, perché i vettori vecchi e nuovi non sono confrontabili.",
@@ -255,12 +682,65 @@
     {
       "title": "Database vettoriali: dove archiviare gli embedding",
       "bullets": [
-        "OpenSearch Serverless: vector search collection, motore faiss, metodo HNSW",
-        "OpenSearch Managed: accesso pubblico, versione 2.13 o successiva per k-NN",
-        "Aurora PostgreSQL con pgvector: indice hnsw con vector_cosine_ops",
-        "S3 Vectors: costo basso, query sotto il secondo, carichi poco frequenti",
-        "Neptune Analytics: grafo con indice vettoriale, per GraphRAG",
-        "Terze parti: Pinecone, Redis Enterprise Cloud, MongoDB Atlas"
+        {
+          "kind": "table",
+          "head": [
+            "Database",
+            "Configurazione",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "OpenSearch Serverless",
+                "head": true
+              },
+              "vector search collection, motore faiss, HNSW",
+              "indice gestito e ricerca approssimata veloce"
+            ],
+            [
+              {
+                "v": "OpenSearch Managed",
+                "head": true
+              },
+              "accesso pubblico, versione 2.13 o successiva",
+              "niente domini dentro una VPC"
+            ],
+            [
+              {
+                "v": "Aurora PostgreSQL",
+                "head": true
+              },
+              "pgvector, indice hnsw con vector_cosine_ops",
+              "hai già un database relazionale"
+            ],
+            [
+              {
+                "v": "S3 Vectors",
+                "head": true
+              },
+              "solo embedding in virgola mobile",
+              "costo basso, query sotto il secondo, carichi poco frequenti"
+            ],
+            [
+              {
+                "v": "Neptune Analytics",
+                "head": true
+              },
+              "grafo con indice vettoriale",
+              "GraphRAG, relazioni tra entità"
+            ],
+            [
+              {
+                "v": "Pinecone, Redis, MongoDB Atlas",
+                "head": true
+              },
+              "servizio di terze parti",
+              "infrastruttura già presente in azienda"
+            ]
+          ]
+        },
+        "Per le Knowledge Bases il motore deve essere fra quelli supportati"
       ],
       "narration": "Una volta creati i vettori, devi archiviarli in un database vettoriale capace di cercare per somiglianza. Il primo esempio è Amazon OpenSearch Service. La versione Serverless crea una vector search collection e un indice vettoriale che usa il motore faiss e il metodo HNSW, un grafo gerarchico di vicini che rende la ricerca approssimata molto veloce. Per le Knowledge Bases il motore deve essere faiss. Il dominio gestito di OpenSearch richiede invece accesso pubblico, perché i domini dentro una VPC non sono supportati, e una versione 2.13 o successiva per il k-NN. Il secondo esempio è Amazon Aurora PostgreSQL con l'estensione pgvector. È la scelta naturale se hai già un database relazionale e vuoi tenere i vettori accanto ai dati. Serve un indice hnsw con vector_cosine_ops sulla colonna degli embedding, e un indice gin sulla colonna del testo per la ricerca per parole chiave. Il terzo esempio è Amazon S3 Vectors. È archiviazione vettoriale a costo basso, con query sotto il secondo, pensata per carichi con poche interrogazioni. Supporta solo embedding in virgola mobile. Il quarto è Amazon Neptune Analytics, un grafo con un indice vettoriale, usato per il GraphRAG. Infine ci sono database di terze parti, come Pinecone, Redis Enterprise Cloud e MongoDB Atlas. Il criterio di scelta è la specifica del progetto: volume dei dati, frequenza delle query, infrastruttura già presente e bisogno di relazioni tra entità.",
       "todo": [
@@ -270,12 +750,54 @@
     {
       "title": "Preparare i documenti per il RAG: chunking e metadati",
       "bullets": [
-        "Fixed-size: token massimi per chunk e percentuale di overlap",
-        "Default: chunk di circa 300 token, rispetta le frasi",
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Fixed-size",
+              "tone": "warn",
+              "items": [
+                "token massimi per chunk",
+                "percentuale di overlap",
+                "semplice e prevedibile"
+              ]
+            },
+            {
+              "head": "Default",
+              "tone": "good",
+              "items": [
+                "circa 300 token per chunk",
+                "rispetta i confini delle frasi",
+                "buon punto di partenza"
+              ]
+            },
+            {
+              "head": "Gerarchico",
+              "tone": "good",
+              "items": [
+                "figli piccoli, precisi nella ricerca",
+                "padri grandi, restituiti al modello",
+                "overlap in token assoluti"
+              ]
+            },
+            {
+              "head": "Semantico",
+              "tone": "warn",
+              "items": [
+                "spezza dove cambia il significato",
+                "token massimi, buffer size, percentile di breakpoint",
+                "usa un modello: costa di più"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Metadati e tabelle",
+          "text": "Data, autore e reparto filtrano la ricerca. Su S3 Vectors: fino a 1 KB di metadati e 35 chiavi per vettore. Con una tabella, il contesto della pagina arriva fino a 10.000 caratteri."
+        },
         "Gerarchico: chunk padre e figlio, overlap in token assoluti",
-        "Semantico: token massimi, buffer size, percentile di breakpoint",
-        "Nessun chunking: un documento diventa un solo chunk",
-        "Metadati: data, autore, reparto, per filtrare la ricerca"
+        "Nessun chunking: un documento diventa un solo chunk"
       ],
       "narration": "Un documento lungo non si può dare al modello intero, e non si può nemmeno cercare bene come un unico blocco. Per questo lo dividi in chunk. La strategia di chunking è una delle decisioni che l'esame valuta di più. Con il fixed-size chunking scegli un numero massimo di token per chunk e una percentuale di overlap, cioè quanto ogni chunk si sovrappone al successivo, per non spezzare un'idea tra due blocchi. Il chunking di default divide il testo in chunk di circa 300 token, rispettando i confini delle frasi. Il chunking gerarchico crea due livelli: chunk figli piccoli, più precisi nella ricerca, e chunk padri più grandi, che vengono restituiti al modello per dare più contesto. Qui l'overlap si indica in token assoluti. Il chunking semantico spezza il testo dove cambia il significato, usando un modello. Ha parametri come i token massimi, la buffer size e il percentile di breakpoint, e costa di più, perché usa un modello di fondazione per decidere i confini. Infine, nessun chunking tratta ogni documento come un unico chunk: è utile se hai già spezzato i file a monte. I metadati completano la preparazione. Ogni documento può avere un file di metadati con campi come data, autore o reparto. Su S3 Vectors puoi associare fino a 1 KB di metadati personalizzati e 35 chiavi per vettore. Questi campi permettono di filtrare la ricerca, per esempio cercando solo i documenti del reparto legale. Un tranello: se il documento contiene una tabella, la knowledge base può restituire il contesto più ampio della pagina, purché sia lungo al massimo 10.000 caratteri.",
       "todo": [
@@ -285,12 +807,70 @@
     {
       "title": "Pattern RAG: base, reranking, ibrido, GraphRAG, agentico",
       "bullets": [
-        "RAG base: query, retrieval, prompt con contesto, risposta",
-        "Con reranking: recupera più candidati, poi riordina",
-        "Ricerca ibrida: similarità vettoriale più parole chiave",
-        "GraphRAG: grafo di entità e relazioni, con Neptune Analytics",
-        "RAG agentico: l'agente decide se, dove e cosa cercare",
-        "Scomposizione della query: sotto-domande, poi sintesi"
+        {
+          "kind": "table",
+          "head": [
+            "Pattern",
+            "Come funziona",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "RAG base",
+                "head": true
+              },
+              "query, retrieval, prompt con contesto, risposta",
+              "domanda semplice e base documentale pulita"
+            ],
+            [
+              {
+                "v": "Con reranking",
+                "head": true
+              },
+              "recupera più candidati, poi li riordina per pertinenza",
+              "i primi risultati sono rumorosi"
+            ],
+            [
+              {
+                "v": "Ricerca ibrida",
+                "head": true
+              },
+              "similarità vettoriale più parole chiave, con fusione dei ranking",
+              "codici, nomi di prodotto e sigle che gli embedding rappresentano male"
+            ],
+            [
+              {
+                "v": "GraphRAG",
+                "head": true
+              },
+              "grafo di entità e relazioni, con Neptune Analytics",
+              "domande che collegano più documenti"
+            ],
+            [
+              {
+                "v": "RAG agentico",
+                "head": true
+              },
+              "l'agente decide se, dove e cosa cercare",
+              "più passaggi e fonti diverse"
+            ],
+            [
+              {
+                "v": "Scomposizione della query",
+                "head": true
+              },
+              "sotto-domande cercate a parte, poi sintesi",
+              "domande complesse con più parti"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Il grafo va mantenuto",
+          "text": "Il GraphRAG richiede di costruire e aggiornare il grafo: non si sceglie solo perché sembra più avanzato."
+        }
       ],
       "narration": "I pattern RAG si distinguono per quanta logica metti prima e dopo la ricerca. Il RAG base esegue una query, recupera i chunk più simili, li inserisce nel prompt e genera la risposta. È semplice e spesso sufficiente. Quando i risultati sono rumorosi, aggiungi un reranker: recuperi più candidati, e un modello di reranking li riordina per pertinenza, così passi al modello generativo solo i migliori. La ricerca ibrida combina la similarità vettoriale con la ricerca per parole chiave. È utile quando nelle domande compaiono codici, nomi di prodotto o sigle, che gli embedding rappresentano male. Il GraphRAG costruisce un grafo di entità e relazioni, per esempio persone, progetti e date, e lo attraversa per rispondere a domande che collegano più documenti. Amazon Neptune Analytics rende possibile questo pattern dentro Bedrock. Il RAG agentico lascia a un agente la decisione di quando cercare, cosa cercare e se il primo risultato basta. Infine la scomposizione della query divide una domanda complessa in sotto-domande, le cerca separatamente e ricompone la risposta. Come scegliere? Se la domanda è semplice e la base documentale è pulita, parti dal RAG base. Se il problema è la precisione dei primi risultati, aggiungi il reranker. Se la domanda collega molte entità, valuta il GraphRAG. Se richiede più passaggi e fonti diverse, valuta il RAG agentico. Un tranello: il GraphRAG richiede di costruire e mantenere il grafo, quindi non va scelto solo perché sembra più avanzato.",
       "todo": [
@@ -300,10 +880,80 @@
     {
       "title": "Ottimizzare il retrieval: reranker, ibrido e filtri",
       "bullets": [
+        {
+          "kind": "compare",
+          "columns": [
+            {
+              "head": "Alzare numberOfResults",
+              "tone": "warn",
+              "items": [
+                "Più copertura: entra più materiale utile",
+                "Più rumore: entra anche ciò che non serve",
+                "Costo del prompt più alto"
+              ]
+            },
+            {
+              "head": "Recuperare di più, passarne pochi",
+              "tone": "good",
+              "items": [
+                "Il reranker riordina tutti i candidati",
+                "Al modello arrivano solo i più pertinenti",
+                "Copertura alta con un prompt corto"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Leva",
+            "Cosa cambia"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Reranker",
+                "head": true
+              },
+              "riordina i chunk per pertinenza; solo testo"
+            ],
+            [
+              {
+                "v": "Ricerca ibrida",
+                "head": true
+              },
+              "fonde ranking vettoriale e per parole chiave"
+            ],
+            [
+              {
+                "v": "Aurora",
+                "head": true
+              },
+              "indice gin su to_tsvector, dizionario english"
+            ],
+            [
+              {
+                "v": "Filtri sui metadati",
+                "head": true
+              },
+              "con pgvector prima di 0.8.0 il filtro arriva dopo la scansione HNSW"
+            ],
+            [
+              {
+                "v": "Embedding",
+                "head": true
+              },
+              "dimensioni e lingua; cambiarlo impone la reindicizzazione"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Il reranker non trova",
+          "text": "Se i risultati giusti non compaiono nel recupero, il reranker non serve: può solo riordinare ciò che ha già trovato."
+        },
         "Reranker: riordina i chunk per pertinenza alla query, solo testo",
-        "Ricerca ibrida: fusione di ranking vettoriale e per parole chiave",
-        "Aurora: indice gin su to_tsvector, con dizionario english",
-        "Numero di risultati: più copertura, più rumore e più costo",
         "Filtri sui metadati: iterative scan di pgvector 0.8.0 o successivo",
         "Embedding: scegli dimensioni e lingua, e reindicizza se cambi"
       ],
@@ -315,8 +965,66 @@
     {
       "title": "Configurazione RAG nelle Knowledge Bases: retrieval e reranking",
       "bullets": [
+        {
+          "kind": "topology",
+          "title": "Fase di query con Retrieve",
+          "nodes": [
+            {
+              "label": "Domanda",
+              "sub": "dall'applicazione"
+            },
+            {
+              "label": "Retrieve",
+              "sub": "numberOfResults risultati",
+              "tone": "good"
+            },
+            {
+              "label": "Reranker",
+              "sub": "nuovo ordine, solo testo",
+              "tone": "warn"
+            },
+            {
+              "label": "Prompt tuo",
+              "sub": "chunk, citazioni",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "Amazon Rerank 1.0",
+            "Cohere Rerank 3.5"
+          ],
+          "caption": "In alternativa RetrieveAndGenerate fa retrieval, reranking e generazione, e restituisce da sé la risposta con le citazioni."
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Chiamata",
+            "Cosa restituisce"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Retrieve",
+                "head": true
+              },
+              "i chunk recuperati con i loro punteggi, senza generare nulla"
+            ],
+            [
+              {
+                "v": "RetrieveAndGenerate",
+                "head": true
+              },
+              "la risposta generata insieme alle citazioni"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Regione",
+          "text": "Amazon Rerank 1.0 non è disponibile in us-east-1: lì si usa Cohere Rerank 3.5."
+        },
         "Retrieve: restituisce chunk e punteggi, senza generazione",
-        "RetrieveAndGenerate: restituisce anche la risposta e le citazioni",
         "numberOfResults: quanti risultati restituire",
         "Amazon Rerank 1.0 e Cohere Rerank 3.5 nelle Knowledge Bases",
         "Amazon Rerank 1.0 non è disponibile nella regione us-east-1",
@@ -330,10 +1038,70 @@
     {
       "title": "Knowledge Bases in pratica: creazione, sync e retrieval",
       "bullets": [
-        "Creazione: modello di embedding, vector store, data source, ruolo IAM",
-        "Managed Knowledge Base: sette connettori nativi, tra cui S3 e SharePoint",
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Creazione",
+              "sub": "embedding, vector store, data source, ruolo IAM"
+            },
+            {
+              "label": "Ingestion job",
+              "sub": "StartIngestionJob"
+            },
+            {
+              "label": "Stato",
+              "sub": "GetIngestionJob, fino a COMPLETE"
+            },
+            {
+              "label": "Retrieve",
+              "sub": "chunk, con filtri"
+            },
+            {
+              "label": "Risposta",
+              "sub": "modello più citazioni",
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Pezzo",
+            "Scelta"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Modello di embedding",
+                "head": true
+              },
+              "dimensioni uguali a quelle del vector store"
+            ],
+            [
+              {
+                "v": "Vector store",
+                "head": true
+              },
+              "con Aurora i vettori sono subito visibili; gli altri possono impiegare minuti"
+            ],
+            [
+              {
+                "v": "Connettori",
+                "head": true
+              },
+              "Managed Knowledge Base: sette nativi; dal 30 settembre 2026 niente nuovi connettori Confluence, SharePoint, Salesforce e Web Crawler"
+            ],
+            [
+              {
+                "v": "Kendra come retriever",
+                "head": true
+              },
+              "solo us-east-1 e us-west-2, contenuti in inglese, nuovi clienti esclusi"
+            ]
+          ]
+        },
         "StartIngestionJob avvia il sync, GetIngestionJob ne legge lo stato",
-        "Retrieve per i chunk, RetrieveAndGenerate per la risposta",
         "Kendra come retriever: solo us-east-1 e us-west-2, nuovi clienti esclusi",
         "Solo nel banco di domande per MLA-C01, non nella guida MLA-C02"
       ],
@@ -347,12 +1115,81 @@
     {
       "title": "Aggiornare una Knowledge Base: sync incrementale e pianificazione",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Documento",
+            "Cosa fa il sync",
+            "Nota"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Invariato",
+                "head": true
+              },
+              "viene saltato",
+              "nessun costo di elaborazione"
+            ],
+            [
+              {
+                "v": "Modificato",
+                "head": true
+              },
+              "riparsato, rispezzato e reindicizzato",
+              "serve un nuovo embedding"
+            ],
+            [
+              {
+                "v": "Cancellato",
+                "head": true
+              },
+              "rimosso dal vector store",
+              "la risposta non lo cita più"
+            ],
+            [
+              {
+                "v": "Solo metadati cambiati",
+                "head": true
+              },
+              "a volte aggiornamento senza ri-embedding",
+              "non con contenuti CSV e senza Lambda di trasformazione"
+            ],
+            [
+              {
+                "v": "CSV",
+                "head": true
+              },
+              "sempre rielaborato",
+              "il metadata file fa parte dell'elaborazione"
+            ]
+          ]
+        },
+        {
+          "kind": "topology",
+          "title": "Refresh pianificato",
+          "nodes": [
+            {
+              "label": "EventBridge",
+              "sub": "trigger temporale"
+            },
+            {
+              "label": "Lambda",
+              "sub": "chiama StartIngestionJob"
+            },
+            {
+              "label": "Knowledge Base",
+              "sub": "sync incrementale",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "Step Functions per retry e notifiche"
+          ]
+        },
         "Sync incrementale: solo file nuovi, modificati o cancellati",
-        "Documento invariato: saltato; cancellato: rimosso dal vector store",
         "Cambio solo di metadati: aggiornamento senza ri-embedding, in certi casi",
-        "CSV: sempre rielaborati quando cambiano i metadati",
-        "EventBridge chiama una Lambda, che lancia StartIngestionJob",
-        "Step Functions per sync, controlli, retry e notifiche"
+        "CSV: sempre rielaborati quando cambiano i metadati"
       ],
       "narration": "Una knowledge base è utile solo se riflette i documenti di oggi. Ogni volta che aggiungi, modifichi o cancelli file nel data source, devi lanciare un sync, cioè un nuovo ingestion job. Il sync è incrementale: Bedrock elabora solo i documenti aggiunti, modificati o cancellati dall'ultimo sync. Un documento invariato viene saltato. Un documento modificato viene riparsato, rispezzato e reindicizzato, mentre un documento cancellato viene rimosso dal vector store. Ci sono due eccezioni da conoscere. Se cambi solo un file di metadati, Bedrock può aggiornare i metadati senza richiamare il modello di embedding, a patto che i file di contenuto non siano CSV e che non ci sia una Lambda di trasformazione. I file CSV, invece, vengono sempre rielaborati. Per automatizzare il ciclo di aggiornamento, un pattern comune è una regola di EventBridge che avvia periodicamente una funzione Lambda, e la Lambda chiama StartIngestionJob. Per flussi più articolati, con sync, controllo dello stato, retry e notifica, puoi usare Step Functions, che orchestra i passi e gestisce gli errori. Il tranello dell'esame: quando ti chiedono un refresh pianificato della knowledge base, la risposta corretta combina un trigger temporale con un'azione di sync. Ricreare la knowledge base a ogni aggiornamento è costoso e inutile.",
       "todo": [
@@ -362,13 +1199,93 @@
     {
       "title": "Tradeoff: custom, gestito, pre-addestrato, FM, costo e latenza",
       "bullets": [
-        "Soluzione custom: massimo controllo, più sviluppo e manutenzione",
-        "Managed service: meno lavoro operativo, funzioni e connettori fissi",
-        "Modello pre-addestrato: pronto subito, personalizzazione limitata",
+        {
+          "kind": "table",
+          "head": [
+            "Scelta",
+            "Controllo",
+            "Costo operativo",
+            "Quando"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Soluzione custom",
+                "head": true
+              },
+              "massimo, su ogni componente",
+              "più sviluppo e manutenzione",
+              "il team ha tempo e competenze"
+            ],
+            [
+              {
+                "v": "Managed service",
+                "head": true
+              },
+              "limitato a funzioni e connettori",
+              "meno lavoro operativo",
+              "team piccolo, tempi stretti"
+            ],
+            [
+              {
+                "v": "Modello pre-addestrato",
+                "head": true
+              },
+              "personalizzazione limitata",
+              "pronto subito",
+              "il compito è già coperto"
+            ],
+            [
+              {
+                "v": "Foundation model",
+                "head": true
+              },
+              "massima flessibilità",
+              "spesso il più caro per chiamata",
+              "serve adattabilità"
+            ]
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Leva",
+            "Effetto"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Modello piccolo o distillato",
+                "head": true
+              },
+              "meno costo e latenza, con qualità da misurare sul tuo compito"
+            ],
+            [
+              {
+                "v": "Profilo geografico",
+                "head": true
+              },
+              "resta nell'area: è la scelta per la residenza dei dati"
+            ],
+            [
+              {
+                "v": "Profilo globale",
+                "head": true
+              },
+              "qualunque Region commerciale, circa 10 per cento più economico"
+            ],
+            [
+              {
+                "v": "Latency-optimized inference",
+                "head": true
+              },
+              "performanceConfig su optimized, in anteprima; oltre la quota si torna alla latenza standard"
+            ]
+          ]
+        },
         "Modelli più piccoli o distillati: meno costo e latenza",
         "Cross-region inference: throughput più alto, profilo globale circa 10 per cento più economico",
-        "Residenza dei dati: profilo geografico, non globale",
-        "Latency-optimized inference: performanceConfig su optimized, in anteprima"
+        "Residenza dei dati: profilo geografico, non globale"
       ],
       "narration": "L'ultima scelta è il tradeoff tra soluzione custom, managed service, modello pre-addestrato e foundation model. Una soluzione custom ti dà il massimo controllo su ogni componente, ma richiede più sviluppo e manutenzione. Un managed service, come una Knowledge Base o la Managed Knowledge Base, riduce il lavoro operativo, ma ti vincola alle sue funzioni e ai suoi connettori. Un modello pre-addestrato, come un classificatore già addestrato su un compito simile, è pronto subito, ma personalizzabile in misura limitata. Un foundation model è il più flessibile, e spesso il più costoso per chiamata. La domanda d'esame tipica ha un tratto chiaro: se il team è piccolo e i tempi sono stretti, la risposta è un managed service. Se i dati non possono uscire da una certa area geografica, conta la residenza dei dati. Sul fronte delle prestazioni, latenza e costo si muovono insieme. Un modello più piccolo, o distillato, risponde più in fretta e costa meno, ma la sua qualità va misurata sul tuo compito e non assunta. Sul piano dell'inferenza, la cross-region inference instrada le richieste verso altre regioni per aumentare il throughput. Ci sono due profili. Il profilo geografico resta dentro una geografia, come gli Stati Uniti o l'Unione Europea. Il profilo globale può usare qualunque regione commerciale, e costa circa 10 per cento in meno. Il tranello: se la domanda impone la residenza dei dati, il profilo globale è sbagliato, anche se è più economico. Per la latenza, Bedrock offre anche la latency-optimized inference, ancora in anteprima e soggetta a modifiche. Imposti il campo performanceConfig su optimized nella chiamata, senza addestramento né configurazioni aggiuntive. Riguarda pochi modelli, tra cui Claude 3.5 Haiku, Nova Pro e Llama 3.1, ed è disponibile tramite cross-region inference, in alcune regioni. Oltre la quota di latenza ottimizzata, la richiesta passa alla latenza standard e viene fatturata a tariffa standard. Per l'esame è una leva di configurazione dell'inferenza, non un modello diverso.",
       "todo": [

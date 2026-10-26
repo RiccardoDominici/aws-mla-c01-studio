@@ -10,6 +10,46 @@
     {
       "title": "Perché un modello in produzione peggiora",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Caso",
+            "Cosa cambia",
+            "Come si riconosce"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Data drift",
+                "head": true
+              },
+              "la distribuzione delle feature in ingresso",
+              "statistiche degli input contro la baseline"
+            ],
+            [
+              {
+                "v": "Concept drift",
+                "head": true
+              },
+              "la relazione tra input e output",
+              "servono le label: accuratezza giù mentre gli input restano stabili"
+            ],
+            [
+              {
+                "v": "Training-serving skew",
+                "head": true
+              },
+              "il modo in cui la feature viene calcolata",
+              "stesso record confrontato nelle due pipeline; spesso dal primo giorno"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Tranello d'esame",
+          "text": "Un calo di accuratezza non è automaticamente data drift: i tre casi richiedono risposte diverse."
+        },
         "Data drift: cambia la distribuzione delle feature in ingresso, mentre la regola tra input e output resta uguale.",
         "Concept drift: cambia la relazione tra input e output, cioè la regola che il modello ha imparato.",
         "Training-serving skew: la stessa feature viene calcolata in modo diverso in training e in produzione.",
@@ -22,6 +62,33 @@
     {
       "title": "Il ciclo del monitoraggio",
       "bullets": [
+        {
+          "kind": "flow",
+          "loop": "si riparte dalla baseline quando cambiano modello o pipeline",
+          "steps": [
+            {
+              "label": "Baseline",
+              "sub": "statistiche e vincoli dal training"
+            },
+            {
+              "label": "Cattura",
+              "sub": "richieste e risposte su S3"
+            },
+            {
+              "label": "Confronto",
+              "sub": "schedule periodico contro la baseline"
+            },
+            {
+              "label": "Allarme",
+              "sub": "violazione o metrica sopra soglia"
+            },
+            {
+              "label": "Azione",
+              "sub": "indagine, rollback, label, retraining",
+              "tone": "warn"
+            }
+          ]
+        },
         "Baseline: statistiche e vincoli calcolati sul dataset di training o di validazione.",
         "Cattura: richieste e risposte reali salvate su Amazon S3 dall'endpoint.",
         "Confronto: un job periodico misura la distanza tra dati catturati e baseline.",
@@ -34,6 +101,54 @@
     {
       "title": "Data capture: cosa salvare e dove",
       "bullets": [
+        {
+          "kind": "topology",
+          "title": "Dove finiscono le richieste catturate",
+          "nodes": [
+            {
+              "label": "Endpoint",
+              "sub": "richieste e risposte reali"
+            },
+            {
+              "label": "DataCaptureConfig",
+              "sub": "campionamento, CaptureOptions, KMS",
+              "tone": "warn"
+            },
+            {
+              "label": "S3",
+              "sub": "JSON Lines per endpoint, variante e ora"
+            },
+            {
+              "label": "Job di monitoraggio",
+              "sub": "legge la finestra e confronta",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "captureData: endpointInput ed endpointOutput",
+            "eventMetadata: eventId e inferenceTime"
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "1M",
+              "label": "richieste al giorno",
+              "note": "con campionamento al 10 per cento ne salva 100.000"
+            },
+            {
+              "value": "500",
+              "label": "richieste al giorno",
+              "note": "si può salvare tutto, al 100 per cento"
+            },
+            {
+              "value": "75%",
+              "label": "disco massimo consigliato",
+              "note": "oltre, la cattura smette per non rallentare l'inferenza"
+            }
+          ]
+        },
         "DataCaptureConfig si configura sull'endpoint, con EnableCapture attivo di default.",
         "InitialSamplingPercentage è un intero da 0 a 100: la quota di richieste salvate.",
         "DestinationS3Uri indica il bucket di destinazione, con schema https o s3.",
@@ -47,8 +162,54 @@
     {
       "title": "I quattro tipi di monitoraggio",
       "bullets": [
-        "Data quality: statistiche per feature e vincoli dalla baseline, con motore basato su Deequ.",
-        "Model quality: accuratezza, precisione, recall, F1, AUC o errori come RMSE, con predizioni unite alle label reali.",
+        {
+          "kind": "table",
+          "head": [
+            "Tipo",
+            "Serve label",
+            "Cosa misura"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Data quality",
+                "head": true
+              },
+              "no",
+              "statistiche per feature e vincoli della baseline, motore Deequ"
+            ],
+            [
+              {
+                "v": "Model quality",
+                "head": true
+              },
+              "sì",
+              "accuratezza, precisione, recall, F1, AUC; RMSE per la regressione"
+            ],
+            [
+              {
+                "v": "Bias drift",
+                "head": true
+              },
+              "no, bastano le predizioni",
+              "metriche di equità per gruppi, con intervallo di confidenza"
+            ],
+            [
+              {
+                "v": "Feature attribution drift",
+                "head": true
+              },
+              "no",
+              "NDCG tra l'importanza delle feature in training e in produzione"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Tranello d'esame",
+          "text": "Senza ground truth si misura il drift degli input, ma non si può dire che l'accuratezza è calata: solo la model quality confronta predizioni e label."
+        },
         "Bias drift: metriche di bias per gruppi, con intervalli di confidenza per evitare falsi allarmi.",
         "Feature attribution drift: NDCG tra la classifica delle feature in training e in produzione, allarme sotto 0,90.",
         "Data quality non richiede label. Model quality sì."
@@ -59,6 +220,58 @@
     {
       "title": "Baseline, schedule e violazioni",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Baseline",
+              "sub": "statistics.json + constraints.json"
+            },
+            {
+              "label": "Schedule",
+              "sub": "CreateMonitoringSchedule, per esempio ogni ora"
+            },
+            {
+              "label": "Esecuzione",
+              "sub": "confronto sulla finestra di tempo"
+            },
+            {
+              "label": "Report",
+              "sub": "constraint_violations.json su S3",
+              "tone": "warn"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Stato finale",
+            "Significato"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Completed",
+                "head": true
+              },
+              "esecuzione finita senza violazioni"
+            ],
+            [
+              {
+                "v": "CompletedWithViolations",
+                "head": true
+              },
+              "finita, ma con violazioni trovate"
+            ],
+            [
+              {
+                "v": "Failed",
+                "head": true
+              },
+              "job fallito: causa in FailureReason, per esempio un ruolo senza permessi"
+            ]
+          ]
+        },
         "Il job di baseline produce statistics.json e constraints.json dal dataset di riferimento.",
         "CreateMonitoringSchedule avvia i job a intervalli, per esempio ogni ora con CronExpressionGenerator.hourly.",
         "Un'esecuzione singola usa data_analysis_start_time e data_analysis_end_time in formato ISO 8601.",
@@ -71,10 +284,51 @@
     {
       "title": "Model Monitor chiude ai nuovi clienti: cosa cambia",
       "bullets": [
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Dal 30 luglio 2026",
+          "text": "Model Monitor, Clarify, Role Manager, Ground Truth, Augmented AI e Studio Lab non accettano nuovi clienti. Chi li usava continua; AWS non aggiunge funzionalità ma investe in sicurezza e disponibilità."
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Bisogno",
+            "Alternativa indicata da AWS"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Drift di dati e modello",
+                "head": true
+              },
+              "soluzioni open source su SageMaker AI MLflow Apps con Evidently AI"
+            ],
+            [
+              {
+                "v": "Dashboard di governance",
+                "head": true
+              },
+              "QuickSight"
+            ],
+            [
+              {
+                "v": "Metriche e allarmi di sistema",
+                "head": true
+              },
+              "CloudWatch, con allarmi basati su anomalie"
+            ],
+            [
+              {
+                "v": "Bias per segmento",
+                "head": true
+              },
+              "metriche con Evidently AI, registrate in MLflow e mostrate in QuickSight"
+            ]
+          ]
+        },
         "Dal 30/07/2026 Model Monitor non accetta nuovi clienti. Chi lo usa già può continuare.",
         "AWS non introduce nuove funzionalità, ma continua a investire in sicurezza e disponibilità.",
-        "Alternative indicate da AWS: soluzioni open source su SageMaker AI MLflow Apps con Evidently AI, QuickSight e CloudWatch.",
-        "Per il bias: metriche per segmento con Evidently AI, registrate in MLflow e QuickSight.",
         "MLA-C01 cita ancora Model Monitor. MLA-C02 descrive CloudWatch, Bedrock Model Evaluation e pipeline di drift."
       ],
       "narration": "Model Monitor ha una data che conta per l'esame. Dal 30 luglio 2026, come indica la pagina delle funzionalità di SageMaker AI sul sito AWS, il servizio non accetta più nuovi clienti. Chi lo usava prima può continuare a usarlo normalmente. AWS dichiara che continuerà a investire in sicurezza e disponibilità, ma non prevede nuove funzionalità. Nella stessa data chiudono ai nuovi clienti anche Clarify e Role Manager, insieme a Ground Truth, Augmented AI e Studio Lab. Quali sono le alternative? La pagina di disponibilità di Model Monitor indica una combinazione di soluzioni. La prima sono le soluzioni di monitoraggio open source pubblicate nell'organizzazione aws-samples. Sono costruite su SageMaker AI MLflow Apps e su Evidently AI, calcolano il drift su dati e modello e registrano i risultati nello stesso ambiente di tracciamento del training. La seconda è QuickSight, per le dashboard di governance. La terza è CloudWatch, per le metriche di sistema e di inferenza, con allarmi basati su anomalie. Per il bias, AWS indica metriche calcolate per segmento con Evidently AI, registrate in MLflow e mostrate in QuickSight. Per l'esame la distinzione è importante. La guida MLA-C01 chiede ancora di monitorare i modelli con SageMaker Model Monitor. La guida MLA-C02 nel compito 4.1 non nomina più Model Monitor: parla di CloudWatch, di Bedrock Model Evaluation e di pipeline di rilevamento del drift. Il concetto di drift, però, resta materia d'esame in entrambe le guide. Quando una domanda nomina Model Monitor, si risponde sulla funzione: confrontare la produzione con una baseline e segnalare il drift. Le alternative sono quelle indicate da AWS, cioè CloudWatch, QuickSight e le soluzioni open source su SageMaker AI MLflow.",
@@ -83,9 +337,92 @@
     {
       "title": "CloudWatch per gli endpoint: le metriche chiave",
       "bullets": [
-        "Invocations: numero di richieste. Si usa la statistica Sum.",
-        "ModelLatency: tempo del modello nel container, in microsecondi.",
-        "OverheadLatency: tempo aggiunto da SageMaker AI, cioè il totale meno ModelLatency.",
+        {
+          "kind": "table",
+          "head": [
+            "Metrica",
+            "Cosa misura",
+            "Statistica"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Invocations",
+                "head": true
+              },
+              "numero di richieste all'endpoint",
+              "Sum per il totale"
+            ],
+            [
+              {
+                "v": "ModelLatency",
+                "head": true
+              },
+              "tempo del modello nel container, in microsecondi",
+              "Average"
+            ],
+            [
+              {
+                "v": "OverheadLatency",
+                "head": true
+              },
+              "tempo aggiunto da SageMaker AI, cioè totale meno ModelLatency",
+              "Average"
+            ],
+            [
+              {
+                "v": "Invocation4XXErrors",
+                "head": true
+              },
+              "1 per ogni risposta 4xx, di solito richiesta malformata",
+              "la media è il tasso"
+            ],
+            [
+              {
+                "v": "Invocation5XXErrors",
+                "head": true
+              },
+              "1 per ogni risposta 5xx, errore lato server",
+              "la media è il tasso"
+            ],
+            [
+              {
+                "v": "CPUUtilization",
+                "head": true
+              },
+              "somma sui core: con quattro CPU arriva a 400 per cento",
+              "Average"
+            ],
+            [
+              {
+                "v": "Memory, GPU, Disk",
+                "head": true
+              },
+              "utilizzo delle risorse per istanza, in percentuale",
+              "Average"
+            ]
+          ]
+        },
+        {
+          "kind": "stats",
+          "items": [
+            {
+              "value": "1 min",
+              "label": "pubblicazione di default",
+              "note": "MetricsConfig sceglie 10, 30, 60, 120, 180, 240 o 300 secondi"
+            },
+            {
+              "value": "15 mesi",
+              "label": "conservazione",
+              "note": "le metriche di invocazione richiedono EnableEnhancedMetrics"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Leggere le due latenze",
+          "text": "Se la latenza totale sale e ModelLatency resta stabile, il problema è nella piattaforma o nel payload, non nel modello."
+        },
         "Invocation4XXErrors e Invocation5XXErrors: 1 per ogni risposta di errore, quindi la media è il tasso di errore.",
         "CPUUtilization: somma sui core, quindi con quattro CPU arriva fino a 400 per cento.",
         "MemoryUtilization, GPUUtilization, DiskUtilization: utilizzo per istanza."
@@ -96,8 +433,52 @@
     {
       "title": "Allarmi e log per il monitoraggio",
       "bullets": [
+        {
+          "kind": "flow",
+          "steps": [
+            {
+              "label": "Metrica",
+              "sub": "namespace /aws/sagemaker/Endpoints/data-metric"
+            },
+            {
+              "label": "Soglia",
+              "sub": "valore e numero di periodi"
+            },
+            {
+              "label": "Allarme",
+              "sub": "scatta solo su più periodi consecutivi",
+              "tone": "warn"
+            },
+            {
+              "label": "Notifica o azione",
+              "sub": "SNS, Lambda, dashboard"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Metrica per feature",
+            "Cosa misura"
+          ],
+          "rows": [
+            [
+              {
+                "v": "feature_non_null_{feature}",
+                "head": true
+              },
+              "completezza: quanti valori non sono nulli"
+            ],
+            [
+              {
+                "v": "feature_baseline_drift_{feature}",
+                "head": true
+              },
+              "scostamento dalla baseline, per esempio sul reddito"
+            ]
+          ]
+        },
         "Metriche di Model Monitor nel namespace /aws/sagemaker/Endpoints/data-metric, con dimensioni EndpointName e ScheduleName.",
-        "feature_non_null_{feature} misura la completezza. feature_baseline_drift_{feature} misura lo scostamento dalla baseline.",
         "Un allarme ha una soglia e un numero di periodi di valutazione: un solo punto anomalo non basta.",
         "I log del container vanno in CloudWatch Logs e spiegano la causa di un errore 5xx.",
         "Dashboard e Logs Insights sono trattati nel capitolo 11."
@@ -108,11 +489,80 @@
     {
       "title": "CloudTrail, CloudWatch ed EventBridge: chi fa cosa",
       "bullets": [
-        "CloudTrail registra chi ha chiamato quale API, quando e con quale esito.",
+        {
+          "kind": "table",
+          "head": [
+            "Servizio",
+            "Risponde a",
+            "Dettaglio"
+          ],
+          "rows": [
+            [
+              {
+                "v": "CloudTrail",
+                "head": true
+              },
+              "chi ha chiamato quale API, quando e con quale esito",
+              "management event di default, data event spenti"
+            ],
+            [
+              {
+                "v": "CloudWatch",
+                "head": true
+              },
+              "come sta il sistema",
+              "metriche, log, allarmi, dashboard"
+            ],
+            [
+              {
+                "v": "EventBridge",
+                "head": true
+              },
+              "cosa succede e cosa fare quando succede",
+              "eventi aws.sagemaker verso Lambda"
+            ]
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Evento EventBridge",
+            "Quando arriva"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Training Job State Change",
+                "head": true
+              },
+              "cambia lo stato di un job di training"
+            ],
+            [
+              {
+                "v": "Endpoint Deployment State Change",
+                "head": true
+              },
+              "durante un rilascio, con lo stato Baking"
+            ],
+            [
+              {
+                "v": "Model Building Pipeline Execution Status Change",
+                "head": true
+              },
+              "Executing, Succeeded, Failed, Stopping, Stopped"
+            ],
+            [
+              {
+                "v": "Processing Job State Change",
+                "head": true
+              },
+              "anche le esecuzioni di monitoraggio sono processing job, ma senza il numero di violazioni"
+            ]
+          ]
+        },
         "Per default CloudTrail registra i management event. I data event, per esempio oggetti S3 o invocazioni Lambda, sono disattivati e costano.",
         "CloudWatch conserva valori di metriche, log e allarmi: risponde alla domanda come sta il sistema.",
-        "EventBridge riceve gli eventi di stato di SageMaker AI e li instrada verso target come Lambda o Step Functions.",
-        "Eventi utili: SageMaker Training Job State Change, SageMaker Endpoint Deployment State Change, SageMaker Model Building Pipeline Execution Status Change, SageMaker Processing Job State Change."
+        "EventBridge riceve gli eventi di stato di SageMaker AI e li instrada verso target come Lambda o Step Functions."
       ],
       "narration": "Tre servizi sembrano simili e l'esame li confonde spesso. Il criterio è la domanda a cui rispondono. CloudTrail registra le chiamate API: chi ha fatto che cosa, quando e con quale esito. Per default registra i management event, cioè le operazioni di gestione, come la creazione o la cancellazione di un endpoint. I data event, cioè le operazioni sui dati, come la lettura di un oggetto S3 o l'invocazione di una funzione Lambda, sono disattivati di default, perché sono ad alto volume, e hanno un costo aggiuntivo. CloudTrail non è lo strumento per le performance: i valori delle metriche e i log applicativi stanno in CloudWatch. CloudWatch risponde alla domanda come sta il sistema. Conserva metriche per quindici mesi, log, allarmi e dashboard. EventBridge risponde alla domanda che cosa succede e che cosa facciamo quando succede. Riceve eventi di stato di SageMaker AI con source aws.sagemaker, e una regola filtra quegli eventi e li manda a un target. Nella documentazione compaiono, tra gli altri, questi eventi. SageMaker Training Job State Change riguarda i job di training. SageMaker Endpoint State Change riguarda lo stato degli endpoint. SageMaker Endpoint Deployment State Change riguarda i rilasci, e mostra lo stato Baking durante il periodo di osservazione. SageMaker Model Building Pipeline Execution Status Change riguarda le esecuzioni delle pipeline, con stati come Executing, Succeeded, Failed, Stopping e Stopped. Attenzione: nella pagina degli eventi non compare un evento dedicato al monitoring schedule, né uno stato CompletedWithViolations. Le esecuzioni di monitoraggio sono processing job, e per i processing job esiste l'evento SageMaker Processing Job State Change, che segnala il cambio di stato del job ma non il numero di violazioni trovate. Per reagire alle violazioni si usano quindi le metriche e gli allarmi CloudWatch, mentre EventBridge reagisce agli esiti dei job, delle pipeline e dei rilasci. Per l'esame: chi ha cancellato l'endpoint è CloudTrail, quanti errori 5xx ci sono è CloudWatch, e il fallimento di una pipeline si intercetta con EventBridge.",
       "todo": []
@@ -120,10 +570,72 @@
     {
       "title": "Retraining automatico: un esempio passo per passo",
       "bullets": [
-        "1. Lo schedule confronta la cattura con la baseline e scrive il report delle violazioni.",
+        {
+          "kind": "table",
+          "head": [
+            "Passo",
+            "Cosa succede",
+            "Chi agisce"
+          ],
+          "rows": [
+            [
+              {
+                "v": "1. Schedule",
+                "head": true
+              },
+              "confronta la cattura con la baseline e scrive il report",
+              "Model Monitor o job equivalente"
+            ],
+            [
+              {
+                "v": "2. Allarme",
+                "head": true
+              },
+              "scatta su feature_baseline_drift dopo più periodi sopra soglia",
+              "CloudWatch"
+            ],
+            [
+              {
+                "v": "3. Decisione",
+                "head": true
+              },
+              "legge constraint_violations.json e conta le violazioni",
+              "funzione Lambda via SNS"
+            ],
+            [
+              {
+                "v": "4. Pipeline",
+                "head": true
+              },
+              "unisce le label, riaddestra, valuta, registra",
+              "SageMaker Pipelines"
+            ],
+            [
+              {
+                "v": "5. Approvazione",
+                "head": true
+              },
+              "PendingManualApproval diventa Approved",
+              "una persona"
+            ],
+            [
+              {
+                "v": "6. Rilascio",
+                "head": true
+              },
+              "canary o linear, con rollback sugli allarmi",
+              "endpoint blue green"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Perché non EventBridge",
+          "text": "L'evento Processing Job State Change dice che il job è cambiato di stato, non quante violazioni ha trovato: per contare le violazioni serve l'allarme CloudWatch."
+        },
         "2. L'allarme sulla metrica feature_baseline_drift scatta dopo più periodi consecutivi sopra soglia.",
         "3. Una funzione Lambda legge constraint_violations.json e decide se procedere.",
-        "4. La pipeline unisce cattura e label, riaddestra, valuta e registra il modello.",
         "5. Il modello entra nel Model Registry con PendingManualApproval e un umano approva.",
         "6. Il deploy è un rilascio sicuro, con rollback se un allarme scatta durante il baking."
       ],
@@ -133,10 +645,54 @@
     {
       "title": "Rilasci sicuri: canary, linear, shadow",
       "bullets": [
-        "All at once: tutto il traffico passa al nuovo gruppo, con allarmi durante il baking.",
-        "Canary: una quota di capacità riceve traffico, con CAPACITY_PERCENT fino al 50 per cento del nuovo gruppo.",
-        "Linear: passi tra il 10 e il 50 per cento della capacità del nuovo gruppo, con WaitIntervalInSeconds.",
-        "Auto rollback: se un allarme scatta durante un baking, tutto il traffico torna al gruppo blu.",
+        {
+          "kind": "table",
+          "head": [
+            "Strategia",
+            "Come sposta il traffico",
+            "Vincolo o esempio"
+          ],
+          "rows": [
+            [
+              {
+                "v": "All at once",
+                "head": true
+              },
+              "tutto il traffico al nuovo gruppo, con baking",
+              "se nessun allarme scatta, il gruppo vecchio viene terminato"
+            ],
+            [
+              {
+                "v": "Canary",
+                "head": true
+              },
+              "una quota di capacità del gruppo nuovo",
+              "CAPACITY_PERCENT fino al 50 per cento; esempio 30 per cento e 10 minuti"
+            ],
+            [
+              {
+                "v": "Linear",
+                "head": true
+              },
+              "più passi successivi",
+              "10–50 per cento a passo, WaitIntervalInSeconds; esempio 20 per cento e 5 minuti"
+            ],
+            [
+              {
+                "v": "Shadow",
+                "head": true
+              },
+              "una copia delle richieste, ma risponde solo la produzione",
+              "non con serverless, asincrono, multi-model, multi-container o Inf1"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "good",
+          "title": "Auto rollback",
+          "text": "In ogni strategia, se un allarme scatta durante il baking, tutto il traffico torna al gruppo blu."
+        },
         "Shadow test: una copia del traffico va al nuovo modello, ma risponde solo la variante di produzione.",
         "Lo shadow test non è compatibile con serverless, asincrono, multi-model e multi-container."
       ],
@@ -146,12 +702,59 @@
     {
       "title": "Sicurezza: responsabilità condivisa e IAM",
       "bullets": [
+        {
+          "kind": "layers",
+          "layers": [
+            {
+              "label": "AWS",
+              "sub": "hardware, software, rete e strutture fisiche"
+            },
+            {
+              "label": "Cliente",
+              "sub": "dati, configurazione e accessi, in base al servizio scelto",
+              "tone": "warn"
+            },
+            {
+              "label": "Execution role",
+              "sub": "S3, ECR, CloudWatch e chiavi KMS del job",
+              "tone": "good"
+            },
+            {
+              "label": "iam:PassRole",
+              "sub": "chi crea il job deve poter passare il ruolo"
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Tipo di policy",
+            "Dove si allega",
+            "Esempio"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Basata su identità",
+                "head": true
+              },
+              "utenti, gruppi o ruoli",
+              "la policy del ruolo di esecuzione"
+            ],
+            [
+              {
+                "v": "Basata su risorse",
+                "head": true
+              },
+              "alla risorsa stessa",
+              "bucket policy S3, key policy KMS"
+            ]
+          ]
+        },
         "AWS protegge l'infrastruttura: hardware, rete, sistemi e strutture.",
         "Il cliente protegge i propri dati, la configurazione e gli accessi, in base ai servizi scelti.",
-        "Identità: utenti e ruoli. Policy basate su identità o basate su risorse, come bucket policy e key policy KMS.",
         "Execution role: ruolo che SageMaker AI assume per conto dei job, con trust policy verso sagemaker.amazonaws.com.",
-        "Least privilege: ogni job ottiene solo le azioni su S3, ECR, CloudWatch e chiavi KMS che servono.",
-        "iam:PassRole: chi crea un job deve poter passare il ruolo, e si limita con iam:PassedToService."
+        "Least privilege: ogni job ottiene solo le azioni su S3, ECR, CloudWatch e chiavi KMS che servono."
       ],
       "narration": "La sicurezza in cloud si divide tra AWS e cliente. Il modello di responsabilità condivisa stabilisce che AWS protegge l'infrastruttura che fa girare tutti i servizi: hardware, software, rete e strutture fisiche. Il cliente è responsabile della sicurezza nel cloud, cioè dei propri dati, della configurazione e degli accessi. Quanta configurazione tocca al cliente dipende dal servizio scelto: su un'istanza EC2 il cliente gestisce il sistema operativo e i security group, mentre con un servizio gestito come S3 gestisce soprattutto dati, opzioni di cifratura e permessi. Per SageMaker AI la responsabilità del cliente riguarda dati, cifratura, rete e IAM. Ora la parte IAM. Un utente o un ruolo è un'identità. Una policy è un documento JSON che concede o nega azioni su risorse. Le policy si dividono in due famiglie. Le policy basate su identità si allegano a utenti, gruppi o ruoli. Le policy basate su risorse si allegano alla risorsa stessa, per esempio una bucket policy su S3, o una key policy su una chiave KMS. Per i job di SageMaker AI serve l'execution role. È un ruolo che il servizio assume per conto del job, e la sua trust policy indica il principal sagemaker.amazonaws.com. Dentro ci sono le azioni per leggere i dati da S3, scaricare l'immagine da ECR, scrivere i log su CloudWatch e usare una chiave KMS. Il principio è il least privilege, cioè il privilegio minimo. Ogni job deve avere solo ciò che serve. Un ruolo con AmazonSageMakerFullAccess è un buon punto di partenza, ma per la produzione conviene restringerlo a bucket e prefissi precisi. Mai access key statiche dentro il codice dei job. C'è un punto frequente di errore: iam:PassRole. Per creare un job, chi lo lancia deve poter passare l'execution role al servizio. La condition key iam:PassedToService permette di limitare questa azione al solo servizio sagemaker.amazonaws.com. Per l'esame, la domanda tipica chiede quale ruolo usare. La risposta è un ruolo dedicato al job, con il minimo di permessi necessari.",
       "todo": []
@@ -159,9 +762,71 @@
     {
       "title": "Condition key e controllo fine",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Condition key",
+            "Tipo",
+            "Cosa impone"
+          ],
+          "rows": [
+            [
+              {
+                "v": "sagemaker:VpcSubnets",
+                "head": true
+              },
+              "lista",
+              "solo le subnet indicate"
+            ],
+            [
+              {
+                "v": "sagemaker:VpcSecurityGroupIds",
+                "head": true
+              },
+              "lista",
+              "solo i security group indicati"
+            ],
+            [
+              {
+                "v": "sagemaker:NetworkIsolation",
+                "head": true
+              },
+              "Bool",
+              "isolamento di rete obbligatorio"
+            ],
+            [
+              {
+                "v": "sagemaker:VolumeKmsKey",
+                "head": true
+              },
+              "ARN",
+              "chiave KMS del volume di storage"
+            ],
+            [
+              {
+                "v": "sagemaker:OutputKmsKey",
+                "head": true
+              },
+              "ARN",
+              "chiave KMS dell'output su S3"
+            ],
+            [
+              {
+                "v": "sagemaker:InterContainerTrafficEncryption",
+                "head": true
+              },
+              "Bool",
+              "cifratura tra i nodi del training distribuito"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Il buco di ForAllValues",
+          "text": "Se la chiave è assente dalla richiesta, la condizione può risultare vera: serve un controllo Null sulle subnet, altrimenti una richiesta senza VPC passa."
+        },
         "sagemaker:VpcSubnets e sagemaker:VpcSecurityGroupIds limitano la rete con cui si creano training e processing.",
-        "sagemaker:NetworkIsolation, con Bool, impone l'isolamento di rete.",
-        "sagemaker:VolumeKmsKey e sagemaker:OutputKmsKey controllano le chiavi KMS del volume e dell'output.",
         "Con ForAllValues serve un controllo Null, altrimenti una richiesta senza subnet può passare.",
         "Operatori tipici: StringEquals, Bool, ArnEquals e Null."
       ],
@@ -171,13 +836,83 @@
     {
       "title": "Cifratura a riposo e in transito",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Dove o quando",
+            "Default",
+            "Scelta del cliente"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Artefatti e output su S3",
+                "head": true
+              },
+              "SSE-S3 con chiave gestita da AWS",
+              "KmsKeyId nell'output configuration"
+            ],
+            [
+              {
+                "v": "Volume dell'istanza",
+                "head": true
+              },
+              "cifrato",
+              "VolumeKmsKeyId, per training e processing"
+            ],
+            [
+              {
+                "v": "Dati catturati",
+                "head": true
+              },
+              "—",
+              "KmsKeyId nella DataCaptureConfig"
+            ],
+            [
+              {
+                "v": "Volume dell'endpoint",
+                "head": true
+              },
+              "—",
+              "KmsKeyId nella EndpointConfig"
+            ],
+            [
+              {
+                "v": "Feature Store",
+                "head": true
+              },
+              "chiave KMS anche senza configurarla",
+              "KmsKeyId per online store e offline store"
+            ],
+            [
+              {
+                "v": "Traffico API e console",
+                "head": true
+              },
+              "TLS 1.2 minimo, raccomandato 1.3",
+              "—"
+            ],
+            [
+              {
+                "v": "Tra traffico tra i nodi",
+                "head": true
+              },
+              "non cifrato",
+              "EnableInterContainerTrafficEncryption"
+            ]
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Accesso tra account",
+          "text": "La chiave gestita dal cliente è obbligatoria quando i dati devono essere letti da un altro account: la chiave di default di S3 non è condivisibile."
+        },
         "A riposo di default: SSE-S3 per notebook, model artifact e output di training, processing e batch transform.",
         "Chiave gestita dal cliente con KMS: necessaria per l'accesso tra account, perché la chiave di default di S3 non è condivisibile.",
-        "VolumeKmsKeyId cifra il volume di storage dell'istanza di training o di processing.",
         "KmsKeyId cifra l'output su S3 e i dati catturati dall'endpoint.",
         "In transito: TLS 1.2 minimo, consigliato TLS 1.3. API e console usano SSL.",
-        "EnableInterContainerTrafficEncryption cifra il traffico tra i nodi del training distribuito, con più tempo di training.",
-        "Feature Store e EndpointConfig: KmsKeyId per online store, offline store e volume dell'endpoint."
+        "EnableInterContainerTrafficEncryption cifra il traffico tra i nodi del training distribuito, con più tempo di training."
       ],
       "narration": "La cifratura protegge i dati in due momenti: a riposo, cioè quando sono salvati, e in transito, cioè quando viaggiano in rete. A riposo SageMaker AI usa di default la cifratura lato server di S3, con una chiave gestita da AWS, SSE-S3. Vale per i notebook di Studio, per i notebook instance, per i model artifact e per l'output di training, batch transform e processing. Per usare una chiave KMS gestita dal cliente bisogna indicarla in fase di creazione della risorsa. È obbligatoria quando i dati devono essere letti da un altro account, perché la chiave di default di S3 non può essere condivisa. Sui singoli job i campi sono precisi. VolumeKmsKeyId cifra il volume di storage collegato all'istanza, sia per il training sia per il processing. KmsKeyId, dentro l'output configuration, cifra quello che il job scrive su S3. Nella DataCaptureConfig, il campo KmsKeyId cifra i dati catturati dall'endpoint. Nella EndpointConfig, il campo KmsKeyId cifra il volume di storage collegato alle istanze che ospitano l'endpoint. Il Feature Store ha due campi separati: KmsKeyId nella configurazione dell'online store, e KmsKeyId nella configurazione S3 dell'offline store. Se per l'offline store non si indica una chiave, la cifratura usa comunque una chiave KMS. Ora il transito. Tutto il traffico su internet passa per TLS. La documentazione dice che si supporta TLS 1.2, e che si raccomanda TLS 1.3. Le richieste all'API e alla console usano SSL. Tuttavia, il traffico interno alla piattaforma non è sempre cifrato. Due esempi: i comandi del control plane verso le istanze di training, e la comunicazione tra i nodi di un job distribuito. Per cifrare i nodi del training distribuito si imposta EnableInterContainerTrafficEncryption a true, nella configurazione di rete del job. Il costo è il tempo: la cifratura può allungare il training, soprattutto con algoritmi distribuiti di deep learning. Gli algoritmi built-in più comuni, come XGBoost, DeepAR e linear learner, di solito non risentono molto del costo. Per l'esame, lo schema da ricordare è semplice. A riposo: SSE-S3 di default, KMS gestito dal cliente per il controllo e per l'accesso tra account. In transito: TLS per le API, e cifratura tra nodi se il training è distribuito e i dati sono sensibili.",
       "todo": []
@@ -185,10 +920,43 @@
     {
       "title": "Rete: VPC, isolamento ed endpoint privati",
       "bullets": [
+        {
+          "kind": "topology",
+          "title": "Un job in subnet privata",
+          "nodes": [
+            {
+              "label": "Job in VPC",
+              "sub": "interfacce di rete nelle subnet indicate"
+            },
+            {
+              "label": "Subnet privata",
+              "sub": "security group self-referencing",
+              "tone": "warn"
+            },
+            {
+              "label": "Gateway endpoint S3",
+              "sub": "associato alle route table"
+            },
+            {
+              "label": "S3",
+              "sub": "bucket del progetto",
+              "tone": "good"
+            }
+          ],
+          "aside": [
+            "Interface endpoint PrivateLink per SageMaker API e Runtime",
+            "private DNS",
+            "featurestore-runtime per il Feature Store"
+          ]
+        },
+        {
+          "kind": "note",
+          "title": "Network isolation",
+          "text": "Il container non fa chiamate in ingresso né in uscita, ma SageMaker AI scarica gli input e carica gli artefatti per conto suo: con la VPC quei trasferimenti passano dalla VPC."
+        },
         "VpcConfig con subnet private e security group per training, processing e endpoint.",
         "Gateway endpoint per S3 per i training job in subnet senza accesso a internet.",
         "Regola self-referencing nel security group per il training distribuito.",
-        "Interface endpoint PrivateLink per l'API SageMaker e per SageMaker Runtime, con private DNS.",
         "Network isolation: il container non effettua chiamate di rete in uscita né in ingresso.",
         "Con VPC e isolamento, download e upload fatti da SageMaker AI passano dalla VPC."
       ],
@@ -198,12 +966,113 @@
     {
       "title": "Governance: Model Cards, dashboard, lineage e registry",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Strumento",
+            "Domanda a cui risponde"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Model Cards",
+                "head": true
+              },
+              "perché il modello esiste, con quali limiti e con quale risk rating"
+            ],
+            [
+              {
+                "v": "Model Dashboard",
+                "head": true
+              },
+              "che stato hanno i monitor dei modelli dell'account"
+            ],
+            [
+              {
+                "v": "Lineage tracking",
+                "head": true
+              },
+              "da quali dati e da quale job è nato il modello"
+            ],
+            [
+              {
+                "v": "Model Registry",
+                "head": true
+              },
+              "chi ha approvato il modello e se può andare in produzione"
+            ]
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Stato",
+            "Dove",
+            "Significato"
+          ],
+          "rows": [
+            [
+              {
+                "v": "None",
+                "head": true
+              },
+              "Model Dashboard",
+              "monitor non configurato"
+            ],
+            [
+              {
+                "v": "Inactive",
+                "head": true
+              },
+              "Model Dashboard",
+              "monitor disattivato"
+            ],
+            [
+              {
+                "v": "OK",
+                "head": true
+              },
+              "Model Dashboard",
+              "monitor attivo senza allarmi"
+            ],
+            [
+              {
+                "v": "data e ora",
+                "head": true
+              },
+              "Model Dashboard",
+              "ultimo allarme del monitor"
+            ],
+            [
+              {
+                "v": "PendingManualApproval",
+                "head": true
+              },
+              "Model Registry",
+              "in attesa di un umano"
+            ],
+            [
+              {
+                "v": "Approved",
+                "head": true
+              },
+              "Model Registry",
+              "idoneo al deploy, può avviare CI/CD"
+            ],
+            [
+              {
+                "v": "Rejected",
+                "head": true
+              },
+              "Model Registry",
+              "modello non approvato"
+            ]
+          ]
+        },
         "Model Cards: uso previsto, business details, training, valutazione e informazioni aggiuntive.",
         "Risk rating: High, Medium, Low oppure Unknown.",
         "Ogni modifica crea una nuova versione della model card, così il registro è immutabile.",
-        "Model Dashboard: stato dei monitor per modello, con None, Inactive, OK o data e ora dell'allarme.",
-        "Lineage tracking: traccia dataset, job, pipeline, endpoint e modelli.",
-        "Model Registry: PendingManualApproval, Approved, Rejected. Approved può avviare il deploy."
+        "Lineage tracking: traccia dataset, job, pipeline, endpoint e modelli."
       ],
       "narration": "La governance risponde alle domande di chi deve verificare il modello: perché esiste, da dove viene, come si comporta e chi l'ha approvato. Il primo strumento sono le SageMaker Model Cards. Una model card raccoglie in un posto solo le informazioni di governo del modello. Ci sono sezioni per l'uso previsto, con gli scenari in cui il modello è appropriato e quelli in cui non lo è. Altre sezioni coprono i dettagli di business, il training con job e iperparametri, la valutazione con metriche e osservazioni, e informazioni aggiuntive come considerazioni etiche. Il rischio si classifica con risk rating: High, Medium, Low oppure Unknown. Ogni modifica, tranne l'aggiornamento dello stato di approvazione, crea una nuova versione. Il registro è quindi immutabile e l'auditor può vedere com'era la card in ogni momento. La card si può esportare in PDF. Il secondo è il Model Dashboard. È una vista centralizzata da cui si vedono tutti i modelli dell'account, quali sono in produzione e lo stato dei loro monitor. Per ogni monitor lo stato è None se non è configurato, Inactive se è disattivato, OK se è attivo senza allarmi, oppure la data e l'ora dell'ultimo allarme. Il terzo è il lineage tracking. SageMaker AI registra automaticamente i job di training, i dataset, le pipeline, gli endpoint e i modelli, e costruisce un grafo. Con il grafo si risponde alla domanda da quali dati viene questo modello, e con quali parametri è stato addestrato. Il quarto è il Model Registry, dove il modello passa dagli stati di approvazione. Un package si registra con PendingManualApproval. Approved lo rende idoneo al deploy, e in un progetto con i template SageMaker AI il passaggio ad Approved può avviare il deploy tramite CI/CD. Rejected segnala un modello non approvato. Le transizioni tra stati sono un punto d'esame: il passaggio da Approved a Rejected può far deployare l'ultima versione approvata. Per l'esame, ricordate i quattro strumenti e la domanda a cui ciascuno risponde: la card spiega il modello, la dashboard mostra lo stato, il lineage ricostruisce l'origine, il registry governa il passaggio in produzione.",
       "todo": []
@@ -211,8 +1080,74 @@
     {
       "title": "Role Manager, tag e audit in sintesi",
       "bullets": [
+        {
+          "kind": "table",
+          "head": [
+            "Per creare nuovi ruoli",
+            "Alternativa indicata da AWS"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Ruolo con trust policy",
+                "head": true
+              },
+              "console IAM e API, con policy gestite da allegare"
+            ],
+            [
+              {
+                "v": "Accesso dei lavoratori",
+                "head": true
+              },
+              "IAM Identity Center con permission set"
+            ],
+            [
+              {
+                "v": "Policy di minimo privilegio",
+                "head": true
+              },
+              "IAM Access Analyzer, dall'attività reale in CloudTrail"
+            ],
+            [
+              {
+                "v": "Ruoli versionati e ripetibili",
+                "head": true
+              },
+              "CloudFormation o CDK"
+            ]
+          ]
+        },
+        {
+          "kind": "table",
+          "head": [
+            "Audit: strumento",
+            "Risponde a"
+          ],
+          "rows": [
+            [
+              {
+                "v": "CloudTrail",
+                "head": true
+              },
+              "chi ha fatto cosa e quando"
+            ],
+            [
+              {
+                "v": "Model card",
+                "head": true
+              },
+              "perché il modello esiste e quali limiti ha"
+            ],
+            [
+              {
+                "v": "Lineage",
+                "head": true
+              },
+              "da quali dati e da quale codice è nato"
+            ]
+          ]
+        },
         "Role Manager offre tre persona predefinite ed è chiuso ai nuovi clienti. I ruoli già creati restano validi.",
-        "Alternative indicate da AWS: IAM console, IAM Identity Center, IAM Access Analyzer, CloudFormation o CDK.",
         "Tag: usati per progetto e centro di costo, e visibili nei dati degli eventi di SageMaker AI.",
         "Audit: CloudTrail dice chi ha fatto cosa, la model card dice perché, il lineage dice da dove viene.",
         "AWS Config e i data event di CloudTrail sono nel capitolo 11."
@@ -223,12 +1158,54 @@
     {
       "title": "Riepilogo: scelte rapide per l'esame",
       "bullets": [
+        {
+          "kind": "tree",
+          "root": "Che cosa chiede la domanda?",
+          "branches": [
+            {
+              "when": "ci sono label reali e cala l'accuratezza",
+              "then": "Model quality"
+            },
+            {
+              "when": "nessuna label, cambiano gli input",
+              "then": "Data quality"
+            },
+            {
+              "when": "errori 5xx, latenza o numero di invocazioni",
+              "then": "CloudWatch"
+            },
+            {
+              "when": "chi ha creato o cancellato una risorsa",
+              "then": "CloudTrail"
+            },
+            {
+              "when": "validare senza impatto sugli utenti",
+              "then": "Shadow test"
+            },
+            {
+              "when": "confrontare due versioni sugli utenti",
+              "then": "Test A/B"
+            },
+            {
+              "when": "retraining guidato dal drift o dalla stagionalità",
+              "then": "A evento o pianificato"
+            },
+            {
+              "when": "dati sensibili",
+              "then": "VPC, endpoint privati, KMS, privilegio minimo"
+            }
+          ]
+        },
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "La data da ricordare",
+          "text": "Model Monitor, Clarify e Role Manager non accettano nuovi clienti dal 30 luglio 2026: conta il concetto e l'alternativa indicata da AWS."
+        },
         "Drift con label reali: model quality. Senza label: data quality.",
         "Errori e latenze dell'endpoint: CloudWatch. Chi ha fatto una chiamata: CloudTrail.",
-        "Retraining a evento per il drift, pianificato per la stagionalità.",
         "Validare senza impatto sugli utenti: shadow. Confrontare due versioni: A/B.",
-        "Dati sensibili: VPC, endpoint privati, network isolation, KMS e ruolo di esecuzione con privilegio minimo.",
-        "Model Monitor è chiuso ai nuovi clienti: sull'esame conta il concetto e l'alternativa AWS."
+        "Dati sensibili: VPC, endpoint privati, network isolation, KMS e ruolo di esecuzione con privilegio minimo."
       ],
       "narration": "Chiudiamo con le scelte rapide, che servono quando la domanda è breve e le opzioni sembrano tutte plausibili. Primo criterio: il drift si misura con le label. Se la domanda parla di calo di accuratezza e fornisce label reali, la risposta è la model quality. Se non ci sono label e si chiede di rilevare cambiamenti negli input, la risposta è la data quality. Secondo criterio: la domanda chiede una metrica o una traccia? Un errore 5xx ricorrente, una latenza che sale o un tasso di invocazioni si trovano in CloudWatch. Chi ha creato, modificato o cancellato una risorsa si trova in CloudTrail, perché è un registro delle chiamate API. Terzo criterio: il retraining. Se il testo parla di drift, la risposta è un retraining guidato dagli eventi, con allarme e pipeline. Se parla di stagionalità o di calendario, la risposta è un retraining pianificato. Un retraining a ogni singola violazione è quasi sempre la risposta sbagliata. Quarto criterio: il rilascio. Se bisogna validare un modello senza che gli utenti vedano le sue risposte, la risposta è lo shadow test. Se bisogna confrontare due versioni sugli utenti e misurare un effetto di business, la risposta è A/B. Quinto criterio: la sicurezza. Dati sensibili significano VPC, endpoint privati, network isolation, cifratura KMS quando serve l'accesso tra account, e un ruolo di esecuzione con privilegio minimo. Una risposta che aggiunge access key statiche è quasi sempre sbagliata. Ultimo criterio: la data. Model Monitor, Clarify e Role Manager non accettano nuovi clienti dal 30 luglio 2026. Se la domanda li nomina, l'esame valuta il concetto che rappresentano e l'alternativa che AWS indica. Per Model Monitor sono CloudWatch, QuickSight e le soluzioni open source su SageMaker AI MLflow. Per Role Manager sono la console IAM, IAM Identity Center, IAM Access Analyzer e CloudFormation o CDK. Ricordate il principio operativo: monitorare sempre, allarmare su soglie ragionevoli, reagire con pipeline automatiche e documentare ogni decisione.",
       "todo": []
