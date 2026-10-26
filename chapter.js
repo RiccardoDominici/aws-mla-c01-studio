@@ -453,10 +453,26 @@
       }
       var s = slides[slideIdx];
       counter.textContent = (slideIdx + 1) + ' / ' + slides.length;
-      var bullets = (Array.isArray(s.bullets) ? s.bullets : [])
-        .map(renderBullet).join('');
-      body.innerHTML = '<h3>' + app.esc(s.title || ('Slide ' + (slideIdx + 1))) + '</h3>' +
-        (bullets ? '<ul>' + bullets + '</ul>' : '');
+      var all = Array.isArray(s.bullets) ? s.bullets : [];
+      // Le voci con un `kind` grafico (flusso, tabella, barre...) vanno a
+      // visuals.js; le stringhe e i bullet formula/diagnosi restano qui.
+      var vis = window.MLA.visuals;
+      var legacy = all;
+      body.innerHTML = '<h3>' + app.esc(s.title || ('Slide ' + (slideIdx + 1))) + '</h3>';
+      if (vis) {
+        // visuals.js prende le stringhe (schede termine/definizione) e le voci
+        // con `kind`; qui restano solo gli oggetti che non conosce.
+        body.appendChild(vis.render(all));
+        legacy = all.filter(function (b) {
+          return b && typeof b === 'object' && !vis.isItem(b);
+        });
+      }
+      var bullets = legacy.map(renderBullet).join('');
+      if (bullets) {
+        var ul = app.el('ul', 'slide-list', '');
+        ul.innerHTML = bullets;
+        body.appendChild(ul);
+      }
       prev.disabled = slideIdx === 0;
       next.disabled = slideIdx === slides.length - 1;
     }

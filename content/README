@@ -79,6 +79,47 @@ Capitoli 8-14: approfondimenti dei capitoli 2-6, collocati accanto a quello che 
 - Audio: `audio/<id>.mp3`, generato da `tools/tts_chatterbox_batch.py`. Il manifest
   `audio/manifest.json` registra l'hash del copione sintetizzato: `--stale` risintetizza solo i capitoli cambiati.
 
+## Schemi nelle slide (`visuals.js`)
+
+Le slide non sono più solo elenchi. `bullets` accetta, accanto alle stringhe,
+oggetti con un `kind` grafico, resi da `visuals.js` in puro DOM (nessuna
+dipendenza, nessun HTML esterno). Arricchire i bullet **non tocca la
+narrazione**, quindi audio e timing restano validi: si può lavorare sulle slide
+senza risintetizzare.
+
+Le stringhe restano la forma normale. `visuals.js` le rende come schede con il
+termine evidenziato quando sono del tipo `"termine: definizione"` (al massimo 52
+caratteri di termine), altrimenti come schede di testo; un bullet `"a → b → c"`
+diventa uno schema di flusso sopra le schede. Tutte le stringhe vanno tenute in
+italiano, corte, senza markup.
+
+Uno schema esplicito è un oggetto nella lista `bullets`, posizionato dove serve
+(chiude il gruppo di schede che lo precede). Forme disponibili:
+
+| `kind`     | Uso                                              | Campi |
+|------------|--------------------------------------------------|-------|
+| `flow`     | passi in sequenza, pipeline, cicli               | `steps[{label,sub,tone}]`, `loop`, `vertical` |
+| `compare`  | due o più colonne contrapposte                   | `columns[{head,tone,items[]}]` |
+| `bars`     | valori confrontabili (percentuali, costi, tempi)  | `rows[{label,value,display,note,tone}]`, `max`, `unit` |
+| `stack`    | barra unica ripartita (pesi che sommano a 100)   | `rows[{label,value,note}]`, `unit` |
+| `table`    | tabella compatta, con ✓/✗                         | `head[]`, `rows[[celle]]` |
+| `matrix`   | matrice 2×2 (confusione, costi, rischi)          | `rows[]`, `cols[]`, `cells[[{value,note,tone}]]` |
+| `scaling`  | curve su assi 0..1 (tradeoff, scaling, soglie)   | `curves[{points[[x,y]],label,dashed}]`, `xLabel`, `yLabel` |
+| `layers`   | livelli sovrapposti (architettura, difese)       | `layers[{label,sub,tone}]` |
+| `tree`     | albero di decisione                              | `root`, `branches[{when,then,note}]` |
+| `topology` | attori e frecce (percorso di una richiesta)      | `nodes[{label,sub,tone}]`, `aside[]`, `title` |
+| `stats`    | numeri da ricordare                              | `items[{value,label,note}]` |
+| `note`     | riquadro trappola/regola                         | `title`, `text`, `tone` |
+| `formula`  | formula MathML con fallback Unicode              | `mml`, `text`, `caption` |
+
+`tone` è `good`, `bad` o `warn`; ogni campo testuale passa da `textContent`,
+quindi niente HTML. `caption` aggiunge una riga esplicativa sotto lo schema.
+
+**Regole di contenuto.** Uno schema serve a chiarire una relazione (ordine,
+confronto, tradeoff, soglia), non a decorare: se non aggiunge informazione
+rispetto alle schede, non metterlo. Prima lo schema e poi le schede che lo
+spiegano a parole, così chi ascolta ritrova visivamente ciò che sente.
+
 ## Strumenti collegati
 
 - `python3 tools/make_timing.py [--chapter <id>]`: rigenera `content/timing.json`.

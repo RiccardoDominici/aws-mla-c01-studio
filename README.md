@@ -28,6 +28,9 @@ Lo stato della copertura rispetto all'esame è in `docs/TODO.md` (generato da `d
 - **Mappa SVG** dei capitoli con stato di avanzamento (da fare / in corso / completato)
 - **Audio-lezioni TTS** in italiano (voce Chatterbox femminile, sintesi locale — nessun servizio esterno)
 - **Slide sincronizzate** con l'audio: navigare le slide sposta il punto di ascolto
+- **Slide con schemi**: oltre alle parole chiave, tabelle comparative, flussi,
+  alberi di decisione, matrici di confusione e grafici — disegnati in DOM e SVG
+  dal tema carta-penna, senza immagini né dipendenze
 - **Player custom**: play/pausa, ±10s, barra con marcatori slide, velocità di riproduzione
 - **Trascrizione karaoke**: highlight in tempo reale, auto-scroll, click sulla frase = seek
 - **Formule** composte in MathML nativo (offline, zero CDN), con fallback Unicode
@@ -74,6 +77,7 @@ npx wrangler pages dev .
 ├── app.js                # registro dei 14 capitoli + loader (content/chapters/<id>.json)
 ├── map.js                # mappa SVG (desktop) o elenco (telefono)
 ├── chapter.js            # lezione: player, slide, karaoke, formule MathML
+├── visuals.js            # schemi delle slide: schede, tabelle, flussi, grafici
 ├── quiz.js               # quiz di fine capitolo
 ├── qbank.js              # banco domande: caricamento, filtri, stato (dati)
 ├── qbank-ui.js           # banco domande: rendering, modalità studio/esame
@@ -94,6 +98,9 @@ npx wrangler pages dev .
 └── tools/
     ├── make_timing.py            # rigenera content/timing.json (narrazioni → slide)
     ├── tts_chatterbox_batch.py   # sintesi vocale con cache per frase e --stale
+    ├── apply_slides.py           # applica bullet arricchiti senza toccare la narrazione
+    ├── check_slides.py           # schema degli schemi, narrazione intatta, leggibilità
+    ├── slide_specs/              # specifiche degli schemi, una per capitolo
     ├── check_questions.py        # schema + bias di lunghezza del banco domande
     ├── check_answer_keys.py      # cerca chiavi `answer` puntate all'opzione errata
     └── check_coverage.py         # ogni voce di docs/todo.json è spiegata e allenata?
@@ -139,6 +146,36 @@ Ogni slide ha il suo testo parlato (`narration`). Da lì:
 
 > Nota: i file `.wav` intermedi della sintesi vocale **non** sono nel repo (vedi `.gitignore`):
 > il player usa solo gli `.mp3`.
+
+## Schemi delle slide
+
+Accanto alle parole chiave, ogni slide porta schemi veri: tabelle comparative,
+flussi di pipeline, alberi di decisione, matrici di confusione, grafici a curve,
+architetture a livelli. Il renderer è `visuals.js`: puro DOM e SVG, palette del
+tema, nessuna immagine da caricare e niente da buildare.
+
+Il contenuto vive nei `bullets` della slide (contratto in `content/README`):
+accanto alle stringhe, oggetti con un `kind` (`table`, `flow`, `tree`, `matrix`,
+`scaling`, `stats`, `note`...). Le stringhe vengono comunque rese come schede,
+con il termine evidenziato quando il formato è `termine: definizione`.
+
+**Arricchire le slide non tocca la narrazione.** L'audio è sintetizzato dalle
+narrazioni, quindi si può lavorare sugli schemi senza risintetizzare nulla; il
+controllo automatico impedisce di rompere questa regola per sbaglio:
+
+```bash
+python3 tools/apply_slides.py content/chapters/ch3-model-dev.json tools/slide_specs/ch3-model-dev.py
+python3 tools/check_slides.py content/chapters/*.json
+```
+
+`check_slides.py` confronta il capitolo con la versione in git (`--base`, default
+`HEAD`) e fallisce se `narration`, `title` o `script` sono cambiati: sono i campi
+che legano slide, timing e mp3. Segnala anche schemi scritti male, slide troppo
+piene e — come avviso, non errore — i bullet che ripetono lo schema invece di
+aggiungere qualcosa.
+
+Le specifiche in `tools/slide_specs/` sono la fonte di verità degli schemi: si
+modifica il `.py`, si riapplica, e il JSON si rigenera da lì.
 
 ## Banco domande
 
