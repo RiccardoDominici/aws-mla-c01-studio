@@ -486,6 +486,9 @@
         var first = firstSentenceOfSlide(sentences, slideIdx);
         if (first) {
           try { audio.currentTime = Math.max(0, first.t0 + 0.01); } catch (e) { /* seek non pronto */ }
+          // In pausa non arriva `timeupdate`: senza questo la trascrizione
+          // resterebbe evidenziata sulla slide precedente.
+          if (audio.paused) highlightAt(first.t0);
         }
       }
     }
