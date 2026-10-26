@@ -152,15 +152,24 @@
   /* Un bullet che si apre con un segnale di regola è un avviso, non un punto
    *  d'elenco: va nel riquadro colorato, senza dover annotare il JSON.
    *  Il riconoscimento è lessicale e chiuso: nessun bullet finisce in nota
-   *  per caso, come accadrebbe con una soglia di lunghezza. */
-  var NOTE_STARTS = /^(attenzione|tranello|regola|regola pratica|da non confondere|nota|errore|trucco|importante)\b[:\s]*/i;
+   *  per caso, come accadrebbe con una soglia di lunghezza.
+   *  L'alternanza mette per prime le etichette lunghe: con `regola` prima di
+   *  `regola pratica`, il titolo diventerebbe "Regola" + " pratica" nel testo. */
+  var NOTE_STARTS = /^(regola pratica|da non confondere|attenzione|tranello|importante|regola|errore|trucco|nota)\b[:\s]*/i;
   function asNote(text) {
     var t = String(text || '').trim();
     var m = NOTE_STARTS.exec(t);
     if (!m) return null;
-    var title = m[1];
+    var rest = t.slice(m[0].length);
+    // "Tranello d'esame: ..." — l'etichetta può portare un qualificatore breve
+    // prima dei due punti: va nel titolo, non nel testo della nota.
+    var colon = rest.indexOf(':');
+    var qualifier = colon > 0 && colon <= 24 && !/[.!?]/.test(rest.slice(0, colon));
+    var title = qualifier ? m[1] + ' ' + rest.slice(0, colon) : m[1];
+    if (qualifier) rest = rest.slice(colon + 1);
+    title = title.trim();
     title = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
-    return { title: title, text: t.slice(m[0].length).trim() };
+    return { title: title, text: rest.replace(/^[\s:]+/, '').trim() };
   }
 
   /* ---------- schemi ---------- */
@@ -618,9 +627,11 @@
     // devono lasciare buchi (1, 2, 4 sembrerebbe un errore)
     var n = 0;
     texts.forEach(function (t, i) {
-      if (parsed[i]) { grid.appendChild(termCard(parsed[i], n++)); return; }
+      // `asNote` viene prima di `splitTerm`: "Tranello: ..." ha la forma
+      // termine/definizione ma è un riquadro, non una scheda.
       var note = asNote(t);
       if (note) { notes.push(note); return; }
+      if (parsed[i]) { grid.appendChild(termCard(parsed[i], n++)); return; }
       grid.appendChild(plainCard(t, n++));
     });
     notes.forEach(function (n) {
@@ -761,6 +772,7 @@
     pruneEchoes: pruneEchoes,
     /* esposti per i test e per il controllo qualità */
     _splitTerm: splitTerm,
-    _splitArrow: splitArrow
+    _splitArrow: splitArrow,
+    _asNote: asNote
   };
 })();

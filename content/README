@@ -93,6 +93,12 @@ caratteri di termine), altrimenti come schede di testo; un bullet `"a → b → 
 diventa uno schema di flusso sopra le schede. Tutte le stringhe vanno tenute in
 italiano, corte, senza markup.
 
+Un bullet che si apre con `Attenzione`, `Tranello`, `Regola`, `Regola pratica`,
+`Da non confondere`, `Nota`, `Errore`, `Trucco` o `Importante` diventa un riquadro
+colorato invece di una scheda: il riconoscimento vince sulla forma
+`termine: definizione`. La parola può essere seguita da un qualificatore breve
+prima dei due punti (`Tranello d'esame: ...`), che finisce nel titolo del riquadro.
+
 Uno schema esplicito è un oggetto nella lista `bullets`, posizionato dove serve
 (chiude il gruppo di schede che lo precede). Forme disponibili:
 
