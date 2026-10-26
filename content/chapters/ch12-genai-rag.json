@@ -740,7 +740,8 @@
             ]
           ]
         },
-        "Per le Knowledge Bases il motore deve essere fra quelli supportati"
+        "Nelle Knowledge Bases il motore di OpenSearch deve essere faiss",
+        "Scegli prima in base alla specifica del progetto: quanti dati, quante interrogazioni, cosa hai già"
       ],
       "narration": "Una volta creati i vettori, devi archiviarli in un database vettoriale capace di cercare per somiglianza. Il primo esempio è Amazon OpenSearch Service. La versione Serverless crea una vector search collection e un indice vettoriale che usa il motore faiss e il metodo HNSW, un grafo gerarchico di vicini che rende la ricerca approssimata molto veloce. Per le Knowledge Bases il motore deve essere faiss. Il dominio gestito di OpenSearch richiede invece accesso pubblico, perché i domini dentro una VPC non sono supportati, e una versione 2.13 o successiva per il k-NN. Il secondo esempio è Amazon Aurora PostgreSQL con l'estensione pgvector. È la scelta naturale se hai già un database relazionale e vuoi tenere i vettori accanto ai dati. Serve un indice hnsw con vector_cosine_ops sulla colonna degli embedding, e un indice gin sulla colonna del testo per la ricerca per parole chiave. Il terzo esempio è Amazon S3 Vectors. È archiviazione vettoriale a costo basso, con query sotto il secondo, pensata per carichi con poche interrogazioni. Supporta solo embedding in virgola mobile. Il quarto è Amazon Neptune Analytics, un grafo con un indice vettoriale, usato per il GraphRAG. Infine ci sono database di terze parti, come Pinecone, Redis Enterprise Cloud e MongoDB Atlas. Il criterio di scelta è la specifica del progetto: volume dei dati, frequenza delle query, infrastruttura già presente e bisogno di relazioni tra entità.",
       "todo": [
