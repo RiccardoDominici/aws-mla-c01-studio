@@ -461,8 +461,8 @@
       "C02"
     ],
     "lesson": {
-      "chapter": "ch8-data-advanced",
-      "slide": 10
+      "chapter": "ch2-data-prep",
+      "slide": 5
     }
   },
   {
@@ -1643,8 +1643,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 8,
-      "approx": true
+      "slide": 8
     }
   },
   {
@@ -1830,8 +1829,9 @@
       "C02"
     ],
     "lesson": {
-      "chapter": "ch14-ai-services",
-      "slide": 10
+      "chapter": "ch2-data-prep",
+      "slide": 7,
+      "approx": true
     }
   },
   {
@@ -1924,8 +1924,8 @@
       "C02"
     ],
     "lesson": {
-      "chapter": "ch8-data-advanced",
-      "slide": 12,
+      "chapter": "ch2-data-prep",
+      "slide": 9,
       "approx": true
     }
   },
@@ -2314,8 +2314,7 @@
     ],
     "lesson": {
       "chapter": "ch8-data-advanced",
-      "slide": 3,
-      "approx": true
+      "slide": 3
     }
   },
   {
@@ -2556,8 +2555,8 @@
       "K-1.2K5"
     ],
     "lesson": {
-      "chapter": "ch8-data-advanced",
-      "slide": 10,
+      "chapter": "ch2-data-prep",
+      "slide": 5,
       "approx": true
     }
   },
@@ -3168,7 +3167,8 @@
     ],
     "lesson": {
       "chapter": "ch8-data-advanced",
-      "slide": 17
+      "slide": 17,
+      "approx": true
     }
   },
   {
@@ -3303,8 +3303,8 @@
       "K-1.3K5"
     ],
     "lesson": {
-      "chapter": "ch8-data-advanced",
-      "slide": 3,
+      "chapter": "ch2-data-prep",
+      "slide": 2,
       "approx": true
     }
   },
@@ -3593,8 +3593,8 @@
       "K-1.3K5"
     ],
     "lesson": {
-      "chapter": "ch8-data-advanced",
-      "slide": 3,
+      "chapter": "ch2-data-prep",
+      "slide": 2,
       "approx": true
     }
   },

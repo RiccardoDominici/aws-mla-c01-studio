@@ -1614,8 +1614,7 @@
     ],
     "lesson": {
       "chapter": "ch10-infra-cicd",
-      "slide": 15,
-      "approx": true
+      "slide": 15
     }
   },
   {

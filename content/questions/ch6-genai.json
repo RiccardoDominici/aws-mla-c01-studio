@@ -2061,7 +2061,8 @@
     ],
     "lesson": {
       "chapter": "ch13-genai-agents",
-      "slide": 2
+      "slide": 2,
+      "approx": true
     }
   },
   {

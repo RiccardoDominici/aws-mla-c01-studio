@@ -1298,8 +1298,8 @@
       "C02"
     ],
     "lesson": {
-      "chapter": "ch9-training-advanced",
-      "slide": 12
+      "chapter": "ch3-model-dev",
+      "slide": 13
     }
   },
   {
@@ -1744,8 +1744,9 @@
       "C02"
     ],
     "lesson": {
-      "chapter": "ch9-training-advanced",
-      "slide": 2
+      "chapter": "ch3-model-dev",
+      "slide": 5,
+      "approx": true
     }
   },
   {
@@ -2159,8 +2160,8 @@
       "C02"
     ],
     "lesson": {
-      "chapter": "ch2-data-prep",
-      "slide": 16,
+      "chapter": "ch3-model-dev",
+      "slide": 20,
       "approx": true
     }
   },

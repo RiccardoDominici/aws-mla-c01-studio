@@ -473,8 +473,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 3,
-      "approx": true
+      "slide": 3
     }
   },
   {
@@ -507,8 +506,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 3,
-      "approx": true
+      "slide": 3
     }
   },
   {
@@ -541,8 +539,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 3,
-      "approx": true
+      "slide": 3
     }
   },
   {
@@ -645,8 +642,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 3,
-      "approx": true
+      "slide": 3
     }
   },
   {
@@ -751,8 +747,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 3,
-      "approx": true
+      "slide": 3
     }
   },
   {
@@ -1243,8 +1238,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 4,
-      "approx": true
+      "slide": 4
     }
   },
   {
@@ -1718,8 +1712,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 7,
-      "approx": true
+      "slide": 7
     }
   },
   {
@@ -1751,8 +1744,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 7,
-      "approx": true
+      "slide": 7
     }
   },
   {
@@ -2058,8 +2050,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 8,
-      "approx": true
+      "slide": 8
     }
   },
   {
@@ -2091,8 +2082,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 8,
-      "approx": true
+      "slide": 8
     }
   },
   {
@@ -2124,8 +2114,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 8,
-      "approx": true
+      "slide": 8
     }
   },
   {
@@ -2161,8 +2150,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 8,
-      "approx": true
+      "slide": 8
     }
   },
   {
@@ -2261,8 +2249,8 @@
       "C22"
     ],
     "lesson": {
-      "chapter": "ch3-model-dev",
-      "slide": 10,
+      "chapter": "ch14-ai-services",
+      "slide": 8,
       "approx": true
     }
   },
@@ -2656,8 +2644,8 @@
       "K-2.1K2"
     ],
     "lesson": {
-      "chapter": "ch12-genai-rag",
-      "slide": 14
+      "chapter": "ch14-ai-services",
+      "slide": 7
     }
   },
   {
@@ -2693,8 +2681,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 8,
-      "approx": true
+      "slide": 8
     }
   }
 ]

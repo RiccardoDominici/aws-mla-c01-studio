@@ -866,7 +866,8 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 9
+      "slide": 9,
+      "approx": true
     }
   },
   {
@@ -1612,8 +1613,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 4,
-      "approx": true
+      "slide": 4
     }
   },
   {
@@ -1892,8 +1892,8 @@
       "C02"
     ],
     "lesson": {
-      "chapter": "ch11-cost-security",
-      "slide": 16
+      "chapter": "ch5-monitor-security",
+      "slide": 15
     }
   },
   {
@@ -2175,7 +2175,8 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 9
+      "slide": 9,
+      "approx": true
     }
   },
   {
@@ -2239,8 +2240,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 4,
-      "approx": true
+      "slide": 4
     }
   },
   {
@@ -3381,8 +3381,8 @@
       "G-4.3.8"
     ],
     "lesson": {
-      "chapter": "ch13-genai-agents",
-      "slide": 19,
+      "chapter": "ch5-monitor-security",
+      "slide": 13,
       "approx": true
     }
   },

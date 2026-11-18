@@ -1282,8 +1282,9 @@
       "C02"
     ],
     "lesson": {
-      "chapter": "ch9-training-advanced",
-      "slide": 13
+      "chapter": "ch4-deploy",
+      "slide": 3,
+      "approx": true
     }
   },
   {
@@ -2205,8 +2206,9 @@
       "C02"
     ],
     "lesson": {
-      "chapter": "ch7-practice",
-      "slide": 20
+      "chapter": "ch10-infra-cicd",
+      "slide": 4,
+      "approx": true
     }
   },
   {
@@ -2839,8 +2841,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 5,
-      "approx": true
+      "slide": 5
     }
   },
   {
@@ -2951,8 +2952,8 @@
       "K-3.2S6"
     ],
     "lesson": {
-      "chapter": "ch10-infra-cicd",
-      "slide": 8
+      "chapter": "ch4-deploy",
+      "slide": 13
     }
   },
   {
@@ -3310,8 +3311,8 @@
       "K-3.2S5"
     ],
     "lesson": {
-      "chapter": "ch10-infra-cicd",
-      "slide": 6,
+      "chapter": "ch4-deploy",
+      "slide": 2,
       "approx": true
     }
   },
@@ -3757,8 +3758,8 @@
       "K-3.2S6"
     ],
     "lesson": {
-      "chapter": "ch10-infra-cicd",
-      "slide": 8,
+      "chapter": "ch4-deploy",
+      "slide": 13,
       "approx": true
     }
   },
