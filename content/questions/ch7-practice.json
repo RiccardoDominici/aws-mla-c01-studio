@@ -667,8 +667,7 @@
     ],
     "lesson": {
       "chapter": "ch7-practice",
-      "slide": 3,
-      "approx": true
+      "slide": 3
     }
   },
   {
@@ -1226,8 +1225,7 @@
     ],
     "lesson": {
       "chapter": "ch7-practice",
-      "slide": 7,
-      "approx": true
+      "slide": 7
     }
   },
   {
@@ -1473,8 +1471,7 @@
     ],
     "lesson": {
       "chapter": "ch7-practice",
-      "slide": 2,
-      "approx": true
+      "slide": 2
     }
   },
   {
@@ -1598,8 +1595,7 @@
     ],
     "lesson": {
       "chapter": "ch7-practice",
-      "slide": 3,
-      "approx": true
+      "slide": 3
     }
   },
   {
@@ -2157,8 +2153,7 @@
     ],
     "lesson": {
       "chapter": "ch7-practice",
-      "slide": 7,
-      "approx": true
+      "slide": 7
     }
   }
 ]

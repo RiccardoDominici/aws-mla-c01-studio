@@ -616,8 +616,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 8,
-      "approx": true
+      "slide": 8
     }
   },
   {
@@ -710,8 +709,7 @@
     ],
     "lesson": {
       "chapter": "ch11-cost-security",
-      "slide": 14,
-      "approx": true
+      "slide": 14
     }
   },
   {
@@ -842,12 +840,12 @@
     "answer": 2,
     "chapter": "ch5-monitor-security",
     "difficulty": "difficile",
-    "explain": "EventBridge routes the monitoring-violation event to a retraining pipeline, such as a Step Functions workflow or Pipelines execution. This closes the loop from detection to remediation.",
+    "explain": "With CloudWatch metrics enabled, Model Monitor publishes drift metrics such as feature_baseline_drift_<feature>; an alarm on them can drive SNS and Lambda to start a pipeline. The EventBridge Processing Job State Change event only reports the job status, not the violations, and a dashboard or a query does not act on its own.",
     "id": "ch5-q28",
     "options": [
       "A CloudWatch dashboard widget that turns red when violation metrics increase",
       "A Model Card approval email sent to managers asking permission to retrain",
-      "An EventBridge rule matching monitor violations that starts a retraining pipeline",
+      "A CloudWatch alarm on the Model Monitor drift metric that notifies SNS, whose Lambda starts a retraining pipeline",
       "A CloudTrail Lake query that lists recent CreateTrainingJob calls for review"
     ],
     "q": "How do you trigger automatic retraining when Model Monitor reports violations?",
@@ -866,8 +864,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 9,
-      "approx": true
+      "slide": 10
     }
   },
   {
@@ -1115,8 +1112,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 11,
-      "approx": true
+      "slide": 11
     }
   },
   {
@@ -1271,8 +1267,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 14,
-      "approx": true
+      "slide": 14
     }
   },
   {
@@ -1830,8 +1825,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 8,
-      "approx": true
+      "slide": 8
     }
   },
   {
@@ -2017,8 +2011,7 @@
     ],
     "lesson": {
       "chapter": "ch11-cost-security",
-      "slide": 14,
-      "approx": true
+      "slide": 14
     }
   },
   {
@@ -2080,8 +2073,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 13,
-      "approx": true
+      "slide": 13
     }
   },
   {
@@ -2143,22 +2135,21 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 14,
-      "approx": true
+      "slide": 14
     }
   },
   {
     "id": "ch5-ext25",
     "chapter": "ch5-monitor-security",
-    "q": "A monitoring schedule detects severe data drift at 3 AM. Which event pattern wakes the retraining workflow?",
+    "q": "A monitoring schedule detects severe data drift at 3 AM. Which design wakes the retraining workflow automatically?",
     "options": [
       "A monthly Cost Explorer report delivered to the finance mailbox and reviewed before any retraining decision is approved",
       "A Model Card comment thread mentioning drift in free text, escalated to reviewers by email for triage within two business days",
       "A VPC Flow Log entry showing a rejected connection on port 443, forwarded to the retraining queue by a filter as a proxy for drift remediation",
-      "An EventBridge rule matching the SageMaker monitor job state-change event with a violation status that starts a Step Functions workflow"
+      "An EventBridge rule on the processing job state change that runs a Lambda, which reads the violations report and starts Step Functions"
     ],
     "answer": 3,
-    "explain": "Model Monitor emits job state-change events to EventBridge. A rule filtering on the violation status routes them to the retraining workflow, such as Step Functions or a Pipelines execution.",
+    "explain": "The monitoring run is a processing job: EventBridge sees its state change but not the violation count, so a Lambda must read constraint_violations.json before starting the workflow. A CloudWatch alarm on the drift metric is the other valid trigger.",
     "difficulty": "difficile",
     "tags": [
       "eventbridge",
@@ -2175,8 +2166,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 9,
-      "approx": true
+      "slide": 10
     }
   },
   {
@@ -2601,8 +2591,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 7,
-      "approx": true
+      "slide": 7
     }
   },
   {
@@ -2633,8 +2622,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 5,
-      "approx": true
+      "slide": 5
     }
   },
   {
@@ -3142,8 +3130,7 @@
     ],
     "lesson": {
       "chapter": "ch11-cost-security",
-      "slide": 19,
-      "approx": true
+      "slide": 19
     }
   },
   {
@@ -3208,8 +3195,7 @@
     ],
     "lesson": {
       "chapter": "ch11-cost-security",
-      "slide": 18,
-      "approx": true
+      "slide": 18
     }
   },
   {
@@ -3382,8 +3368,7 @@
     ],
     "lesson": {
       "chapter": "ch5-monitor-security",
-      "slide": 13,
-      "approx": true
+      "slide": 13
     }
   },
   {
@@ -3489,8 +3474,7 @@
     ],
     "lesson": {
       "chapter": "ch11-cost-security",
-      "slide": 14,
-      "approx": true
+      "slide": 14
     }
   },
   {
@@ -3562,8 +3546,7 @@
     ],
     "lesson": {
       "chapter": "ch11-cost-security",
-      "slide": 14,
-      "approx": true
+      "slide": 14
     }
   },
   {

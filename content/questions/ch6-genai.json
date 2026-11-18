@@ -819,8 +819,7 @@
     ],
     "lesson": {
       "chapter": "ch6-genai",
-      "slide": 18,
-      "approx": true
+      "slide": 18
     }
   },
   {
@@ -850,8 +849,7 @@
     ],
     "lesson": {
       "chapter": "ch6-genai",
-      "slide": 19,
-      "approx": true
+      "slide": 19
     }
   },
   {
@@ -1290,12 +1288,12 @@
     "answer": 2,
     "chapter": "ch6-genai",
     "difficulty": "difficile",
-    "explain": "New items lack interaction history, so popularity or content-based fallbacks cover the cold start until behavior accrues. Waiting for retraining alone delays recommendations.",
+    "explain": "User-Personalization explores new items, weighted by the exploration setting, and item metadata lets it place them before they have interactions. Popular items are the fallback for new users, not new items.",
     "id": "ch6-q43",
     "options": [
       "Exclude new listings from recommendations until a full yearly retraining",
       "Force random new-item placement and ignore all interaction history signals",
-      "Blend popularity and content-based fallbacks until interactions accrue",
+      "Use item metadata and exploration until new items gain interactions",
       "Switch the campaign to a Forecast predictor trained only on new items"
     ],
     "q": "A marketplace adds hundreds of new listings daily with no interaction history. How should Personalize handle these cold-start items?",
@@ -1313,8 +1311,7 @@
     ],
     "lesson": {
       "chapter": "ch14-ai-services",
-      "slide": 7,
-      "approx": true
+      "slide": 7
     }
   },
   {
@@ -1344,8 +1341,7 @@
     ],
     "lesson": {
       "chapter": "ch6-genai",
-      "slide": 19,
-      "approx": true
+      "slide": 19
     }
   },
   {
@@ -1749,8 +1745,7 @@
     ],
     "lesson": {
       "chapter": "ch6-genai",
-      "slide": 10,
-      "approx": true
+      "slide": 10
     }
   },
   {
@@ -2029,8 +2024,7 @@
     ],
     "lesson": {
       "chapter": "ch6-genai",
-      "slide": 10,
-      "approx": true
+      "slide": 10
     }
   },
   {
@@ -2039,12 +2033,12 @@
     "q": "A team runs a Bedrock model evaluation job comparing summarization and extractive Q&A outputs against references. Which metric pairing is sound?",
     "options": [
       "Use BLEU for translation only and ignore Q&A because metrics never apply",
-      "Use ROUGE for summaries and F1 / exact match for extractive Q&A answers",
+      "Use BERTScore for summary accuracy and token-level F1 for extractive Q&A answers",
       "Use Guardrails block rate as accuracy and token count as relevance",
       "Use provisioned throughput utilization as the correctness score for both tasks"
     ],
     "answer": 1,
-    "explain": "ROUGE measures summary overlap while token-level F1 and exact match suit extractive Q&A. Block rates, token counts, and throughput reflect policy or ops, not answer correctness.",
+    "explain": "In Bedrock automatic evaluation jobs, accuracy uses BERTScore for summarization and NLP-F1 for question answering. Block rates, token counts and throughput reflect policy or operations, not answer correctness.",
     "difficulty": "difficile",
     "tags": [
       "bedrock",
@@ -2061,8 +2055,7 @@
     ],
     "lesson": {
       "chapter": "ch13-genai-agents",
-      "slide": 2,
-      "approx": true
+      "slide": 2
     }
   },
   {

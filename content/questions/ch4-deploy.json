@@ -1283,8 +1283,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 3,
-      "approx": true
+      "slide": 3
     }
   },
   {
@@ -1316,8 +1315,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 19,
-      "approx": true
+      "slide": 19
     }
   },
   {
@@ -2207,8 +2205,7 @@
     ],
     "lesson": {
       "chapter": "ch10-infra-cicd",
-      "slide": 4,
-      "approx": true
+      "slide": 4
     }
   },
   {
@@ -2738,8 +2735,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 6,
-      "approx": true
+      "slide": 6
     }
   },
   {
@@ -2879,8 +2875,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 4,
-      "approx": true
+      "slide": 4
     }
   },
   {
@@ -3024,8 +3019,7 @@
     ],
     "lesson": {
       "chapter": "ch10-infra-cicd",
-      "slide": 8,
-      "approx": true
+      "slide": 8
     }
   },
   {
@@ -3133,8 +3127,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 1,
-      "approx": true
+      "slide": 1
     }
   },
   {
@@ -3312,8 +3305,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 2,
-      "approx": true
+      "slide": 2
     }
   },
   {
@@ -3347,8 +3339,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 2,
-      "approx": true
+      "slide": 2
     }
   },
   {
@@ -3583,8 +3574,7 @@
     ],
     "lesson": {
       "chapter": "ch13-genai-agents",
-      "slide": 10,
-      "approx": true
+      "slide": 10
     }
   },
   {
@@ -3617,8 +3607,7 @@
     ],
     "lesson": {
       "chapter": "ch13-genai-agents",
-      "slide": 10,
-      "approx": true
+      "slide": 10
     }
   },
   {
@@ -3759,8 +3748,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 13,
-      "approx": true
+      "slide": 13
     }
   },
   {
@@ -3794,8 +3782,7 @@
     ],
     "lesson": {
       "chapter": "ch4-deploy",
-      "slide": 5,
-      "approx": true
+      "slide": 5
     }
   }
 ]

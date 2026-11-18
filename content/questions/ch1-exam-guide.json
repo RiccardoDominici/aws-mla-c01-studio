@@ -443,8 +443,7 @@
     ],
     "lesson": {
       "chapter": "ch1-exam-guide",
-      "slide": 1,
-      "approx": true
+      "slide": 1
     }
   },
   {
@@ -955,8 +954,7 @@
     ],
     "lesson": {
       "chapter": "ch1-exam-guide",
-      "slide": 1,
-      "approx": true
+      "slide": 1
     }
   },
   {
@@ -1411,8 +1409,7 @@
     ],
     "lesson": {
       "chapter": "ch1-exam-guide",
-      "slide": 7,
-      "approx": true
+      "slide": 7
     }
   },
   {
@@ -1623,8 +1620,7 @@
     ],
     "lesson": {
       "chapter": "ch1-exam-guide",
-      "slide": 1,
-      "approx": true
+      "slide": 4
     }
   },
   {
@@ -1654,8 +1650,7 @@
     ],
     "lesson": {
       "chapter": "ch1-exam-guide",
-      "slide": 4,
-      "approx": true
+      "slide": 4
     }
   },
   {
@@ -1806,8 +1801,7 @@
     ],
     "lesson": {
       "chapter": "ch1-exam-guide",
-      "slide": 1,
-      "approx": true
+      "slide": 1
     }
   },
   {
@@ -1838,8 +1832,7 @@
     ],
     "lesson": {
       "chapter": "ch1-exam-guide",
-      "slide": 6,
-      "approx": true
+      "slide": 6
     }
   },
   {
@@ -1870,8 +1863,7 @@
     ],
     "lesson": {
       "chapter": "ch1-exam-guide",
-      "slide": 1,
-      "approx": true
+      "slide": 1
     }
   },
   {
@@ -1938,15 +1930,15 @@
   {
     "id": "ch1-ext20",
     "chapter": "ch1-exam-guide",
-    "q": "A candidate tries to compute exactly how many scored versus unscored items they faced. What is the flaw?",
+    "q": "A candidate tries to work out which of the 65 items they faced were unscored. What is the flaw?",
     "options": [
       "The total of 65 exam-day questions is kept secret, so no arithmetic is possible at all",
       "The passing score changes per candidate, invalidating any item counting",
       "The delivery mode changes the count, so center and online totals differ",
-      "AWS discloses the 65-question total but not how many are unscored pretest items"
+      "The guide states 15 of the 65 items are unscored, but they are not identified on the exam"
     ],
     "answer": 3,
-    "explain": "The guide confirms 65 total questions including unscored pretest items, but the exact unscored count is undisclosed and items are indistinguishable, so candidates cannot reverse-engineer the scored denominator.",
+    "explain": "The MLA-C01 exam guide states 50 scored and 15 unscored items, and that unscored items are not identified. Knowing the count does not reveal which items they are, so every question must be treated as scored.",
     "difficulty": "difficile",
     "tags": [
       "exam-format",
@@ -1963,8 +1955,7 @@
     ],
     "lesson": {
       "chapter": "ch1-exam-guide",
-      "slide": 1,
-      "approx": true
+      "slide": 1
     }
   },
   {
@@ -2087,8 +2078,7 @@
     ],
     "lesson": {
       "chapter": "ch7-practice",
-      "slide": 19,
-      "approx": true
+      "slide": 19
     }
   },
   {
@@ -2119,8 +2109,7 @@
     ],
     "lesson": {
       "chapter": "ch1-exam-guide",
-      "slide": 4,
-      "approx": true
+      "slide": 4
     }
   }
 ]

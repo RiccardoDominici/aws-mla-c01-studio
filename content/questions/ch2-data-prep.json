@@ -120,8 +120,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 5,
-      "approx": true
+      "slide": 5
     }
   },
   {
@@ -1433,11 +1432,11 @@
     "options": [
       "Replicate the bucket to a second Region and read from there",
       "Enable S3 Versioning and restore a previous object version",
-      "Use S3 Select to run SQL filtering directly on the object",
+      "Query the object in place with Amazon Athena, selecting only the needed columns",
       "Attach an S3 event notification to every GET request"
     ],
     "answer": 2,
-    "explain": "S3 Select pushes SQL projection and filtering down to the object, returning only matching bytes. Replication and versioning do not reduce the bytes read for one lookup.",
+    "explain": "Athena runs serverless SQL directly on data in S3 and returns only the selected columns, with no download. S3 Select did this on a single object but is no longer available to new customers; replication and versioning do not reduce what is read.",
     "difficulty": "facile",
     "tags": [
       "s3",
@@ -1454,8 +1453,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 7,
-      "approx": true
+      "slide": 7
     }
   },
   {
@@ -1486,8 +1484,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 2,
-      "approx": true
+      "slide": 2
     }
   },
   {
@@ -1549,8 +1546,7 @@
     ],
     "lesson": {
       "chapter": "ch8-data-advanced",
-      "slide": 6,
-      "approx": true
+      "slide": 6
     }
   },
   {
@@ -1798,8 +1794,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 7,
-      "approx": true
+      "slide": 7
     }
   },
   {
@@ -1830,8 +1825,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 7,
-      "approx": true
+      "slide": 7
     }
   },
   {
@@ -1862,8 +1856,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 8,
-      "approx": true
+      "slide": 8
     }
   },
   {
@@ -1925,8 +1918,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 9,
-      "approx": true
+      "slide": 9
     }
   },
   {
@@ -1957,8 +1949,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 10,
-      "approx": true
+      "slide": 11
     }
   },
   {
@@ -2113,8 +2104,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 15,
-      "approx": true
+      "slide": 15
     }
   },
   {
@@ -2244,8 +2234,7 @@
     ],
     "lesson": {
       "chapter": "ch8-data-advanced",
-      "slide": 9,
-      "approx": true
+      "slide": 9
     }
   },
   {
@@ -2487,8 +2476,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 3,
-      "approx": true
+      "slide": 3
     }
   },
   {
@@ -2556,8 +2544,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 5,
-      "approx": true
+      "slide": 5
     }
   },
   {
@@ -2619,8 +2606,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 9,
-      "approx": true
+      "slide": 9
     }
   },
   {
@@ -2651,8 +2637,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 9,
-      "approx": true
+      "slide": 9
     }
   },
   {
@@ -2714,8 +2699,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 11,
-      "approx": true
+      "slide": 11
     }
   },
   {
@@ -2746,8 +2730,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 11,
-      "approx": true
+      "slide": 11
     }
   },
   {
@@ -2962,8 +2945,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 9,
-      "approx": true
+      "slide": 9
     }
   },
   {
@@ -2998,8 +2980,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 9,
-      "approx": true
+      "slide": 9
     }
   },
   {
@@ -3167,8 +3148,7 @@
     ],
     "lesson": {
       "chapter": "ch8-data-advanced",
-      "slide": 17,
-      "approx": true
+      "slide": 17
     }
   },
   {
@@ -3201,8 +3181,7 @@
     ],
     "lesson": {
       "chapter": "ch8-data-advanced",
-      "slide": 17,
-      "approx": true
+      "slide": 17
     }
   },
   {
@@ -3304,8 +3283,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 2,
-      "approx": true
+      "slide": 2
     }
   },
   {
@@ -3373,8 +3351,7 @@
     ],
     "lesson": {
       "chapter": "ch8-data-advanced",
-      "slide": 20,
-      "approx": true
+      "slide": 20
     }
   },
   {
@@ -3594,8 +3571,7 @@
     ],
     "lesson": {
       "chapter": "ch2-data-prep",
-      "slide": 2,
-      "approx": true
+      "slide": 2
     }
   },
   {

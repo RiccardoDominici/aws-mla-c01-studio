@@ -356,8 +356,7 @@
     ],
     "lesson": {
       "chapter": "ch12-genai-rag",
-      "slide": 10,
-      "approx": true
+      "slide": 10
     }
   },
   {
