@@ -18,6 +18,12 @@
  * Il capitolo selezionato è sincronizzato con il query param ?ch=
  * (solo con un capitolo singolo) così le pagine capitolo possono
  * linkare direttamente il proprio sottoinsieme di domande.
+ * Il query param ?lesson=<chapterId>:<slide> (dal pulsante "Allenati sulle
+ * domande di questa slide" della lezione) attiva il filtro `lesson`: solo le
+ * domande che rimandano a quella slide, di qualunque capitolo siano. Un
+ * riquadro in cima lo dichiara, riporta alla slide e permette di toglierlo;
+ * mentre è attivo il filtro capitolo resta vuoto (escluderebbe le domande di
+ * altri capitoli che puntano alla slide) e la paginazione è disattivata.
  *
  * Espone MLA.qbankUI.init(rootElement). */
 
@@ -72,10 +78,11 @@
   var DOMAIN_SHORT = { '1': 'Dati', '2': 'Modelli', '3': 'Deploy', '4': 'Monitoraggio', 'META': 'Formato' };
   var DOMAIN_ORDER = ['1', '2', '3', '4', 'META'];
 
-  /* Stato della vista, non persistito (tranne il capitolo singolo, che sta nell'URL). */
+  /* Stato della vista, non persistito (tranne il capitolo singolo e la slide della
+   * lezione, che stanno nell'URL). */
   var view = {
     mode: 'studio',
-    filters: { chapters: [], domains: [], exams: [], types: [], difficulties: [], statuses: [], text: '', origins: [] },
+    filters: { chapters: [], domains: [], exams: [], types: [], difficulties: [], statuses: [], text: '', origins: [], lesson: '' },
     shuffled: false,
     limit: PAGE_STEP,
     all: [],
@@ -118,13 +125,17 @@
     return b;
   }
 
-  /** Scrive il capitolo corrente nell'URL senza ricaricare la pagina.
-   * Solo con un capitolo singolo: ?ch=<id>, altrimenti nessun param. */
+  /** Scrive capitolo e slide della lezione nell'URL senza ricaricare la pagina.
+   * ?ch=<id> solo con un capitolo singolo; ?lesson=<id>:<slide> solo col filtro
+   * lesson attivo. Così un ricarico ripropone la stessa vista, e un filtro tolto
+   * non risorge. */
   function syncUrl() {
     try {
       var url = new URL(window.location.href);
       if (view.filters.chapters.length === 1) url.searchParams.set('ch', view.filters.chapters[0]);
       else url.searchParams.delete('ch');
+      if (view.filters.lesson) url.searchParams.set('lesson', view.filters.lesson);
+      else url.searchParams.delete('lesson');
       history.replaceState(null, '', url.toString());
     } catch (err) {
       console.warn('[qbank-ui] impossibile aggiornare URL:', err);
@@ -276,9 +287,60 @@
     renderBody();
   }
 
+  /* ---------- Riquadro del filtro "slide della lezione" ---------- */
+
+  /**
+   * Riquadro in cima alla pagina quando è attivo il filtro lesson:
+   * "Domande sulla slide N di Cap X · <short> (k)", link per tornare alla slide e
+   * comando per togliere il filtro. k conta le domande della slide su tutto il banco;
+   * se gli altri filtri ne nascondono qualcuna lo dice, per non far sembrare
+   * sparite le domande mancanti. Vuoto (e nascosto) senza filtro lesson.
+   */
+  function renderLessonBox() {
+    var host = nodes.lesson;
+    host.innerHTML = '';
+    var l = view.filters.lesson ? qbank.parseLessonKey(view.filters.lesson) : null;
+    host.hidden = !l;
+    if (!l) return;
+
+    var k = qbank.filter(view.all, { lesson: view.filters.lesson }).length;
+    var title = app.el('p', 'qb-lesson-title', '');
+    title.appendChild(document.createTextNode('📖 Domande sulla slide ' + l.slide + ' di ' +
+      chapterLabel(l.chapter) + ' '));
+    title.appendChild(app.el('strong', '', '(' + k + ')'));
+    host.appendChild(title);
+
+    if (view.visible.length !== k) {
+      host.appendChild(app.el('p', 'muted small qb-lesson-note',
+        'Con gli altri filtri attivi ne vedi ' + view.visible.length + ' su ' + k + '.'));
+    }
+
+    var actions = app.el('div', 'qb-lesson-actions', '');
+    var back = app.el('a', 'btn small', '← torna alla slide');
+    back.href = 'chapter.html?id=' + encodeURIComponent(l.chapter) + '&slide=' + l.slide;
+    back.setAttribute('aria-label', 'Torna alla slide ' + l.slide + ' del ' + chapterLabel(l.chapter));
+    actions.appendChild(back);
+
+    var clear = app.el('button', 'btn ghost small', '✕ Mostra tutto il banco');
+    clear.type = 'button';
+    clear.setAttribute('aria-label', 'Togli il filtro sulla slide e mostra tutte le domande');
+    clear.addEventListener('click', function () {
+      console.info('[qbank-ui] filtro lesson rimosso: ' + view.filters.lesson);
+      view.filters.lesson = '';
+      view.limit = PAGE_STEP;
+      syncUrl();
+      redraw();
+    });
+    actions.appendChild(clear);
+    host.appendChild(actions);
+  }
+
   /* ---------- Statistiche ---------- */
 
   function renderStats() {
+    // Il riquadro della slide mostra quante domande restano coi filtri attivi:
+    // si aggiorna negli stessi momenti delle statistiche.
+    renderLessonBox();
     var host = nodes.stats;
     host.innerHTML = '';
     var s = qbank.state.stats(view.visible);
@@ -576,7 +638,9 @@
     }
 
     var list = app.el('div', 'qlist', '');
-    var shown = view.visible.slice(0, view.limit);
+    // Col filtro sulla slide le domande sono poche: tutte subito, senza "Mostra altre".
+    var limit = view.filters.lesson ? view.visible.length : view.limit;
+    var shown = view.visible.slice(0, limit);
 
     shown.forEach(function (q, idx) {
       var saved = qbank.state.get(q.id);
@@ -605,7 +669,7 @@
 
     host.appendChild(list);
 
-    if (view.visible.length > view.limit) {
+    if (view.visible.length > limit) {
       var more = app.el('button', 'btn big qb-more', 'Mostra altre ' +
         Math.min(PAGE_STEP, view.visible.length - view.limit) +
         ' (viste ' + view.limit + ' di ' + view.visible.length + ')');
@@ -958,9 +1022,13 @@
     qbank = window.MLA.qbank;
 
     root.innerHTML = '';
+    nodes.lesson = app.el('section', 'qb-lesson', '');
+    nodes.lesson.hidden = true;
+    nodes.lesson.setAttribute('aria-label', 'Filtro sulla slide della lezione');
     nodes.toolbar = app.el('section', 'qb-toolbar', '');
     nodes.stats = app.el('section', 'qb-statsbox', '');
     nodes.body = app.el('section', 'qb-body', '');
+    root.appendChild(nodes.lesson);
     root.appendChild(nodes.toolbar);
     root.appendChild(nodes.stats);
     root.appendChild(nodes.body);
@@ -970,6 +1038,25 @@
     /* Capitolo preselezionato via ?ch= (link dalle pagine capitolo). */
     var pre = app.getQueryParam('ch');
     if (pre && app.byId(pre)) view.filters.chapters = [pre];
+
+    /* Slide della lezione via ?lesson=<id>:<slide> (pulsante sotto la slide).
+     * Vince su ?ch=: le domande che rimandano a una slide possono stare in altri
+     * capitoli, e un capitolo preselezionato le escluderebbe. */
+    var lessonParam = app.getQueryParam('lesson');
+    if (lessonParam) {
+      var parsed = qbank.parseLessonKey(lessonParam);
+      if (parsed) {
+        view.filters.lesson = qbank.lessonKey(parsed.chapter, parsed.slide);
+        if (view.filters.chapters.length) {
+          console.info('[qbank-ui] ?ch= ignorato: il filtro lesson include domande di tutti i capitoli');
+          view.filters.chapters = [];
+        }
+        console.info('[qbank-ui] filtro lesson: ' + view.filters.lesson);
+      } else {
+        console.warn('[qbank-ui] parametro lesson non valido, ignorato: ' + lessonParam);
+      }
+      syncUrl();   // allinea l'URL: niente ?ch= superfluo, niente ?lesson= non valido
+    }
 
     qbank.load().then(function (res) {
       view.all = res.questions;

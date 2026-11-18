@@ -40,6 +40,10 @@ Lo stato della copertura rispetto all'esame è in `docs/TODO.md` (generato da `d
   🌐 adattate da pratica online) e ricerca testuale, con selezione multipla
   per ogni riga di filtro, feedback
   immediato e spiegazione; **simulazione d'esame** a tempo con punteggio e correzione
+- **Slide ↔ domande**: dopo la risposta, "Rivedi la spiegazione" apre la slide della
+  lezione che insegna il concetto; dalla slide, "✍️ Allenati sulle domande di questa
+  slide (N)" apre il banco filtrato sulle domande che rimandano lì
+  (`domande.html?lesson=<capitolo>:<slide>`), anche quelle di altri capitoli
 - 100% statico, zero build, zero dipendenze: funziona su qualsiasi hosting statico
 
 ## Uso locale
@@ -209,6 +213,11 @@ una per file secondo il contratto in `content/questions/README`. La pagina
 `domande.html` le filtra per capitolo, difficoltà, stato, origine e testo libero
 (con selezione multipla per riga: OR dentro la riga, AND tra righe); le
 pagine capitolo linkano il proprio sottoinsieme con `domande.html?ch=<id>`.
+Sotto ogni slide della lezione guidata il pulsante "✍️ Allenati sulle domande di
+questa slide (N)" apre `domande.html?lesson=<id>:<N slide>`: le domande di tutto il
+banco il cui `lesson` punta a quella slide (comprese le `approx`), con un riquadro
+in cima per tornare alla slide o togliere il filtro. Il pulsante manca sulle slide
+senza domande; il banco si carica dopo il render della lezione, senza rallentarla.
 Risposte e domande segnate stanno in `localStorage` (chiave `mla-domande`,
 separata dai progressi del corso).
 

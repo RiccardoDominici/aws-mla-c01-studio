@@ -11,7 +11,10 @@
  *    Le domande non valide vengono scartate con un warning in console;
  *  - filtra per capitolo / dominio / esame / tipo / difficoltà / stato / testo /
  *    origine (origine: 'ai' = generate per questo sito, 'esterna' = adattate da
- *    pratica trovata online; le domande senza campo origin contano come 'ai');
+ *    pratica trovata online; le domande senza campo origin contano come 'ai') /
+ *    slide della lezione (chiave "<chapterId>:<slide>", vedi lessonKey);
+ *  - indicizza le domande per slide della lezione ({chapter:{slide:count}}), per
+ *    il pulsante "Allenati sulle domande di questa slide" di chapter.js;
  *  - compone le simulazioni d'esame: pesca per dominio secondo i pesi della guida
  *    (metodo dei resti maggiori) e segnala i domini con troppe poche domande;
  *  - persiste le risposte in localStorage (chiave mla-domande), separata da
@@ -321,13 +324,56 @@
     snapshot: readAll
   };
 
+  /* ---------- Slide della lezione: chiave e indice ---------- */
+
+  /**
+   * Chiave testuale di una slide della lezione: "<chapterId>:<slide>" (slide 1-based,
+   * come il contatore "N / tot"). È il formato del query param ?lesson= di
+   * domande.html e del filtro `lesson`.
+   */
+  function lessonKey(chapterId, slide) {
+    return chapterId + ':' + slide;
+  }
+
+  /**
+   * Interpreta una chiave "<chapterId>:<slide>". Il capitolo deve esistere in
+   * MLA.app (se il registro è disponibile) e la slide essere un intero ≥ 1.
+   * @returns {{chapter:string, slide:number}|null} null se la chiave non è valida
+   */
+  function parseLessonKey(key) {
+    var m = /^([A-Za-z0-9_-]+):(\d+)$/.exec(String(key || '').trim());
+    if (!m) return null;
+    var slide = parseInt(m[2], 10);
+    if (slide < 1) return null;
+    var app = window.MLA && window.MLA.app;
+    if (app && app.byId && !app.byId(m[1])) return null;
+    return { chapter: m[1], slide: slide };
+  }
+
+  /**
+   * Indice delle domande per slide della lezione: {chapterId: {slide: count}}.
+   * Conta TUTTO l'array ricevuto, comprese le domande `approx` (puntano alla slide
+   * più vicina) e quelle di altri capitoli che rimandano a questa lezione.
+   * Da calcolare una volta sola dopo load().
+   */
+  function lessonIndex(questions) {
+    var idx = {};
+    questions.forEach(function (q) {
+      var l = q.lesson;
+      if (!l) return;
+      var byS = idx[l.chapter] || (idx[l.chapter] = {});
+      byS[l.slide] = (byS[l.slide] || 0) + 1;
+    });
+    return idx;
+  }
+
   /* ---------- Filtri ---------- */
 
   /**
    * Filtra le domande.
    * @param {Array} questions
    * @param {{chapters:Array, domains:Array, exams:Array, types:Array, difficulties:Array,
-   *          statuses:Array, text:string, origins:Array}} f
+   *          statuses:Array, text:string, origins:Array, lesson:string}} f
    *        chapters: array di id capitolo (vuoto = tutti)
    *        domains: sottoinsieme di ['1','2','3','4','META'] (vuoto = tutti)
    *        exams: sottoinsieme di ['C01','C02']: la domanda passa se si applica ad almeno uno
@@ -337,6 +383,9 @@
    *          OR tra stati: la domanda passa se ALMENO uno matcha)
    *        text: ricerca libera su domanda, opzioni, tag e spiegazione
    *        origins: sottoinsieme di ['ai','esterna'] (vuoto = tutte)
+   *        lesson: chiave "<chapterId>:<slide>" (vedi lessonKey): solo le domande la cui
+   *          slide della lezione è quella, di qualunque capitolo siano (vuota = nessuna
+   *          restrizione; chiave non valida = nessuna domanda, con un warning)
    *        Per retrocompatibilità accetta anche il vecchio formato a stringa
    *        singola ({chapter, difficulty, status, origin} con 'all' = nessuna
    *        restrizione): viene convertito nel formato ad array.
@@ -360,6 +409,13 @@
     var exams = toList(f.exams);
     var types = toList(f.types);
 
+    /* Slide della lezione: una chiave malformata non deve allargare il filtro a tutto
+     * il banco, quindi non fa passare nessuna domanda. */
+    var lessonRaw = String(f.lesson || '').trim();
+    var lesson = lessonRaw ? parseLessonKey(lessonRaw) : null;
+    var lessonInvalid = !!lessonRaw && !lesson;
+    if (lessonInvalid) console.warn('[qbank] filtro lesson non valido: ' + lessonRaw);
+
     /* Vero se lo stato persistente della domanda matcha almeno uno stato selezionato. */
     function statusMatch(e, answered) {
       for (var i = 0; i < statuses.length; i++) {
@@ -372,7 +428,15 @@
       return false;
     }
 
+    /* Vero se la domanda rimanda proprio alla slide del filtro `lesson`. */
+    function lessonMatch(q) {
+      return !!q.lesson && q.lesson.chapter === lesson.chapter && q.lesson.slide === lesson.slide;
+    }
+
+    if (lessonInvalid) return [];
+
     return questions.filter(function (q) {
+      if (lesson && !lessonMatch(q)) return false;
       if (chapters.length && chapters.indexOf(q.chapter) === -1) return false;
       if (domains.length && domains.indexOf(q.domain) === -1) return false;
       if (exams.length && !q.exam.some(function (e) { return exams.indexOf(e) !== -1; })) return false;
@@ -525,6 +589,9 @@
     MINUTES_PER_QUESTION: MINUTES_PER_QUESTION,
     load: load,
     filter: filter,
+    lessonKey: lessonKey,
+    parseLessonKey: parseLessonKey,
+    lessonIndex: lessonIndex,
     isMulti: isMulti,
     correctOf: correctOf,
     isCorrect: isCorrect,

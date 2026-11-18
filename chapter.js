@@ -8,6 +8,10 @@
  *   per l'id si usa il fallback (split dello script + tempi/slide equamente
  *   distribuiti). Se manca proprio il file audio: messaggio esistente, slide
  *   manuali, trascrizione statica. Bottone "Segna come completato" fuori tab.
+ * - Sotto la slide: "Allenati sulle domande di questa slide (N)" → apre
+ *   domande.html?lesson=<id>:<N slide> (percorso inverso di "Rivedi la
+ *   spiegazione"). Il banco si carica con MLA.qbank DOPO il render, in modo
+ *   asincrono: la lezione non lo aspetta mai.
  * NON toccare: tracker.js, quiz.js, app.js (usati solo via MLA.*). */
 
 (function () {
@@ -258,9 +262,85 @@
     return 0;
   }
 
+  /* ---------- Domande del banco legate alla slide corrente ---------- */
+
+  /**
+   * Pulsante "✍️ Allenati sulle domande di questa slide (N)".
+   * N = domande di tutto il banco con lesson = {chapter: capitolo corrente,
+   * slide: slide corrente}, comprese quelle `approx` e quelle di altri capitoli.
+   * Resta nascosto finché l'indice non arriva e sulle slide senza domande
+   * (come il link "Rivedi la spiegazione", che manca se la domanda non ha slide).
+   * @returns {{el:Element, setSlide:function(number), setIndex:function(Object)}}
+   *          setSlide riceve l'indice 0-based; setIndex la mappa {slide1based: count}
+   *          del solo capitolo corrente (o null se il banco non è disponibile).
+   */
+  function slidePracticeButton(chapterId) {
+    var app = window.MLA.app;
+    var row = app.el('p', 'slide-practice', '');
+    row.hidden = true;
+    var a = app.el('a', 'btn small slide-practice-btn', '');
+    a.target = '_blank';
+    a.rel = 'noopener';
+    row.appendChild(a);
+
+    var counts = null;   // {slide 1-based: count}; null = indice non ancora caricato
+    var cur = 0;         // slide corrente, 0-based
+
+    function paint() {
+      var slide = cur + 1;
+      var n = counts ? (counts[slide] || 0) : 0;
+      row.hidden = n === 0;
+      if (!n) return;
+      var key = window.MLA.qbank.lessonKey(chapterId, slide);
+      a.href = 'domande.html?lesson=' + encodeURIComponent(key);
+      a.textContent = '✍️ Allenati sulle domande di questa slide (' + n + ')';
+      a.setAttribute('aria-label', 'Apri in una nuova scheda le ' + n +
+        (n === 1 ? ' domanda' : ' domande') + ' del banco sulla slide ' + slide);
+    }
+
+    return {
+      el: row,
+      setSlide: function (idx) { cur = idx; paint(); },
+      setIndex: function (map) { counts = map || {}; paint(); }
+    };
+  }
+
+  /**
+   * Carica il banco domande e passa al pulsante il conteggio per slide del
+   * capitolo. Parte quando il browser è libero (requestIdleCallback, con un
+   * timeout per non aspettare all'infinito) così non ritarda il render della
+   * lezione. Senza qbank.js o con il banco irraggiungibile il pulsante resta
+   * nascosto: nessun errore per lo studente.
+   */
+  function loadSlideQuestions(chapterId, practice) {
+    var qbank = window.MLA.qbank;
+    if (!qbank || !practice) {
+      console.info('[chapter] banco domande non disponibile: niente pulsante per slide');
+      return;
+    }
+    var run = function () {
+      var t0 = (window.performance && performance.now) ? performance.now() : Date.now();
+      qbank.load().then(function (res) {
+        var index = qbank.lessonIndex(res.questions);   // {chapter:{slide:count}}, una volta sola
+        var mine = index[chapterId] || {};
+        practice.setIndex(mine);
+        var nSlides = Object.keys(mine).length;
+        var nQ = Object.keys(mine).reduce(function (acc, k) { return acc + mine[k]; }, 0);
+        var t1 = (window.performance && performance.now) ? performance.now() : Date.now();
+        console.info('[chapter] domande per slide di ' + chapterId + ': ' + nQ + ' su ' +
+          nSlides + ' slide (' + Math.round(t1 - t0) + ' ms)');
+      }).catch(function (err) {
+        console.warn('[chapter] banco domande non caricato, pulsante per slide nascosto:', err);
+      });
+    };
+    if (window.requestIdleCallback) window.requestIdleCallback(run, { timeout: 1500 });
+    else setTimeout(run, 0);
+  }
+
   /* startSlide: indice 0-based della slide da aprire (deep-link ?slide=N dal banco
-   * domande), oppure null per partire dalla prima. */
-  function renderLesson(panel, chapterId, ch, audioUrl, timingEntry, audioStale, startSlide) {
+   * domande), oppure null per partire dalla prima.
+   * practice: pulsante di slidePracticeButton (o null), aggiornato a ogni slide. */
+  function renderLesson(panel, chapterId, ch, audioUrl, timingEntry, audioStale, startSlide, practice) {
     var app = window.MLA.app;
     panel.innerHTML = '';
     var slides = Array.isArray(ch.slides) ? ch.slides : [];
@@ -477,6 +557,8 @@
       }
       prev.disabled = slideIdx === 0;
       next.disabled = slideIdx === slides.length - 1;
+      // Unico punto da cui passano frecce, tastiera, deep-link e avanzamento audio.
+      if (practice) practice.setSlide(slideIdx);
     }
 
     function goSlide(i, doSeek) {
@@ -509,6 +591,7 @@
     var bar = app.el('div', 'slide-bar', '');
     bar.appendChild(prev); bar.appendChild(counter); bar.appendChild(next);
     card.appendChild(body); card.appendChild(bar);
+    if (practice && slides.length) card.appendChild(practice.el);
     panel.appendChild(card);
     drawSlide();
 
@@ -791,7 +874,9 @@
 
       /* Tab Lezione guidata */
       tabs.panels.lezione.appendChild(app.el('h2', '', 'Lezione guidata'));
-      renderLesson(tabs.panels.lezione, id, ch, audioUrl, timingEntry, audioStale, startSlideFromUrl(app));
+      var practice = slidePracticeButton(id);
+      renderLesson(tabs.panels.lezione, id, ch, audioUrl, timingEntry, audioStale,
+        startSlideFromUrl(app), practice);
 
       /* Tab Riassunto: testo integrale */
       tabs.panels.riassunto.appendChild(app.el('h2', '', 'Riassunto'));
@@ -842,6 +927,9 @@
       console.info('[chapter] renderizzato ' + id +
         (timingEntry ? ' (timing reale)' : ' (fallback trascrizione)') +
         (audioUrl ? '' : ' (audio mancante)'));
+
+      // Dopo il render: il conteggio delle domande per slide arriva quando arriva.
+      loadSlideQuestions(id, practice);
     });
   }
 

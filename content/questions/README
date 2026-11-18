@@ -92,6 +92,10 @@ della lezione guidata dove il concetto viene insegnato.
   la slide contiene l'elemento chiave della risposta.
 - Se si riordinano o si tolgono slide di un capitolo, i `lesson` che puntano lì vanno
   rivisti: `tools/check_questions.py` segnala le slide fuori range, non quelle spostate.
+- Il percorso inverso usa lo stesso campo: la lezione mostra sotto ogni slide
+  "Allenati sulle domande di questa slide (N)", dove N conta le domande di tutto il banco
+  con quel `chapter` e quella `slide` (anche `approx`), e apre
+  `domande.html?lesson=<chapter>:<slide>` (filtro `lesson` di `qbank.filter`).
 
 ### Regole di coerenza
 
