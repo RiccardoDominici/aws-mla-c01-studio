@@ -23,7 +23,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 0,
@@ -48,7 +52,11 @@
     "task": "-",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 1,
@@ -74,7 +82,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 2,
@@ -100,7 +112,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 3,
@@ -126,7 +142,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 0,
@@ -152,7 +172,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 1,
@@ -178,7 +202,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 2,
@@ -204,7 +232,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 3,
@@ -230,7 +262,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 0,
@@ -255,7 +291,11 @@
     "task": "-",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 1,
@@ -281,7 +321,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "answer": 2,
@@ -307,7 +351,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "answer": 3,
@@ -332,7 +380,11 @@
     "task": "-",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 0,
@@ -358,7 +410,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "answer": 1,
@@ -384,7 +440,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -410,7 +471,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 5
+    }
   },
   {
     "answer": 3,
@@ -436,7 +501,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "answer": 0,
@@ -462,7 +531,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 1,
@@ -488,7 +561,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 19
+    }
   },
   {
     "answer": 2,
@@ -514,7 +591,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 3,
@@ -541,7 +622,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 0,
@@ -567,7 +652,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9
+    }
   },
   {
     "answer": 1,
@@ -593,7 +682,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 13
+    }
   },
   {
     "answer": 2,
@@ -618,7 +711,11 @@
     "task": "-",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 3,
@@ -644,7 +741,11 @@
     "task": "4.1",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 0,
@@ -670,7 +771,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "answer": 1,
@@ -696,7 +801,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 4
+    }
   },
   {
     "answer": 2,
@@ -722,7 +831,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 3,
@@ -748,7 +861,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "answer": 0,
@@ -774,7 +891,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 18
+    }
   },
   {
     "answer": 1,
@@ -801,7 +922,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 2,
@@ -827,7 +952,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1,
+      "approx": true
+    }
   },
   {
     "answer": 3,
@@ -853,7 +983,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 0,
@@ -879,7 +1013,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 6
+    }
   },
   {
     "answer": 1,
@@ -905,7 +1043,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 2,
@@ -932,7 +1074,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 3,
@@ -958,7 +1104,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 12
+    }
   },
   {
     "answer": 0,
@@ -984,7 +1134,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "answer": 1,
@@ -1011,7 +1165,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 2,
@@ -1038,7 +1196,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "answer": 3,
@@ -1064,7 +1226,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 4
+    }
   },
   {
     "answer": 0,
@@ -1091,7 +1257,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 5
+    }
   },
   {
     "answer": 1,
@@ -1117,7 +1287,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 2
+    }
   },
   {
     "answer": 2,
@@ -1144,7 +1318,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 18
+    }
   },
   {
     "answer": 3,
@@ -1171,7 +1349,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "id": "ch1-ext01",
@@ -1196,7 +1378,11 @@
     "task": "-",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 2
+    }
   },
   {
     "id": "ch1-ext02",
@@ -1222,7 +1408,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 7,
+      "approx": true
+    }
   },
   {
     "id": "ch1-ext03",
@@ -1248,7 +1439,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "id": "ch1-ext04",
@@ -1274,7 +1469,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 7
+    }
   },
   {
     "id": "ch1-ext05",
@@ -1300,7 +1499,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "id": "ch1-ext06",
@@ -1326,7 +1529,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "id": "ch1-ext07",
@@ -1352,7 +1559,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 7
+    }
   },
   {
     "id": "ch1-ext08",
@@ -1378,7 +1589,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "id": "ch1-ext09",
@@ -1405,7 +1620,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1,
+      "approx": true
+    }
   },
   {
     "id": "ch1-ext10",
@@ -1431,7 +1651,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 19,
+      "approx": true
+    }
   },
   {
     "id": "ch1-ext11",
@@ -1457,7 +1682,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 19
+    }
   },
   {
     "id": "ch1-ext12",
@@ -1484,7 +1713,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 19
+    }
   },
   {
     "id": "ch1-ext13",
@@ -1511,7 +1744,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 6
+    }
   },
   {
     "id": "ch1-ext14",
@@ -1537,7 +1774,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 2
+    }
   },
   {
     "id": "ch1-ext15",
@@ -1562,7 +1803,12 @@
     "task": "-",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1,
+      "approx": true
+    }
   },
   {
     "id": "ch1-ext16",
@@ -1589,7 +1835,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 6,
+      "approx": true
+    }
   },
   {
     "id": "ch1-ext17",
@@ -1616,7 +1867,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1,
+      "approx": true
+    }
   },
   {
     "id": "ch1-ext18",
@@ -1642,7 +1898,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 19
+    }
   },
   {
     "id": "ch1-ext19",
@@ -1669,7 +1929,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "id": "ch1-ext20",
@@ -1696,7 +1960,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1,
+      "approx": true
+    }
   },
   {
     "id": "ch1-ext21",
@@ -1723,7 +1992,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 6
+    }
   },
   {
     "id": "ch1-ext22",
@@ -1750,7 +2023,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 3
+    }
   },
   {
     "id": "ch1-ext23",
@@ -1776,7 +2053,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 19
+    }
   },
   {
     "id": "ch1-ext24",
@@ -1803,7 +2084,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 19,
+      "approx": true
+    }
   },
   {
     "id": "ch1-ext25",
@@ -1830,6 +2116,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4,
+      "approx": true
+    }
   }
 ]

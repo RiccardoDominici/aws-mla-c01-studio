@@ -24,7 +24,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 2
+    }
   },
   {
     "answer": 1,
@@ -51,7 +55,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 2
+    }
   },
   {
     "answer": 2,
@@ -78,7 +86,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 3
+    }
   },
   {
     "answer": 3,
@@ -105,7 +117,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 5,
+      "approx": true
+    }
   },
   {
     "answer": 0,
@@ -132,7 +149,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 4
+    }
   },
   {
     "answer": 1,
@@ -159,7 +180,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 4
+    }
   },
   {
     "answer": 2,
@@ -186,7 +211,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 6
+    }
   },
   {
     "answer": 3,
@@ -213,7 +242,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 6
+    }
   },
   {
     "answer": 0,
@@ -240,7 +273,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 6
+    }
   },
   {
     "answer": 1,
@@ -267,7 +304,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 7
+    }
   },
   {
     "answer": 2,
@@ -294,7 +335,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 7
+    }
   },
   {
     "answer": 3,
@@ -321,7 +366,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 5
+    }
   },
   {
     "answer": 0,
@@ -348,7 +397,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 5
+    }
   },
   {
     "answer": 1,
@@ -375,7 +428,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9
+    }
   },
   {
     "answer": 2,
@@ -402,7 +459,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 10
+    }
   },
   {
     "answer": 3,
@@ -429,7 +490,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9
+    }
   },
   {
     "answer": 0,
@@ -456,7 +521,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9
+    }
   },
   {
     "answer": 1,
@@ -483,7 +552,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9
+    }
   },
   {
     "answer": 2,
@@ -510,7 +583,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9
+    }
   },
   {
     "answer": 3,
@@ -537,7 +614,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 8
+    }
   },
   {
     "answer": 0,
@@ -564,7 +645,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 8
+    }
   },
   {
     "answer": 1,
@@ -591,7 +676,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 8
+    }
   },
   {
     "answer": 2,
@@ -618,7 +707,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 11
+    }
   },
   {
     "answer": 3,
@@ -645,7 +738,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 10
+    }
   },
   {
     "answer": 0,
@@ -672,7 +769,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 10
+    }
   },
   {
     "answer": 1,
@@ -699,7 +800,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 11
+    }
   },
   {
     "answer": 2,
@@ -726,7 +831,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 13
+    }
   },
   {
     "answer": 3,
@@ -753,7 +862,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 13
+    }
   },
   {
     "answer": 0,
@@ -780,7 +893,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 14
+    }
   },
   {
     "answer": 1,
@@ -807,7 +924,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 14
+    }
   },
   {
     "answer": 2,
@@ -834,7 +955,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 12
+    }
   },
   {
     "answer": 3,
@@ -861,7 +986,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 12
+    }
   },
   {
     "answer": 0,
@@ -888,7 +1017,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 17
+    }
   },
   {
     "answer": 1,
@@ -915,7 +1048,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 17
+    }
   },
   {
     "answer": 2,
@@ -942,7 +1079,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 17
+    }
   },
   {
     "answer": 3,
@@ -969,7 +1110,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16
+    }
   },
   {
     "answer": 0,
@@ -996,7 +1141,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16
+    }
   },
   {
     "answer": 1,
@@ -1023,7 +1172,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16
+    }
   },
   {
     "answer": 2,
@@ -1050,7 +1203,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16
+    }
   },
   {
     "answer": 3,
@@ -1077,7 +1234,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 18
+    }
   },
   {
     "answer": 0,
@@ -1104,7 +1265,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16
+    }
   },
   {
     "answer": 1,
@@ -1131,7 +1296,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 17
+    }
   },
   {
     "answer": 2,
@@ -1158,7 +1327,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 18
+    }
   },
   {
     "answer": 3,
@@ -1185,7 +1358,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 8
+    }
   },
   {
     "answer": 1,
@@ -1212,7 +1389,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch2-ext01",
@@ -1239,7 +1420,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch2-ext02",
@@ -1266,7 +1451,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 7,
+      "approx": true
+    }
   },
   {
     "id": "ch2-ext03",
@@ -1293,7 +1483,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 2,
+      "approx": true
+    }
   },
   {
     "id": "ch2-ext04",
@@ -1320,7 +1515,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch2-ext05",
@@ -1347,7 +1546,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 6,
+      "approx": true
+    }
   },
   {
     "id": "ch2-ext06",
@@ -1374,7 +1578,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 10
+    }
   },
   {
     "id": "ch2-ext07",
@@ -1401,7 +1609,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 5
+    }
   },
   {
     "id": "ch2-ext08",
@@ -1428,7 +1640,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "id": "ch2-ext09",
@@ -1455,7 +1672,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch2-ext10",
@@ -1482,7 +1703,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 8
+    }
   },
   {
     "id": "ch2-ext11",
@@ -1509,7 +1734,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9
+    }
   },
   {
     "id": "ch2-ext12",
@@ -1536,7 +1765,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9
+    }
   },
   {
     "id": "ch2-ext13",
@@ -1563,7 +1796,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 7,
+      "approx": true
+    }
   },
   {
     "id": "ch2-ext14",
@@ -1590,7 +1828,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 10
+    }
   },
   {
     "id": "ch2-ext15",
@@ -1617,7 +1859,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "id": "ch2-ext16",
@@ -1644,7 +1891,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 2
+    }
   },
   {
     "id": "ch2-ext17",
@@ -1671,7 +1922,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12,
+      "approx": true
+    }
   },
   {
     "id": "ch2-ext18",
@@ -1698,7 +1954,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 10,
+      "approx": true
+    }
   },
   {
     "id": "ch2-ext19",
@@ -1725,7 +1986,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 10
+    }
   },
   {
     "id": "ch2-ext20",
@@ -1752,7 +2017,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch2-ext21",
@@ -1779,7 +2048,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 19
+    }
   },
   {
     "id": "ch2-ext22",
@@ -1806,7 +2079,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 14
+    }
   },
   {
     "id": "ch2-ext23",
@@ -1833,7 +2110,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch2-ext24",
@@ -1860,7 +2142,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch2-ext25",
@@ -1887,7 +2173,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16
+    }
   },
   {
     "id": "ch2-b01",
@@ -1917,7 +2207,11 @@
     ],
     "todo": [
       "K-1.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch2-b02",
@@ -1947,7 +2241,12 @@
     ],
     "todo": [
       "K-1.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b03",
@@ -1977,7 +2276,11 @@
     ],
     "todo": [
       "K-1.1S6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch2-b04",
@@ -2008,7 +2311,12 @@
     "todo": [
       "K-1.1K4",
       "K-1.1S6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b05",
@@ -2038,7 +2346,11 @@
     ],
     "todo": [
       "K-1.1S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 8
+    }
   },
   {
     "id": "ch2-b06",
@@ -2068,7 +2380,11 @@
     "todo": [
       "K-1.1K2",
       "K-1.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch2-b07",
@@ -2097,7 +2413,11 @@
     ],
     "todo": [
       "K-1.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch2-b08",
@@ -2127,7 +2447,11 @@
     ],
     "todo": [
       "C16"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 7
+    }
   },
   {
     "id": "ch2-b09",
@@ -2161,7 +2485,12 @@
     ],
     "todo": [
       "K-1.1K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b10",
@@ -2191,7 +2520,11 @@
     ],
     "todo": [
       "K-1.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 5
+    }
   },
   {
     "id": "ch2-b11",
@@ -2221,7 +2554,12 @@
     ],
     "todo": [
       "K-1.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 10,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b12",
@@ -2248,7 +2586,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9
+    }
   },
   {
     "id": "ch2-b13",
@@ -2275,7 +2617,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b14",
@@ -2302,7 +2649,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b15",
@@ -2329,7 +2681,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 11
+    }
   },
   {
     "id": "ch2-b16",
@@ -2356,7 +2712,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 11,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b17",
@@ -2383,7 +2744,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 11,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b18",
@@ -2413,7 +2779,11 @@
     ],
     "todo": [
       "K-1.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 13
+    }
   },
   {
     "id": "ch2-b19",
@@ -2448,7 +2818,11 @@
     "todo": [
       "K-1.2K3",
       "G-1.2.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 15
+    }
   },
   {
     "id": "ch2-b20",
@@ -2478,7 +2852,11 @@
     "todo": [
       "K-1.2K6",
       "K-1.2S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch2-b21",
@@ -2513,7 +2891,11 @@
     ],
     "todo": [
       "K-1.2S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch2-b22",
@@ -2543,7 +2925,11 @@
     ],
     "todo": [
       "C12"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 11
+    }
   },
   {
     "id": "ch2-b23",
@@ -2574,7 +2960,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b24",
@@ -2605,7 +2996,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b25",
@@ -2636,7 +3032,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 11
+    }
   },
   {
     "id": "ch2-b26",
@@ -2666,7 +3066,11 @@
     "todo": [
       "K-1.3K1",
       "K-1.3S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 17
+    }
   },
   {
     "id": "ch2-b27",
@@ -2695,7 +3099,11 @@
     ],
     "todo": [
       "K-1.3K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 17
+    }
   },
   {
     "id": "ch2-b28",
@@ -2724,7 +3132,11 @@
     ],
     "todo": [
       "K-1.3K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 17
+    }
   },
   {
     "id": "ch2-b29",
@@ -2753,7 +3165,11 @@
     ],
     "todo": [
       "K-1.3K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch2-b30",
@@ -2782,7 +3198,12 @@
     ],
     "todo": [
       "K-1.3K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b31",
@@ -2811,7 +3232,11 @@
     ],
     "todo": [
       "K-1.3S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 17
+    }
   },
   {
     "id": "ch2-b32",
@@ -2842,7 +3267,11 @@
     "todo": [
       "K-1.3S3",
       "K-1.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 7
+    }
   },
   {
     "id": "ch2-b33",
@@ -2872,7 +3301,12 @@
     ],
     "todo": [
       "K-1.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b34",
@@ -2902,7 +3336,11 @@
     ],
     "todo": [
       "K-1.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 20
+    }
   },
   {
     "id": "ch2-b35",
@@ -2932,7 +3370,12 @@
     ],
     "todo": [
       "K-1.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 20,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b36",
@@ -2962,7 +3405,11 @@
     ],
     "todo": [
       "K-1.3S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch2-b37",
@@ -2992,7 +3439,11 @@
     ],
     "todo": [
       "K-1.3S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch2-b38",
@@ -3025,7 +3476,11 @@
     ],
     "todo": [
       "K-1.3K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 17
+    }
   },
   {
     "id": "ch2-b39",
@@ -3060,7 +3515,11 @@
     "todo": [
       "K-1.3K4",
       "G-1.2.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 19
+    }
   },
   {
     "id": "ch2-b40",
@@ -3094,7 +3553,11 @@
     ],
     "todo": [
       "K-1.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 20
+    }
   },
   {
     "id": "ch2-b41",
@@ -3128,7 +3591,12 @@
     ],
     "todo": [
       "K-1.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch2-b42",
@@ -3162,7 +3630,11 @@
     ],
     "todo": [
       "K-1.3S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch2-b43",
@@ -3196,7 +3668,11 @@
     ],
     "todo": [
       "K-1.3K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch2-b44",
@@ -3230,7 +3706,11 @@
     ],
     "todo": [
       "K-1.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 7
+    }
   },
   {
     "id": "ch2-b45",
@@ -3263,6 +3743,10 @@
     ],
     "todo": [
       "K-1.3K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 17
+    }
   }
 ]

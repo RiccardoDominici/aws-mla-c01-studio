@@ -24,7 +24,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 2
+    }
   },
   {
     "answer": 1,
@@ -51,7 +55,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 3
+    }
   },
   {
     "answer": 2,
@@ -78,7 +86,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 5
+    }
   },
   {
     "answer": 3,
@@ -105,7 +117,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 6
+    }
   },
   {
     "answer": 0,
@@ -132,7 +148,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 9
+    }
   },
   {
     "answer": 1,
@@ -159,7 +179,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 15
+    }
   },
   {
     "answer": 2,
@@ -186,7 +210,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 17
+    }
   },
   {
     "answer": 3,
@@ -213,7 +241,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 18
+    }
   },
   {
     "answer": 0,
@@ -240,7 +272,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 19
+    }
   },
   {
     "answer": 1,
@@ -267,7 +303,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 12
+    }
   },
   {
     "answer": 2,
@@ -294,7 +334,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 13
+    }
   },
   {
     "answer": 3,
@@ -321,7 +365,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 3
+    }
   },
   {
     "answer": 0,
@@ -348,7 +396,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 19
+    }
   },
   {
     "answer": 1,
@@ -375,7 +427,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 19
+    }
   },
   {
     "answer": 2,
@@ -402,7 +458,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 19
+    }
   },
   {
     "answer": 3,
@@ -430,7 +490,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 3
+    }
   },
   {
     "answer": 0,
@@ -458,7 +522,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 8
+    }
   },
   {
     "answer": 1,
@@ -486,7 +554,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 11
+    }
   },
   {
     "answer": 2,
@@ -514,7 +586,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 17
+    }
   },
   {
     "answer": 3,
@@ -541,7 +617,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 9
+    }
   },
   {
     "answer": 0,
@@ -568,7 +648,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 10
+    }
   },
   {
     "answer": 1,
@@ -595,7 +679,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 2
+    }
   },
   {
     "answer": 2,
@@ -622,7 +710,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 15
+    }
   },
   {
     "answer": 3,
@@ -649,7 +741,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 16
+    }
   },
   {
     "answer": 0,
@@ -677,7 +773,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 5
+    }
   },
   {
     "answer": 1,
@@ -704,7 +804,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 17
+    }
   },
   {
     "answer": 2,
@@ -732,7 +836,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 18
+    }
   },
   {
     "answer": 3,
@@ -760,7 +868,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 15
+    }
   },
   {
     "answer": 0,
@@ -787,7 +899,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 19
+    }
   },
   {
     "answer": 1,
@@ -815,7 +931,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 1
+    }
   },
   {
     "answer": 2,
@@ -842,7 +962,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 6
+    }
   },
   {
     "answer": 3,
@@ -870,7 +994,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 3
+    }
   },
   {
     "answer": 0,
@@ -897,7 +1025,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 5
+    }
   },
   {
     "answer": 1,
@@ -924,7 +1056,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 6
+    }
   },
   {
     "answer": 2,
@@ -952,7 +1088,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 18
+    }
   },
   {
     "answer": 3,
@@ -980,7 +1120,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 5
+    }
   },
   {
     "answer": 0,
@@ -1008,7 +1152,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 18
+    }
   },
   {
     "answer": 1,
@@ -1036,7 +1184,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 6
+    }
   },
   {
     "answer": 2,
@@ -1064,7 +1216,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 9
+    }
   },
   {
     "answer": 3,
@@ -1092,7 +1248,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 17
+    }
   },
   {
     "answer": 0,
@@ -1120,7 +1280,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 13
+    }
   },
   {
     "answer": 1,
@@ -1148,7 +1312,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 19,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -1176,7 +1345,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 16
+    }
   },
   {
     "answer": 3,
@@ -1204,7 +1377,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 7
+    }
   },
   {
     "answer": 0,
@@ -1232,7 +1409,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 4
+    }
   },
   {
     "id": "ch4-ext01",
@@ -1260,7 +1441,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 7
+    }
   },
   {
     "id": "ch4-ext02",
@@ -1287,7 +1472,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 3
+    }
   },
   {
     "id": "ch4-ext03",
@@ -1315,7 +1504,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 5
+    }
   },
   {
     "id": "ch4-ext04",
@@ -1343,7 +1536,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 6
+    }
   },
   {
     "id": "ch4-ext05",
@@ -1370,7 +1567,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 9
+    }
   },
   {
     "id": "ch4-ext06",
@@ -1397,7 +1598,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 10
+    }
   },
   {
     "id": "ch4-ext07",
@@ -1424,7 +1629,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 17
+    }
   },
   {
     "id": "ch4-ext08",
@@ -1451,7 +1660,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 19
+    }
   },
   {
     "id": "ch4-ext09",
@@ -1479,7 +1692,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 17
+    }
   },
   {
     "id": "ch4-ext10",
@@ -1507,7 +1724,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 11
+    }
   },
   {
     "id": "ch4-ext11",
@@ -1534,7 +1755,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 6
+    }
   },
   {
     "id": "ch4-ext12",
@@ -1562,7 +1787,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 6
+    }
   },
   {
     "id": "ch4-ext13",
@@ -1590,7 +1819,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 5
+    }
   },
   {
     "id": "ch4-ext14",
@@ -1618,7 +1851,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 15
+    }
   },
   {
     "id": "ch4-ext15",
@@ -1646,7 +1883,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 19
+    }
   },
   {
     "id": "ch4-ext16",
@@ -1674,7 +1915,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 3
+    }
   },
   {
     "id": "ch4-ext17",
@@ -1702,7 +1947,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 13
+    }
   },
   {
     "id": "ch4-ext18",
@@ -1730,7 +1979,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 14
+    }
   },
   {
     "id": "ch4-ext19",
@@ -1758,7 +2011,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 5
+    }
   },
   {
     "id": "ch4-ext20",
@@ -1786,7 +2043,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 18
+    }
   },
   {
     "id": "ch4-ext21",
@@ -1814,7 +2075,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 10
+    }
   },
   {
     "id": "ch4-ext22",
@@ -1842,7 +2107,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 7
+    }
   },
   {
     "id": "ch4-ext23",
@@ -1870,7 +2139,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 19
+    }
   },
   {
     "id": "ch4-ext24",
@@ -1898,7 +2171,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 6
+    }
   },
   {
     "id": "ch4-ext25",
@@ -1926,7 +2203,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 20
+    }
   },
   {
     "answer": 0,
@@ -1956,7 +2237,11 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 8
+    }
   },
   {
     "answer": 1,
@@ -1986,7 +2271,11 @@
     ],
     "todo": [
       "K-3.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 5
+    }
   },
   {
     "answer": 2,
@@ -2016,7 +2305,11 @@
     ],
     "todo": [
       "K-3.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 10
+    }
   },
   {
     "answer": 3,
@@ -2046,7 +2339,11 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 6
+    }
   },
   {
     "answer": 0,
@@ -2076,7 +2373,11 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 3
+    }
   },
   {
     "answer": 1,
@@ -2106,7 +2407,11 @@
     ],
     "todo": [
       "K-3.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 4
+    }
   },
   {
     "answer": 2,
@@ -2135,7 +2440,11 @@
     ],
     "todo": [
       "G-3.1.4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 5
+    }
   },
   {
     "answer": [
@@ -2171,7 +2480,11 @@
     ],
     "todo": [
       "K-3.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 5
+    }
   },
   {
     "answer": [
@@ -2205,7 +2518,11 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 3
+    }
   },
   {
     "answer": [
@@ -2239,7 +2556,11 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 6
+    }
   },
   {
     "answer": 3,
@@ -2269,7 +2590,11 @@
     ],
     "todo": [
       "K-3.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 10
+    }
   },
   {
     "answer": [
@@ -2303,7 +2628,11 @@
     ],
     "todo": [
       "K-3.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 10
+    }
   },
   {
     "answer": [
@@ -2337,7 +2666,11 @@
     ],
     "todo": [
       "K-3.1K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 3
+    }
   },
   {
     "answer": 0,
@@ -2366,7 +2699,11 @@
     ],
     "todo": [
       "G-3.1.4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 5
+    }
   },
   {
     "answer": 1,
@@ -2396,7 +2733,12 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 6,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -2426,7 +2768,11 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 6
+    }
   },
   {
     "answer": 3,
@@ -2456,7 +2802,11 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 3
+    }
   },
   {
     "answer": 0,
@@ -2486,7 +2836,12 @@
     ],
     "todo": [
       "K-3.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 5,
+      "approx": true
+    }
   },
   {
     "answer": [
@@ -2520,7 +2875,12 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 4,
+      "approx": true
+    }
   },
   {
     "answer": 1,
@@ -2550,7 +2910,11 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 3
+    }
   },
   {
     "answer": [
@@ -2585,7 +2949,11 @@
     "todo": [
       "K-3.2K2",
       "K-3.2S6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 8
+    }
   },
   {
     "answer": 2,
@@ -2615,7 +2983,11 @@
     ],
     "todo": [
       "K-3.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 8
+    }
   },
   {
     "answer": [
@@ -2648,7 +3020,12 @@
     ],
     "todo": [
       "K-3.2S6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "answer": 3,
@@ -2677,7 +3054,11 @@
     ],
     "todo": [
       "K-3.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 9
+    }
   },
   {
     "answer": 0,
@@ -2708,7 +3089,11 @@
     "todo": [
       "K-3.2K1",
       "K-3.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 3
+    }
   },
   {
     "answer": [
@@ -2744,7 +3129,12 @@
     ],
     "todo": [
       "K-3.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 1,
+      "approx": true
+    }
   },
   {
     "answer": [
@@ -2778,7 +3168,11 @@
     ],
     "todo": [
       "K-3.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 1
+    }
   },
   {
     "answer": 1,
@@ -2808,7 +3202,11 @@
     ],
     "todo": [
       "K-3.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 1
+    }
   },
   {
     "answer": 2,
@@ -2838,7 +3236,11 @@
     ],
     "todo": [
       "K-3.2S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 6
+    }
   },
   {
     "answer": 3,
@@ -2868,7 +3270,11 @@
     ],
     "todo": [
       "K-3.2S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 6
+    }
   },
   {
     "answer": [
@@ -2902,7 +3308,12 @@
     ],
     "todo": [
       "K-3.2S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 6,
+      "approx": true
+    }
   },
   {
     "answer": 0,
@@ -2932,7 +3343,12 @@
     ],
     "todo": [
       "K-3.2S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 2,
+      "approx": true
+    }
   },
   {
     "answer": 1,
@@ -2959,7 +3375,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 15
+    }
   },
   {
     "answer": 2,
@@ -2986,7 +3406,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 16
+    }
   },
   {
     "answer": 3,
@@ -3013,7 +3437,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 16
+    }
   },
   {
     "answer": [
@@ -3044,7 +3472,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 16
+    }
   },
   {
     "answer": 0,
@@ -3075,7 +3507,11 @@
     "todo": [
       "K-3.2S3",
       "K-3.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 1
+    }
   },
   {
     "answer": 1,
@@ -3104,7 +3540,11 @@
     ],
     "todo": [
       "G-3.2.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 10
+    }
   },
   {
     "answer": [
@@ -3139,7 +3579,12 @@
     ],
     "todo": [
       "G-3.2.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 10,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -3168,7 +3613,12 @@
     ],
     "todo": [
       "G-3.2.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 10,
+      "approx": true
+    }
   },
   {
     "answer": 3,
@@ -3197,7 +3647,11 @@
     ],
     "todo": [
       "G-3.2.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 10
+    }
   },
   {
     "answer": 0,
@@ -3228,7 +3682,11 @@
     "todo": [
       "K-3.2K1",
       "G-3.1.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 8
+    }
   },
   {
     "answer": [
@@ -3263,7 +3721,11 @@
     "todo": [
       "K-3.2K1",
       "G-3.1.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 5
+    }
   },
   {
     "answer": 1,
@@ -3293,7 +3755,12 @@
     ],
     "todo": [
       "K-3.2S6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -3323,6 +3790,11 @@
     ],
     "todo": [
       "K-3.2S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 5,
+      "approx": true
+    }
   }
 ]

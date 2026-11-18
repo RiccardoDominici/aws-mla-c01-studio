@@ -27,7 +27,11 @@
     "todo": [
       "K-4.2K5",
       "V39"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 4
+    }
   },
   {
     "id": "ch11-q002",
@@ -56,7 +60,11 @@
     ],
     "todo": [
       "V42"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 4
+    }
   },
   {
     "id": "ch11-q003",
@@ -84,7 +92,11 @@
     ],
     "todo": [
       "V07"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 4
+    }
   },
   {
     "id": "ch11-q004",
@@ -113,7 +125,11 @@
     "todo": [
       "K-4.2S5",
       "V08"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 6
+    }
   },
   {
     "id": "ch11-q005",
@@ -140,7 +156,11 @@
     ],
     "todo": [
       "K-4.2S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 6
+    }
   },
   {
     "id": "ch11-q006",
@@ -168,7 +188,11 @@
     "todo": [
       "K-4.2K6",
       "K-4.2S7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 5
+    }
   },
   {
     "id": "ch11-q007",
@@ -201,7 +225,11 @@
     "todo": [
       "K-4.2K6",
       "K-4.2S7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 5
+    }
   },
   {
     "id": "ch11-q008",
@@ -230,7 +258,11 @@
     "todo": [
       "K-4.2K5",
       "V32"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 4
+    }
   },
   {
     "id": "ch11-q009",
@@ -259,7 +291,11 @@
     "todo": [
       "K-4.2S10",
       "C19"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 3
+    }
   },
   {
     "id": "ch11-q010",
@@ -287,7 +323,11 @@
     ],
     "todo": [
       "K-4.2S10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 3
+    }
   },
   {
     "id": "ch11-q011",
@@ -323,7 +363,11 @@
     "todo": [
       "K-4.2S10",
       "C19"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 3
+    }
   },
   {
     "id": "ch11-q012",
@@ -352,7 +396,11 @@
     "todo": [
       "K-4.2S9",
       "V39"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 4
+    }
   },
   {
     "id": "ch11-q013",
@@ -386,7 +434,11 @@
     "todo": [
       "K-4.2S9",
       "V07"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 4
+    }
   },
   {
     "id": "ch11-q014",
@@ -414,7 +466,11 @@
     ],
     "todo": [
       "K-4.2S8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 7
+    }
   },
   {
     "id": "ch11-q015",
@@ -446,7 +502,11 @@
     ],
     "todo": [
       "K-4.2S8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 7
+    }
   },
   {
     "id": "ch11-q016",
@@ -475,7 +535,11 @@
     ],
     "todo": [
       "K-4.2K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 8
+    }
   },
   {
     "id": "ch11-q017",
@@ -504,7 +568,11 @@
     ],
     "todo": [
       "K-4.2K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 8
+    }
   },
   {
     "id": "ch11-q018",
@@ -537,7 +605,11 @@
     ],
     "todo": [
       "K-4.2K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 8
+    }
   },
   {
     "id": "ch11-q019",
@@ -571,7 +643,11 @@
     "todo": [
       "K-4.2K1",
       "C15"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 8
+    }
   },
   {
     "id": "ch11-q020",
@@ -599,7 +675,11 @@
     ],
     "todo": [
       "K-4.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 2
+    }
   },
   {
     "id": "ch11-q021",
@@ -628,7 +708,11 @@
     "todo": [
       "K-4.2K2",
       "G-4.2.2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 10
+    }
   },
   {
     "id": "ch11-q022",
@@ -660,7 +744,11 @@
     ],
     "todo": [
       "G-4.2.2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 10
+    }
   },
   {
     "id": "ch11-q023",
@@ -696,7 +784,11 @@
     "todo": [
       "K-4.2K2",
       "V04"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 10
+    }
   },
   {
     "id": "ch11-q024",
@@ -725,7 +817,11 @@
     "todo": [
       "K-4.2K2",
       "V04"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 10
+    }
   },
   {
     "id": "ch11-q025",
@@ -753,7 +849,11 @@
     ],
     "todo": [
       "K-4.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 10
+    }
   },
   {
     "id": "ch11-q026",
@@ -785,7 +885,11 @@
     ],
     "todo": [
       "K-4.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 9
+    }
   },
   {
     "id": "ch11-q027",
@@ -815,7 +919,11 @@
     "todo": [
       "K-4.2S3",
       "V38"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 11
+    }
   },
   {
     "id": "ch11-q028",
@@ -843,7 +951,11 @@
     ],
     "todo": [
       "K-4.2S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 9
+    }
   },
   {
     "id": "ch11-q029",
@@ -872,7 +984,11 @@
     ],
     "todo": [
       "V24"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 11
+    }
   },
   {
     "id": "ch11-q030",
@@ -904,7 +1020,11 @@
     ],
     "todo": [
       "V24"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 11
+    }
   },
   {
     "id": "ch11-q031",
@@ -932,7 +1052,11 @@
     "todo": [
       "K-4.2S5",
       "V08"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 6
+    }
   },
   {
     "id": "ch11-q032",
@@ -966,7 +1090,11 @@
     "todo": [
       "K-4.2S5",
       "V08"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 6
+    }
   },
   {
     "id": "ch11-q033",
@@ -994,7 +1122,11 @@
     ],
     "todo": [
       "V19"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 10
+    }
   },
   {
     "id": "ch11-q034",
@@ -1022,7 +1154,11 @@
     ],
     "todo": [
       "V19"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 10
+    }
   },
   {
     "id": "ch11-q035",
@@ -1051,7 +1187,11 @@
     "todo": [
       "K-4.2S10",
       "C19"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 3
+    }
   },
   {
     "id": "ch11-q036",
@@ -1081,7 +1221,11 @@
     "todo": [
       "K-3.1S2",
       "C15"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 2
+    }
   },
   {
     "id": "ch11-q037",
@@ -1111,7 +1255,11 @@
     "todo": [
       "K-3.1S2",
       "C15"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 2
+    }
   },
   {
     "id": "ch11-q038",
@@ -1141,7 +1289,11 @@
     "todo": [
       "K-3.1S2",
       "C15"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 2
+    }
   },
   {
     "id": "ch11-q039",
@@ -1168,7 +1320,11 @@
     ],
     "todo": [
       "K-4.1K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 13
+    }
   },
   {
     "id": "ch11-q040",
@@ -1196,7 +1352,11 @@
     ],
     "todo": [
       "K-4.1K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 13
+    }
   },
   {
     "id": "ch11-q041",
@@ -1225,7 +1385,11 @@
     ],
     "todo": [
       "K-4.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 12
+    }
   },
   {
     "id": "ch11-q042",
@@ -1254,7 +1418,11 @@
     ],
     "todo": [
       "K-4.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 12
+    }
   },
   {
     "id": "ch11-q043",
@@ -1283,7 +1451,11 @@
     ],
     "todo": [
       "K-4.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 12
+    }
   },
   {
     "id": "ch11-q044",
@@ -1312,7 +1484,11 @@
     ],
     "todo": [
       "K-4.2S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14
+    }
   },
   {
     "id": "ch11-q045",
@@ -1341,7 +1517,11 @@
     ],
     "todo": [
       "K-4.2S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14
+    }
   },
   {
     "id": "ch11-q046",
@@ -1379,7 +1559,11 @@
       "K-4.2S2",
       "G-4.3.4",
       "V44"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14
+    }
   },
   {
     "id": "ch11-q047",
@@ -1408,7 +1592,11 @@
     "todo": [
       "G-4.3.4",
       "V44"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14
+    }
   },
   {
     "id": "ch11-q048",
@@ -1437,7 +1625,11 @@
     ],
     "todo": [
       "G-4.3.4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14
+    }
   },
   {
     "id": "ch11-q049",
@@ -1466,7 +1658,11 @@
     "todo": [
       "K-4.3K2",
       "C03"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 15
+    }
   },
   {
     "id": "ch11-q050",
@@ -1501,7 +1697,11 @@
       "K-4.3K2",
       "C03",
       "C18"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 15
+    }
   },
   {
     "id": "ch11-q051",
@@ -1529,7 +1729,11 @@
     ],
     "todo": [
       "C18"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 15
+    }
   },
   {
     "id": "ch11-q052",
@@ -1558,7 +1762,11 @@
     ],
     "todo": [
       "K-4.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 16
+    }
   },
   {
     "id": "ch11-q053",
@@ -1587,7 +1795,11 @@
     ],
     "todo": [
       "K-4.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 16
+    }
   },
   {
     "id": "ch11-q054",
@@ -1616,7 +1828,11 @@
     ],
     "todo": [
       "K-4.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 16
+    }
   },
   {
     "id": "ch11-q055",
@@ -1649,7 +1865,11 @@
     ],
     "todo": [
       "K-4.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 16
+    }
   },
   {
     "id": "ch11-q056",
@@ -1678,7 +1898,11 @@
     ],
     "todo": [
       "K-4.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 19
+    }
   },
   {
     "id": "ch11-q057",
@@ -1712,7 +1936,11 @@
     ],
     "todo": [
       "K-4.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 19
+    }
   },
   {
     "id": "ch11-q058",
@@ -1747,7 +1975,11 @@
     ],
     "todo": [
       "K-4.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 19
+    }
   },
   {
     "id": "ch11-q059",
@@ -1775,7 +2007,11 @@
     ],
     "todo": [
       "K-4.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 17
+    }
   },
   {
     "id": "ch11-q060",
@@ -1804,7 +2040,11 @@
     ],
     "todo": [
       "V45"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 17
+    }
   },
   {
     "id": "ch11-q061",
@@ -1832,7 +2072,11 @@
     ],
     "todo": [
       "V45"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 17
+    }
   },
   {
     "id": "ch11-q062",
@@ -1860,7 +2104,11 @@
     ],
     "todo": [
       "C23"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 17
+    }
   },
   {
     "id": "ch11-q063",
@@ -1888,7 +2136,11 @@
     ],
     "todo": [
       "C23"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 17
+    }
   },
   {
     "id": "ch11-q064",
@@ -1916,7 +2168,11 @@
     ],
     "todo": [
       "V46"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 18
+    }
   },
   {
     "id": "ch11-q065",
@@ -1945,7 +2201,11 @@
     "todo": [
       "V52",
       "V46"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 18
+    }
   },
   {
     "id": "ch11-q066",
@@ -1978,7 +2238,11 @@
     "todo": [
       "V52",
       "V46"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 18
+    }
   },
   {
     "id": "ch11-q067",
@@ -2006,7 +2270,11 @@
     ],
     "todo": [
       "V56"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 20
+    }
   },
   {
     "id": "ch11-q068",
@@ -2040,7 +2308,11 @@
     "todo": [
       "V56",
       "G-4.3.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 20
+    }
   },
   {
     "id": "ch11-q069",
@@ -2073,7 +2345,11 @@
     "todo": [
       "G-4.3.1",
       "K-4.3K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 20
+    }
   },
   {
     "id": "ch11-q070",
@@ -2102,7 +2378,11 @@
     "todo": [
       "K-4.3K4",
       "V13"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 20
+    }
   },
   {
     "id": "ch11-q071",
@@ -2130,7 +2410,11 @@
     ],
     "todo": [
       "V13"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 20
+    }
   },
   {
     "id": "ch11-q072",
@@ -2159,7 +2443,12 @@
     ],
     "todo": [
       "V42"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 4,
+      "approx": true
+    }
   },
   {
     "id": "ch11-q073",
@@ -2189,7 +2478,11 @@
     "todo": [
       "V32",
       "K-4.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 5
+    }
   },
   {
     "id": "ch11-q074",
@@ -2218,7 +2511,11 @@
     ],
     "todo": [
       "V38"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 11
+    }
   },
   {
     "id": "ch11-q075",
@@ -2246,7 +2543,11 @@
     ],
     "todo": [
       "K-4.2S7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 5
+    }
   },
   {
     "id": "ch11-q076",
@@ -2274,7 +2575,11 @@
     ],
     "todo": [
       "K-4.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 2
+    }
   },
   {
     "id": "ch11-q077",
@@ -2310,7 +2615,11 @@
     "todo": [
       "K-4.2S5",
       "V08"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 6
+    }
   },
   {
     "id": "ch11-q078",
@@ -2339,7 +2648,11 @@
     "todo": [
       "K-4.2K2",
       "G-4.2.2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 10
+    }
   },
   {
     "id": "ch11-q079",
@@ -2372,7 +2685,11 @@
     "todo": [
       "K-4.2S8",
       "K-4.2S9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 7
+    }
   },
   {
     "id": "ch11-q080",
@@ -2401,7 +2718,11 @@
     ],
     "todo": [
       "K-4.2S10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 3
+    }
   },
   {
     "id": "ch11-q081",
@@ -2431,6 +2752,10 @@
     ],
     "todo": [
       "K-4.3K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 13
+    }
   }
 ]

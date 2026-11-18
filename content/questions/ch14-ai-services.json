@@ -27,7 +27,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 2
+    }
   },
   {
     "id": "ch14-q002",
@@ -56,7 +60,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 5
+    }
   },
   {
     "id": "ch14-q003",
@@ -85,7 +93,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 2
+    }
   },
   {
     "id": "ch14-q004",
@@ -121,7 +133,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4
+    }
   },
   {
     "id": "ch14-q005",
@@ -151,7 +167,11 @@
     "todo": [
       "K-2.1K2",
       "V28"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3
+    }
   },
   {
     "id": "ch14-q006",
@@ -179,7 +199,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 5
+    }
   },
   {
     "id": "ch14-q007",
@@ -208,7 +232,11 @@
     ],
     "todo": [
       "V18"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 2
+    }
   },
   {
     "id": "ch14-q008",
@@ -237,7 +265,11 @@
     ],
     "todo": [
       "V18"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 2
+    }
   },
   {
     "id": "ch14-q009",
@@ -266,7 +298,11 @@
     ],
     "todo": [
       "V18"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 2
+    }
   },
   {
     "id": "ch14-q010",
@@ -296,7 +332,12 @@
     ],
     "todo": [
       "V18"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 2,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q011",
@@ -325,7 +366,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 2
+    }
   },
   {
     "id": "ch14-q012",
@@ -359,7 +404,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 2
+    }
   },
   {
     "id": "ch14-q013",
@@ -388,7 +437,11 @@
     ],
     "todo": [
       "V36"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3
+    }
   },
   {
     "id": "ch14-q014",
@@ -417,7 +470,12 @@
     ],
     "todo": [
       "V36"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q015",
@@ -446,7 +504,12 @@
     ],
     "todo": [
       "V36"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q016",
@@ -475,7 +538,12 @@
     ],
     "todo": [
       "V36"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q017",
@@ -508,7 +576,11 @@
     ],
     "todo": [
       "V36"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3
+    }
   },
   {
     "id": "ch14-q018",
@@ -537,7 +609,11 @@
     ],
     "todo": [
       "V28"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3
+    }
   },
   {
     "id": "ch14-q019",
@@ -566,7 +642,12 @@
     ],
     "todo": [
       "V28"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q020",
@@ -596,7 +677,11 @@
     ],
     "todo": [
       "V28"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3
+    }
   },
   {
     "id": "ch14-q021",
@@ -625,7 +710,11 @@
     ],
     "todo": [
       "V28"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3
+    }
   },
   {
     "id": "ch14-q022",
@@ -659,7 +748,12 @@
     ],
     "todo": [
       "V28"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q023",
@@ -689,7 +783,12 @@
     ],
     "todo": [
       "V28"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q024",
@@ -718,7 +817,11 @@
     ],
     "todo": [
       "V28"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3
+    }
   },
   {
     "id": "ch14-q025",
@@ -752,7 +855,12 @@
     ],
     "todo": [
       "V28"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q026",
@@ -781,7 +889,11 @@
     ],
     "todo": [
       "V29"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4
+    }
   },
   {
     "id": "ch14-q027",
@@ -811,7 +923,11 @@
     ],
     "todo": [
       "V29"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4
+    }
   },
   {
     "id": "ch14-q028",
@@ -840,7 +956,11 @@
     ],
     "todo": [
       "V29"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4
+    }
   },
   {
     "id": "ch14-q029",
@@ -870,7 +990,11 @@
     ],
     "todo": [
       "V29"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4
+    }
   },
   {
     "id": "ch14-q030",
@@ -906,7 +1030,11 @@
     ],
     "todo": [
       "V29"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4
+    }
   },
   {
     "id": "ch14-q031",
@@ -940,7 +1068,12 @@
     ],
     "todo": [
       "V29"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q032",
@@ -969,7 +1102,11 @@
     ],
     "todo": [
       "V30"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4
+    }
   },
   {
     "id": "ch14-q033",
@@ -998,7 +1135,11 @@
     ],
     "todo": [
       "V30"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4
+    }
   },
   {
     "id": "ch14-q034",
@@ -1028,7 +1169,11 @@
     ],
     "todo": [
       "V30"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4
+    }
   },
   {
     "id": "ch14-q035",
@@ -1057,7 +1202,11 @@
     ],
     "todo": [
       "V30"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4
+    }
   },
   {
     "id": "ch14-q036",
@@ -1091,7 +1240,12 @@
     ],
     "todo": [
       "V30"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 4,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q037",
@@ -1120,7 +1274,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 5
+    }
   },
   {
     "id": "ch14-q038",
@@ -1149,7 +1307,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 5
+    }
   },
   {
     "id": "ch14-q039",
@@ -1179,7 +1341,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 5
+    }
   },
   {
     "id": "ch14-q040",
@@ -1208,7 +1374,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 5
+    }
   },
   {
     "id": "ch14-q041",
@@ -1238,7 +1408,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 5
+    }
   },
   {
     "id": "ch14-q042",
@@ -1272,7 +1446,11 @@
     "todo": [
       "K-2.1K2",
       "V11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 6
+    }
   },
   {
     "id": "ch14-q043",
@@ -1301,7 +1479,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 5
+    }
   },
   {
     "id": "ch14-q044",
@@ -1329,7 +1511,11 @@
     ],
     "todo": [
       "V11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 6
+    }
   },
   {
     "id": "ch14-q045",
@@ -1357,7 +1543,11 @@
     ],
     "todo": [
       "V11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 6
+    }
   },
   {
     "id": "ch14-q046",
@@ -1385,7 +1575,11 @@
     ],
     "todo": [
       "V11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 6
+    }
   },
   {
     "id": "ch14-q047",
@@ -1419,7 +1613,11 @@
     ],
     "todo": [
       "V11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 6
+    }
   },
   {
     "id": "ch14-q048",
@@ -1452,7 +1650,11 @@
     ],
     "todo": [
       "V11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 6
+    }
   },
   {
     "id": "ch14-q049",
@@ -1480,7 +1682,11 @@
     ],
     "todo": [
       "V35"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 7
+    }
   },
   {
     "id": "ch14-q050",
@@ -1509,7 +1715,12 @@
     ],
     "todo": [
       "V35"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 7,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q051",
@@ -1537,7 +1748,12 @@
     ],
     "todo": [
       "V35"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 7,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q052",
@@ -1570,7 +1786,11 @@
     ],
     "todo": [
       "V35"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 7
+    }
   },
   {
     "id": "ch14-q053",
@@ -1599,7 +1819,11 @@
     ],
     "todo": [
       "V31"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 7
+    }
   },
   {
     "id": "ch14-q054",
@@ -1628,7 +1852,11 @@
     ],
     "todo": [
       "V31"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 7
+    }
   },
   {
     "id": "ch14-q055",
@@ -1657,7 +1885,11 @@
     ],
     "todo": [
       "V31"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 7
+    }
   },
   {
     "id": "ch14-q056",
@@ -1687,7 +1919,11 @@
     ],
     "todo": [
       "V31"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 7
+    }
   },
   {
     "id": "ch14-q057",
@@ -1721,7 +1957,11 @@
     ],
     "todo": [
       "V31"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 7
+    }
   },
   {
     "id": "ch14-q058",
@@ -1750,7 +1990,11 @@
     ],
     "todo": [
       "V21"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8
+    }
   },
   {
     "id": "ch14-q059",
@@ -1779,7 +2023,11 @@
     ],
     "todo": [
       "V21"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8
+    }
   },
   {
     "id": "ch14-q060",
@@ -1807,7 +2055,12 @@
     ],
     "todo": [
       "V20"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q061",
@@ -1835,7 +2088,12 @@
     ],
     "todo": [
       "V22"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q062",
@@ -1863,7 +2121,12 @@
     ],
     "todo": [
       "V22"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q063",
@@ -1895,7 +2158,12 @@
     ],
     "todo": [
       "V22"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q064",
@@ -1924,7 +2192,11 @@
     ],
     "todo": [
       "C05"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8
+    }
   },
   {
     "id": "ch14-q065",
@@ -1953,7 +2225,11 @@
     ],
     "todo": [
       "C05"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8
+    }
   },
   {
     "id": "ch14-q066",
@@ -1983,7 +2259,12 @@
     ],
     "todo": [
       "C22"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 10,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q067",
@@ -2014,7 +2295,11 @@
     "todo": [
       "C05",
       "C22"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8
+    }
   },
   {
     "id": "ch14-q068",
@@ -2048,7 +2333,12 @@
     ],
     "todo": [
       "C05"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q069",
@@ -2077,7 +2367,12 @@
     ],
     "todo": [
       "C05"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "id": "ch14-q070",
@@ -2105,7 +2400,11 @@
     ],
     "todo": [
       "V23"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 9
+    }
   },
   {
     "id": "ch14-q071",
@@ -2134,7 +2433,11 @@
     ],
     "todo": [
       "V23"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 9
+    }
   },
   {
     "id": "ch14-q072",
@@ -2163,7 +2466,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 9
+    }
   },
   {
     "id": "ch14-q073",
@@ -2193,7 +2500,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 9
+    }
   },
   {
     "id": "ch14-q074",
@@ -2229,7 +2540,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 9
+    }
   },
   {
     "id": "ch14-q075",
@@ -2262,7 +2577,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 1
+    }
   },
   {
     "id": "ch14-q076",
@@ -2297,7 +2616,11 @@
     ],
     "todo": [
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 5
+    }
   },
   {
     "id": "ch14-q077",
@@ -2331,7 +2654,11 @@
     "todo": [
       "V35",
       "K-2.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch12-genai-rag",
+      "slide": 14
+    }
   },
   {
     "id": "ch14-q078",
@@ -2363,6 +2690,11 @@
     ],
     "todo": [
       "V20"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 8,
+      "approx": true
+    }
   }
 ]

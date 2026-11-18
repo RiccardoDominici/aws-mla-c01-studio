@@ -28,7 +28,11 @@
     "todo": [
       "K-2.1K4",
       "C13"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 2
+    }
   },
   {
     "id": "ch9-q002",
@@ -58,7 +62,11 @@
     "todo": [
       "K-2.1K4",
       "C13"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch9-q003",
@@ -87,7 +95,11 @@
     ],
     "todo": [
       "K-2.1K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch9-q004",
@@ -122,7 +134,11 @@
     "todo": [
       "K-2.1K4",
       "C13"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 4
+    }
   },
   {
     "id": "ch9-q005",
@@ -152,7 +168,11 @@
     "todo": [
       "K-2.1K4",
       "C13"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 4
+    }
   },
   {
     "id": "ch9-q006",
@@ -182,7 +202,11 @@
     "todo": [
       "K-2.1K4",
       "C13"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 4
+    }
   },
   {
     "id": "ch9-q007",
@@ -212,7 +236,11 @@
     "todo": [
       "K-2.1K4",
       "C13"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch9-q008",
@@ -242,7 +270,11 @@
     "todo": [
       "K-2.1K4",
       "C13"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 4
+    }
   },
   {
     "id": "ch9-q009",
@@ -278,7 +310,11 @@
     "todo": [
       "K-2.1K4",
       "C13"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 2
+    }
   },
   {
     "id": "ch9-q010",
@@ -312,7 +348,11 @@
     "todo": [
       "K-2.1S1",
       "K-2.1S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 1
+    }
   },
   {
     "id": "ch9-q011",
@@ -341,7 +381,11 @@
     ],
     "todo": [
       "K-2.1S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 1
+    }
   },
   {
     "id": "ch9-q012",
@@ -370,7 +414,11 @@
     ],
     "todo": [
       "K-2.1S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 1
+    }
   },
   {
     "id": "ch9-q013",
@@ -400,7 +448,11 @@
     "todo": [
       "K-2.1K3",
       "K-2.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch9-q014",
@@ -434,7 +486,11 @@
     "todo": [
       "K-2.1K3",
       "K-2.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 1
+    }
   },
   {
     "id": "ch9-q015",
@@ -463,7 +519,11 @@
     ],
     "todo": [
       "K-2.2K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch9-q016",
@@ -497,7 +557,11 @@
     ],
     "todo": [
       "K-2.2K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch9-q017",
@@ -526,7 +590,11 @@
     ],
     "todo": [
       "K-2.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 12
+    }
   },
   {
     "id": "ch9-q018",
@@ -555,7 +623,12 @@
     ],
     "todo": [
       "K-2.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 12,
+      "approx": true
+    }
   },
   {
     "id": "ch9-q019",
@@ -583,7 +656,11 @@
     ],
     "todo": [
       "K-2.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 12
+    }
   },
   {
     "id": "ch9-q020",
@@ -618,7 +695,11 @@
     "todo": [
       "K-2.2K7",
       "K-2.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 7
+    }
   },
   {
     "id": "ch9-q021",
@@ -647,7 +728,11 @@
     ],
     "todo": [
       "K-2.2K7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 7
+    }
   },
   {
     "id": "ch9-q022",
@@ -676,7 +761,11 @@
     ],
     "todo": [
       "K-2.2K7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 7
+    }
   },
   {
     "id": "ch9-q023",
@@ -706,7 +795,11 @@
     ],
     "todo": [
       "K-2.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch9-q024",
@@ -735,7 +828,11 @@
     ],
     "todo": [
       "K-2.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch9-q025",
@@ -764,7 +861,11 @@
     ],
     "todo": [
       "K-2.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch9-q026",
@@ -798,7 +899,11 @@
     ],
     "todo": [
       "K-2.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch9-q027",
@@ -827,7 +932,11 @@
     ],
     "todo": [
       "K-2.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch12-genai-rag",
+      "slide": 4
+    }
   },
   {
     "id": "ch9-q028",
@@ -855,7 +964,11 @@
     ],
     "todo": [
       "K-2.2S7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch9-q029",
@@ -884,7 +997,11 @@
     "todo": [
       "K-2.2S7",
       "K-2.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch9-q030",
@@ -913,7 +1030,11 @@
     ],
     "todo": [
       "K-2.2S7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch9-q031",
@@ -946,7 +1067,11 @@
     ],
     "todo": [
       "K-2.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 10
+    }
   },
   {
     "id": "ch9-q032",
@@ -976,7 +1101,11 @@
     "todo": [
       "K-2.2K3",
       "K-2.2S8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 11
+    }
   },
   {
     "id": "ch9-q033",
@@ -1009,7 +1138,11 @@
     ],
     "todo": [
       "K-2.2S8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 11
+    }
   },
   {
     "id": "ch9-q034",
@@ -1039,7 +1172,11 @@
     "todo": [
       "K-2.2S8",
       "K-2.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 11
+    }
   },
   {
     "id": "ch9-q035",
@@ -1068,7 +1205,11 @@
     "todo": [
       "K-2.2S8",
       "K-2.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 11
+    }
   },
   {
     "id": "ch9-q036",
@@ -1097,7 +1238,11 @@
     ],
     "todo": [
       "K-2.2S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch9-q037",
@@ -1126,7 +1271,11 @@
     ],
     "todo": [
       "K-2.2S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch9-q038",
@@ -1155,7 +1304,11 @@
     ],
     "todo": [
       "K-2.2K8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch9-q039",
@@ -1184,7 +1337,11 @@
     ],
     "todo": [
       "K-2.2K8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch9-q040",
@@ -1217,7 +1374,11 @@
     ],
     "todo": [
       "K-2.2K8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch9-q041",
@@ -1246,7 +1407,11 @@
     ],
     "todo": [
       "K-2.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 14
+    }
   },
   {
     "id": "ch9-q042",
@@ -1275,7 +1440,11 @@
     ],
     "todo": [
       "K-2.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 14
+    }
   },
   {
     "id": "ch9-q043",
@@ -1304,7 +1473,11 @@
     ],
     "todo": [
       "K-2.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 14
+    }
   },
   {
     "id": "ch9-q044",
@@ -1332,7 +1505,11 @@
     ],
     "todo": [
       "K-2.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 14
+    }
   },
   {
     "id": "ch9-q045",
@@ -1367,7 +1544,11 @@
     ],
     "todo": [
       "K-2.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 14
+    }
   },
   {
     "id": "ch9-q046",
@@ -1397,7 +1578,11 @@
     "todo": [
       "C11",
       "K-2.1S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch9-q047",
@@ -1430,7 +1615,11 @@
     ],
     "todo": [
       "C11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch9-q048",
@@ -1459,7 +1648,11 @@
     ],
     "todo": [
       "C07"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch9-q049",
@@ -1489,7 +1682,11 @@
     "todo": [
       "C07",
       "C11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch9-q050",
@@ -1522,7 +1719,11 @@
     ],
     "todo": [
       "C07"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch9-q051",
@@ -1550,7 +1751,11 @@
     ],
     "todo": [
       "K-2.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch9-q052",
@@ -1578,7 +1783,11 @@
     ],
     "todo": [
       "K-2.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch9-q053",
@@ -1606,7 +1815,11 @@
     ],
     "todo": [
       "K-2.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch9-q054",
@@ -1638,7 +1851,11 @@
     ],
     "todo": [
       "C08"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch9-q055",
@@ -1667,7 +1884,11 @@
     ],
     "todo": [
       "C08"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch9-q056",
@@ -1697,7 +1918,11 @@
     "todo": [
       "K-2.3S5",
       "C10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch9-q057",
@@ -1726,7 +1951,11 @@
     "todo": [
       "K-2.3S5",
       "C10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch9-q058",
@@ -1760,7 +1989,11 @@
     "todo": [
       "K-2.3S1",
       "K-2.3K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch9-q059",
@@ -1788,7 +2021,11 @@
     ],
     "todo": [
       "K-2.3S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch9-q060",
@@ -1816,7 +2053,11 @@
     ],
     "todo": [
       "K-2.3K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch9-q061",
@@ -1848,7 +2089,11 @@
     "todo": [
       "K-2.3K4",
       "K-2.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch9-q062",
@@ -1877,7 +2122,11 @@
     ],
     "todo": [
       "C04"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch9-q063",
@@ -1906,7 +2155,11 @@
     ],
     "todo": [
       "C04"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch9-q064",
@@ -1934,7 +2187,11 @@
     ],
     "todo": [
       "C04"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch9-q065",
@@ -1967,7 +2224,11 @@
     ],
     "todo": [
       "C04"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch9-q066",
@@ -1996,7 +2257,11 @@
     ],
     "todo": [
       "C05"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch9-q067",
@@ -2028,7 +2293,12 @@
     ],
     "todo": [
       "C05"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 18,
+      "approx": true
+    }
   },
   {
     "id": "ch9-q068",
@@ -2059,7 +2329,11 @@
     "todo": [
       "K-2.3S2",
       "K-2.1S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch9-q069",
@@ -2088,7 +2362,11 @@
     ],
     "todo": [
       "K-2.3S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch9-q070",
@@ -2116,7 +2394,11 @@
     ],
     "todo": [
       "G-2.3.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch9-q071",
@@ -2144,7 +2426,11 @@
     ],
     "todo": [
       "G-2.3.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 7
+    }
   },
   {
     "id": "ch9-q072",
@@ -2179,7 +2465,11 @@
     ],
     "todo": [
       "G-2.3.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 7
+    }
   },
   {
     "id": "ch9-q073",
@@ -2207,7 +2497,11 @@
     ],
     "todo": [
       "G-3.3.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch9-q074",
@@ -2240,7 +2534,11 @@
     "todo": [
       "G-3.3.6",
       "G-2.3.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch9-q075",
@@ -2269,7 +2567,11 @@
     ],
     "todo": [
       "K-2.1S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 19
+    }
   },
   {
     "id": "ch9-q076",
@@ -2298,7 +2600,11 @@
     ],
     "todo": [
       "C11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch9-q077",
@@ -2326,7 +2632,11 @@
     ],
     "todo": [
       "K-2.2K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch9-q078",
@@ -2354,7 +2664,11 @@
     ],
     "todo": [
       "K-2.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 12
+    }
   },
   {
     "id": "ch9-q079",
@@ -2383,7 +2697,11 @@
     ],
     "todo": [
       "K-2.2S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch9-ext01",
@@ -2410,7 +2728,11 @@
       "C02"
     ],
     "origin": "ai",
-    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters",
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 6
+    }
   },
   {
     "id": "ch9-ext02",
@@ -2437,7 +2759,11 @@
       "C02"
     ],
     "origin": "ai",
-    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters",
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch9-ext03",
@@ -2464,6 +2790,10 @@
       "C02"
     ],
     "origin": "ai",
-    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters",
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 7
+    }
   }
 ]

@@ -25,7 +25,11 @@
     ],
     "todo": [
       "G-2.3.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 4
+    }
   },
   {
     "id": "ch13-q002",
@@ -53,7 +57,11 @@
     ],
     "todo": [
       "G-2.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 2
+    }
   },
   {
     "id": "ch13-q003",
@@ -85,7 +93,11 @@
     ],
     "todo": [
       "G-2.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 2
+    }
   },
   {
     "id": "ch13-q004",
@@ -113,7 +125,11 @@
     ],
     "todo": [
       "G-2.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 2
+    }
   },
   {
     "id": "ch13-q005",
@@ -141,7 +157,11 @@
     ],
     "todo": [
       "G-2.3.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 5
+    }
   },
   {
     "id": "ch13-q006",
@@ -169,7 +189,11 @@
     ],
     "todo": [
       "G-2.3.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 6
+    }
   },
   {
     "id": "ch13-q007",
@@ -197,7 +221,11 @@
     ],
     "todo": [
       "G-2.3.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 6
+    }
   },
   {
     "id": "ch13-q008",
@@ -225,7 +253,11 @@
     ],
     "todo": [
       "G-2.3.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 6
+    }
   },
   {
     "id": "ch13-q009",
@@ -258,7 +290,11 @@
     "todo": [
       "G-2.3.1",
       "G-2.3.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 7
+    }
   },
   {
     "id": "ch13-q010",
@@ -286,7 +322,11 @@
     ],
     "todo": [
       "G-2.3.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 1
+    }
   },
   {
     "id": "ch13-q011",
@@ -314,7 +354,11 @@
     ],
     "todo": [
       "G-2.3.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 15
+    }
   },
   {
     "id": "ch13-q012",
@@ -342,7 +386,11 @@
     ],
     "todo": [
       "G-2.3.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 4
+    }
   },
   {
     "id": "ch13-q013",
@@ -370,7 +418,11 @@
     ],
     "todo": [
       "G-3.1.4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 8
+    }
   },
   {
     "id": "ch13-q014",
@@ -403,7 +455,11 @@
     "todo": [
       "G-3.1.4",
       "G-4.2.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 8
+    }
   },
   {
     "id": "ch13-q015",
@@ -431,7 +487,11 @@
     ],
     "todo": [
       "G-3.1.5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 9
+    }
   },
   {
     "id": "ch13-q016",
@@ -459,7 +519,12 @@
     ],
     "todo": [
       "G-3.1.5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 9,
+      "approx": true
+    }
   },
   {
     "id": "ch13-q017",
@@ -487,7 +552,11 @@
     ],
     "todo": [
       "G-3.1.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 13
+    }
   },
   {
     "id": "ch13-q018",
@@ -522,7 +591,11 @@
     "todo": [
       "V53",
       "G-3.1.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 11
+    }
   },
   {
     "id": "ch13-q019",
@@ -552,7 +625,11 @@
     "todo": [
       "V53",
       "G-3.1.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 11
+    }
   },
   {
     "id": "ch13-q020",
@@ -580,7 +657,11 @@
     ],
     "todo": [
       "V53"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 13
+    }
   },
   {
     "id": "ch13-q021",
@@ -608,7 +689,11 @@
     ],
     "todo": [
       "G-3.1.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 10
+    }
   },
   {
     "id": "ch13-q022",
@@ -636,7 +721,11 @@
     ],
     "todo": [
       "G-3.1.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 8
+    }
   },
   {
     "id": "ch13-q023",
@@ -664,7 +753,11 @@
     ],
     "todo": [
       "G-3.2.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 12
+    }
   },
   {
     "id": "ch13-q024",
@@ -697,7 +790,11 @@
     ],
     "todo": [
       "G-3.2.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 12
+    }
   },
   {
     "id": "ch13-q025",
@@ -725,7 +822,11 @@
     ],
     "todo": [
       "G-3.2.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 10
+    }
   },
   {
     "id": "ch13-q026",
@@ -756,7 +857,11 @@
     "todo": [
       "G-3.2.10",
       "C24"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 10
+    }
   },
   {
     "id": "ch13-q027",
@@ -783,7 +888,11 @@
     ],
     "todo": [
       "G-3.2.11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 13
+    }
   },
   {
     "id": "ch13-q028",
@@ -811,7 +920,11 @@
     ],
     "todo": [
       "G-3.2.11"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 13
+    }
   },
   {
     "id": "ch13-q029",
@@ -838,7 +951,11 @@
     ],
     "todo": [
       "G-3.3.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 7
+    }
   },
   {
     "id": "ch13-q030",
@@ -867,7 +984,11 @@
     "todo": [
       "G-3.3.7",
       "G-3.3.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 7
+    }
   },
   {
     "id": "ch13-q031",
@@ -895,7 +1016,11 @@
     ],
     "todo": [
       "G-3.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 14
+    }
   },
   {
     "id": "ch13-q032",
@@ -927,7 +1052,11 @@
     ],
     "todo": [
       "G-3.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 14
+    }
   },
   {
     "id": "ch13-q033",
@@ -955,7 +1084,11 @@
     ],
     "todo": [
       "G-3.3.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 14
+    }
   },
   {
     "id": "ch13-q034",
@@ -983,7 +1116,11 @@
     ],
     "todo": [
       "G-3.3.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 9
+    }
   },
   {
     "id": "ch13-q035",
@@ -1017,7 +1154,11 @@
     ],
     "todo": [
       "G-3.1.5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 9
+    }
   },
   {
     "id": "ch13-q036",
@@ -1045,7 +1186,11 @@
     ],
     "todo": [
       "G-4.1.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 15
+    }
   },
   {
     "id": "ch13-q037",
@@ -1074,7 +1219,11 @@
     "todo": [
       "G-4.1.1",
       "G-4.1.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 15
+    }
   },
   {
     "id": "ch13-q038",
@@ -1102,7 +1251,11 @@
     ],
     "todo": [
       "G-4.1.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 15
+    }
   },
   {
     "id": "ch13-q039",
@@ -1133,7 +1286,11 @@
     ],
     "todo": [
       "G-4.1.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 15
+    }
   },
   {
     "id": "ch13-q040",
@@ -1161,7 +1318,11 @@
     ],
     "todo": [
       "G-4.1.5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 16
+    }
   },
   {
     "id": "ch13-q041",
@@ -1190,7 +1351,11 @@
     "todo": [
       "G-4.1.5",
       "G-4.2.2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 16
+    }
   },
   {
     "id": "ch13-q042",
@@ -1222,7 +1387,11 @@
     ],
     "todo": [
       "G-4.1.5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 16
+    }
   },
   {
     "id": "ch13-q043",
@@ -1250,7 +1419,11 @@
     ],
     "todo": [
       "G-4.2.2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 16
+    }
   },
   {
     "id": "ch13-q044",
@@ -1284,7 +1457,11 @@
     ],
     "todo": [
       "G-4.2.2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 16
+    }
   },
   {
     "id": "ch13-q045",
@@ -1312,7 +1489,11 @@
     ],
     "todo": [
       "G-4.2.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 16
+    }
   },
   {
     "id": "ch13-q046",
@@ -1341,7 +1522,11 @@
     "todo": [
       "G-4.2.8",
       "G-4.1.5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 16
+    }
   },
   {
     "id": "ch13-q047",
@@ -1369,7 +1554,11 @@
     ],
     "todo": [
       "G-4.2.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 17
+    }
   },
   {
     "id": "ch13-q048",
@@ -1397,7 +1586,11 @@
     ],
     "todo": [
       "G-4.2.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 17
+    }
   },
   {
     "id": "ch13-q049",
@@ -1425,7 +1618,11 @@
     ],
     "todo": [
       "G-4.2.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 17
+    }
   },
   {
     "id": "ch13-q050",
@@ -1453,7 +1650,11 @@
     ],
     "todo": [
       "G-4.2.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 17
+    }
   },
   {
     "id": "ch13-q051",
@@ -1486,7 +1687,11 @@
     "todo": [
       "G-4.2.9",
       "G-4.2.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 17
+    }
   },
   {
     "id": "ch13-q052",
@@ -1514,7 +1719,11 @@
     ],
     "todo": [
       "G-4.2.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 18
+    }
   },
   {
     "id": "ch13-q053",
@@ -1542,7 +1751,11 @@
     ],
     "todo": [
       "G-4.2.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 18
+    }
   },
   {
     "id": "ch13-q054",
@@ -1574,7 +1787,11 @@
     ],
     "todo": [
       "G-4.2.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 18
+    }
   },
   {
     "id": "ch13-q055",
@@ -1602,7 +1819,11 @@
     ],
     "todo": [
       "G-4.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 19
+    }
   },
   {
     "id": "ch13-q056",
@@ -1630,7 +1851,11 @@
     ],
     "todo": [
       "G-4.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 19
+    }
   },
   {
     "id": "ch13-q057",
@@ -1658,7 +1883,11 @@
     ],
     "todo": [
       "G-4.3.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 19
+    }
   },
   {
     "id": "ch13-q058",
@@ -1686,7 +1915,11 @@
     ],
     "todo": [
       "G-4.3.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 19
+    }
   },
   {
     "id": "ch13-q059",
@@ -1720,7 +1953,11 @@
     ],
     "todo": [
       "G-4.3.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 19
+    }
   },
   {
     "id": "ch13-q060",
@@ -1753,7 +1990,11 @@
     "todo": [
       "G-4.3.9",
       "G-4.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 19
+    }
   },
   {
     "id": "ch13-q061",
@@ -1782,7 +2023,11 @@
     ],
     "todo": [
       "C24"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 10
+    }
   },
   {
     "id": "ch13-q062",
@@ -1816,7 +2061,11 @@
     ],
     "todo": [
       "G-2.3.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 5
+    }
   },
   {
     "id": "ch13-q063",
@@ -1848,7 +2097,11 @@
     ],
     "todo": [
       "G-2.3.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 3
+    }
   },
   {
     "id": "ch13-q064",
@@ -1880,7 +2133,11 @@
     ],
     "todo": [
       "G-3.3.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 9
+    }
   },
   {
     "id": "ch13-q065",
@@ -1912,7 +2169,11 @@
     ],
     "todo": [
       "G-4.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 19
+    }
   },
   {
     "id": "ch13-q066",
@@ -1940,7 +2201,11 @@
     ],
     "todo": [
       "G-3.2.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 10
+    }
   },
   {
     "id": "ch13-q067",
@@ -1972,6 +2237,10 @@
     ],
     "todo": [
       "G-3.2.10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 10
+    }
   }
 ]

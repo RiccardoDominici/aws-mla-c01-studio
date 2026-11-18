@@ -26,7 +26,11 @@
     ],
     "todo": [
       "K-1.1K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 2
+    }
   },
   {
     "id": "ch8-q002",
@@ -59,7 +63,11 @@
     ],
     "todo": [
       "K-1.1K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 2
+    }
   },
   {
     "id": "ch8-q003",
@@ -89,7 +97,11 @@
     "todo": [
       "K-1.1K4",
       "V40"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch8-q004",
@@ -118,7 +130,11 @@
     "todo": [
       "K-1.1S6",
       "V40"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch8-q005",
@@ -148,7 +164,11 @@
     "todo": [
       "K-1.1K4",
       "K-1.1S6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch8-q006",
@@ -178,7 +198,11 @@
     "todo": [
       "K-1.1K4",
       "V40"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch8-q007",
@@ -214,7 +238,11 @@
       "K-1.1K4",
       "V40",
       "K-1.1S6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch8-q008",
@@ -244,7 +272,11 @@
     "todo": [
       "V33",
       "K-1.1K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 4
+    }
   },
   {
     "id": "ch8-q009",
@@ -277,7 +309,11 @@
     "todo": [
       "V33",
       "K-1.1K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 4
+    }
   },
   {
     "id": "ch8-q010",
@@ -307,7 +343,11 @@
     "todo": [
       "V06",
       "K-1.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 4
+    }
   },
   {
     "id": "ch8-q011",
@@ -336,7 +376,11 @@
     "todo": [
       "V05",
       "K-1.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 4
+    }
   },
   {
     "id": "ch8-q012",
@@ -365,7 +409,11 @@
     "todo": [
       "C09",
       "K-1.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch8-q013",
@@ -394,7 +442,11 @@
     "todo": [
       "V05",
       "K-1.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch8-q014",
@@ -428,7 +480,11 @@
       "V05",
       "V06",
       "K-1.1K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch8-q015",
@@ -457,7 +513,11 @@
     ],
     "todo": [
       "K-1.1S6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch8-q016",
@@ -485,7 +545,11 @@
     ],
     "todo": [
       "V16"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch8-q017",
@@ -514,7 +578,11 @@
     ],
     "todo": [
       "V16"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch8-q018",
@@ -543,7 +611,11 @@
     ],
     "todo": [
       "V17"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch8-q019",
@@ -572,7 +644,11 @@
     ],
     "todo": [
       "V17"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch8-q020",
@@ -601,7 +677,11 @@
     ],
     "todo": [
       "V34"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch8-q021",
@@ -629,7 +709,11 @@
     ],
     "todo": [
       "G-1.1.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch8-q022",
@@ -663,7 +747,11 @@
     "todo": [
       "K-1.1S1",
       "G-1.1.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 5
+    }
   },
   {
     "id": "ch8-q023",
@@ -691,7 +779,11 @@
     ],
     "todo": [
       "V26"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch8-q024",
@@ -725,7 +817,11 @@
     "todo": [
       "V26",
       "K-1.1S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch8-q025",
@@ -754,7 +850,11 @@
     ],
     "todo": [
       "K-1.1S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch8-q026",
@@ -787,7 +887,11 @@
     ],
     "todo": [
       "K-1.1S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch8-q027",
@@ -815,7 +919,11 @@
     ],
     "todo": [
       "V47"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch8-q028",
@@ -843,7 +951,11 @@
     ],
     "todo": [
       "V27"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch8-q029",
@@ -872,7 +984,11 @@
     ],
     "todo": [
       "K-1.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch8-q030",
@@ -901,7 +1017,11 @@
     ],
     "todo": [
       "K-1.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch8-q031",
@@ -934,7 +1054,11 @@
     ],
     "todo": [
       "K-1.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch8-q032",
@@ -967,7 +1091,12 @@
     ],
     "todo": [
       "K-1.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q033",
@@ -997,7 +1126,11 @@
     "todo": [
       "K-1.2K5",
       "V41"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 10
+    }
   },
   {
     "id": "ch8-q034",
@@ -1025,7 +1158,11 @@
     ],
     "todo": [
       "K-1.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 10
+    }
   },
   {
     "id": "ch8-q035",
@@ -1054,7 +1191,11 @@
     ],
     "todo": [
       "K-1.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 10
+    }
   },
   {
     "id": "ch8-q036",
@@ -1084,7 +1225,11 @@
     "todo": [
       "V25",
       "G-1.1.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 14
+    }
   },
   {
     "id": "ch8-q037",
@@ -1113,7 +1258,11 @@
     ],
     "todo": [
       "V25"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 14
+    }
   },
   {
     "id": "ch8-q038",
@@ -1142,7 +1291,11 @@
     ],
     "todo": [
       "C12"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 11
+    }
   },
   {
     "id": "ch8-q039",
@@ -1171,7 +1324,11 @@
     ],
     "todo": [
       "C12"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 11
+    }
   },
   {
     "id": "ch8-q040",
@@ -1204,7 +1361,11 @@
     ],
     "todo": [
       "C12"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 11
+    }
   },
   {
     "id": "ch8-q041",
@@ -1233,7 +1394,11 @@
     ],
     "todo": [
       "C12"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 11
+    }
   },
   {
     "id": "ch8-q042",
@@ -1262,7 +1427,11 @@
     ],
     "todo": [
       "K-1.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12
+    }
   },
   {
     "id": "ch8-q043",
@@ -1291,7 +1460,11 @@
     ],
     "todo": [
       "K-1.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12
+    }
   },
   {
     "id": "ch8-q044",
@@ -1320,7 +1493,11 @@
     "todo": [
       "K-1.2K2",
       "K-1.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12
+    }
   },
   {
     "id": "ch8-q045",
@@ -1348,7 +1525,11 @@
     ],
     "todo": [
       "K-1.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12
+    }
   },
   {
     "id": "ch8-q046",
@@ -1377,7 +1558,11 @@
     ],
     "todo": [
       "K-1.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12
+    }
   },
   {
     "id": "ch8-q047",
@@ -1409,7 +1594,12 @@
     ],
     "todo": [
       "K-1.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q048",
@@ -1438,7 +1628,11 @@
     ],
     "todo": [
       "K-1.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12
+    }
   },
   {
     "id": "ch8-q049",
@@ -1467,7 +1661,11 @@
     "todo": [
       "V47"
     ],
-    "source": "AWS docs: What is AWS DataSync"
+    "source": "AWS docs: What is AWS DataSync",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch8-q050",
@@ -1502,7 +1700,11 @@
     "todo": [
       "K-1.2K2",
       "K-1.2K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12
+    }
   },
   {
     "id": "ch8-q051",
@@ -1530,7 +1732,11 @@
     ],
     "todo": [
       "G-1.3.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch8-q052",
@@ -1559,7 +1765,11 @@
     ],
     "todo": [
       "G-1.3.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch8-q053",
@@ -1587,7 +1797,11 @@
     ],
     "todo": [
       "G-1.3.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch8-q054",
@@ -1620,7 +1834,11 @@
     ],
     "todo": [
       "G-1.3.7"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch8-q055",
@@ -1650,7 +1868,11 @@
     "todo": [
       "V37",
       "K-1.3S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch8-q056",
@@ -1683,7 +1905,11 @@
     "todo": [
       "V37",
       "K-1.3S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch8-q057",
@@ -1713,7 +1939,11 @@
       "V43",
       "C21",
       "K-1.2S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch8-q058",
@@ -1741,7 +1971,11 @@
     "todo": [
       "K-1.2S3",
       "C21"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch8-q059",
@@ -1770,7 +2004,11 @@
     "todo": [
       "K-1.2K6",
       "C21"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch8-q060",
@@ -1799,7 +2037,11 @@
     "todo": [
       "K-1.2K6",
       "C21"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch8-q061",
@@ -1833,7 +2075,11 @@
     "todo": [
       "K-1.2K6",
       "C21"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch8-q062",
@@ -1862,7 +2108,11 @@
     "todo": [
       "V11",
       "K-1.2K6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 6
+    }
   },
   {
     "id": "ch8-q063",
@@ -1894,7 +2144,11 @@
     "todo": [
       "V11",
       "K-1.2K6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 6
+    }
   },
   {
     "id": "ch8-q064",
@@ -1921,7 +2175,11 @@
     ],
     "todo": [
       "V43"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch8-q065",
@@ -1949,7 +2207,11 @@
     ],
     "todo": [
       "K-1.3K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch8-q066",
@@ -1981,7 +2243,12 @@
     ],
     "todo": [
       "K-1.3K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q067",
@@ -2009,7 +2276,11 @@
     ],
     "todo": [
       "K-1.3S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch8-q068",
@@ -2038,7 +2309,11 @@
     "todo": [
       "G-1.3.4",
       "K-1.3S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch8-q069",
@@ -2067,7 +2342,11 @@
     "todo": [
       "G-1.3.4",
       "K-1.3S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch8-q070",
@@ -2096,7 +2375,11 @@
     ],
     "todo": [
       "K-1.3S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch8-q071",
@@ -2125,7 +2408,11 @@
     ],
     "todo": [
       "K-1.3S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch8-q072",
@@ -2154,7 +2441,11 @@
     ],
     "todo": [
       "K-1.3S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch8-q073",
@@ -2187,7 +2478,11 @@
     ],
     "todo": [
       "K-1.3S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 18
+    }
   },
   {
     "id": "ch8-q074",
@@ -2216,7 +2511,11 @@
     ],
     "todo": [
       "K-1.3S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 13
+    }
   },
   {
     "id": "ch8-q075",
@@ -2248,7 +2547,11 @@
     ],
     "todo": [
       "K-1.3S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16
+    }
   },
   {
     "id": "ch8-q076",
@@ -2277,7 +2580,11 @@
     "todo": [
       "K-1.3K4",
       "G-1.2.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 19
+    }
   },
   {
     "id": "ch8-q077",
@@ -2307,7 +2614,11 @@
     "todo": [
       "K-1.3K4",
       "G-1.2.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 19
+    }
   },
   {
     "id": "ch8-q078",
@@ -2341,7 +2652,11 @@
     "todo": [
       "V49",
       "K-1.3K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 19
+    }
   },
   {
     "id": "ch8-q079",
@@ -2375,7 +2690,11 @@
     "todo": [
       "K-1.3K4",
       "G-1.2.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 20
+    }
   },
   {
     "id": "ch8-q080",
@@ -2404,7 +2723,11 @@
     ],
     "todo": [
       "K-1.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 20
+    }
   },
   {
     "id": "ch8-q081",
@@ -2433,7 +2756,11 @@
     ],
     "todo": [
       "C14"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 20
+    }
   },
   {
     "id": "ch8-q082",
@@ -2467,7 +2794,11 @@
     "todo": [
       "C14",
       "K-1.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 20
+    }
   },
   {
     "id": "ch8-q083",
@@ -2497,7 +2828,11 @@
     "todo": [
       "C16",
       "K-1.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 7
+    }
   },
   {
     "id": "ch8-q084",
@@ -2530,7 +2865,11 @@
     "todo": [
       "C16",
       "K-1.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 7
+    }
   },
   {
     "id": "ch8-q085",
@@ -2559,7 +2898,11 @@
       "V27"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 6
+    }
   },
   {
     "id": "ch8-q086",
@@ -2588,7 +2931,12 @@
       "V34"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 5,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q087",
@@ -2617,7 +2965,11 @@
       "V41"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 10
+    }
   },
   {
     "id": "ch8-q088",
@@ -2646,7 +2998,11 @@
       "V49"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 19
+    }
   },
   {
     "id": "ch8-q089",
@@ -2674,7 +3030,11 @@
       "C09"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 8
+    }
   },
   {
     "id": "ch8-q090",
@@ -2702,7 +3062,11 @@
       "G-1.1.8"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 14
+    }
   },
   {
     "id": "ch8-q091",
@@ -2737,7 +3101,12 @@
       "K-1.3S4"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 7,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q092",
@@ -2767,7 +3136,11 @@
       "K-1.1K2"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 7
+    }
   },
   {
     "id": "ch8-q093",
@@ -2796,7 +3169,11 @@
       "K-1.3S4"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 7
+    }
   },
   {
     "id": "ch8-q094",
@@ -2825,7 +3202,11 @@
       "K-1.1S5"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch8-q095",
@@ -2858,7 +3239,11 @@
       "K-1.1S5"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 5
+    }
   },
   {
     "id": "ch8-q096",
@@ -2888,7 +3273,11 @@
       "K-1.1S5"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch8-q097",
@@ -2917,7 +3306,12 @@
       "K-1.1K4"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q098",
@@ -2950,7 +3344,11 @@
       "K-1.1S5"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch8-q099",
@@ -2979,7 +3377,12 @@
       "K-1.1K2"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q100",
@@ -3010,7 +3413,12 @@
       "G-1.1.1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 4,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q101",
@@ -3039,7 +3447,11 @@
       "K-1.1K4"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch8-q102",
@@ -3072,7 +3484,12 @@
       "K-1.1S5"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q103",
@@ -3105,7 +3522,11 @@
       "K-1.1K4"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 4
+    }
   },
   {
     "id": "ch8-q104",
@@ -3138,7 +3559,11 @@
       "K-1.1K4"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 3
+    }
   },
   {
     "id": "ch8-q105",
@@ -3167,7 +3592,11 @@
       "K-1.1S5"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 9
+    }
   },
   {
     "id": "ch8-q106",
@@ -3200,7 +3629,11 @@
       "K-1.2S3"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "id": "ch8-q107",
@@ -3228,7 +3661,12 @@
       "K-1.2K6"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q108",
@@ -3261,7 +3699,12 @@
       "K-1.2K5"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 10,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q109",
@@ -3290,7 +3733,12 @@
       "K-1.2K2"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q110",
@@ -3319,7 +3767,11 @@
       "K-1.1K1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 2
+    }
   },
   {
     "id": "ch8-q111",
@@ -3352,7 +3804,12 @@
       "G-1.1.8"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 14,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q112",
@@ -3381,7 +3838,12 @@
       "K-1.2K2"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q113",
@@ -3410,7 +3872,12 @@
       "K-1.2K3"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q114",
@@ -3444,7 +3911,12 @@
       "G-1.2.6"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q115",
@@ -3473,7 +3945,12 @@
       "K-1.2K3"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 12,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q116",
@@ -3502,7 +3979,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q117",
@@ -3531,7 +4013,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q118",
@@ -3560,7 +4047,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q119",
@@ -3590,7 +4082,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q120",
@@ -3623,7 +4120,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q121",
@@ -3656,7 +4158,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q122",
@@ -3686,7 +4193,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q123",
@@ -3716,7 +4228,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q124",
@@ -3746,7 +4263,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q125",
@@ -3776,7 +4298,11 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch8-q126",
@@ -3804,7 +4330,12 @@
       "K-1.3K1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q127",
@@ -3832,7 +4363,11 @@
       "K-1.3K1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch8-q128",
@@ -3860,7 +4395,11 @@
       "K-1.3S2"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch8-q129",
@@ -3895,7 +4434,11 @@
       "G-1.2.8"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 19
+    }
   },
   {
     "id": "ch8-q130",
@@ -3924,7 +4467,12 @@
       "K-1.3K4"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 19,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q131",
@@ -3953,7 +4501,12 @@
       "K-1.3K5"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 19,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q132",
@@ -3982,7 +4535,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q133",
@@ -4012,7 +4570,11 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15
+    }
   },
   {
     "id": "ch8-q134",
@@ -4046,7 +4608,12 @@
       "K-1.3S1"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch8-q135",
@@ -4075,6 +4642,11 @@
       "K-1.3K5"
     ],
     "origin": "ai",
-    "domain": "1"
+    "domain": "1",
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 20,
+      "approx": true
+    }
   }
 ]

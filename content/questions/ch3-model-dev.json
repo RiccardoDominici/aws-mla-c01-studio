@@ -24,7 +24,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 1,
@@ -51,7 +55,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 2,
@@ -78,7 +86,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 3,
@@ -105,7 +117,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 0,
@@ -132,7 +148,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 1,
@@ -159,7 +179,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 2
+    }
   },
   {
     "answer": 2,
@@ -186,7 +210,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 3,
@@ -213,7 +241,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 0,
@@ -240,7 +272,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 10
+    }
   },
   {
     "answer": 1,
@@ -267,7 +303,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 10
+    }
   },
   {
     "answer": 2,
@@ -294,7 +334,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 10
+    }
   },
   {
     "answer": 3,
@@ -321,7 +365,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 13
+    }
   },
   {
     "answer": 0,
@@ -348,7 +396,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 17
+    }
   },
   {
     "answer": 1,
@@ -375,7 +427,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 18
+    }
   },
   {
     "answer": 2,
@@ -402,7 +458,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 20
+    }
   },
   {
     "answer": 3,
@@ -429,7 +489,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 12
+    }
   },
   {
     "answer": 0,
@@ -456,7 +520,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 12
+    }
   },
   {
     "answer": 1,
@@ -483,7 +551,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 15
+    }
   },
   {
     "answer": 2,
@@ -510,7 +582,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 16
+    }
   },
   {
     "answer": 3,
@@ -537,7 +613,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 16
+    }
   },
   {
     "answer": 0,
@@ -564,7 +644,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 18
+    }
   },
   {
     "answer": 1,
@@ -591,7 +675,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 19
+    }
   },
   {
     "answer": 2,
@@ -618,7 +706,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 18
+    }
   },
   {
     "answer": 3,
@@ -645,7 +737,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 20
+    }
   },
   {
     "answer": 0,
@@ -672,7 +768,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 20
+    }
   },
   {
     "answer": 1,
@@ -699,7 +799,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 17,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -726,7 +831,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 20
+    }
   },
   {
     "answer": 3,
@@ -753,7 +862,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 10
+    }
   },
   {
     "answer": 0,
@@ -780,7 +893,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 13
+    }
   },
   {
     "answer": 1,
@@ -807,7 +924,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 20
+    }
   },
   {
     "answer": 2,
@@ -834,7 +955,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 19
+    }
   },
   {
     "answer": 3,
@@ -861,7 +986,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 10
+    }
   },
   {
     "answer": 0,
@@ -888,7 +1017,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 20
+    }
   },
   {
     "answer": 1,
@@ -915,7 +1048,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 20
+    }
   },
   {
     "answer": 2,
@@ -942,7 +1079,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 6
+    }
   },
   {
     "answer": 3,
@@ -969,7 +1110,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 12
+    }
   },
   {
     "answer": 0,
@@ -996,7 +1141,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 12
+    }
   },
   {
     "answer": 1,
@@ -1023,7 +1172,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 10
+    }
   },
   {
     "answer": 2,
@@ -1050,7 +1203,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 3,
@@ -1077,7 +1234,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 10
+    }
   },
   {
     "answer": 0,
@@ -1104,7 +1265,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16
+    }
   },
   {
     "answer": 1,
@@ -1131,7 +1296,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 12
+    }
   },
   {
     "answer": 2,
@@ -1158,7 +1327,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 7
+    }
   },
   {
     "answer": 3,
@@ -1185,7 +1358,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 18
+    }
   },
   {
     "answer": 2,
@@ -1212,7 +1389,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "answer": 0,
@@ -1240,7 +1422,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 18
+    }
   },
   {
     "answer": 1,
@@ -1268,7 +1454,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 13,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -1296,7 +1487,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 13
+    }
   },
   {
     "answer": 3,
@@ -1323,7 +1518,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 14
+    }
   },
   {
     "answer": 0,
@@ -1351,7 +1550,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 2
+    }
   },
   {
     "answer": 1,
@@ -1378,7 +1581,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 2,
@@ -1406,7 +1613,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 3,
@@ -1434,7 +1645,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 5
+    }
   },
   {
     "answer": 0,
@@ -1462,7 +1677,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 4
+    }
   },
   {
     "answer": 1,
@@ -1490,7 +1709,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 13,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -1518,7 +1742,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 2
+    }
   },
   {
     "answer": 3,
@@ -1547,7 +1775,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 10,
+      "approx": true
+    }
   },
   {
     "answer": 0,
@@ -1575,7 +1808,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 7
+    }
   },
   {
     "answer": 1,
@@ -1602,7 +1839,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 13
+    }
   },
   {
     "answer": 2,
@@ -1630,7 +1871,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 16
+    }
   },
   {
     "answer": 3,
@@ -1658,7 +1903,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 13
+    }
   },
   {
     "answer": 0,
@@ -1685,7 +1934,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 19
+    }
   },
   {
     "answer": 1,
@@ -1713,7 +1966,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 16
+    }
   },
   {
     "answer": 2,
@@ -1741,7 +1998,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 18
+    }
   },
   {
     "answer": 3,
@@ -1768,7 +2029,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 20
+    }
   },
   {
     "answer": 0,
@@ -1796,7 +2061,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 7
+    }
   },
   {
     "answer": 1,
@@ -1824,7 +2093,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 8
+    }
   },
   {
     "answer": 2,
@@ -1852,7 +2125,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16
+    }
   },
   {
     "answer": 3,
@@ -1880,7 +2157,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16,
+      "approx": true
+    }
   },
   {
     "answer": 0,
@@ -1908,7 +2190,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 14
+    }
   },
   {
     "id": "ch3-ext26",
@@ -1935,7 +2221,11 @@
       "C02"
     ],
     "origin": "ai",
-    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters",
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 7
+    }
   },
   {
     "id": "ch3-ext27",
@@ -1961,7 +2251,11 @@
       "C02"
     ],
     "origin": "ai",
-    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters",
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 7
+    }
   },
   {
     "id": "ch3-ext28",
@@ -1988,6 +2282,10 @@
       "C02"
     ],
     "origin": "ai",
-    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters"
+    "source": "AWS docs: SageMaker XGBoost / Bedrock inference parameters",
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 6
+    }
   }
 ]

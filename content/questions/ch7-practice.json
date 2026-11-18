@@ -22,7 +22,11 @@
     "task": "-",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 1
+    }
   },
   {
     "answer": 0,
@@ -48,7 +52,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 1
+    }
   },
   {
     "answer": 1,
@@ -74,7 +82,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 4
+    }
   },
   {
     "answer": 3,
@@ -101,7 +113,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 5
+    }
   },
   {
     "answer": 2,
@@ -128,7 +144,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 18
+    }
   },
   {
     "answer": 1,
@@ -155,7 +175,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 18
+    }
   },
   {
     "answer": 0,
@@ -181,7 +205,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 3,
@@ -207,7 +235,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 3
+    }
   },
   {
     "answer": 2,
@@ -234,7 +266,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 3
+    }
   },
   {
     "answer": 0,
@@ -260,7 +296,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 1
+    }
   },
   {
     "answer": 1,
@@ -287,7 +327,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 11
+    }
   },
   {
     "answer": 3,
@@ -314,7 +358,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 11
+    }
   },
   {
     "answer": 2,
@@ -341,7 +389,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 5
+    }
   },
   {
     "answer": 0,
@@ -368,7 +420,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 8
+    }
   },
   {
     "answer": 1,
@@ -394,7 +450,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch1-exam-guide",
+      "slide": 2
+    }
   },
   {
     "answer": 3,
@@ -421,7 +481,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 5
+    }
   },
   {
     "answer": 2,
@@ -448,7 +512,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 8
+    }
   },
   {
     "answer": 0,
@@ -474,7 +542,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 3
+    }
   },
   {
     "answer": 1,
@@ -501,7 +573,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 18
+    }
   },
   {
     "answer": 3,
@@ -527,7 +603,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 1
+    }
   },
   {
     "answer": 2,
@@ -554,7 +634,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 3
+    }
   },
   {
     "answer": 0,
@@ -580,7 +664,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "answer": 1,
@@ -607,7 +696,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 14
+    }
   },
   {
     "answer": 3,
@@ -634,7 +727,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 16
+    }
   },
   {
     "answer": 2,
@@ -661,7 +758,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 15
+    }
   },
   {
     "answer": 1,
@@ -688,7 +789,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 13
+    }
   },
   {
     "answer": 0,
@@ -715,7 +820,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 9
+    }
   },
   {
     "answer": 3,
@@ -742,7 +851,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 12
+    }
   },
   {
     "answer": 2,
@@ -769,7 +882,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 11
+    }
   },
   {
     "answer": 0,
@@ -796,7 +913,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 2
+    }
   },
   {
     "answer": 1,
@@ -823,7 +944,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 18
+    }
   },
   {
     "answer": 3,
@@ -850,7 +975,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 16
+    }
   },
   {
     "answer": 2,
@@ -877,7 +1006,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 16
+    }
   },
   {
     "answer": 0,
@@ -904,7 +1037,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 20
+    }
   },
   {
     "answer": 1,
@@ -931,7 +1068,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 12
+    }
   },
   {
     "answer": 3,
@@ -958,7 +1099,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 11
+    }
   },
   {
     "answer": 2,
@@ -985,7 +1130,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 2
+    }
   },
   {
     "answer": 0,
@@ -1012,7 +1161,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 16
+    }
   },
   {
     "answer": 1,
@@ -1039,7 +1192,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 11
+    }
   },
   {
     "answer": 3,
@@ -1066,7 +1223,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 11,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -1093,7 +1255,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 9
+    }
   },
   {
     "answer": 0,
@@ -1120,7 +1286,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 20
+    }
   },
   {
     "answer": 1,
@@ -1147,7 +1317,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 4
+    }
   },
   {
     "answer": 2,
@@ -1174,7 +1348,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 17
+    }
   },
   {
     "answer": 3,
@@ -1200,7 +1378,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 1
+    }
   },
   {
     "id": "ch7-ext01",
@@ -1226,7 +1408,11 @@
     "task": "-",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 1
+    }
   },
   {
     "id": "ch7-ext02",
@@ -1253,7 +1439,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 1
+    }
   },
   {
     "id": "ch7-ext03",
@@ -1280,7 +1470,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 2,
+      "approx": true
+    }
   },
   {
     "id": "ch7-ext04",
@@ -1307,7 +1502,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 18
+    }
   },
   {
     "id": "ch7-ext05",
@@ -1334,7 +1533,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 5
+    }
   },
   {
     "id": "ch7-ext06",
@@ -1361,7 +1564,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 18
+    }
   },
   {
     "id": "ch7-ext07",
@@ -1388,7 +1595,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 3,
+      "approx": true
+    }
   },
   {
     "id": "ch7-ext08",
@@ -1415,7 +1627,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 1
+    }
   },
   {
     "id": "ch7-ext09",
@@ -1442,7 +1658,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 5
+    }
   },
   {
     "id": "ch7-ext10",
@@ -1469,7 +1689,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 16
+    }
   },
   {
     "id": "ch7-ext11",
@@ -1496,7 +1720,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 18
+    }
   },
   {
     "id": "ch7-ext12",
@@ -1523,7 +1751,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 6
+    }
   },
   {
     "id": "ch7-ext13",
@@ -1550,7 +1782,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 8
+    }
   },
   {
     "id": "ch7-ext14",
@@ -1577,7 +1813,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 20
+    }
   },
   {
     "id": "ch7-ext15",
@@ -1604,7 +1844,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 3
+    }
   },
   {
     "id": "ch7-ext16",
@@ -1631,7 +1875,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 14
+    }
   },
   {
     "id": "ch7-ext17",
@@ -1658,7 +1906,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 2
+    }
   },
   {
     "id": "ch7-ext18",
@@ -1685,7 +1937,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch2-data-prep",
+      "slide": 9
+    }
   },
   {
     "id": "ch7-ext19",
@@ -1712,7 +1968,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch3-model-dev",
+      "slide": 17
+    }
   },
   {
     "id": "ch7-ext20",
@@ -1739,7 +1999,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 4
+    }
   },
   {
     "id": "ch7-ext21",
@@ -1766,7 +2030,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 5
+    }
   },
   {
     "id": "ch7-ext22",
@@ -1793,7 +2061,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch7-practice",
+      "slide": 20
+    }
   },
   {
     "id": "ch7-ext23",
@@ -1820,7 +2092,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 11
+    }
   },
   {
     "id": "ch7-ext24",
@@ -1847,7 +2123,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 19
+    }
   },
   {
     "id": "ch7-ext25",
@@ -1874,6 +2154,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch14-ai-services",
+      "slide": 11,
+      "approx": true
+    }
   }
 ]

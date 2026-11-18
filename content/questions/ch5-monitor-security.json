@@ -24,7 +24,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 4
+    }
   },
   {
     "answer": 0,
@@ -51,7 +55,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 4
+    }
   },
   {
     "answer": 1,
@@ -78,7 +86,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 4
+    }
   },
   {
     "answer": 2,
@@ -105,7 +117,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 4
+    }
   },
   {
     "answer": 3,
@@ -132,7 +148,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 2
+    }
   },
   {
     "answer": 0,
@@ -159,7 +179,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 5
+    }
   },
   {
     "answer": 1,
@@ -186,7 +210,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 5
+    }
   },
   {
     "answer": 2,
@@ -213,7 +241,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 5
+    }
   },
   {
     "answer": 3,
@@ -240,7 +272,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 5
+    }
   },
   {
     "answer": 0,
@@ -267,7 +303,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 3
+    }
   },
   {
     "answer": 1,
@@ -294,7 +334,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 7
+    }
   },
   {
     "answer": 2,
@@ -321,7 +365,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 8
+    }
   },
   {
     "answer": 3,
@@ -348,7 +396,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 8
+    }
   },
   {
     "answer": 0,
@@ -375,7 +427,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 9
+    }
   },
   {
     "answer": 1,
@@ -402,7 +458,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 7
+    }
   },
   {
     "answer": 2,
@@ -429,7 +489,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 3
+    }
   },
   {
     "answer": 3,
@@ -456,7 +520,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 8
+    }
   },
   {
     "answer": 0,
@@ -483,7 +551,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 11
+    }
   },
   {
     "answer": 1,
@@ -510,7 +582,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 13
+    }
   },
   {
     "answer": 2,
@@ -537,7 +613,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "answer": 3,
@@ -564,7 +645,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 9
+    }
   },
   {
     "answer": 0,
@@ -591,7 +676,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 9
+    }
   },
   {
     "answer": 1,
@@ -618,7 +707,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -645,7 +739,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14
+    }
   },
   {
     "answer": 3,
@@ -672,7 +770,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 1
+    }
   },
   {
     "answer": 0,
@@ -699,7 +801,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 1
+    }
   },
   {
     "answer": 1,
@@ -726,7 +832,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 1
+    }
   },
   {
     "answer": 2,
@@ -753,7 +863,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 9
+    }
   },
   {
     "answer": 3,
@@ -780,7 +894,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 10
+    }
   },
   {
     "answer": 0,
@@ -807,7 +925,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 10
+    }
   },
   {
     "answer": 1,
@@ -834,7 +956,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 11
+    }
   },
   {
     "answer": 2,
@@ -861,7 +987,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 11
+    }
   },
   {
     "answer": 3,
@@ -888,7 +1018,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 11
+    }
   },
   {
     "answer": 0,
@@ -915,7 +1049,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 11
+    }
   },
   {
     "answer": 1,
@@ -942,7 +1080,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 11
+    }
   },
   {
     "answer": 2,
@@ -969,7 +1111,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 11,
+      "approx": true
+    }
   },
   {
     "answer": 3,
@@ -996,7 +1143,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 12
+    }
   },
   {
     "answer": 0,
@@ -1023,7 +1174,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 12
+    }
   },
   {
     "answer": 1,
@@ -1050,7 +1205,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 12
+    }
   },
   {
     "answer": 2,
@@ -1077,7 +1236,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 14
+    }
   },
   {
     "answer": 3,
@@ -1104,7 +1267,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 14,
+      "approx": true
+    }
   },
   {
     "answer": 3,
@@ -1131,7 +1299,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 15
+    }
   },
   {
     "answer": 0,
@@ -1158,7 +1330,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 15
+    }
   },
   {
     "answer": 1,
@@ -1185,7 +1361,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 16
+    }
   },
   {
     "answer": 2,
@@ -1212,7 +1392,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 16
+    }
   },
   {
     "id": "ch5-ext01",
@@ -1239,7 +1423,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch5-ext02",
@@ -1266,7 +1454,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 14
+    }
   },
   {
     "id": "ch5-ext03",
@@ -1293,7 +1485,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 15
+    }
   },
   {
     "id": "ch5-ext04",
@@ -1320,7 +1516,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 9
+    }
   },
   {
     "id": "ch5-ext05",
@@ -1347,7 +1547,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch8-data-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch5-ext06",
@@ -1374,7 +1578,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 14
+    }
   },
   {
     "id": "ch5-ext07",
@@ -1401,7 +1609,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 4,
+      "approx": true
+    }
   },
   {
     "id": "ch5-ext08",
@@ -1428,7 +1641,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 12
+    }
   },
   {
     "id": "ch5-ext09",
@@ -1455,7 +1672,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch5-ext10",
@@ -1482,7 +1703,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 14
+    }
   },
   {
     "id": "ch5-ext11",
@@ -1509,7 +1734,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 15
+    }
   },
   {
     "id": "ch5-ext12",
@@ -1536,7 +1765,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 18
+    }
   },
   {
     "id": "ch5-ext13",
@@ -1563,7 +1796,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch9-training-advanced",
+      "slide": 17
+    }
   },
   {
     "id": "ch5-ext14",
@@ -1590,7 +1827,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 8,
+      "approx": true
+    }
   },
   {
     "id": "ch5-ext15",
@@ -1617,7 +1859,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 14
+    }
   },
   {
     "id": "ch5-ext16",
@@ -1644,7 +1890,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 16
+    }
   },
   {
     "id": "ch5-ext17",
@@ -1671,7 +1921,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch4-deploy",
+      "slide": 11
+    }
   },
   {
     "id": "ch5-ext18",
@@ -1698,7 +1952,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 9
+    }
   },
   {
     "id": "ch5-ext19",
@@ -1725,7 +1983,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 11
+    }
   },
   {
     "id": "ch5-ext20",
@@ -1752,7 +2014,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14,
+      "approx": true
+    }
   },
   {
     "id": "ch5-ext21",
@@ -1779,7 +2046,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 2
+    }
   },
   {
     "id": "ch5-ext22",
@@ -1806,7 +2077,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 13,
+      "approx": true
+    }
   },
   {
     "id": "ch5-ext23",
@@ -1833,7 +2109,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 16
+    }
   },
   {
     "id": "ch5-ext24",
@@ -1860,7 +2140,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 14,
+      "approx": true
+    }
   },
   {
     "id": "ch5-ext25",
@@ -1887,7 +2172,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 9
+    }
   },
   {
     "answer": 1,
@@ -1913,7 +2202,11 @@
     "task": "4.1",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 3
+    }
   },
   {
     "answer": [
@@ -1943,7 +2236,12 @@
     "task": "4.1",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 4,
+      "approx": true
+    }
   },
   {
     "answer": 1,
@@ -1970,7 +2268,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 1
+    }
   },
   {
     "answer": 0,
@@ -1996,7 +2298,11 @@
     "task": "4.1",
     "exam": [
       "C01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 6
+    }
   },
   {
     "answer": [
@@ -2027,7 +2333,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 1
+    }
   },
   {
     "answer": 1,
@@ -2054,7 +2364,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 3
+    }
   },
   {
     "answer": 2,
@@ -2084,7 +2398,11 @@
     ],
     "todo": [
       "K-4.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 9
+    }
   },
   {
     "answer": 3,
@@ -2113,7 +2431,11 @@
     ],
     "todo": [
       "G-4.1.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 17
+    }
   },
   {
     "answer": [
@@ -2146,7 +2468,11 @@
     ],
     "todo": [
       "G-4.1.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 17
+    }
   },
   {
     "answer": 0,
@@ -2175,7 +2501,11 @@
     ],
     "todo": [
       "G-4.1.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 17
+    }
   },
   {
     "answer": 1,
@@ -2202,7 +2532,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 11
+    }
   },
   {
     "answer": [
@@ -2233,7 +2567,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 11
+    }
   },
   {
     "answer": 2,
@@ -2260,7 +2598,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 7,
+      "approx": true
+    }
   },
   {
     "answer": 3,
@@ -2287,7 +2630,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 5,
+      "approx": true
+    }
   },
   {
     "answer": 0,
@@ -2316,7 +2664,11 @@
     ],
     "todo": [
       "G-4.1.5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 16
+    }
   },
   {
     "answer": [
@@ -2349,7 +2701,11 @@
     ],
     "todo": [
       "G-4.1.5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 16
+    }
   },
   {
     "answer": 1,
@@ -2379,7 +2735,11 @@
     "todo": [
       "G-4.1.6",
       "G-4.1.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 4
+    }
   },
   {
     "answer": 2,
@@ -2406,7 +2766,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 6
+    }
   },
   {
     "answer": 3,
@@ -2436,7 +2800,11 @@
     ],
     "todo": [
       "K-4.2K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 7
+    }
   },
   {
     "answer": [
@@ -2469,7 +2837,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 4
+    }
   },
   {
     "answer": 0,
@@ -2499,7 +2871,11 @@
     ],
     "todo": [
       "K-4.2K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 7
+    }
   },
   {
     "answer": 1,
@@ -2526,7 +2902,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 2
+    }
   },
   {
     "answer": 2,
@@ -2555,7 +2935,11 @@
     ],
     "todo": [
       "G-4.1.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 6
+    }
   },
   {
     "answer": 3,
@@ -2584,7 +2968,11 @@
     ],
     "todo": [
       "G-4.1.6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 2
+    }
   },
   {
     "answer": 0,
@@ -2611,7 +2999,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 2
+    }
   },
   {
     "answer": 1,
@@ -2641,7 +3033,11 @@
     ],
     "todo": [
       "K-4.3K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 15
+    }
   },
   {
     "answer": 2,
@@ -2671,7 +3067,11 @@
     ],
     "todo": [
       "K-4.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 19
+    }
   },
   {
     "answer": [
@@ -2705,7 +3105,11 @@
     ],
     "todo": [
       "K-4.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 19
+    }
   },
   {
     "answer": 3,
@@ -2735,7 +3139,12 @@
     ],
     "todo": [
       "K-4.3S4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 19,
+      "approx": true
+    }
   },
   {
     "answer": [
@@ -2766,7 +3175,11 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 18
+    }
   },
   {
     "answer": 0,
@@ -2792,7 +3205,12 @@
     "exam": [
       "C01",
       "C02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 18,
+      "approx": true
+    }
   },
   {
     "answer": 1,
@@ -2821,7 +3239,11 @@
     ],
     "todo": [
       "G-4.3.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 12
+    }
   },
   {
     "answer": 2,
@@ -2850,7 +3272,11 @@
     ],
     "todo": [
       "G-4.3.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 12
+    }
   },
   {
     "answer": [
@@ -2883,7 +3309,11 @@
     ],
     "todo": [
       "G-4.3.9"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch6-genai",
+      "slide": 12
+    }
   },
   {
     "answer": [
@@ -2916,7 +3346,11 @@
     ],
     "todo": [
       "G-4.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 19
+    }
   },
   {
     "answer": 3,
@@ -2945,7 +3379,12 @@
     ],
     "todo": [
       "G-4.3.8"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch13-genai-agents",
+      "slide": 19,
+      "approx": true
+    }
   },
   {
     "answer": 0,
@@ -2975,7 +3414,11 @@
     ],
     "todo": [
       "G-4.3.4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14
+    }
   },
   {
     "answer": [
@@ -3009,7 +3452,11 @@
     ],
     "todo": [
       "G-4.3.4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14
+    }
   },
   {
     "answer": 1,
@@ -3039,7 +3486,12 @@
     ],
     "todo": [
       "G-4.3.4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14,
+      "approx": true
+    }
   },
   {
     "answer": 2,
@@ -3069,7 +3521,11 @@
     ],
     "todo": [
       "G-4.3.4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14
+    }
   },
   {
     "answer": [
@@ -3103,7 +3559,12 @@
     ],
     "todo": [
       "G-4.3.4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 14,
+      "approx": true
+    }
   },
   {
     "answer": 3,
@@ -3133,7 +3594,11 @@
     ],
     "todo": [
       "G-4.3.1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 20
+    }
   },
   {
     "answer": 0,
@@ -3163,7 +3628,11 @@
     ],
     "todo": [
       "K-4.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 15
+    }
   },
   {
     "answer": [
@@ -3199,7 +3668,11 @@
     ],
     "todo": [
       "K-4.3K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch11-cost-security",
+      "slide": 15
+    }
   },
   {
     "answer": [
@@ -3233,6 +3706,10 @@
     ],
     "todo": [
       "K-4.3K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch5-monitor-security",
+      "slide": 15
+    }
   }
 ]

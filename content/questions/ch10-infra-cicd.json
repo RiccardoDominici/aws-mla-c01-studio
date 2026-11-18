@@ -27,7 +27,11 @@
     "todo": [
       "K-3.1S5",
       "V09"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 2
+    }
   },
   {
     "id": "ch10-q002",
@@ -56,7 +60,11 @@
     "todo": [
       "K-3.1K7",
       "C20"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 3
+    }
   },
   {
     "id": "ch10-q003",
@@ -89,7 +97,11 @@
     "todo": [
       "K-3.1K7",
       "C20"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 3
+    }
   },
   {
     "id": "ch10-q004",
@@ -119,7 +131,11 @@
     "todo": [
       "K-3.1S2",
       "C15"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 1
+    }
   },
   {
     "id": "ch10-q005",
@@ -148,7 +164,11 @@
     ],
     "todo": [
       "K-3.1K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 1
+    }
   },
   {
     "id": "ch10-q006",
@@ -179,7 +199,11 @@
       "K-3.1S5",
       "V50",
       "V51"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 2
+    }
   },
   {
     "id": "ch10-q007",
@@ -213,7 +237,12 @@
     "todo": [
       "V10",
       "V50"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 2,
+      "approx": true
+    }
   },
   {
     "id": "ch10-q008",
@@ -241,7 +270,11 @@
     ],
     "todo": [
       "V48"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 2
+    }
   },
   {
     "id": "ch10-q009",
@@ -275,7 +308,11 @@
     "todo": [
       "V09",
       "V48"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 2
+    }
   },
   {
     "id": "ch10-q010",
@@ -308,7 +345,11 @@
     ],
     "todo": [
       "K-3.1K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 1
+    }
   },
   {
     "id": "ch10-q011",
@@ -337,7 +378,11 @@
     ],
     "todo": [
       "K-3.1S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 1
+    }
   },
   {
     "id": "ch10-q012",
@@ -366,7 +411,11 @@
     ],
     "todo": [
       "C15"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 1
+    }
   },
   {
     "id": "ch10-q013",
@@ -396,7 +445,11 @@
     "todo": [
       "K-3.2K1",
       "C25"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 7
+    }
   },
   {
     "id": "ch10-q014",
@@ -426,7 +479,11 @@
     "todo": [
       "K-3.2K1",
       "C25"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 7
+    }
   },
   {
     "id": "ch10-q015",
@@ -456,7 +513,11 @@
     "todo": [
       "C25",
       "K-3.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 8
+    }
   },
   {
     "id": "ch10-q016",
@@ -485,7 +546,11 @@
     ],
     "todo": [
       "K-3.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 8
+    }
   },
   {
     "id": "ch10-q017",
@@ -519,7 +584,11 @@
     "todo": [
       "K-3.2K2",
       "K-3.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 8
+    }
   },
   {
     "id": "ch10-q018",
@@ -547,7 +616,11 @@
     ],
     "todo": [
       "K-3.2K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 8
+    }
   },
   {
     "id": "ch10-q019",
@@ -576,7 +649,11 @@
     ],
     "todo": [
       "K-3.2S6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 9
+    }
   },
   {
     "id": "ch10-q020",
@@ -604,7 +681,11 @@
     ],
     "todo": [
       "K-3.2S6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 9
+    }
   },
   {
     "id": "ch10-q021",
@@ -633,7 +714,11 @@
     ],
     "todo": [
       "K-3.2S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 10
+    }
   },
   {
     "id": "ch10-q022",
@@ -666,7 +751,11 @@
     ],
     "todo": [
       "K-3.2S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 10
+    }
   },
   {
     "id": "ch10-q023",
@@ -696,7 +785,11 @@
     "todo": [
       "K-3.2K3",
       "V01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 11
+    }
   },
   {
     "id": "ch10-q024",
@@ -730,7 +823,11 @@
     "todo": [
       "K-3.2K3",
       "V01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 11
+    }
   },
   {
     "id": "ch10-q025",
@@ -759,7 +856,11 @@
     ],
     "todo": [
       "V02"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 12
+    }
   },
   {
     "id": "ch10-q026",
@@ -789,7 +890,11 @@
     "todo": [
       "V02",
       "K-3.2S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 12
+    }
   },
   {
     "id": "ch10-q027",
@@ -818,7 +923,11 @@
     ],
     "todo": [
       "K-3.2S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 12
+    }
   },
   {
     "id": "ch10-q028",
@@ -851,7 +960,11 @@
     ],
     "todo": [
       "K-3.2S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 12
+    }
   },
   {
     "id": "ch10-q029",
@@ -880,7 +993,11 @@
     ],
     "todo": [
       "K-3.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 4
+    }
   },
   {
     "id": "ch10-q030",
@@ -910,7 +1027,11 @@
     "todo": [
       "K-3.2K4",
       "K-3.2S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 4
+    }
   },
   {
     "id": "ch10-q031",
@@ -942,7 +1063,11 @@
     ],
     "todo": [
       "K-3.2K4"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 4
+    }
   },
   {
     "id": "ch10-q032",
@@ -971,7 +1096,11 @@
     ],
     "todo": [
       "K-3.2S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 5
+    }
   },
   {
     "id": "ch10-q033",
@@ -1004,7 +1133,11 @@
     ],
     "todo": [
       "K-3.2S3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 5
+    }
   },
   {
     "id": "ch10-q034",
@@ -1033,7 +1166,11 @@
     ],
     "todo": [
       "K-3.2S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 6
+    }
   },
   {
     "id": "ch10-q035",
@@ -1062,7 +1199,12 @@
     ],
     "todo": [
       "K-3.2S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 6,
+      "approx": true
+    }
   },
   {
     "id": "ch10-q036",
@@ -1095,7 +1237,12 @@
     ],
     "todo": [
       "K-3.2S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 6,
+      "approx": true
+    }
   },
   {
     "id": "ch10-q037",
@@ -1123,7 +1270,11 @@
     ],
     "todo": [
       "V14"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 13
+    }
   },
   {
     "id": "ch10-q038",
@@ -1152,7 +1303,11 @@
     ],
     "todo": [
       "V14"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 13
+    }
   },
   {
     "id": "ch10-q039",
@@ -1180,7 +1335,11 @@
     ],
     "todo": [
       "V15"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 13
+    }
   },
   {
     "id": "ch10-q040",
@@ -1212,7 +1371,11 @@
     ],
     "todo": [
       "V15"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 13
+    }
   },
   {
     "id": "ch10-q041",
@@ -1241,7 +1404,11 @@
     ],
     "todo": [
       "V12"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 13
+    }
   },
   {
     "id": "ch10-q042",
@@ -1270,7 +1437,11 @@
     ],
     "todo": [
       "V12"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 13
+    }
   },
   {
     "id": "ch10-q043",
@@ -1300,7 +1471,11 @@
     "todo": [
       "K-3.3K1",
       "K-3.3S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 15
+    }
   },
   {
     "id": "ch10-q044",
@@ -1333,7 +1508,11 @@
     ],
     "todo": [
       "K-3.3S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 15
+    }
   },
   {
     "id": "ch10-q045",
@@ -1364,7 +1543,11 @@
     "todo": [
       "V03",
       "K-3.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 15
+    }
   },
   {
     "id": "ch10-q046",
@@ -1394,7 +1577,11 @@
     ],
     "todo": [
       "V03"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 15
+    }
   },
   {
     "id": "ch10-q047",
@@ -1424,7 +1611,12 @@
     ],
     "todo": [
       "K-3.3S1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 15,
+      "approx": true
+    }
   },
   {
     "id": "ch10-q048",
@@ -1454,7 +1646,11 @@
     "todo": [
       "K-3.3K6",
       "K-3.3K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 14
+    }
   },
   {
     "id": "ch10-q049",
@@ -1483,7 +1679,11 @@
     ],
     "todo": [
       "K-3.3K3"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 14
+    }
   },
   {
     "id": "ch10-q050",
@@ -1512,7 +1712,11 @@
     ],
     "todo": [
       "K-3.3K6"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 15
+    }
   },
   {
     "id": "ch10-q051",
@@ -1540,7 +1744,11 @@
     ],
     "todo": [
       "K-3.3S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 14
+    }
   },
   {
     "id": "ch10-q052",
@@ -1568,7 +1776,11 @@
     ],
     "todo": [
       "K-3.3S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 14
+    }
   },
   {
     "id": "ch10-q053",
@@ -1599,7 +1811,11 @@
     ],
     "todo": [
       "K-3.3S2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 14
+    }
   },
   {
     "id": "ch10-q054",
@@ -1633,7 +1849,11 @@
       "G-3.3.2",
       "V54",
       "V55"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 14
+    }
   },
   {
     "id": "ch10-q055",
@@ -1662,7 +1882,11 @@
     "todo": [
       "V55",
       "G-3.3.2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 14
+    }
   },
   {
     "id": "ch10-q056",
@@ -1690,7 +1914,12 @@
     ],
     "todo": [
       "V54"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 14,
+      "approx": true
+    }
   },
   {
     "id": "ch10-q057",
@@ -1719,7 +1948,11 @@
     "todo": [
       "G-3.3.4",
       "K-3.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 16
+    }
   },
   {
     "id": "ch10-q058",
@@ -1748,7 +1981,11 @@
     ],
     "todo": [
       "K-3.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 16
+    }
   },
   {
     "id": "ch10-q059",
@@ -1781,7 +2018,11 @@
     "todo": [
       "G-3.3.4",
       "K-3.3S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 16
+    }
   },
   {
     "id": "ch10-q060",
@@ -1811,7 +2052,11 @@
     ],
     "todo": [
       "C17"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 18
+    }
   },
   {
     "id": "ch10-q061",
@@ -1840,7 +2085,11 @@
     ],
     "todo": [
       "C17"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 18
+    }
   },
   {
     "id": "ch10-q062",
@@ -1869,7 +2118,11 @@
     ],
     "todo": [
       "C17"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 18
+    }
   },
   {
     "id": "ch10-q063",
@@ -1898,7 +2151,11 @@
     ],
     "todo": [
       "K-3.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 17
+    }
   },
   {
     "id": "ch10-q064",
@@ -1928,7 +2185,11 @@
     ],
     "todo": [
       "K-3.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 17
+    }
   },
   {
     "id": "ch10-q065",
@@ -1963,7 +2224,11 @@
     ],
     "todo": [
       "K-3.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 17
+    }
   },
   {
     "id": "ch10-q066",
@@ -1996,7 +2261,11 @@
     ],
     "todo": [
       "K-3.2K2"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 9
+    }
   },
   {
     "id": "ch10-q067",
@@ -2030,7 +2299,11 @@
     "todo": [
       "K-3.2K3",
       "V01"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 11
+    }
   },
   {
     "id": "ch10-q068",
@@ -2064,7 +2337,11 @@
     "todo": [
       "V03",
       "K-3.3K5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 15
+    }
   },
   {
     "id": "ch10-q069",
@@ -2094,7 +2371,11 @@
     "todo": [
       "V51",
       "K-3.1S5"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 2
+    }
   },
   {
     "id": "ch10-q070",
@@ -2123,7 +2404,11 @@
     ],
     "todo": [
       "V10"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 2
+    }
   },
   {
     "id": "ch10-q071",
@@ -2152,7 +2437,11 @@
     ],
     "todo": [
       "C17"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 18
+    }
   },
   {
     "id": "ch10-q072",
@@ -2180,7 +2469,11 @@
     ],
     "todo": [
       "C06"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 10
+    }
   },
   {
     "id": "ch10-q073",
@@ -2208,7 +2501,11 @@
     ],
     "todo": [
       "C06"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 10
+    }
   },
   {
     "id": "ch10-q074",
@@ -2237,6 +2534,10 @@
     ],
     "todo": [
       "K-3.3K1"
-    ]
+    ],
+    "lesson": {
+      "chapter": "ch10-infra-cicd",
+      "slide": 15
+    }
   }
 ]
