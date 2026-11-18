@@ -258,7 +258,9 @@
     return 0;
   }
 
-  function renderLesson(panel, chapterId, ch, audioUrl, timingEntry, audioStale) {
+  /* startSlide: indice 0-based della slide da aprire (deep-link ?slide=N dal banco
+   * domande), oppure null per partire dalla prima. */
+  function renderLesson(panel, chapterId, ch, audioUrl, timingEntry, audioStale, startSlide) {
     var app = window.MLA.app;
     panel.innerHTML = '';
     var slides = Array.isArray(ch.slides) ? ch.slides : [];
@@ -510,6 +512,26 @@
     panel.appendChild(card);
     drawSlide();
 
+    /* Deep-link dal banco domande: apre la slide richiesta e la porta in vista.
+     * La seek audio è possibile solo quando la durata è nota, quindi se i
+     * metadati non sono ancora caricati la si rimanda a `loadedmetadata`. */
+    if (startSlide !== null && startSlide !== undefined && slides.length) {
+      // Qui la trascrizione non esiste ancora: niente seek, solo la slide.
+      goSlide(startSlide, false);
+      if (audio) {
+        audio.addEventListener('loadedmetadata', function onMeta() {
+          audio.removeEventListener('loadedmetadata', onMeta);
+          // seek all'inizio della slide solo se l'utente non ha già avviato l'audio
+          if (audio.paused && audio.currentTime < 0.5) goSlide(slideIdx, true);
+        });
+      }
+      card.classList.add('slide-deeplink');
+      setTimeout(function () {
+        try { card.scrollIntoView({ block: 'start', behavior: 'smooth' }); } catch (e) { /* noop */ }
+      }, 0);
+      console.info('[chapter] deep-link alla slide ' + (slideIdx + 1));
+    }
+
     /* --- trascrizione karaoke --- */
     var transcript = app.el('div', 'transcript', '');
     transcript.setAttribute('aria-label', 'Trascrizione della lezione');
@@ -693,6 +715,20 @@
     return box;
   }
 
+  /* Legge ?slide=N (1-based, come il contatore "N / tot") e lo converte in
+   * indice 0-based; null se assente o non valido. Il clamp al numero di slide
+   * lo fa goSlide. */
+  function startSlideFromUrl(app) {
+    var raw = app.getQueryParam('slide');
+    if (raw === null || raw === undefined || raw === '') return null;
+    var n = parseInt(raw, 10);
+    if (!isFinite(n) || n < 1) {
+      console.warn('[chapter] parametro slide non valido: ' + raw);
+      return null;
+    }
+    return n - 1;
+  }
+
   /* ---------- init ---------- */
 
   function init() {
@@ -755,7 +791,7 @@
 
       /* Tab Lezione guidata */
       tabs.panels.lezione.appendChild(app.el('h2', '', 'Lezione guidata'));
-      renderLesson(tabs.panels.lezione, id, ch, audioUrl, timingEntry, audioStale);
+      renderLesson(tabs.panels.lezione, id, ch, audioUrl, timingEntry, audioStale, startSlideFromUrl(app));
 
       /* Tab Riassunto: testo integrale */
       tabs.panels.riassunto.appendChild(app.el('h2', '', 'Riassunto'));

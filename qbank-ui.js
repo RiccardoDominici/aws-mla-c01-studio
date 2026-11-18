@@ -530,7 +530,38 @@
       src.textContent = 'Fonte: ' + q.source;
       box.appendChild(src);
     }
+    var lesson = lessonLink(q);
+    if (lesson) box.appendChild(lesson);
     built.fbHost.appendChild(box);
+  }
+
+  /**
+   * Pulsante verso la slide della lezione che spiega la domanda
+   * (chapter.html?id=<capitolo>&slide=<N>, N 1-based come il contatore slide).
+   * Si apre in una nuova scheda per non perdere il punto nel banco.
+   * @returns {HTMLElement|null} null se la domanda non ha una slide associata
+   */
+  function lessonLink(q) {
+    var l = q.lesson;
+    if (!l) return null;
+    var where = chapterLabel(l.chapter) + ' · slide ' + l.slide;
+    var row = app.el('p', 'qfb-lesson', '');
+    var a = app.el('a', 'btn small', '');
+    a.href = 'chapter.html?id=' + encodeURIComponent(l.chapter) + '&slide=' + l.slide;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = (l.approx ? '📖 Argomento più vicino: ' : '📖 Rivedi la spiegazione: ') + where + ' →';
+    a.setAttribute('aria-label', 'Apri in una nuova scheda la slide ' + l.slide + ' del ' +
+      chapterLabel(l.chapter) + (l.approx
+        ? ': il corso non tratta questo punto in dettaglio, è l\'argomento più vicino'
+        : ', dove viene spiegato questo concetto'));
+    row.appendChild(a);
+    if (l.approx) {
+      // Onestà verso lo studente: il dettaglio della risposta sta nella spiegazione qui sopra.
+      row.appendChild(app.el('span', 'qfb-lesson-note',
+        ' Il corso non tratta questo punto in dettaglio: fa fede la spiegazione qui sopra.'));
+    }
+    return row;
   }
 
   /* ---------- Modalità studio ---------- */

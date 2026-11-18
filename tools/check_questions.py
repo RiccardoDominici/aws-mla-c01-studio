@@ -21,6 +21,7 @@ Schema v2, controllato qui:
 Esce con codice 1 se almeno un file non passa.
 """
 import json
+import os
 import sys
 from collections import Counter
 
@@ -109,6 +110,44 @@ def check_classification(q):
     return errs
 
 
+CHAPTERS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'content', 'chapters')
+_slide_counts = {}
+
+
+def slide_count(chapter_id):
+    """Numero di slide del capitolo (content/chapters/<id>.json), None se il file manca."""
+    if chapter_id not in _slide_counts:
+        path = os.path.join(CHAPTERS_DIR, f"{chapter_id}.json")
+        try:
+            with open(path, encoding='utf-8') as fh:
+                _slide_counts[chapter_id] = len(json.load(fh).get('slides') or [])
+        except (OSError, ValueError):
+            _slide_counts[chapter_id] = None
+    return _slide_counts[chapter_id]
+
+
+def check_lesson(q):
+    """Errori sul campo opzionale `lesson` {chapter, slide, approx?}: il capitolo deve
+    esistere e la slide (1-based) deve stare nel suo range, altrimenti il link
+    "Rivedi la spiegazione" del banco porterebbe nel vuoto."""
+    lesson = q.get('lesson')
+    if lesson is None:
+        return []
+    if not isinstance(lesson, dict):
+        return ["lesson deve essere un oggetto {chapter, slide}"]
+    errs = []
+    chapter = lesson.get('chapter') or q.get('chapter')
+    slide = lesson.get('slide')
+    n = slide_count(chapter)
+    if n is None:
+        errs.append(f"lesson.chapter sconosciuto: {chapter}")
+    elif not isinstance(slide, int) or isinstance(slide, bool) or not 1 <= slide <= n:
+        errs.append(f"lesson.slide {slide} fuori range per {chapter} (1-{n})")
+    if 'approx' in lesson and not isinstance(lesson['approx'], bool):
+        errs.append("lesson.approx deve essere booleano")
+    return errs
+
+
 def check_schema(questions, expected_chapter):
     """Errori di schema del contratto. Ritorna una lista di stringhe."""
     errs = []
@@ -124,6 +163,8 @@ def check_schema(questions, expected_chapter):
         for msg in check_answer(q):
             errs.append(f"#{i} {msg}")
         for msg in check_classification(q):
+            errs.append(f"#{i} {msg}")
+        for msg in check_lesson(q):
             errs.append(f"#{i} {msg}")
         if q.get('difficulty') not in DIFFICULTIES:
             errs.append(f"#{i} difficulty invalida: {q.get('difficulty')}")

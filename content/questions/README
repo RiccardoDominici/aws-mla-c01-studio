@@ -76,6 +76,22 @@ Risposta multipla (il formato AWS "Select TWO" o "Select THREE"):
 | `task`       | sì           | da `"1.1"` a `"4.3"`, coerente col dominio; `"-"` per META                             |
 | `exam`       | sì           | sottoinsieme non vuoto di `["C01", "C02"]`: gli esami a cui la domanda si applica       |
 | `todo`       | no           | id di `docs/todo.json` che la domanda allena                                           |
+| `lesson`     | no           | `{"chapter": "ch4-deploy", "slide": 3}`: slide (1-based) che spiega il concetto; vedi sotto |
+
+### Link alla lezione (`lesson`)
+
+Dopo la risposta, il banco mostra il pulsante "Rivedi la spiegazione" che apre
+`chapter.html?id=<lesson.chapter>&slide=<lesson.slide>` in una nuova scheda, sulla slide
+della lezione guidata dove il concetto viene insegnato.
+
+- `slide` è 1-based, come il contatore "N / tot" sotto la slide.
+- `chapter` di norma è il capitolo della domanda, ma può essere un altro capitolo quando
+  il concetto è insegnato lì (per esempio l'autoscaling, spiegato nel capitolo 10).
+- `approx: true` segnala che nessuna slide del corso insegna davvero il punto della
+  risposta: il link porta all'argomento più vicino e il pulsante lo dice. Senza `approx`
+  la slide contiene l'elemento chiave della risposta.
+- Se si riordinano o si tolgono slide di un capitolo, i `lesson` che puntano lì vanno
+  rivisti: `tools/check_questions.py` segnala le slide fuori range, non quelle spostate.
 
 ### Regole di coerenza
 

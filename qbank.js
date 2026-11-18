@@ -127,6 +127,25 @@
   }
 
   /** Riempie i campi opzionali con default sensati e forza i tipi. */
+  /**
+   * Slide della lezione che spiega la domanda (campo opzionale `lesson`):
+   * {chapter, slide, approx}. `chapter` di norma è quello della domanda ma può
+   * essere un altro capitolo, se il concetto è insegnato lì; `slide` è 1-based
+   * come il contatore delle slide; `approx: true` segnala che nessuna slide
+   * insegna davvero il concetto e il link porta alla più vicina.
+   * Assente o non valido → null: la domanda resta valida, solo senza link.
+   */
+  function normalizeLesson(l, chapterId) {
+    if (!l || typeof l !== 'object' || !isInt(l.slide) || l.slide < 1) return null;
+    var ch = nonEmptyString(l.chapter) ? l.chapter : chapterId;
+    var app = window.MLA && window.MLA.app;
+    if (app && app.byId && !app.byId(ch)) {
+      console.warn('[qbank] lesson.chapter sconosciuto: ' + ch + ' (domanda di ' + chapterId + ')');
+      return null;
+    }
+    return { chapter: ch, slide: l.slide, approx: l.approx === true };
+  }
+
   function normalize(o, chapterId, index) {
     var diff = String(o.difficulty || 'media').toLowerCase();
     var origin = String(o.origin || 'ai').toLowerCase();
@@ -147,7 +166,8 @@
       domain: String(o.domain),
       task: String(o.task),
       exam: EXAMS.filter(function (e) { return o.exam.indexOf(e) !== -1; }),
-      todo: Array.isArray(o.todo) ? o.todo.map(String) : []
+      todo: Array.isArray(o.todo) ? o.todo.map(String) : [],
+      lesson: normalizeLesson(o.lesson, chapterId)
     };
   }
 
