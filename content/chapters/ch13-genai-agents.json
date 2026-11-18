@@ -266,7 +266,8 @@
         },
         "ROUGE: misura la sovrapposizione orientata al richiamo, usata per i riassunti",
         "Similarità semantica: confronta il significato tra vettori, senza contare le parole uguali",
-        "Limite comune: servono riferimenti, e le metriche lessicali penalizzano le parafrasi"
+        "Limite comune: servono riferimenti, e le metriche lessicali penalizzano le parafrasi",
+        "Domande e risposte estrattive: exact match e F1 sulle parole. Nei job automatici di Bedrock la accuracy usa NLP-F1 per le domande e BERTScore, non ROUGE, per i riassunti"
       ],
       "narration": "Le metriche NLP classiche nascono per misurare la qualità di traduzioni e riassunti, quando esiste un testo di riferimento. Per la MLA-C02 bisogna conoscerne quattro. BLEU, cioè bilingual evaluation understudy, è stato proposto nel 2002 per la traduzione automatica. Confronta le sequenze di parole, gli n-grammi, tra la risposta generata e quella di riferimento. Più parole coincidono nell'ordine giusto, più il punteggio sale. ROUGE, cioè recall-oriented understudy for gisting evaluation, è del 2004 e nasce per i riassunti. Qui il punto chiave è il richiamo: quante parole del riferimento compaiono nell'output. Entrambe sono metriche lessicali. Se la risposta dice la stessa cosa con parole diverse, il punteggio crolla anche se il senso è giusto. BERTScore fa un passo avanti. Confronta gli embedding contestuali dei token della risposta e del riferimento, quindi tollera le parafrasi. Secondo gli autori, correla meglio con il giudizio umano rispetto alle metriche lessicali. La similarità semantica confronta direttamente i vettori di due testi, e non conta le parole in comune. Una trappola d'esame è questa. Se la domanda chiede di valutare un riassunto con un riferimento e misurare il richiamo, la risposta è ROUGE. Se chiede di valutare una traduzione, la risposta è BLEU. Se vuole tollerare sinonimi e parafrasi, pensa a BERTScore o alla similarità semantica. In tutti i casi, le metriche automatiche sono un segnale utile, ma non sostituiscono una verifica umana.",
       "todo": [
@@ -701,7 +702,82 @@
         "JumpStartModel per i modelli pubblici, configurazione personalizzata per i tuoi",
         "Con minReplicaCount a zero il deployment scende a zero pod quando è inattivo",
         "Inference component: un modello per componente, con acceleratori, CPU e memoria assegnati",
-        "Ogni componente ha un numero di copie che scala da solo, anche fino a zero"
+        "Ogni componente ha un numero di copie che scala da solo, anche fino a zero",
+        {
+          "kind": "table",
+          "head": [
+            "Parametro",
+            "Dove",
+            "A cosa serve"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Nessun ModelName",
+                "head": true
+              },
+              "endpoint configuration",
+              "solo infrastruttura: istanze della variante"
+            ],
+            [
+              {
+                "v": "ModelName o Container",
+                "head": true
+              },
+              "specifica del componente",
+              "ogni componente nomina il proprio modello"
+            ],
+            [
+              {
+                "v": "ComputeResourceRequirements",
+                "head": true
+              },
+              "specifica del componente",
+              "acceleratori, CPU e memoria assegnati"
+            ],
+            [
+              {
+                "v": "CopyCount e DesiredCopyCount",
+                "head": true
+              },
+              "componente e auto scaling",
+              "le copie di ogni componente scalano da sole"
+            ],
+            [
+              {
+                "v": "InferenceComponentName",
+                "head": true
+              },
+              "InvokeEndpoint",
+              "instrada la chiamata a un componente, cioè a un modello"
+            ],
+            [
+              {
+                "v": "TargetModel",
+                "head": true
+              },
+              "multi-model endpoint",
+              "sceglie un artefatto su S3"
+            ],
+            [
+              {
+                "v": "TargetContainerHostname",
+                "head": true
+              },
+              "multi-container endpoint",
+              "sceglie un container"
+            ],
+            [
+              {
+                "v": "TargetVariant",
+                "head": true
+              },
+              "production variant",
+              "sceglie una variante"
+            ]
+          ],
+          "caption": "Chi sceglie il modello in una chiamata condivisa"
+        }
       ],
       "narration": "I workload di AI pesano sulle GPU, quindi la prima domanda è se la capacità sia costante o variabile. Su SageMaker HyperPod, la distribuzione dei modelli usa l'operatore di inferenza su Kubernetes. Un modello pubblico si descrive con una risorsa JumpStartModel, mentre un modello fine-tuned o personale usa una configurazione dedicata. Lo scaling è affidato a KEDA, che può reagire a metriche di CloudWatch, alla lunghezza di una coda SQS, a query Prometheus, e a CPU e memoria. Un esempio tipico: come trigger si usa la metrica Invocations del namespace AWS SageMaker. Con minReplicaCount uguale a zero, il deployment scende fino a zero pod quando è inattivo, e riparte con una soglia di attivazione. Attenzione alla trappola: i trigger di CPU e memoria da soli non portano a zero. Serve almeno un altro trigger, per esempio una coda o Prometheus. Per la scelta tra HyperPod e un endpoint gestito, pensa al controllo. HyperPod ti dà un cluster Kubernetes con GPU che governi tu, mentre un endpoint gestito riduce la gestione dell'infrastruttura. Le metriche GPU vanno lette insieme a latenza e invocazioni, per capire se serve più capacità o un modello più piccolo. Un'alternativa su endpoint SageMaker AI sono gli inference component. Ogni modello diventa un inference component, a cui assegni numero di core CPU, acceleratori e memoria minima. Più modelli condividono così le stesse istanze, e ogni componente scala in modo indipendente. Puoi portare un componente a zero copie, per liberare spazio a un altro modello. Lo scale down to zero dell'endpoint richiede inference component, gestione automatica delle istanze e MinInstanceCount uguale a zero. Quando arriva una richiesta a un endpoint a zero istanze, il provisioning richiede diversi minuti, e le chiamate in quell'intervallo danno errore. Così non paghi istanze inattive. Nell'esame, se la domanda chiede di scalare a zero un'inferenza su GPU con trigger personalizzati, la risposta è HyperPod con KEDA. Se chiede più modelli su un endpoint condiviso, ciascuno con le sue risorse e il suo scaling, la risposta sono gli inference component.",
       "todo": [

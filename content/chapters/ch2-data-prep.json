@@ -249,7 +249,10 @@
         "Oggetto: un file più i suoi metadati, identificato da una chiave completa",
         "Partizioni in stile Hive: coppie chiave e valore nei prefissi, come anno=2026",
         "Consistenza forte dal 1 dicembre 2020: letture subito aggiornate",
-        "Classi di storage, lifecycle e Glacier: capitolo 8"
+        "Classi di storage, lifecycle e Glacier: capitolo 8",
+        "Versioning: una sovrascrittura o una cancellazione conserva la versione precedente, ripristinabile",
+        "Object Lock, modello WORM con versioning attivo: in compliance mode nessuno cancella fino alla scadenza, root compreso",
+        "Governance mode: si aggira con un permesso speciale; legal hold: nessuna scadenza, resta finché non viene rimosso"
       ],
       "narration": "Amazon S3 è lo storage a oggetti di AWS, e in quasi ogni architettura di machine learning fa da data lake. È il luogo dove i dati grezzi e trasformati vivono a lungo, in formati diversi. Un bucket è il contenitore. Ogni file si chiama oggetto e ha una chiave, cioè il suo nome completo, per esempio clicks, anno uguale 2026, mese uguale 10, e il nome del file. S3 non ha vere cartelle. Il prefisso, cioè la parte iniziale della chiave, sembra una cartella nella console, ma l'archivio è piatto. Qui entra il partizionamento. Se i prefissi seguono la forma chiave e valore, come anno uguale 2026 e mese uguale 10, si parla di partizioni in stile Hive. Athena e Glue riconoscono questa forma e possono leggere solo la cartella del giorno richiesto. È il primo modo per ridurre il costo delle query, e lo vedremo meglio con Athena. Un punto che l'esame richiede: dal 1 dicembre 2020 S3 offre consistenza forte. Dopo la scrittura di un nuovo oggetto o la sovrascrittura di uno esistente, una lettura immediata riceve l'ultima versione. Anche le liste dei prefissi riflettono subito i cambiamenti, senza costi aggiuntivi. Prima esistevano soluzioni di compensazione, che usavano un indice esterno per coprire l'attesa di consistenza. Oggi una domanda che presenta quell'attesa come problema da risolvere contiene una premessa superata, ed è una trappola. Perché S3 e non un database? Un database relazionale come RDS è pensato per le transazioni, con uno schema imposto alla scrittura e una capacità limitata. Un data lake conserva file di qualunque formato a costi bassi, separa lo storage dal calcolo e permette a più motori di leggere gli stessi dati. Athena, Glue, EMR e i job di training di SageMaker possono usare gli stessi file. Le classi di storage, il lifecycle che sposta i dati freddi in Glacier e l'Intelligent-Tiering li vediamo nel capitolo 8.",
       "todo": []
@@ -359,7 +362,8 @@
         "JSON Lines: un oggetto JSON per riga, adatto alla lettura in streaming",
         "Parquet e ORC: colonnari e compressi, letture economiche",
         "Avro: formato che conserva lo schema insieme ai dati, comune nei flussi",
-        "RecordIO-protobuf: formato binario di molti algoritmi built-in"
+        "RecordIO-protobuf: formato binario di molti algoritmi built-in",
+        "Colonnari: compressione per colonna scelta per il tipo di dato e predicate pushdown, che salta i blocchi con min e max incompatibili col filtro"
       ],
       "narration": "Un formato è il modo in cui i valori sono scritti su disco, e la scelta cambia sia le prestazioni sia la fattura. La differenza principale è tra formati a righe e formati colonnari. In un formato a righe, come CSV o JSON, ogni record è una riga intera: per leggere una sola colonna bisogna leggere tutto. In un formato colonnare, come Parquet o ORC, i valori sono raggruppati per colonna. Una query che somma il campo importo legge solo quella colonna, e la compressione funziona meglio, perché valori simili stanno vicini. CSV è semplice e universale, ma non ha tipi né schema, e ogni colonna va scansionata. JSON è flessibile per i dati annidati. JSON Lines mette un oggetto per riga e si legge in streaming. Avro conserva lo schema insieme ai dati ed è comune nei flussi. Parquet è il formato di riferimento per l'analisi su S3. Ora il collegamento con i costi. Athena fattura per dati scansionati. La pagina prezzi di AWS usa come esempio 3 TB scansionati a 5 dollari per TB, cioè 15 dollari. Se lo stesso dato è compresso in GZIP con un rapporto di tre a uno, la scansione scende a 1 TB e il costo a 5 dollari. Se è in Parquet e la query legge una sola colonna, l'esempio ufficiale mostra un risparmio di quattro volte, cioè una scansione di 0,25 TB e un costo di 1,25 dollari. Il formato, dunque, decide quanto si paga. Per gli algoritmi built-in di SageMaker, la documentazione elenca i content type più comuni. CSV funziona per molti algoritmi, come XGBoost e Linear Learner: niente intestazione, e la colonna del target deve essere la prima. RecordIO-protobuf è il formato binario di algoritmi come K-Means, PCA e Factorization Machines. JSON Lines serve BlazingText e DeepAR. Nelle domande d'esame che chiedono quale formato accetta un algoritmo, rispondete guardando quella tabella, non ricordando che Parquet va bene ovunque. La modalità Pipe, che legge in streaming da S3 durante il training, la vediamo nel capitolo 8.",
       "todo": []
@@ -462,7 +466,10 @@
             ]
           ]
         },
-        "Retention minima di 24 ore, massima di 365 giorni"
+        "Retention minima di 24 ore, massima di 365 giorni",
+        "File che arrivano su S3 a orari imprevedibili: S3 Event Notifications su ogni nuovo oggetto, senza polling",
+        "Destinazioni: Lambda, SQS, SNS o EventBridge, che può avviare un job Glue; consegna di solito in pochi secondi",
+        "Lambda di trasformazione in Firehose: invocazione sincrona, al massimo 5 minuti; oltre si riducono i batch o si accelera la funzione"
       ],
       "narration": "Non tutti i dati arrivano a blocchi. Il batch carica file o tabelle a intervalli, per esempio ogni notte, ed è adatto al training periodico. Lo streaming porta gli eventi appena accadono, per esempio un click o una transazione, ed è necessario quando una feature deve essere aggiornata in pochi secondi. AWS offre tre strumenti principali. Amazon Kinesis Data Streams è un flusso di record organizzato in shard. I producer scrivono, più consumer leggono in modo indipendente, e i dati restano disponibili per il periodo di retention. Il minimo è 24 ore, il massimo 365 giorni. Scegliete Data Streams quando serve elaborare in tempo reale con consumer propri, o quando più applicazioni devono rileggere gli stessi eventi. Amazon Data Firehose è gestito: non scrivete applicazioni di consegna, configurate il flusso e i dati arrivano a S3, Redshift, OpenSearch o ad altri endpoint. Firehose accumula i dati in un buffer, per dimensione o per tempo, e poi scrive i file. Può convertire il JSON in Parquet o ORC, ma richiede uno schema nel catalogo di Glue che corrisponda ai dati. Se i dati non sono JSON, si usa una funzione Lambda per trasformarli prima. Amazon MSK gestisce cluster Apache Kafka: lo scegliete quando il team usa già Kafka o ha bisogno del suo ecosistema. Le trappole d'esame sono chiare. Se la domanda chiede di consegnare eventi su S3 in Parquet con poca gestione, la risposta è Firehose con conversione del formato. Se più applicazioni devono leggere gli stessi eventi entro una finestra di tempo, la risposta è Kinesis Data Streams. Shard, throughput e throttling, con i loro limiti numerici, sono nel capitolo 8.",
       "todo": []
@@ -583,7 +590,10 @@
         "Nessun cluster: si paga per i dati scansionati dalla query",
         "Esempio ufficiale: 3 TB scansionati a 5 dollari per TB, cioè 15 dollari",
         "Filtro sulla partizione: Athena legge solo quel prefisso",
-        "Non più di 1 milione di partizioni in una singola scansione"
+        "Non più di 1 milione di partizioni in una singola scansione",
+        "Workgroup: uno per team, con limiti sui dati scansionati, cost allocation tag e cronologia separata",
+        "Federated query: connettori, spesso su Lambda, uniscono S3 e MySQL o DynamoDB in un solo SQL",
+        "S3 Select: SQL su un solo oggetto CSV, JSON o Parquet, solo le colonne utili; chiuso ai nuovi clienti"
       ],
       "narration": "Amazon Athena esegue SQL direttamente sui file in S3, usando le tabelle del catalogo di Glue. Non ci sono server da gestire né cluster da accendere. Il modello di costo è diverso da quello di un database: si paga per i dati scansionati dalla query, non per il tempo di calcolo. Quindi il costo dipende dal volume e dal formato dei dati. Riprendiamo l'esempio ufficiale della pagina prezzi di AWS: 3 TB scansionati a 5 dollari per TB fanno 15 dollari. Le tariffe cambiano nel tempo, quindi per un progetto reale controllate la pagina prezzi aggiornata. Le leve per ridurlo sono tre. La prima sono le partizioni. Se la query contiene un filtro sulla colonna di partizione, per esempio anno e mese, Athena legge solo i prefissi corrispondenti. Senza quel filtro, la query scansiona tutto. Le partizioni in stile Hive si caricano con MSCK REPAIR TABLE. Quelle in un altro formato, come i percorsi per data che Firehose scrive, si aggiungono una per una con ALTER TABLE ADD PARTITION. La seconda leva è il formato. Parquet legge solo le colonne richieste, e nell'esempio ufficiale il risparmio è di quattro volte. La terza è la compressione: GZIP con un rapporto di tre a uno riduce di tre volte il dato scansionato, sempre nell'esempio. Il flusso tipico è questo. I dati arrivano in CSV nella zona grezza. Un'operazione CTAS li converte in Parquet partizionato in una zona curata. Da quel momento le query ripetute costano molto meno. Attenzione a un limite: Athena non può leggere più di un milione di partizioni in una singola scansione. Per tabelle con moltissime partizioni si usano la partition projection oppure gli indici di partizione del catalogo. Per l'esame ricordate tre tranelli. Se la domanda parla di costi alti su query ripetute, la risposta è Parquet con partizioni e CTAS. Se una query non filtra la data, la trappola è la scansione completa dei dati. Se servono analisi interattive prima di costruire la pipeline, Athena è lo strumento giusto per l'esplorazione.",
       "todo": []
@@ -656,7 +666,8 @@
         "DynamicFrame: record con schema proprio, utile con colonne miste",
         "resolveChoice: risolve una colonna che arriva con tipi diversi",
         "Job bookmark: ricorda i file già elaborati, per la data di ultima modifica",
-        "EMR: cluster gestiti, più controllo su Hadoop, Spark e altri framework"
+        "EMR: cluster gestiti, più controllo su Hadoop, Spark e altri framework",
+        "EMR Serverless: job Spark su richiesta senza cluster, si pagano vCPU, memoria e storage solo durante il job"
       ],
       "narration": "AWS Glue ETL esegue job Apache Spark senza server. Scrivete lo script in Python o in Scala, oppure costruite il flusso in modo visuale con Glue Studio. Spark lavora con i DataFrame, mentre Glue offre anche il DynamicFrame. La differenza pratica è questa: un DataFrame richiede uno schema fisso, un DynamicFrame porta lo schema con ogni record. Se un campo arriva come numero in alcuni file e come stringa in altri, il DynamicFrame lo rappresenta come una scelta di tipi, senza far fallire il job. Poi lo risolvete con resolveChoice, per esempio convertendo tutto in un numero decimale. Il punto più importante per l'elaborazione incrementale è il job bookmark. Un job che gira ogni notte su una cartella S3 rischia di rielaborare tutto. Con il bookmark abilitato, Glue salva lo stato di ciò che ha letto. Per gli oggetti S3 il controllo si basa sulla data di ultima modifica, quindi alla run successiva vengono elaborati solo i file nuovi. Le opzioni sono tre. Enable abilita il tracciamento. Disable è il valore predefinito e rielabora sempre tutto. Pause elabora un intervallo senza aggiornare lo stato. Se volete rielaborare tutto, azzerate il bookmark. Il bookmark però non cancella i file di output: il target va gestito a parte. Il bookmark è associato al job, quindi se il job viene eliminato lo stato sparisce. Quando scegliere Glue e quando EMR? Glue è serverless: definite il job e pagate durante l'esecuzione. È la scelta per le pipeline ETL programmate, con poca gestione. Amazon EMR è una piattaforma di cluster gestiti per Spark, Hadoop e altri strumenti open source. Dà più controllo su istanze, configurazione e strumenti, al prezzo di gestire il cluster. Nell'esame, rielaborazione dei file già visti significa bookmark. Controllo completo e strumenti Hadoop significano EMR. La struttura dei nodi EMR e l'uso delle istanze Spot sono nel capitolo 8.",
       "todo": []
@@ -728,7 +739,45 @@
           "title": "Nome in movimento",
           "text": "Data Wrangler nasce in Studio Classic ed è oggi integrato in Canvas: è il punto che cambia più spesso, quindi la documentazione va verificata."
         },
-        "All'esame: se lo scenario parla di preparazione visuale dentro il flusso di machine learning, la risposta è Data Wrangler; se parla di analisti o data engineer che vogliono ricette, è DataBrew"
+        "All'esame: se lo scenario parla di preparazione visuale dentro il flusso di machine learning, la risposta è Data Wrangler; se parla di analisti o data engineer che vogliono ricette, è DataBrew",
+        "Trasformazioni personalizzate in pandas, PySpark, Python o SQL, e un passo Join tra due dataset nel flusso",
+        {
+          "kind": "table",
+          "head": [
+            "Punto del flusso",
+            "Regola"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Campione",
+                "head": true
+              },
+              "di default le prime 50.000 righe: Encode Categorical impara solo le categorie del campione, quindi Refit sull'intero dataset prima dell'export"
+            ],
+            [
+              {
+                "v": "Destinazione S3",
+                "head": true
+              },
+              "file type CSV o Parquet, delimitatore, compressione bzip2, deflate o gzip"
+            ],
+            [
+              {
+                "v": "Feature group esistente",
+                "head": true
+              },
+              "lo schema deve coincidere e tutti i record vengono sostituiti dalle osservazioni del dataset"
+            ],
+            [
+              {
+                "v": "Schedule",
+                "head": true
+              },
+              "espressioni CRON o rate, a intervalli o orari fissi: EventBridge avvia il job come passo di una pipeline"
+            ]
+          ]
+        }
       ],
       "narration": "Non tutti gli operatori scrivono codice Spark. SageMaker Data Wrangler è lo strumento visuale per preparare i dati per il machine learning. Nasce come funzione di SageMaker Studio Classic, e oggi AWS lo ha integrato in SageMaker Canvas. Nella nuova esperienza di Canvas si possono esplorare e trasformare i dati anche con un'interfaccia in linguaggio naturale. Questo è un punto che cambia spesso, quindi verificate sempre la documentazione più recente. Un flusso di Data Wrangler si compone di passi. Importate dati da S3, Athena, Redshift, Snowflake o Databricks, unite le tabelle, e applicate trasformazioni come la codifica delle categorie, la normalizzazione e la gestione dei valori mancanti. Lo strumento genera insight automatici e un rapporto di qualità, e include un'analisi di target leakage che segnala le feature troppo legate alla variabile da prevedere. Quando il flusso è pronto, lo esportate. Le destinazioni sono un bucket S3, una pipeline di SageMaker Pipelines, il Feature Store oppure uno script Python. Glue DataBrew è un altro strumento visuale, ma fuori da SageMaker. È serverless, offre la profilatura dei dati e più di 250 trasformazioni pronte. Ogni sequenza di passi si salva in una ricetta, che si riusa su altri dataset e si può pianificare. L'output va su S3. La regola per l'esame è questa. Se lo scenario parla di preparazione visuale dentro il flusso di machine learning, con esportazione verso una pipeline o il Feature Store, la risposta è Data Wrangler. Se parla di analisti o di data engineer che vogliono ricette senza codice, la risposta è DataBrew. Le regole DQDL e Glue Data Quality appartengono al capitolo 8.",
       "todo": []
@@ -855,7 +904,10 @@
         "Scrittura nell'offline store entro 15 minuti dal PutRecord",
         "Point-in-time: solo feature con event time non successivo all'etichetta",
         "SDK: create_dataset e point_in_time_accurate_join",
-        "Condivisione: le feature sono leggibili da Athena tramite il catalogo"
+        "Condivisione: le feature sono leggibili da Athena tramite il catalogo",
+        "TTL dell'online store: scaduti event time più TtlDuration, il record sparisce dalle letture online e resta nell'offline store",
+        "DeleteRecord: nell'offline store aggiunge un record con lo stesso identificatore e is_deleted a true",
+        "Offline store in formato Iceberg: le letture incrementali seguono lo snapshot di Iceberg, non write_time"
       ],
       "narration": "Ora la latenza, il luogo dove stanno i dati e la prevenzione del leakage. L'online store è costruito per l'inferenza in tempo reale. AWS, nella pagina FAQ di SageMaker, lo descrive come uno store ad alto throughput con latenza a cifra singola in millisecondi per le applicazioni client. Un esempio: un'app antifrode deve rispondere mentre il cliente sta pagando, quindi le feature vanno lette in millisecondi. Per questo si usa la chiamata GetRecord, che restituisce l'ultimo record dell'identificatore. L'offline store non è pensato per quella velocità. È un archivio su S3 in formato Parquet, registrato nel catalogo di Glue come tabella nel formato predefinito. AWS offre anche il formato Apache Iceberg. Serve per il training, per la preparazione dei dataset e per le previsioni in batch, dove la latenza di pochi millisecondi non serve. Quanto è fresco? La documentazione dice che i dati vengono bufferizzati e scritti su S3 entro 15 minuti dalla chiamata PutRecord. Veniamo al punto centrale: la query point-in-time. Supponete di addestrare un modello sulle frodi. Ogni etichetta ha un momento preciso, cioè quello della transazione. Una feature come il numero di transazioni nelle ultime 24 ore va calcolata con i dati disponibili a quel momento. Se la join prende il valore più recente della feature, può contenere eventi successivi alla transazione. Il modello impara con informazioni che in produzione non avrebbe, e le metriche offline sembrano migliori del reale. Questo è il target leakage. La query point-in-time prende, per ogni etichetta, solo i record con event time minore o uguale al suo momento. Nell'SDK di SageMaker si usa FeatureStore, con create_dataset, l'entity dataframe come base, with_feature_group e point_in_time_accurate_join. In Athena si ottiene con una finestra row number, partizionata per identificatore e ordinata per event time decrescente, filtrando i record non successivi all'etichetta. Infine la condivisione. Poiché il catalogo registra le tabelle, un altro team con i permessi giusti interroga le stesse feature con Athena, senza ricalcolarle.",
       "todo": []
@@ -1115,7 +1167,8 @@
           ]
         },
         "TF-IDF: pesa di più le parole frequenti nel documento e rare nel corpus",
-        "Gli embedding per i modelli moderni sono trattati nel capitolo 6 e nel capitolo 12"
+        "Gli embedding per i modelli moderni sono trattati nel capitolo 6 e nel capitolo 12",
+        "Testi di lunghezza diversa: dopo la tokenizzazione padding o troncamento a lunghezza fissa, per i mini-batch"
       ],
       "narration": "Anche il testo diventa numerico solo dopo alcuni passi. Il primo è la tokenizzazione: il testo viene spezzato in token, di solito parole, a volte sottoparole. Una frase come non mi piace il servizio diventa una sequenza di token. Poi si normalizza. Si portano le lettere in minuscolo, si tolgono la punteggiatura e le stopword, cioè parole come il, di e che, che non portano molto significato in un'analisi semplice. La bag of words è il modello più semplice. Per ogni documento si conta quante volte compare ogni parola del vocabolario. L'ordine si perde, ma per molti problemi di classificazione di recensioni o email funziona bene. Il problema è che le parole molto comuni, come questo o servizio, dominano i conteggi. TF-IDF corregge questo difetto. Il termine frequency misura quanto una parola compare nel documento. L'inverse document frequency abbassa il peso delle parole che compaiono in quasi tutti i documenti del corpus. Il risultato è alto per le parole che caratterizzano un documento. In un corpus di recensioni di un ristorante, la parola pizza pesa poco, mentre una parola come scottato, rara ma specifica, pesa molto. All'esame TF-IDF compare come scelta classica per il testo con modelli lineari. La tokenizzazione avanzata, le sottoparole e il preprocessing per il fine-tuning dei modelli di linguaggio sono nei capitoli successivi. Gli embedding, che trasformano il testo in vettori densi di significato, si usano con i modelli moderni. Per il quiz ricordate la differenza. La bag of words ignora l'ordine, TF-IDF pesa la rarità, gli embedding catturano il significato.",
       "todo": []

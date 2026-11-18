@@ -24,27 +24,39 @@ SLIDES = {0: [{'kind': 'flow',
      {'kind': 'table',
       'head': ['Criterio', 'S3 data lake', 'Database relazionale'],
       'rows': [[{'v': 'Formato', 'head': True}, 'qualunque file', 'tabelle con schema imposto'],
-               [{'v': 'Schema', 'head': True}, 'letto al momento della query', 'imposto alla scrittura'],
-               [{'v': 'Costo', 'head': True}, 'storage a oggetti, economico', 'capacità e istanze da pagare'],
+               [{'v': 'Schema', 'head': True},
+                'letto al momento della query',
+                'imposto alla scrittura'],
+               [{'v': 'Costo', 'head': True},
+                'storage a oggetti, economico',
+                'capacità e istanze da pagare'],
                [{'v': 'Chi legge', 'head': True},
                 'Athena, Glue, EMR, training',
                 'le applicazioni transazionali']]},
      {'kind': 'note',
       'tone': 'bad',
       'title': 'Premessa superata',
-      'text': 'Dal 1 dicembre 2020 S3 è fortemente consistente: dopo una scrittura la lettura immediata vede '
-              "l'ultima versione. Una domanda che presenta l'attesa di consistenza come problema ha una "
-              'risposta sbagliata in partenza.'},
+      'text': 'Dal 1 dicembre 2020 S3 è fortemente consistente: dopo una scrittura la lettura '
+              "immediata vede l'ultima versione. Una domanda che presenta l'attesa di consistenza "
+              'come problema ha una risposta sbagliata in partenza.'},
      'Bucket: contenitore con nome globale unico, dove vivono gli oggetti',
      'Oggetto: un file più i suoi metadati, identificato da una chiave completa',
      'Partizioni in stile Hive: coppie chiave e valore nei prefissi, come anno=2026',
      'Consistenza forte dal 1 dicembre 2020: letture subito aggiornate',
-     'Classi di storage, lifecycle e Glacier: capitolo 8'],
+     'Classi di storage, lifecycle e Glacier: capitolo 8',
+     'Versioning: una sovrascrittura o una cancellazione conserva la versione precedente, '
+     'ripristinabile',
+     'Object Lock, modello WORM con versioning attivo: in compliance mode nessuno cancella fino '
+     'alla scadenza, root compreso',
+     'Governance mode: si aggira con un permesso speciale; legal hold: nessuna scadenza, resta '
+     'finché non viene rimosso'],
  2: [{'kind': 'table',
       'head': ['Formato', 'Layout', 'Uso tipico'],
       'rows': [[{'v': 'CSV', 'head': True}, 'righe, testo', 'universale, senza tipi né schema'],
                [{'v': 'JSON', 'head': True}, 'righe, annidato', 'dati flessibili'],
-               [{'v': 'JSON Lines', 'head': True}, 'un oggetto per riga', 'streaming; BlazingText e DeepAR'],
+               [{'v': 'JSON Lines', 'head': True},
+                'un oggetto per riga',
+                'streaming; BlazingText e DeepAR'],
                [{'v': 'Parquet', 'head': True}, 'colonnare, compresso', 'Athena e analisi su S3'],
                [{'v': 'ORC', 'head': True}, 'colonnare, compresso', 'analisi su S3'],
                [{'v': 'Avro', 'head': True}, 'righe, con schema', 'pipeline di flusso'],
@@ -70,29 +82,32 @@ SLIDES = {0: [{'kind': 'flow',
      {'kind': 'note',
       'tone': 'warn',
       'title': 'Formato accettato',
-      'text': "Il formato è parte del contratto dell'algoritmo: per i built-in si guarda la tabella dei "
-              'content type, non il formato preferito in astratto.'},
+      'text': "Il formato è parte del contratto dell'algoritmo: per i built-in si guarda la "
+              'tabella dei content type, non il formato preferito in astratto.'},
      'CSV e JSON: testo leggibile, senza colonne separate né compressione colonnare',
      'JSON Lines: un oggetto JSON per riga, adatto alla lettura in streaming',
      'Parquet e ORC: colonnari e compressi, letture economiche',
      'Avro: formato che conserva lo schema insieme ai dati, comune nei flussi',
-     'RecordIO-protobuf: formato binario di molti algoritmi built-in'],
+     'RecordIO-protobuf: formato binario di molti algoritmi built-in',
+     'Colonnari: compressione per colonna scelta per il tipo di dato e predicate pushdown, che '
+     'salta i blocchi con min e max incompatibili col filtro'],
  3: [{'kind': 'layers',
       'layers': [{'label': 'Database', 'sub': 'raggruppa le tabelle del catalogo'},
                  {'label': 'Tabella',
-                  'sub': 'SELECT su tutte le colonne, oppure con una lista di colonne incluse o escluse'},
+                  'sub': 'SELECT su tutte le colonne, oppure con una lista di colonne incluse o '
+                         'escluse'},
                  {'label': 'Colonne e righe',
                   'sub': "colonne escluse e data filter con un'espressione sulle righe"},
                  {'label': 'Due famiglie insieme',
                   'tone': 'warn',
-                  'sub': 'policy IAM per le chiamate al catalogo, permessi Lake Formation per i dati: '
-                         'servono entrambe'}]},
+                  'sub': 'policy IAM per le chiamate al catalogo, permessi Lake Formation per i '
+                         'dati: servono entrambe'}]},
      {'kind': 'note',
       'tone': 'bad',
       'title': 'La trappola più frequente',
-      'text': 'IAMAllowedPrincipals dà accesso tramite le vecchie policy IAM: finché resta, Lake Formation '
-              'non controlla davvero. Va revocato sulle risorse, oppure si passa alla modalità di accesso '
-              'ibrida.'},
+      'text': 'IAMAllowedPrincipals dà accesso tramite le vecchie policy IAM: finché resta, Lake '
+              'Formation non controlla davvero. Va revocato sulle risorse, oppure si passa alla '
+              'modalità di accesso ibrida.'},
      'Data filter: limita le righe e le colonne visibili',
      'Le chiavi di partizione non si possono limitare con la lista di colonne',
      'PII, cifratura, LF-Tags e permessi per cella: capitolo 8'],
@@ -116,19 +131,27 @@ SLIDES = {0: [{'kind': 'flow',
                 'gestito, buffer per dimensione o tempo, conversione in Parquet o ORC',
                 'consegna verso S3, Redshift, OpenSearch'],
                [{'v': 'MSK', 'head': True}, 'Apache Kafka gestito', 'il team usa già Kafka']]},
-     'Retention minima di 24 ore, massima di 365 giorni'],
+     'Retention minima di 24 ore, massima di 365 giorni',
+     'File che arrivano su S3 a orari imprevedibili: S3 Event Notifications su ogni nuovo oggetto, '
+     'senza polling',
+     'Destinazioni: Lambda, SQS, SNS o EventBridge, che può avviare un job Glue; consegna di '
+     'solito in pochi secondi',
+     'Lambda di trasformazione in Firehose: invocazione sincrona, al massimo 5 minuti; oltre si '
+     'riducono i batch o si accelera la funzione'],
  5: [{'kind': 'flow',
       'steps': [{'label': 'File su S3', 'sub': 'JSON, CSV, Avro'},
                 {'label': 'Classificatori', 'sub': 'prima i personalizzati, poi gli integrati'},
                 {'label': 'Schema dedotto', 'sub': 'colonne e tipi dal contenuto'},
                 {'label': 'Catalogo', 'sub': 'tabelle e partizioni'},
-                {'label': 'Athena, Glue, EMR', 'sub': 'leggono tutte lo stesso catalogo', 'tone': 'good'}]},
+                {'label': 'Athena, Glue, EMR',
+                 'sub': 'leggono tutte lo stesso catalogo',
+                 'tone': 'good'}]},
      {'kind': 'note',
       'tone': 'bad',
       'title': 'Regola',
-      'text': 'Un prefisso con uno schema: due tabelle con schemi diversi sulla stessa cartella possono '
-              'restituire zero righe, e MSCK REPAIR TABLE scansiona tutte le sottocartelle. I dati di '
-              'tabelle diverse vanno in cartelle separate.'},
+      'text': 'Un prefisso con uno schema: due tabelle con schemi diversi sulla stessa cartella '
+              'possono restituire zero righe, e MSCK REPAIR TABLE scansiona tutte le '
+              'sottocartelle. I dati di tabelle diverse vanno in cartelle separate.'},
      'Il catalogo è il registro di database e tabelle per Athena, Glue ed EMR',
      'Una tabella è metadati: colonne, tipi, formato e prefisso S3',
      'Il crawler legge i file, deduce lo schema e scrive nel catalogo',
@@ -146,17 +169,23 @@ SLIDES = {0: [{'kind': 'flow',
                 'con un filtro sulla colonna Athena legge solo quel prefisso'],
                [{'v': 'Parquet', 'head': True},
                 'legge solo le colonne richieste: risparmio di quattro volte'],
-               [{'v': 'Compressione GZIP', 'head': True}, 'rapporto di tre a uno sul dato scansionato'],
+               [{'v': 'Compressione GZIP', 'head': True},
+                'rapporto di tre a uno sul dato scansionato'],
                [{'v': 'CTAS', 'head': True}, 'converte una volta, poi le query costano meno']]},
      {'kind': 'note',
       'tone': 'warn',
       'title': 'Limite',
-      'text': 'Athena non legge più di un milione di partizioni in una singola scansione: oltre si usano la '
-              'partition projection o gli indici di partizione del catalogo.'},
+      'text': 'Athena non legge più di un milione di partizioni in una singola scansione: oltre si '
+              'usano la partition projection o gli indici di partizione del catalogo.'},
      'Nessun cluster: si paga per i dati scansionati dalla query',
      'Esempio ufficiale: 3 TB scansionati a 5 dollari per TB, cioè 15 dollari',
      'Filtro sulla partizione: Athena legge solo quel prefisso',
-     'Non più di 1 milione di partizioni in una singola scansione'],
+     'Non più di 1 milione di partizioni in una singola scansione',
+     'Workgroup: uno per team, con limiti sui dati scansionati, cost allocation tag e cronologia '
+     'separata',
+     'Federated query: connettori, spesso su Lambda, uniscono S3 e MySQL o DynamoDB in un solo SQL',
+     'S3 Select: SQL su un solo oggetto CSV, JSON o Parquet, solo le colonne utili; chiuso ai '
+     'nuovi clienti'],
  7: [{'kind': 'table',
       'head': ['Opzione del bookmark', 'Comportamento', 'Cosa rielabora'],
       'rows': [[{'v': 'Enable', 'head': True}, 'traccia i file già letti', 'solo i nuovi'],
@@ -177,13 +206,15 @@ SLIDES = {0: [{'kind': 'flow',
      {'kind': 'note',
       'tone': 'warn',
       'title': 'Due dettagli del bookmark',
-      'text': 'Il bookmark non cancella i file di output: il target va gestito a parte. Ed è legato al job, '
-              'quindi se il job viene eliminato lo stato sparisce.'},
+      'text': 'Il bookmark non cancella i file di output: il target va gestito a parte. Ed è '
+              'legato al job, quindi se il job viene eliminato lo stato sparisce.'},
      'Job Spark serverless: nessun cluster da creare e gestire',
      'DynamicFrame: record con schema proprio, utile con colonne miste',
      'resolveChoice: risolve una colonna che arriva con tipi diversi',
      'Job bookmark: ricorda i file già elaborati, per la data di ultima modifica',
-     'EMR: cluster gestiti, più controllo su Hadoop, Spark e altri framework'],
+     'EMR: cluster gestiti, più controllo su Hadoop, Spark e altri framework',
+     'EMR Serverless: job Spark su richiesta senza cluster, si pagano vCPU, memoria e storage solo '
+     'durante il job'],
  8: [{'kind': 'table',
       'head': ['Aspetto', 'Data Wrangler', 'DataBrew'],
       'rows': [[{'v': 'Dove', 'head': True},
@@ -207,10 +238,26 @@ SLIDES = {0: [{'kind': 'flow',
      {'kind': 'note',
       'tone': 'warn',
       'title': 'Nome in movimento',
-      'text': 'Data Wrangler nasce in Studio Classic ed è oggi integrato in Canvas: è il punto che cambia '
-              'più spesso, quindi la documentazione va verificata.'},
-     "All'esame: se lo scenario parla di preparazione visuale dentro il flusso di machine learning, la "
-     'risposta è Data Wrangler; se parla di analisti o data engineer che vogliono ricette, è DataBrew'],
+      'text': 'Data Wrangler nasce in Studio Classic ed è oggi integrato in Canvas: è il punto che '
+              'cambia più spesso, quindi la documentazione va verificata.'},
+     "All'esame: se lo scenario parla di preparazione visuale dentro il flusso di machine "
+     'learning, la risposta è Data Wrangler; se parla di analisti o data engineer che vogliono '
+     'ricette, è DataBrew',
+     'Trasformazioni personalizzate in pandas, PySpark, Python o SQL, e un passo Join tra due '
+     'dataset nel flusso',
+     {'kind': 'table',
+      'head': ['Punto del flusso', 'Regola'],
+      'rows': [[{'v': 'Campione', 'head': True},
+                'di default le prime 50.000 righe: Encode Categorical impara solo le categorie del '
+                "campione, quindi Refit sull'intero dataset prima dell'export"],
+               [{'v': 'Destinazione S3', 'head': True},
+                'file type CSV o Parquet, delimitatore, compressione bzip2, deflate o gzip'],
+               [{'v': 'Feature group esistente', 'head': True},
+                'lo schema deve coincidere e tutti i record vengono sostituiti dalle osservazioni '
+                'del dataset'],
+               [{'v': 'Schedule', 'head': True},
+                'espressioni CRON o rate, a intervalli o orari fissi: EventBridge avvia il job '
+                'come passo di una pipeline']]}],
  9: [{'kind': 'flow',
       'steps': [{'label': 'Feature group', 'sub': 'feature con nome e tipo'},
                 {'label': 'PutRecord', 'sub': 'una sola scrittura'},
@@ -221,7 +268,8 @@ SLIDES = {0: [{'kind': 'flow',
       'rows': [[{'v': 'Tipi delle feature', 'head': True}, 'integral, string e fractional'],
                [{'v': 'Record identifier', 'head': True},
                 "identifica l'entità, per esempio il codice cliente"],
-               [{'v': 'Event time', 'head': True}, "il momento dell'evento, obbligatorio su ogni record"],
+               [{'v': 'Event time', 'head': True},
+                "il momento dell'evento, obbligatorio su ogni record"],
                [{'v': 'Record', 'head': True}, 'la coppia record identifier più event time']]},
      'Feature Store: archivio unico delle feature, con condivisione e controllo di accesso',
      'Online store e offline store ricevono la stessa ingestione',
@@ -248,11 +296,18 @@ SLIDES = {0: [{'kind': 'flow',
       "Scrittura nell'offline store entro 15 minuti dal PutRecord",
       "Point-in-time: solo feature con event time non successivo all'etichetta",
       'SDK: create_dataset e point_in_time_accurate_join',
-      'Condivisione: le feature sono leggibili da Athena tramite il catalogo'],
+      'Condivisione: le feature sono leggibili da Athena tramite il catalogo',
+      "TTL dell'online store: scaduti event time più TtlDuration, il record sparisce dalle letture "
+      "online e resta nell'offline store",
+      "DeleteRecord: nell'offline store aggiunge un record con lo stesso identificatore e "
+      'is_deleted a true',
+      'Offline store in formato Iceberg: le letture incrementali seguono lo snapshot di Iceberg, '
+      'non write_time'],
  11: [{'kind': 'formula',
        'text': "z = (x − μ) / σ   ;   x' = (x − min) / (max − min)",
-       'caption': 'Standardizzazione: media zero e deviazione standard uno. Min-max: valori tra zero e uno. '
-                  'La scala robusta, con mediana e quartili, regge meglio gli outlier.'},
+       'caption': 'Standardizzazione: media zero e deviazione standard uno. Min-max: valori tra '
+                  'zero e uno. La scala robusta, con mediana e quartili, regge meglio gli '
+                  'outlier.'},
       {'kind': 'compare',
        'columns': [{'head': 'Standardizzazione',
                     'tone': 'good',
@@ -266,9 +321,9 @@ SLIDES = {0: [{'kind': 'flow',
       {'kind': 'note',
        'tone': 'bad',
        'title': "L'errore",
-       'text': "Adattare lo scaler sull'intero dataset prima dello split è leakage: media, deviazione "
-               'standard, minimo e massimo si calcolano solo sul training e si applicano a validation e '
-               'test.'},
+       'text': "Adattare lo scaler sull'intero dataset prima dello split è leakage: media, "
+               'deviazione standard, minimo e massimo si calcolano solo sul training e si '
+               'applicano a validation e test.'},
       'Servono a k-NN, SVM, reti neurali e regressione addestrata con gradiente',
       'Gli alberi decisionali non ne hanno bisogno',
       'Lo scaler si adatta solo sul training e si applica a validation e test'],
@@ -292,8 +347,8 @@ SLIDES = {0: [{'kind': 'flow',
       {'kind': 'note',
        'tone': 'warn',
        'title': 'Categoria mai vista',
-       'text': 'In inferenza può arrivare un valore assente dal training: la pipeline deve avere una regola, '
-               'per esempio tutti zeri oppure un valore dedicato.'},
+       'text': 'In inferenza può arrivare un valore assente dal training: la pipeline deve avere '
+               'una regola, per esempio tutti zeri oppure un valore dedicato.'},
       'One-hot: una colonna binaria per ogni categoria nominale',
       'Label encoding: un numero per categoria, senza ordine reale',
       'Ordinal encoding: numeri che rispettano un ordine vero, per esempio basso, medio, alto',
@@ -322,8 +377,8 @@ SLIDES = {0: [{'kind': 'flow',
       {'kind': 'note',
        'tone': 'bad',
        'title': 'Tranello',
-       'text': "Ogni statistica di imputazione si calcola solo sul training: usare la media dell'intero "
-               'dataset, test compreso, è leakage.'},
+       'text': 'Ogni statistica di imputazione si calcola solo sul training: usare la media '
+               "dell'intero dataset, test compreso, è leakage."},
       "Binning: intervalli di valori continui, per esempio fasce d'età",
       'Log transform: comprime le code lunghe, come importi e conteggi',
       'Valori mancanti: media, mediana o moda per le colonne numeriche',
@@ -337,9 +392,9 @@ SLIDES = {0: [{'kind': 'flow',
                  {'label': 'TF-IDF', 'sub': 'peso per rarità nel corpus'}]},
       {'kind': 'formula',
        'text': 'tf-idf(t, d) = tf(t, d) · log(N / df(t))',
-       'caption': 'tf: quante volte il termine compare nel documento. df: in quanti documenti compare. N: il '
-                  'numero di documenti del corpus. Una parola rara nel corpus ma frequente nel documento '
-                  'pesa molto.'},
+       'caption': 'tf: quante volte il termine compare nel documento. df: in quanti documenti '
+                  'compare. N: il numero di documenti del corpus. Una parola rara nel corpus ma '
+                  'frequente nel documento pesa molto.'},
       {'kind': 'compare',
        'columns': [{'head': 'Bag of words', 'items': ['conta le parole', "ignora l'ordine"]},
                    {'head': 'TF-IDF',
@@ -347,7 +402,9 @@ SLIDES = {0: [{'kind': 'flow',
                     'items': ['pesa la rarità', 'classico con i modelli lineari']},
                    {'head': 'Embedding', 'items': ['vettori densi', 'catturano il significato']}]},
       'TF-IDF: pesa di più le parole frequenti nel documento e rare nel corpus',
-      'Gli embedding per i modelli moderni sono trattati nel capitolo 6 e nel capitolo 12'],
+      'Gli embedding per i modelli moderni sono trattati nel capitolo 6 e nel capitolo 12',
+      'Testi di lunghezza diversa: dopo la tokenizzazione padding o troncamento a lunghezza fissa, '
+      'per i mini-batch'],
  15: [{'kind': 'flow',
        'steps': [{'label': 'Dataset', 'sub': 'pulito e senza duplicati'},
                  {'label': 'Training 80%', 'sub': 'addestra i parametri'},
@@ -366,10 +423,10 @@ SLIDES = {0: [{'kind': 'flow',
       {'kind': 'note',
        'tone': 'bad',
        'title': 'Leakage',
-       'text': 'Tre forme: una feature che contiene il futuro, duplicati o record correlati tra training e '
-               'test, statistiche calcolate sul test. La difesa è una sola: prima si divide, poi si '
-               'trasforma. Con pochi dati si usa la cross-validation a k fold, sempre con le trasformazioni '
-               'dentro ogni fold.'},
+       'text': 'Tre forme: una feature che contiene il futuro, duplicati o record correlati tra '
+               'training e test, statistiche calcolate sul test. La difesa è una sola: prima si '
+               'divide, poi si trasforma. Con pochi dati si usa la cross-validation a k fold, '
+               'sempre con le trasformazioni dentro ogni fold.'},
       'Target leakage: una feature contiene informazioni dal futuro o dal risultato',
       'Split tipico: per esempio 80 per cento training, 10 per cento validation, 10 per cento test',
       'Cross-validation: k fold, media delle metriche'],
@@ -388,15 +445,18 @@ SLIDES = {0: [{'kind': 'flow',
        'items': [{'value': 'CI',
                   'label': 'sbilanciamento dei campioni',
                   'note': 'gruppo favorito contro sfavorito'},
-                 {'value': 'DPL', 'label': 'differenza di esiti positivi', 'note': 'quota dei due gruppi'},
+                 {'value': 'DPL',
+                  'label': 'differenza di esiti positivi',
+                  'note': 'quota dei due gruppi'},
                  {'value': '−1 … +1',
                   'label': 'intervallo di entrambe',
                   'note': 'vicino a zero: equilibrio'}]},
       {'kind': 'note',
        'tone': 'warn',
        'title': 'Dal 30 luglio 2026',
-       'text': 'Clarify è chiuso ai nuovi clienti. AWS indica pandas e scikit-learn per le metriche standard '
-               'e SHAP per le spiegazioni, con i risultati tracciati in MLflow, CloudWatch e QuickSight.'},
+       'text': 'Clarify è chiuso ai nuovi clienti. AWS indica pandas e scikit-learn per le '
+               'metriche standard e SHAP per le spiegazioni, con i risultati tracciati in MLflow, '
+               'CloudWatch e QuickSight.'},
       'Perché prima del training: correggere il bias dopo costa di più ed è meno chiaro'],
  17: [{'kind': 'tree',
        'root': 'Da dove parte la domanda?',
@@ -418,7 +478,7 @@ SLIDES = {0: [{'kind': 'flow',
                     {'when': 'devi preparare dati senza codice',
                      'then': 'Data Wrangler o DataBrew',
                      'note': 'Wrangler per il flusso ML, DataBrew per gli analisti'}]},
-      'Due regole valgono ovunque: le trasformazioni si calcolano sul training, e nessuna scelta usa il test '
-      'set',
-      'Bias prima del training: Clarify è chiuso ai nuovi clienti dal 30 luglio 2026, AWS indica pandas, '
-      'scikit-learn e SHAP']}
+      'Due regole valgono ovunque: le trasformazioni si calcolano sul training, e nessuna scelta '
+      'usa il test set',
+      'Bias prima del training: Clarify è chiuso ai nuovi clienti dal 30 luglio 2026, AWS indica '
+      'pandas, scikit-learn e SHAP']}

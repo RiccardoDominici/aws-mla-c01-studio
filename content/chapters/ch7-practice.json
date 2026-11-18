@@ -297,7 +297,8 @@
         },
         "1. Vincoli: sottolinea latenza, payload, traffico, sicurezza e costo nello scenario.",
         "4. Verifica: controlla la risposta rimasta contro ogni vincolo, senza ipotesi tue.",
-        "Cambia una risposta solo con una ragione tecnica precisa."
+        "Cambia una risposta solo con una ragione tecnica precisa.",
+        "Leggi prima l'ultima frase: contiene la richiesta vera, per esempio costo minimo, latenza o overhead."
       ],
       "narration": "Il metodo in quattro mosse serve a non farti trascinare dalle opzioni. Prima mossa: vincoli. Leggi lo scenario e individua i numeri e le condizioni: latenza, dimensione dei dati, traffico, sicurezza, budget, tempo di elaborazione. Sono questi che decidono la risposta. Seconda mossa: mappatura. Prima di leggere le opzioni, associa le parole chiave a un servizio o a una funzione. Traffico intermittente fa pensare al serverless, documenti da centinaia di megabyte con notifica fanno pensare all'asynchronous, dati aggiornati senza retraining fanno pensare a RAG. Così arrivi alle opzioni con un'ipotesi già formata, e le riconosci più in fretta. Terza mossa: eliminazione. Scarta le opzioni che violano una regola fissa, come usare access key nei job o un endpoint pubblico per dati sensibili. Di solito restano due opzioni. Quarta mossa: verifica. Prendi la risposta rimasta e controllala contro ogni vincolo dello scenario, uno per uno. Non aggiungere ipotesi tue: se la risposta richiede un requisito che la domanda non dice, probabilmente è sbagliata. Il metodo è lo stesso per ogni domanda, anche quando il servizio ti è poco familiare. Ripeterlo sempre ti fa risparmiare tempo nei casi difficili, perché non devi reinventare la strategia ogni volta.",
       "todo": []
@@ -352,6 +353,14 @@
               },
               "la chiave resta fuori da KMS",
               "SSE-KMS"
+            ],
+            [
+              {
+                "v": "Parole assolute: sempre, mai, in ogni caso",
+                "head": true
+              },
+              "gli scenari AWS hanno quasi sempre eccezioni di costo, latenza o scala",
+              "trattala come probabile distrattore, scegli chi rispetta i vincoli dati"
             ]
           ]
         },
@@ -598,6 +607,14 @@
               },
               "l'esame valuta la funzione",
               "rispondi su cosa fa il servizio"
+            ],
+            [
+              {
+                "v": "Dashboard Athena e QuickSight come prova di causa",
+                "head": true
+              },
+              "trend e grafici mostrano correlazione, non causalità",
+              "esperimento controllato, per esempio A/B test con gruppo di controllo"
             ]
           ]
         },
@@ -1224,7 +1241,13 @@
         "Documento d'identità valido: il nome deve corrispondere a quello dell'account.",
         "Online: la comunicazione con il proctor è obbligatoria per completare l'appuntamento.",
         "Annullare o spostare entro 24 ore dall'appuntamento non è possibile; lo spostamento è consentito due volte.",
-        "Accomodamenti: vanno richiesti prima di prenotare."
+        "Accomodamenti: vanno richiesti prima di prenotare.",
+        {
+          "kind": "note",
+          "tone": "bad",
+          "title": "Online: violazioni tipiche",
+          "text": "Telefono fuori portata dopo il check-in, nessun'altra persona nella stanza, niente appunti, sempre nell'inquadratura della webcam. Al check-in foto del documento e dello spazio, a volte scansione della stanza."
+        }
       ],
       "narration": "Il giorno dell'esame ha regole semplici, ma vanno lette con attenzione. Puoi sostenere la prova in un centro Pearson VUE oppure online, con sorveglianza remota da casa. La scelta si fa in fase di prenotazione. Per il centro serve un documento d'identità valido rilasciato dal governo, più un secondo documento, e il nome sull'account va allineato a quello del documento. Per l'online i requisiti del documento sono diversi, e la comunicazione con il proctor è obbligatoria per completare l'appuntamento. Controlla in anticipo i requisiti tecnici indicati nella conferma di Pearson VUE. Se hai bisogno di accomodamenti, chiedili prima di prenotare, perché vanno richiesti prima di ogni prenotazione. Non puoi annullare o spostare l'appuntamento nelle 24 ore precedenti, e puoi spostarlo al massimo due volte. Se annulli troppo tardi o non ti presenti, la quota può essere persa. I risultati arrivano di solito entro cinque giorni lavorativi. Il punteggio è scalato da 100 a 1000, con 720 come riferimento della guida MLA-C01. La certificazione vale tre anni. Per le regole precise su documenti e oggetti consentiti leggi la pagina Pearson VUE collegata dalla pagina AWS, perché AWS non riporta qui tutti i dettagli.",
       "todo": []

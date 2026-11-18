@@ -23,7 +23,8 @@ SLIDES = {0: [{'kind': 'stats',
       'head': ['Formato', 'Content type', 'Algoritmi built-in e uso'],
       'rows': [[{'v': 'CSV', 'head': True},
                 'text/csv',
-                'XGBoost, K-Means, Linear Learner: niente intestazione, target nella prima colonna'],
+                'XGBoost, K-Means, Linear Learner: niente intestazione, target nella prima '
+                'colonna'],
                [{'v': 'JSON Lines', 'head': True}, 'application/jsonlines', 'BlazingText e DeepAR'],
                [{'v': 'RecordIO-protobuf', 'head': True},
                 'application/x-recordio-protobuf',
@@ -40,11 +41,11 @@ SLIDES = {0: [{'kind': 'stats',
      {'kind': 'note',
       'tone': 'warn',
       'title': 'Regola pratica',
-      'text': "Formati colonnari per analisi e archivio, formati di riga o protobuf per l'addestramento. Se "
-              "l'esame mostra un CSV con intestazione e il target in fondo, si prepara il file: non si "
-              'cambia algoritmo.'},
-     "Prima di usare Parquet, ORC o Avro per l'addestramento, verifica l'algoritmo nella sua pagina: la "
-     'tabella dei tipi dei built-in non li elenca'],
+      'text': 'Formati colonnari per analisi e archivio, formati di riga o protobuf per '
+              "l'addestramento. Se l'esame mostra un CSV con intestazione e il target in fondo, si "
+              'prepara il file: non si cambia algoritmo.'},
+     "Prima di usare Parquet, ORC o Avro per l'addestramento, verifica l'algoritmo nella sua "
+     'pagina: la tabella dei tipi dei built-in non li elenca'],
  2: [{'kind': 'table',
       'head': ['Classe', 'Accesso', 'Minimo di durata'],
       'rows': [[{'v': 'S3 Standard', 'head': True}, 'millisecondi', 'nessuno'],
@@ -57,7 +58,9 @@ SLIDES = {0: [{'kind': 'stats',
                 '90 giorni'],
                [{'v': 'Glacier Flexible Retrieval', 'head': True}, 'minuti o ore', '90 giorni'],
                [{'v': 'Deep Archive', 'head': True}, 'ore', '180 giorni'],
-               [{'v': 'S3 Express One Zone', 'head': True}, 'bassa latenza, una sola zona', 'nessuno']]},
+               [{'v': 'S3 Express One Zone', 'head': True},
+                'bassa latenza, una sola zona',
+                'nessuno']]},
      {'kind': 'tree',
       'root': 'Quanto spesso leggerai gli oggetti?',
       'branches': [{'when': 'spesso', 'then': 'S3 Standard'},
@@ -90,10 +93,13 @@ SLIDES = {0: [{'kind': 'stats',
      {'kind': 'note',
       'tone': 'warn',
       'title': 'Il tradeoff',
-      'text': 'EBS per un solo nodo con IOPS dedicati, EFS per la condivisione generica, FSx per prestazioni '
-              'o protocolli specifici.'},
+      'text': 'EBS per un solo nodo con IOPS dedicati, EFS per la condivisione generica, FSx per '
+              'prestazioni o protocolli specifici.'},
      'Multi-Attach solo su io1 e io2, non su gp3',
-     'Per i dati di training, EFS va bene se i file sono già lì: il training job deve stare in una VPC'],
+     'Per i dati di training, EFS va bene se i file sono già lì: il training job deve stare in una '
+     'VPC',
+     'io2 su istanze non Nitro: si collega un volume fino a 64.000 IOPS, ma se ne ottengono al '
+     'massimo 32.000'],
  4: [{'kind': 'table',
       'head': ['Servizio', 'Modello', 'Segnale nella domanda'],
       'rows': [[{'v': 'RDS', 'head': True},
@@ -118,13 +124,15 @@ SLIDES = {0: [{'kind': 'stats',
                 'ricerca e analisi di log',
                 'riceve dati da S3, Kinesis e DynamoDB con OpenSearch Ingestion']]},
      'RDS: database relazionali gestiti, come MySQL, PostgreSQL e Oracle',
-     'Neptune: database a grafo con Gremlin, openCypher e SPARQL'],
+     'Neptune: database a grafo con Gremlin, openCypher e SPARQL',
+     'ElastiCache Serverless: cache pronta in meno di un minuto, senza istanze, nodi o cluster da '
+     'dimensionare; motori Valkey, Memcached e Redis OSS'],
  5: [{'kind': 'table',
       'head': ['Strumento', 'Da dove a dove', 'Cosa ricordare'],
       'rows': [[{'v': 'S3 Transfer Acceleration', 'head': True},
                 'upload globale verso un bucket',
-                "rete degli edge di CloudFront; bucket senza punti; fino a 20 minuti per l'effetto; costi "
-                'extra'],
+                'rete degli edge di CloudFront; bucket senza punti; fino a 20 minuti per '
+                "l'effetto; costi extra"],
                [{'v': 'DataSync', 'head': True},
                 'da NFS, SMB, HDFS o storage a oggetti verso S3, EFS e FSx',
                 "cifratura e validazione dell'integrità"],
@@ -133,12 +141,15 @@ SLIDES = {0: [{'kind': 'stats',
                 'File, Volume e Tape gateway'],
                [{'v': 'Direct Connect', 'head': True},
                 'dalla rete aziendale a una location AWS',
-                'banda stabile senza internet pubblico; VIF pubbliche, private o transit']]},
+                'banda stabile senza internet pubblico; VIF pubbliche, private o transit'],
+               [{'v': 'Database Migration Service', 'head': True},
+                'da un database, come MySQL, verso S3',
+                'full load più change data capture continuo; file CSV o Parquet']]},
      {'kind': 'note',
       'tone': 'warn',
       'title': 'Le tre risposte',
-      'text': 'Lunghe distanze e upload globali: Transfer Acceleration. Copia automatizzata di file verso '
-              'AWS: DataSync. Rete stabile e dedicata: Direct Connect.'},
+      'text': 'Lunghe distanze e upload globali: Transfer Acceleration. Copia automatizzata di '
+              'file verso AWS: DataSync. Rete stabile e dedicata: Direct Connect.'},
      'Bucket senza punti nel nome, endpoint s3-accelerate, costi extra',
      "Direct Connect: collegamento dedicato, senza passare dall'internet pubblico",
      'Direct Connect: virtual interface pubbliche, private e transit'],
@@ -159,17 +170,20 @@ SLIDES = {0: [{'kind': 'stats',
      {'kind': 'note',
       'tone': 'warn',
       'title': 'Dataset più grande del disco',
-      'text': 'La risposta è Pipe o FastFile. Serve un manifest o un augmented manifest? Non FastFile. '
-              'Letture sequenziali? FastFile rende al meglio.'},
+      'text': 'La risposta è Pipe o FastFile. Serve un manifest o un augmented manifest? Non '
+              'FastFile. Letture sequenziali? FastFile rende al meglio.'},
      'Pipe mode: streaming da S3 in pipe FIFO, volume locale più piccolo',
      'FastFile: interfaccia file POSIX che legge on demand, avvio rapido',
      'FastFile supporta solo prefissi S3, non manifest o augmented manifest',
      'Pipe: una pipe può avere un solo lettore, con shuffling e sharding gestiti',
-     'FastFile rende al meglio con letture sequenziali'],
+     'FastFile rende al meglio con letture sequenziali',
+     'Directory bucket di S3 Express One Zone: input supportato in File, FastFile e Pipe mode; '
+     'output cifrato solo con SSE-S3'],
  7: [{'kind': 'flow',
       'steps': [{'label': 'Dataset in S3', 'sub': 'stessa Regione del training'},
                 {'label': 'Data repository', 'sub': 'collega il file system al bucket'},
-                {'label': 'FSx for Lustre', 'sub': 'dati già sincronizzati, nessun download iniziale'},
+                {'label': 'FSx for Lustre',
+                 'sub': 'dati già sincronizzati, nessun download iniziale'},
                 {'label': 'Training job', 'sub': 'montato in VPC, sola lettura', 'tone': 'good'}]},
      {'kind': 'table',
       'head': ['Input', 'Quando', 'Vincolo'],
@@ -182,13 +196,17 @@ SLIDES = {0: [{'kind': 'stats',
      {'kind': 'note',
       'tone': 'bad',
       'title': 'Il vincolo che decide',
-      'text': 'Dataset e training nella stessa Regione. Il file system Lustre usa una singola zona di '
-              "disponibilità: una subnet in un'altra zona aggiunge costi di trasferimento."},
+      'text': 'Dataset e training nella stessa Regione. Il file system Lustre usa una singola zona '
+              "di disponibilità: una subnet in un'altra zona aggiunge costi di trasferimento."},
      'Il path di FSx parte dal mount name, per esempio /1234abcd/ns1/',
      'Il job deve girare in una VPC con subnet e security group compatibili'],
  8: [{'kind': 'stats',
-      'items': [{'value': '1 MB/s', 'label': 'scrittura per shard', 'note': 'oppure 1.000 record al secondo'},
-                {'value': '2 MB/s', 'label': 'lettura per shard', 'note': 'oppure 2.000 record al secondo'},
+      'items': [{'value': '1 MB/s',
+                 'label': 'scrittura per shard',
+                 'note': 'oppure 1.000 record al secondo'},
+                {'value': '2 MB/s',
+                 'label': 'lettura per shard',
+                 'note': 'oppure 2.000 record al secondo'},
                 {'value': '2x',
                  'label': 'on-demand Standard',
                  'note': 'fino al doppio del picco degli ultimi 30 giorni'},
@@ -197,17 +215,28 @@ SLIDES = {0: [{'kind': 'stats',
                  'note': 'scrittura e lettura iniziali'},
                 {'value': '2 volte', 'label': 'cambio di modalità', 'note': 'in 24 ore'}]},
      {'kind': 'formula',
-      'text': 'shard = max( banda di scrittura / 1024 , banda di lettura / 2048 ) in KiB, arrotondato per '
-              'eccesso',
+      'text': 'shard = max( banda di scrittura / 1024 , banda di lettura / 2048 ) in KiB, '
+              'arrotondato per eccesso',
       'caption': 'La banda si esprime in KiB. Superata la capacità il producer riceve '
-                 'ProvisionedThroughputExceededException: si riprova con backoff e si scalano gli shard.'},
+                 'ProvisionedThroughputExceededException: si riprova con backoff e si scalano gli '
+                 'shard.'},
      {'kind': 'note',
       'tone': 'bad',
       'title': 'Hot shard',
-      'text': 'Una chiave di partizione sbilanciata satura un solo shard, e on-demand non isola quella '
-              'chiave: si passa a provisioned e si divide lo shard a mano.'},
+      'text': 'Una chiave di partizione sbilanciata satura un solo shard, e on-demand non isola '
+              'quella chiave: si passa a provisioned e si divide lo shard a mano.'},
      'Superare il limite restituisce ProvisionedThroughputExceededException: retry',
-     'On-demand Standard: scala da solo fino al doppio del picco degli ultimi 30 giorni'],
+     'On-demand Standard: scala da solo fino al doppio del picco degli ultimi 30 giorni',
+     'Enhanced fan-out: ogni consumer registrato legge con SubscribeToShard e ha 2 MB al secondo '
+     'per shard dedicati, non condivisi',
+     'Consumer registrati per stream: fino a 20 in provisioned e on-demand Standard, fino a 50 con '
+     'On-demand Advantage',
+     'GetRecords: 5 chiamate al secondo per shard, fino a 10.000 record o 10 MB per chiamata, con '
+     'i 2 MB al secondo condivisi tra i consumer',
+     'PutRecords: fino a 500 record per richiesta; ogni shard accetta 1.000 record al secondo; un '
+     'record arriva a 10 MiB',
+     'On-demand Advantage: impostazione di account per le stream on-demand della Regione, impegno '
+     'minimo di 25 MiB al secondo in ingest e in lettura, almeno 24 ore prima di disattivarla'],
  9: [{'kind': 'table',
       'head': ['Servizio', 'Cosa fa', 'Quando'],
       'rows': [[{'v': 'Data Firehose', 'head': True},
@@ -222,12 +251,14 @@ SLIDES = {0: [{'kind': 'stats',
      {'kind': 'note',
       'tone': 'warn',
       'title': "La regola d'esame",
-      'text': 'Consegna semplice con trasformazione leggera: Firehose. Finestre e stato su stream a bassa '
-              'latenza: Flink. Ecosistema Kafka: MSK. Lambda per il record singolo, Spark Streaming su EMR '
-              'per riusare il codice Spark.'},
+      'text': 'Consegna semplice con trasformazione leggera: Firehose. Finestre e stato su stream '
+              'a bassa latenza: Flink. Ecosistema Kafka: MSK. Lambda per il record singolo, Spark '
+              'Streaming su EMR per riusare il codice Spark.'},
      'Firehose può trasformare i dati prima della consegna',
      'Buffer di Firehose: dimensione in MB e intervallo in secondi',
-     'Flink offre API a più livelli, da SQL fino a DataStream'],
+     'Flink offre API a più livelli, da SQL fino a DataStream',
+     "Lambda in Firehose: buffer da 0,2 a 3 MB, invocazione sincrona fino a 5 minuti, oltre c'è un "
+     'errore di timeout; richiesta e risposta al massimo 6 MB'],
  10: [{'kind': 'layers',
        'layers': [{'label': 'Primary node',
                    'sub': 'ResourceManager di YARN, NameNode HDFS, monitoraggio dei job',
@@ -248,8 +279,9 @@ SLIDES = {0: [{'kind': 'stats',
       {'kind': 'note',
        'tone': 'bad',
        'title': 'La regola opposta',
-       'text': 'Rimuovere i demoni HDFS da un core node in esecuzione, o terminare core node, rischia la '
-               'perdita di dati. Con le node labels i processi di coordinamento restano sui core node.'},
+       'text': 'Rimuovere i demoni HDFS da un core node in esecuzione, o terminare core node, '
+               'rischia la perdita di dati. Con le node labels i processi di coordinamento restano '
+               'sui core node.'},
       'Task node: calcolo senza HDFS, aggiungibile e rimovibile',
       'Spot sui task node: scelta comune per il costo'],
  11: [{'kind': 'table',
@@ -281,13 +313,39 @@ SLIDES = {0: [{'kind': 'stats',
       {'kind': 'note',
        'tone': 'warn',
        'title': 'Come si sceglie',
-       'text': "La tecnica si lega alla forma dei dati: c'è un ordine? quante categorie? la distribuzione è "
-               'asimmetrica? è testo? Data Wrangler offre gli stessi passi come transform pronti.'},
-      'La tokenizzazione spezza il testo in parole, di solito in minuscolo e separando sugli spazi'],
+       'text': "La tecnica si lega alla forma dei dati: c'è un ordine? quante categorie? la "
+               'distribuzione è asimmetrica? è testo? Data Wrangler offre gli stessi passi come '
+               'transform pronti.'},
+      'La tokenizzazione spezza il testo in parole, di solito in minuscolo e separando sugli spazi',
+      {'kind': 'table',
+       'head': ['Transform', 'Opzione', 'Cosa fa'],
+       'rows': [[{'v': 'Ordinal encode', 'head': True},
+                 'indici',
+                 'un intero per categoria, da 0 a N meno 1'],
+                [{'v': 'Ordinal encode', 'head': True},
+                 'Invalid handling',
+                 'Skip toglie le righe, Keep tiene i mancanti come ultima categoria, Error ferma '
+                 "il transform, Replace with NaN se l'algoritmo gestisce i mancanti"],
+                [{'v': 'One-hot encode', 'head': True},
+                 'Drop last category',
+                 "l'ultima categoria non ha colonna: una colonna in meno, quella ridondante"],
+                [{'v': 'Featurize date/time', 'head': True},
+                 'Embedding mode',
+                 'cyclic per modelli lineari e reti profonde, ordinal per gli alberi'],
+                [{'v': 'Vectorize text', 'head': True},
+                 'Tokenizer',
+                 'Standard divide sugli spazi e mette in minuscolo; Custom ha minimum token '
+                 'length, default 1: con 3 cadono a, at, in'],
+                [{'v': 'Vectorize text', 'head': True},
+                 'Vectorizer',
+                 'Count costruisce un vocabolario e filtra per frequenza; Hashing è più veloce, '
+                 'con un numero fisso di feature']],
+       'caption': "Le opzioni che l'esame chiede sui transform di Data Wrangler."}],
  12: [{'kind': 'flow',
        'steps': [{'label': 'Outlier', 'sub': 'soglie note, deviazione standard, quantili'},
                  {'label': 'Gestione', 'sub': 'clip al limite, rimozione, valore invalido'},
-                 {'label': 'Imputazione', 'sub': 'fill missing con un valore, impute con una statistica'},
+                 {'label': 'Imputazione',
+                  'sub': 'fill missing con un valore, impute con una statistica'},
                  {'label': 'Indicatore', 'sub': 'colonna che segnala il valore mancante'},
                  {'label': 'Deduplicazione', 'sub': 'dropDuplicates sulle colonne chiave'},
                  {'label': 'Bilanciamento', 'sub': 'Balance Data sulla classe rara'}]},
@@ -308,8 +366,8 @@ SLIDES = {0: [{'kind': 'stats',
       {'kind': 'note',
        'tone': 'warn',
        'title': 'Prima la causa',
-       'text': 'Prima si capisce perché il dato è sporco, poi si sceglie la correzione. Eliminare non è '
-               'sempre la risposta giusta: si perde informazione e si introduce bias.'},
+       'text': 'Prima si capisce perché il dato è sporco, poi si sceglie la correzione. Eliminare '
+               'non è sempre la risposta giusta: si perde informazione e si introduce bias.'},
       'Outlier: rilevati con soglie fisse, deviazione standard o quantili',
       'Add indicator for missing: colonna che segnala il valore mancante'],
  13: [{'kind': 'table',
@@ -326,21 +384,40 @@ SLIDES = {0: [{'kind': 'stats',
       {'kind': 'note',
        'tone': 'warn',
        'title': 'Una pipeline per tipo',
-       'text': "Ogni modalità ha formato e ritmo diversi, quindi l'ingest è separato; poi il dataset viene "
-               'allineato sulle stesse chiavi. Kinesis Video Streams cifra a riposo e indicizza per '
-               'timestamp del produttore e di ingestione.'},
-      "La regola d'esame: file statici su S3, flussi live su Kinesis Video Streams"],
+       'text': "Ogni modalità ha formato e ritmo diversi, quindi l'ingest è separato; poi il "
+               'dataset viene allineato sulle stesse chiavi. Kinesis Video Streams cifra a riposo '
+               'e indicizza per timestamp del produttore e di ingestione.'},
+      "La regola d'esame: file statici su S3, flussi live su Kinesis Video Streams",
+      'Carica su S3 tutti i dati prima del training: dati aggiunti dopo richiedono una nuova '
+      'chiamata di training e un nuovo modello'],
  14: [{'kind': 'stats',
-       'items': [{'value': '2.000', 'label': 'regole per ruleset', 'note': 'oltre si divide in più ruleset'},
-                 {'value': '65 KB', 'label': 'dimensione del ruleset', 'note': 'limite della definizione'},
+       'items': [{'value': '2.000',
+                  'label': 'regole per ruleset',
+                  'note': 'oltre si divide in più ruleset'},
+                 {'value': '65 KB',
+                  'label': 'dimensione del ruleset',
+                  'note': 'limite della definizione'},
                  {'value': '90%',
                   'label': 'esempio di soglia',
                   'note': 'con with threshold, non tutte le righe devono passare'},
-                 {'value': 'score', 'label': 'qualità', 'note': 'percentuale di regole che passano'}]},
+                 {'value': 'score',
+                  'label': 'qualità',
+                  'note': 'percentuale di regole che passano'},
+                 {'value': '10',
+                  'label': 'label per regola',
+                  'note': 'chiavi fino a 128 caratteri, valori fino a 256'},
+                 {'value': 'Glue 4.0',
+                  'label': 'clausola where',
+                  'note': 'supportata solo da questa versione'},
+                 {'value': '3 run',
+                  'label': 'rebinning del Distribution analyzer',
+                  'note': 'bin edges congelati dalla prima esecuzione; si ricalcolano dopo 3 run '
+                          'consecutive con oltre il 5% di overflow; rebin = false lo disattiva'}]},
       {'kind': 'table',
        'head': ['Strumento', 'Come lavora', 'Quando'],
        'rows': [[{'v': 'Glue Data Quality', 'head': True},
-                 'regole DQDL su tabelle del Data Catalog o dentro un job ETL; propone raccomandazioni',
+                 'regole DQDL su tabelle del Data Catalog o dentro un job ETL; propone '
+                 'raccomandazioni',
                  'controllo dichiarativo e ripetibile, con i record che falliscono'],
                 [{'v': 'DataBrew', 'head': True},
                  'progetti visuali, distribuzioni e più di 250 trasformazioni',
@@ -349,53 +426,82 @@ SLIDES = {0: [{'kind': 'stats',
        'tone': 'warn',
        'title': 'Come si scrive una regola',
        'text': 'Un ruleset è una lista chiamata Rules: ogni regola ha un tipo, un parametro e '
-               "un'espressione, per esempio IsComplete o IsUnique su una colonna chiave. Si compongono con "
-               'and e or, con un filtro where o una soglia with threshold.'}],
+               "un'espressione, per esempio IsComplete o IsUnique su una colonna chiave. Si "
+               'compongono con and e or, con un filtro where o una soglia with threshold.'},
+      'Completeness: restituisce un rapporto da confrontare con una soglia, come Completeness '
+      '"email" > 0.95; IsComplete invece passa solo se tutti i valori sono non nulli',
+      "Regole composite: di default ogni regola si valuta sull'intera colonna; con "
+      'compositeRuleEvaluation.method uguale a ROW la regola composta si valuta riga per riga',
+      'Modalità ROW: non supporta le regole a rapporto, come Completeness, Uniqueness, '
+      'DatasetMatch e ReferentialIntegrity, né ColumnValues, ColumnDataType e CustomSQL con with '
+      'threshold',
+      'Where: condizione SparkSQL tra virgolette, scritta prima di with threshold, come '
+      'ColumnValues "status" in ["A", "B"] where "region = \'EU\'" with threshold > 0.9',
+      'Solo nei job Glue ETL: dynamic rules come RowCount > avg(last(5)) e label; nella data '
+      'quality del Data Catalog mancano anche gli analyzer',
+      'Label nei risultati per riga: disattivate di default, si attivano con '
+      'rowLevelConfiguration.ruleWithLabels uguale a ENABLED',
+      'Costanti: mySql = "select count(*) from primary", poi $mySql nella regola, per non superare '
+      'il limite di dimensione della query',
+      'NULL, EMPTY e WHITESPACES_ONLY: EMPTY trova le stringhe vuote che alcuni formati scrivono '
+      'al posto dei null'],
  15: [{'kind': 'topology',
        'title': 'Il percorso di un labeling job',
        'nodes': [{'label': 'Manifest di input', 'sub': 'oggetti su S3'},
                  {'label': 'Labeling job', 'sub': 'Ground Truth'},
-                 {'label': 'Forza lavoro', 'sub': 'Mechanical Turk, privata o fornitore', 'tone': 'warn'},
+                 {'label': 'Forza lavoro',
+                  'sub': 'Mechanical Turk, privata o fornitore',
+                  'tone': 'warn'},
                  {'label': 'Manifest di output', 'sub': 'risultati su S3'},
                  {'label': 'CloudWatch', 'sub': 'eventi del job'}]},
       {'kind': 'table',
        'head': ['Vincolo', 'Valore'],
        'rows': [[{'v': "Oggetti minimi per l'active learning", 'head': True},
                  '1.250, con 5.000 o più consigliati'],
-                [{'v': 'Precisione richiesta per la classificazione', 'head': True}, 'almeno 95 per cento'],
-                [{'v': 'IoU media attesa', 'head': True}, '0,6 per i bounding box, 0,7 per la segmentazione'],
+                [{'v': 'Precisione richiesta per la classificazione', 'head': True},
+                 'almeno 95 per cento'],
+                [{'v': 'IoU media attesa', 'head': True},
+                 '0,6 per i bounding box, 0,7 per la segmentazione'],
                 [{'v': 'Task automatizzabili', 'head': True}, 'quattro tipi']]},
       {'kind': 'note',
        'tone': 'bad',
        'title': 'Le date da sapere',
-       'text': 'Dal 30 luglio 2026 Ground Truth, A2I e Mechanical Turk sono chiusi ai nuovi clienti; '
-               'Mechanical Turk ha chiuso il 29 settembre 2026 e Ground Truth Plus è dismesso dal 30 giugno '
-               "2026. Restano materia d'esame."},
+       'text': 'Dal 30 luglio 2026 Ground Truth, A2I e Mechanical Turk sono chiusi ai nuovi '
+               'clienti; Mechanical Turk ha chiuso il 30 settembre 2026 e Ground Truth Plus è '
+               "dismesso dal 30 giugno 2026. Restano materia d'esame."},
       'Mechanical Turk: oltre 500.000 collaboratori indipendenti',
       'Automated labeling: active learning, minimo 1.250 oggetti',
-      'A2I: revisione umana di Textract e Rekognition'],
+      'A2I: revisione umana di Textract e Rekognition',
+      'Automated labeling: se fallisce più del 10 per cento del campione casuale iniziale, il job '
+      'fallisce; controlla la UI dei worker, le istruzioni e il tempo concesso'],
  16: [{'kind': 'formula',
        'text': 'CI = (na − nd) / (na + nd)   ;   DPL = qa − qd',
-       'caption': 'CI confronta il numero di campioni dei due gruppi, DPL la quota di etichette positive. '
-                  "Entrambe vanno da −1 a +1: vicino a zero c'è equilibrio, vicino agli estremi il rischio "
-                  'di predizioni distorte.'},
+       'caption': 'CI confronta il numero di campioni dei due gruppi, DPL la quota di etichette '
+                  "positive. Entrambe vanno da −1 a +1: vicino a zero c'è equilibrio, vicino agli "
+                  'estremi il rischio di predizioni distorte.'},
       {'kind': 'table',
        'head': ['Metrica', 'Cosa confronta'],
        'rows': [[{'v': 'KL e JS', 'head': True}, 'divergenza tra le distribuzioni delle etichette'],
                 [{'v': 'LP e TVD', 'head': True}, 'distanza tra le distribuzioni'],
-                [{'v': 'KS', 'head': True}, 'massimo scarto tra le distribuzioni'],
-                [{'v': 'CDD', 'head': True}, 'disparità condizionata a sottogruppi']]},
+                [{'v': 'KS', 'head': True},
+                 'massimo scarto tra le distribuzioni; da 0 a 1, vicino a 1 le etichette di una '
+                 'categoria stanno tutte in un facet'],
+                [{'v': 'CDD', 'head': True},
+                 'disparità condizionata a sottogruppi; da meno 1 a 1, positiva se il facet d è '
+                 'rifiutato più di quanto è accettato']]},
       {'kind': 'note',
        'tone': 'warn',
        'title': 'Dove si corregge',
-       'text': 'Un modello addestrato su dati sbilanciati riproduce lo squilibrio: la correzione va prima '
-               'del training. Selection e measurement bias sono concetti generali, e queste metriche non li '
-               'misurano direttamente.'},
+       'text': 'Un modello addestrato su dati sbilanciati riproduce lo squilibrio: la correzione '
+               'va prima del training. Selection e measurement bias sono concetti generali, e '
+               'queste metriche non li misurano direttamente.'},
       'Selection bias: il campione non rappresenta la popolazione reale',
       'Measurement bias: feature o etichette misurate in modo diverso per gruppo',
       'CI = (na meno nd) diviso (na più nd), range da meno 1 a 1',
       'DPL = qa meno qd: differenza di proporzioni di etichette positive',
-      'Clarify chiuso ai nuovi clienti dal 30/07/2026: metriche con pandas e scikit-learn'],
+      'Clarify chiuso ai nuovi clienti dal 30/07/2026: metriche con pandas e scikit-learn',
+      'Metriche pre-training: usano solo le etichette osservate, senza un modello addestrato, '
+      'quindi valgono per qualsiasi modello'],
  17: [{'kind': 'tree',
        'root': 'Che forma hanno i dati?',
        'branches': [{'when': 'nessun ordine, serve riproducibilità',
@@ -413,9 +519,9 @@ SLIDES = {0: [{'kind': 'stats',
       {'kind': 'note',
        'tone': 'bad',
        'title': "L'ordine delle operazioni",
-       'text': "Prima si divide, poi si aumenta: l'augmentation si applica solo al training, mai al test. Lo "
-               'shuffling serve quando i dati sono ordinati per classe, altrimenti il modello vede le classi '
-               'in blocchi.'},
+       'text': "Prima si divide, poi si aumenta: l'augmentation si applica solo al training, mai "
+               'al test. Lo shuffling serve quando i dati sono ordinati per classe, altrimenti il '
+               'modello vede le classi in blocchi.'},
       'Split randomizzato: sottoinsiemi casuali non sovrapposti, con seed',
       "Ordered split: rispetta l'ordine temporale dei dati",
       'Split by key: lo stesso cliente non finisce in due split',
@@ -442,14 +548,20 @@ SLIDES = {0: [{'kind': 'stats',
                  'identificatori AWS e regex personalizzate; finding su EventBridge'],
                 [{'v': 'Glue Detect PII', 'head': True},
                  'PII per cella o per campo',
-                 'redact, partial redact, hash SHA-256 o arricchimento; la soglia vale solo per campo']]},
+                 'redact, partial redact, hash SHA-256 o arricchimento; la soglia vale solo per '
+                 'campo']]},
       {'kind': 'note',
        'tone': 'warn',
        'title': 'Tre risposte',
-       'text': 'Il dato deve restare utilizzabile per i join: pseudonimizza. Non deve mai tornare alla '
-               'persona: anonimizza. Devi solo sapere dove sta: Macie.'},
+       'text': 'Il dato deve restare utilizzabile per i join: pseudonimizza. Non deve mai tornare '
+               'alla persona: anonimizza. Devi solo sapere dove sta: Macie.'},
       "Classificazione: etichetta i dataset per sensibilità prima dell'uso",
-      'Anonimizzazione: impedisce di risalire alla persona'],
+      'Anonimizzazione: impedisce di risalire alla persona',
+      'Allow list di Macie: testo o pattern da ignorare negli oggetti, come dati di test o numeri '
+      "pubblici dell'azienda",
+      'Job di sensitive data discovery: bucket scelti, profondità di campionamento e criteri '
+      "personalizzati, una volta o ricorrente; l'automated discovery invece campiona tutto "
+      "l'inventario"],
  19: [{'kind': 'table',
        'head': ['Concetto', 'Cosa copre', "Cosa chiede l'esame"],
        'rows': [[{'v': 'PII', 'head': True},
@@ -463,15 +575,20 @@ SLIDES = {0: [{'kind': 'stats',
                  'Regione, Local Zone o S3 on Outposts'],
                 [{'v': 'LF-Tags', 'head': True},
                  'permessi su database, tabelle e colonne',
-                 'coppie chiave-valore, con ereditarietà: poche concessioni anche se il catalogo cresce'],
+                 'coppie chiave-valore, con ereditarietà: poche concessioni anche se il catalogo '
+                 'cresce'],
                 [{'v': 'Data filter', 'head': True},
                  'colonne, righe o celle',
                  'solo con SELECT: si usano per le letture']]},
       {'kind': 'note',
        'tone': 'bad',
        'title': "L'esclusione di SageMaker",
-       'text': 'Nella lista HIPAA compare SageMaker, ma restano fuori Studio Lab, Ground Truth Plus, la '
-               'forza lavoro pubblica e quella dei fornitori.'},
+       'text': 'Nella lista HIPAA compare SageMaker, ma restano fuori Studio Lab, Ground Truth '
+               'Plus, la forza lavoro pubblica e quella dei fornitori.'},
       'PII: dati personali identificabili, da cercare con Comprehend o Macie',
       'PHI: informazioni sanitarie protette, con ePHI in forma elettronica',
-      'HIPAA: servizi eleggibili, serve un BAA e una configurazione corretta']}
+      'HIPAA: servizi eleggibili, serve un BAA e una configurazione corretta',
+      'Row filter: sintassi PartiQL di una clausola WHERE, stringhe tra apici singoli, come '
+      "product_type = 'pharma'; le virgolette doppie indicano un nome di colonna",
+      'IAM tag e LF-Tag non sono intercambiabili: gli LF-Tag concedono i permessi di Lake '
+      'Formation, gli IAM tag servono alle policy IAM']}

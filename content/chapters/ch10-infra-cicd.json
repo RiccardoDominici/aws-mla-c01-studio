@@ -222,7 +222,9 @@
         "AWS Batch: job batch in coda, senza un endpoint sempre attivo",
         "Lambda: funzioni leggere per modelli piccoli, spesso dietro API Gateway",
         "API Gateway davanti al modello per autenticazione, throttling e API pubblica",
-        "CloudFront davanti per cache e bassa latenza su contenuti distribuiti globalmente"
+        "CloudFront davanti per cache e bassa latenza su contenuti distribuiti globalmente",
+        "Amazon ECS: container su istanze EC2 o su AWS Fargate, senza bisogno di un cluster EKS",
+        "AWS Batch: esegue job containerizzati presi da una job queue, su capacità EC2 o Fargate, non un endpoint HTTPS sempre attivo"
       ],
       "narration": "Un modello addestrato può essere distribuito su diversi target, e la domanda d'esame chiede quasi sempre quale scegliere. L'opzione più diretta è l'endpoint SageMaker, che gestisce istanze, container e scaling senza che tu debba configurare altro. Quando serve controllo totale sull'ambiente, si va su Amazon ECS o Amazon EKS. ECS è un servizio di orchestrazione container gestito, mentre EKS offre Kubernetes gestito. Entrambi danno pieno controllo sui container e sullo scaling, al prezzo di più operatività. Per job batch che girano in coda, senza un endpoint sempre attivo, AWS Batch è più adatto. Pianifica e lancia i job su capacità EC2 o Fargate in base alla coda, e supporta anche i job di training che SageMaker accoda. Lambda può ospitare modelli piccoli e leggeri, ed è spesso esposta tramite API Gateway. API Gateway è la porta d'ingresso consigliata davanti a un modello: gestisce autenticazione, controllo degli accessi e throttling, e separa i client dall'implementazione. Se la risposta è identica per molti utenti e può essere messa in cache, CloudFront aggiunge una rete di edge location che riduce la latenza. Il tranello è questo: CloudFront distribuisce contenuti, ma non sostituisce la logica di accesso. Un'API che deve esporre un endpoint pubblico con chiavi e quote ha quindi bisogno di API Gateway, non solo di CloudFront.",
       "todo": [
@@ -342,7 +344,8 @@
         "Immagine: il pacchetto eseguibile con codice, librerie e dipendenze",
         "Dockerfile: la ricetta con cui si costruisce l'immagine",
         "ECR supporta repository privati con permessi IAM e scansione delle vulnerabilità",
-        "Deep Learning Containers: immagini AWS pronte per PyTorch, TensorFlow e altri framework"
+        "Deep Learning Containers: immagini AWS pronte per PyTorch, TensorFlow e altri framework",
+        "Dati sensibili con BYOC: ECR privato con scansione, ruolo di esecuzione minimo, chiavi KMS e VPC endpoint"
       ],
       "narration": "Un container impacchetta il modello con il suo codice, le librerie e le dipendenze, in modo che giri allo stesso modo ovunque. Il concetto base è l'immagine Docker, un file costruito da un Dockerfile. Il Dockerfile è una ricetta: dice da quale base partire, quali pacchetti installare e quale comando eseguire. Un'immagine costruita va pubblicata in un registry, il deposito da cui i servizi la prelevano. Il registry AWS è Amazon ECR. ECR supporta repository privati con permessi basati su IAM, quindi solo gli utenti e i ruoli autorizzati possono scaricare le immagini. Può anche eseguire la scansione delle vulnerabilità a ogni push. Per il machine learning AWS pubblica i Deep Learning Containers, immagini già pronte con framework come PyTorch e TensorFlow e con le dipendenze preinstallate. Conviene partire da queste immagini invece di costruirne una da zero, perché riducono il lavoro di manutenzione. Quando ECS o EKS devono avviare un container, prelevano l'immagine da ECR, quindi la pipeline di build deve pubblicare lì la versione corretta. Il tranello d'esame è semplice: se la domanda chiede dove archiviare le immagini container private gestite da AWS, la risposta è ECR. Amazon S3 non è pensato per immagini container, e una risposta che lo indica è sbagliata.",
       "todo": [
@@ -508,7 +511,14 @@
         },
         "invoke_endpoint per chiamare un endpoint in tempo reale",
         "Lo stato dell'endpoint passa da Creating a InService",
-        "Il Predictor incapsula la chiamata di inferenza"
+        "Il Predictor incapsula la chiamata di inferenza",
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "create_endpoint subito dopo la config",
+          "text": "La verifica della endpoint configuration è eventually consistent: può tornare un errore di validazione. AWS raccomanda retry e una describe_endpoint_config prima di create_endpoint."
+        },
+        "create_endpoint_config: obbligatori EndpointConfigName e ProductionVariants. EndpointArn non è un input: lo restituisce create_endpoint"
       ],
       "narration": "Il deploy si può fare dalla console, ma nelle pipeline si scrive in codice. Ci sono tre strade. La prima è il SageMaker Python SDK. Nella versione 3 il flusso passa da ModelBuilder: build() prepara il modello, e deploy() porta il modello su un endpoint, e restituisce un oggetto Endpoint. Nella versione 2 si usava Model.deploy(), che restituisce un Predictor se gli viene passato un predictor_cls. Il Predictor è l'oggetto con cui inviare richieste senza gestire a mano le chiamate HTTP. Nella versione 3 le richieste passano da invoke, non da predict. È la strada più rapida per chi lavora con il codice di training. La seconda è Boto3, il client Python di AWS, che espone le API a basso livello. Il flusso è in tre passi. create_model registra il modello, con il container e la posizione degli artefatti su S3. create_endpoint_config definisce tipo di istanza, numero di istanze e modello associato. create_endpoint avvia l'endpoint. Il punto da ricordare è che create_endpoint non è istantaneo: lo stato passa da Creating a InService, e solo in InService l'endpoint risponde alle richieste. Per le richieste si usa invoke_endpoint. La terza strada è la AWS CLI, con gli stessi comandi, utile in script di shell e nelle pipeline di CI. Per l'esame conta riconoscere a quale strumento appartiene ogni nome. ModelBuilder e deploy() sono dell'SDK, mentre create_endpoint_config è un'API Boto3. Una domanda tipica chiede quale passo serve prima dell'endpoint, e la risposta è la configurazione dell'endpoint, che a sua volta richiede il modello.",
       "todo": [
@@ -617,7 +627,8 @@
         },
         "Il target tracking parte da una metrica e un valore, per esempio InvocationsPerInstance con target 70",
         "Le scheduled action si gestiscono solo da AWS CLI o dall'API di Application Auto Scaling",
-        "Dopo l'azione programmata la policy dinamica riprende a decidere sul traffico reale"
+        "Dopo l'azione programmata la policy dinamica riprende a decidere sul traffico reale",
+        "ScalableDimension valide: sagemaker:variant:DesiredInstanceCount per una variante, sagemaker:inference-component:DesiredCopyCount per un inference component"
       ],
       "narration": "Lo scaling dell'endpoint si configura con una scaling policy, e i tipi sono tre. Il target tracking è la scelta predefinita nella maggior parte dei casi. Scegli una metrica CloudWatch e un valore target, per esempio InvocationsPerInstance con target 70, e la policy aggiunge o rimuove istanze per mantenere la metrica vicina a quel valore. SageMaker crea e gestisce gli allarmi per te. Lo step scaling è più esplicito: definisci a quali soglie di un allarme aggiungere quante istanze. Serve quando vuoi regole precise, per esempio aggiungere due istanze se la latenza supera una soglia. Lo scheduled scaling esegue azioni a orari fissi, una volta sola o su base ricorrente. Per esempio puoi portare il minimo a dieci istanze alle otto del mattino. Dopo l'azione programmata, la policy dinamica continua a decidere in base al traffico reale. Le scheduled action si gestiscono solo da AWS CLI o dall'API di Application Auto Scaling. Il tranello d'esame è questo. Se la domanda chiede di scalare un endpoint da zero istanze, il target tracking non basta, perché serve uno step scaling collegato a un allarme CloudWatch. Lo scaling a zero vale per gli endpoint che ospitano inference component, e il minimo va impostato a zero. Quando arriva una richiesta a un endpoint senza istanze, la metrica NoCapacityInvocationFailures fa scattare la policy. L'endpoint riparte in alcuni minuti, e nel frattempo le chiamate falliscono.",
       "todo": [
@@ -1014,7 +1025,8 @@
           ]
         },
         "Git traccia le modifiche in commit, e i branch sono linee di lavoro parallele",
-        "Trunk-based: integrazione frequente su un solo ramo, con test automatici forti"
+        "Trunk-based: integrazione frequente su un solo ramo, con test automatici forti",
+        "CodeCommit: pull request per la code review, con commenti e notifiche ai revisori"
       ],
       "narration": "Ogni pipeline parte da un repository, e il repository ha una strategia di branch. Git traccia le modifiche in commit, e i branch sono linee di lavoro parallele, unite con un merge. Tre strategie ricorrono nei testi d'esame. Gitflow usa rami stabili come main e develop, rami feature per ogni funzionalità e rami release per preparare una versione. Funziona bene per team con cicli di release pianificati e una raccolta di funzionalità da rilasciare insieme, ma è più complesso. GitHub Flow è più leggero. Ogni funzionalità vive in un branch breve e viene unita direttamente nel main quando è pronta. Il main resta sempre rilasciabile. Trunk-based development va oltre: tutti lavorano su un solo ramo, integrano spesso e si affidano a test automatici forti per tenerlo pronto al rilascio. Per l'esame la regola pratica è questa. Release pianificate con più funzionalità insieme indicano Gitflow. Rilasci frequenti indicano GitHub Flow o trunk-based. Gli strumenti AWS sono CodeCommit, un repository Git privato e gestito, e CodeConnections, il servizio che collega un provider esterno come GitHub, GitLab o Bitbucket a CodePipeline, senza dover gestire segreti a mano. Nella guida MLA-C02 compaiono esplicitamente CodeCommit e CodeConnections, che sono quindi nuovi rispetto alla guida MLA-C01. Gitflow e GitHub Flow invece sono nella guida MLA-C01, e non nella MLA-C02.",
       "todo": [

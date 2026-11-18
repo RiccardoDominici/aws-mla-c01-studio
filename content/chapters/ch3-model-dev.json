@@ -253,7 +253,12 @@
           ]
         },
         "Non tutti i problemi hanno un'etichetta: senza risposte corrette si parla di apprendimento non supervisionato",
-        "Il clustering raggruppa osservazioni simili, l'anomaly detection isola ciò che si discosta dal resto"
+        "Il clustering raggruppa osservazioni simili, l'anomaly detection isola ciò che si discosta dal resto",
+        {
+          "kind": "note",
+          "title": "Scegliere K nel K-Means",
+          "text": "Metodo del gomito: si traccia la somma dei quadrati intra-cluster al variare di K e si sceglie il punto dove il guadagno cala. Il silhouette score conferma quanto i cluster sono separati."
+        }
       ],
       "narration": "Non tutti i problemi hanno un'etichetta. Quando i dati non hanno risposte corrette, si parla di apprendimento non supervisionato. Il clustering raggruppa osservazioni simili, in modo che i membri di un gruppo siano più vicini tra loro che ai membri degli altri gruppi. Un esempio è dividere i clienti in segmenti in base alle abitudini di acquisto. L'anomaly detection cerca invece i punti rari che si discostano dal resto. Le frodi con carta, i sensori che inviano letture strane o un accesso anomalo a un servizio sono casi tipici. La raccomandazione suggerisce oggetti a un utente a partire dalle sue interazioni passate. I dati sono molto sparsi, perché ogni utente ha toccato pochissimi oggetti rispetto al catalogo. Per questo la raccomandazione si modella spesso come classificazione o regressione su coppie utente e oggetto, e un candidato built-in naturale è Factorization Machines. I problemi di testo, o NLP, comprendono la classificazione dei documenti, la traduzione, il riassunto e la trascrizione del parlato. I problemi di visione riguardano le immagini: classificarle, trovare oggetti con un riquadro, o assegnare una categoria a ogni pixel. Le serie temporali, infine, sono valori ordinati nel tempo, come le vendite giornaliere o il carico di un server, e l'obiettivo è prevederne i valori futuri. Una serie temporale non è un dataset tabellare qualsiasi. L'ordine dei dati conta, e le osservazioni vicine nel tempo sono correlate. Ricorda questa regola per l'esame: se la domanda parla di valori futuri su una sequenza temporale, guarda subito agli algoritmi di serie temporali, non a una regressione generica.",
       "todo": []
@@ -355,7 +360,8 @@
             ]
           ]
         },
-        "La famiglia si sceglie dal tipo di dato e dal tipo di risposta, non dalla popolarità dell'algoritmo"
+        "La famiglia si sceglie dal tipo di dato e dal tipo di risposta, non dalla popolarità dell'algoritmo",
+        "Linear Learner: modelli lineari veloci su vettori ad alta dimensionalità e sparsi, per esempio feature TF-IDF"
       ],
       "narration": "SageMaker offre algoritmi built-in, cioè già pronti, che richiedono solo dati, iperparametri e risorse di calcolo. Per i problemi tabellari di classificazione e regressione la scelta più frequente è XGBoost. Linear Learner è un modello lineare, adatto a relazioni semplici, che supporta regressione, classificazione binaria e multiclasse. Factorization Machines è pensato per dati ad altissima dimensionalità e molto sparsi. Per il clustering c'è K-Means, che raggruppa le osservazioni in K gruppi. Per le anomalie c'è Random Cut Forest, che individua i punti che divergono dal resto. Per le anomalie legate agli indirizzi IP c'è IP Insights, che impara i pattern di utilizzo. Per le serie temporali, con molte serie correlate, c'è DeepAR, che produce previsioni probabilistiche. Per il testo, BlazingText copre Word2Vec e la classificazione dei documenti. Per traduzione e riassunto c'è Sequence-to-Sequence. Per il topic modeling, cioè scoprire argomenti in un insieme di documenti senza conoscerli prima, ci sono LDA e Neural Topic Model. Per ridurre il numero di feature c'è PCA. Per la visione ci sono Image Classification, Object Detection e Semantic Segmentation, quest'ultimo per assegnare una categoria a ogni pixel. Tra le risorse pronte c'è anche JumpStart, con modelli pre-addestrati che vedremo tra poco. Il dettaglio di ciascun algoritmo, con iperparametri e formati, è nel capitolo 9, che approfondisce il training avanzato. Qui ti serve la mappa: problema, algoritmo. Se la domanda chiede un algoritmo per un tipo di problema, la risposta è quasi sempre una di queste voci, e la differenza tra due opzioni sta nei dati, per esempio tabellari contro testo.",
       "todo": []
@@ -623,7 +629,8 @@
           ]
         },
         "Training custom: algoritmi built-in, script mode o container personalizzato",
-        "Per la GenAI il punto di partenza è Bedrock, approfondito nel capitolo 6"
+        "Per la GenAI il punto di partenza è Bedrock, approfondito nel capitolo 6",
+        "Chronos in JumpStart: foundation model per serie temporali, previsioni zero-shot su serie nuove senza training"
       ],
       "narration": "Prima di scrivere il primo training job, scegli la strada. Ce ne sono tre, con livelli di sforzo crescenti. La prima è JumpStart. È un catalogo di modelli pre-addestrati, in parte open source e in parte proprietari, pronti per la distribuzione, che puoi mettere a punto con fine-tuning sui tuoi dati e distribuire su un endpoint. JumpStart include anche algoritmi classici e soluzioni complete, con notebook di esempio. Il 13 marzo 2026 AWS ha tolto dal catalogo alcuni modelli, ma gli endpoint già distribuiti continuano a funzionare. Prima di usare un modello controlla sempre la licenza. La seconda è Autopilot, la soluzione AutoML di SageMaker. Su dati tabellari in formato CSV o Parquet, Autopilot analizza il problema, gestisce i valori mancanti, seleziona le feature, prova più algoritmi e li valuta con una tecnica di cross-validation. Alla fine genera notebook con il codice dei candidati, un report di spiegabilità e un modello distribuibile. L'interfaccia di Autopilot sta migrando in SageMaker Canvas, che è senza codice, dal 30 novembre 2023.Chi usava Autopilot in Studio Classic può continuare, ma Studio Classic non accetta nuovi onboarding. La terza strada è il training custom. Usi un algoritmo built-in, come XGBoost, oppure scrivi uno script in un framework supportato con la script mode, oppure porti un container personalizzato. La regola per l'esame: se serve una baseline rapida su dati tabellari, scegli Autopilot. Se serve controllo totale su iperparametri e pipeline, scegli il training custom con XGBoost. Per la GenAI, cioè modelli generativi, la strada è Bedrock, che approfondiamo nel capitolo 6. Il tranello tipico è confondere le tre strade: se la domanda chiede velocità senza codice, pensa ad Autopilot o Canvas. Se chiede un modello di linguaggio pronto, pensa a JumpStart o a Bedrock.",
       "todo": []
@@ -797,7 +804,37 @@
           ]
         },
         "Metrica obiettivo: una sola, con direzione Maximize o Minimize",
-        "Range degli iperparametri: continui, interi o categorici"
+        "Range degli iperparametri: continui, interi o categorici",
+        {
+          "kind": "table",
+          "head": [
+            "Algoritmo",
+            "Metrica obiettivo"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Container custom",
+                "head": true
+              },
+              "MetricDefinitions: Name più Regex che cattura il numero da stdout o stderr"
+            ],
+            [
+              {
+                "v": "Obiettivo",
+                "head": true
+              },
+              "il nome di una delle MetricDefinitions, fino a 40 metriche monitorate"
+            ],
+            [
+              {
+                "v": "K-Means built-in",
+                "head": true
+              },
+              "test:msd o test:ssd, da minimizzare: senza etichette niente accuracy o AUC"
+            ]
+          ]
+        }
       ],
       "narration": "Automatic Model Tuning, abbreviato AMT, cerca automaticamente la migliore combinazione di iperparametri. Lancia molti training job, ciascuno con una combinazione diversa, e confronta i risultati. Per configurarlo servono tre cose. La prima è la metrica obiettivo, che è una sola, con la direzione: Maximize se più alto è meglio, come l'AUC, Minimize se più basso è meglio, come l'RMSE. La seconda sono i range degli iperparametri: continui, come il learning rate, interi, come la profondità, o categorici, come il nome di un algoritmo. La terza sono i limiti: numero massimo di job e numero di job paralleli. Un tuning può lanciare al massimo 750 training job, e i job lanciati dai parent contano nello stesso limite. I job paralleli sono 10 di default, aumentabili a 100.Il tuning cerca dentro i range che scegli: se i range sono sbagliati, non trova niente di buono. La prima strategia è la grid search. Considera solo gli iperparametri categorici, e il numero di job è calcolato automaticamente dal totale delle combinazioni possibili. La seconda è la random search. Ogni job sceglie una combinazione a caso nei range, senza guardare i risultati precedenti. Per questo è la strategia che puoi parallelizzare di più senza perdere efficacia. La terza è la Bayesian optimization. Tratta il tuning come un problema di regressione: usa i risultati precedenti per stimare quali combinazioni promettono di più, poi testa le migliori. Bilancia l'esplorazione di zone nuove con lo sfruttamento delle zone buone. È la strategia più efficiente quando i job sono costosi. La quarta è Hyperband. È una strategia multi-fidelity: usa i risultati intermedi dei job, come l'accuratezza a ogni epoca, per assegnare più risorse ai candidati promettenti e fermare quelli deboli. Va usata solo con algoritmi iterativi che pubblicano risultati a più livelli di risorse. Hyperband ha un early stopping interno, quindi il parametro TrainingJobEarlyStoppingType va impostato a OFF. Per l'esame: tabellari con poche combinazioni categoriche, grid. Costi alti e job costosi, Bayesian. Rete neurale con epoche, Hyperband.",
       "todo": []
@@ -1000,7 +1037,8 @@
           "mml": "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><mi>Precision</mi><mo>=</mo><mfrac><mrow><mi>V</mi><mi>P</mi></mrow><mrow><mi>V</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi></mrow></mfrac><mo>,</mo><mspace width=\"0.6em\"/><mi>Recall</mi><mo>=</mo><mfrac><mrow><mi>V</mi><mi>P</mi></mrow><mrow><mi>V</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></mrow></math>",
           "caption": "Precision: tra i positivi predetti, quanti sono veri. Recall: tra i positivi reali, quanti il modello trova. F1: media armonica dei due."
         },
-        "Accuracy: previsioni corrette sul totale, ingannevole con classi sbilanciate"
+        "Accuracy: previsioni corrette sul totale, ingannevole con classi sbilanciate",
+        "Log-loss: penalizza le probabilità sicure ma sbagliate, si usa quando servono probabilità calibrate e non solo etichette"
       ],
       "narration": "Le metriche di classificazione partono da una tabella, la matrice di confusione. Ha quattro celle. I veri positivi sono i casi positivi predetti correttamente. I falsi positivi sono i negativi predetti come positivi, cioè falsi allarmi. I falsi negativi sono i positivi predetti come negativi, cioè casi che sfuggono. I veri negativi sono i negativi predetti correttamente. Facciamo un esempio con mille transazioni, di cui dieci frodi. Il modello trova sei frodi e ne perde quattro. Segnala venti transazioni legittime come frodi. Le altre novecentosettanta sono classificate correttamente. L'accuratezza, cioè le previsioni corrette sul totale, è novecentosettantasei diviso mille, cioè circa il 97,6 per cento. Sembra ottimo, ma il modello trova solo sei frodi su dieci. Per questo, con classi sbilanciate, l'accuratezza è ingannevole. La precision misura, tra quelli che il modello chiama positivi, quanti lo sono davvero. Qui sono sei su ventisei, circa il 23 per cento. La recall misura, tra i positivi reali, quanti il modello trova. Qui sono sei su dieci, cioè il 60 per cento. La recall corrisponde ai veri positivi diviso i positivi reali, cioè veri positivi più falsi negativi. L'F1 è la media armonica di precision e recall. Si calcola come due volte il prodotto diviso la somma. Nel nostro caso è circa 0,33. Una media armonica punisce uno dei due valori molto basso. Infine la soglia. Un classificatore produce una probabilità, e la soglia la trasforma in classe, di solito 0,5. Abbassare la soglia aumenta la recall e fa crescere i falsi positivi. Alzarla fa l'opposto. Per la domanda che dice minimizzare i falsi negativi, la metrica da guardare è la recall, e la soglia va abbassata con attenzione. Per la domanda che dice minimizzare i falsi allarmi, guarda la precision.",
       "todo": []
@@ -1266,7 +1304,8 @@
           ]
         },
         "Validation set: serve per early stopping e confronto dei modelli",
-        "Cross-validation k-fold: stima più robusta, stratificata con classi sbilanciate"
+        "Cross-validation k-fold: stima più robusta, stratificata con classi sbilanciate",
+        "Nested cross-validation: fold interni per il tuning, fold esterni mai visti per il punteggio finale senza bias"
       ],
       "narration": "Il problema più frequente è capire se il modello generalizza. Ci sono due errori opposti. L'overfitting significa che il modello ha memorizzato il training. Il segnale è un'accuratezza alta in training e bassa in validazione. Le cure sono la regolarizzazione, l'early stopping, la riduzione della complessità e più dati. L'underfitting significa che il modello è troppo semplice per i dati. Il segnale è un errore alto sia in training sia in validazione. La cura è un modello più espressivo, feature migliori o più training. Il concetto collegato è il compromesso tra bias e varianza. Il bias è l'errore di un modello troppo rigido, cioè l'underfitting. La varianza è la sensibilità del modello ai dati di training, cioè l'overfitting. Le curve di apprendimento mostrano l'errore di training e di validazione al crescere del numero di esempi. Se le due curve convergono su un valore alto, sei in underfitting. Se restano lontane, sei in overfitting, e più dati possono aiutare. Il validation set è il campione usato durante lo sviluppo per scegliere iperparametri, confrontare modelli e decidere l'early stopping. Il test set resta separato e si usa una sola volta, alla fine. La cross-validation k-fold divide i dati in k parti. Ad ogni giro una parte fa da validazione e le altre da training, e la stima finale è la media dei k risultati. È più robusta di un singolo split, soprattutto con pochi dati. Con classi sbilanciate, la divisione va stratificata, per mantenere le stesse proporzioni delle classi in ogni parte. Autopilot usa una tecnica di cross-validation per valutare i candidati. Regolarizzazione ed ensembling sono approfonditi nel capitolo 9. Per l'esame, il riconoscimento è la cosa che conta: confronta training e validazione, e scegli la cura giusta.",
       "todo": []

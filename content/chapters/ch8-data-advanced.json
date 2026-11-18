@@ -423,7 +423,8 @@
           "text": "EBS per un solo nodo con IOPS dedicati, EFS per la condivisione generica, FSx per prestazioni o protocolli specifici."
         },
         "Multi-Attach solo su io1 e io2, non su gp3",
-        "Per i dati di training, EFS va bene se i file sono già lì: il training job deve stare in una VPC"
+        "Per i dati di training, EFS va bene se i file sono già lì: il training job deve stare in una VPC",
+        "io2 su istanze non Nitro: si collega un volume fino a 64.000 IOPS, ma se ne ottengono al massimo 32.000"
       ],
       "narration": "EBS è il disco a blocchi che di norma si collega a una sola istanza, e quindi serve quando un solo server deve leggere e scrivere un volume. Solo io1 e io2 supportano il Multi-Attach, cioè il collegamento dello stesso volume a più istanze. gp3 è il tipo generico: arriva a 80.000 IOPS e 2.000 MiB/s, con volumi da 1 GiB a 64 TiB. Quando il carico richiede IOPS sostenuti, la documentazione indica i volumi Provisioned IOPS: io2 Block Express arriva a 256.000 IOPS, con latenza media sotto i 500 microsecondi. io1 arriva a 64.000 IOPS, ed è indicato quando servono più di 16.000 IOPS. EFS è un file system NFS condiviso: molte istanze, container o funzioni leggono lo stesso file system nello stesso momento, e la scelta Regional lo replica su più zone. Per i dati di training, EFS va bene se i file sono già lì, perché il training job deve collegarsi a una VPC per montarlo. FSx for NetApp ONTAP serve quando hai applicazioni aziendali che parlano NFS, SMB, iSCSI o NVMe, e vuoi snapshot, cloni e tiering automatico verso uno storage più economico. FSx for Lustre è pensato per carichi ad alto throughput e si collega a un bucket S3 tramite un data repository, che è il pezzo che l'esame ti chiede di riconoscere. Il tradeoff è semplice: EBS per un solo nodo con IOPS dedicati, EFS per la condivisione generica, FSx per prestazioni o protocolli specifici.",
       "todo": [
@@ -503,7 +504,8 @@
           ]
         },
         "RDS: database relazionali gestiti, come MySQL, PostgreSQL e Oracle",
-        "Neptune: database a grafo con Gremlin, openCypher e SPARQL"
+        "Neptune: database a grafo con Gremlin, openCypher e SPARQL",
+        "ElastiCache Serverless: cache pronta in meno di un minuto, senza istanze, nodi o cluster da dimensionare; motori Valkey, Memcached e Redis OSS"
       ],
       "narration": "Per il machine learning i dati spesso stanno in un database, e prima del training li estrai verso S3. Quale database scegliere dipende dalla forma dei dati, e l'esame lo usa come filtro principale. RDS è il servizio relazionale gestito: supporta motori come MySQL, PostgreSQL, Oracle, SQL Server, MariaDB e Db2, con backup, patch e failover gestiti da AWS. DynamoDB è un database NoSQL serverless con chiave e documento, pensato per letture e scritture a latenza di millisecondi a qualsiasi scala. Non ha l'operatore JOIN, quindi i dati si modellano per query, e per il training si esportano verso S3, sia in modo completo sia incrementale. Redshift è il data warehouse per analisi SQL su grandi volumi: se la domanda parla di aggregazioni su tutto lo storico, la risposta non è DynamoDB. DocumentDB è compatibile con MongoDB e i suoi cluster hanno fino a 15 repliche di lettura. Neptune è un database a grafo: se i dati sono relazioni fra entità, come frodi o raccomandazioni, e le query attraversano connessioni, la scelta è Neptune. ElastiCache è una cache in memoria, quindi non è una sorgente di training ma un acceleratore di letture. OpenSearch Service serve per ricerca e analisi di log e testi, e può ricevere dati da S3, Kinesis e DynamoDB tramite OpenSearch Ingestion. La regola d'esame è riconoscere la forma: relazionale, documento, grafo, colonne per analisi, cache.",
       "todo": [
@@ -557,6 +559,14 @@
               },
               "dalla rete aziendale a una location AWS",
               "banda stabile senza internet pubblico; VIF pubbliche, private o transit"
+            ],
+            [
+              {
+                "v": "Database Migration Service",
+                "head": true
+              },
+              "da un database, come MySQL, verso S3",
+              "full load più change data capture continuo; file CSV o Parquet"
             ]
           ]
         },
@@ -629,7 +639,8 @@
         "FastFile: interfaccia file POSIX che legge on demand, avvio rapido",
         "FastFile supporta solo prefissi S3, non manifest o augmented manifest",
         "Pipe: una pipe può avere un solo lettore, con shuffling e sharding gestiti",
-        "FastFile rende al meglio con letture sequenziali"
+        "FastFile rende al meglio con letture sequenziali",
+        "Directory bucket di S3 Express One Zone: input supportato in File, FastFile e Pipe mode; output cifrato solo con SSE-S3"
       ],
       "narration": "Quando lanci un training job, la modalità di input decide come i dati arrivano al container, e l'esame la confronta spesso con lo storage. File mode è la predefinita: SageMaker scarica l'intero dataset nella directory locale del container e il training parte solo a download completato. Richiede quindi spazio sul volume per tutto il dataset, e con l'opzione ShardedByS3Key puoi distribuire i file tra più istanze. Pipe mode streama i dati direttamente da S3 in pipe FIFO: il training parte prima e il volume serve solo per gli artefatti del modello. Ogni pipe ha un solo lettore, e la documentazione dice che Pipe è in gran parte sostituita da FastFile, che è più semplice da usare. FastFile espone gli oggetti S3 come file POSIX: all'avvio identifica i file senza scaricarli, e li trasmette mentre lo script li legge. Il limite da ricordare è che FastFile supporta solo prefissi S3, quindi se il dataset è descritto da un manifest o da un augmented manifest la risposta non è FastFile. FastFile funziona con accessi casuali, ma rende meglio con letture in sequenza. Il tranello più comune è il dataset più grande del disco: la risposta è Pipe o FastFile, a seconda che serva un manifest e a seconda del tipo di lettura. La sezione sui formati CSV ricorda che il file non deve avere intestazione.",
       "todo": [
@@ -747,7 +758,12 @@
           "text": "Una chiave di partizione sbilanciata satura un solo shard, e on-demand non isola quella chiave: si passa a provisioned e si divide lo shard a mano."
         },
         "Superare il limite restituisce ProvisionedThroughputExceededException: retry",
-        "On-demand Standard: scala da solo fino al doppio del picco degli ultimi 30 giorni"
+        "On-demand Standard: scala da solo fino al doppio del picco degli ultimi 30 giorni",
+        "Enhanced fan-out: ogni consumer registrato legge con SubscribeToShard e ha 2 MB al secondo per shard dedicati, non condivisi",
+        "Consumer registrati per stream: fino a 20 in provisioned e on-demand Standard, fino a 50 con On-demand Advantage",
+        "GetRecords: 5 chiamate al secondo per shard, fino a 10.000 record o 10 MB per chiamata, con i 2 MB al secondo condivisi tra i consumer",
+        "PutRecords: fino a 500 record per richiesta; ogni shard accetta 1.000 record al secondo; un record arriva a 10 MiB",
+        "On-demand Advantage: impostazione di account per le stream on-demand della Regione, impegno minimo di 25 MiB al secondo in ingest e in lettura, almeno 24 ore prima di disattivarla"
       ],
       "narration": "Kinesis Data Streams è il servizio di streaming su cui si appoggiano molte domande di scenario, e la capacità è il punto più testato. In modalità provisioned scegli il numero di shard, e ogni shard scrive fino a 1 MB al secondo o 1.000 record al secondo, e legge fino a 2 MB al secondo o 2.000 record al secondo. La documentazione dà una formula: il numero di shard è il massimo tra la banda di scrittura divisa per 1.024 e la banda di lettura divisa per 2.048, espresse in KiB, arrotondato per eccesso. Quando il traffico supera la capacità, il producer riceve errori di throttling, tipicamente ProvisionedThroughputExceededException, e la risposta corretta è riprovare con backoff e scalare gli shard. La modalità on-demand Standard non richiede di scegliere gli shard: il servizio scala da solo e accetta fino al doppio del picco di scrittura osservato negli ultimi 30 giorni. Esiste anche una variante, On-demand Advantage, con regole diverse che qui non trattiamo. Se il traffico più che raddoppia in un intervallo di 15 minuti, può arrivare throttling, e la documentazione dice di riprovare le richieste. Il problema dello hot shard non si risolve con on-demand: se una chiave di partizione concentra il traffico, il servizio non isola quella chiave, e l'indicazione è passare a provisioned e dividere lo shard a mano. Le nuove stream on-demand partono con 4 MB al secondo in scrittura e 8 MB al secondo in lettura. Nell'esame la domanda tipica è: traffico imprevedibile, nessuna pianificazione, risposta on-demand; traffico prevedibile e controllo della distribuzione, provisioned.",
       "todo": [
@@ -799,7 +815,8 @@
         },
         "Firehose può trasformare i dati prima della consegna",
         "Buffer di Firehose: dimensione in MB e intervallo in secondi",
-        "Flink offre API a più livelli, da SQL fino a DataStream"
+        "Flink offre API a più livelli, da SQL fino a DataStream",
+        "Lambda in Firehose: buffer da 0,2 a 3 MB, invocazione sincrona fino a 5 minuti, oltre c'è un errore di timeout; richiesta e risposta al massimo 6 MB"
       ],
       "narration": "Quando i dati arrivano in streaming, spesso devi trasformarli prima di usarli, e l'esame chiede quale servizio fa il lavoro. Amazon Data Firehose è completamente gestito: non scrivi applicazioni, configuri i producer, e il servizio consegna i record a S3, Redshift, OpenSearch o endpoint HTTP. Può trasformare i dati prima della consegna, e raccoglie i record in buffer che si chiudono per dimensione, in MB, o per intervallo, in secondi: sono le due leve che determinano la latenza. Un record può arrivare fino a 1.000 KB. Amazon MSK è Apache Kafka gestito: ti serve quando hai già applicazioni e strumenti costruiti su Kafka e vuoi restare compatibile, senza gestire i broker. Managed Service for Apache Flink esegue applicazioni Flink, in Java, Scala, Python o SQL, per trasformazioni stateful, finestre temporali e analisi di serie temporali. Flink offre quattro livelli di API, da SQL alla DataStream con Process Function, e la scelta del livello dipende dal controllo che ti serve sullo stato. Le trasformazioni leggere, record per record, si fanno anche con una funzione Lambda, mentre con Spark Streaming su EMR riusi il codice Spark che già hai. La regola d'esame: consegna semplice con trasformazione leggera, Firehose; finestre e stato su stream a bassa latenza, Flink; ecosistema Kafka, MSK.",
       "todo": [
@@ -942,7 +959,66 @@
           "title": "Come si sceglie",
           "text": "La tecnica si lega alla forma dei dati: c'è un ordine? quante categorie? la distribuzione è asimmetrica? è testo? Data Wrangler offre gli stessi passi come transform pronti."
         },
-        "La tokenizzazione spezza il testo in parole, di solito in minuscolo e separando sugli spazi"
+        "La tokenizzazione spezza il testo in parole, di solito in minuscolo e separando sugli spazi",
+        {
+          "kind": "table",
+          "head": [
+            "Transform",
+            "Opzione",
+            "Cosa fa"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Ordinal encode",
+                "head": true
+              },
+              "indici",
+              "un intero per categoria, da 0 a N meno 1"
+            ],
+            [
+              {
+                "v": "Ordinal encode",
+                "head": true
+              },
+              "Invalid handling",
+              "Skip toglie le righe, Keep tiene i mancanti come ultima categoria, Error ferma il transform, Replace with NaN se l'algoritmo gestisce i mancanti"
+            ],
+            [
+              {
+                "v": "One-hot encode",
+                "head": true
+              },
+              "Drop last category",
+              "l'ultima categoria non ha colonna: una colonna in meno, quella ridondante"
+            ],
+            [
+              {
+                "v": "Featurize date/time",
+                "head": true
+              },
+              "Embedding mode",
+              "cyclic per modelli lineari e reti profonde, ordinal per gli alberi"
+            ],
+            [
+              {
+                "v": "Vectorize text",
+                "head": true
+              },
+              "Tokenizer",
+              "Standard divide sugli spazi e mette in minuscolo; Custom ha minimum token length, default 1: con 3 cadono a, at, in"
+            ],
+            [
+              {
+                "v": "Vectorize text",
+                "head": true
+              },
+              "Vectorizer",
+              "Count costruisce un vocabolario e filtra per frequenza; Hashing è più veloce, con un numero fisso di feature"
+            ]
+          ],
+          "caption": "Le opzioni che l'esame chiede sui transform di Data Wrangler."
+        }
       ],
       "narration": "Il feature engineering trasforma le colonne grezze in input utili, e l'esame chiede di scegliere la tecnica giusta in base alla distribuzione dei valori. La standardizzazione sottrae la media e divide per la deviazione standard: lo Standard Scaler di Data Wrangler lo fa, ed è utile per modelli lineari e reti. Il min-max riporta i valori in un intervallo fisso, come zero e uno, e il Min Max Scaler di Data Wrangler lo fa. Il binning trasforma un numero continuo in fasce, per esempio età in classi, e serve quando la relazione con il target non è lineare o quando vuoi ridurre il rumore. Il log transform comprime le code lunghe, come prezzi o conteggi, e in Data Wrangler si scrive con una formula Spark SQL o con un transform personalizzato. Il feature splitting divide un campo composto, per esempio data e ora o indirizzo, usando un delimitatore: in Data Wrangler esiste lo split di una stringa per delimitatore. Il label encoding, nella forma ordinal encode di Data Wrangler, assegna a ogni categoria un intero da zero al numero di categorie meno uno: va bene per alberi, male per modelli lineari se non c'è un ordine vero. L'one-hot crea una colonna per categoria, è corretto per categorie senza ordine, ma esplode con molte categorie: per quel caso Data Wrangler offre la similarity encoding, basata su token e min-hash. La tokenizzazione spezza il testo in parole, di solito in minuscolo e separando sugli spazi, e poi la vettorizzazione conta i token o li pesa con TF-IDF. La regola d'esame è legare la tecnica alla forma dei dati: ordine, numero di categorie, distribuzione asimmetrica, testo.",
       "todo": [
@@ -1081,7 +1157,8 @@
           "title": "Una pipeline per tipo",
           "text": "Ogni modalità ha formato e ritmo diversi, quindi l'ingest è separato; poi il dataset viene allineato sulle stesse chiavi. Kinesis Video Streams cifra a riposo e indicizza per timestamp del produttore e di ingestione."
         },
-        "La regola d'esame: file statici su S3, flussi live su Kinesis Video Streams"
+        "La regola d'esame: file statici su S3, flussi live su Kinesis Video Streams",
+        "Carica su S3 tutti i dati prima del training: dati aggiunti dopo richiedono una nuova chiamata di training e un nuovo modello"
       ],
       "narration": "I dati multimodali sono testo, immagini e audio insieme, e l'esame chiede come entrano in AWS e dove si conservano. Il testo va bene in S3 come JSON Lines o CSV: BlazingText e DeepAR leggono JSON Lines, e i prefissi S3 separano train, validation e test. Le immagini stanno in S3 con i tipi image/jpeg e image/png, che i built-in di object detection e segmentazione accettano direttamente. Per i flussi continui, come telecamere o microfoni, Kinesis Video Streams è il servizio di ingest: accetta video da dispositivi, webcam o telecamere RTSP, ma anche dati seriali non video, come l'audio o i dati di profondità. Il servizio conserva i dati per il periodo di retention, li cifra a riposo e li indicizza in base al timestamp del produttore e a quello di ingestione. Da lì puoi costruire applicazioni che leggono i frame in tempo reale o elaborano i dati in batch, anche su istanze EC2 con algoritmi di deep learning. Il punto da ricordare è che ogni modalità ha un formato e un ritmo diversi, quindi la pipeline di ingest è una per tipo, e poi il dataset viene allineato sulle stesse chiavi. La regola d'esame: file statici su S3, flussi live su Kinesis Video Streams.",
       "todo": [
@@ -1114,6 +1191,21 @@
               "value": "score",
               "label": "qualità",
               "note": "percentuale di regole che passano"
+            },
+            {
+              "value": "10",
+              "label": "label per regola",
+              "note": "chiavi fino a 128 caratteri, valori fino a 256"
+            },
+            {
+              "value": "Glue 4.0",
+              "label": "clausola where",
+              "note": "supportata solo da questa versione"
+            },
+            {
+              "value": "3 run",
+              "label": "rebinning del Distribution analyzer",
+              "note": "bin edges congelati dalla prima esecuzione; si ricalcolano dopo 3 run consecutive con oltre il 5% di overflow; rebin = false lo disattiva"
             }
           ]
         },
@@ -1148,7 +1240,15 @@
           "tone": "warn",
           "title": "Come si scrive una regola",
           "text": "Un ruleset è una lista chiamata Rules: ogni regola ha un tipo, un parametro e un'espressione, per esempio IsComplete o IsUnique su una colonna chiave. Si compongono con and e or, con un filtro where o una soglia with threshold."
-        }
+        },
+        "Completeness: restituisce un rapporto da confrontare con una soglia, come Completeness \"email\" > 0.95; IsComplete invece passa solo se tutti i valori sono non nulli",
+        "Regole composite: di default ogni regola si valuta sull'intera colonna; con compositeRuleEvaluation.method uguale a ROW la regola composta si valuta riga per riga",
+        "Modalità ROW: non supporta le regole a rapporto, come Completeness, Uniqueness, DatasetMatch e ReferentialIntegrity, né ColumnValues, ColumnDataType e CustomSQL con with threshold",
+        "Where: condizione SparkSQL tra virgolette, scritta prima di with threshold, come ColumnValues \"status\" in [\"A\", \"B\"] where \"region = 'EU'\" with threshold > 0.9",
+        "Solo nei job Glue ETL: dynamic rules come RowCount > avg(last(5)) e label; nella data quality del Data Catalog mancano anche gli analyzer",
+        "Label nei risultati per riga: disattivate di default, si attivano con rowLevelConfiguration.ruleWithLabels uguale a ENABLED",
+        "Costanti: mySql = \"select count(*) from primary\", poi $mySql nella regola, per non superare il limite di dimensione della query",
+        "NULL, EMPTY e WHITESPACES_ONLY: EMPTY trova le stringhe vuote che alcuni formati scrivono al posto dei null"
       ],
       "narration": "La qualità dei dati si misura con regole, e AWS offre due strumenti: Glue Data Quality, basato su DQDL, e DataBrew, per profilazione e trasformazione visiva. DQDL è un linguaggio dichiarativo: un ruleset è una lista chiamata Rules, e ogni regola ha un tipo, un parametro e un'espressione. Per esempio, IsComplete sulla colonna dell'ordine verifica che non ci siano valori mancanti, e IsUnique verifica che non ci siano duplicati. Le regole possono essere composte con and e or, e possono avere un filtro where o una soglia con with threshold, per esempio per dire che almeno il 90 per cento delle righe rispetta la condizione. Glue Data Quality funziona su tabelle del Data Catalog, e in alternativa dentro un job ETL, dove puoi anche identificare i singoli record che falliscono. Il servizio può raccomandare regole analizzando i dati, e il data quality score è la percentuale di regole che passano. Il ruleset ha un limite di 2.000 regole e 65 KB, e superarlo significa dividere in più ruleset. DataBrew invece è visuale e senza codice: crea un progetto, esplora distribuzioni e grafici del dataset per capirne la qualità, e poi applica ricette di trasformazione scegliendo tra più di 250 operazioni. La regola d'esame: controllo dichiarativo e ripetibile, DQDL; esplorazione e pulizia visuale, DataBrew.",
       "todo": [
@@ -1227,11 +1327,12 @@
           "kind": "note",
           "tone": "bad",
           "title": "Le date da sapere",
-          "text": "Dal 30 luglio 2026 Ground Truth, A2I e Mechanical Turk sono chiusi ai nuovi clienti; Mechanical Turk ha chiuso il 29 settembre 2026 e Ground Truth Plus è dismesso dal 30 giugno 2026. Restano materia d'esame."
+          "text": "Dal 30 luglio 2026 Ground Truth, A2I e Mechanical Turk sono chiusi ai nuovi clienti; Mechanical Turk ha chiuso il 30 settembre 2026 e Ground Truth Plus è dismesso dal 30 giugno 2026. Restano materia d'esame."
         },
         "Mechanical Turk: oltre 500.000 collaboratori indipendenti",
         "Automated labeling: active learning, minimo 1.250 oggetti",
-        "A2I: revisione umana di Textract e Rekognition"
+        "A2I: revisione umana di Textract e Rekognition",
+        "Automated labeling: se fallisce più del 10 per cento del campione casuale iniziale, il job fallisce; controlla la UI dei worker, le istruzioni e il tempo concesso"
       ],
       "narration": "Un buon modello richiede etichette affidabili, e SageMaker Ground Truth organizza il lavoro di etichettatura tra persone e modello. Un labeling job legge gli oggetti da S3 tramite un manifest di input e scrive i risultati in un manifest di output, con gli eventi nei log di CloudWatch. La forza lavoro può essere Amazon Mechanical Turk, con oltre 500.000 collaboratori indipendenti, una forza lavoro privata dei tuoi dipendenti, o un fornitore preso da AWS Marketplace. Per dati sensibili conviene guardare alla forza lavoro privata: la lista HIPAA di SageMaker esclude infatti la forza lavoro pubblica e quella dei fornitori. L'automated data labeling usa l'active learning: un campione va agli umani, un modello viene addestrato e produce confidenze, e solo gli oggetti sopra la soglia restano automatici. La documentazione chiede almeno 1.250 oggetti, e suggerisce 5.000 o più, perché con meno dati il modello non raggiunge la precisione richiesta. Le soglie fissate da Ground Truth richiedono una precisione di almeno 95 per cento per la classificazione, e un'IoU media attesa di 0,6 per i bounding box e di 0,7 per la segmentazione. Il servizio supporta l'automazione solo su quattro tipi di task, e ti addebita i costi di addestramento e inferenza del modello. Attenzione però, perché la pagina ufficiale di SageMaker indica una data precisa: dal 30 luglio 2026 Mechanical Turk, Ground Truth, Augmented AI e altre funzionalità non sono più aperte ai nuovi clienti. La pagina chiedeva di registrarsi prima del 30 luglio 2026 per usare queste funzionalità. Amazon Mechanical Turk ha chiuso il 29 settembre 2026. Ground Truth Plus, il servizio gestito di etichettatura, è stato dismesso già dal 30 giugno 2026. Per l'esame MLA-C01 questi argomenti restano in programma, quindi vanno capiti bene. Per l'esame MLA-C02 la guida non li nomina più, ma chiede ancora di saper etichettare e annotare i dati, e le domande sul concetto restano. A2I serve invece per la revisione umana di risultati già prodotti da un modello: un human review workflow definisce il team, l'interfaccia e le condizioni che avviano una revisione. Textract e Rekognition hanno integrazioni built-in, mentre con un task personalizzato chiami StartHumanLoop dalla tua applicazione.",
       "todo": [
@@ -1277,14 +1378,14 @@
                 "v": "KS",
                 "head": true
               },
-              "massimo scarto tra le distribuzioni"
+              "massimo scarto tra le distribuzioni; da 0 a 1, vicino a 1 le etichette di una categoria stanno tutte in un facet"
             ],
             [
               {
                 "v": "CDD",
                 "head": true
               },
-              "disparità condizionata a sottogruppi"
+              "disparità condizionata a sottogruppi; da meno 1 a 1, positiva se il facet d è rifiutato più di quanto è accettato"
             ]
           ]
         },
@@ -1298,7 +1399,8 @@
         "Measurement bias: feature o etichette misurate in modo diverso per gruppo",
         "CI = (na meno nd) diviso (na più nd), range da meno 1 a 1",
         "DPL = qa meno qd: differenza di proporzioni di etichette positive",
-        "Clarify chiuso ai nuovi clienti dal 30/07/2026: metriche con pandas e scikit-learn"
+        "Clarify chiuso ai nuovi clienti dal 30/07/2026: metriche con pandas e scikit-learn",
+        "Metriche pre-training: usano solo le etichette osservate, senza un modello addestrato, quindi valgono per qualsiasi modello"
       ],
       "narration": "Il bias nei dati nasce prima del modello, e Clarify lo misura prima dell'addestramento con metriche pre-training che non dipendono dal modello. Il selection bias compare quando il campione non rappresenta la popolazione che il modello dovrà servire, per esempio dati raccolti solo da una città. Il measurement bias compare quando una feature o un'etichetta viene misurata in modo diverso fra gruppi, per esempio sensori più precisi per un gruppo. Sono concetti generali di statistica, e le metriche di Clarify elencate qui non li misurano direttamente. La prima metrica, Class Imbalance, misura lo squilibrio di numero: la formula confronta i campioni del gruppo favorito e del gruppo svantaggiato, e il valore va da meno 1 a 1. Un valore vicino a zero indica un bilanciamento, mentre valori vicini a uno o a meno uno indicano un rischio concreto di predizioni distorte. La seconda, Difference in Proportions of Labels, misura lo squilibrio negli esiti: confronta la quota di etichette positive dei due gruppi, e un valore vicino a zero indica parità demografica. Le altre metriche confrontano le distribuzioni delle etichette: KL e JS misurano la divergenza, LP e TVD la distanza, KS il massimo scarto, e CDD misura la disparità condizionata a sottogruppi. Il punto d'esame è che un modello addestrato su dati sbilanciati tende a riprodurre lo squilibrio, quindi la correzione va prima del training. Per i dati multimodali il principio resta lo stesso: i gruppi vanno definiti sulle stesse etichette e confrontati fra testo, immagini e dati numerici. Ricorda infine che Clarify ha chiuso ai nuovi clienti dal 30 luglio 2026, mentre chi lo usa già può continuare come prima. La documentazione AWS indica come alternativa di calcolare le metriche standard, come CI e DPL, con pandas e scikit-learn, e di usare SHAP per le spiegazioni. ",
       "todo": [
@@ -1432,7 +1534,9 @@
           "text": "Il dato deve restare utilizzabile per i join: pseudonimizza. Non deve mai tornare alla persona: anonimizza. Devi solo sapere dove sta: Macie."
         },
         "Classificazione: etichetta i dataset per sensibilità prima dell'uso",
-        "Anonimizzazione: impedisce di risalire alla persona"
+        "Anonimizzazione: impedisce di risalire alla persona",
+        "Allow list di Macie: testo o pattern da ignorare negli oggetti, come dati di test o numeri pubblici dell'azienda",
+        "Job di sensitive data discovery: bucket scelti, profondità di campionamento e criteri personalizzati, una volta o ricorrente; l'automated discovery invece campiona tutto l'inventario"
       ],
       "narration": "I dati sensibili richiedono un trattamento preciso, e l'esame distingue tecniche che sembrano simili. Il primo passo è la classificazione: etichetti ogni dataset per livello di sensibilità, così il resto della pipeline sa cosa proteggere. Il masking sostituisce il valore con una stringa fissa, come xxx, e il dato resta nella forma ma non si legge. La redazione rimuove il dato sensibile dal testo, sostituendolo con un segnaposto, ed è la tecnica usata su documenti e trascrizioni. La pseudonimizzazione sostituisce l'identificativo con un codice, e il collegamento fra codice e persona resta in un'altra posizione, quindi il dato è ancora personale. L'anonimizzazione va oltre: elimina il collegamento in modo irreversibile, quindi il dato non si riconduce più alla persona. Amazon Macie scopre dati sensibili nei bucket S3, con identificatori gestiti da AWS e identificatori personalizzati basati su regex, e pubblica i finding su EventBridge. In Glue Studio il transform Detect PII scansiona ogni cella oppure solo i campi che contengono PII. Solo in questa seconda modalità una soglia di percentuale di righe decide quando un campo viene segnalato, e poi si applica un'azione: redact, partial redact, hash SHA-256 o solo arricchimento. La regola d'esame: se il dato deve restare utilizzabile per join, pseudonimizza; se non deve mai tornare alla persona, anonimizza; per cercare dove sta il dato, Macie.",
       "todo": [
@@ -1502,7 +1606,9 @@
         },
         "PII: dati personali identificabili, da cercare con Comprehend o Macie",
         "PHI: informazioni sanitarie protette, con ePHI in forma elettronica",
-        "HIPAA: servizi eleggibili, serve un BAA e una configurazione corretta"
+        "HIPAA: servizi eleggibili, serve un BAA e una configurazione corretta",
+        "Row filter: sintassi PartiQL di una clausola WHERE, stringhe tra apici singoli, come product_type = 'pharma'; le virgolette doppie indicano un nome di colonna",
+        "IAM tag e LF-Tag non sono intercambiabili: gli LF-Tag concedono i permessi di Lake Formation, gli IAM tag servono alle policy IAM"
       ],
       "narration": "La compliance trasforma le scelte tecniche in obblighi, e l'esame la testa con domande su servizi, regioni e permessi. Le PII sono i dati personali identificabili, come nome, indirizzo o numero di carta, e Amazon Comprehend le rileva nel testo in inglese e spagnolo, in tempo reale per un documento fino a 100 KB o in batch per un insieme di documenti. Il PHI è l'informazione sanitaria protetta, e la sigla ePHI indica la stessa informazione in forma elettronica. La lista dei servizi HIPAA eleggibili dice quali servizi AWS possono trattare ePHI, ma non basta: il cliente deve firmare un business associate agreement, un BAA, e configurare i servizi in modo coerente con la norma. Nella lista compaiono S3, DynamoDB, EFS, Bedrock e SageMaker, ma per SageMaker sono esclusi Studio Lab, Ground Truth Plus, la forza lavoro pubblica e quella dei fornitori. La residenza dei dati si gestisce scegliendo la Regione, oppure opzioni come le Local Zone o S3 on Outposts, quando il dato non può lasciare un territorio. Sul fronte dei permessi, Lake Formation usa LF-Tags: coppie chiave-valore come department uguale a sales, assegnate a database, tabelle e colonne, con ereditarietà dal livello superiore. Concedi permessi sul tag, non sul singolo oggetto, e se il catalogo cresce il numero di concessioni resta basso. I data filter arrivano dove serve un controllo più fine: per colonne, per righe con un'espressione WHERE, o per celle, che combinano le due cose. I filtri si applicano solo alle letture, quindi concedi SELECT. La regola d'esame: tag per scalare, filtro di cella per il caso preciso, e sempre la verifica della lista HIPAA e del BAA.",
       "todo": [

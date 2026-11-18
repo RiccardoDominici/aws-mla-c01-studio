@@ -78,7 +78,44 @@
         },
         "Codice esame MLA-C01, livello Associate per ML Engineer",
         "Costo 150 dollari, erogato da Pearson VUE in sede o online",
-        "Validità della certificazione pari a 3 anni"
+        "Validità della certificazione pari a 3 anni",
+        {
+          "kind": "table",
+          "head": [
+            "Regola",
+            "Cosa dice AWS"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Domande non valutate",
+                "head": true
+              },
+              "15 delle 65 sono unscored, servono a provare domande future"
+            ],
+            [
+              {
+                "v": "Riconoscerle",
+                "head": true
+              },
+              "impossibile: non sono segnalate, quindi tratta ogni domanda come valutata"
+            ],
+            [
+              {
+                "v": "Pause",
+                "head": true
+              },
+              "nessuna pausa programmata; al centro d'esame il tempo scorre, da remoto non puoi lasciare la webcam"
+            ],
+            [
+              {
+                "v": "Dopo il superamento",
+                "head": true
+              },
+              "voucher di sconto del 50 per cento su un esame successivo o sul rinnovo"
+            ]
+          ]
+        }
       ],
       "narration": "Benvenuto al primo capitolo della preparazione per la certificazione AWS Machine Learning Engineer Associate. Il codice ufficiale dell'esame e MLA-C01. E un esame di livello associate dedicato a chi costruisce soluzioni di machine learning su AWS. Questo esame sostituisce la vecchia certificazione specialty MLS-C01. Il livello associate significa taglio pratico e operativo. Devi saper scegliere i servizi giusti e combinarli in soluzioni complete. L'esame contiene 65 domande in totale. Il tempo a disposizione e di 130 minuti. Fai il calcolo con attenzione. Hai circa due minuti per ogni domanda. Chi ha diritto ad accomodamenti per la lingua puo avere trenta minuti extra. Il punteggio minimo per superare l'esame e 720 punti su 1000. La scala di punteggio va da 100 a 1000 punti."
     },
@@ -235,7 +272,13 @@
           ]
         },
         "Dominio 1 Data Preparation for ML con peso 28%",
-        "La somma dei pesi copre l'intero esame"
+        "La somma dei pesi copre l'intero esame",
+        {
+          "kind": "note",
+          "tone": "warn",
+          "title": "Punteggio compensativo",
+          "text": "Non serve passare ogni dominio: decide solo il totale scalato, almeno 720. Il report mostra per ogni sezione una classificazione dei punti forti e deboli (per esempio Meets competencies o Needs improvement), da leggere con cautela."
+        }
       ],
       "narration": "Presenta vincoli tecnici e di budget. Tu devi scegliere la soluzione migliore tra le opzioni. La strategia vincente e leggere prima i vincoli. Poi eliminare le opzioni che violano quei vincoli. Non scegliere mai solo il servizio piu economico. Scegli il servizio che rispetta tutti i requisiti. Le parole chiave guidano la scelta corretta. Real-time suggerisce Kinesis o Feature Store online. Batch suggerisce Glue, EMR o Athena. Bassa latenza suggerisce endpoint SageMaker o store online. Dati governati suggeriscono Lake Formation. L'esame e diviso in quattro domini. Il primo dominio e Data Preparation for ML."
     },
@@ -318,7 +361,37 @@
         "Leggere prima i vincoli, poi valutare le opzioni",
         "Eliminare le opzioni che violano almeno un vincolo",
         "Diffidare dell'opzione più economica se ignora i requisiti",
-        "Cercare parole chiave: latenza, scala, real-time, batch"
+        "Cercare parole chiave: latenza, scala, real-time, batch",
+        {
+          "kind": "table",
+          "head": [
+            "Qualificatore nella domanda",
+            "Cosa premia"
+          ],
+          "rows": [
+            [
+              {
+                "v": "LEAST operational overhead",
+                "head": true
+              },
+              "servizi gestiti, serverless e automatici, non infrastruttura da gestire"
+            ],
+            [
+              {
+                "v": "MOST cost-effective",
+                "head": true
+              },
+              "il costo più basso che rispetta tutti i vincoli"
+            ],
+            [
+              {
+                "v": "LOWEST latency",
+                "head": true
+              },
+              "risposta sincrona e vicina ai dati, anche a costo maggiore"
+            ]
+          ]
+        }
       ],
       "narration": "Tra i servizi chiave ci sono SageMaker, S3, Glue, Kinesis e Athena. Servono anche Lake Formation, EMR, KMS e IAM. Per l'orchestrazione studia Step Functions ed EventBridge. Per le pipeline studia SageMaker Pipelines. AWS consiglia almeno un anno di esperienza pratica. Devi aver usato SageMaker e workload di machine learning su AWS. La sola teoria non basta per gli scenari. Usa Skill Builder per i corsi ufficiali. Svolgi le domande di prova ufficiali. Fai laboratori pratici con SageMaker Studio. Allena la gestione del tempo con i simulatori. Salta le domande difficili e contrassegnale per la revisione. Rispondi a tutte le domande perche non c e penalita per gli errori."
     },
@@ -351,7 +424,8 @@
           ]
         },
         "Teoria più laboratori pratici su SageMaker Studio",
-        "Domande di prova e simulatori stile TutorialsDojo e Whizlabs"
+        "Domande di prova e simulatori stile TutorialsDojo e Whizlabs",
+        "Nessun prerequisito obbligatorio: niente certificazioni o corsi richiesti, l'esperienza è solo consigliata"
       ],
       "narration": "Rileggi ogni scenario prima di confermare la risposta. Controlla il numero di risposte richieste nelle multiple-response. Per ogni dominio la exam guide elenca i task e le conoscenze richieste. Leggili con attenzione prima di pianificare lo studio. Il primo dominio chiede ingestione storage e trasformazione dei dati. Il secondo chiede scelta degli algoritmi e valutazione dei modelli. Il terzo chiede deployment e orchestrazione dei workflow. Il quarto chiede monitoraggio manutenzione e sicurezza delle soluzioni. Durante la prova mantieni un ritmo costante di circa due minuti per domanda. Se uno scenario e troppo lungo vai oltre e torna dopo. Le domande facili danno gli stessi punti di quelle difficili. Assicurati prima i punti sicuri e poi affronta i casi complessi. Ora hai il quadro completo dell'esame. Nel prossimo capitolo si parte con la preparazione dei dati."
     }

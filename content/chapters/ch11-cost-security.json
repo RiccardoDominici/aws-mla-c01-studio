@@ -1012,7 +1012,45 @@
         },
         "CloudTrail: chi ha chiamato quale API, quando e con quale esito",
         "Trail verso S3, multi-Region per default dalla console, single-Region solo da CLI",
-        "Data event disattivati di default, con costo aggiuntivo"
+        "Data event disattivati di default, con costo aggiuntivo",
+        {
+          "kind": "table",
+          "head": [
+            "Esigenza d'audit",
+            "Soluzione"
+          ],
+          "rows": [
+            [
+              {
+                "v": "Storia a prova di manomissione",
+                "head": true
+              },
+              "organization trail con log file validation, su bucket S3 bloccato con Object Lock"
+            ],
+            [
+              {
+                "v": "SQL su un anno e più Region",
+                "head": true
+              },
+              "CloudTrail Lake: event data store immutabile interrogabile in SQL"
+            ],
+            [
+              {
+                "v": "Letture e scritture di un solo bucket",
+                "head": true
+              },
+              "advanced event selectors: categoria Data, tipo AWS::S3::Object, ARN del bucket, solo gli eventName utili"
+            ],
+            [
+              {
+                "v": "Regola AWS Config",
+                "head": true
+              },
+              "scatta su modifica di configurazione o periodica; se una risorsa non è conforme, NON_COMPLIANT la risorsa e la regola"
+            ]
+          ]
+        },
+        "Una Config rule detective controlla le risorse già create: non blocca la creazione"
       ],
       "narration": "CloudTrail registra le chiamate API fatte in un account: chi, quando, da dove e con quale esito. Per l'audit è la fonte primaria. Un trail è la configurazione che invia questi log in modo continuo a un bucket Amazon S3. Serve perché la cronologia degli eventi copre solo 90 giorni, mentre il trail permette di conservare gli eventi oltre quel limite e di interrogarli con Athena. Un trail può anche inviare gli eventi a CloudWatch Logs, per creare allarmi su eventi specifici. La scelta della Regione è importante. La documentazione dice che i trail creati dalla console sono multi-Region, cioè catturano l'attività in tutte le Regioni abilitate, mentre un trail single-Region si crea con la CLI. In un'organizzazione, il management account o un amministratore delegato può creare un trail per tutti gli account membri. Poi c'è la trappola dei data event. Sono le operazioni sui dati, come GetObject, PutObject e DeleteObject sugli oggetti S3, o l'invocazione di una funzione Lambda. Non vengono registrati di default: va aggiunto esplicitamente il tipo di risorsa, e i data event generano costi aggiuntivi. AWS Config risponde invece a un'altra domanda: com'era configurata una risorsa in un dato momento, e se rispetta le regole. Registra la configurazione delle risorse e la sua storia, con le relazioni tra risorse. Le regole valutano le configurazioni e segnalano le risorse non conformi. Un conformance pack raggruppa più regole, e un aggregatore raccoglie i dati di più account e più Regioni. La regola d'esame: CloudTrail dice chi ha fatto una modifica, AWS Config dice come appare la risorsa e se è conforme.",
       "todo": [
@@ -1261,7 +1299,8 @@
         },
         "Parameter Store: tipi String, StringList e SecureString",
         "SecureString cifrato con KMS, ma senza rotazione automatica",
-        "Parameter Store standard: fino a 10000 parametri e 4 KB per valore"
+        "Parameter Store standard: fino a 10000 parametri e 4 KB per valore",
+        "Managed rotation: per i segreti gestiti da un servizio che la supporta, la rotazione la configura e la esegue il servizio, senza Lambda"
       ],
       "narration": "Un'applicazione di machine learning ha due tipi di dati sensibili: i segreti, come le password dei database e i token API, e la configurazione, come nomi di endpoint, ID di subnet o AMI approvate. L'esame chiede di distinguerli. Per i segreti si usa AWS Secrets Manager. È pensato per credenziali, chiavi API e altri segreti, con cifratura KMS e rotazione automatica. Per certificati e chiavi private AWS consiglia AWS Certificate Manager. Il costo è per segreto al mese e per chiamata API. Per la configurazione si usa Systems Manager Parameter Store, che ha tre tipi: String per il testo semplice, StringList per liste separate da virgole e SecureString per valori cifrati con KMS. Attenzione: SecureString è cifrato, ma Parameter Store non ruota automaticamente i valori, e la documentazione raccomanda Secrets Manager per le credenziali. Parameter Store ha due livelli. Lo standard permette fino a 10000 parametri per account e Regione, con valori fino a 4 KB, senza policy dei parametri. L'advanced arriva a 100000 parametri, valori fino a 8 KB e policy dei parametri. Ogni parametro conserva le ultime 100 versioni, utile per ricostruire un valore precedente durante un'indagine. Per modifiche di configurazione rischiose, come quelle che possono causare un'interruzione, AWS AppConfig è il servizio pensato per questo. Per l'esame la regola è: credenziali e segreti, Secrets Manager; configurazione non sensibile, Parameter Store; configurazione che può causare un'interruzione, AppConfig.",
       "todo": [
@@ -1329,7 +1368,8 @@
         "Identity policy: l'utente o il ruolo deve avere l'azione sulla risorsa",
         "Resource policy: può consentire o negare l'accesso alla risorsa",
         "SCP e permission boundary: limiti che non concedono nulla",
-        "Cause frequenti: KMS key policy, iam:PassRole mancante, VPC senza endpoint verso S3"
+        "Cause frequenti: KMS key policy, iam:PassRole mancante, VPC senza endpoint verso S3",
+        "Un Deny esplicito in qualsiasi policy, identity o resource, vince sempre su un Allow"
       ],
       "narration": "AccessDenied è uno degli errori più frequenti nei progetti AWS, e l'esame chiede di seguire un ordine di ragionamento. Il metodo è verificare, in sequenza, i livelli che possono bloccare la richiesta. Primo, la identity policy: l'utente o il ruolo che fa la chiamata deve avere l'azione sulla risorsa giusta. Secondo, la resource policy: per una risorsa come un bucket S3, una policy sulla risorsa può consentire o negare. Terzo, i limiti: una SCP dell'organizzazione e un permission boundary, se presente, possono impedire un'azione anche se la policy di identità la consente. La documentazione IAM riassume la regola così: per un principal dello stesso account, i permessi della policy di identità e della resource policy si uniscono, ma un deny esplicito in una qualsiasi delle due prevale. Quando intervengono un permission boundary o una SCP, l'azione deve essere consentita da tutti i livelli. Tra le cause ricorrenti nel machine learning ci sono tre casi. Il primo è iam:PassRole mancante: chi crea un training job deve poter passare il ruolo di esecuzione. Il secondo è la chiave KMS: se il bucket o il volume sono cifrati con una chiave gestita dal cliente, serve il permesso sulla chiave, e la key policy deve consentirlo. Il terzo è una VPC senza endpoint verso S3: il job non raggiunge il bucket dei dati, e il sintomo è la lettura impossibile. Metodo d'esame: prima la policy più vicina all'azione, poi la resource policy, poi i limiti dell'organizzazione, poi la rete.",
       "todo": [
