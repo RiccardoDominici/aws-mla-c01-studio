@@ -20,5 +20,6 @@ Per ritrovare eventuali nuove lacune:
 python3 -c "import json,glob; print([q['id'] for p in glob.glob('content/questions/*.json') for q in json.load(open(p)) if q.get('lesson',{}).get('approx')])"
 ```
 
-Nota aperta: in ch1-exam-guide le narration sono sfasate di una slide rispetto ai titoli.
-Correggerle richiede di rigenerare l'audio del capitolo.
+Risolto: in ch1-exam-guide le narration erano sfasate rispetto ai titoli. Le stesse frasi
+sono state riassegnate alla slide del loro titolo; l'audio è stato riassemblato dalla cache
+TTS (nessuna frase nuova) e content/timing.json rigenerato.

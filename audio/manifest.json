@@ -2,10 +2,10 @@
   "version": 1,
   "chapters": {
     "ch1-exam-guide": {
-      "script_sha256": "bf98ca7cf5104ffeda9989832294b307de238b9cc2b5d7477bb84ca5b32e65d1",
+      "script_sha256": "b57a6b0a63cc04a1d553befbb9926cca30cdc5111297b509889fefc9804b53d1",
       "sentences": 95,
       "duration": 439.42,
-      "synthesized_at": "2026-10-22T17:25:28+00:00"
+      "synthesized_at": "2026-11-19T08:26:46+00:00"
     },
     "ch2-data-prep": {
       "script_sha256": "6fd2ca73ec3227e2d6ac7deeed6ee7eeadb1dfe429db658d248587c121d1f8bd",

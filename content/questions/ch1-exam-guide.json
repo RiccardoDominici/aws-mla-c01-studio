@@ -1112,7 +1112,7 @@
     "answer": 0,
     "chapter": "ch1-exam-guide",
     "difficulty": "difficile",
-    "explain": "Ten questions in 15 minutes demands 1.5 minutes each, well below the 2.6 average. Triage with quick elimination and guessing beats perfecting one item.",
+    "explain": "Ten questions in 15 minutes demands 1.5 minutes each, well below the 2.0 average (130 minutes for 65 questions). Triage with quick elimination and guessing beats perfecting one item.",
     "id": "ch1-q38",
     "options": [
       "Triage quickly: eliminate, answer, flag only the most promising for review",

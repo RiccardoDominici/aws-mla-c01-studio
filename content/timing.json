@@ -86,141 +86,141 @@
     },
     {
      "t0": 59.96,
-     "t1": 63.56,
+     "t1": 64.14,
+     "slide": 0,
+     "text": "Il costo dell'esame e di 150 dollari americani piu tasse."
+    },
+    {
+     "t0": 64.39,
+     "t1": 67.84,
+     "slide": 0,
+     "text": "Puoi sostenere l'esame in una sede Pearson VUE."
+    },
+    {
+     "t0": 68.09,
+     "t1": 72.86,
+     "slide": 0,
+     "text": "In alternativa puoi sostenerlo online con sorveglianza da remoto."
+    },
+    {
+     "t0": 73.11,
+     "t1": 77.37,
+     "slide": 0,
+     "text": "Controlla i requisiti tecnici prima della sessione online."
+    },
+    {
+     "t0": 77.62,
+     "t1": 80.85,
+     "slide": 0,
+     "text": "La certificazione resta valida per tre anni."
+    },
+    {
+     "t0": 81.1,
+     "t1": 85.79,
+     "slide": 0,
+     "text": "Al termine puoi ricertificarti con la nuova versione dell'esame."
+    },
+    {
+     "t0": 86.04,
+     "t1": 91.62,
+     "slide": 0,
+     "text": "L'esame e disponibile in inglese, giapponese, coreano e cinese semplificato."
+    },
+    {
+     "t0": 91.87,
+     "t1": 95.68,
+     "slide": 0,
+     "text": "L'inglese era disponibile fino al 28 settembre 2026."
+    },
+    {
+     "t0": 95.93,
+     "t1": 99.53,
      "slide": 1,
      "text": "Ora una novita importante: l'esame sta cambiando."
     },
     {
-     "t0": 63.81,
-     "t1": 69.46,
+     "t0": 99.78,
+     "t1": 105.43,
      "slide": 1,
      "text": "La versione MLA-C01 si poteva sostenere in inglese fino al 28 settembre 2026."
     },
     {
-     "t0": 69.71,
-     "t1": 82.99,
+     "t0": 105.68,
+     "t1": 118.96,
      "slide": 1,
      "text": "Dal 29 settembre 2026 AWS ha aperto la beta dell'MLA-C02, la versione aggiornata, e secondo il blog AWS del 14 luglio 2026 la versione standard sara disponibile all'inizio del 2027."
     },
     {
-     "t0": 83.24,
-     "t1": 89.03,
+     "t0": 119.21,
+     "t1": 125.0,
      "slide": 1,
      "text": "Durante la beta l'esame costa 75 dollari americani e si svolge solo in inglese."
     },
     {
-     "t0": 89.28,
-     "t1": 96.03,
+     "t0": 125.25,
+     "t1": 132.0,
      "slide": 1,
      "text": "Le domande aggiuntive servono solo alla valutazione statistica e non incidono sul punteggio."
     },
     {
-     "t0": 96.28,
-     "t1": 103.47,
+     "t0": 132.25,
+     "t1": 139.44,
      "slide": 1,
      "text": "Il formato e piu lungo: 85 domande in 170 minuti, contro le 65 domande in 130 minuti dell'MLA-C01."
     },
     {
-     "t0": 103.72,
-     "t1": 107.76,
+     "t0": 139.69,
+     "t1": 143.73,
      "slide": 1,
      "text": "Restano domande a scelta singola e a risposta multipla."
     },
     {
-     "t0": 108.01,
-     "t1": 110.43,
+     "t0": 143.98,
+     "t1": 146.4,
      "slide": 1,
      "text": "Cambiano anche i pesi dei domini."
     },
     {
-     "t0": 110.68,
-     "t1": 122.93,
+     "t0": 146.65,
+     "t1": 158.9,
      "slide": 1,
      "text": "Data Preparation resta al 28 per cento, Model Development scende al 24 per cento, Deployment and Orchestration sale al 24 per cento e Monitoring resta al 24 per cento."
     },
     {
-     "t0": 123.18,
-     "t1": 126.92,
+     "t0": 159.15,
+     "t1": 162.89,
      "slide": 1,
      "text": "La differenza piu importante riguarda il contenuto."
     },
     {
-     "t0": 127.17,
-     "t1": 133.48,
+     "t0": 163.14,
+     "t1": 169.45,
      "slide": 1,
      "text": "Nella MLA-C01 la GenAI compare solo nella scelta dei modelli di fondazione in Bedrock."
     },
     {
-     "t0": 133.73,
-     "t1": 145.69,
+     "t0": 169.7,
+     "t1": 181.66,
      "slide": 1,
      "text": "Nella MLA-C02 generative AI, RAG, agenti e modelli di fondazione sono distribuiti in tutti e quattro i domini, quindi questo punto vale solo per la nuova versione."
     },
     {
-     "t0": 145.94,
-     "t1": 154.89,
+     "t0": 181.91,
+     "t1": 190.86,
      "slide": 1,
      "text": "Le lingue giapponese, coreano e cinese semplificato restano per la MLA-C01 fino alla disponibilita generale della MLA-C02."
     },
     {
-     "t0": 155.14,
-     "t1": 161.75,
+     "t0": 191.11,
+     "t1": 197.71,
      "slide": 1,
      "text": "I capitoli 12 e 13 di questo sito trattano le novita: RAG, agenti e modelli di fondazione."
     },
     {
-     "t0": 162.0,
-     "t1": 166.91,
+     "t0": 197.96,
+     "t1": 202.88,
      "slide": 1,
      "text": "Se studi per la MLA-C01 puoi rimandarli, ma ti preparano al cambio."
-    },
-    {
-     "t0": 167.16,
-     "t1": 171.34,
-     "slide": 2,
-     "text": "Il costo dell'esame e di 150 dollari americani piu tasse."
-    },
-    {
-     "t0": 171.59,
-     "t1": 175.04,
-     "slide": 2,
-     "text": "Puoi sostenere l'esame in una sede Pearson VUE."
-    },
-    {
-     "t0": 175.29,
-     "t1": 180.06,
-     "slide": 2,
-     "text": "In alternativa puoi sostenerlo online con sorveglianza da remoto."
-    },
-    {
-     "t0": 180.31,
-     "t1": 184.57,
-     "slide": 2,
-     "text": "Controlla i requisiti tecnici prima della sessione online."
-    },
-    {
-     "t0": 184.82,
-     "t1": 188.04,
-     "slide": 2,
-     "text": "La certificazione resta valida per tre anni."
-    },
-    {
-     "t0": 188.29,
-     "t1": 192.99,
-     "slide": 2,
-     "text": "Al termine puoi ricertificarti con la nuova versione dell'esame."
-    },
-    {
-     "t0": 193.24,
-     "t1": 198.82,
-     "slide": 2,
-     "text": "L'esame e disponibile in inglese, giapponese, coreano e cinese semplificato."
-    },
-    {
-     "t0": 199.07,
-     "t1": 202.88,
-     "slide": 2,
-     "text": "L'inglese era disponibile fino al 28 settembre 2026."
     },
     {
      "t0": 203.13,
@@ -248,297 +248,297 @@
     },
     {
      "t0": 224.45,
-     "t1": 228.19,
+     "t1": 228.93,
      "slide": 2,
-     "text": "La maggior parte delle domande e basata su scenari."
+     "text": "Salta le domande difficili e contrassegnale per la revisione."
     },
     {
-     "t0": 228.44,
-     "t1": 232.48,
+     "t0": 229.18,
+     "t1": 234.09,
      "slide": 2,
-     "text": "Uno scenario descrive un problema aziendale realistico."
+     "text": "Rispondi a tutte le domande perche non c e penalita per gli errori."
     },
     {
-     "t0": 232.73,
-     "t1": 235.44,
-     "slide": 3,
-     "text": "Presenta vincoli tecnici e di budget."
-    },
-    {
-     "t0": 235.69,
-     "t1": 239.73,
-     "slide": 3,
-     "text": "Tu devi scegliere la soluzione migliore tra le opzioni."
-    },
-    {
-     "t0": 239.98,
-     "t1": 243.5,
-     "slide": 3,
-     "text": "La strategia vincente e leggere prima i vincoli."
-    },
-    {
-     "t0": 243.75,
-     "t1": 247.42,
-     "slide": 3,
-     "text": "Poi eliminare le opzioni che violano quei vincoli."
-    },
-    {
-     "t0": 247.67,
-     "t1": 251.26,
-     "slide": 3,
-     "text": "Non scegliere mai solo il servizio piu economico."
-    },
-    {
-     "t0": 251.51,
-     "t1": 255.18,
-     "slide": 3,
-     "text": "Scegli il servizio che rispetta tutti i requisiti."
-    },
-    {
-     "t0": 255.43,
-     "t1": 258.66,
-     "slide": 3,
-     "text": "Le parole chiave guidano la scelta corretta."
-    },
-    {
-     "t0": 258.91,
-     "t1": 262.73,
-     "slide": 3,
-     "text": "Real-time suggerisce Kinesis o Feature Store online."
-    },
-    {
-     "t0": 262.98,
-     "t1": 265.62,
-     "slide": 3,
-     "text": "Batch suggerisce Glue, EMR o Athena."
-    },
-    {
-     "t0": 265.87,
-     "t1": 270.2,
-     "slide": 3,
-     "text": "Bassa latenza suggerisce endpoint SageMaker o store online."
-    },
-    {
-     "t0": 270.45,
-     "t1": 273.6,
-     "slide": 3,
-     "text": "Dati governati suggeriscono Lake Formation."
-    },
-    {
-     "t0": 273.85,
-     "t1": 276.42,
+     "t0": 234.34,
+     "t1": 236.91,
      "slide": 3,
      "text": "L'esame e diviso in quattro domini."
     },
     {
-     "t0": 276.67,
-     "t1": 279.82,
+     "t0": 237.16,
+     "t1": 240.32,
      "slide": 3,
      "text": "Il primo dominio e Data Preparation for ML."
     },
     {
-     "t0": 280.07,
-     "t1": 283.82,
-     "slide": 4,
+     "t0": 240.57,
+     "t1": 244.31,
+     "slide": 3,
      "text": "Pesa il 28 percento ed e il dominio piu importante."
     },
     {
-     "t0": 284.07,
-     "t1": 287.15,
-     "slide": 4,
+     "t0": 244.56,
+     "t1": 247.64,
+     "slide": 3,
      "text": "Il secondo dominio e ML Model Development."
     },
     {
-     "t0": 287.4,
-     "t1": 288.86,
-     "slide": 4,
+     "t0": 247.89,
+     "t1": 249.36,
+     "slide": 3,
      "text": "Pesa il 26 percento."
     },
     {
-     "t0": 289.11,
-     "t1": 292.64,
-     "slide": 4,
+     "t0": 249.61,
+     "t1": 253.13,
+     "slide": 3,
      "text": "Il terzo dominio e Deployment and Orchestration."
     },
     {
-     "t0": 292.89,
-     "t1": 294.35,
-     "slide": 4,
+     "t0": 253.38,
+     "t1": 254.85,
+     "slide": 3,
      "text": "Pesa il 22 percento."
     },
     {
-     "t0": 294.6,
-     "t1": 298.71,
-     "slide": 4,
+     "t0": 255.1,
+     "t1": 259.2,
+     "slide": 3,
      "text": "Il quarto dominio e Monitoring Maintenance and Security."
     },
     {
-     "t0": 298.96,
-     "t1": 300.43,
-     "slide": 4,
+     "t0": 259.45,
+     "t1": 260.92,
+     "slide": 3,
      "text": "Pesa il 24 percento."
     },
     {
-     "t0": 300.68,
-     "t1": 302.66,
-     "slide": 4,
+     "t0": 261.17,
+     "t1": 263.15,
+     "slide": 3,
      "text": "La somma dei pesi fa cento."
     },
     {
-     "t0": 302.91,
-     "t1": 306.36,
-     "slide": 4,
+     "t0": 263.4,
+     "t1": 266.85,
+     "slide": 3,
      "text": "Dedica piu tempo di studio ai primi due domini."
     },
     {
-     "t0": 306.61,
-     "t1": 309.69,
-     "slide": 4,
+     "t0": 267.1,
+     "t1": 270.18,
+     "slide": 3,
      "text": "Insieme valgono piu della meta dell'esame."
     },
     {
-     "t0": 309.94,
-     "t1": 313.09,
+     "t0": 270.43,
+     "t1": 275.64,
+     "slide": 3,
+     "text": "Per ogni dominio la exam guide elenca i task e le conoscenze richieste."
+    },
+    {
+     "t0": 275.89,
+     "t1": 279.85,
+     "slide": 3,
+     "text": "Leggili con attenzione prima di pianificare lo studio."
+    },
+    {
+     "t0": 280.1,
+     "t1": 285.17,
+     "slide": 3,
+     "text": "Il primo dominio chiede ingestione storage e trasformazione dei dati."
+    },
+    {
+     "t0": 285.42,
+     "t1": 290.33,
+     "slide": 3,
+     "text": "Il secondo chiede scelta degli algoritmi e valutazione dei modelli."
+    },
+    {
+     "t0": 290.58,
+     "t1": 294.76,
+     "slide": 3,
+     "text": "Il terzo chiede deployment e orchestrazione dei workflow."
+    },
+    {
+     "t0": 295.01,
+     "t1": 300.22,
+     "slide": 3,
+     "text": "Il quarto chiede monitoraggio manutenzione e sicurezza delle soluzioni."
+    },
+    {
+     "t0": 300.47,
+     "t1": 303.63,
      "slide": 4,
      "text": "La guida ufficiale contiene una Appendix A."
     },
     {
-     "t0": 313.34,
-     "t1": 316.94,
+     "t0": 303.88,
+     "t1": 307.47,
      "slide": 4,
      "text": "Questa appendice elenca tutti i servizi in scope."
     },
     {
-     "t0": 317.19,
-     "t1": 320.71,
+     "t0": 307.72,
+     "t1": 311.24,
      "slide": 4,
      "text": "Studia solo quei servizi per non sprecare tempo."
     },
     {
-     "t0": 320.96,
-     "t1": 325.88,
-     "slide": 5,
+     "t0": 311.49,
+     "t1": 316.41,
+     "slide": 4,
      "text": "Tra i servizi chiave ci sono SageMaker, S3, Glue, Kinesis e Athena."
     },
     {
-     "t0": 326.13,
-     "t1": 329.43,
-     "slide": 5,
+     "t0": 316.66,
+     "t1": 319.96,
+     "slide": 4,
      "text": "Servono anche Lake Formation, EMR, KMS e IAM."
     },
     {
-     "t0": 329.68,
-     "t1": 333.93,
-     "slide": 5,
+     "t0": 320.21,
+     "t1": 324.47,
+     "slide": 4,
      "text": "Per l'orchestrazione studia Step Functions ed EventBridge."
     },
     {
-     "t0": 334.18,
-     "t1": 337.34,
-     "slide": 5,
+     "t0": 324.72,
+     "t1": 327.87,
+     "slide": 4,
      "text": "Per le pipeline studia SageMaker Pipelines."
     },
     {
-     "t0": 337.59,
-     "t1": 341.33,
+     "t0": 328.12,
+     "t1": 331.86,
      "slide": 5,
-     "text": "AWS consiglia almeno un anno di esperienza pratica."
+     "text": "La maggior parte delle domande e basata su scenari."
     },
     {
-     "t0": 341.58,
-     "t1": 346.28,
+     "t0": 332.11,
+     "t1": 336.15,
      "slide": 5,
-     "text": "Devi aver usato SageMaker e workload di machine learning su AWS."
+     "text": "Uno scenario descrive un problema aziendale realistico."
     },
     {
-     "t0": 346.53,
-     "t1": 349.53,
+     "t0": 336.4,
+     "t1": 339.11,
      "slide": 5,
-     "text": "La sola teoria non basta per gli scenari."
+     "text": "Presenta vincoli tecnici e di budget."
     },
     {
-     "t0": 349.78,
-     "t1": 352.72,
+     "t0": 339.36,
+     "t1": 343.4,
      "slide": 5,
-     "text": "Usa Skill Builder per i corsi ufficiali."
+     "text": "Tu devi scegliere la soluzione migliore tra le opzioni."
     },
     {
-     "t0": 352.97,
-     "t1": 355.68,
+     "t0": 343.65,
+     "t1": 347.17,
      "slide": 5,
-     "text": "Svolgi le domande di prova ufficiali."
+     "text": "La strategia vincente e leggere prima i vincoli."
     },
     {
-     "t0": 355.93,
-     "t1": 359.16,
+     "t0": 347.42,
+     "t1": 351.09,
      "slide": 5,
-     "text": "Fai laboratori pratici con SageMaker Studio."
+     "text": "Poi eliminare le opzioni che violano quei vincoli."
     },
     {
-     "t0": 359.41,
-     "t1": 362.79,
+     "t0": 351.34,
+     "t1": 354.93,
      "slide": 5,
-     "text": "Allena la gestione del tempo con i simulatori."
+     "text": "Non scegliere mai solo il servizio piu economico."
     },
     {
-     "t0": 363.04,
-     "t1": 367.51,
+     "t0": 355.18,
+     "t1": 358.85,
      "slide": 5,
-     "text": "Salta le domande difficili e contrassegnale per la revisione."
+     "text": "Scegli il servizio che rispetta tutti i requisiti."
     },
     {
-     "t0": 367.76,
-     "t1": 372.68,
+     "t0": 359.1,
+     "t1": 362.33,
      "slide": 5,
-     "text": "Rispondi a tutte le domande perche non c e penalita per gli errori."
+     "text": "Le parole chiave guidano la scelta corretta."
     },
     {
-     "t0": 372.93,
-     "t1": 376.89,
-     "slide": 6,
+     "t0": 362.58,
+     "t1": 366.39,
+     "slide": 5,
+     "text": "Real-time suggerisce Kinesis o Feature Store online."
+    },
+    {
+     "t0": 366.64,
+     "t1": 369.29,
+     "slide": 5,
+     "text": "Batch suggerisce Glue, EMR o Athena."
+    },
+    {
+     "t0": 369.54,
+     "t1": 373.86,
+     "slide": 5,
+     "text": "Bassa latenza suggerisce endpoint SageMaker o store online."
+    },
+    {
+     "t0": 374.11,
+     "t1": 377.27,
+     "slide": 5,
+     "text": "Dati governati suggeriscono Lake Formation."
+    },
+    {
+     "t0": 377.52,
+     "t1": 381.48,
+     "slide": 5,
      "text": "Rileggi ogni scenario prima di confermare la risposta."
     },
     {
-     "t0": 377.14,
-     "t1": 381.98,
-     "slide": 6,
+     "t0": 381.73,
+     "t1": 386.57,
+     "slide": 5,
      "text": "Controlla il numero di risposte richieste nelle multiple-response."
     },
     {
-     "t0": 382.23,
-     "t1": 387.44,
+     "t0": 386.82,
+     "t1": 390.57,
      "slide": 6,
-     "text": "Per ogni dominio la exam guide elenca i task e le conoscenze richieste."
+     "text": "AWS consiglia almeno un anno di esperienza pratica."
     },
     {
-     "t0": 387.69,
-     "t1": 391.65,
+     "t0": 390.82,
+     "t1": 395.51,
      "slide": 6,
-     "text": "Leggili con attenzione prima di pianificare lo studio."
+     "text": "Devi aver usato SageMaker e workload di machine learning su AWS."
     },
     {
-     "t0": 391.9,
-     "t1": 396.96,
+     "t0": 395.76,
+     "t1": 398.77,
      "slide": 6,
-     "text": "Il primo dominio chiede ingestione storage e trasformazione dei dati."
+     "text": "La sola teoria non basta per gli scenari."
     },
     {
-     "t0": 397.21,
-     "t1": 402.13,
+     "t0": 399.02,
+     "t1": 401.95,
      "slide": 6,
-     "text": "Il secondo chiede scelta degli algoritmi e valutazione dei modelli."
+     "text": "Usa Skill Builder per i corsi ufficiali."
     },
     {
-     "t0": 402.38,
-     "t1": 406.56,
+     "t0": 402.2,
+     "t1": 404.92,
      "slide": 6,
-     "text": "Il terzo chiede deployment e orchestrazione dei workflow."
+     "text": "Svolgi le domande di prova ufficiali."
     },
     {
-     "t0": 406.81,
+     "t0": 405.17,
+     "t1": 408.4,
+     "slide": 6,
+     "text": "Fai laboratori pratici con SageMaker Studio."
+    },
+    {
+     "t0": 408.65,
      "t1": 412.02,
      "slide": 6,
-     "text": "Il quarto chiede monitoraggio manutenzione e sicurezza delle soluzioni."
+     "text": "Allena la gestione del tempo con i simulatori."
     },
     {
      "t0": 412.27,

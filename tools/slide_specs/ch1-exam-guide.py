@@ -58,6 +58,7 @@ SLIDES = {0: [{'kind': 'stats',
       'text': 'Controlla quante risposte chiede il testo: nelle multiple-response una sola '
               'selezione non basta.'},
      'Possibili ordinamenti, matching e casi di studio',
+     "Solo domande: nessun laboratorio pratico né console AWS durante l'esame",
      'Nessuna penalità per le risposte errate: rispondere sempre',
      'Contrassegnare i dubbi e rivederli alla fine'],
  3: [{'kind': 'stack',
