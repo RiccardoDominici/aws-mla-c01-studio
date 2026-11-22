@@ -621,7 +621,12 @@
     panel.appendChild(transcript);
     var sentEls = [];
     var lastManualScroll = 0;
-    transcript.addEventListener('scroll', function () { lastManualScroll = Date.now(); });
+    // scroll generati dal codice (auto-scroll) non contano come scroll dell'utente
+    var programmaticScroll = false;
+    transcript.addEventListener('scroll', function () {
+      if (programmaticScroll) { programmaticScroll = false; return; }
+      lastManualScroll = Date.now();
+    });
 
     function buildTranscript(list) {
       transcript.innerHTML = '';
@@ -652,6 +657,17 @@
       } catch (e) { /* seek non pronto */ }
     }
 
+    /* Porta la frase in vista dentro il riquadro (come block:'nearest'),
+     * modificando solo transcript.scrollTop: la pagina resta ferma. */
+    function scrollTranscriptTo(p) {
+      var box = transcript.getBoundingClientRect();
+      var r = p.getBoundingClientRect();
+      var delta = 0;
+      if (r.top < box.top) delta = r.top - box.top;
+      else if (r.bottom > box.bottom) delta = r.bottom - box.bottom;
+      if (delta) { programmaticScroll = true; transcript.scrollTop += delta; }
+    }
+
     var curIdx = -1;
     function highlightAt(t) {
       if (!sentences.length || !sentEls.length) return;
@@ -659,9 +675,11 @@
       if (i === curIdx) return;
       curIdx = i;
       sentEls.forEach(function (p, j) { p.classList.toggle('active', j === i); });
-      // auto-scroll solo se l'utente non ha scrollato negli ultimi 5s
+      // auto-scroll solo se l'utente non ha scrollato negli ultimi 5s.
+      // Scorre SOLO il riquadro della trascrizione: niente scrollIntoView,
+      // che sposterebbe anche la pagina mentre si leggono le slide.
       if (Date.now() - lastManualScroll > 5000 && sentEls[i]) {
-        try { sentEls[i].scrollIntoView({ block: 'nearest' }); } catch (e) { /* noop */ }
+        scrollTranscriptTo(sentEls[i]);
       }
       // avanza la slide da sola al cambio frase con slide diversa (solo mentre suona)
       if (audio && !audio.paused && sentences[i] && sentences[i].slide !== slideIdx) {
