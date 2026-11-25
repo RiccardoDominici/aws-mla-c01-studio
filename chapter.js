@@ -3,6 +3,8 @@
  * - Riassunto / Parole chiave: contenuto esistente spostato nelle tab.
  * - Quiz: render esistente di quiz.js (+ nota per le schede senza quiz).
  * - Lezione guidata: player custom + slide sincronizzata + trascrizione karaoke.
+ *   I comandi del player (play, ±10s, velocità, barra) stanno sotto la slide e
+ *   sopra la trascrizione; la slide è la prima cosa che si vede.
  *   Frasi da content/timing.json (contratto {version,gap_sec,chapters:{id:
  *   {audio,duration,sentences:[{t0,t1,slide,text}]}}}); se manca o senza voce
  *   per l'id si usa il fallback (split dello script + tempi/slide equamente
@@ -417,7 +419,8 @@
       seekWrap.appendChild(ticks);
       playerWrap.appendChild(seekWrap);
       playerWrap.appendChild(audio);
-      panel.appendChild(playerWrap);
+      /* I comandi (play, ±10s, velocità, barra) stanno SOTTO la slide, sopra
+       * la trascrizione: la slide resta la prima cosa che si vede. */
     }
 
     /* --- slide (UNA visibile alla volta, riusa .slide-card) --- */
@@ -593,6 +596,7 @@
     card.appendChild(body); card.appendChild(bar);
     if (practice && slides.length) card.appendChild(practice.el);
     panel.appendChild(card);
+    if (!audioMissing) panel.appendChild(playerWrap);
     drawSlide();
 
     /* Deep-link dal banco domande: apre la slide richiesta e la porta in vista.
@@ -871,6 +875,9 @@
       head.firstChild.href = 'index.html';
       head.appendChild(app.el('span', 'area-tag area-' + meta.area,
         app.AREAS[meta.area].label + ' · Cap ' + meta.n));
+      var trapsLink = app.el('a', 'back', '🪤 Trappole del capitolo');
+      trapsLink.href = 'trappole.html?ch=' + encodeURIComponent(id);
+      head.appendChild(trapsLink);
       root.appendChild(head);
 
       if (!ch) {

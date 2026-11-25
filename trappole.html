@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trappole e mnemonica — MLA-C01 Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="eyebrow">AWS Certified · Machine Learning Engineer – Associate (MLA-C01)</p>
+      <h1>🪤 Trappole d'esame e mnemonica</h1>
+      <p class="subtitle">Tutti i tranelli, le regole e i numeri da ricordare che le slide dei capitoli mettono in evidenza, in un posto solo.</p>
+    </div>
+  </header>
+
+  <main class="wrap trappole">
+    <p class="chapter-head">
+      <a class="back" href="index.html">← Mappa</a>
+      <a class="back" href="chapter.html?id=quick-ref">★ Ripasso last-minute</a>
+    </p>
+    <div id="trappole-root" aria-live="polite">
+      <p class="muted">Raccolgo trappole e mnemonica da tutte le slide…</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted small">Appunti e sito web a cura di Riccardo Dominici. <a href="index.html#fonti">Fonti</a></p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="trappole.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.MLA.traps.init();
+    });
+  </script>
+</body>
+</html>

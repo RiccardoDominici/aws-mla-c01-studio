@@ -44,6 +44,10 @@ Lo stato della copertura rispetto all'esame è in `docs/TODO.md` (generato da `d
   lezione che insegna il concetto; dalla slide, "✍️ Allenati sulle domande di questa
   slide (N)" apre il banco filtrato sulle domande che rimandano lì
   (`domande.html?lesson=<capitolo>:<slide>`), anche quelle di altri capitoli
+- **Trappole e mnemonica** (`trappole.html`): tutte le trappole d'esame, le regole
+  e i numeri da ricordare evidenziati nelle slide dei capitoli, raccolti in una
+  sezione sola con ricerca, filtro per capitolo e per tipo, e link alla slide
+  originale
 - 100% statico, zero build, zero dipendenze: funziona su qualsiasi hosting statico
 
 ## Uso locale
@@ -78,6 +82,7 @@ npx wrangler pages dev .
 ├── index.html            # home: mappa SVG + progressi
 ├── chapter.html          # pagina capitolo (4 schede)
 ├── domande.html          # banco domande filtrabile + simulazione d'esame
+├── trappole.html         # trappole d'esame e mnemonica, raccolte da tutte le slide
 ├── app.js                # registro dei 14 capitoli + loader (content/chapters/<id>.json)
 ├── map.js                # mappa SVG (desktop) o elenco (telefono)
 ├── chapter.js            # lezione: player, slide, karaoke, formule MathML
@@ -85,6 +90,7 @@ npx wrangler pages dev .
 ├── quiz.js               # quiz di fine capitolo
 ├── qbank.js              # banco domande: caricamento, filtri, stato (dati)
 ├── qbank-ui.js           # banco domande: rendering, modalità studio/esame
+├── trappole.js           # estrazione e rendering di trappole, regole e numeri
 ├── stats.js              # numeri della home: domande, minuti di audio, capitoli con audio
 ├── tracker.js            # progressi in localStorage (chiave: mla-progress)
 ├── style.css             # tema carta-penna leggibile
@@ -108,7 +114,8 @@ npx wrangler pages dev .
     ├── slide_specs/              # specifiche degli schemi, una per capitolo
     ├── check_questions.py        # schema + bias di lunghezza del banco domande
     ├── check_answer_keys.py      # cerca chiavi `answer` puntate all'opzione errata
-    └── check_coverage.py         # ogni voce di docs/todo.json è spiegata e allenata?
+    ├── check_coverage.py         # ogni voce di docs/todo.json è spiegata e allenata?
+    └── check_traps.mjs           # trappole e mnemonica estratte da tutte le slide
 ```
 
 ## Narrazione, timing e sintesi vocale
@@ -243,6 +250,32 @@ python3 tools/check_answer_keys.py content/questions/*.json
 
 Usa la spiegazione come oracolo indipendente e segnala le incoerenze; le
 segnalazioni vanno lette a mano, perché include falsi positivi.
+
+## Trappole e mnemonica
+
+`trappole.html` non ha un archivio da mantenere: `trappole.js` legge i JSON dei
+capitoli e raccoglie quello che le slide già mettono in evidenza.
+
+- i bullet `kind: "note"` diventano schede "Trappola" o "Regola";
+- le stringhe che iniziano con `Tranello`, `Trappola`, `Attenzione`,
+  `Da non confondere`, `Regola`, `Ricorda`, `Trucco`… vengono lette con la
+  stessa regola di `visuals.js` (titolo + testo);
+- i blocchi `kind: "stats"` diventano "Numeri" da ricordare;
+- sulle slide di metodo (titolo con "metodo", "checklist", "mapping", "pattern",
+  "numeri da memorizzare") si aggiungono i passi dei flussi e le tabelle.
+
+La distinzione tra trappola e regola è lessicale e chiusa, quindi stabile: un
+titolo con "tranello", "trappola", "limite", "errore", "da non confondere"…
+finisce tra le trappole, tutto il resto tra le regole. In caso di dubbio resta
+tra le regole, mai fuori. La pagina ha ricerca, filtro per capitolo e per tipo,
+e ogni scheda apre la slide originale (`chapter.html?id=<capitolo>&slide=N`).
+
+Il controllo automatico esegue la stessa estrazione in Node e verifica che ogni
+elemento punti a una slide esistente e che le trappole note restino riconosciute:
+
+```bash
+node tools/check_traps.mjs
+```
 
 ## Deploy
 

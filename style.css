@@ -366,7 +366,7 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .tabpanel[hidden] { display: none; }
 
 /* Player custom */
-.player { margin-bottom: 16px; }
+.player { margin: 16px 0; }
 .player-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .player .time {
   font-family: var(--font-ui);
@@ -1087,4 +1087,127 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .v-layer-label, .v-layer-sub, .v-chart-panel-title, .v-tree-then,
 .v-bar-note, .v-matrix-note, .v-compare-head {
   overflow-wrap: anywhere;
+}
+
+/* ---------- Trappole d'esame e mnemonica (trappole.html) ---------- */
+
+.trappole { padding-top: 16px; padding-bottom: 48px; }
+.trap-toolbar {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+  margin: 8px 0 0;
+  padding: 12px 14px;
+  background: var(--carta-chiara);
+  border: 1px solid rgba(43, 43, 43, 0.35);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(43, 43, 43, 0.08);
+}
+.trap-field {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--font-ui); font-size: 0.78rem; font-weight: 700;
+  color: var(--inchiostro-blu); text-transform: uppercase; letter-spacing: 0.06em;
+}
+.trap-search, .trap-select {
+  font-family: var(--font-ui); font-size: 0.92rem; font-weight: 400;
+  letter-spacing: normal; text-transform: none;
+  padding: 7px 10px;
+  border: 1px solid var(--inchiostro-blu);
+  border-radius: 4px;
+  background: #fffdf4; color: var(--inchiostro);
+}
+.trap-search { min-width: 240px; }
+.trap-select { max-width: 340px; }
+.trap-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+.trap-chip[aria-pressed="true"] {
+  background: var(--evidenziatore);
+  border-color: var(--inchiostro-blu);
+  font-weight: 700;
+}
+.trap-count { margin: 12px 0 0; font-size: 0.88rem; }
+
+.trap-group { margin-top: 26px; }
+.trap-group-title {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--inchiostro-blu);
+  font-size: 1.18rem;
+}
+.trap-group-n {
+  color: var(--penna-rossa); font-size: 0.76rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.trap-group-count {
+  margin-left: auto;
+  padding: 1px 9px;
+  border-radius: 999px;
+  background: var(--evidenziatore);
+  font-size: 0.78rem;
+}
+
+.trap-results { display: block; }
+.trap-card {
+  margin: 0 0 12px;
+  padding: 12px 16px;
+  background: var(--carta-chiara);
+  border: 1px solid rgba(43, 43, 43, 0.3);
+  border-left: 4px solid var(--penna-rossa);
+  border-radius: var(--radius);
+}
+.trap-type-rule { border-left-color: var(--penna-blu); }
+.trap-type-numbers { border-left-color: var(--penna-verde); }
+.trap-type-system { border-left-color: #6b4c9a; }
+
+.trap-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  margin: 0 0 6px;
+}
+.trap-badge {
+  font-family: var(--font-ui); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 2px 8px; border-radius: 999px;
+  background: rgba(192, 57, 43, 0.12); color: var(--penna-rossa);
+}
+.trap-badge-rule { background: rgba(39, 67, 160, 0.12); color: var(--penna-blu); }
+.trap-badge-numbers { background: rgba(30, 125, 79, 0.12); color: var(--penna-verde); }
+.trap-badge-system { background: rgba(107, 76, 154, 0.14); color: #543a7d; }
+.trap-source { color: #5a5a5a; font-size: 0.78rem; font-family: var(--font-ui); }
+.trap-title { margin: 0 0 6px; font-size: 1.02rem; }
+.trap-text { margin: 0; font-size: 0.96rem; }
+.trap-foot { margin: 10px 0 0; }
+.trap-open { font-family: var(--font-ui); font-size: 0.84rem; font-weight: 700; }
+
+.trap-number-list { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 0; font-size: 0.92rem; }
+.trap-number-list dt { font-family: var(--font-ui); font-weight: 700; color: var(--inchiostro-blu); white-space: nowrap; }
+.trap-number-list dd { margin: 0; }
+.trap-note, .trap-sub { color: #555; }
+.trap-steps { margin: 0; padding-left: 20px; font-size: 0.94rem; }
+.trap-steps li { margin: 4px 0; }
+
+.trap-table-wrap { overflow-x: auto; margin-top: 10px; }
+.trap-table { border-collapse: collapse; width: 100%; font-size: 0.82rem; }
+.trap-table th, .trap-table td {
+  padding: 5px 8px; border: 1px solid rgba(43, 43, 43, 0.25);
+  text-align: left; vertical-align: top;
+}
+.trap-table th { background: rgba(30, 42, 90, 0.07); font-family: var(--font-ui); }
+
+/* Due schede per riga da tablet in su: si legge meglio di una colonna lunga
+ * e le schede restano allineate in alto. */
+@media (min-width: 720px) {
+  .trap-group > .trap-card {
+    display: inline-block;
+    width: calc(50% - 5px);
+    margin-right: 10px;
+    vertical-align: top;
+  }
+  .trap-group > .trap-card:nth-of-type(even) { margin-right: 0; }
+}
+
+@media (max-width: 640px) {
+  .trap-toolbar { position: static; }
+  .trap-chips { margin-left: 0; }
+  .trap-search, .trap-select { width: 100%; max-width: none; min-width: 0; }
+  .trap-field { width: 100%; }
+  .trap-group-title { flex-wrap: wrap; }
 }
