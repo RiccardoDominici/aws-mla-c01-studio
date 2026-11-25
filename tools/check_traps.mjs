@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* check_traps.mjs — verifica la sezione "Trappole d'esame e mnemonica".
+/* check_traps.mjs — verifica la sezione "Flashcards".
  *
  * Carica i capitoli reali, esegue l'estrazione di trappole.js (lo stesso codice
  * che gira nel browser) e controlla che ogni elemento sia coerente:
@@ -54,6 +54,20 @@ if (model.counts.total !== model.counts.trap + model.counts.rule +
 }
 
 const byId = new Map(list.map((c) => [c.id, c]));
+
+/* Il capitolo 1 è metodo di studio, non contenuto: deve restare fuori. */
+for (const id of Object.keys(traps.SKIP_CHAPTERS)) {
+  if (model.chapters.some((c) => c.id === id)) {
+    errors.push(`capitolo escluso ancora presente: ${id}`);
+  }
+}
+
+/* Etichette dei filtri: plurali italiani veri, non "+s" (che sembra spagnolo). */
+for (const t of traps.TYPES) {
+  const label = traps.TYPE_LABEL_PLURAL[t];
+  if (!label) errors.push(`plurale mancante per il tipo ${t}`);
+  else if (label.endsWith('s')) errors.push(`plurale sospetto per ${t}: "${label}"`);
+}
 for (const chapter of model.chapters) {
   const src = byId.get(chapter.id);
   if (!src) { errors.push(`capitolo sconosciuto: ${chapter.id}`); continue; }

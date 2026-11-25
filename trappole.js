@@ -1,10 +1,13 @@
-/* trappole.js — sezione "Trappole d'esame e mnemonica".
+/* trappole.js — sezione "Flashcards" (trappole d'esame e mnemonica).
  *
- * Estrae dalle slide di tutti i capitoli i riquadri che servono a non cadere
- * nei tranelli: i bullet `kind: "note"` (tranelli, regole, distinzioni), i
- * blocchi `kind: "stats"` (numeri da ricordare) e, sulle slide di metodo, i
- * passi dei flussi e le tabelle di mapping. Niente viene copiato a mano:
- * tutto nasce dai JSON dei capitoli, così la sezione resta allineata.
+ * Estrae dalle slide dei capitoli i riquadri che servono a non cadere nei
+ * tranelli: i bullet `kind: "note"` (tranelli, regole, distinzioni), i blocchi
+ * `kind: "stats"` (numeri da ricordare) e, sulle slide di metodo, i passi dei
+ * flussi e le tabelle di mapping. Niente viene copiato a mano: tutto nasce dai
+ * JSON dei capitoli, così la sezione resta allineata.
+ *
+ * Il capitolo 1 resta fuori (SKIP_CHAPTERS): è la guida all'esame, metodo di
+ * studio e non contenuto tecnico, e Riccardo non lo vuole tra le flashcards.
  *
  * La classificazione tra "trappola" e "regola" è lessicale e chiusa (titolo
  * del riquadro, poi parole esplicite nel testo): un riquadro non cambia
@@ -31,12 +34,23 @@
   var NOTE_STARTS = /^(regola pratica|da non confondere|attenzione|tranello|importante|regola|errore|trucco|nota)\b[:\s]*/i;
 
   var TYPES = ['trap', 'rule', 'numbers', 'system'];
+  /* Singolare per l'etichetta della scheda, plurale per i filtri: "Numeri" e
+   * "Metodi" hanno plurali irregolari, quindi non si può aggiungere una "s". */
   var TYPE_LABEL = {
     trap: 'Trappola',
     rule: 'Regola',
     numbers: 'Numeri',
     system: 'Metodo'
   };
+  var TYPE_LABEL_PLURAL = {
+    trap: 'Trappole',
+    rule: 'Regole',
+    numbers: 'Numeri',
+    system: 'Metodi'
+  };
+  /* Capitoli che non entrano nelle flashcards. Il 1 è la guida all'esame:
+   * tattiche di studio, non contenuto da certificazione. */
+  var SKIP_CHAPTERS = { 'ch1-exam-guide': true };
   var TYPE_ICON = {
     trap: '🪤',
     rule: '📌',
@@ -92,6 +106,7 @@
     (Array.isArray(list) ? list : []).forEach(function (c) {
       var data = c && c.data;
       if (!data || !Array.isArray(data.slides)) return;
+      if (SKIP_CHAPTERS[c.id]) return;
       var items = [];
 
       data.slides.forEach(function (slide, si) {
@@ -331,7 +346,7 @@
     host.innerHTML = '';
 
     var toolbar = el('section', 'trap-toolbar');
-    toolbar.setAttribute('aria-label', 'Filtra trappole e mnemonica');
+    toolbar.setAttribute('aria-label', 'Filtra le flashcards');
 
     var searchId = 'trap-search';
     var label = el('label', 'trap-field', 'Cerca');
@@ -371,7 +386,7 @@
     chips.setAttribute('role', 'group');
     chips.setAttribute('aria-label', 'Tipo di elemento');
     var chipDefs = [{ id: '', label: 'Tutte' }].concat(TYPES.map(function (t) {
-      return { id: t, label: TYPE_ICON[t] + ' ' + TYPE_LABEL[t] + 's' };
+      return { id: t, label: TYPE_ICON[t] + ' ' + TYPE_LABEL_PLURAL[t] };
     }));
     var chipEls = [];
     chipDefs.forEach(function (d) {
@@ -418,7 +433,7 @@
         results.appendChild(section);
       });
       live.textContent = shown + (shown === 1 ? ' elemento' : ' elementi') +
-        ' su ' + model.counts.total + ' raccolti da tutti i capitoli';
+        ' su ' + model.counts.total + ' raccolti dalle slide';
       if (!shown) {
         results.appendChild(el('p', 'notice',
           'Nessun elemento corrisponde ai filtri. Prova a togliere la ricerca o a scegliere "Tutte".'));
@@ -485,6 +500,8 @@
   MLA.traps = {
     TYPES: TYPES,
     TYPE_LABEL: TYPE_LABEL,
+    TYPE_LABEL_PLURAL: TYPE_LABEL_PLURAL,
+    SKIP_CHAPTERS: SKIP_CHAPTERS,
     classifyNote: classifyNote,
     asNoteString: asNoteString,
     extract: extract,

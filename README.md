@@ -44,10 +44,9 @@ Lo stato della copertura rispetto all'esame è in `docs/TODO.md` (generato da `d
   lezione che insegna il concetto; dalla slide, "✍️ Allenati sulle domande di questa
   slide (N)" apre il banco filtrato sulle domande che rimandano lì
   (`domande.html?lesson=<capitolo>:<slide>`), anche quelle di altri capitoli
-- **Trappole e mnemonica** (`trappole.html`): tutte le trappole d'esame, le regole
-  e i numeri da ricordare evidenziati nelle slide dei capitoli, raccolti in una
-  sezione sola con ricerca, filtro per capitolo e per tipo, e link alla slide
-  originale
+- **Flashcards** (`trappole.html`): trappole d'esame, regole, numeri e metodi
+  evidenziati nelle slide dei capitoli, raccolti in un mazzo solo con ricerca,
+  filtro per capitolo e per tipo, e link alla slide originale
 - 100% statico, zero build, zero dipendenze: funziona su qualsiasi hosting statico
 
 ## Uso locale
@@ -82,7 +81,7 @@ npx wrangler pages dev .
 ├── index.html            # home: mappa SVG + progressi
 ├── chapter.html          # pagina capitolo (4 schede)
 ├── domande.html          # banco domande filtrabile + simulazione d'esame
-├── trappole.html         # trappole d'esame e mnemonica, raccolte da tutte le slide
+├── trappole.html         # flashcards: trappole, regole e numeri delle slide
 ├── app.js                # registro dei 14 capitoli + loader (content/chapters/<id>.json)
 ├── map.js                # mappa SVG (desktop) o elenco (telefono)
 ├── chapter.js            # lezione: player, slide, karaoke, formule MathML
@@ -115,7 +114,7 @@ npx wrangler pages dev .
     ├── check_questions.py        # schema + bias di lunghezza del banco domande
     ├── check_answer_keys.py      # cerca chiavi `answer` puntate all'opzione errata
     ├── check_coverage.py         # ogni voce di docs/todo.json è spiegata e allenata?
-    ├── check_traps.mjs           # trappole e mnemonica estratte da tutte le slide
+    ├── check_traps.mjs           # flashcards estratte dalle slide, coerenti
     └── deploy.sh                 # pubblica su Cloudflare Pages senza i .wav
 ```
 
@@ -252,9 +251,9 @@ python3 tools/check_answer_keys.py content/questions/*.json
 Usa la spiegazione come oracolo indipendente e segnala le incoerenze; le
 segnalazioni vanno lette a mano, perché include falsi positivi.
 
-## Trappole e mnemonica
+## Flashcards
 
-`trappole.html` non ha un archivio da mantenere: `trappole.js` legge i JSON dei
+`trappole.html` (flashcards) non ha un archivio da mantenere: `trappole.js` legge i JSON dei
 capitoli e raccoglie quello che le slide già mettono in evidenza.
 
 - i bullet `kind: "note"` diventano schede "Trappola" o "Regola";
@@ -270,6 +269,8 @@ titolo con "tranello", "trappola", "limite", "errore", "da non confondere"…
 finisce tra le trappole, tutto il resto tra le regole. In caso di dubbio resta
 tra le regole, mai fuori. La pagina ha ricerca, filtro per capitolo e per tipo,
 e ogni scheda apre la slide originale (`chapter.html?id=<capitolo>&slide=N`).
+Il capitolo 1 resta fuori: è la guida all'esame (metodo di studio), non
+contenuto di certificazione.
 
 Il controllo automatico esegue la stessa estrazione in Node e verifica che ogni
 elemento punti a una slide esistente e che le trappole note restino riconosciute:

@@ -875,7 +875,7 @@
       head.firstChild.href = 'index.html';
       head.appendChild(app.el('span', 'area-tag area-' + meta.area,
         app.AREAS[meta.area].label + ' · Cap ' + meta.n));
-      var trapsLink = app.el('a', 'back', '🪤 Trappole del capitolo');
+      var trapsLink = app.el('a', 'back', '🪤 Flashcards del capitolo');
       trapsLink.href = 'trappole.html?ch=' + encodeURIComponent(id);
       head.appendChild(trapsLink);
       root.appendChild(head);

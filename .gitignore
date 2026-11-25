@@ -16,5 +16,9 @@ Thumbs.db
 .idea/
 node_modules/
 
+# Stato locale della sessione OpenCode (non fa parte del sito)
+opencode.json
+session-*.md
+
 __pycache__/
 *.pyc
