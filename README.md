@@ -282,8 +282,19 @@ node tools/check_traps.mjs
 Deploy su **Cloudflare Pages** (progetto `mla-c01-studio`, solo file necessari, `.wav` esclusi):
 
 ```bash
+tools/deploy.sh
+```
+
+Lo script copia il solo sito in una cartella temporanea e pubblica quella. Serve
+perché `wrangler pages deploy .` carica tutta la cartella e Pages rifiuta i file
+oltre 25 MiB: in `audio/` restano i `.wav` della sintesi TTS (fino a ~120 MiB
+l'uno), che il player non usa — gli bastano gli `.mp3`. Restano fuori anche
+`.git`, `.tts-cache`, `tools/`, `docs/` e i dotfile di lavoro.
+
+Solo la prima volta, per creare il progetto:
+
+```bash
 npx wrangler pages project create mla-c01-studio
-npx wrangler pages deploy . --branch main
 ```
 
 ## Fonti dei contenuti
