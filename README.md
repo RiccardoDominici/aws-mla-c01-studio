@@ -115,7 +115,8 @@ npx wrangler pages dev .
     ├── check_questions.py        # schema + bias di lunghezza del banco domande
     ├── check_answer_keys.py      # cerca chiavi `answer` puntate all'opzione errata
     ├── check_coverage.py         # ogni voce di docs/todo.json è spiegata e allenata?
-    └── check_traps.mjs           # trappole e mnemonica estratte da tutte le slide
+    ├── check_traps.mjs           # trappole e mnemonica estratte da tutte le slide
+    └── deploy.sh                 # pubblica su Cloudflare Pages senza i .wav
 ```
 
 ## Narrazione, timing e sintesi vocale
